@@ -1,0 +1,600 @@
+/* ==========================================================================
+   Blog (index.html/single.html) + About page (page-about.html) styles.
+   Loaded conditionally — see remotive_conditional_enqueue_assets() in
+   functions.php — not on every page, since most of the site never uses
+   this. Reuses remotive.css's design tokens (--wp--preset--color--*,
+   --rm-*) rather than redefining them.
+   ========================================================================== */
+
+/* ---- Blog header ---- */
+.rm-blog-header{ padding-block:clamp(3rem,6vw,5rem) 2rem !important; }
+
+/* ---- Two-column layout ---- */
+.rm-blog-layout{ gap:clamp(2rem,4vw,3.5rem) !important; align-items:flex-start !important; }
+@media (max-width:900px){
+  .rm-blog-layout{ flex-direction:column !important; }
+  .rm-blog-layout > .wp-block-column{ flex-basis:100% !important; }
+}
+
+/* ---- Post cards (archive grid) ---- */
+/* Intrinsic, matching the homepage grids and the parent theme's own model:
+   the track count follows the space available rather than a chosen width.
+   320px is a comfortable minimum for a card carrying an image, a date, a
+   title and a short excerpt; below that the excerpt starts breaking badly. */
+/* The grid lives on the UL core renders inside the query block, not on
+   the query wrapper. On the wrapper, the grid saw exactly two children,
+   the whole post list and the pagination, so every card squeezed into
+   track one while the pagination floated at the top of track two as a
+   pair of stray hairlines. */
+.rm-post-grid{ display:block !important; }
+.rm-post-grid .wp-block-post-template{
+  list-style:none; margin:0; padding:0;
+  display:grid !important; gap:1.5rem;
+  grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));
+}
+.rm-post-grid .wp-block-post-template > li{ display:flex; margin:0; }
+.rm-post-grid .wp-block-post-template > li > .rm-post-card{ flex:1; }
+.rm-post-card{
+  border:1px solid var(--rm-line); background:var(--wp--preset--color--card);
+  overflow:hidden; display:flex !important; flex-direction:column;
+}
+.rm-post-card__image img{ display:block; width:100%; aspect-ratio:16/10; object-fit:cover; }
+.rm-post-card__body{ padding:1.25rem 1.4rem 1.5rem !important; }
+.rm-post-card__date{ font-size:.75rem !important; color:var(--rm-ink-55) !important; text-transform:uppercase; letter-spacing:.06em; margin-bottom:.5rem !important; }
+.rm-post-card__title{ font-size:1.15rem !important; margin:0 0 .5rem !important; font-weight:700; text-transform:none; letter-spacing:normal; line-height:1.3; }
+.rm-post-card__title a{ color:var(--wp--preset--color--ink); }
+.rm-post-card__excerpt{ font-size:.88rem !important; color:var(--rm-ink-70) !important; margin:0 !important; }
+.rm-post-grid__empty{ color:var(--rm-ink-70); }
+
+/* ---- Pagination ---- */
+.rm-pagination{ margin-top:2rem !important; padding-top:1.5rem; border-top:1px solid var(--rm-line); }
+.rm-pagination a, .rm-pagination span{ font-size:.85rem; font-weight:700; }
+.rm-pagination .wp-block-query-pagination-numbers a.current{ color:var(--wp--preset--color--magenta-dark); }
+
+/* ---- Sidebar ---- */
+.rm-sidebar__card{
+  border:1px solid var(--rm-line); background:var(--wp--preset--color--card);
+  padding:1.5rem !important; margin-bottom:1.25rem !important;
+}
+.rm-sidebar__logo img{ height:32px; width:auto; margin-bottom:1rem; }
+.rm-sidebar__about{ font-size:.88rem !important; color:var(--rm-ink-70) !important; line-height:1.6; margin:0 !important; }
+.rm-sidebar__note{ font-size:.78rem !important; color:var(--rm-ink-70) !important; line-height:1.5; margin:0 0 .6rem !important; opacity:.75; }
+.rm-sidebar__heading{ font-size:.95rem !important; margin:0 0 1rem !important; }
+.rm-sidebar__recent .wp-block-post-template{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.75rem; }
+.rm-sidebar__recent-title{ font-size:.88rem !important; margin:0 !important; line-height:1.4; }
+.rm-sidebar__recent-title a{
+  font-size:.88rem !important; font-weight:600; text-transform:none; letter-spacing:normal;
+  color:var(--wp--preset--color--ink); line-height:1.4; display:block;
+}
+.rm-sidebar__recent-title a:hover{ color:var(--wp--preset--color--magenta-dark); }
+
+/* ---- Single post ---- */
+.rm-post{ padding-block:clamp(3rem,6vw,5rem) !important; }
+.rm-post__title{ margin:.75rem 0 !important; font-weight:700; text-transform:none; letter-spacing:normal; }
+.rm-post__date{ font-size:.8rem !important; color:var(--rm-ink-55) !important; text-transform:uppercase; letter-spacing:.06em; }
+.rm-post__image img{ display:block; width:100%; aspect-ratio:16/9; object-fit:cover; margin:1.5rem 0 2rem; }
+.rm-post__content{ font-size:1.02rem; line-height:1.75; color:var(--rm-ink-70); }
+.rm-post__content p{ margin-bottom:1.25em; }
+.rm-post__content h2, .rm-post__content h3{ margin-top:2em; }
+.rm-post__footer{ margin-top:2.5rem !important; padding-top:1.5rem; border-top:1px solid var(--rm-line); }
+
+/* ============================================================
+   About page
+   ============================================================ */
+
+/* ---- Parallax hero ---- */
+/* The about-page parallax hero was replaced by the standard page hero
+   in 1.58.0; its styles and script are removed rather than left dormant. */
+
+/* The About page stays on the reading measure wholesale (its gallery,
+   team grid and form were all designed for it), so its hero must align
+   with that measure rather than float on its own. The title carried a
+   900px cap that centred it 80px left of nowhere; it now clamps to the
+   same content measure as the body below it. The sub-heading's 56ch box
+   was centred by core's constrained-child margins; its left margin now
+   computes the same inset the content measure derives for itself, the
+   technique .rm-hero uses against the wide measure. */
+@media (prefers-reduced-motion: reduce){
+}
+
+/* ---- Gallery ---- */
+/* Fixed 4:3 tiles, four per row by design regardless of container width.
+   auto-fit previously packed as many 240px tracks as the wide measure
+   allowed (five, with a stray sixth tile orphaned on its own row); a
+   fixed column count keeps the row count predictable at every tile total
+   and steps down explicitly at narrower widths instead of reflowing on
+   its own. */
+.rm-gallery{
+  display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+  background:var(--rm-line); border:1px solid var(--rm-line); margin-top:2rem;
+}
+@media (max-width:782px){
+  .rm-gallery{ grid-template-columns:repeat(2,1fr); }
+}
+@media (max-width:480px){
+  .rm-gallery{ grid-template-columns:1fr; }
+}
+.rm-gallery__tile{
+  position:relative; aspect-ratio:4/3; border:none; padding:0; cursor:pointer;
+  display:flex; align-items:flex-end; overflow:hidden;
+}
+.rm-gallery__tile--1{ background:linear-gradient(135deg,#00aeef,#252542); }
+.rm-gallery__tile--2{ background:linear-gradient(135deg,#ec008c,#252542); }
+.rm-gallery__tile--3{ background:linear-gradient(135deg,#39b54a,#252542); }
+.rm-gallery__tile--4{ background:linear-gradient(135deg,#252542,#00aeef); }
+.rm-gallery__tile--5{ background:linear-gradient(135deg,#252542,#ec008c); }
+.rm-gallery__tile--6{ background:linear-gradient(135deg,#252542,#39b54a); }
+.rm-gallery__tile::after{
+  content:""; position:absolute; inset:0; background:rgba(0,0,0,0); transition:background .15s ease;
+}
+.rm-gallery__tile:hover::after, .rm-gallery__tile:focus-visible::after{ background:rgba(0,0,0,.15); }
+.rm-gallery__label{
+  position:relative; z-index:1; color:#fff; font-weight:700; font-size:.85rem;
+  text-transform:uppercase; letter-spacing:.04em; padding:1rem;
+  mix-blend-mode:difference;
+}
+/* ---- Lightbox ---- */
+.rm-lightbox{
+  position:fixed; inset:0; z-index:200; background:rgba(13,17,23,.92);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding:2rem;
+}
+.rm-lightbox[hidden]{ display:none; }
+.rm-lightbox__stage{
+  width:min(80vw,900px); aspect-ratio:4/3; background:var(--wp--preset--color--card);
+  border:1px solid var(--rm-line);
+}
+.rm-lightbox__caption{ color:#fff; margin-top:1rem; font-size:.9rem; text-align:center; }
+.rm-lightbox__close{
+  position:absolute; top:1.25rem; right:1.5rem; background:none; border:none;
+  color:#fff; font-size:2rem; line-height:1; cursor:pointer; padding:.5rem;
+}
+.rm-lightbox__nav{
+  position:absolute; top:50%; transform:translateY(-50%); background:none; border:none;
+  color:#fff; font-size:2rem; line-height:1; cursor:pointer; padding:.75rem 1rem;
+}
+.rm-lightbox__nav--prev{ left:.5rem; }
+.rm-lightbox__nav--next{ right:.5rem; }
+
+/* ---- Contact form (About page) ---- */
+.rm-about-form{ max-width:520px; margin-top:2rem; margin-left:max(0px, calc((100% - var(--wp--style--global--content-size)) / 2)) !important; margin-right:0 !important; }
+.rm-about-form__row{ margin-bottom:1.25rem; }
+.rm-about-form__row label{ display:block; font-size:.85rem; font-weight:700; margin-bottom:.4rem; }
+.rm-about-form__row input,
+.rm-about-form__row textarea{
+  width:100%; border:2px solid var(--rm-line); background:var(--wp--preset--color--card);
+  color:var(--wp--preset--color--ink); padding:.7rem .9rem; font:inherit; font-size:.95rem;
+  resize:vertical;
+}
+.rm-about-form__row input:focus,
+.rm-about-form__row textarea:focus{
+  outline:none; border-color:var(--wp--preset--color--magenta);
+}
+/* White on magenta measured 3.19:1 in light mode and 4.25:1 in dark,
+   both short of 4.5:1 for the button's 14px label. Ink on magenta reads
+   at 5.22:1 and matches the CTA band's submit button, which already
+   pairs ink with magenta. */
+.rm-about-form__submit{
+  background:var(--wp--preset--color--magenta); color:#14141f; border:2px solid var(--wp--preset--color--magenta);
+  padding:.9rem 1.6rem; font-weight:700; text-transform:uppercase; font-size:.85rem;
+  letter-spacing:.04em; cursor:pointer;
+}
+.rm-about-form__submit:hover{ background:var(--wp--preset--color--magenta-dark); border-color:var(--wp--preset--color--magenta-dark); }
+
+/* ============================================================
+   Services page
+   ============================================================ */
+.rm-service-detail{
+  position:relative; padding:2.5rem 0 2.5rem 2rem !important;
+  border-top:1px solid var(--rm-line);
+}
+.rm-service-detail:first-of-type{ border-top:none; }
+.rm-service-detail__swatch{
+  position:absolute; left:0; top:2.8rem; width:14px; height:14px; border:1.5px solid var(--wp--preset--color--ink);
+}
+.rm-service-detail--cyan .rm-service-detail__swatch{ background:var(--wp--preset--color--cyan); }
+.rm-service-detail--magenta .rm-service-detail__swatch{ background:var(--wp--preset--color--magenta); }
+.rm-service-detail--yellow .rm-service-detail__swatch{ background:var(--wp--preset--color--accent-3); }
+.rm-service-detail--ink .rm-service-detail__swatch{ background:var(--wp--preset--color--ink); }
+.rm-service-detail--key .rm-service-detail__swatch{ background:transparent; border-style:dashed; }
+
+/* The three Services blocks present their items as a card grid, matching
+   how every other page on the site presents a set of comparable things:
+   the homepage's .rm-blocks, Case Studies' .rm-cs-card, Insights'
+   .rm-post-card. Before this the Services page was the only one stacking
+   them as full-width bordered rows, which is why it read as a different
+   site — one item per screen-width with a hairline between, rather than
+   a scannable set.
+
+   Same grid mechanics as .rm-blocks deliberately (auto-fit, the same
+   290px floor, the same 1.5rem gap), so a block with three items and a
+   block with two both sit on the homepage's rhythm instead of inventing
+   a second one. min(290px,100%) keeps a single card from overflowing a
+   narrow viewport. */
+.rm-service-grid{
+  display:grid;
+  /* Capped at three columns, not free auto-fit. The homepage's .rm-blocks
+     can use bare auto-fit because it always holds exactly three items; the
+     Services blocks hold 3, 2 and 2, so uncapped auto-fit produced four
+     tracks on a wide screen — stretching two cards across a four-column
+     grid and leaving a visible empty slot. Three is the homepage's own
+     column count, so capping here keeps both pages on one rhythm.
+     auto-fit still collapses the count down on narrower screens, and
+     min(290px,100%) keeps a single card from overflowing. */
+  grid-template-columns:repeat(auto-fit,minmax(min(290px,100%),1fr));
+  gap:1.5rem;
+  margin-top:1.75rem;
+  /* Equal-height cards, stated explicitly rather than relying on the
+     grid default. `stretch` is already the initial value of align-items,
+     so this is belt-and-braces — but a card in this grid is a
+     wp-block-group, and WordPress layout CSS sets align-self on block
+     children in several contexts, any one of which would silently opt a
+     single card out of stretching and leave it sized to its own content
+     while its neighbour filled the row. Declaring both the container's
+     align-items and the children's align-self (below) means no ancestor
+     rule can produce a short card next to a tall one. */
+  align-items:stretch;
+  /* The parent block is is-layout-constrained, so WordPress clamps every
+     direct child to contentSize (740px) unless it opts out — which would
+     have squeezed a three-card grid into two columns regardless of how
+     much room the block actually had. Measured before fixing: the block
+     was 1216px wide while this grid sat at 740px. Same explicit
+     wide-measure override the hero children use, rather than relying on
+     an alignwide class the template would have to remember to add. */
+  max-width:var(--wp--style--global--wide-size) !important;
+  margin-left:auto !important;
+  margin-right:auto !important;
+}
+/* The cap itself: three tracks once there is room for three, so the grid
+   never invents a fourth column for a block that has two or three items. */
+@media (min-width:1000px){
+  .rm-service-grid{ grid-template-columns:repeat(3,minmax(0,1fr)); }
+}
+.rm-service-grid .rm-service-detail{
+  /* Card, not row: the border-top carries the block accent exactly as
+     .rm-block does, and padding replaces the old left-inset that existed
+     only to clear an absolutely-positioned swatch. */
+  display:flex; flex-direction:column;
+  /* The three declarations that guarantee equal height, each closing a
+     different way a card could end up shorter than its neighbour:
+     align-self overrides any align-self WordPress layout CSS may set on
+     a block child (which would opt that one card out of stretching);
+     height:100% makes the card fill the grid row it is stretched into
+     rather than only its own content; and min-height:0 stops a flex
+     child's automatic minimum size from fighting that. Together these
+     mean a card with two short list items and a card with four wrapping
+     ones end the same height. */
+  align-self:stretch !important;
+  height:100%;
+  min-height:0;
+  background:var(--wp--preset--color--card);
+  border:1px solid var(--rm-line);
+  border-top:3px solid var(--rm-svc-accent, var(--rm-line));
+  border-radius:6px;
+  padding:1.2rem 1.25rem !important;
+  transition:transform .22s cubic-bezier(.22,.61,.36,1),
+             box-shadow .22s ease, border-color .22s ease;
+}
+.rm-service-grid .rm-service-detail:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 24px rgba(30,30,30,.09);
+  border-color:color-mix(in srgb, var(--rm-svc-accent) 35%, var(--rm-line));
+}
+/* The swatch was an absolutely-positioned marker for the row layout. In
+   a card the accent is already carried by the border-top, so a second
+   copy of the same colour is redundant — the homepage cards don't have
+   one either. */
+.rm-service-grid .rm-service-detail__swatch{ display:none; }
+/* Every direct child of a .rm-service-detail is itself inside an
+   is-layout-constrained group, so WordPress gives each one auto side
+   margins to centre it against contentSize — harmless in the old
+   full-width row layout, but inside a ~360px card it pushed headings and
+   text off the card's own left edge (measured at 40.8px on the h3).
+   Reset to the card's padding box so every line starts on the same
+   vertical, matching the homepage cards. */
+.rm-service-grid .rm-service-detail > *{
+  margin-left:0 !important;
+  margin-right:0 !important;
+  max-width:none !important;
+}
+.rm-service-grid .rm-service-detail__desc{
+  max-width:none !important; margin:.4rem 0 1rem !important; font-size:.92rem !important;
+}
+/* flex:1 1 auto, matching the homepage's .rm-block__list. This is the
+   piece that actually makes a short card look right rather than merely
+   measure right: the list absorbs whatever vertical space is left over
+   once the card has been stretched to the row height, so the card's
+   bottom border sits at the row edge instead of the content floating
+   with a gap beneath it. margin-top:auto alone (the previous rule) only
+   pushed the list down — it never told the card to fill its row. */
+.rm-service-grid .rm-service-detail__list{
+  max-width:none;
+  flex:1 1 auto;
+  margin-top:.25rem !important;
+}
+.rm-service-grid .rm-service-detail__list li{ font-size:.86rem; padding:.5rem 0 .5rem 1.2rem; }
+
+/* The Services page's three blocks mirror the homepage's three
+   Demand Creation / Demand Capture / Conversion & Data blocks, so their
+   swatches inherit the same accent the parent block already sets for its
+   eyebrow rather than declaring a second, independent colour per item.
+   Before this, each item carried its own --magenta / --cyan / --green
+   modifier, which drifted from the homepage in three ways at once:
+
+   1. --green was never a class. The third accent was renamed to
+      accent-3 in v1.9.0 precisely because "green" was a naming trap
+      (light mode's third accent is yellow), and the CSS here defines
+      --yellow, not --green. Every swatch in the third block was
+      therefore unstyled — a bordered empty box, not a coloured one.
+   2. The two that did match used the full-strength hue while the
+      block eyebrow beside them used the -dark ramp, so the same block
+      showed two different pinks. The homepage uses -dark throughout
+      for the documented contrast reason (magenta on paper is 2.90:1,
+      cyan 2.51:1, both under the 3:1 floor).
+   3. No dark-mode lift, so the swatch stayed at the palette value
+      where the eyebrow above it correctly lifts to #ff66b8.
+
+   Inheriting --rm-svc-accent from the parent block fixes all three at
+   once and makes a future drift impossible: there is now one accent per
+   block, set in one place, used by both the eyebrow and every swatch
+   inside it. */
+.rm-service-block--create{ --rm-svc-accent:var(--wp--preset--color--magenta-dark); }
+.rm-service-block--capture{ --rm-svc-accent:var(--wp--preset--color--cyan-dark); }
+.rm-service-block--data{ --rm-svc-accent:var(--wp--preset--color--accent-3-dark); }
+:root:not([data-theme="light"]) .rm-service-block--create{ --rm-svc-accent:#ff66b8; }
+.rm-service-block .rm-service-detail__swatch{
+  background:var(--rm-svc-accent, var(--wp--preset--color--ink));
+}
+.rm-service-detail__desc{ font-size:1rem !important; color:var(--rm-ink-70) !important; max-width:60ch; margin:.75rem 0 1.25rem !important; }
+.rm-service-detail__list{ margin:0 !important; padding:0 !important; list-style:none; max-width:60ch; }
+.rm-service-detail__list li{
+  font-size:.92rem; color:var(--rm-ink-70); padding:.6rem 0 .6rem 1.4rem;
+  border-top:1px solid var(--rm-line-soft); position:relative;
+}
+.rm-service-detail__list li:first-child{ border-top:none; }
+.rm-service-detail__list li::before{
+  content:"→"; position:absolute; left:0; color:var(--wp--preset--color--magenta-dark); font-weight:700;
+}
+
+/* ============================================================
+   Case studies page
+   ============================================================ */
+/* Section subhead separating the case-study grids (v1.32.0). Sits on the
+   wide measure like the grids it labels, with generous space above so the
+   two sets read as distinct groups rather than one long run of cards. */
+.rm-cs-subhead{
+  margin-top:4rem !important;
+  font-size:clamp(1.4rem,2.4vw,2rem) !important;
+  letter-spacing:-.01em;
+}
+.rm-cs-subhead + .rm-plates__note{ margin-top:.75rem !important; }
+
+/* Four cards, each with a wide image band and a metric set at display size.
+   Explicit steps rather than auto-fit, the same trade .rm-plates makes:
+   with exactly four items, auto-fit strands the fourth card alone under a
+   row of three across a wide band of laptop widths (three tracks fit from
+   ~1075px up, four only from ~1400px), and no intrinsic minimum can
+   forbid the three-column state. Stepping 4 → 2 → 1 keeps the rows even
+   at every width: four across once each track clears the ~310px the tag
+   line and metric need, two across below that, one on narrow phones. */
+.rm-cs-grid{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.5rem; margin-top:2rem; }
+@media (min-width:1400px){
+  .rm-cs-grid{ grid-template-columns:repeat(4,minmax(0,1fr)); }
+}
+@media (max-width:660px){
+  .rm-cs-grid{ grid-template-columns:1fr; }
+}
+.rm-cs-card{
+  display:block; border:1px solid var(--rm-line); background:var(--wp--preset--color--card);
+  text-decoration:none; color:inherit; transition:border-color .15s ease;
+}
+.rm-cs-card:hover{ border-color:var(--wp--preset--color--magenta); }
+.rm-cs-card__image{ aspect-ratio:16/9; }
+.rm-cs-card__body{ padding:1.5rem !important; }
+.rm-cs-card__tag{ font-size:.72rem; text-transform:uppercase; letter-spacing:.06em; color:var(--rm-ink-55); margin:0 0 .75rem; }
+.rm-cs-card__metric{ font-size:2.25rem; color:var(--wp--preset--color--magenta-dark); margin:0 0 .5rem; }
+.rm-cs-card__client{ font-size:.95rem; font-weight:700; text-transform:none; margin:0 0 .5rem; }
+.rm-cs-card__desc{ font-size:.88rem; color:var(--rm-ink-70); line-height:1.5; margin:0 0 1rem; }
+.rm-cs-card__link{ font-size:.82rem; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--wp--preset--color--ink); }
+.rm-cs-card:hover .rm-cs-card__link{ color:var(--wp--preset--color--magenta-dark); }
+
+/* ============================================================
+   Legal page (Privacy Policy, Terms, etc.) + generic page fallback
+   ============================================================ */
+.rm-legal, .rm-page{ padding-block:clamp(3rem,6vw,5rem) !important; }
+.rm-legal__title, .rm-page__title{ text-transform:none; letter-spacing:normal; font-weight:800; margin-bottom:.5rem !important; }
+.rm-legal__meta{ margin-bottom:2rem !important; gap:.5rem !important; }
+.rm-legal__updated-label{ font-size:.82rem !important; color:var(--rm-ink-55) !important; margin:0 !important; text-transform:uppercase; letter-spacing:.05em; }
+.rm-legal__updated-date{ font-size:.82rem !important; color:var(--rm-ink-55) !important; text-transform:uppercase; letter-spacing:.05em; }
+.rm-legal__content, .rm-page__content{
+  font-size:1.02rem; line-height:1.75; color:var(--rm-ink-70); max-width:70ch;
+  margin-left:max(0px, calc((100% - var(--wp--style--global--content-size)) / 2)) !important; margin-right:0 !important;
+}
+.rm-legal__content p, .rm-page__content p{ margin-bottom:1.25em; }
+.rm-legal__content h2, .rm-page__content h2,
+.rm-legal__content h3, .rm-page__content h3{
+  margin-top:2em; text-transform:none; letter-spacing:normal; font-weight:800;
+}
+.rm-legal__content ul, .rm-page__content ul{ padding-left:1.4em; margin-bottom:1.25em; }
+
+/* ============================================================
+   FAQ accordion (core/details) — location landing pages
+   ============================================================ */
+.wp-block-details{
+  border:1px solid var(--rm-line); background:var(--wp--preset--color--card);
+  margin-bottom:1px !important; padding:0 !important;
+}
+.wp-block-details summary{
+  padding:1.25rem 1.5rem; font-weight:700; font-size:1rem; cursor:pointer;
+  list-style:none; display:flex; align-items:center; justify-content:space-between;
+}
+.wp-block-details summary::-webkit-details-marker{ display:none; }
+.wp-block-details summary::after{
+  content:"+"; font-size:1.3rem; color:var(--wp--preset--color--magenta-dark); flex:none; margin-left:1rem;
+}
+.wp-block-details[open] summary::after{ content:"−"; }
+.wp-block-details summary:focus-visible{ outline:2px solid var(--wp--preset--color--magenta); outline-offset:-2px; }
+.wp-block-details p{
+  padding:0 1.5rem 1.5rem; margin:0 !important; font-size:.92rem; color:var(--rm-ink-70); line-height:1.65;
+}
+
+
+/* Services page — three-block grouping (v1.16.0) */
+.rm-service-block{ margin-top:clamp(3rem,6vw,5rem); }
+.rm-service-block:first-of-type{ margin-top:0; }
+.rm-service-block__eyebrow{ font-weight:700; letter-spacing:.14em; text-transform:uppercase; font-size:.8rem; display:inline-block; margin:0 0 .4rem; }
+/* Same accent-on-surface failure as the homepage blocks: magenta reads
+   2.90:1 and cyan 2.50:1 on paper. The -dark ramp keeps the hue and
+   clears the threshold; dark mode keeps the bright accents, which pass
+   on the navy surface. */
+.rm-service-block--create .rm-service-block__eyebrow{ color:var(--wp--preset--color--magenta-dark); }
+.rm-service-block--capture .rm-service-block__eyebrow{ color:var(--wp--preset--color--cyan-dark); }
+.rm-service-block--data .rm-service-block__eyebrow{ color:var(--wp--preset--color--accent-3-dark); }
+.rm-service-block__lead{ color:var(--rm-ink-70); max-width:54ch; margin:.4rem 0 2rem; margin-left:max(0px, calc((100% - var(--wp--style--global--content-size)) / 2)) !important; margin-right:0 !important; }
+.rm-service-detail h3{ font-size:1.5rem; margin:.2rem 0 .5rem; }
+.rm-service-detail--green .rm-service-detail__swatch{ background:var(--wp--preset--color--accent-3-dark); }
+
+/* =================== CASE STUDY TABLES + CHARTS (v1.38.0) =================== */
+/* Static SVG bar charts and core table blocks inside the seeded case
+   pages. Both are capped for reading and pinned to the shared left edge
+   with the same computed inset the rest of the theme uses; the
+   content-size variable resolves to the wide measure inside
+   rm-measure-wide wrappers, so one formula holds in every context. */
+.rm-case-chart,
+.rm-case-table{
+  max-width:70ch;
+  margin-block:2rem !important;
+  margin-left:max(0px, calc((100% - var(--wp--style--global--content-size)) / 2)) !important;
+  margin-right:0 !important;
+}
+.rm-case-chart svg{ display:block; width:100%; height:auto; }
+.rm-case-chart figcaption,
+.rm-case-table .wp-element-caption{
+  font-size:.82rem; color:var(--rm-ink-55); margin-top:.6rem; text-align:left;
+}
+.rm-case-table table{ border-collapse:collapse; width:100%; }
+.rm-case-table th,
+.rm-case-table td{
+  border:1px solid var(--rm-line); padding:.6rem .8rem; text-align:left;
+  font-size:.92rem; vertical-align:top;
+}
+.rm-case-table th{
+  font-size:.72rem; font-weight:700; text-transform:uppercase;
+  letter-spacing:.06em; color:var(--rm-ink-55);
+}
+
+
+/* ---- Mobile readability floor (v1.46.0) ----
+   These two sit at .72rem (11.5px), under the 12px floor for small text on
+   phones. Raised on mobile and tablet only; the desktop scale is
+   unchanged. Declared here rather than in remotive.css because this file
+   loads later and would otherwise win the cascade. */
+@media (max-width:782px){
+  .rm-cs-card__tag{ font-size:.8rem; }
+  .rm-post-card__date{ font-size:.8rem; }
+}
+
+
+/* ---- Dark-mode accent on card surfaces (v1.47.0) ----
+   Matches the homepage blocks: the palette's magenta-dark is 4.02:1 on
+   the card background, so on-card accents lift one step. */
+:root:not([data-theme="light"]) .rm-service-block--create .rm-service-block__eyebrow{ color:#ff66b8; }
+
+/* The dark palette's magenta cannot reach 4.5:1 against any reasonable
+   label colour (4.25 with white, 4.30 with near-black), so in dark mode
+   the submit button takes the lighter magenta-dark accent, which reads
+   4.97:1 with the same fixed near-black label used in light. The label
+   colour is fixed rather than tokenised because it must not invert with
+   the mode: it always sits on magenta, never on the page. */
+:root:not([data-theme="light"]) .rm-about-form__submit{
+  background:var(--wp--preset--color--magenta-dark);
+  border-color:var(--wp--preset--color--magenta-dark);
+}
+
+/* ---- About page values (v1.56.0, carded 1.78.0) ----
+   Three short statements under one heading. They share the problem and why
+   grids' tier pattern so the About page keeps the homepage's rhythm rather
+   than inventing a second one.
+
+   Carded in 1.78.0. These were the last grid of comparable items on the
+   site still rendering as bare text in a grid — no surface, border,
+   padding or accent — while the homepage's .rm-block, Services'
+   .rm-service-detail, Case Studies' .rm-cs-card and Insights'
+   .rm-post-card were all cards. Under a heading that reads "three things
+   we will not trade away", three unbounded text columns read as loose
+   paragraphs rather than as three distinct commitments.
+
+   Same card treatment as .rm-service-detail, including the equal-height
+   mechanics that took three attempts to get right there (1.76.0-1.76.2):
+   align-items on the container, align-self/height/min-height on the card,
+   and flex:1 1 auto on the element that should absorb the slack. The
+   three statements are different lengths, so without those the middle
+   card is visibly taller than the ones beside it. */
+.rm-values{
+  display:grid; gap:1.5rem; margin-block:1.75rem 0;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  align-items:stretch;
+  /* Same clamp .rm-service-grid hit in 1.76.0: the parent section is
+     is-layout-constrained, so WordPress caps every direct child at
+     contentSize (740px) unless it opts out. Measured here at 740px inside
+     a 1216px section, which squeezed three cards into a third of the
+     available width. */
+  max-width:var(--wp--style--global--wide-size) !important;
+  margin-left:auto !important;
+  margin-right:auto !important;
+}
+.rm-value{
+  display:flex; flex-direction:column;
+  align-self:stretch !important;
+  height:100%;
+  min-height:0;
+  background:var(--wp--preset--color--card);
+  border:1px solid var(--rm-line);
+  border-top:3px solid var(--wp--preset--color--magenta-dark);
+  border-radius:6px;
+  padding:1.2rem 1.25rem;
+  transition:transform .22s cubic-bezier(.22,.61,.36,1),
+             box-shadow .22s ease, border-color .22s ease;
+}
+.rm-value:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 24px rgba(30,30,30,.09);
+}
+/* Each direct child sits inside a constrained group, so WordPress gives it
+   auto side margins against contentSize — the same inset that pushed
+   headings off the Services cards' left edge in 1.76.0. */
+.rm-value > *{ margin-left:0 !important; margin-right:0 !important; max-width:none !important; }
+.rm-value h3{ margin:0 0 .5rem !important; font-size:1.2rem; line-height:1.15; }
+.rm-value p{ margin:0 !important; color:var(--rm-ink-70); flex:1 1 auto; font-size:.92rem; }
+@media (max-width:1100px){ .rm-values{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (max-width:640px){ .rm-values{ grid-template-columns:1fr; } }
+
+/* ---- About page prose measure (v1.58.1) ----
+   The section wrappers widen to the site's wide measure so headings and
+   eyebrows sit on the same left edge as every other page. Running text
+   must not follow them out to 1320px, which would give lines far too long
+   to read comfortably, so the paragraphs keep their own cap and stay
+   pinned to that shared left edge. */
+.rm-about__lead{ max-width:60ch; }
+.rm-section.rm-measure-wide > p{ max-width:70ch; }
+/* A capped child inside a constrained wrapper is centred by core's auto
+   margins, which floats the paragraphs into the middle of the wide section
+   while the headings stay left. Zeroing the side margins pins them to the
+   same left edge as everything else, which is what the rest of the site
+   does with its own capped elements. */
+.rm-section.rm-measure-wide > p,
+.rm-section.rm-measure-wide > .rm-about__lead,
+.rm-section.rm-measure-wide > .rm-eyebrow{
+  margin-left:0 !important;
+  margin-right:0 !important;
+}
+
+/* ---- Privacy note under a form (v1.62.0) ----
+   Sits at the point of collection, where a visitor decides whether to
+   submit, rather than only in the footer. */
+.rm-form-privacy{
+  font-size:.82rem;
+  color:var(--rm-ink-55);
+  margin:.85rem 0 0;
+  max-width:46ch;
+}

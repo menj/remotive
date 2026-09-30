@@ -1,0 +1,2939 @@
+/* ==========================================================================
+   Re:Motive Media — "Registration" direction
+   Component CSS. Design tokens (color/type/spacing) live in theme.json;
+   this file covers layout + interaction that Global Styles can't express.
+   Every selector is scoped to an rm-* class applied via the block's
+   "Additional CSS class(es)" field, so nothing here touches core block
+   defaults or other themes/plugins.
+   ========================================================================== */
+
+:root{
+  /* Brand typeface for BOTH colour modes. These two overrides lived in the
+     light block only, so light rendered the Saira brand system while dark
+     fell through to theme.json's Archivo and Newsreader: two different
+     typefaces depending on the toggle. The font is not a mode decision;
+     it sits on html[data-theme] so the modes differ in colour alone, and
+     the attribute selector keeps it ahead of WP's global-styles :root
+     block regardless of print order. v1.66.4 briefly swapped this to
+     Space Grotesk site-wide; reverted in v1.66.5 to Saira, per the
+     brand-guideline JSON's original spec, with Space Grotesk kept only
+     as a scoped accent on the footer column headings (.rm-footer__heading
+     in this file). */
+  --rm-line: rgba(255,255,255,.16);
+  --rm-line-soft: rgba(255,255,255,.08);
+  --rm-ink-70: rgba(255,255,255,.72);
+  --rm-ink-55: rgba(255,255,255,.55);
+  --rm-blend: screen;
+}
+html[data-theme]{
+  --wp--preset--font-family--archivo: 'Saira', 'Saira Fallback', system-ui, sans-serif;
+  --wp--preset--font-family--newsreader: 'Saira', 'Saira Fallback', system-ui, sans-serif;
+}
+
+/* ---- LIGHT mode colour override ----
+   Dark ("Registration") is the baseline defined in theme.json, so only the
+   light variant needs overriding here. Because these are the same custom
+   properties WP generates from theme.json (--wp--preset--color--*,
+   --wp--preset--font-family--*), every block that already uses var()
+   picks up the swap automatically — no template or component-selector
+   changes needed. */
+[data-theme="light"]{
+  --wp--preset--color--ink: #1e1e1e;
+  --wp--preset--color--paper: #f7f4ec;
+  --wp--preset--color--paper-2: #f0f8ff;
+  --wp--preset--color--card: #ffffff;
+  --wp--preset--color--cyan: #00a2ff;
+  --wp--preset--color--cyan-dark: #00308f;
+  --wp--preset--color--magenta: #ff449f;
+  --wp--preset--color--magenta-dark: #cd360b;
+  --wp--preset--color--accent-3: #f2f216;
+  --wp--preset--color--accent-3-dark: #008110;
+  --rm-line: rgba(30,30,30,.14);
+  --rm-line-soft: rgba(30,30,30,.07);
+  --rm-ink-70: rgba(30,30,30,.7);
+  /* Was .55, which computes to #7e7d7b on the paper background: 3.68:1,
+     under the 4.5:1 minimum for the eyebrows, card tags, dates and helper
+     text that use it. .64 clears the threshold at 4.7:1 while keeping the
+     muted relationship to the primary ink. The dark-mode value is
+     unchanged; at 5.96:1 it already passes. */
+  --rm-ink-55: rgba(30,30,30,.64);
+  --rm-blend: multiply;
+}
+body{ transition:background-color .25s ease, color .25s ease; }
+
+/* ---- Light/Dark toggle (in header.html) ---- */
+.rm-theme-toggle{
+  display:inline-flex; align-items:center; gap:.55rem;
+  background:transparent; border:none; cursor:pointer; font:inherit;
+  padding:.65rem .25rem; min-height:44px;
+}
+/* The thumb was positioned with hand-computed pixels that did not account
+   for the track's border under border-box sizing. It sat 3px from the top
+   against 5px below, and the 18px travel left it 5px from the right end
+   against 3px on the left, so it read as slightly high and never quite
+   reaching the far side. The geometry is derived now: the thumb centres
+   vertically with top/translateY, and the travel is calculated from the
+   track's own measurements, so the two end states are exact mirrors. */
+.rm-theme-toggle__track{
+  --tg-w:44px; --tg-h:24px; --tg-border:2px; --tg-inset:3px; --tg-thumb:14px;
+  position:relative; box-sizing:border-box;
+  width:var(--tg-w,44px); height:var(--tg-h,24px); border-radius:999px;
+  /* Outlined track, filled thumb. The ink-filled track read as a solid
+     dark blob wherever the label was absent; an outline with a solid dot
+     reads as a switch in both colour modes.
+     Every var() below carries a literal fallback: on an install whose
+     optimisation plugin strips custom properties, the unresolved sizes
+     collapsed the control to a small empty pill with no visible thumb,
+     which is what a visitor reported as a stray box beside the menu. */
+  background:transparent; border:var(--tg-border,2px) solid var(--wp--preset--color--ink,#1e1e1e);
+  flex:none;
+}
+.rm-theme-toggle__thumb{
+  position:absolute; top:50%; left:var(--tg-inset,3px);
+  width:var(--tg-thumb,14px); height:var(--tg-thumb,14px); border-radius:50%;
+  background:var(--wp--preset--color--ink,#1e1e1e);
+  transform:translateY(-50%);
+  transition:transform .22s cubic-bezier(.6,0,.3,1);
+}
+[data-theme="light"] .rm-theme-toggle__thumb{
+  transform:translate(
+    calc(var(--tg-w,44px) - (2 * var(--tg-border,2px)) - (2 * var(--tg-inset,3px)) - var(--tg-thumb,14px)),
+    -50%);
+}
+.rm-theme-toggle__label{ font-size:.78rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--rm-ink-70); }
+
+@media (prefers-reduced-motion: reduce){
+  .rm-hero__display .rt::before,
+  .rm-hero__display .rt::after,
+  .rm-plate__fill,
+  .rm-row,
+  .rm-ticker__track{ transition-duration:.001ms !important; animation-duration:.001ms !important; }
+}
+
+/* ---- Signature device: the registration mark ---------------------------
+   A tiny crosshair of three multiply-blended plate colours, rendered as a
+   background SVG so it survives content edits (never lives in RichText). */
+.rm-eyebrow{
+  /* flex, not inline-flex: core's constrained layout centres children
+     with auto margins, which do nothing on inline-level boxes, so an
+     inline-flex eyebrow stayed pinned to the container's padding edge
+     while every block sibling centred on the measure. As a flex block
+     the eyebrow's box clamps and centres like its siblings and the
+     crosshair and text sit flush left inside it. */
+  display:flex; align-items:center; gap:.55rem;
+  font-size:.72rem !important; font-weight:700; text-transform:uppercase;
+  letter-spacing:.14em; color:var(--rm-ink-55);
+}
+.rm-eyebrow::before{
+  content:""; width:14px; height:14px; flex:none; display:inline-block;
+  background-image:
+    radial-gradient(circle at 35% 40%, rgba(0,184,230,.85) 0 45%, transparent 46%),
+    radial-gradient(circle at 65% 40%, rgba(240,32,143,.85) 0 45%, transparent 46%),
+    radial-gradient(circle at 50% 68%, rgba(242,194,0,.85) 0 45%, transparent 46%);
+  mix-blend-mode:var(--rm-blend);
+}
+
+/* ---- Inline accent (used in place of custom spans so RichText keeps it) */
+mark.rm-mark{ background:none; color:var(--wp--preset--color--magenta-dark); }
+.rm-cta mark.rm-mark{ color:var(--wp--preset--color--magenta); }
+
+/* ---- Skip link — visually hidden until keyboard-focused, then pinned
+   above everything (including the sticky nav) so it's never obscured. ---- */
+.rm-skip-link{
+  position:absolute; top:-999px; left:0; z-index:100;
+  background:var(--wp--preset--color--contrast-bg); color:var(--wp--preset--color--contrast-text);
+  padding:.9rem 1.4rem; font-size:.85rem; font-weight:700; text-transform:uppercase;
+  letter-spacing:.04em; text-decoration:none;
+}
+.rm-skip-link:focus{ top:0; left:0; }
+
+/* ---- Accessibility: underline links within body/comment content only.
+   Our nav, buttons, and component links (rm-nav__links, rm-section-link,
+   etc.) are deliberately not underlined — they're distinguished from
+   surrounding text by colour, hover state, position in a nav region, or
+   an arrow icon, which satisfies WCAG 1.4.1 without literal underlines.
+   Genuine body-content prose (future blog posts/pages, comments) doesn't
+   have those other cues, so links there get underlined explicitly. This
+   currently affects nothing on the homepage (no matching elements exist
+   yet) — it's here so the moment real post/page/comment content appears,
+   it's correct by default. */
+.entry-content a,
+.wp-block-post-content a,
+.comment-content a,
+.comment-body a{
+  text-decoration:underline;
+}
+
+/* =================== NAV =================== */
+.rm-nav{
+  position:sticky; top:0; z-index:40;
+  background:color-mix(in srgb, var(--wp--preset--color--paper) 92%, transparent);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--rm-line);
+}
+
+/* WCAG 2.4.11 Focus Not Obscured (Minimum): scroll-padding-top on the root
+   is the general fix — it covers plain Tab-key focus moving to *any*
+   element near the top of the viewport, with or without an id, which
+   browsers scroll into view using the scroll-padding mechanism. The
+   :where([id]) rule below additionally covers anchor-fragment jumps
+   (clicking a Services/Work/Contact nav link) specifically. Value
+   matches the sticky nav's approximate height plus a small buffer. */
+html{ scroll-padding-top:100px; }
+:where([id]){ scroll-margin-top:100px; }
+
+/* WCAG 2.4.7/1.4.11: a single fixed outline colour can't guarantee 3:1
+   contrast against every background this design uses (navy, cream,
+   cyan, magenta, green/yellow all appear as backgrounds somewhere). A
+   two-tone "sandwich" ring — one light, one dark — guarantees at least one ring
+   contrasts against any background colour, without needing per-surface
+   overrides. Scoped to the theme's own content regions so it can't leak
+   into unrelated wp-admin or plugin UI. */
+.rm-nav :focus-visible,
+.rm-hero :focus-visible,
+.rm-section :focus-visible,
+.rm-cta :focus-visible,
+.rm-footer :focus-visible{
+  outline:2px solid #fff;
+  outline-offset:2px;
+  box-shadow:0 0 0 4px #000;
+  border-radius:2px;
+}
+
+/* The row is a child of the constrained .rm-nav, so without the wide
+   measure above it sat at the 740px contentSize, centred, out of step with
+   the 1320px content below it. At 740px its intrinsic width (about 773px
+   after the Insights link landed in v1.15.1) exceeded the box, so
+   flex-wrap dropped the theme toggle onto its own line at every width,
+   desktop included. With the row on the wide measure there is room for one
+   line, so wrapping is switched off and the collapse below is deliberate. */
+.rm-nav__row{ display:flex; align-items:center; justify-content:space-between; min-height:84px; gap:1.5rem; flex-wrap:nowrap; padding-block:.5rem; }
+.rm-brand{ display:flex; align-items:center; }
+.rm-brand img{ height:42px; width:auto; }
+.rm-nav__links{ font-size:1rem; font-weight:600; letter-spacing:.02em; }
+.rm-nav__links .wp-block-navigation-item a{ position:relative; padding-block:.6rem !important; text-decoration:none !important; }
+/* Core's navigation block underlines the link text on hover, which stacked
+   a browser underline directly above the magenta bar. The bar is the only
+   hover mark this nav uses. */
+.rm-nav__links .wp-block-navigation-item a:hover,
+.rm-nav__links .wp-block-navigation-item a:focus,
+.rm-nav__links .wp-block-navigation-item a:focus-visible{ text-decoration:none !important; }
+.rm-nav__links .wp-block-navigation-item a::after{
+  /* 3px: the 2px bar read as a hairline against the nav's 16px bold
+     type, particularly in dark mode. The offset drops with the height so
+     the gap between text and bar is unchanged. */
+  content:""; position:absolute; left:0; right:0; bottom:-3px; height:3px;
+  background:var(--wp--preset--color--magenta); transform:scaleX(0); transform-origin:left;
+  transition:transform .18s ease;
+}
+.rm-nav__links .wp-block-navigation-item a:hover::after,
+.rm-nav__links .wp-block-navigation-item a:focus-visible::after{ transform:scaleX(1); }
+.rm-nav__cta{ white-space:nowrap; }
+.rm-nav__cta a{ font-size:.82rem !important; }
+
+/* =================== HERO =================== */
+.rm-hero{ position:relative; overflow:hidden; padding-block:clamp(3.5rem,8vw,6.5rem) clamp(3rem,6vw,5rem) !important; }
+
+/* Fills the space above the fold on the homepage rather than leaving it
+   content-driven. Without this, the hero's height is just its padding
+   plus a three-line headline and a short subhead — on any viewport
+   taller than roughly 700px, that leaves a visibly empty gap between
+   the reassurance line and the ticker band below, which reads as
+   unfinished rather than composed. min-height, not a fixed height, so
+   content can still grow past it (a longer headline from a future copy
+   change is never clipped); the leftover space then falls below the
+   content rather than being split around it — see the justify-content
+   note on the rule itself.
+   Scoped to body.home (WordPress's own front-page body class, already
+   the pattern used for the stronger homepage parallax in 1.73.1) rather
+   than every .rm-hero: this class is reused on Contact/About/Services,
+   whose shorter content and different surrounding sections were not
+   part of this request and have not been checked against a full-height
+   treatment.
+   Desktop-only (existing 782px breakpoint, matching the rest of this
+   file): a mobile hero's content already fills a much larger share of
+   its viewport on its own, since a narrower column wraps the same
+   headline across more lines — the dead-space problem this fixes is a
+   wide-viewport-specific symptom. 84px is .rm-nav__row's own
+   min-height, so the hero fills exactly what's left after the sticky
+   nav, not the full 100svh (which would push it under the nav on
+   shorter screens).
+   Subtracts the ticker's own height too (19px, measured directly —
+   .rm-ticker__item's fixed rem-based padding/font-size don't vary
+   across any breakpoint, confirmed by checking every @media block in
+   this file), which the first version of this fix (1.74.1) didn't.
+   That version correctly closed the gap to exactly 0px, which sounds
+   like the goal but isn't one: 0px gap means the ticker's top edge
+   lands exactly on the fold boundary, so none of it is actually
+   visible without scrolling — indistinguishable from the ticker not
+   being there at all, which is what was reported after 1.74.1 shipped.
+   Subtracting its height too means hero + ticker together fill exactly
+   what's left below the nav, so the ticker is genuinely, fully visible
+   as the natural conclusion of the above-the-fold view rather than
+   technically-present-but-invisible. Extra 2px beyond the measured
+   19px: the first attempt at just 84+19 left the ticker's bottom edge
+   1px past the fold from viewport-unit rounding — confirmed by
+   measurement, not assumed — so this buffer exists to survive that
+   rounding on other browsers/zoom levels rather than seem sufficient in
+   one and fail at the boundary in another. */
+@media (min-width:782px){
+  body.home .rm-hero{
+    /* Two constraints pulled against each other here, and the earlier
+       versions each satisfied one at the other's expense.
+
+       Pinning the hero to exactly the fold (100svh minus the nav and the
+       ticker) guarantees the ticker is visible, which is what 1.74.3 was
+       for. But the hero's content is only about 412px tall including its
+       top padding, so on a 980px-tall window that left roughly 460px of
+       empty space to distribute. Centring it (1.74.1) put ~290px above
+       the headline; moving to flex-start (1.74.4) moved the same slack
+       below instead, into the band between the reassurance line and the
+       ticker. Neither is a distribution problem — there was simply more
+       empty space than the section had any use for.
+
+       min() resolves it: fill to the fold on short windows, where that
+       value is the smaller and the ticker genuinely needs the room, but
+       stop growing at 540px on tall ones. The ticker then sits above the
+       fold with a modest gap rather than being pushed to the very bottom
+       edge, and the gap never exceeds roughly 150px regardless of how
+       tall the window is. flex-start is kept so the section's own 104px
+       top padding sets the distance under the nav rather than an
+       arbitrary centred value. */
+    min-height:min(calc(100svh - 84px - 19px - 2px), 540px);
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;
+  }
+}
+.rm-hero::before{
+  content:""; position:absolute; right:clamp(-60px,1vw,20px); top:8%;
+  width:clamp(220px,26vw,420px); aspect-ratio:838/645;
+  opacity:.2; pointer-events:none; mix-blend-mode:var(--rm-blend); z-index:0;
+  background-image:url('../images/remotive-mark.png');
+  background-size:contain; background-repeat:no-repeat; background-position:center;
+}
+/* AVIF is 21KB against the PNG's 50KB. The PNG declaration above stays the
+   default so a browser without AVIF support never sees this block; the
+   image-set() test is the reliable AVIF feature query, since
+   @supports(background-image:url(...)) is true everywhere and would tell
+   us nothing about format support. */
+@supports (background-image:image-set(url('../images/remotive-mark.avif') type('image/avif'))){
+  .rm-hero::before{
+    background-image:image-set(url('../images/remotive-mark.avif') type('image/avif'),
+                               url('../images/remotive-mark.png') type('image/png'));
+  }
+}
+.rm-hero > *{ position:relative; z-index:1; }
+
+/* ---- Hero background media layer (groundwork, inert by default) ----
+   Prepped for a future background image or video without committing to
+   either yet. Nothing renders until --rm-hero-media is set to an actual
+   image, because the default is `none` and a background-image of none
+   paints nothing — so this costs zero requests and changes zero pixels
+   on the current site.
+   ::after, not ::before: ::before already draws the Re: brand mark
+   (line ~300) and is not free. Children are z-index:1, this sits at 0,
+   the brand mark's own z-index:0 sits alongside it — so the stacking is
+   background < media/mark < content, and content stays readable no
+   matter what lands here.
+
+   To switch a background image on later, that's the whole change:
+     body.home .rm-hero{ --rm-hero-media:url('../images/hero.jpg'); }
+   Optionally tune the two knobs below alongside it — set the overlay at
+   the same time as the image, since a photo behind Archivo Black at
+   --rm-ink on cream will fail WCAG contrast almost every time:
+     --rm-hero-media-opacity: 1;
+     --rm-hero-media-overlay: .55;
+
+   For video instead, the markup route is a <video> element as the
+   first child of .rm-hero with class rm-hero__media — styled below,
+   same stacking, and it should carry muted/playsinline/loop plus a
+   poster, and be skipped entirely under prefers-reduced-motion (the
+   rule for that is already written below rather than left as a note,
+   since a hero video that ignores reduced-motion is a real
+   accessibility failure, not a nice-to-have). */
+.rm-hero{
+  --rm-hero-media: none;
+  --rm-hero-media-opacity: 1;
+  /* Defaults to 0, not to a scrim value: box-shadow paints regardless of
+     whether background-image resolved to anything, so a non-zero default
+     would tint the hero even with no image set. Switch it on together
+     with the image (see the note above) — that is the only time it has
+     anything to protect legibility against.
+     (Verified this layer is genuinely inert by pixel-sampling the hero
+     with and without these rules present: identical either way. The
+     hero's empty area does read 1 value off the nav's, but that is the
+     pre-existing .rm-hero::before brand mark at opacity .2, not this.) */
+  --rm-hero-media-overlay: 0;
+}
+.rm-hero::after{
+  content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+  background-image:var(--rm-hero-media);
+  background-size:cover; background-position:center; background-repeat:no-repeat;
+  opacity:var(--rm-hero-media-opacity);
+}
+/* The scrim rides on the same layer so one declaration can't be applied
+   without the other going missing. paper is the mode-aware surface
+   colour, so this stays correct in both light and dark rather than
+   hardcoding a colour that only works in one. */
+.rm-hero::after{
+  box-shadow:inset 0 0 0 100vmax rgb(from var(--wp--preset--color--paper) r g b / var(--rm-hero-media-overlay));
+}
+.rm-hero__media{
+  position:absolute; inset:0; z-index:0; pointer-events:none;
+  width:100%; height:100%; object-fit:cover;
+}
+@media (prefers-reduced-motion:reduce){
+  .rm-hero__media{ display:none; }
+}
+
+/* Direct children of is-layout-constrained sections default to WP's
+   narrow 740px "content" measure (theme.json settings.layout.contentSize)
+   — appropriate for reading-width prose, too narrow for this homepage's
+   bold marketing layout. Explicit override to the wide 1320px measure
+   instead (theme.json's wideSize), applied uniformly to every child in
+   each affected section so they all share one consistent box and stay
+   mutually left-aligned, rather than centering just the elements that
+   individually need more room (which would misalign left edges against
+   this left-aligned design's other elements — this design isn't
+   centered, so two different centered widths side by side would look
+   like a ragged, unintentional-looking left margin). Not reliant on
+   WP's alignwide class cascade — fully explicit and self-contained. */
+.rm-measure-wide,
+.rm-hero > *,
+#services > *,
+#work > *,
+#problem > *,
+#why > *,
+#about > *,
+.rm-nav__row,
+.rm-footer > * {
+  max-width:var(--wp--style--global--wide-size) !important;
+  margin-left:auto !important;
+  margin-right:auto !important;
+}
+/* The interior-page alignment pass (v1.25.0) applies .rm-measure-wide to
+   section wrappers on Services, Case Studies, Contact, the two landing
+   pages and the blog list views. The max-width above widens the wrapper
+   itself, but a constrained group's children — and children of nested
+   constrained groups like .rm-service-detail — are clamped by core's
+   layout rule to var(--wp--style--global--content-size), so they would
+   still render at 740px, centred, inside the widened box. Custom
+   properties resolve at the element where they are read, so redefining
+   the content-size variable on the wrapper makes every constrained
+   descendant clamp to the wide measure instead, however deeply nested,
+   with no per-child overrides. Elements with their own explicit caps
+   (60ch lists, 54ch leads, the 520px form) keep them and stay pinned to
+   the shared left edge by their own zeroed side margins. */
+.rm-measure-wide{
+  --wp--style--global--content-size: var(--wp--style--global--wide-size);
+}
+.rm-hero__display{
+  margin:0 0 1.6rem !important;
+  font-size:var(--wp--preset--font-size--display) !important;
+  line-height:.94 !important;
+}
+.rm-hero__display .rt{ position:relative; display:inline-block; }
+.rm-hero__display .rt::before,
+.rm-hero__display .rt::after{
+  content:attr(data-t); position:absolute; inset:0; z-index:-1;
+  mix-blend-mode:var(--rm-blend); opacity:0;
+  transition:opacity .18s ease, transform .18s ease;
+}
+.rm-hero__display .rt::before{ color:var(--wp--preset--color--cyan); }
+.rm-hero__display .rt::after{ color:var(--wp--preset--color--magenta); }
+.rm-hero__display .rt:hover::before{ opacity:.85; transform:translate(-6px,3px); }
+.rm-hero__display .rt:hover::after{ opacity:.85; transform:translate(6px,-3px); }
+.rm-hero__display .is-magenta{ color:var(--wp--preset--color--magenta-dark); }
+.rm-hero__sub, .rm-hero__sub p{ font-size:var(--wp--preset--font-size--lead) !important; color:var(--rm-ink-70) !important; max-width:44ch; margin-bottom:2rem !important; }
+.rm-hero__actions{ margin-bottom:1.1rem !important; }
+.rm-hero__reassure{ font-size:.8rem !important; color:var(--rm-ink-55) !important; font-weight:600; letter-spacing:.01em; }
+
+/* =================== TICKER =================== */
+/* Fallbacks are load-bearing, not defensive habit. ink and paper are the
+   one pair in the palette that SWAP between modes, and the theme defines
+   them for light mode only (in the [data-theme="light"] block) — dark mode
+   relies entirely on the :root block WordPress generates from theme.json.
+   If that stylesheet does not arrive, both vars are undefined, the
+   background falls back to transparent so the navy page shows through,
+   and the text inherits the body's white: a navy band with white text and
+   faint dividers, instead of the intended white band with navy text.
+   Performance plugins that strip or defer WordPress global styles produce
+   exactly that. The literals below are the dark-mode palette values from
+   theme.json, so the band renders correctly whether or not core's CSS
+   loads. */
+.rm-ticker{
+  background:var(--wp--preset--color--ink, #ffffff);
+  color:var(--wp--preset--color--paper, #1a1a2e);
+  overflow:hidden;
+}
+.rm-ticker__track{ display:flex; width:max-content; animation:rm-scroll 26s linear infinite; }
+/* Paused off-screen via IntersectionObserver (assets/js/ticker.js) — a
+   continuously-running animation costs nothing visible while scrolled
+   out of view, but still keeps compositing/repainting on most browsers
+   unless explicitly paused, so this is a real (if small) performance win
+   on longer sessions. */
+.rm-ticker__track.is-paused{ animation-play-state:paused; }
+@keyframes rm-scroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+.rm-ticker__item{
+  padding:.85rem 2.4rem; font-size:.85rem; font-weight:700;
+  text-transform:uppercase; letter-spacing:.1em; white-space:nowrap;
+  /* currentColor, not a hardcoded white. The band's text colour is paper,
+     which is navy in dark mode and cream in light — so a fixed white
+     divider is invisible on the dark-mode white band and only happened to
+     work when the band was rendering wrong. Tying it to the text colour
+     keeps the dividers correct on either surface. */
+  border-right:1px solid color-mix(in srgb, currentColor 22%, transparent);
+}
+
+/* =================== SECTION WRAPPER =================== */
+.rm-section{ padding-block:clamp(4.5rem,9vw,8rem) !important; }
+/* Consecutive sections were each contributing a full block of padding, so
+   the space between one section's last line and the next section's eyebrow
+   came to 256px on a desktop screen: not rhythm, a hole. The templates try
+   to say this already with an inline padding-top:0 on stacked sections,
+   but the rule above carries !important and overrode it. Rather than drop
+   that flag, which other rules rely on, a following section states its own
+   smaller top padding: enough to separate, not enough to strand. */
+.rm-section + .rm-section{ padding-top:clamp(2.5rem,5vw,4rem) !important; }
+/* Both sides of the join, so the space between two sections is one
+   comfortable block rather than two stacked ones. A section that opens or
+   closes a run keeps its full padding, which is what separates the page's
+   content from the header and the footer. */
+.rm-section:has(+ .rm-section){ padding-bottom:clamp(2.5rem,5vw,4rem) !important; }
+/* The call-to-action band brings its own generous padding, so the section
+   handing over to it does not need a full block underneath as well. */
+.rm-section:has(+ .rm-cta){ padding-bottom:clamp(2.5rem,5vw,4rem) !important; }
+
+/* The `#services > *` / `#work > *` overrides further down widen the section
+   *children* to the 1320px wide measure, but a constrained group's own box
+   still falls back to the theme's own 740px content measure — so those
+   children were
+   trapped inside a 740px, horizontally-centred parent and rendered
+   half-width and shifted inward, misaligned with the full-bleed hero above
+   them. Widening the section wrappers themselves to the wide measure, pinned
+   to the left edge, lets the content share the hero's left margin and span
+   the intended width. The full-bleed bands (.rm-stats, .rm-cta) are
+   alignfull and unaffected. */
+/* Centred on the wide measure, the same as the header row and the footer.
+   v1.16.2 pinned these hard left to cure a hero that had its headline on one
+   edge and its sub-heading floating in the middle. That fixed the hero's
+   internal alignment but broke the page's: at 1900px the content sat 48px
+   from the left with a 532px gap on the right, while the header and footer
+   sat centred. Three different alignments on one page. Centring all of them
+   gives the main content the same breathing space on both sides. */
+#services, #work, #problem, #why, #about{
+  max-width:var(--wp--style--global--wide-size) !important;
+  margin-left:auto !important;
+  margin-right:auto !important;
+}
+
+/* =================== SECTION HEAD =================== */
+.rm-section-head{ display:flex !important; align-items:flex-start; justify-content:space-between; gap:1.5rem; margin-bottom:2.75rem !important; flex-wrap:wrap; }
+.rm-section-head .rm-eyebrow{ margin-bottom:.9rem; display:inline-flex; }
+.rm-section-link{ font-size:.82rem !important; font-weight:700; text-transform:uppercase; letter-spacing:.05em; white-space:nowrap; margin-top:.2rem; }
+.rm-section-link a{ display:inline-flex; align-items:center; padding:.5rem 0; text-decoration:none; color:var(--wp--preset--color--ink); font-weight:700; transition:color .18s ease, letter-spacing .18s ease; }
+.rm-section-link a:hover{ color:var(--wp--preset--color--magenta-dark); letter-spacing:.09em; }
+
+/* =================== SERVICES ("plates") =================== */
+.rm-plates{
+  display:grid !important;
+  /* minmax(0,1fr), not bare 1fr — grid tracks sized with a bare `fr`
+     unit still respect each cell's min-content width by default (the
+     implicit minimum is `auto`, not 0), so a track whose content is
+     wider than an even third can force that whole column wider than
+     its siblings even though every track is nominally "1fr". Explicit
+     minmax(0,1fr) removes that implicit minimum and guarantees true
+     equal thirds regardless of content. */
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:1px !important; background:var(--rm-line); border:1px solid var(--rm-line);
+}
+.rm-plate{
+  position:relative; background:var(--wp--preset--color--card); padding:2.2rem 1.8rem 2rem !important;
+  /* flex-start, not space-between: with the fill pulled out of flow, the
+     three remaining children (swatch row, name, description) were spread
+     across the full 230px, floating the swatch, name and copy apart with
+     uneven gaps. Top-stacking keeps a tight, deliberate rhythm; the card's
+     min-height still gives the grid its even row bottoms. */
+  min-height:230px; display:flex !important; flex-direction:column; justify-content:flex-start;
+  overflow:hidden; isolation:isolate;
+}
+.rm-plate__fill{
+  position:absolute !important; inset:0; z-index:-1; transform:translateY(100%);
+  transition:transform .28s cubic-bezier(.6,0,.3,1);
+  min-height:0 !important;
+}
+.rm-plate:hover .rm-plate__fill, .rm-plate:focus-within .rm-plate__fill{ transform:translateY(0); }
+.rm-plate--cyan .rm-plate__fill{ background:var(--wp--preset--color--cyan); }
+.rm-plate--magenta .rm-plate__fill{ background:var(--wp--preset--color--magenta); }
+.rm-plate--accent-3 .rm-plate__fill{ background:var(--wp--preset--color--accent-3); }
+.rm-plate--ink .rm-plate__fill{ background:var(--wp--preset--color--ink); }
+.rm-plate--ink:hover, .rm-plate--ink:focus-within{ color:var(--wp--preset--color--paper); }
+.rm-plate--key{ background:repeating-linear-gradient(45deg, var(--wp--preset--color--paper-2) 0 2px, var(--wp--preset--color--card) 2px 10px); }
+.rm-plate--key .rm-plate__fill{ display:none; }
+.rm-plate__top{ display:flex !important; align-items:center; justify-content:space-between; }
+.rm-plate__id{ font-size:.68rem !important; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--rm-ink-55); margin:0 !important; }
+.rm-plate:hover .rm-plate__id{ color:inherit; opacity:.75; }
+.rm-plate__swatch{ width:16px; height:16px; border:1.5px solid var(--wp--preset--color--ink); flex:none; }
+.rm-plate--cyan .rm-plate__swatch{ background:var(--wp--preset--color--cyan); }
+.rm-plate--magenta .rm-plate__swatch{ background:var(--wp--preset--color--magenta); }
+.rm-plate--accent-3 .rm-plate__swatch{ background:var(--wp--preset--color--accent-3); }
+.rm-plate--ink .rm-plate__swatch{ background:var(--wp--preset--color--ink); }
+.rm-plate--key .rm-plate__swatch{ background:transparent; border-style:dashed; }
+.rm-plate__name{ font-size:1.5rem !important; letter-spacing:-.01em; margin:1.1rem 0 .5rem !important; }
+.rm-plate__desc{ font-size:.92rem !important; color:var(--rm-ink-70) !important; line-height:1.5; margin:0 !important; text-transform:none; font-weight:400; }
+.rm-plate:hover .rm-plate__desc, .rm-plate--ink:hover .rm-plate__desc{ color:inherit !important; opacity:.9; }
+.rm-plates__note{ margin-top:1.25rem !important; margin-left:max(0px, calc((100% - var(--wp--style--global--content-size)) / 2)) !important; margin-right:0 !important; font-size:.82rem !important; color:var(--rm-ink-55) !important; max-width:60ch; }
+
+/* =================== PROOF: featured spread =================== */
+.rm-spread{ border:1px solid var(--rm-line) !important; margin-bottom:1px !important; gap:0 !important; }
+.rm-spread__image{
+  background:
+    linear-gradient(135deg, rgba(0,184,230,.9), rgba(240,32,143,.85) 55%, rgba(242,194,0,.9)),
+    var(--wp--preset--color--ink);
+  min-height:420px; position:relative; display:flex !important; align-items:flex-end;
+}
+.rm-spread__image-label{
+  color:var(--wp--preset--color--paper) !important; font-weight:900 !important; font-size:1.1rem !important;
+  letter-spacing:.04em; text-transform:uppercase; mix-blend-mode:difference;
+  padding:1.8rem !important; margin:0 !important;
+}
+.rm-spread__body{ background:var(--wp--preset--color--card); padding:clamp(2rem,4vw,3.5rem) !important; display:flex !important; flex-direction:column; justify-content:center; }
+.rm-spread__metric{ font-size:var(--wp--preset--font-size--stat) !important; color:var(--wp--preset--color--magenta-dark) !important; line-height:1 !important; margin:0 0 .4rem !important; }
+.rm-spread__label{ font-size:.82rem !important; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--rm-ink-70) !important; margin-bottom:1.6rem !important; }
+.rm-spread__body p.has-drop-cap:first-letter{
+  font-family:var(--wp--preset--font-family--newsreader); font-weight:600; font-size:3.4rem;
+  line-height:.8; padding:.05em .12em 0 0; color:var(--wp--preset--color--ink);
+}
+.rm-spread__body p.has-drop-cap{ font-size:1rem !important; line-height:1.7; color:var(--rm-ink-70) !important; margin:0 0 1.5rem !important; }
+.rm-spread__quote{ font-family:var(--wp--preset--font-family--newsreader) !important; font-style:italic; font-weight:500;
+  font-size:clamp(1.15rem,1.8vw,1.45rem) !important; border-left:3px solid var(--wp--preset--color--magenta) !important;
+  border-width:0 0 0 3px !important; padding-left:1.1rem !important; margin:0 !important; color:var(--wp--preset--color--ink); }
+.rm-spread__quote cite{ display:block; font-style:normal; font-family:var(--wp--preset--font-family--archivo); font-size:.78rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--rm-ink-55); margin-top:.6rem; }
+
+/* ---- Proof: case study rows ---- */
+/* Core's flow layout puts a 24px margin between sibling blocks, which here
+   sat between rows that are meant to be a continuous list divided by their
+   own hairlines. It was invisible while every row was transparent, and
+   appeared as a band of dead space the moment one row took a hover
+   background, which read as the row growing or jumping. The rows are
+   contiguous; the hairline is the separator. */
+.rm-rows{ border-inline:1px solid var(--rm-line); border-bottom:1px solid var(--rm-line); }
+.rm-rows > * + *{ margin-block-start:0 !important; }
+.rm-row{
+  align-items:center !important; gap:1.25rem !important;
+  padding:1.35rem 1.6rem !important; border-top:1px solid var(--rm-line);
+  transition:background .15s ease;
+}
+.rm-row:hover{ background:var(--wp--preset--color--card); }
+.rm-row__metric{ font-size:1.6rem !important; margin:0 !important; }
+.rm-row__client{ font-weight:700 !important; font-size:.98rem !important; margin:0 !important; text-transform:none !important; letter-spacing:0 !important; }
+.rm-row__desc{ font-size:.88rem !important; color:var(--rm-ink-70) !important; margin:0 !important; }
+.rm-row__link{ font-size:.85rem !important; font-weight:700; white-space:nowrap; }
+.rm-row__link a{ color:var(--wp--preset--color--ink); display:inline-block; padding:.6rem 0; }
+.rm-row:hover .rm-row__link a{ color:var(--wp--preset--color--magenta-dark); }
+
+/* =================== STATS =================== */
+.rm-stats{ border-top:1px solid var(--rm-line) !important; border-bottom:1px solid var(--rm-line) !important; gap:0 !important; }
+.rm-stat{ padding:clamp(2.5rem,5vw,3.5rem) 1.5rem !important; text-align:center; border-left:1px solid var(--rm-line); }
+.rm-stat:first-child{ border-left:none; }
+.rm-stat__value{ font-size:var(--wp--preset--font-size--stat) !important; line-height:1 !important; margin:0 0 .6rem !important; }
+.rm-stat--cyan .rm-stat__value{ color:var(--wp--preset--color--cyan-dark) !important; }
+.rm-stat--magenta .rm-stat__value{ color:var(--wp--preset--color--magenta-dark) !important; }
+.rm-stat--accent-3 .rm-stat__value{ color:var(--wp--preset--color--accent-3-dark) !important; }
+.rm-stat__label{ font-size:.82rem !important; font-weight:600; text-transform:uppercase; letter-spacing:.05em; color:var(--rm-ink-70) !important; margin:0 !important; }
+
+/* The band is a full-bleed rule between two sections, so it needs no
+   breathing room of its own: the sections on either side already supply
+   their own generous padding, and at full section rhythm that read as two
+   large empty areas rather than as a divider. Halved where a section meets
+   the band, and only there, so every other section keeps its spacing. */
+.rm-section:has(+ .rm-stats){ padding-bottom:clamp(2rem,4vw,3.5rem) !important; }
+.rm-stats + .rm-section{ padding-top:clamp(2rem,4vw,3.5rem) !important; }
+/* :has() is unsupported in a few older browsers, where the section above
+   simply keeps its normal padding; the band still reads correctly, just
+   with more space above it. */
+
+/* =================== CTA =================== */
+/* The band keeps its full-bleed dark background, but its contents now sit on
+   the same centred wide measure as every other section, and read left to
+   right like the rest of the page. It was previously a 740px centred column
+   with centred text, which was a third layout language on a page that only
+   has two. The padding expression centres the content without needing a
+   wrapper element in the template: it is the root padding until the viewport
+   is wider than the wide measure, and half the leftover after that.
+
+   The arrangement echoes .rm-section-head, used by "What we do / All
+   services": the statement sits on the left and the thing you act on sits on
+   the right, sharing a baseline. */
+.rm-cta{
+  text-align:left;
+  /* The band used to take its height from its children's margins, which the
+     grid removed. Explicit block padding is the honest way to state it, and
+     it keeps the rhythm close to .rm-section without matching it exactly,
+     since this band is a punctuation mark rather than a full section. */
+  padding-block:clamp(3.5rem,7vw,6rem);
+  /* This band is measured a little narrower than the wide layout the rest
+     of the page uses. The headline sits on one line while the form column
+     is fixed, so every extra pixel of viewport landed in the flexible
+     track between them, and past about 1500px that gap read as a hole in
+     the middle of the band. Capping the band's own measure keeps the two
+     halves in conversation without moving either away from its edge. */
+  --rm-cta-measure:min(var(--wp--style--global--wide-size, 1320px), 1140px);
+  padding-inline:max(var(--wp--custom--root-padding, clamp(1.25rem,5vw,3rem)),
+                     calc((100% - var(--rm-cta-measure)) / 2)) !important;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(min(340px,100%),400px);
+  column-gap:clamp(1.75rem,3.5vw,3.5rem);
+  row-gap:1rem;
+  align-items:center;
+}
+/* The constrained layout would otherwise clamp each child to the 740px
+   content measure and centre it, which is what the grid is replacing. */
+.rm-cta > *{ max-width:none !important; margin-left:0 !important; margin-right:0 !important; }
+.rm-cta__title{ grid-column:1; grid-row:1 / span 3; align-self:center; }
+.rm-cta__form{ grid-column:2; grid-row:1; }
+.rm-cta__status{ grid-column:2; grid-row:2; }
+.rm-cta__note{ grid-column:2; grid-row:3; }
+
+/* Below the point where two columns stop fitting, it stacks in reading
+   order and stays left-aligned, so the section still matches the others. */
+@media (max-width:860px){
+  /* minmax(0,1fr) rather than 1fr: a plain 1fr track cannot shrink below its
+     content's minimum width, which on a 320px screen pushed the page 9px
+     sideways. */
+  .rm-cta{ grid-template-columns:minmax(0,1fr); }
+  .rm-cta__title, .rm-cta__form, .rm-cta__status, .rm-cta__note{ grid-column:1; grid-row:auto; }
+}
+/* margin-left/right must stay auto so the constrained-layout centring is
+   preserved; the earlier `margin:0 0 2rem` shorthand zeroed them, which
+   pinned the title hard-left while the form and note (which centre
+   themselves) sat in the middle — the "text all over the place" effect. */
+.rm-cta__title{ font-size:clamp(2rem,4.4vw,3.4rem) !important; margin:0 !important; line-height:1.05; }
+/* Keep the emphasised phrase intact so the line breaks before it
+   ("READY TO GET" / "UN-IGNORED?") rather than after the hyphen. */
+.rm-cta__title mark.rm-mark{ white-space:nowrap; }
+.rm-cta__form{ display:flex !important; justify-content:flex-start; gap:.75rem; flex-wrap:wrap; width:100%; margin:0 !important; }
+.rm-cta__form input[type="email"]{
+  flex:1 1 220px; min-width:min(220px,100%); box-sizing:border-box; background:transparent; border:2px solid rgba(255,255,255,.5);
+  color:var(--wp--preset--color--contrast-text); padding:1rem 1.2rem; font-size:1rem;
+}
+.rm-cta__form input[type="email"]::placeholder{ color:rgba(255,255,255,.5); }
+.rm-cta__form button, .rm-cta__form .wp-block-button__link{
+  /* Fixed near-black label: it sits on magenta in both modes, so it must
+     not invert with the ink token, which turned it white in dark and
+     dropped the pair to 4.25:1. */
+  background:var(--wp--preset--color--magenta) !important; color:#14141f !important;
+  border-color:var(--wp--preset--color--magenta) !important;
+}
+:root:not([data-theme="light"]) .rm-cta__form button,
+:root:not([data-theme="light"]) .rm-cta__form .wp-block-button__link{
+  background:var(--wp--preset--color--magenta-dark) !important;
+  border-color:var(--wp--preset--color--magenta-dark) !important;
+}
+.rm-cta__form button{
+  padding:1rem 1.6rem; font-size:.88rem; font-weight:700; text-transform:uppercase;
+  letter-spacing:.04em; border:2px solid var(--wp--preset--color--magenta);
+}
+.rm-cta__form button:hover, .rm-cta__form .wp-block-button__link:hover{
+  background:var(--wp--preset--color--accent-3) !important; border-color:var(--wp--preset--color--accent-3) !important;
+}
+.rm-cta__note{ margin-top:0 !important; font-size:.8rem !important; color:rgba(255,255,255,.55) !important; }
+
+/* The note's own link. Without this it fell through to the global
+   elements.link colour, which is tuned for the page surface, not for the
+   inverted CTA band — in light mode that resolved to magenta-dark
+   (#cd360b) on the band's navy at 3.35:1. That fails the 4.5:1 body-text
+   minimum outright, and it sits *below* the surrounding note text's own
+   5.31:1, so the link read as damaged rather than as emphasis.
+
+   Same treatment .rm-form-privacy already uses for the identical problem:
+   inherit the parent's colour, which is contrast-checked against the band
+   it actually sits on, and carry the affordance on the underline instead
+   of on hue. Hover lifts to full white (17.06:1) rather than to a colour,
+   so the interaction cue is a contrast increase and never a decrease. */
+.rm-cta__note a{
+  color:inherit;
+  text-decoration:underline;
+  text-underline-offset:2px;
+}
+.rm-cta__note a:hover,
+.rm-cta__note a:focus-visible{ color:var(--wp--preset--color--contrast-text); }
+/* The reassurance line is reused inside the band, where its own muted
+   ink colour lands on the navy surface at 1.01:1 and disappears. On the
+   band it takes the band's own muted white, the same treatment the note
+   beside it already uses. */
+.rm-cta .rm-hero__reassure{ color:rgba(255,255,255,.62) !important; }
+
+/* The band must invert with the mode, for the same reason fill buttons
+   do: its background is contrast-bg, which in dark mode equals the navy
+   paper, so the whole band merged into the page (measured ratio 1.00 in
+   the v1.25.3 dark-mode verification) — white text stayed readable but
+   the punctuation-mark surface vanished. In dark the band flips to
+   ink-on-paper like the ticker: a white band on navy, the mirror of the
+   navy band on cream that light mode keeps. The whites hardcoded inside
+   the band (input border and text, placeholder, note) flip with it;
+   the magenta submit button reads on either surface. :root:not(light)
+   covers both the explicit dark attribute and the no-attribute default,
+   and outweighs the preset utility class core marks !important. */
+:root:not([data-theme="light"]) .rm-cta{
+  background-color:var(--wp--preset--color--ink) !important;
+  color:var(--wp--preset--color--paper) !important;
+}
+:root:not([data-theme="light"]) .rm-cta__form input[type="email"]{
+  border-color:rgba(26,26,46,.5); color:var(--wp--preset--color--paper);
+}
+:root:not([data-theme="light"]) .rm-cta__form input[type="email"]::placeholder{
+  color:rgba(26,26,46,.5);
+}
+:root:not([data-theme="light"]) .rm-cta__note,
+:root:not([data-theme="light"]) .rm-cta .rm-hero__reassure{
+  /* .55 computed to 3.85:1 on the inverted white band; .68 clears 4.5. */
+  color:rgba(26,26,46,.68) !important;
+}
+/* Fill buttons sitting on the band collide with it in both modes: the
+   subpage bands close with a fill button, and measured on the band the
+   fill's ink background is near-identical to the light band's navy
+   (1.02) and identical to the dark band's inverted white (1.00) — the
+   button's shape vanishes while its label floats. On the band the fill
+   flips to paper-on-ink in either mode: a cream button on the navy
+   light band, a navy button on the white dark band. The magenta hover
+   reads on either surface. */
+.rm-cta .wp-block-button.is-style-fill > .wp-block-button__link{
+  background-color:var(--wp--preset--color--paper) !important;
+  color:var(--wp--preset--color--ink) !important;
+  border-color:var(--wp--preset--color--paper) !important;
+}
+
+/* Honeypot — visually hidden and unreachable by keyboard/screen reader
+   (not just display:none, which some bots skip filling correctly; a
+   field that's technically present but never perceivable is the more
+   reliable trap). Real visitors never see or reach it; if it arrives
+   filled, the handler in inc/cta-form-handler.php silently discards the
+   submission as spam. */
+.rm-cta__honeypot{
+  position:absolute !important; width:1px; height:1px; overflow:hidden;
+  clip:rect(0,0,0,0); white-space:nowrap; border:0; padding:0; margin:0;
+}
+
+/* Status message after a submit attempt (success/error), injected by
+   assets/js/lead-form-status.js reading the redirect's query string. Uses
+   role="status"/aria-live="polite" (set in the template) so screen
+   readers announce it without stealing focus — WCAG 4.1.3. */
+.rm-cta__status{
+  margin-top:1rem; font-size:.85rem; font-weight:600;
+  padding:.15rem 0; min-height:0;
+}
+.rm-cta__status[data-state="success"]{ color:var(--wp--preset--color--accent-3); }
+.rm-cta__status[data-state="error"]{ color:var(--wp--preset--color--magenta); }
+
+/* =================== FOOTER =================== */
+.rm-footer{ border-top:1px solid var(--rm-line); }
+.rm-footer__brand img{ height:46px; width:auto; }
+.rm-footer__desc{ font-size:.9rem !important; color:var(--rm-ink-70) !important; max-width:32ch; line-height:1.55; }
+/* The 32ch cap suits the brand blurb it was written for, but the same
+   class dresses the contact column's email and address, boxing them
+   into ~260px inside a wider column and leaving a dead right rag on the
+   footer's last edge. The contact column gets the full column width. */
+.rm-footer__top > .wp-block-column:last-child .rm-footer__desc{ max-width:none; }
+
+/* Footer column balance. The brand column carried an inline 34% basis, which
+   reserved far more width than its content needs and opened a dead gap before
+   the first link column, while the contact column was left so narrow that the
+   e-mail address broke mid-word. Overriding the flex distribution: the brand
+   column sizes to roughly its content, the two link columns take an equal
+   share, and the contact column takes a slightly larger one so the address and
+   e-mail sit on their own lines. Top-aligned so the section headings share a
+   baseline across the row. */
+.rm-footer__top{ align-items:start !important; column-gap:clamp(2rem,4vw,3.5rem) !important; }
+.rm-footer__desc a{ overflow-wrap:anywhere; }
+/* Guarded above WP's 781px column-stacking breakpoint so it never competes
+   with core's flex-basis:100% !important rule that stacks columns on mobile. */
+@media (min-width:782px){
+  .rm-footer__top > .wp-block-column{ flex:1 1 0 !important; }
+  .rm-footer__top > .wp-block-column:first-child{ flex:1.4 1 0 !important; min-width:220px; }
+  .rm-footer__top > .wp-block-column:last-child{ flex:1.25 1 0 !important; }
+}
+/* Between 782px and 900px the four columns squeezed the brand column to
+   220px. Wrapping to two columns across that band gives an intermediate
+   state, rather than jumping from four columns straight to fully stacked
+   at WP core's 781px breakpoint. The :last-child selector must be
+   repeated here: the four-column rules above win on specificity over a
+   bare .wp-block-column even though this block comes later, and with
+   flex-basis:0 surviving into the wrap band the fourth column was
+   crushed to ~8px beside two 44% siblings, its content painting past
+   the viewport — caught in the v1.25.1 rendered verification. */
+@media (min-width:782px) and (max-width:900px){
+  .rm-footer__top{ flex-wrap:wrap !important; }
+  .rm-footer__top > .wp-block-column,
+  .rm-footer__top > .wp-block-column:last-child{ flex:1 1 44% !important; min-width:0 !important; }
+  .rm-footer__top > .wp-block-column:first-child{ flex:1 1 100% !important; }
+}
+/* The headings were quieter than the links they label — .72rem at 55%
+   ink under .9rem full-ink links, an inverted hierarchy. Full ink and
+   the heaviest weight make them read as headers while staying in the
+   small-caps eyebrow register. */
+.rm-footer__heading{ font-family:'Space Grotesk', 'Saira', 'Saira Fallback', system-ui, sans-serif; font-size:.92rem !important; font-weight:900; text-transform:uppercase; letter-spacing:.1em; color:var(--wp--preset--color--ink) !important; margin-bottom:1rem !important; }
+/* WordPress emits its 24px block gap between the vertical navigation's
+   items (on the list container, per the header-nav lesson), and stacked
+   on the links' own .5rem block padding it spread each column to ~40px
+   per item. The gap is zeroed on both possible carriers; the padding
+   alone gives a 1rem rhythm and keeps the tap targets. */
+.rm-footer__links,
+.rm-footer__links .wp-block-navigation__container{ gap:0 !important; }
+.rm-footer__links .wp-block-navigation-item a{ font-size:.9rem !important; display:inline-block; padding-block:.5rem !important; }
+.rm-footer__links .wp-block-navigation-item a:hover{ color:var(--wp--preset--color--magenta-dark) !important; }
+.rm-footer__bottom{ padding-top:1.75rem !important; border-top:1px solid var(--rm-line-soft) !important; font-size:.78rem !important; color:var(--rm-ink-55) !important; }
+/* ---- Social icon links (replaces the old text-based nav-link socials) ---- */
+.rm-footer__socials{ display:flex; align-items:center; flex-wrap:wrap; gap:.25rem; }
+.rm-footer__socials--left{ margin-top:.25rem; }
+.rm-social-link{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:44px; height:44px; padding:10px; box-sizing:border-box;
+  color:var(--wp--preset--color--ink); opacity:.75;
+  transition:opacity .15s ease, color .15s ease;
+}
+.rm-social-link svg{ width:20px; height:20px; display:block; }
+.rm-social-link:hover, .rm-social-link:focus-visible{
+  opacity:1; color:var(--wp--preset--color--magenta-dark);
+}
+
+/* =================== RESPONSIVE =================== */
+@media (max-width:900px){
+  .rm-plates{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .rm-spread{ flex-direction:column !important; }
+  .rm-spread__image{ min-height:260px; }
+  /* Previously display:none here, which dropped the proof-row descriptions
+     on every tablet. That is content loss rather than a layout change, so
+     the text stays and the row reflows instead. */
+  .rm-row__desc{ font-size:.85rem; }
+  .rm-stats{ flex-direction:column !important; }
+  .rm-stat{ border-left:none; border-top:1px solid var(--rm-line); }
+  .rm-stat:first-child{ border-top:none; }
+
+  /* Extra breathing room in the mobile nav overlay specifically — base
+     rules above (.6rem/.5rem, applied at every width) already satisfy
+     WCAG 2.5.8's 24x24px minimum; this is just added comfort on touch. */
+  .rm-nav__links .wp-block-navigation-item a{ padding-block:.85rem !important; }
+}
+@media (max-width:600px){
+  .rm-plates{ grid-template-columns:1fr; }
+  /* Was .rm-hero__mark, a class that appears in no template, so this rule
+     had never once hidden anything and the watermark sat behind the
+     headline on every phone. The mark is drawn by .rm-hero::before. */
+  .rm-hero::before{ display:none; }
+  .rm-row{ flex-direction:column !important; align-items:flex-start !important; }
+}
+
+
+/* =================== HOMEPAGE FRAME COMPONENTS (v1.14.0) =================== */
+
+/* Longer positioning headline sits below display-word scale. */
+.rm-hero__display.is-statement{ font-size:clamp(2rem,5.2vw,3.75rem) !important; line-height:1.06; }
+
+/* Section head spacing for the #about wp:html section, which still uses
+   the flat eyebrow/h2 markup. Problem and Why moved to the shared
+   .rm-section-head wrapper in v1.65.6 to carry a right-aligned link like
+   the Services/Work/Team sections, so their spacing now comes from
+   .rm-section-head .rm-eyebrow and no longer needs a rule here; keeping
+   a stale #problem > h2 selector around after the h2 stopped being a
+   direct child would just be dead weight. */
+#about .rm-eyebrow{ display:inline-flex; margin:0 0 .9rem; }
+#about > h2{ margin:0 0 .25rem; }
+
+/* Problem we solve + Why us */
+/* Both grids carry eight items at four per row, by explicit request, so
+   the columns are explicit rather than intrinsic: 4 across on desktop, 2
+   on tablets, 1 on phones. Every tier fills its rows evenly. */
+.rm-problems,
+.rm-whys{ display:grid; grid-template-columns:repeat(4,1fr); gap:1.5rem; margin-top:1.75rem; }
+@media (max-width:1100px){
+  .rm-problems,
+  .rm-whys{ grid-template-columns:repeat(2,1fr); }
+}
+@media (max-width:640px){
+  .rm-problems,
+  .rm-whys{ grid-template-columns:1fr; }
+}
+.rm-problem{ border-top:2px solid var(--rm-line); padding-top:.9rem; }
+.rm-problem h3{ font-size:1.05rem; margin:0 0 .35rem; line-height:1.2; }
+.rm-problem p{ font-size:.92rem; color:var(--rm-ink-70); margin:0; }
+
+/* What we do — three modular blocks */
+/* Three items, so this resolves to 3, 2 or 1 columns and never orphans a
+   card. 290px is the measured point below which the longest service line
+   ("Own performance marketing, digital marketing and SEO across Singapore
+   and Malaysia") starts breaking badly. */
+.rm-blocks{ display:grid; grid-template-columns:repeat(auto-fit,minmax(min(290px,100%),1fr)); gap:1.5rem; margin-top:1.75rem; }
+.rm-block{ display:flex; flex-direction:column; background:var(--wp--preset--color--card); border:1px solid var(--rm-line); border-top:3px solid var(--rm-line); border-radius:6px; padding:1.2rem 1.25rem; }
+/* The rule takes the same value as the heading below it. Previously the
+   rule used the bright ramp (--magenta #ff449f) while the heading used
+   the dark one (--magenta-dark #cd360b) — not a tint pair but two
+   different hues, which read as a mistake rather than a system. The
+   heading value wins because it is the one constrained by contrast. */
+.rm-block--create{ --rm-block-accent:var(--wp--preset--color--magenta-dark); }
+.rm-block--capture{ --rm-block-accent:var(--wp--preset--color--cyan-dark); }
+.rm-block--data{ --rm-block-accent:var(--wp--preset--color--accent-3-dark); }
+.rm-block{ border-top-color:var(--rm-block-accent, var(--rm-line)); }
+.rm-block__name{ font-size:1.2rem; margin:0 0 .1rem; line-height:1.15; }
+/* magenta on paper is 2.90:1 and cyan 2.51:1, both under the 3:1 that
+   even large bold text needs. The -dark ramp of each hue carries the same
+   identity at 4.63:1 and 10.5:1, and the dark mode keeps the bright
+   accents, which read at 4.02:1 and 5.84:1 on the card surface. */
+.rm-block--create .rm-block__name{ color:var(--wp--preset--color--magenta-dark); }
+/* On the card surface the dark palette's magenta-dark reads 4.02:1,
+   short of 4.5. Cards are lighter than the page, so the on-card accent
+   is lifted one step; navy-surface uses keep the palette value. */
+:root:not([data-theme="light"]) .rm-block--create .rm-block__name,
+:root:not([data-theme="light"]) .rm-spread__metric{ color:#ff66b8 !important; }
+:root:not([data-theme="light"]) .rm-block--create{ --rm-block-accent:#ff66b8; }
+.rm-block--capture .rm-block__name{ color:var(--wp--preset--color--cyan-dark); }
+.rm-block--data .rm-block__name{ color:var(--wp--preset--color--accent-3-dark); }
+.rm-block__role{ font-size:.85rem; color:var(--rm-ink-70); margin:0 0 .9rem; }
+.rm-block__list{ flex:1 1 auto; }
+.rm-block__list p{ margin:0 0 .65rem; font-size:.92rem; color:var(--rm-ink-70); }
+.rm-block__list strong{ display:block; color:var(--wp--preset--color--ink); font-weight:700; }
+.rm-block__outcome{ margin:.4rem 0 0; padding-top:.7rem; border-top:1px solid var(--rm-line); font-size:.85rem; font-weight:700; }
+.rm-blocks__note{ margin-top:1.15rem !important; font-size:.95rem; color:var(--rm-ink-70); }
+
+/* Why Re:Motive */
+.rm-why h3{ font-size:1.05rem; margin:0 0 .35rem; line-height:1.2; }
+.rm-why p{ font-size:.9rem; color:var(--rm-ink-70); margin:0; }
+
+/* About teaser */
+/* Matches .rm-section-lead's own spacing (see remotive.css). Both classes
+   do the same job — the standfirst paragraph under a section heading —
+   but .rm-about__lead carried margin:0 0 .5rem against .rm-section-lead's
+   .15rem 0 2rem. A quarter of the gap below meant the About page's
+   headings sat hard against their body copy where every other page's
+   breathe, which is the main reason that page read as a different
+   template rather than a different page. */
+.rm-about__lead{ font-size:1.15rem; line-height:1.5; max-width:52ch; margin:.15rem 0 2rem !important; }
+/* Team grid. Six members, so the steps are 6 across on wide desktop, 3 on
+   compact desktop and tablet, 2 from 700px down. Portraits stay legible at
+   two across on the narrowest screens, so this grid does not collapse to
+   one column the way the abstract tiles did. */
+/* Four per row everywhere, per the standing instruction: the homepage
+   teaser and the About grid share the tier set, 4 on desktop, 2 on
+   tablets, 1 on phones. */
+.rm-team{ display:grid; grid-template-columns:repeat(4,1fr); gap:1.25rem; margin-top:1.75rem; }
+@media (max-width:1100px){
+  .rm-team{ grid-template-columns:repeat(2,1fr); }
+}
+@media (max-width:640px){
+  .rm-team{ grid-template-columns:1fr; }
+}
+.rm-team__member{ margin:0; }
+.rm-team__photo{
+  aspect-ratio:4/5; border-radius:6px; overflow:hidden;
+  background:linear-gradient(135deg,var(--rm-line),var(--wp--preset--color--paper-2));
+  display:flex; align-items:flex-end; padding:.6rem;
+  font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--rm-ink-55);
+}
+.rm-team__photo img{ width:100%; height:100%; object-fit:cover; object-position:center top; }
+
+/* ---- Before/after hover portraits ----
+   Two crops of the same person layered in one tile: the base sits as the
+   tile's background, the alternate fades in over it on hover or touch.
+   URLs are stylesheet-relative, so the static templates need no theme
+   path. To add a member, ship assets/team/<person>.avif and
+   <person>-alt.avif and repeat this pair of rules for their data-person. */
+.rm-team__photo{ position:relative; }
+.rm-team__photo::after{
+  content:""; position:absolute; inset:0;
+  background-position:center top; background-size:cover;
+  /* Opacity only: composited on the GPU, no layout or paint work, and
+     held under 300ms so the swap feels immediate. */
+  opacity:0; transition:opacity .25s ease;
+}
+/* Hover runs only where hover is a real capability; on touch screens a
+   hover state would stick after the first tap. Touch gets :active
+   instead, which releases with the finger. */
+@media (hover:hover){
+  .rm-team__photo:hover::after{ opacity:1; }
+}
+.rm-team__photo:active::after{ opacity:1; }
+/* Cutout portraits over the tile's own gradient: the background stays
+   constant through the swap and follows the colour mode, so only the
+   pose cross-fades. The ::after layer repeats the gradient so the base
+   pose is fully covered at the end of the fade. */
+/* Per-member portrait rules are generated at enqueue time from the Theme
+   Options roster (remotive_team_portrait_css() in inc/theme-options.php),
+   for every slug whose AVIF pair ships in assets/team/. Nothing is
+   hardcoded here, so adding a member in the tab plus two image files is
+   the whole job. */
+.rm-team__name{ display:block; margin-top:.6rem; font-size:1rem; line-height:1.2; }
+.rm-team__role{ display:block; font-size:.82rem; color:var(--rm-ink-70); }
+.rm-team__bio{ margin:.45rem 0 0; font-size:.88rem; color:var(--rm-ink-70); }
+/* The About grid differs from the teaser only in breathing room. */
+.rm-team--full{ gap:1.75rem; }
+
+/* The frame grids above are intrinsic, so they need no breakpoints. */
+
+
+/* Primary fill buttons must invert with the mode. theme.json points the
+   button background at contrast-bg, which in dark mode equals the navy
+   paper, so fill buttons vanished into the page. ink/paper flip correctly:
+   a near-black button on light, a white button on dark, both readable. */
+.wp-block-button.is-style-fill > .wp-block-button__link{
+  background-color:var(--wp--preset--color--ink) !important;
+  color:var(--wp--preset--color--paper) !important;
+  border-color:var(--wp--preset--color--ink) !important;
+}
+.wp-block-button.is-style-fill > .wp-block-button__link:hover{
+  background-color:var(--wp--preset--color--magenta) !important;
+  border-color:var(--wp--preset--color--magenta) !important;
+  color:#fff !important;
+}
+
+/* =================== 404 =================== */
+.rm-main--404{ text-align:center; padding-block:clamp(4rem,10vw,9rem) !important; }
+.rm-main--404 .rm-eyebrow{ display:inline-flex; }
+.rm-404__title{ font-size:clamp(2rem,5vw,3.5rem); line-height:1.06; margin:.4rem 0 .8rem; }
+.rm-404__text{ color:var(--rm-ink-70); max-width:46ch; margin:0 auto 1.75rem; font-size:1.05rem; }
+.rm-404__search{ max-width:32rem; margin:0 auto 1.5rem; }
+.rm-404__actions{ justify-content:center !important; }
+
+/* =================== DESKTOP HERO + TICKER FIXES (v1.16.2) =================== */
+/* The hero's children share the same centred wide measure as everything
+   else, so the hero's left edge lines up with the sections below it and with
+   the header above. The text inside stays left-aligned; it is the box that
+   is centred, which is exactly what the header row and footer do. */
+.rm-hero > *{ margin-left:auto !important; margin-right:auto !important; }
+/* v1.74.1 gave .rm-hero display:flex/flex-direction:column so its
+   content could be vertically centred within the fold (see that
+   changelog entry). That changed how the OTHER three children's own
+   `margin:0 …` shorthands behave: `.rm-hero__display{margin:0 0 1.6rem}`
+   sets margin-left:0 via the shorthand's 3-value form (left takes the
+   right value), which — like every hero child before this fix — relied
+   on `.rm-hero > *{margin:auto}`'s generic centring to land in the
+   right place under normal block flow. Flex's stretch/align behaviour
+   doesn't reliably reproduce that, so the headline, the button row and
+   the reassurance line each ended up at a different left edge once the
+   container became flex, even though each was individually "correct"
+   under the assumptions of whichever rule last set its margin.
+   The sub is the one child narrower than the measure (56ch), and back
+   in v1.16.2 it already needed this same explicit inset instead of
+   `margin:auto` — the fix here is the same one, applied to all four
+   hero children uniformly rather than left as a special case, so a
+   future layout-mode change to .rm-hero can't silently reopen this
+   again for whichever child happens to have its own margin override.
+   The left margin is set to the same inset the full-width siblings
+   compute for themselves ((100% − wide)/2, floored at 0 below the wide
+   measure), so every hero child's left edge sits on the same line at
+   every viewport width, regardless of that child's own width or margin
+   shorthand.
+   Not scoped away from the About page: it reuses these same class names
+   inside the identical .rm-hero container (confirmed directly in
+   templates/page-about.html, not assumed) — and since the About hero
+   isn't flex, `margin:auto` and this explicit formula already produced
+   the same value there for any child capped at the full wide measure,
+   so applying this rule there too changes nothing that was already
+   correct and fixes anything that wasn't. */
+.rm-hero .rm-hero__sub,
+.rm-hero .rm-hero__sub p{
+  max-width:56ch !important;
+}
+.rm-hero .rm-hero__sub,
+.rm-hero .rm-hero__sub p,
+.rm-hero .rm-hero__display,
+.rm-hero .rm-hero__actions,
+.rm-hero .rm-hero__reassure{
+  margin-left:max(0px, calc((100% - var(--wp--style--global--wide-size)) / 2)) !important;
+  margin-right:0 !important;
+}
+
+/* Full bleed now comes from the alignfull group wrapping this block in
+   front-page.html, which is WordPress's own mechanism and the same one
+   .rm-stats and .rm-cta use. The previous 100vw plus negative-margin
+   approach measured the scrollbar into the width, so it could overflow by
+   the scrollbar's width on platforms that reserve space for it, and the
+   body overflow rule then hid that. Both are gone. */
+
+
+/* =================== RESPONSIVE HEADER + TYPE (v1.17.0) =================== */
+
+/* Header states, set by the row's measured intrinsic width in a real
+   browser render (Chromium, the theme's own Archivo files, a 120px logo)
+   rather than a conventional breakpoint.
+
+   Above 1000px  full row: logo, links, CTA, toggle, one line, no wrap.
+   1000 to 981   compact: tighter gaps and link padding buy back space.
+   980 to 783    the CTA leaves the row. Measured, the full set needs
+                 ~873px against 705–884px of available space across this
+                 band, so the CTA — which duplicates the hero's primary
+                 action — never actually fit here; the old 782px cut-off
+                 left up to ~168px of horizontal page scroll at 783px.
+   782 to 601    squeeze: even without the CTA the row's fixed items
+                 measure ~674px against as little as 541px, so the link
+                 gaps and padding tighten, the logo drops to 32px, and
+                 the toggle loses its text label (its aria-label and the
+                 track itself still identify it) — ~530px at the 601px
+                 floor, with slack for a wider logo.
+   600 and below the navigation block's own overlay menu takes over. */
+/* Flex items shrink below their intrinsic width by default, so the
+   navigation block was squeezed to 304px against the ~343px its five links
+   need and wrapped internally to two lines on tablet. Holding the three
+   fixed items at their natural size and letting only the links block flex
+   keeps the row on one line. */
+/* Scoped above 600px, which is where the navigation block's own overlay
+   menu takes over. Holding the intrinsic width below that point would push
+   the inline links past the viewport if the overlay ever failed to engage,
+   so the row stays free to shrink there. */
+@media (min-width:601px){
+  /* Held at its intrinsic width so the five links stay on one line at
+     default text size. Under 200 percent text zoom the same rule made the
+     row overflow the viewport, failing 1.4.4, because the block could
+     neither shrink nor wrap. It may now wrap internally, which happens
+     only when the links genuinely do not fit: at default size the row is
+     unchanged, and under zoom the nav takes a second line instead of
+     pushing the page sideways. */
+  .rm-nav__links{ flex:0 1 auto; min-width:0; }
+  .rm-nav__links .wp-block-navigation__container{ flex-wrap:wrap; }
+}
+.rm-brand, .rm-nav__cta, .rm-theme-toggle{ flex:0 0 auto; }
+.rm-nav__row{ min-width:0; }
+.rm-nav__links{ min-width:0; }
+
+@media (max-width:1000px){
+  .rm-nav__row{ gap:1rem; }
+  .rm-nav__links{ font-size:.9rem; }
+  .rm-nav__links .wp-block-navigation-item a{ padding-inline:.35rem !important; }
+  .rm-brand img{ height:36px; }
+}
+/* CTA stays on mobile; compact sizing lives in critical.css. */
+/* The navigation block's flex gap is emitted on its list container, not
+   on the nav element — a squeeze that only set gap on .rm-nav__links left
+   the 24px gaps between links untouched, which is why the first version
+   of this band still overflowed by ~69px when rendered. Both are covered
+   here so the rule holds whichever element carries the layout gap. */
+@media (min-width:601px) and (max-width:782px){
+  .rm-nav__links,
+  .rm-nav__links .wp-block-navigation__container{ gap:.5rem !important; }
+  .rm-nav__links .wp-block-navigation-item a{ padding-inline:.25rem !important; }
+  .rm-brand img{ height:32px; }
+  .rm-theme-toggle__label{ font-size:.68rem; }
+}
+
+/* The display clamp floors at 2rem, but the content box keeps narrowing
+   below it, so the headline stopped tracking its container under 375px.
+   A lower floor on the narrowest screens keeps the line count sane. */
+@media (max-width:390px){
+  .rm-hero__display.is-statement{ font-size:clamp(1.65rem,7.5vw,2rem) !important; }
+}
+
+/* WebMCP lead tools stop before submission. Highlight the visible form that
+   an agent prepared so the visitor can inspect it before pressing submit. */
+.rm-webmcp-active{
+  outline:3px solid var(--wp--preset--color--magenta);
+  outline-offset:6px;
+}
+
+/* =================== MOBILE-FIRST HARDENING (v1.46.0) ===================
+   Additive only. Every rule below either adds a protection the theme did
+   not have or raises a value that failed a mobile standard; none replaces
+   an existing layout, renames anything, or removes a desktop style. Each
+   was written against a measured failure at one or more of the audited
+   widths (320 to 1280). */
+
+/* ---- 1. Long unbreakable strings (LOW RISK) ----
+   A long URL, a compound word or a slug pasted into content sets a
+   min-content width larger than a phone viewport and pushes the whole
+   document sideways. Applied to text containers rather than globally, so
+   layout wrappers and flex rows are untouched. */
+.entry-content, .rm-post__content, .rm-page__content, .rm-legal__content,
+.rm-cs-card__desc, .rm-post-card__excerpt, .rm-row__desc, .rm-team__bio{
+  overflow-wrap:break-word;
+}
+.entry-content a, .rm-post__content a, .rm-page__content a, .rm-legal__content a{
+  overflow-wrap:anywhere;
+}
+
+/* ---- 2. Wide tables (LOW RISK) ----
+   Content tables had no mobile treatment at all: a four-column table sets
+   its min-content width and overflows. The figure scrolls horizontally
+   instead, keeping every column readable, and is focusable so the scroll
+   is reachable by keyboard. The theme's own case tables are included. */
+.entry-content .wp-block-table, .rm-post__content .wp-block-table,
+.rm-case-table{
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+}
+.entry-content .wp-block-table table, .rm-post__content .wp-block-table table{
+  min-width:32rem;
+}
+.wp-block-table:focus-visible{ outline:2px solid var(--wp--preset--color--magenta); outline-offset:2px; }
+
+/* ---- 3. Code blocks (LOW RISK) ----
+   A long command line behaved like an unbreakable word. Preformatted text
+   scrolls within its own box rather than widening the page. */
+.entry-content pre, .rm-post__content pre, pre.wp-block-code, pre.wp-block-preformatted{
+  overflow-x:auto; max-width:100%; -webkit-overflow-scrolling:touch;
+}
+.entry-content code, .rm-post__content code{ overflow-wrap:anywhere; }
+
+/* ---- 4. Media and embeds (LOW RISK) ----
+   Images already scale; embeds had no constraint, so an iframe with fixed
+   attributes could exceed the viewport. */
+.entry-content img, .rm-post__content img, .rm-page__content img{ max-width:100%; height:auto; }
+.wp-block-embed__wrapper iframe, .entry-content iframe, .rm-post__content iframe,
+.entry-content video, .rm-post__content video{ max-width:100%; }
+
+/* ---- 5. Form controls (LOW RISK, fixes measured overflow) ----
+   Inputs and textareas overflowed their container by 6 to 14px at 320 to
+   480px because the default content-box sizing added padding and border
+   on top of a 100% width. This is the one measured horizontal overflow
+   on the About and Contact pages. */
+.rm-cta__form input, .rm-cta__form textarea, .rm-cta__form select,
+.rm-about-form input, .rm-about-form textarea, .rm-about-form select,
+.rm-contact-form input, .rm-contact-form textarea, .rm-contact-form select{
+  box-sizing:border-box; max-width:100%; width:100%;
+}
+/* iOS zooms the page when a focused control's text is below 16px. Raising
+   the control font size on small screens only leaves desktop untouched. */
+@media (max-width:600px){
+  .rm-cta__form input, .rm-cta__form textarea, .rm-cta__form select,
+  .rm-about-form input, .rm-about-form textarea, .rm-about-form select,
+  .rm-contact-form input, .rm-contact-form textarea, .rm-contact-form select{
+    font-size:16px;
+  }
+  /* Submit controls and form fields get a comfortable touch height. */
+  .rm-cta__form button, .rm-about-form button, .rm-contact-form button,
+  .rm-cta__form input:not([type="checkbox"]):not([type="radio"]),
+  .rm-about-form input:not([type="checkbox"]):not([type="radio"]),
+  .rm-contact-form input:not([type="checkbox"]):not([type="radio"]){
+    min-height:44px;
+  }
+}
+
+/* ---- 6. Touch target size (LOW RISK) ----
+   Footer links, pagination links and inline section links measured 15 to
+   17px tall, under the 24px WCAG 2.5.8 minimum and well under the 44px
+   comfort target. Padding is added rather than height, so the text
+   position and the existing underline treatments are unchanged. */
+/* 2.5.8 Target Size (Minimum) applies to pointer input at every viewport
+   width, not only on touch, so these run unscoped. Links inside running
+   sentences are excluded under the criterion's inline exception; the
+   targets here are standalone navigation and list links, which were
+   measuring 15 to 17px tall. Padding is added rather than height, so text
+   positions and underline treatments are unchanged. */
+.rm-footer__links a, .rm-footer__nav a, .rm-footer nav a, .rm-footer__desc a,
+.rm-footer__contact a, .rm-contact-card a,
+.rm-pagination a, .wp-block-query-pagination a,
+.rm-section-link, .rm-row__link, .rm-cs-card__link, .rm-sidebar__card a,
+.rm-sidebar__recent-title a{
+  display:inline-block; padding-block:.5rem; min-height:24px;
+}
+@media (max-width:782px){
+  .wp-block-button__link{ min-height:44px; display:inline-flex; align-items:center; }
+}
+
+/* ---- 7. Small text floor (LOW RISK) ----
+   Eyebrows and card tags rendered at 11.5px, below the 12px readability
+   floor for body-adjacent text on phones. Raised on small screens only,
+   so the desktop typographic scale is unchanged. */
+@media (max-width:782px){
+  /* The base rule sets this size with !important (it defends against a
+     block-level font-size preset), so the mobile floor has to match that
+     weight to apply at all. */
+  .rm-eyebrow{ font-size:.78rem !important; }
+}
+
+/* ---- 8. Sticky header safety (LOW RISK) ----
+   A sticky header on a short landscape phone screen can occupy most of
+   the viewport. Releasing it below 480px tall keeps content reachable. */
+@media (max-height:480px) and (orientation:landscape){
+  .rm-nav{ position:static !important; }
+}
+
+/* ---- 9. Reduced motion (LOW RISK, accessibility) ----
+   The ticker animates continuously. Users asking for reduced motion get a
+   static strip; the portrait cross-fade and other transitions collapse to
+   an instant state change rather than disappearing. */
+@media (prefers-reduced-motion:reduce){
+  .rm-ticker__track{ animation:none !important; transform:none !important; }
+  .rm-team__photo::after{ transition-duration:.01ms !important; }
+  *{ scroll-behavior:auto !important; }
+}
+
+/* ---- Section lead (v1.60.0) ----
+   The line under a section heading. Every section head on the site carries
+   one, so the type, colour and measure are defined once here rather than
+   per page. Pinned to the shared left edge like the theme's other capped
+   elements, since a constrained wrapper would otherwise centre it. */
+.rm-section-lead{
+  /* !important because the section wrappers widen their children with the
+     same flag; without it the lead inherits the full wide measure and runs
+     to 1320px while every other lead sits at a readable length. */
+  max-width:62ch !important;
+  margin:.15rem 0 2rem !important;
+  color:var(--rm-ink-70);
+  font-size:1.02rem;
+  line-height:1.65;
+}
+
+/* The homepage sections widen every direct child with an ID-scoped rule,
+   which outranks a class selector however many !importants it carries.
+   The lead is matched at the same specificity so it keeps its reading
+   measure inside those sections. */
+#problem > .rm-section-lead,
+#services > .rm-section-lead,
+#why > .rm-section-lead,
+#work > .rm-section-lead,
+#about > .rm-section-lead{
+  max-width:62ch !important;
+  /* Those same ID rules centre their children with auto margins, which
+     floats the lead into the middle of the section while the heading above
+     it stays left. Zeroed here for the same reason and at the same
+     specificity. */
+  margin-left:0 !important;
+  margin-right:0 !important;
+}
+
+/* ---- Contact Form 7, when that plugin is active (v1.63.0) ----
+   The plugin outputs its own markup, which arrives unstyled against a theme
+   this specific. These rules give a CF7 form the same fields, button and
+   spacing as the theme's built-in forms, so a site owner can use either
+   without the page looking like two different sites. */
+.wpcf7-form p{ margin:0 0 1rem; }
+.wpcf7-form label{ display:block; font-size:.85rem; font-weight:700; margin-bottom:.35rem; }
+.wpcf7-form input[type="text"],
+.wpcf7-form input[type="email"],
+.wpcf7-form input[type="tel"],
+.wpcf7-form input[type="url"],
+.wpcf7-form select,
+.wpcf7-form textarea{
+  box-sizing:border-box; width:100%;
+  /* 16px so iOS does not zoom the page when a field takes focus. */
+  font-size:16px; font-family:inherit;
+  padding:.7rem .85rem;
+  color:var(--wp--preset--color--ink);
+  background:transparent;
+  border:1px solid var(--rm-line);
+  border-radius:6px;
+}
+.wpcf7-form textarea{ min-height:9rem; resize:vertical; }
+.wpcf7-form input:focus-visible,
+.wpcf7-form select:focus-visible,
+.wpcf7-form textarea:focus-visible{
+  outline:2px solid var(--wp--preset--color--magenta); outline-offset:2px; border-color:transparent;
+}
+.wpcf7-form input[type="submit"]{
+  min-height:44px; padding:0 1.5rem;
+  font-weight:700; font-size:.9rem; letter-spacing:.02em;
+  color:var(--wp--preset--color--paper);
+  background:var(--wp--preset--color--ink);
+  border:0; border-radius:6px; cursor:pointer;
+}
+.wpcf7-form input[type="submit"]:hover{ background:var(--wp--preset--color--magenta); }
+.wpcf7-form input[type="submit"]:focus-visible{ outline:2px solid var(--wp--preset--color--magenta); outline-offset:3px; }
+.wpcf7-not-valid-tip{ color:var(--wp--preset--color--magenta); font-size:.82rem; margin-top:.3rem; }
+.wpcf7-response-output{
+  margin:1rem 0 0 !important; padding:.8rem 1rem !important;
+  border:1px solid var(--rm-line) !important; border-left:3px solid var(--wp--preset--color--magenta) !important;
+  border-radius:6px; font-size:.9rem;
+}
+
+/* ---- Footer index links and the case study column (v1.65.0) ----
+   The "All services" and "All case studies" links close each column and
+   point at its index, so the index page keeps its own internal link now
+   that the children are listed individually. */
+.rm-footer__all a{ font-weight:700 !important; }
+/* Case study labels are longer than a service name, so the column takes a
+   slightly smaller size and tighter line height rather than forcing every
+   label onto two lines. */
+.rm-footer__links--cases a{ font-size:.86rem !important; line-height:1.45 !important; }
+
+/* =================== CONTACT PAGE (v1.66.9) ===================
+   Full restyle of the contact form and sidebar. Scoped to
+   .rm-contact-form and .rm-contact-layout so the About page's
+   rm-about-form and the homepage CTA form are unaffected. */
+
+/* Hero: contact page uses a tighter hero than the full homepage hero —
+   same visual language, less vertical real estate so the form appears
+   above the fold on most screens. */
+.rm-hero--contact{
+  padding-block:clamp(2rem,4vw,3.5rem) clamp(1.5rem,3vw,2.5rem) !important;
+}
+
+/* Tighten the gap between hero and the form/sidebar columns. */
+.rm-contact-layout{
+  margin-top:clamp(1.5rem,3vw,2.5rem) !important;
+  gap:clamp(2rem,4vw,4rem) !important;
+}
+
+/* Honeypot: hidden from view but must not occupy space. */
+.rm-contact-form .rm-cta__honeypot,
+.rm-about-form .rm-cta__honeypot{
+  display:none !important;
+}
+
+/* ---- Form rows ---- */
+.rm-contact-form{
+  display:flex; flex-direction:column; gap:1.25rem;
+}
+
+.rm-contact-form__row{
+  display:flex; flex-direction:column; gap:.4rem;
+}
+
+/* Label: small, uppercase, semibold — matches the site's existing
+   eyebrow/field-label convention used in the admin options and
+   sidebar cards. */
+.rm-contact-form__label{
+  font-size:.75rem; font-weight:700;
+  text-transform:uppercase; letter-spacing:.07em;
+  color:var(--rm-ink-70);
+}
+
+.rm-contact-form__required{
+  color:var(--wp--preset--color--magenta-dark);
+  font-size:.9em; margin-left:.15em;
+}
+
+/* ---- Inputs and textarea ---- */
+.rm-contact-form__input{
+  box-sizing:border-box; width:100%; max-width:100%;
+  padding:.75rem 1rem;
+  background:var(--wp--preset--color--paper);
+  border:1.5px solid var(--rm-line);
+  border-radius:6px;
+  font-size:1rem; color:var(--wp--preset--color--ink);
+  font-family:inherit;
+  transition:border-color .15s ease, box-shadow .15s ease;
+  appearance:none; -webkit-appearance:none;
+}
+
+.rm-contact-form__input::placeholder{
+  color:var(--rm-ink-55);
+}
+
+.rm-contact-form__input:focus{
+  outline:none;
+  border-color:var(--wp--preset--color--ink);
+  box-shadow:0 0 0 3px color-mix(in srgb, var(--wp--preset--color--ink) 12%, transparent);
+}
+
+.rm-contact-form__textarea{
+  resize:vertical; min-height:140px;
+  line-height:1.6;
+}
+
+/* Dark mode: paper background inverts; border picks up the lighter
+   dark-mode line token so fields read as inputs rather than panels. */
+:root:not([data-theme="light"]) .rm-contact-form__input{
+  background:color-mix(in srgb, var(--wp--preset--color--paper) 6%, transparent);
+  border-color:var(--rm-line);
+  color:var(--wp--preset--color--ink);
+}
+
+:root:not([data-theme="light"]) .rm-contact-form__input:focus{
+  border-color:rgba(255,255,255,.6);
+  box-shadow:0 0 0 3px rgba(255,255,255,.08);
+}
+
+/* ---- Footer row: button + privacy line side by side on wide, stacked narrow ---- */
+.rm-contact-form__footer{
+  display:flex; flex-wrap:wrap; align-items:center;
+  gap:.85rem 1.4rem; margin-top:.35rem;
+}
+
+/* ---- Submit button: matches filled button style site-wide ---- */
+.rm-contact-form__submit{
+  display:inline-flex; align-items:center; justify-content:center;
+  padding:.85rem 1.8rem;
+  background:var(--wp--preset--color--ink);
+  color:var(--wp--preset--color--paper);
+  border:2px solid var(--wp--preset--color--ink);
+  border-radius:6px;
+  font-size:.88rem; font-weight:700;
+  text-transform:uppercase; letter-spacing:.06em;
+  font-family:inherit;
+  cursor:pointer; white-space:nowrap;
+  transition:background .18s ease, border-color .18s ease, color .18s ease;
+  flex-shrink:0;
+}
+
+.rm-contact-form__submit:hover{
+  background:var(--wp--preset--color--magenta);
+  border-color:var(--wp--preset--color--magenta);
+  color:#fff;
+}
+
+.rm-contact-form__submit:focus-visible{
+  outline:2px solid var(--wp--preset--color--magenta);
+  outline-offset:3px;
+}
+
+/* Touch height floor. */
+@media (max-width:600px){
+  .rm-contact-form__input{ font-size:16px; }
+  .rm-contact-form__submit{ min-height:44px; width:100%; }
+  .rm-contact-form__footer{ flex-direction:column; align-items:flex-start; }
+}
+
+/* ---- Privacy line ---- */
+.rm-form-privacy{
+  font-size:.78rem !important;
+  color:var(--rm-ink-55) !important;
+  margin:0 !important;
+  line-height:1.5;
+}
+
+.rm-form-privacy a{
+  color:inherit; text-decoration:underline;
+  text-underline-offset:2px;
+}
+
+.rm-form-privacy a:hover{ color:var(--wp--preset--color--ink); }
+
+/* ---- Sidebar cards ---- */
+.rm-sidebar__card{
+  border:1px solid var(--rm-line);
+  border-radius:8px;
+  padding:1.25rem 1.4rem;
+  margin-bottom:1rem !important;
+}
+
+.rm-sidebar__card:last-child{ margin-bottom:0 !important; }
+
+/* Empty social card: hide entirely rather than show a blank white box.
+   Covers the case where no social profiles are configured.
+   :has() is supported in all modern browsers; the rule is a progressive
+   enhancement — older browsers show the card, which is acceptable. */
+.rm-sidebar__card--social:has(.rm-footer__socials:empty),
+.rm-sidebar__card--social:has(.rm-footer__socials > :only-child:empty){
+  display:none;
+}
+
+.rm-sidebar__heading{
+  font-size:.72rem !important; font-weight:700 !important;
+  text-transform:uppercase !important; letter-spacing:.09em !important;
+  color:var(--rm-ink-55) !important;
+  margin:0 0 .6rem !important;
+}
+
+.rm-sidebar__about{
+  font-size:.93rem; color:var(--wp--preset--color--ink);
+  margin:0 !important; line-height:1.6;
+}
+
+.rm-sidebar__about a{
+  color:var(--wp--preset--color--ink);
+  text-decoration:underline; text-underline-offset:2px;
+}
+
+.rm-sidebar__about a:hover{ color:var(--wp--preset--color--magenta-dark); }
+
+/* Social icons inside the Elsewhere card: smaller gap, no extra padding. */
+.rm-sidebar__card .rm-footer__socials{
+  gap:.5rem; flex-wrap:wrap; margin-top:.25rem;
+}
+
+/* =================== CTA BAND COLOUR VARIANTS (v1.67.3) ===================
+   Each variant overrides the band background and text colour, and adjusts
+   the fill button so it never disappears against its own band surface.
+
+   Contrast verified against actual token hex values (see changelog v1.67.4):
+   - Cyan (#00a2ff) band: ink text 6.04:1 ✓, white on ink button 16.67:1 ✓
+   - Magenta (#ff449f) band: ink text 5.22:1 ✓, white on ink button 16.67:1 ✓
+   Dark mode uses the -dark token variants which have sufficient contrast
+   with white text (cyan-dark 11.54:1, magenta-dark 5.09:1). */
+
+/* ---- Cyan variant ---- */
+.rm-cta--cyan{
+  background-color:var(--wp--preset--color--cyan) !important;
+  color:var(--wp--preset--color--ink) !important;
+}
+.rm-cta--cyan .rm-cta__title{
+  color:var(--wp--preset--color--ink) !important;
+}
+.rm-cta--cyan .rm-hero__reassure{
+  color:var(--wp--preset--color--ink) !important;
+}
+/* Fill button: ink background, white text — 16.67:1. */
+.rm-cta--cyan .wp-block-button.is-style-fill > .wp-block-button__link{
+  background-color:var(--wp--preset--color--ink) !important;
+  color:#fff !important;
+  border-color:var(--wp--preset--color--ink) !important;
+}
+.rm-cta--cyan .wp-block-button.is-style-fill > .wp-block-button__link:hover{
+  background-color:var(--wp--preset--color--magenta-dark) !important;
+  border-color:var(--wp--preset--color--magenta-dark) !important;
+  color:#fff !important;
+}
+/* Outline button: ink border and text on cyan. */
+.rm-cta--cyan .wp-block-button.is-style-outline > .wp-block-button__link{
+  border-color:var(--wp--preset--color--ink) !important;
+  color:var(--wp--preset--color--ink) !important;
+}
+.rm-cta--cyan .wp-block-button.is-style-outline > .wp-block-button__link:hover{
+  background-color:rgba(30,30,30,.1) !important;
+}
+/* Dark mode: cyan-dark (#00308f) — white text 11.54:1 ✓ */
+:root:not([data-theme="light"]) .rm-cta--cyan{
+  background-color:var(--wp--preset--color--cyan-dark) !important;
+  color:#fff !important;
+}
+:root:not([data-theme="light"]) .rm-cta--cyan .rm-cta__title{
+  color:#fff !important;
+}
+:root:not([data-theme="light"]) .rm-cta--cyan .rm-hero__reassure{
+  color:rgba(255,255,255,.72) !important;
+}
+:root:not([data-theme="light"]) .rm-cta--cyan .wp-block-button.is-style-fill > .wp-block-button__link{
+  background-color:var(--wp--preset--color--paper) !important;
+  color:var(--wp--preset--color--ink) !important;
+  border-color:var(--wp--preset--color--paper) !important;
+}
+:root:not([data-theme="light"]) .rm-cta--cyan .wp-block-button.is-style-outline > .wp-block-button__link{
+  border-color:rgba(255,255,255,.7) !important;
+  color:#fff !important;
+}
+
+/* ---- Magenta variant ---- */
+.rm-cta--magenta{
+  background-color:var(--wp--preset--color--magenta) !important;
+  color:var(--wp--preset--color--ink) !important;
+}
+.rm-cta--magenta .rm-cta__title{
+  color:var(--wp--preset--color--ink) !important;
+}
+.rm-cta--magenta .rm-hero__reassure{
+  color:var(--wp--preset--color--ink) !important;
+}
+/* Fill button: ink background, white text — 16.67:1. */
+.rm-cta--magenta .wp-block-button.is-style-fill > .wp-block-button__link{
+  background-color:var(--wp--preset--color--ink) !important;
+  color:#fff !important;
+  border-color:var(--wp--preset--color--ink) !important;
+}
+.rm-cta--magenta .wp-block-button.is-style-fill > .wp-block-button__link:hover{
+  background-color:var(--wp--preset--color--accent-3-dark) !important;
+  border-color:var(--wp--preset--color--accent-3-dark) !important;
+  color:#fff !important;
+}
+/* Outline button: ink border and text on magenta. */
+.rm-cta--magenta .wp-block-button.is-style-outline > .wp-block-button__link{
+  border-color:var(--wp--preset--color--ink) !important;
+  color:var(--wp--preset--color--ink) !important;
+}
+.rm-cta--magenta .wp-block-button.is-style-outline > .wp-block-button__link:hover{
+  background-color:rgba(30,30,30,.1) !important;
+}
+/* Dark mode: magenta-dark (#cd360b, orange-red) — white text 5.09:1 ✓ */
+:root:not([data-theme="light"]) .rm-cta--magenta{
+  background-color:var(--wp--preset--color--magenta-dark) !important;
+  color:#fff !important;
+}
+:root:not([data-theme="light"]) .rm-cta--magenta .rm-cta__title{
+  color:#fff !important;
+}
+:root:not([data-theme="light"]) .rm-cta--magenta .rm-hero__reassure{
+  color:rgba(255,255,255,.72) !important;
+}
+:root:not([data-theme="light"]) .rm-cta--magenta .wp-block-button.is-style-fill > .wp-block-button__link{
+  background-color:var(--wp--preset--color--paper) !important;
+  color:var(--wp--preset--color--ink) !important;
+  border-color:var(--wp--preset--color--paper) !important;
+}
+:root:not([data-theme="light"]) .rm-cta--magenta .wp-block-button.is-style-outline > .wp-block-button__link{
+  border-color:rgba(255,255,255,.7) !important;
+  color:#fff !important;
+}
+
+/* =================== CTA BAND — CENTRED LAYOUT (v1.67.6) ===================
+   The base .rm-cta grid was built for the homepage email-capture band:
+   headline hard-left in one column, form/button stacked in the right column.
+   That two-column split reads fine with a full email form filling the right
+   side. On button-only bands the right column is near-empty — a reassure
+   line and one button — leaving a large gap and a hard-left headline that
+   reads as unfinished rather than deliberate.
+
+   .rm-cta--centred overrides to a single centred column: headline spans
+   full width at a larger size, reassure line and buttons sit below it
+   centred. The headline gets a larger cap so it reads as a statement
+   rather than a label. Button row uses flex-wrap so two buttons sit side
+   by side on wide screens and stack on narrow ones.
+
+   The homepage band keeps its two-column grid (no rm-cta--centred),
+   so this never affects the email form layout. */
+
+.rm-cta.rm-cta--centred{
+  display:block !important;
+  text-align:center;
+  padding-block:clamp(4rem,8vw,7rem);
+}
+
+.rm-cta.rm-cta--centred .rm-cta__title{
+  grid-column:unset; grid-row:unset;
+  font-size:clamp(2.4rem,5.5vw,4.4rem) !important;
+  max-width:18ch;
+  margin:0 auto 1.25rem !important;
+  line-height:.96;
+}
+
+.rm-cta.rm-cta--centred .rm-hero__reassure{
+  margin:0 auto 1.75rem !important;
+  max-width:38ch;
+  display:block;
+}
+
+.rm-cta.rm-cta--centred .wp-block-buttons{
+  justify-content:center !important;
+  gap:.75rem !important;
+}
+
+/* Fill button on centred navy band: magenta. */
+.rm-cta.rm-cta--centred .wp-block-button.is-style-fill > .wp-block-button__link{
+  background-color:var(--wp--preset--color--magenta) !important;
+  color:#fff !important;
+  border-color:var(--wp--preset--color--magenta) !important;
+  padding:.9rem 2rem !important;
+  font-size:.9rem !important;
+  font-weight:700 !important;
+  text-transform:uppercase !important;
+  letter-spacing:.06em !important;
+}
+
+.rm-cta.rm-cta--centred .wp-block-button.is-style-fill > .wp-block-button__link:hover{
+  background-color:var(--wp--preset--color--accent-3-dark) !important;
+  border-color:var(--wp--preset--color--accent-3-dark) !important;
+  color:#fff !important;
+}
+
+/* Outline button: visible on navy. */
+.rm-cta.rm-cta--centred .wp-block-button.is-style-outline > .wp-block-button__link{
+  border-color:rgba(255,255,255,.6) !important;
+  color:#fff !important;
+  background:transparent !important;
+  padding:.9rem 2rem !important;
+  font-size:.9rem !important;
+  font-weight:700 !important;
+  text-transform:uppercase !important;
+  letter-spacing:.06em !important;
+}
+
+.rm-cta.rm-cta--centred .wp-block-button.is-style-outline > .wp-block-button__link:hover{
+  background-color:rgba(255,255,255,.12) !important;
+  border-color:rgba(255,255,255,.9) !important;
+}
+
+/* Dark mode */
+:root:not([data-theme="light"]) .rm-cta.rm-cta--centred .wp-block-button.is-style-outline > .wp-block-button__link{
+  border-color:rgba(30,30,30,.45) !important;
+  color:var(--wp--preset--color--ink) !important;
+}
+:root:not([data-theme="light"]) .rm-cta.rm-cta--centred .wp-block-button.is-style-outline > .wp-block-button__link:hover{
+  background-color:rgba(30,30,30,.08) !important;
+}
+
+/* Cyan and magenta centred: ink fill button, ink outline. */
+.rm-cta.rm-cta--centred.rm-cta--cyan .wp-block-button.is-style-fill > .wp-block-button__link,
+.rm-cta.rm-cta--centred.rm-cta--magenta .wp-block-button.is-style-fill > .wp-block-button__link{
+  background-color:var(--wp--preset--color--ink) !important;
+  color:#fff !important;
+  border-color:var(--wp--preset--color--ink) !important;
+}
+.rm-cta.rm-cta--centred.rm-cta--cyan .wp-block-button.is-style-fill > .wp-block-button__link:hover,
+.rm-cta.rm-cta--centred.rm-cta--magenta .wp-block-button.is-style-fill > .wp-block-button__link:hover{
+  background-color:var(--wp--preset--color--magenta-dark) !important;
+  border-color:var(--wp--preset--color--magenta-dark) !important;
+}
+.rm-cta.rm-cta--centred.rm-cta--cyan .wp-block-button.is-style-outline > .wp-block-button__link,
+.rm-cta.rm-cta--centred.rm-cta--magenta .wp-block-button.is-style-outline > .wp-block-button__link{
+  border-color:rgba(30,30,30,.55) !important;
+  color:var(--wp--preset--color--ink) !important;
+  background:transparent !important;
+}
+.rm-cta.rm-cta--centred.rm-cta--cyan .wp-block-button.is-style-outline > .wp-block-button__link:hover,
+.rm-cta.rm-cta--centred.rm-cta--magenta .wp-block-button.is-style-outline > .wp-block-button__link:hover{
+  background-color:rgba(30,30,30,.1) !important;
+}
+
+/* Dark mode variant centred buttons. */
+:root:not([data-theme="light"]) .rm-cta.rm-cta--centred.rm-cta--cyan .wp-block-button.is-style-fill > .wp-block-button__link,
+:root:not([data-theme="light"]) .rm-cta.rm-cta--centred.rm-cta--magenta .wp-block-button.is-style-fill > .wp-block-button__link{
+  background-color:var(--wp--preset--color--paper) !important;
+  color:var(--wp--preset--color--ink) !important;
+  border-color:var(--wp--preset--color--paper) !important;
+}
+:root:not([data-theme="light"]) .rm-cta.rm-cta--centred.rm-cta--cyan .wp-block-button.is-style-outline > .wp-block-button__link,
+:root:not([data-theme="light"]) .rm-cta.rm-cta--centred.rm-cta--magenta .wp-block-button.is-style-outline > .wp-block-button__link{
+  border-color:rgba(255,255,255,.65) !important;
+  color:#fff !important;
+}
+
+@media (max-width:600px){
+  .rm-cta.rm-cta--centred .wp-block-buttons{
+    flex-direction:column !important;
+    align-items:center !important;
+  }
+  .rm-cta.rm-cta--centred .wp-block-button,
+  .rm-cta.rm-cta--centred .wp-block-button__link{
+    width:100% !important;
+    text-align:center !important;
+  }
+}
+
+/* Hide pagination when there is nothing to paginate — the block renders its
+   container even when all content fits on one page, leaving an empty gap.
+   :has(a) is supported in all modern browsers; older browsers see the empty
+   block, which is acceptable. */
+.rm-pagination:not(:has(a)),
+.wp-block-query-pagination:not(:has(a)){
+  display:none !important;
+}
+
+/* =================== MOTION / PARALLAX (v1.69.1) ===================
+   Subtle scroll-linked motion. Two implementations, one behaviour:
+
+   1. Primary — CSS scroll-driven animations (animation-timeline). These run
+      on the compositor thread with no scroll event listener at all, so they
+      cannot cause scroll jank however many elements are animated. Supported
+      in Chromium 115+, Safari 26+, Firefox behind a flag.
+
+   2. Fallback — IntersectionObserver adds .is-in once, a plain transition
+      does the rest. One-shot, no scroll listener either.
+
+   Everything is gated on a .rm-motion class on <body>, added by PHP only
+   when the Theme Options toggle is on. With the toggle off no class is
+   added and none of these rules match, so there is nothing to override
+   and no cost.
+
+   Only opacity and transform are animated. Both are compositor properties:
+   neither triggers layout or paint, so none of this can cause CLS — a
+   transform does not affect the position of anything else on the page.
+
+   Distances are deliberately small (14–22px) and ranges short. The intent
+   is that the page feels alive when scrolled, not that motion is noticed.
+   ================================================================= */
+
+@keyframes rm-rise {
+  from { opacity:0; transform:translate3d(0,22px,0); }
+  to   { opacity:1; transform:translate3d(0,0,0); }
+}
+
+@keyframes rm-rise-sm {
+  from { opacity:0; transform:translate3d(0,14px,0); }
+  to   { opacity:1; transform:translate3d(0,0,0); }
+}
+
+/* True parallax: the hero mark drifts at a different rate to the page, so
+   it separates from the content in front of it as you scroll. scroll(root)
+   ties it to document scroll rather than the element's own visibility. */
+@keyframes rm-drift {
+  from { transform:translate3d(0,0,0) rotate(0deg); }
+  to   { transform:translate3d(0,70px,0) rotate(4deg); }
+}
+
+/* Case study / spread panel: the colour field shifts against its own frame. */
+@keyframes rm-pan {
+  from { transform:scale(1.06) translate3d(0,-14px,0); }
+  to   { transform:scale(1.06) translate3d(0,14px,0); }
+}
+
+@supports (animation-timeline: view()) {
+
+  /* ---- Section heads and leads ---- */
+  .rm-motion .rm-section-head,
+  .rm-motion .rm-section-lead {
+    animation:rm-rise linear both;
+    animation-timeline:view();
+    animation-range:entry 8% cover 26%;
+  }
+
+  /* ---- Card grids. Each card animates on its own visibility, which
+     produces a natural stagger as a row scrolls in without any
+     per-card delay needing to be declared. ---- */
+  .rm-motion .rm-plate,
+  .rm-motion .rm-block,
+  .rm-motion .rm-post-card,
+  .rm-motion .rm-feature,
+  .rm-motion .rm-row,
+  .rm-motion .rm-team__member,
+  .rm-motion .rm-sidebar__card,
+  /* Added 1.76.1 with the Services card grid. Every other card type on
+     the site is in this list; leaving .rm-service-detail out meant the
+     Services cards sat static while the rest of the page rose into
+     place, which reads as two cards at different heights rather than as
+     a deliberate absence of motion. */
+  .rm-motion .rm-service-grid .rm-service-detail {
+    animation:rm-rise-sm linear both;
+    animation-timeline:view();
+    animation-range:entry 4% cover 22%;
+  }
+
+  /* ---- Stats band ---- */
+  .rm-motion .rm-stat {
+    animation:rm-rise-sm linear both;
+    animation-timeline:view();
+    animation-range:entry 6% cover 24%;
+  }
+
+  /* ---- Hero mark parallax drift ---- */
+  .rm-motion .rm-hero::before {
+    animation:rm-drift linear both;
+    animation-timeline:scroll(root);
+    animation-range:0 70vh;
+  }
+
+  /* ---- Spread colour panel pans against its frame ---- */
+  .rm-motion .rm-spread__image {
+    overflow:hidden;
+  }
+  .rm-motion .rm-spread__image::before {
+    content:""; position:absolute; inset:0; z-index:0;
+    background:inherit;
+    animation:rm-pan linear both;
+    animation-timeline:view();
+    animation-range:cover 0% cover 100%;
+  }
+  .rm-motion .rm-spread__image > * { position:relative; z-index:1; }
+
+  /* ---- CTA band content ---- */
+  .rm-motion .rm-cta__title {
+    animation:rm-rise linear both;
+    animation-timeline:view();
+    animation-range:entry 10% cover 30%;
+  }
+}
+
+/* ---- Fallback for browsers without scroll-driven animations ----
+   The .rm-reveal class is added by JavaScript, never by the template, so a
+   browser with JS disabled and no animation-timeline support simply shows
+   the content with no motion — it is never left hidden. ---- */
+@supports not (animation-timeline: view()) {
+  .rm-motion .rm-reveal {
+    opacity:0; transform:translate3d(0,18px,0);
+    transition:opacity .7s cubic-bezier(.22,.61,.36,1),
+               transform .7s cubic-bezier(.22,.61,.36,1);
+  }
+  .rm-motion .rm-reveal.is-in {
+    opacity:1; transform:translate3d(0,0,0);
+  }
+}
+
+/* Motion is decoration. Anyone who has asked the operating system for less
+   of it gets none of it, in either implementation. */
+@media (prefers-reduced-motion:reduce){
+  .rm-motion .rm-section-head,
+  .rm-motion .rm-section-lead,
+  .rm-motion .rm-plate,
+  .rm-motion .rm-block,
+  .rm-motion .rm-post-card,
+  .rm-motion .rm-feature,
+  .rm-motion .rm-row,
+  .rm-motion .rm-team__member,
+  .rm-motion .rm-sidebar__card,
+  .rm-motion .rm-stat,
+  .rm-motion .rm-cta__title,
+  .rm-motion .rm-hero::before,
+  .rm-motion .rm-spread__image::before {
+    animation:none !important;
+    opacity:1 !important;
+    transform:none !important;
+  }
+  .rm-motion .rm-reveal,
+  .rm-motion .rm-reveal.is-in {
+    opacity:1 !important; transform:none !important; transition:none !important;
+  }
+}
+
+/* =================== ACTION LINKS (v1.69.5) ===================
+   "See how we fix this", "All services", "More about us", "Meet the team",
+   "View case study". These are the page's secondary calls to action and
+   were reading as plain bold body text — nothing marked them as clickable
+   until the cursor was already on them.
+
+   Three separate treatments existed. .rm-section-link had colour and
+   tracking on hover, .rm-row__link only changed colour when its parent row
+   was hovered, and .rm-cs-card__link had no styling whatsoever beyond a
+   touch-target padding rule, which is why "View case study" rendered as
+   ordinary text. They are unified here.
+
+   What makes them read as links now:
+
+   - Space Grotesk rather than Saira. The face is already loaded and
+     self-hosted for the footer headings, so this costs no extra request.
+     Its wider apertures and squarer terminals separate an action from the
+     Saira body copy around it at a glance, which is the whole job.
+   - magenta-dark (#cd360b) as the resting colour, not just on hover.
+     Measured 4.63:1 on the cream page and 5.09:1 on white cards, so it
+     clears WCAG AA at both surfaces it appears on.
+   - A real underline, drawn as a pseudo-element rather than
+     text-decoration so it can be animated and so the arrow stays clear of
+     it. It sits at 40% width at rest and fills to 100% on hover.
+   - The arrow is a separate span, so it can slide right on hover. It was
+     previously part of the text node and could not move independently.
+
+   Underline plus colour plus weight means the link is still identifiable
+   without relying on colour alone (WCAG 1.4.1). The arrow is decorative
+   and marked aria-hidden by remotive_split_link_arrow().
+   ============================================================= */
+
+.rm-section-link,
+.rm-row__link,
+.rm-cs-card__link{
+  font-family:var(--wp--preset--font-family--space-grotesk) !important;
+  font-size:.86rem !important;
+  font-weight:700 !important;
+  letter-spacing:.04em !important;
+  text-transform:uppercase !important;
+  white-space:nowrap;
+}
+
+.rm-section-link a,
+.rm-row__link a,
+.rm-cs-card__link{
+  position:relative;
+  display:inline-flex; align-items:center; gap:.45rem;
+  color:var(--wp--preset--color--magenta-dark) !important;
+  text-decoration:none !important;
+  padding:.5rem 0 .55rem;
+  transition:color .18s ease, gap .18s ease;
+}
+
+/* The animated rule. transform on scaleX keeps it on the compositor. */
+.rm-section-link a::after,
+.rm-row__link a::after,
+.rm-cs-card__link::after{
+  content:""; position:absolute; left:0; right:0; bottom:.15rem; height:2px;
+  background:currentColor; transform:scaleX(.4); transform-origin:left;
+  transition:transform .26s cubic-bezier(.22,.61,.36,1);
+}
+
+/* The arrow glyph, split out of the text by PHP so it can move alone. */
+.rm-link-arrow{
+  display:inline-block;
+  transition:transform .26s cubic-bezier(.22,.61,.36,1);
+}
+
+.rm-section-link a:hover,
+.rm-row__link a:hover,
+.rm-cs-card:hover .rm-cs-card__link,
+.rm-row:hover .rm-row__link a{
+  color:var(--wp--preset--color--ink) !important;
+}
+
+.rm-section-link a:hover::after,
+.rm-section-link a:focus-visible::after,
+.rm-row__link a:hover::after,
+.rm-cs-card:hover .rm-cs-card__link::after,
+.rm-row:hover .rm-row__link a::after{
+  transform:scaleX(1);
+}
+
+.rm-section-link a:hover .rm-link-arrow,
+.rm-row__link a:hover .rm-link-arrow,
+.rm-cs-card:hover .rm-link-arrow,
+.rm-row:hover .rm-link-arrow{
+  transform:translateX(5px);
+}
+
+/* Keyboard parity: focus-visible gets the same treatment as hover, since
+   the existing focus ring alone did not communicate the same affordance. */
+.rm-section-link a:focus-visible,
+.rm-row__link a:focus-visible{
+  color:var(--wp--preset--color--ink) !important;
+}
+.rm-section-link a:focus-visible .rm-link-arrow,
+.rm-row__link a:focus-visible .rm-link-arrow{
+  transform:translateX(5px);
+}
+
+/* On the coloured CTA bands the accent would collide with the band, so
+   these inherit the band's own text colour instead. */
+.rm-cta .rm-section-link a{
+  color:inherit !important;
+}
+
+@media (prefers-reduced-motion:reduce){
+  .rm-section-link a::after,
+  .rm-row__link a::after,
+  .rm-cs-card__link::after,
+  .rm-link-arrow{
+    transition:none !important;
+  }
+}
+
+/* =================== FEATURE GRIDS (v1.70.0) ===================
+   The "problem we solve" and "why Re:Motive" grids. Previously eight
+   bare divs each: 1.05rem headings, 0.9rem body, no icon, no link, no
+   colour, and nothing separating one point from the next.
+
+   What changed and why:
+
+   - Type up. Headings 1.05rem -> 1.15rem, body 0.9rem -> 0.98rem with
+     line-height 1.6. These are the two sections that carry the argument;
+     they were set smaller than the case-study card copy beside them.
+   - Each item is now a link, so it gets a card: surface, border, and a
+     lift on hover that makes the whole tile read as the target.
+   - Accent colour rotates through the four plate colours per item, driven
+     by --rm-feature-i set inline by PHP. Colour is on the icon and the
+     top rule only; the heading stays ink so contrast never depends on it.
+   - The idle pulse. A slow, low-amplitude breath on the icon, staggered
+     per item off the same index so the grid never pulses in unison —
+     that reads as a loading state. Transform and opacity only, so it runs
+     on the compositor. Gated on .rm-motion and off entirely under
+     prefers-reduced-motion.
+   ============================================================= */
+
+.rm-features{
+  display:grid; grid-template-columns:repeat(4,1fr);
+  gap:1.25rem; margin-top:2rem;
+}
+
+@media (max-width:1024px){ .rm-features{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:640px){  .rm-features{ grid-template-columns:1fr; } }
+
+/* Plate-colour rotation. Four colours cycling across eight items means
+   each colour appears twice, in different columns, which reads as a
+   system rather than a gradient. */
+.rm-feature{ --rm-accent:var(--wp--preset--color--magenta-dark); }
+.rm-feature:nth-child(4n+2){ --rm-accent:var(--wp--preset--color--cyan-dark); }
+.rm-feature:nth-child(4n+3){ --rm-accent:var(--wp--preset--color--accent-3-dark); }
+.rm-feature:nth-child(4n+4){ --rm-accent:var(--wp--preset--color--ink); }
+
+.rm-feature{
+  position:relative; display:flex; flex-direction:column;
+  padding:1.4rem 1.35rem 1.25rem;
+  background:var(--wp--preset--color--card);
+  border:1px solid var(--rm-line);
+  border-radius:8px;
+  text-decoration:none !important;
+  color:inherit;
+  transition:transform .22s cubic-bezier(.22,.61,.36,1),
+             box-shadow .22s ease, border-color .22s ease;
+}
+
+/* The top rule carries the accent, so the colour is present at rest
+   without tinting any text. */
+.rm-feature::before{
+  content:""; position:absolute; inset:0 0 auto 0; height:3px;
+  background:var(--rm-accent);
+  border-radius:8px 8px 0 0;
+  transform:scaleX(.28); transform-origin:left;
+  transition:transform .3s cubic-bezier(.22,.61,.36,1);
+}
+
+.rm-feature--linked:hover,
+.rm-feature--linked:focus-visible{
+  transform:translateY(-3px);
+  border-color:color-mix(in srgb, var(--rm-accent) 45%, transparent);
+  box-shadow:0 10px 26px rgba(30,30,30,.10);
+}
+
+.rm-feature--linked:hover::before,
+.rm-feature--linked:focus-visible::before{ transform:scaleX(1); }
+
+.rm-feature__mark{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:2.9rem; height:2.9rem; margin-bottom:.9rem;
+  border-radius:8px;
+  color:var(--rm-accent);
+  background:color-mix(in srgb, var(--rm-accent) 10%, transparent);
+}
+
+.rm-feature__title{
+  font-size:1.15rem !important; line-height:1.25;
+  margin:0 0 .45rem !important;
+  color:var(--wp--preset--color--ink) !important;
+}
+
+.rm-feature__text{
+  font-size:.98rem !important; line-height:1.6;
+  color:var(--rm-ink-70) !important;
+  margin:0 0 .9rem !important;
+}
+
+/* Pushed to the bottom so the cue sits on a common baseline across a row
+   whose descriptions run to different lengths. */
+.rm-feature__cue{
+  margin-top:auto;
+  font-family:var(--wp--preset--font-family--space-grotesk);
+  font-size:.76rem; font-weight:700;
+  text-transform:uppercase; letter-spacing:.05em;
+  color:var(--rm-accent);
+  display:inline-flex; align-items:center; gap:.35rem;
+  opacity:.85; transition:opacity .22s ease;
+}
+
+.rm-feature--linked:hover .rm-feature__cue{ opacity:1; }
+.rm-feature--linked:hover .rm-feature__cue .rm-link-arrow{ transform:translateX(4px); }
+
+/* Dark mode: the card surface and the tinted icon well both need to come
+   off the dark page rather than sit on white. */
+:root:not([data-theme="light"]) .rm-feature{
+  background:color-mix(in srgb, var(--wp--preset--color--paper) 4%, transparent);
+}
+
+/* ---- Idle pulse ----
+   Eight items sharing one animation would pulse in lockstep, which reads
+   as a spinner. The per-item delay is derived from --rm-feature-i, set
+   inline by remotive_render_feature_grid(), so the wave moves across the
+   grid instead. 7s cycle with most of it at rest: the motion should be
+   noticed peripherally, not watched. */
+@keyframes rm-feature-breathe{
+  0%, 62%, 100% { transform:scale(1);    opacity:.92; }
+  74%           { transform:scale(1.09); opacity:1;   }
+}
+
+.rm-motion .rm-feature__icon{
+  animation:rm-feature-breathe 7s ease-in-out infinite;
+  animation-delay:calc(var(--rm-feature-i, 0) * .45s);
+  will-change:transform;
+}
+
+/* Stop the ambient motion once the visitor is actually engaging with the
+   card — competing motion under the cursor is noise. */
+.rm-motion .rm-feature--linked:hover .rm-feature__icon{
+  animation-play-state:paused;
+  transform:scale(1.06);
+}
+
+@media (prefers-reduced-motion:reduce){
+  .rm-motion .rm-feature__icon{ animation:none !important; transform:none !important; }
+  .rm-feature,
+  .rm-feature::before,
+  .rm-feature__cue{ transition:none !important; }
+  .rm-feature--linked:hover{ transform:none !important; }
+}
+
+/* Unlinked feature cards. Same surface and colour language, but nothing
+   that implies a target: no lift, no cue, and the accent rule sits at its
+   resting width permanently rather than filling on hover. */
+.rm-feature:not(.rm-feature--linked){ cursor:default; }
+.rm-feature:not(.rm-feature--linked)::before{ transform:scaleX(.28); }
+
+/* =================== SERVICE BLOCKS (v1.70.2) ===================
+   Three fixes to the "What we do" cards.
+
+   1. The service links were invisible. Each capability name is an <a>,
+      but .rm-block__list strong set them to ink and no rule ever styled
+      the link — ten links on the page's main capability section with
+      nothing to distinguish them from the plain bold text beside them.
+      They now take the same treatment as the other action links.
+   2. The block icon, matching the feature grids above so the page reads
+      as one system rather than three unrelated card styles.
+   3. The outcome line reads as a result rather than a footnote.
+   ================================================================ */
+
+/* Icon well, tinted with the block's own accent. */
+.rm-block__mark{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:2.6rem; height:2.6rem; margin-bottom:.75rem;
+  border-radius:7px;
+  color:var(--rm-block-accent, var(--wp--preset--color--ink));
+  background:color-mix(in srgb, var(--rm-block-accent, var(--wp--preset--color--ink)) 11%, transparent);
+}
+
+/* Linked capability names. Only .rm-block__linked is targeted, so the
+   four names that no longer carry a link stay plain and nothing looks
+   clickable that is not. */
+.rm-block__linked a{
+  color:var(--rm-block-accent, var(--wp--preset--color--ink)) !important;
+  text-decoration:none !important;
+  background-image:linear-gradient(currentColor, currentColor);
+  background-repeat:no-repeat;
+  background-position:0 100%;
+  background-size:0% 1.5px;
+  transition:background-size .26s cubic-bezier(.22,.61,.36,1);
+  padding-bottom:1px;
+}
+
+/* Underline drawn as a background gradient rather than a pseudo-element:
+   these sit inside a <strong> in flowing text, so an absolutely
+   positioned rule would not follow a wrapped line. */
+.rm-block__linked a:hover,
+.rm-block__linked a:focus-visible{ background-size:100% 1.5px; }
+
+/* A quiet arrow so the name is identifiable as a link before hover,
+   without colour carrying the signal alone (WCAG 1.4.1). */
+.rm-block__linked a::after{
+  content:"\2192"; margin-left:.3rem; display:inline-block;
+  font-size:.92em; transition:transform .26s cubic-bezier(.22,.61,.36,1);
+}
+.rm-block__linked a:hover::after,
+.rm-block__linked a:focus-visible::after{ transform:translateX(3px); }
+
+/* Outcome: a result, not a footnote. */
+.rm-block__outcome{
+  display:flex; align-items:baseline; gap:.4rem;
+  font-family:var(--wp--preset--font-family--space-grotesk);
+  font-size:.78rem !important; font-weight:700;
+  text-transform:uppercase; letter-spacing:.04em;
+  color:var(--rm-block-accent, var(--wp--preset--color--ink));
+}
+
+/* The block lifts on hover like the feature cards, but the card itself is
+   not a link: each card holds several distinct destinations, so a
+   card-level target would compete with the links inside it. The lift is
+   affordance for the links within, not a target of its own. */
+.rm-block{
+  transition:transform .22s cubic-bezier(.22,.61,.36,1),
+             box-shadow .22s ease, border-color .22s ease;
+}
+.rm-block:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 24px rgba(30,30,30,.09);
+  border-color:color-mix(in srgb, var(--rm-block-accent) 35%, var(--rm-line));
+}
+
+@media (prefers-reduced-motion:reduce){
+  .rm-block,
+  .rm-block__linked a,
+  .rm-block__linked a::after{ transition:none !important; }
+  .rm-block:hover{ transform:none !important; }
+}
+
+/* Featured spread link. The spread is the largest, most prominent case
+   study on the homepage and carried no link at all — the three smaller
+   rows beneath it were clickable while the headline piece was a dead end.
+   Takes the shared action-link treatment, spaced off the body copy. */
+.rm-spread__link{ margin:1.4rem 0 0 !important; }
+
+/* =================== FEATURED SPREAD — WHOLE CARD CLICKABLE (v1.70.4) ===
+   The spread has exactly one destination, so the whole card should open it
+   rather than only the small text link at the bottom. The Case Studies page
+   already works this way: each card there is a single <a>.
+
+   That approach is not available here — the spread is a wp:columns block,
+   and wrapping it in an anchor would break block nesting and the editor
+   would fight it on every save. The stretched-link pattern gives the same
+   result without touching the markup structure: the existing link's
+   ::after is absolutely positioned over the whole positioned ancestor, so
+   the entire card becomes the hit area while the document still contains
+   exactly one anchor with one accessible name.
+
+   Trade-off, stated rather than glossed: a stretched link makes the body
+   copy unselectable, because the overlay sits above it. Accepted here
+   because this is a promotional card whose job is to be opened, and the
+   same paragraph is on the case study page itself where it can be
+   selected normally. This is also why the pattern is not used on the
+   three proof rows below — those hold no prose worth selecting, but they
+   are already fully served by their own links.
+   ==================================================================== */
+
+.rm-spread{
+  position:relative;
+  transition:border-color .22s ease, box-shadow .22s ease;
+}
+
+/* ::before, not ::after: .rm-spread__link also carries .rm-section-link,
+   whose ::after is already the animated underline from v1.69.5. Reusing
+   ::after here would silently replace that underline with an invisible
+   overlay and the link would lose its affordance. */
+.rm-spread__link a::before{
+  content:""; position:absolute; inset:0; z-index:1;
+  /* No background: this is a hit area, not a visual. */
+}
+
+/* The link text itself must sit above its own overlay to stay hoverable
+   and to keep its focus ring visible. */
+.rm-spread__link{ position:relative; z-index:2; }
+
+.rm-spread:hover{
+  border-color:color-mix(in srgb, var(--wp--preset--color--magenta-dark) 40%, var(--rm-line)) !important;
+  box-shadow:0 14px 34px rgba(30,30,30,.10);
+}
+
+/* The gradient panel answers the hover, so the feedback reads from the
+   image side as well as the link. overflow:hidden on the panel keeps the
+   scaled gradient inside its own frame. */
+.rm-spread__image{ overflow:hidden; }
+.rm-spread__image::after{
+  content:""; position:absolute; inset:0;
+  background:inherit;
+  transform:scale(1);
+  transition:transform .5s cubic-bezier(.22,.61,.36,1);
+}
+.rm-spread:hover .rm-spread__image::after{ transform:scale(1.05); }
+
+/* The label must stay above the scaling layer. */
+.rm-spread__image-label{ position:relative; z-index:1; }
+
+/* Mirror the link's own hover state when the card is hovered anywhere,
+   so the affordance is consistent wherever the cursor lands. */
+.rm-spread:hover .rm-spread__link a{ color:var(--wp--preset--color--ink) !important; }
+.rm-spread:hover .rm-spread__link a::after{ transform:scaleX(1); }
+.rm-spread:hover .rm-link-arrow{ transform:translateX(5px); }
+
+/* Keyboard parity: focusing the link shows the card state, so a keyboard
+   user sees the same affordance a mouse user does. */
+.rm-spread:focus-within{
+  border-color:color-mix(in srgb, var(--wp--preset--color--magenta-dark) 40%, var(--rm-line)) !important;
+}
+
+@media (prefers-reduced-motion:reduce){
+  .rm-spread,
+  .rm-spread__image::after{ transition:none !important; }
+  .rm-spread:hover .rm-spread__image::after{ transform:none !important; }
+}
+
+/* Footer copyright and legal links (v1.70.5). The legal links sit on the
+   same line as the copyright on wide screens and wrap beneath it when
+   there is no room, rather than being pushed onto the social row. */
+.rm-footer__copyright{ margin:0 !important; }
+.rm-footer__legal{ margin-left:.5rem; }
+.rm-footer__legal a{
+  color:inherit; text-decoration:underline; text-underline-offset:2px;
+}
+.rm-footer__legal a:hover{ color:var(--wp--preset--color--ink); }
+@media (max-width:600px){
+  .rm-footer__legal{ display:block; margin:.35rem 0 0; }
+}
+
+/* =================== THANK-YOU PAGE (v1.71.0) ===================
+   The confirmation page every native form redirects to on success.
+   Numbered steps answering "what happens now", then three recent
+   articles so the page is a continuation rather than a cul-de-sac.
+   ============================================================= */
+
+.rm-steps{
+  list-style:none; margin:2rem 0 0 !important; padding:0;
+  display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem;
+  counter-reset:none;
+}
+@media (max-width:860px){ .rm-steps{ grid-template-columns:1fr; } }
+
+.rm-step{
+  position:relative;
+  background:var(--wp--preset--color--card);
+  border:1px solid var(--rm-line);
+  border-top:3px solid var(--wp--preset--color--magenta-dark);
+  border-radius:8px;
+  padding:1.4rem 1.35rem 1.25rem;
+}
+.rm-step:nth-child(2){ border-top-color:var(--wp--preset--color--cyan-dark); }
+.rm-step:nth-child(3){ border-top-color:var(--wp--preset--color--accent-3-dark); }
+
+.rm-step__num{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:2.1rem; height:2.1rem; margin-bottom:.8rem;
+  border-radius:50%;
+  font-family:var(--wp--preset--font-family--space-grotesk);
+  font-size:.9rem; font-weight:700;
+  color:var(--wp--preset--color--magenta-dark);
+  background:color-mix(in srgb, var(--wp--preset--color--magenta-dark) 12%, transparent);
+}
+.rm-step:nth-child(2) .rm-step__num{
+  color:var(--wp--preset--color--cyan-dark);
+  background:color-mix(in srgb, var(--wp--preset--color--cyan-dark) 12%, transparent);
+}
+.rm-step:nth-child(3) .rm-step__num{
+  color:var(--wp--preset--color--accent-3-dark);
+  background:color-mix(in srgb, var(--wp--preset--color--accent-3-dark) 12%, transparent);
+}
+
+.rm-step__title{
+  font-size:1.1rem !important; line-height:1.25;
+  margin:0 0 .4rem !important;
+  color:var(--wp--preset--color--ink) !important;
+}
+.rm-step__text{
+  font-size:.95rem !important; line-height:1.6;
+  color:var(--rm-ink-70) !important; margin:0 !important;
+}
+
+.rm-steps__note{
+  margin-top:1.5rem !important;
+  font-size:.85rem !important;
+  color:var(--rm-ink-55) !important;
+}
+
+/* Same gap as .rm-cta__note had: this note carries a privacy-policy link
+   and never set a colour for it, so the link took the global
+   elements.link value instead of one checked against its own surface.
+   This note sits on the page surface rather than an inverted band, so the
+   failure is less severe than the CTA's was — but the fix is the same
+   inherit-plus-underline pattern, applied here too so all three
+   privacy-policy notes on the site behave identically rather than two
+   matching and one not. */
+.rm-steps__note a{
+  color:inherit;
+  text-decoration:underline;
+  text-underline-offset:2px;
+}
+.rm-steps__note a:hover,
+.rm-steps__note a:focus-visible{ color:var(--wp--preset--color--ink); }
+
+/* Three-up article grid, distinct from the blog index's own layout so the
+   confirmation page does not inherit the sidebar-constrained sizing. */
+.rm-post-grid--three .wp-block-post-template{
+  display:grid !important; grid-template-columns:repeat(3,1fr); gap:1.5rem;
+}
+@media (max-width:860px){
+  .rm-post-grid--three .wp-block-post-template{ grid-template-columns:1fr; }
+}
+
+:root:not([data-theme="light"]) .rm-step{
+  background:color-mix(in srgb, var(--wp--preset--color--paper) 4%, transparent);
+}
+
+/* =================== RESULTS BAND (v1.72.0) ===================
+   Was three bare numbers on a full-bleed strip with no eyebrow, heading,
+   basis or link — the only section on the page without a head, which is
+   exactly why it read as orphaned. Now a proper section: one figure per
+   service block, in the same order as "What we do", each linking to the
+   case study that sets out its measurement limits.
+   ============================================================ */
+
+.rm-stats-section{
+  border-top:1px solid var(--rm-line);
+  border-bottom:1px solid var(--rm-line);
+  padding-block:clamp(3rem,6vw,4.5rem) !important;
+  background:color-mix(in srgb, var(--wp--preset--color--ink) 3%, transparent);
+}
+
+.rm-stats-grid{
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:1.25rem; margin-top:2rem;
+}
+@media (max-width:860px){ .rm-stats-grid{ grid-template-columns:1fr; } }
+
+.rm-stat{
+  --rm-stat-accent:var(--wp--preset--color--cyan-dark);
+  display:flex; flex-direction:column;
+  padding:1.5rem 1.4rem 1.3rem;
+  background:var(--wp--preset--color--card);
+  border:1px solid var(--rm-line);
+  border-top:3px solid var(--rm-stat-accent);
+  border-radius:8px;
+  text-decoration:none !important; color:inherit;
+  transition:transform .22s cubic-bezier(.22,.61,.36,1),
+             box-shadow .22s ease, border-color .22s ease;
+}
+.rm-stat--magenta{ --rm-stat-accent:var(--wp--preset--color--magenta-dark); }
+.rm-stat--accent-3{ --rm-stat-accent:var(--wp--preset--color--accent-3-dark); }
+
+/* The block name is the connection to "What we do" — it is what stops the
+   figure reading as a number with no parent. */
+.rm-stat__block{
+  font-family:var(--wp--preset--font-family--space-grotesk);
+  font-size:.7rem; font-weight:700;
+  text-transform:uppercase; letter-spacing:.1em;
+  color:var(--rm-stat-accent);
+  margin-bottom:.7rem;
+}
+
+.rm-stat__value{
+  font-size:var(--wp--preset--font-size--stat) !important;
+  line-height:1 !important; font-weight:900;
+  color:var(--rm-stat-accent);
+  margin-bottom:.6rem;
+}
+
+.rm-stat__label{
+  font-size:.92rem; line-height:1.55;
+  color:var(--rm-ink-70);
+}
+
+.rm-stat__cue{
+  margin-top:auto; padding-top:1rem;
+  font-family:var(--wp--preset--font-family--space-grotesk);
+  font-size:.74rem; font-weight:700;
+  text-transform:uppercase; letter-spacing:.05em;
+  color:var(--rm-stat-accent);
+  display:inline-flex; align-items:center; gap:.35rem;
+  opacity:.85; transition:opacity .22s ease;
+}
+
+/* Only a stat whose case study resolved is a link, so the hover state is
+   scoped to those — nothing looks clickable that is not. */
+.rm-stat--linked:hover,
+.rm-stat--linked:focus-visible{
+  transform:translateY(-3px);
+  border-color:color-mix(in srgb, var(--rm-stat-accent) 45%, transparent);
+  box-shadow:0 10px 26px rgba(30,30,30,.10);
+}
+.rm-stat--linked:hover .rm-stat__cue{ opacity:1; }
+.rm-stat--linked:hover .rm-link-arrow{ transform:translateX(4px); }
+
+:root:not([data-theme="light"]) .rm-stats-section{
+  background:color-mix(in srgb, var(--wp--preset--color--paper) 3%, transparent);
+}
+:root:not([data-theme="light"]) .rm-stat{
+  background:color-mix(in srgb, var(--wp--preset--color--paper) 4%, transparent);
+}
+
+@media (prefers-reduced-motion:reduce){
+  .rm-stat, .rm-stat__cue{ transition:none !important; }
+  .rm-stat--linked:hover{ transform:none !important; }
+}
+
+/* =================== TEAM PAGE PORTRAITS (v1.72.2) ===================
+   The two-crop hover swap stays on the homepage teaser, where it is a
+   small flourish on six tiles a visitor scrolls past. On the team page it
+   is the wrong behaviour: that page exists to show who these people are,
+   the portraits are the content rather than decoration, and a face that
+   changes under the cursor while someone is reading a name and a role is
+   a distraction rather than a detail.
+
+   Scoped to .rm-team--full, which only templates/page-team.html carries,
+   so templates/front-page.html is untouched.
+
+   The ::after layer is suppressed rather than removed: it is generated
+   per member by remotive_team_portrait_css() and carries the base
+   gradient as well as the alternate crop, so hiding it here keeps that
+   function and the homepage behaviour exactly as they are. Only the
+   alternate pose stops being reachable.
+   ================================================================== */
+
+.rm-team--full .rm-team__photo::after{
+  content:none;
+}
+
+/* With no swap to signal, the tile should not imply one. */
+.rm-team--full .rm-team__photo{
+  cursor:default;
+}
+
+/* =================== SITE-WIDE PARALLAX (v1.73.1, widened 1.77.0) ===
+   The stronger motion layer. Originally homepage-only on the reasoning
+   that interior pages are read rather than scrolled, so movement would
+   compete with the text.
+
+   Widened to every page in 1.77.0. The reasoning still holds — it just
+   never applied to what this layer actually targets. Every selector here
+   is structural: hero elements, the hero mark, section heads, cards
+   (.rm-block, .rm-feature, .rm-row, .rm-stat, .rm-team__member), the
+   spread panel, the ticker band, the CTA headline. None of it is body
+   copy. Paragraphs, lists, post content and the long-form .rm-legal /
+   .rm-page prose are deliberately not in this list and keep only the
+   restrained base motion above, so a reader on a case study or a policy
+   page still gets still text under a moving frame rather than moving
+   text.
+
+   Scoped to .rm-motion, so the Theme Options toggle and
+   prefers-reduced-motion both still switch it off entirely.
+
+   Depth comes from things moving at different rates against each other:
+   the hero mark travels furthest, the headline drifts slightly against
+   the page, cards arrive from further away. Everything is still transform
+   and opacity only, so it stays on the compositor and none of it can
+   cause layout shift.
+
+   No horizontal movement on grid children. An x-translate inside a grid
+   can push the document wider and produce a horizontal scrollbar, which
+   is not worth the effect; depth here is carried by distance, scale and
+   rate instead.
+   ================================================================= */
+
+/* The hero mark: far more travel than the base 70px, plus scale, so it
+   reads as sitting well behind the content rather than beside it. */
+@keyframes rm-drift-strong {
+  from { transform:translate3d(0,-40px,0) rotate(-3deg) scale(1); }
+  to   { transform:translate3d(0,190px,0) rotate(9deg) scale(1.18); }
+}
+
+/* The headline itself lifts slightly as the page scrolls past, so the
+   foreground and the mark separate in opposite directions. Small on
+   purpose: the text must stay readable while it moves. */
+@keyframes rm-hero-lift {
+  from { transform:translate3d(0,0,0); opacity:1; }
+  to   { transform:translate3d(0,-46px,0); opacity:.86; }
+}
+
+/* Sub-copy trails the headline at a slower rate, which is what makes the
+   two read as separate planes rather than one moving block. */
+@keyframes rm-hero-trail {
+  from { transform:translate3d(0,0,0); }
+  to   { transform:translate3d(0,-22px,0); }
+}
+
+/* Cards arrive from further away and settle, rather than nudging in. */
+@keyframes rm-rise-strong {
+  from { opacity:0; transform:translate3d(0,58px,0) scale(.965); }
+  to   { opacity:1; transform:translate3d(0,0,0) scale(1); }
+}
+
+/* Section heads lead their own section in. */
+@keyframes rm-rise-head {
+  from { opacity:0; transform:translate3d(0,52px,0); }
+  to   { opacity:1; transform:translate3d(0,0,0); }
+}
+
+/* The spread's colour field travels against its frame across the full
+   time it is on screen — the clearest parallax on the page because the
+   frame stays still while the fill moves. */
+@keyframes rm-pan-strong {
+  from { transform:scale(1.2) translate3d(0,-52px,0); }
+  to   { transform:scale(1.2) translate3d(0,52px,0); }
+}
+
+/* The ticker band shifts against the sections above and below it. */
+@keyframes rm-band-shift {
+  from { transform:translate3d(0,-14px,0); }
+  to   { transform:translate3d(0,14px,0); }
+}
+
+@supports (animation-timeline: view()) {
+
+  body.rm-motion .rm-hero::before {
+    animation:rm-drift-strong linear both;
+    animation-timeline:scroll(root);
+    animation-range:0 90vh;
+  }
+
+  body.rm-motion .rm-hero__display {
+    animation:rm-hero-lift linear both;
+    animation-timeline:scroll(root);
+    animation-range:0 85vh;
+  }
+
+  body.rm-motion .rm-hero__sub,
+  body.rm-motion .rm-hero__actions {
+    animation:rm-hero-trail linear both;
+    animation-timeline:scroll(root);
+    animation-range:0 85vh;
+  }
+
+  /* Longer range than the base so the movement is visible for longer
+     rather than snapping into place. */
+  body.rm-motion .rm-section-head {
+    animation:rm-rise-head linear both;
+    animation-timeline:view();
+    animation-range:entry 2% cover 34%;
+  }
+
+  body.rm-motion .rm-feature,
+  body.rm-motion .rm-block,
+  body.rm-motion .rm-stat,
+  body.rm-motion .rm-row,
+  body.rm-motion .rm-team__member,
+  /* Added 1.77.0 alongside widening this layer site-wide: these are the
+     card types that only exist on interior pages, so they were never in
+     this list while it was homepage-only. Without them the Services,
+     Case Studies and Insights grids would keep the base motion while
+     everything around them moved on the stronger one — the same
+     inconsistency that made the Services cards look wrong in 1.76.1. */
+  body.rm-motion .rm-service-grid .rm-service-detail,
+  body.rm-motion .rm-cs-card,
+  body.rm-motion .rm-post-card,
+  body.rm-motion .rm-sidebar__card {
+    animation:rm-rise-strong linear both;
+    animation-timeline:view();
+    animation-range:entry 0% cover 30%;
+  }
+
+  body.rm-motion .rm-spread__image::before {
+    animation:rm-pan-strong linear both;
+    animation-timeline:view();
+    animation-range:cover 0% cover 100%;
+  }
+
+  body.rm-motion .rm-ticker-band {
+    animation:rm-band-shift linear both;
+    animation-timeline:view();
+    animation-range:cover 0% cover 100%;
+  }
+
+  /* The CTA band's headline arrives last and largest, so the page closes
+     on movement rather than tapering out. */
+  body.rm-motion .rm-cta__title {
+    animation:rm-rise-strong linear both;
+    animation-timeline:view();
+    animation-range:entry 4% cover 38%;
+  }
+}
+
+/* The ticker band clips its own shifted contents so the movement cannot
+   reveal the page behind it at the band edges. */
+body.rm-motion .rm-ticker-band{ overflow:hidden; }
+
+@media (prefers-reduced-motion:reduce){
+  body.rm-motion .rm-hero::before,
+  body.rm-motion .rm-hero__display,
+  body.rm-motion .rm-hero__sub,
+  body.rm-motion .rm-hero__actions,
+  body.rm-motion .rm-section-head,
+  body.rm-motion .rm-feature,
+  body.rm-motion .rm-block,
+  body.rm-motion .rm-stat,
+  body.rm-motion .rm-row,
+  body.rm-motion .rm-team__member,
+  body.rm-motion .rm-spread__image::before,
+  body.rm-motion .rm-ticker-band,
+  body.rm-motion .rm-cta__title,
+  /* Must list every selector the layer above animates. A card type
+     present there but missing here would keep animating for a visitor
+     who asked the OS for reduced motion — the one failure mode in this
+     system that is an accessibility problem rather than a cosmetic one. */
+  body.rm-motion .rm-service-grid .rm-service-detail,
+  body.rm-motion .rm-cs-card,
+  body.rm-motion .rm-post-card,
+  body.rm-motion .rm-sidebar__card {
+    animation:none !important;
+    opacity:1 !important;
+    transform:none !important;
+  }
+}
+
+/* =================== INTRO JUMP LINKS (v1.74.0) ===================
+   One sentence at the top of a page whose sections are worth jumping
+   between, with the links inline in the prose. Deliberately not a table
+   of contents: a boxed list of links at the top of every page is visual
+   clutter and reads as filler, whereas a sentence that happens to be
+   navigable reads as an introduction.
+
+   Restricted to the opening section on every page that has them, so the
+   same links are never repeated further down the body. That keeps the
+   layout clean and stops the page linking to its own sections half a
+   dozen times.
+
+   Styled as body copy rather than as navigation, so it does not compete
+   with the hero above it. The links take the site's accent underline
+   treatment so they are identifiable as links without a colour-only cue.
+   ================================================================= */
+
+.rm-jump{
+  max-width:68ch;
+  margin:0 auto clamp(1.5rem,3vw,2.5rem) !important;
+  margin-left:max(0px, calc((100% - var(--wp--style--global--wide-size)) / 2)) !important;
+  margin-right:0 !important;
+  padding-top:clamp(1.25rem,2.5vw,2rem);
+  font-size:1.02rem !important;
+  line-height:1.7;
+  color:var(--rm-ink-70) !important;
+}
+
+/* Reads as a sentence with links in it, not as a nav bar dressed as prose.
+   Previously every link was magenta-dark at weight 600 with a full-width
+   underline, so a paragraph with four of them was mostly coloured text —
+   the emphasis landed on the act of navigating rather than on what the
+   page actually says. These are inline links inside a lead paragraph, not
+   calls to action, so they now inherit the paragraph's colour and carry a
+   hairline underline that thickens and darkens on hover. Underlined text
+   inside body copy is unambiguously a link by convention, so the
+   affordance survives without the whole line shouting.
+
+   Colour becomes a hover state rather than disappearing: the resting
+   state is quiet, the interaction confirms the link, and contrast goes
+   up rather than down on hover — the same principle as the
+   .rm-cta__note fix in 1.77.1. */
+.rm-jump a{
+  color:inherit;
+  font-weight:600;
+  text-decoration:none;
+  background-image:linear-gradient(currentColor, currentColor);
+  background-repeat:no-repeat;
+  background-position:0 100%;
+  background-size:100% 1px;
+  transition:background-size .2s ease, color .2s ease;
+  padding-bottom:1px;
+}
+
+.rm-jump a:hover,
+.rm-jump a:focus-visible{
+  color:var(--wp--preset--color--ink);
+  background-size:100% 2px;
+}
+
+@media (max-width:782px){
+  .rm-jump{ margin-left:0 !important; }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .rm-jump a{ transition:none !important; }
+}

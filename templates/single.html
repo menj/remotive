@@ -1,0 +1,75 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","className":"rm-main rm-main--blog","layout":{"type":"constrained"}} -->
+<main id="main" class="wp-block-group rm-main rm-main--blog is-layout-constrained">
+
+	<!-- wp:columns {"className":"rm-blog-layout rm-measure-wide"} -->
+	<div class="wp-block-columns rm-blog-layout rm-measure-wide">
+
+		<!-- wp:column {"width":"66%","className":"rm-blog-main"} -->
+		<div class="wp-block-column rm-blog-main" style="flex-basis:66%">
+
+			<!-- wp:group {"tagName":"article","className":"rm-post","layout":{"type":"constrained"}} -->
+			<article class="wp-block-group rm-post is-layout-constrained">
+
+				<!-- wp:group {"className":"rm-post__meta","layout":{"type":"flow"}} -->
+				<div class="wp-block-group rm-post__meta is-layout-flow">
+					<!-- wp:post-terms {"term":"category","className":"rm-eyebrow"} /-->
+					<!-- wp:post-title {"level":1,"fontSize":"h2","className":"rm-post__title"} /-->
+					<!-- wp:post-date {"className":"rm-post__date"} /-->
+				</div>
+				<!-- /wp:group -->
+
+				<!-- wp:post-featured-image {"className":"rm-post__image"} /-->
+
+				<!-- wp:post-content {"className":"rm-post__content","layout":{"type":"constrained"}} /-->
+
+				<!-- wp:group {"className":"rm-post__footer","layout":{"type":"flex","justifyContent":"space-between"}} -->
+				<div class="wp-block-group rm-post__footer is-layout-flex">
+					<!-- wp:post-terms {"term":"post_tag","className":"rm-post__tags"} /-->
+					<!-- wp:paragraph {"className":"rm-section-link"} -->
+					<p class="rm-section-link"><a href="/blog/">All insights →</a></p>
+					<!-- /wp:paragraph -->
+				</div>
+				<!-- /wp:group -->
+
+			</article>
+			<!-- /wp:group -->
+
+		</div>
+		<!-- /wp:column -->
+
+		<!-- wp:column {"width":"34%"} -->
+		<div class="wp-block-column" style="flex-basis:34%">
+			<!-- wp:template-part {"slug":"sidebar"} /-->
+		</div>
+		<!-- /wp:column -->
+
+	</div>
+	<!-- /wp:columns -->
+
+</main>
+<!-- /wp:group -->
+
+<!-- wp:group {"tagName":"section","className":"rm-cta rm-cta--centred","align":"full","backgroundColor":"contrast-bg","textColor":"contrast-text","layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignfull rm-cta rm-cta--centred has-contrast-text-color has-contrast-bg-background-color has-text-color has-background">
+	<!-- wp:heading {"level":2,"className":"rm-cta__title"} -->
+	<h2 class="rm-cta__title">Want this working for your brand?</h2>
+	<!-- /wp:heading -->
+	<!-- wp:paragraph {"className":"rm-hero__reassure"} -->
+	<p class="rm-hero__reassure">Every engagement starts with a complimentary audit: 30 minutes, no commitment.</p>
+	<!-- /wp:paragraph -->
+	<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
+	<div class="wp-block-buttons is-layout-flex">
+		<!-- wp:button {"className":"is-style-fill"} -->
+		<div class="wp-block-button is-style-fill"><a class="wp-block-button__link wp-element-button" href="/contact/">Start a project →</a></div>
+		<!-- /wp:button -->
+		<!-- wp:button {"className":"is-style-outline"} -->
+		<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="/case-studies/">See our work</a></div>
+		<!-- /wp:button -->
+	</div>
+	<!-- /wp:buttons -->
+</section>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

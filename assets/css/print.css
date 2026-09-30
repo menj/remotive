@@ -1,0 +1,266 @@
+/*
+ * Print styles — loaded on every front-end page with media="print".
+ *
+ * Screen pages print badly for four reasons, each addressed here:
+ * 1. Interactive chrome (nav, toggle, ticker, CTA band, footer nav)
+ *    prints as dead weight.
+ * 2. Placeholder gradient artwork and empty media boxes print as large
+ *    blank or grey rectangles.
+ * 3. The dark theme and mix-blend-mode effects invert or vanish on
+ *    white paper.
+ * 4. Cards and headings split across page boundaries.
+ */
+
+@media print {
+
+	@page {
+		margin: 18mm 15mm;
+	}
+
+	/* ---- 1. Force the print palette regardless of active theme ---- */
+	:root,
+	[data-theme="light"],
+	[data-theme="dark"] {
+		--wp--preset--color--ink: #1e1e1e;
+		--wp--preset--color--paper: #ffffff;
+		--wp--preset--color--paper-2: #ffffff;
+		--rm-blend: normal;
+		--rm-line: rgba(30,30,30,.2);
+		--rm-line-soft: rgba(30,30,30,.1);
+		--rm-ink-70: rgba(30,30,30,.75);
+		--rm-ink-55: rgba(30,30,30,.6);
+	}
+
+	html,
+	body {
+		background: #ffffff !important;
+		color: #1e1e1e !important;
+	}
+
+	* {
+		box-shadow: none !important;
+		text-shadow: none !important;
+		mix-blend-mode: normal !important;
+		animation: none !important;
+		transition: none !important;
+	}
+
+	/* ---- 2. Hide screen-only chrome ---- */
+	.rm-skip-link,
+	.rm-theme-toggle,
+	.rm-nav__cta,
+	.rm-ticker,
+	.rm-ticker-band,
+	.rm-cta,
+	.rm-footer__socials,
+	.rm-footer__top nav,
+	.rm-footer__heading,
+	.rm-cs-card__link,
+	.wp-block-search,
+	form,
+	.wp-block-buttons,
+	.rm-lightbox,
+	.rm-about-hero__parallax,
+	.rm-team__photo,
+	.rm-sidebar,
+	.rm-section-link,
+	.rm-row__link,
+	.wp-block-query-pagination,
+	.wp-block-comments,
+	.wp-block-post-comments-form {
+		display: none !important;
+	}
+
+	/* With the sidebar hidden, blog layouts run single column. */
+	.rm-blog-layout {
+		display: block !important;
+	}
+
+	/* Header reduces to the wordmark on its own line. */
+	.rm-nav {
+		position: static !important;
+		background: none !important;
+		border-bottom: 1px solid #d9d9d9;
+	}
+
+	.rm-nav .wp-block-navigation {
+		display: none !important;
+	}
+
+	/* ---- 3. Placeholder artwork ---- */
+	/* Empty media boxes and gradient tiles carry no information on
+	   paper; collapse them rather than printing blank rectangles. */
+	.rm-hero::before,
+	.rm-cs-card__image:empty,
+	[class*="rm-gallery__tile--"] {
+		display: none !important;
+	}
+
+	/* The featured spread's visual column is not :empty because it carries
+	   its category label. With print backgrounds disabled, its 420px screen
+	   minimum became a blank bordered panel and fragmented across two pages.
+	   Collapse the artwork while retaining the useful label as ordinary ink. */
+	.rm-spread__image {
+		display: block !important;
+		min-height: 0 !important;
+		background: none !important;
+	}
+
+	.rm-spread__image-label {
+		color: #555 !important;
+		mix-blend-mode: normal !important;
+		padding: 7mm 8mm 0 !important;
+	}
+
+	.rm-spread__body {
+		padding: 4mm 8mm 8mm !important;
+	}
+
+	.rm-spread__label {
+		margin-bottom: 4mm !important;
+	}
+
+	.rm-spread__body p.has-drop-cap {
+		line-height: 1.55 !important;
+		margin-bottom: 0 !important;
+	}
+
+	.rm-cs-card__image img {
+		max-height: 60mm;
+		width: auto;
+	}
+
+	/* ---- 4. Fragmentation ---- */
+	.rm-cs-card,
+	.rm-plate,
+	.rm-block,
+	.rm-spread,
+	.rm-row,
+	.rm-stats,
+	.rm-stat,
+	.rm-team,
+	.rm-team__member,
+	.rm-footer,
+	.rm-case-chart,
+	.rm-case-table,
+	blockquote,
+	figure,
+	table {
+		break-inside: avoid;
+		page-break-inside: avoid;
+	}
+
+	/* Start the proof sequence on a fresh sheet. It is the only reliable way
+	   to keep the heading, compacted featured case and all three rows together
+	   without manufacturing a blank media fragment at the preceding foot. */
+	#work {
+		break-before: page;
+		page-break-before: always;
+	}
+
+	h1, h2, h3, h4 {
+		break-after: avoid;
+		page-break-after: avoid;
+	}
+
+	/* ---- Layout and typography ---- */
+	body {
+		font-size: 11pt;
+		line-height: 1.45;
+	}
+
+	.rm-hero {
+		min-height: 0 !important;
+		padding-top: 8mm !important;
+	}
+
+	.rm-section {
+		padding-top: 8mm !important;
+		padding-bottom: 8mm !important;
+	}
+
+	/* Two-up card grids hold at print width; anything wider folds to
+	   two columns so metrics stay legible. */
+	.rm-cs-grid {
+		grid-template-columns: 1fr 1fr !important;
+		gap: 6mm !important;
+	}
+
+	.rm-cs-card {
+		border: 1px solid #d9d9d9 !important;
+	}
+
+	/* At A4 width auto-fit creates two service columns and strands the third
+	   card at the left. Keep its measure but centre it across the full grid. */
+	.rm-blocks {
+		grid-template-columns: 1fr 1fr !important;
+		gap: 6mm !important;
+	}
+
+	.rm-blocks > .rm-block:last-child:nth-child(odd) {
+		grid-column: 1 / -1;
+		justify-self: center;
+		width: calc(50% - 3mm);
+	}
+
+	/* Core's narrow-screen column rule also applies to the A4 print viewport,
+	   stacking three metrics into oversized full-width bands. Restore the
+	   intended compact row and keep it together as one print component. */
+	.rm-stats {
+		display: flex !important;
+		flex-flow: row nowrap !important;
+	}
+
+	.rm-stat {
+		flex: 1 1 0 !important;
+		padding: 8mm 4mm !important;
+		border-top: 0 !important;
+		border-left: 1px solid var(--rm-line) !important;
+	}
+
+	.rm-stat:first-child {
+		border-left: 0 !important;
+	}
+
+	/* Photos are hidden in print, so two text columns make a compact roster.
+	   Keeping the section and grid intact prevents names starting a new page
+	   without their About heading. */
+	#about {
+		break-inside: avoid;
+		page-break-inside: avoid;
+	}
+
+	.rm-team {
+		grid-template-columns: 1fr 1fr !important;
+		gap: 4mm 10mm !important;
+		margin-top: 5mm !important;
+	}
+
+	a {
+		color: #1e1e1e !important;
+		text-decoration: none;
+	}
+
+	/* Print the destination after real content links in running text,
+	   but not after internal anchors or the wordmark. */
+	.entry-content a[href^="http"]::after {
+		content: " (" attr(href) ")";
+		font-size: 8.5pt;
+		color: #555;
+		word-break: break-all;
+	}
+
+	/* Footer reduces to the identity line, contact block and notice. */
+	.rm-footer {
+		border-top: 1px solid #d9d9d9;
+		padding-top: 5mm !important;
+	}
+
+	.rm-footer__top {
+		display: block !important;
+	}
+
+	.rm-footer__bottom {
+		margin-top: 4mm !important;
+	}
+}

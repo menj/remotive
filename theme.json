@@ -1,0 +1,148 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 3,
+	"settings": {
+		"appearanceTools": true,
+		"useRootPaddingAwareAlignments": true,
+		"color": {
+			"custom": false,
+			"customGradient": false,
+			"defaultPalette": false,
+			"defaultGradients": false,
+			"defaultDuotone": false,
+			"palette": [
+				{ "slug": "ink",         "name": "Ink",           "color": "#ffffff" },
+				{ "slug": "paper",       "name": "Paper",         "color": "#1a1a2e" },
+				{ "slug": "paper-2",     "name": "Paper Deep",    "color": "#0d1117" },
+				{ "slug": "card",        "name": "Card",          "color": "#252542" },
+				{ "slug": "cyan",        "name": "Cyan Plate",    "color": "#00aeef" },
+				{ "slug": "cyan-dark",   "name": "Cyan Plate Dark",    "color": "#00aeef" },
+				{ "slug": "magenta",     "name": "Magenta Plate", "color": "#ec008c" },
+				{ "slug": "magenta-dark","name": "Magenta Plate Dark", "color": "#ff0198" },
+				{ "slug": "accent-3",       "name": "Plate Accent 3",  "color": "#39b54a" },
+				{ "slug": "accent-3-dark",  "name": "Plate Accent 3 Dark",  "color": "#39b54a" },
+				{ "slug": "contrast-bg",   "name": "Contrast Background", "color": "#1a1a2e" },
+				{ "slug": "contrast-text", "name": "Contrast Text",       "color": "#ffffff" }
+			]
+		},
+		"typography": {
+			"fluid": true,
+			"customFontSize": false,
+			"fontFamilies": [
+				{
+					"slug": "archivo",
+					"name": "Archivo",
+					"fontFamily": "\"Archivo\", sans-serif",
+					"fontFace": [
+						{ "fontFamily": "Archivo", "fontWeight": "400", "fontStyle": "normal", "fontDisplay": "swap", "src": [ "file:./assets/fonts/archivo/archivo-latin-400-normal.woff2" ] },
+						{ "fontFamily": "Archivo", "fontWeight": "500", "fontStyle": "normal", "fontDisplay": "swap", "src": [ "file:./assets/fonts/archivo/archivo-latin-500-normal.woff2" ] },
+						{ "fontFamily": "Archivo", "fontWeight": "600", "fontStyle": "normal", "fontDisplay": "swap", "src": [ "file:./assets/fonts/archivo/archivo-latin-600-normal.woff2" ] },
+						{ "fontFamily": "Archivo", "fontWeight": "700", "fontStyle": "normal", "fontDisplay": "swap", "src": [ "file:./assets/fonts/archivo/archivo-latin-700-normal.woff2" ] },
+						{ "fontFamily": "Archivo", "fontWeight": "900", "fontStyle": "normal", "fontDisplay": "swap", "src": [ "file:./assets/fonts/archivo/archivo-latin-900-normal.woff2" ] }
+					]
+				},
+				{
+					"slug": "newsreader",
+					"name": "Newsreader",
+					"fontFamily": "\"Newsreader\", serif",
+					"fontFace": [
+						{ "fontFamily": "Newsreader", "fontWeight": "400", "fontStyle": "italic", "fontDisplay": "swap", "src": [ "file:./assets/fonts/newsreader/newsreader-latin-400-italic.woff2" ] },
+						{ "fontFamily": "Newsreader", "fontWeight": "500", "fontStyle": "normal", "fontDisplay": "swap", "src": [ "file:./assets/fonts/newsreader/newsreader-latin-500-normal.woff2" ] },
+						{ "fontFamily": "Newsreader", "fontWeight": "500", "fontStyle": "italic", "fontDisplay": "swap", "src": [ "file:./assets/fonts/newsreader/newsreader-latin-500-italic.woff2" ] }
+					]
+				},
+					{
+					"slug": "saira",
+					"name": "Saira",
+					"fontFamily": "\"Saira\", sans-serif",
+					"fontFace": [
+						{ "fontFamily": "Saira", "fontWeight": "400", "fontStyle": "normal", "fontDisplay": "swap", "src": [ "file:./assets/fonts/saira/saira-latin-400-normal.woff2" ] },
+						{ "fontFamily": "Saira", "fontWeight": "600", "fontStyle": "normal", "fontDisplay": "swap", "src": [ "file:./assets/fonts/saira/saira-latin-600-normal.woff2" ] },
+						{ "fontFamily": "Saira", "fontWeight": "700", "fontStyle": "normal", "fontDisplay": "swap", "src": [ "file:./assets/fonts/saira/saira-latin-700-normal.woff2" ] },
+						{ "fontFamily": "Saira", "fontWeight": "900", "fontStyle": "normal", "fontDisplay": "swap", "src": [ "file:./assets/fonts/saira/saira-latin-900-normal.woff2" ] },
+						{ "fontFamily": "Saira", "fontWeight": "500", "fontStyle": "italic", "fontDisplay": "swap", "src": [ "file:./assets/fonts/saira/saira-latin-500-italic.woff2" ] }
+					]
+				},
+				{
+					"slug": "space-grotesk",
+					"name": "Space Grotesk",
+					"fontFamily": "\"Space Grotesk\", sans-serif",
+					"fontFace": [
+						{ "fontFamily": "Space Grotesk", "fontWeight": "400", "fontStyle": "normal", "fontDisplay": "swap", "src": [ "file:./assets/fonts/space-grotesk/space-grotesk-latin-400-normal.woff2" ] },
+						{ "fontFamily": "Space Grotesk", "fontWeight": "500", "fontStyle": "normal", "fontDisplay": "swap", "src": [ "file:./assets/fonts/space-grotesk/space-grotesk-latin-500-normal.woff2" ] },
+						{ "fontFamily": "Space Grotesk", "fontWeight": "600", "fontStyle": "normal", "fontDisplay": "swap", "src": [ "file:./assets/fonts/space-grotesk/space-grotesk-latin-600-normal.woff2" ] },
+						{ "fontFamily": "Space Grotesk", "fontWeight": "700", "fontStyle": "normal", "fontDisplay": "swap", "src": [ "file:./assets/fonts/space-grotesk/space-grotesk-latin-700-normal.woff2" ] },
+						{ "fontFamily": "Space Grotesk", "fontWeight": "900", "fontStyle": "normal", "fontDisplay": "swap", "src": [ "file:./assets/fonts/space-grotesk/space-grotesk-latin-700-normal.woff2" ] }
+					]
+				}
+			],
+			"fontSizes": [
+				{ "slug": "eyebrow", "name": "Eyebrow", "size": "0.72rem" },
+				{ "slug": "small",   "name": "Small",   "size": "0.88rem" },
+				{ "slug": "base",    "name": "Base",    "size": "1rem" },
+				{ "slug": "lead",    "name": "Lead",    "size": "clamp(1.05rem, 1.6vw, 1.3rem)" },
+				{ "slug": "h2",      "name": "Heading",       "size": "clamp(2rem, 4.4vw, 3.1rem)" },
+				{ "slug": "display", "name": "Display",      "size": "clamp(2.25rem, 8vw, 6.75rem)" },
+				{ "slug": "stat",    "name": "Stat Number",  "size": "clamp(2.5rem, 5.5vw, 4rem)" }
+			]
+		},
+		"layout": {
+			"contentSize": "740px",
+			"wideSize": "1320px"
+		}
+	},
+	"styles": {
+		"color": {
+			"background": "var(--wp--preset--color--paper)",
+			"text": "var(--wp--preset--color--ink)"
+		},
+		"typography": {
+			"fontFamily": "var(--wp--preset--font-family--archivo)",
+			"fontSize": "var(--wp--preset--font-size--base)",
+			"lineHeight": "1.5"
+		},
+		"elements": {
+			"heading": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--archivo)",
+					"fontWeight": "900",
+					"textTransform": "uppercase",
+					"letterSpacing": "-0.01em",
+					"lineHeight": "1"
+				}
+			},
+			"link": {
+				"color": { "text": "var(--wp--preset--color--ink)" },
+				"typography": { "textDecoration": "none" },
+				":hover": {
+					"color": { "text": "var(--wp--preset--color--magenta-dark)" }
+				}
+			},
+			"button": {
+				"border": { "width": "2px", "style": "solid", "color": "var(--wp--preset--color--contrast-bg)", "radius": "0" },
+				"color": { "background": "var(--wp--preset--color--contrast-bg)", "text": "var(--wp--preset--color--contrast-text)" },
+				"typography": { "fontWeight": "700", "textTransform": "uppercase", "fontSize": "0.88rem" },
+				"spacing": { "padding": { "top": "1rem", "bottom": "1rem", "left": "1.6rem", "right": "1.6rem" } },
+				":hover": {
+					"color": { "background": "var(--wp--preset--color--magenta-dark)", "text": "var(--wp--preset--color--contrast-text)" }
+				}
+			}
+		}
+	},
+	"customTemplates": [
+		{ "name": "front-page", "title": "Front Page", "postTypes": [ "page" ] },
+		{ "name": "page-about", "title": "About (company story + contact form)", "postTypes": [ "page" ] },
+		{ "name": "page-team", "title": "Meet the Team (roster + gallery)", "postTypes": [ "page" ] },
+		{ "name": "page-faq", "title": "FAQ (accordion + schema)", "postTypes": [ "page" ] },
+		{ "name": "page-services", "title": "Services (detailed)", "postTypes": [ "page" ] },
+		{ "name": "page-case-studies", "title": "Case Studies", "postTypes": [ "page" ] },
+		{ "name": "page-legal", "title": "Legal (Privacy Policy, Terms, etc.)", "postTypes": [ "page" ] },
+		{ "name": "page-contact", "title": "Contact", "postTypes": [ "page" ] },
+		{ "name": "page-service", "title": "Service detail (title hero + content + CTA)", "postTypes": [ "page" ] }
+	],
+	"templateParts": [
+		{ "name": "header", "title": "Header", "area": "header" },
+		{ "name": "footer", "title": "Footer", "area": "footer" },
+		{ "name": "sidebar", "title": "Blog Sidebar", "area": "uncategorized" }
+	]
+}

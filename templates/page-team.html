@@ -1,0 +1,91 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","className":"rm-main","layout":{"type":"constrained"}} -->
+<main id="main" class="wp-block-group rm-main is-layout-constrained">
+
+	<!-- wp:group {"tagName":"header","className":"rm-hero","align":"full","layout":{"type":"constrained"}} -->
+	<header class="wp-block-group alignfull rm-hero is-layout-constrained">
+		<!-- wp:paragraph {"className":"rm-eyebrow"} -->
+		<p class="rm-eyebrow">The people</p>
+		<!-- /wp:paragraph -->
+		<!-- wp:heading {"level":1,"fontSize":"display","className":"rm-hero__display"} -->
+		<h1 class="has-display-font-size rm-hero__display">Meet the team.</h1>
+		<!-- /wp:heading -->
+		<!-- wp:paragraph {"className":"rm-hero__sub"} -->
+		<p class="rm-hero__sub">Senior specialists who plug into your team. Six people, one number to answer for, and no junior handovers.</p>
+		<!-- /wp:paragraph -->
+	</header>
+	<!-- /wp:group -->
+
+	<!-- wp:group {"className":"rm-section rm-measure-wide","layout":{"type":"constrained"}} -->
+	<div class="wp-block-group rm-section rm-measure-wide is-layout-constrained" id="team">
+		<!-- wp:html -->
+		<p class="rm-eyebrow">The team</p>
+		<h2 class="has-h2-font-size" id="six-specialists-accountable-team">Six specialists, one accountable team</h2>
+		<p class="rm-about__lead">Every account is run by the person who owns that discipline. No handoffs to junior staff, no account manager relaying messages.</p>
+		<div class="rm-team rm-team--full">__REMOTIVE_TEAM_FULL__
+		</div>
+		<!-- /wp:html -->
+	</div>
+	<!-- /wp:group -->
+
+	<!-- wp:group {"className":"rm-section rm-measure-wide","layout":{"type":"constrained"}} -->
+	<div class="wp-block-group rm-section rm-measure-wide is-layout-constrained" id="work-gallery">
+
+		<!-- wp:group {"className":"rm-section-head","layout":{"type":"flex","justifyContent":"space-between","flexWrap":"wrap"}} -->
+		<div class="wp-block-group rm-section-head is-layout-flex">
+			<!-- wp:group {"layout":{"type":"constrained"}} -->
+			<div class="wp-block-group is-layout-constrained">
+				<!-- wp:paragraph {"className":"rm-eyebrow"} -->
+				<p class="rm-eyebrow">Selected work</p>
+				<!-- /wp:paragraph -->
+				<!-- wp:heading {"level":2,"fontSize":"h2","anchor":"few-shots-from-floor"} -->
+				<h2 class="has-h2-font-size" id="few-shots-from-floor">A few shots from the floor</h2>
+				<!-- /wp:heading -->
+				<!-- wp:paragraph {"className":"rm-section-lead"} -->
+				<p class="rm-section-lead">The team at work and on location, rather than a set of posed headshots.</p>
+				<!-- /wp:paragraph -->
+			</div>
+			<!-- /wp:group -->
+		</div>
+		<!-- /wp:group -->
+
+		<!-- wp:html -->
+		<div class="rm-gallery" role="group" aria-label="Studio gallery">
+			<button type="button" class="rm-gallery__tile rm-gallery__tile--1" data-caption="Strategy session: Q2 planning">
+				<span class="rm-gallery__label">Strategy</span>
+			</button>
+			<button type="button" class="rm-gallery__tile rm-gallery__tile--2" data-caption="Content shoot: DTC skincare launch">
+				<span class="rm-gallery__label">Content</span>
+			</button>
+			<button type="button" class="rm-gallery__tile rm-gallery__tile--3" data-caption="War room: campaign launch day">
+				<span class="rm-gallery__label">Launch day</span>
+			</button>
+			<button type="button" class="rm-gallery__tile rm-gallery__tile--4" data-caption="Client workshop: brand workshop">
+				<span class="rm-gallery__label">Workshops</span>
+			</button>
+			<button type="button" class="rm-gallery__tile rm-gallery__tile--5" data-caption="Data review: monthly reporting">
+				<span class="rm-gallery__label">Reporting</span>
+			</button>
+			<button type="button" class="rm-gallery__tile rm-gallery__tile--6" data-caption="Team: full-funnel, one room">
+				<span class="rm-gallery__label">The team</span>
+			</button>
+		</div>
+
+		<div class="rm-lightbox" id="rmLightbox" role="dialog" aria-modal="true" aria-label="Image preview" hidden>
+			<button type="button" class="rm-lightbox__close" id="rmLightboxClose" aria-label="Close image preview">×</button>
+			<button type="button" class="rm-lightbox__nav rm-lightbox__nav--prev" id="rmLightboxPrev" aria-label="Previous image">←</button>
+			<div class="rm-lightbox__stage" id="rmLightboxStage" aria-hidden="true"></div>
+			<p class="rm-lightbox__caption" id="rmLightboxCaption"></p>
+			<button type="button" class="rm-lightbox__nav rm-lightbox__nav--next" id="rmLightboxNext" aria-label="Next image">→</button>
+		</div>
+		<!-- /wp:html -->
+
+	</div>
+	<!-- /wp:group -->
+
+
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

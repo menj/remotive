@@ -1,0 +1,100 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","className":"rm-main","layout":{"type":"constrained"}} -->
+<main id="main" class="wp-block-group rm-main is-layout-constrained">
+
+	<!-- wp:group {"tagName":"header","className":"rm-hero rm-hero--contact","align":"full","layout":{"type":"constrained"}} -->
+	<header class="wp-block-group alignfull rm-hero rm-hero--contact is-layout-constrained">
+		<!-- wp:paragraph {"className":"rm-eyebrow"} -->
+		<p class="rm-eyebrow">Get in touch</p>
+		<!-- /wp:paragraph -->
+		<!-- wp:heading {"level":1,"fontSize":"display","className":"rm-hero__display"} -->
+		<h1 class="has-display-font-size rm-hero__display">Let's talk.</h1>
+		<!-- /wp:heading -->
+		<!-- wp:paragraph {"className":"rm-hero__sub"} -->
+		<p class="rm-hero__sub">Tell us what's not working, or what you want to be working better. We reply within three business days.</p>
+		<!-- /wp:paragraph -->
+	</header>
+	<!-- /wp:group -->
+
+	<!-- wp:columns {"className":"rm-blog-layout rm-measure-wide rm-contact-layout"} -->
+	<div class="wp-block-columns rm-blog-layout rm-measure-wide rm-contact-layout" id="contact-form">
+
+		<!-- wp:column {"width":"65%"} -->
+		<div class="wp-block-column" style="flex-basis:65%">
+			<!-- wp:html -->
+			<form class="rm-contact-form" method="post" action="__REMOTIVE_CONTACT_FORM_ACTION__">
+				<input type="hidden" name="action" value="remotive_contact_submit">
+				__REMOTIVE_CONTACT_NONCE_FIELD__
+				<div class="rm-cta__honeypot" aria-hidden="true">
+					<label for="remotive_contact_website">Leave this field empty</label>
+					<input type="text" id="remotive_contact_website" name="remotive_contact_website" tabindex="-1" autocomplete="off">
+				</div>
+				<div class="rm-contact-form__row">
+					<label class="rm-contact-form__label" for="remotive_contact_name">Name</label>
+					<input class="rm-contact-form__input" type="text" id="remotive_contact_name" name="name" autocomplete="name" placeholder="Your name">
+				</div>
+				<div class="rm-contact-form__row">
+					<label class="rm-contact-form__label" for="remotive_contact_email">Email <span class="rm-contact-form__required" aria-hidden="true">*</span></label>
+					<input class="rm-contact-form__input" type="email" id="remotive_contact_email" name="email" required autocomplete="email" placeholder="you@company.com">
+				</div>
+				<div class="rm-contact-form__row">
+					<label class="rm-contact-form__label" for="remotive_contact_message">Message</label>
+					<textarea class="rm-contact-form__input rm-contact-form__textarea" id="remotive_contact_message" name="message" rows="6" placeholder="Tell us what you're working on…"></textarea>
+				</div>
+				<div class="rm-contact-form__footer">
+					<button type="submit" class="rm-contact-form__submit">Send message →</button>
+					<p class="rm-form-privacy">We store what you send to reply to you. See our <a href="/privacy/">privacy policy</a>.</p>
+				</div>
+			</form>
+			<div class="rm-cta__status" data-lead-status="remotive_contact" role="status" aria-live="polite"></div>
+			<!-- /wp:html -->
+		</div>
+		<!-- /wp:column -->
+
+		<!-- wp:column {"width":"35%"} -->
+		<div class="wp-block-column" style="flex-basis:35%">
+			<!-- wp:group {"className":"rm-sidebar__card","layout":{"type":"constrained"}} -->
+			<div class="wp-block-group rm-sidebar__card is-layout-constrained">
+				<!-- wp:heading {"level":2,"className":"rm-sidebar__heading","anchor":"contact-email"} -->
+				<h2 class="rm-sidebar__heading" id="contact-email">Email</h2>
+				<!-- /wp:heading -->
+				<!-- wp:paragraph {"className":"rm-sidebar__about"} -->
+				<p class="rm-sidebar__about"><a href="mailto:__REMOTIVE_CONTACT_EMAIL__">__REMOTIVE_CONTACT_EMAIL__</a></p>
+				<!-- /wp:paragraph -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:group {"className":"rm-sidebar__card","layout":{"type":"constrained"}} -->
+			<div class="wp-block-group rm-sidebar__card is-layout-constrained">
+				<!-- wp:heading {"level":2,"className":"rm-sidebar__heading","anchor":"contact-office"} -->
+				<h2 class="rm-sidebar__heading" id="contact-office">Office</h2>
+				<!-- /wp:heading -->
+				<!-- wp:paragraph {"className":"rm-sidebar__about"} -->
+				<p class="rm-sidebar__about">__REMOTIVE_ADDRESS_LINE_1__<br>__REMOTIVE_ADDRESS_LINE_2__<br>__REMOTIVE_ADDRESS_LINE_3__</p>
+				<!-- /wp:paragraph -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:group {"className":"rm-sidebar__card rm-sidebar__card--social","layout":{"type":"constrained"}} -->
+			<div class="wp-block-group rm-sidebar__card rm-sidebar__card--social is-layout-constrained">
+				<!-- wp:heading {"level":2,"className":"rm-sidebar__heading","anchor":"contact-elsewhere"} -->
+				<h2 class="rm-sidebar__heading" id="contact-elsewhere">Elsewhere</h2>
+				<!-- /wp:heading -->
+				<!-- wp:html -->
+				<div class="rm-footer__socials rm-footer__socials--left">
+					__REMOTIVE_SOCIAL_LINKS__
+				</div>
+				<!-- /wp:html -->
+			</div>
+			<!-- /wp:group -->
+		</div>
+		<!-- /wp:column -->
+
+	</div>
+	<!-- /wp:columns -->
+
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

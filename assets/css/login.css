@@ -1,0 +1,231 @@
+/*
+ * Branded login screen.
+ *
+ * Loaded only on wp-login.php, and only when the Branded login option is
+ * enabled in Theme Options. Kept in its own file rather than inlined so it
+ * is cacheable and readable; the only inline part is the logo URL, which
+ * has to be resolved in PHP.
+ *
+ * Colours are literal rather than theme.json variables: the login screen
+ * is outside the block editor's style pipeline, so those variables do not
+ * exist there.
+ */
+
+body.login {
+	background: #1a1a2e;
+	font-family: 'Saira', system-ui, -apple-system, sans-serif;
+}
+
+/* The wordmark replaces the WordPress logo. Sized to the shipped asset's
+   4:3 proportions so it never distorts. */
+.login h1 a {
+	background-image: var(--rm-login-logo);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+	width: 180px;
+	height: 138px;
+	margin: 0 auto;
+	padding: 0;
+}
+
+#login {
+	/* border-box: core's own padding is added outside the width otherwise,
+	   which pushed the panel past the viewport on a 390px phone. */
+	box-sizing: border-box;
+	width: 360px;
+	max-width: 100%;
+	padding: 6vh 20px 0;
+}
+
+.remotive-login-subtitle {
+	color: rgba(255, 255, 255, .7);
+	font-size: .85rem;
+	text-align: center;
+	max-width: 300px;
+	margin: 0 auto 26px;
+	line-height: 1.5;
+}
+
+/* Everything WordPress stacks inside #login gets consistent spacing,
+   whatever renders it. A sign-in provider that inserts its own card above
+   the form is spaced like the rest rather than left floating. */
+#login > * {
+	margin-bottom: 1rem;
+}
+
+#loginform {
+	box-sizing: border-box;
+	width: 100%;
+	margin: 0 0 1rem;
+	padding: 28px;
+	background: #252542;
+	border: 1px solid rgba(255, 255, 255, .16);
+	border-top: 4px solid #ec008c;
+	border-radius: 10px;
+	box-shadow: 0 12px 34px rgba(0, 0, 0, .35);
+}
+
+/* A third-party sign-in card rendered above the form, such as a single
+   sign-on button. Only its frame is aligned to the panel: the provider's
+   own button chrome inside is left alone, since those are their brand
+   assets and often required to stay unmodified. */
+#login > div:not(.notice):not(#login_error):not(.message) {
+	box-sizing: border-box;
+	max-width: 100%;
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+.login form .input,
+.login input[type="text"],
+.login input[type="email"],
+.login input[type="password"] {
+	box-sizing: border-box;
+	width: 100%;
+	background: #1a1a2e;
+	border: 1px solid rgba(255, 255, 255, .2);
+	border-radius: 7px;
+	color: #fff;
+	/* 16px: anything smaller makes iOS zoom the page on focus. */
+	font-size: 16px;
+	padding: .6rem .7rem;
+	margin: 0 0 .25rem;
+}
+
+.login form .input:focus,
+.login input[type="text"]:focus,
+.login input[type="email"]:focus,
+.login input[type="password"]:focus {
+	border-color: #ec008c;
+	box-shadow: 0 0 0 2px rgba(236, 0, 140, .35);
+	outline: 2px solid transparent; /* Keeps a ring in forced-colours mode. */
+	outline-offset: 2px;
+}
+
+/* The password field sits in its own wrapper with the reveal button
+   overlaid; the wrapper needs the field's own background so the button
+   does not sit on a pale strip. */
+.login .wp-pwd,
+.login .password-input-wrapper {
+	position: relative;
+	display: block;
+}
+
+.login .button.wp-hide-pw {
+	position: absolute;
+	right: 2px;
+	top: 1px;
+	background: transparent;
+	border: none;
+	box-shadow: none;
+	color: rgba(255, 255, 255, .7);
+	min-height: 40px;
+	padding: 0 .6rem;
+}
+
+.login .button.wp-hide-pw:hover,
+.login .button.wp-hide-pw:focus {
+	color: #fff;
+	background: transparent;
+}
+
+.login .button.wp-hide-pw:focus-visible {
+	outline: 2px solid #ec008c;
+	outline-offset: 0;
+}
+
+.login label,
+.login .forgetmenot label {
+	color: rgba(255, 255, 255, .85);
+	font-size: .85rem;
+}
+
+.login .forgetmenot {
+	display: flex;
+	align-items: center;
+	gap: .45rem;
+	float: none;
+	margin: .25rem 0 1rem;
+}
+
+.login .forgetmenot label {
+	margin: 0;
+	line-height: 1;
+}
+
+/* The help tooltip beside Remember Me. */
+.login .forgetmenot .dashicons,
+.login .login-remember-help,
+.login .wp-ui-text-icon {
+	color: rgba(255, 255, 255, .6);
+}
+
+.login .submit {
+	margin: 0;
+	float: none;
+}
+
+.wp-core-ui .button-primary {
+	background: #ec008c;
+	border-color: #ec008c;
+	border-radius: 7px;
+	font-weight: 700;
+	text-shadow: none;
+	box-shadow: none;
+	min-height: 44px;
+	padding: 0 1.4rem;
+	float: none;
+	width: 100%;
+	justify-content: center;
+}
+
+.wp-core-ui .button-primary:hover,
+.wp-core-ui .button-primary:focus {
+	background: #cd360b;
+	border-color: #cd360b;
+}
+
+.wp-core-ui .button-primary:focus {
+	box-shadow: 0 0 0 2px #1a1a2e, 0 0 0 4px #ec008c;
+}
+
+#nav,
+#backtoblog {
+	text-align: center;
+	padding: 0;
+	margin: 0 0 .5rem;
+}
+
+#nav a,
+#backtoblog a,
+.login #nav a:hover,
+.login #backtoblog a:hover {
+	color: rgba(255, 255, 255, .75);
+}
+
+.login #nav a:focus-visible,
+.login #backtoblog a:focus-visible {
+	outline: 2px solid #ec008c;
+	outline-offset: 2px;
+}
+
+.login .message,
+.login .notice,
+.login #login_error {
+	background: #252542;
+	border-left-color: #ec008c;
+	color: #fff;
+	box-shadow: none;
+}
+
+.login .privacy-policy-page-link {
+	display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.login * {
+		transition: none !important;
+		animation: none !important;
+	}
+}

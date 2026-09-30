@@ -1,0 +1,73 @@
+# Remotive Media — static asset cache headers
+#
+# WHAT TO DO WITH THIS FILE
+#
+# Copy everything between the two markers below into the .htaccess file in
+# your WordPress root, ABOVE the "# BEGIN WordPress" line. WordPress rewrites
+# its own block on save and will discard anything placed inside it.
+#
+# On nginx, use the block at the bottom of this file instead; .htaccess is
+# ignored there.
+#
+# WHY
+#
+# PageSpeed reported every JavaScript file on the site with no cache lifetime
+# at all, while CSS, fonts and images returned seven days. That pattern means
+# the server's caching rule lists some file types and not JavaScript, so each
+# script is downloaded again on every visit. Adding js to the rule is the
+# whole fix; the year-long lifetime below also replaces the short seven-day
+# value on the other types.
+#
+# IS A YEAR SAFE?
+#
+# Yes, for these files. Every asset the theme requests carries its file's
+# modification time in the URL, so an edited file arrives at a new address
+# and no visitor can be served a stale copy. Do not apply immutable to files
+# served without a version, and never apply any of this to HTML.
+
+# ----- COPY FROM HERE -----
+
+<IfModule mod_headers.c>
+	<FilesMatch "\.(css|js|mjs|woff2|woff|ttf|avif|webp|png|jpe?g|gif|svg|ico)$">
+		Header set Cache-Control "public, max-age=31536000, immutable"
+	</FilesMatch>
+
+	# HTML must stay uncached, or edits will not appear for returning
+	# visitors. Logged-in pages must not be stored by shared caches.
+	<FilesMatch "\.(html|htm)$">
+		Header set Cache-Control "no-cache"
+	</FilesMatch>
+</IfModule>
+
+<IfModule mod_expires.c>
+	ExpiresActive On
+	ExpiresByType text/css                 "access plus 1 year"
+	ExpiresByType application/javascript   "access plus 1 year"
+	ExpiresByType text/javascript          "access plus 1 year"
+	ExpiresByType font/woff2               "access plus 1 year"
+	ExpiresByType image/avif               "access plus 1 year"
+	ExpiresByType image/webp               "access plus 1 year"
+	ExpiresByType image/png                "access plus 1 year"
+	ExpiresByType image/jpeg               "access plus 1 year"
+	ExpiresByType image/svg+xml            "access plus 1 year"
+	ExpiresByType text/html                "access plus 0 seconds"
+</IfModule>
+
+# ----- COPY TO HERE -----
+
+
+# nginx equivalent, for the server block rather than .htaccess:
+#
+# location ~* \.(css|js|mjs|woff2?|ttf|avif|webp|png|jpe?g|gif|svg|ico)$ {
+#     add_header Cache-Control "public, max-age=31536000, immutable";
+#     access_log off;
+# }
+#
+#
+# AFTER APPLYING
+#
+# Load the site, open the browser's network panel, and check the response
+# headers on any .js file. Cache-Control should read
+# public, max-age=31536000, immutable. If it still does not, a CDN or a
+# caching plugin is overriding the origin, and the same policy has to be set
+# there instead.

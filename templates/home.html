@@ -1,0 +1,99 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","className":"rm-main rm-main--blog","layout":{"type":"constrained"}} -->
+<main id="main" class="wp-block-group rm-main rm-main--blog is-layout-constrained">
+
+	<!-- wp:group {"tagName":"header","className":"rm-hero","align":"full","layout":{"type":"constrained"}} -->
+	<header class="wp-block-group alignfull rm-hero is-layout-constrained">
+		<!-- wp:paragraph {"className":"rm-eyebrow"} -->
+		<p class="rm-eyebrow">From the team</p>
+		<!-- /wp:paragraph -->
+		<!-- wp:heading {"level":1,"fontSize":"display","className":"rm-hero__display"} -->
+		<h1 class="has-display-font-size rm-hero__display">Insights.</h1>
+		<!-- /wp:heading -->
+		<!-- wp:paragraph {"className":"rm-hero__sub"} -->
+		<p class="rm-hero__sub">What we are seeing in search, paid media and measurement across Singapore, Malaysia and the wider region.</p>
+		<!-- /wp:paragraph -->
+	</header>
+	<!-- /wp:group -->
+
+	<!-- wp:columns {"className":"rm-blog-layout rm-measure-wide"} -->
+	<div class="wp-block-columns rm-blog-layout rm-measure-wide">
+
+		<!-- wp:column {"width":"66%","className":"rm-blog-main"} -->
+		<div class="wp-block-column rm-blog-main" style="flex-basis:66%">
+
+			<!-- wp:query {"queryId":0,"query":{"perPage":6,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","sticky":"","inherit":true},"className":"rm-post-grid"} -->
+			<div class="wp-block-query rm-post-grid">
+
+				<!-- wp:post-template -->
+
+					<!-- wp:group {"className":"rm-post-card","layout":{"type":"constrained"}} -->
+					<div class="wp-block-group rm-post-card is-layout-constrained">
+						<!-- wp:post-featured-image {"isLink":true,"className":"rm-post-card__image"} /-->
+						<!-- wp:group {"className":"rm-post-card__body","layout":{"type":"flow"}} -->
+						<div class="wp-block-group rm-post-card__body is-layout-flow">
+							<!-- wp:post-date {"className":"rm-post-card__date"} /-->
+							<!-- wp:post-title {"isLink":true,"level":2,"className":"rm-post-card__title"} /-->
+							<!-- wp:post-excerpt {"className":"rm-post-card__excerpt","excerptLength":24} /-->
+						</div>
+						<!-- /wp:group -->
+					</div>
+					<!-- /wp:group -->
+
+				<!-- /wp:post-template -->
+
+				<!-- wp:query-no-results -->
+					<!-- wp:paragraph {"className":"rm-post-grid__empty"} -->
+					<p class="rm-post-grid__empty">Nothing published yet. Check back soon.</p>
+					<!-- /wp:paragraph -->
+				<!-- /wp:query-no-results -->
+
+				<!-- wp:query-pagination {"className":"rm-pagination","layout":{"type":"flex","justifyContent":"space-between"}} -->
+				<div class="wp-block-query-pagination rm-pagination is-content-justification-space-between is-layout-flex">
+					<!-- wp:query-pagination-previous /-->
+					<!-- wp:query-pagination-numbers /-->
+					<!-- wp:query-pagination-next /-->
+				</div>
+				<!-- /wp:query-pagination -->
+
+			</div>
+			<!-- /wp:query -->
+
+		</div>
+		<!-- /wp:column -->
+
+		<!-- wp:column {"width":"34%"} -->
+		<div class="wp-block-column" style="flex-basis:34%">
+			<!-- wp:template-part {"slug":"sidebar"} /-->
+		</div>
+		<!-- /wp:column -->
+
+	</div>
+	<!-- /wp:columns -->
+
+</main>
+<!-- /wp:group -->
+
+<!-- wp:group {"tagName":"section","className":"rm-cta rm-cta--centred rm-cta--cyan","align":"full","backgroundColor":"contrast-bg","textColor":"contrast-text","layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignfull rm-cta rm-cta--centred rm-cta--cyan has-contrast-text-color has-contrast-bg-background-color has-text-color has-background">
+	<!-- wp:heading {"level":2,"className":"rm-cta__title"} -->
+	<h2 class="rm-cta__title">Read enough. Let's talk.</h2>
+	<!-- /wp:heading -->
+	<!-- wp:paragraph {"className":"rm-hero__reassure"} -->
+	<p class="rm-hero__reassure">Every engagement starts with a complimentary audit: 30 minutes, no commitment.</p>
+	<!-- /wp:paragraph -->
+	<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
+	<div class="wp-block-buttons is-layout-flex">
+		<!-- wp:button {"className":"is-style-fill"} -->
+		<div class="wp-block-button is-style-fill"><a class="wp-block-button__link wp-element-button" href="/contact/">Start a project →</a></div>
+		<!-- /wp:button -->
+		<!-- wp:button {"className":"is-style-outline"} -->
+		<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="/services/">See what we do</a></div>
+		<!-- /wp:button -->
+	</div>
+	<!-- /wp:buttons -->
+</section>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

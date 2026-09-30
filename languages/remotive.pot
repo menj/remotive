@@ -1,0 +1,1308 @@
+# Copyright (C) 2026 Remotive Media Asia Pte. Ltd.
+# This file is distributed under the GNU General Public License v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Remotive Media 1.74.0\n"
+"Report-Msgid-Bugs-To: https://remotivemedia.asia/\n"
+"POT-Creation-Date: 2026-08-31T07:49:05+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language-Team: \n"
+"X-Domain: remotive\n"
+
+#: inc/site-setup.php:700
+msgid "%1$d of %2$d shipped items are published: four Insights articles, six service pages and thirteen case studies. These are created automatically when the theme is activated, so the site is complete from the start. Editing or deleting any of them is safe; setup never rewrites or resurrects an item on its own."
+msgstr ""
+
+#: inc/classic-menus.php:366
+msgid "%s — menu created"
+msgstr ""
+
+#: inc/content-seed.php:226
+msgid "%s: published"
+msgstr ""
+
+#: inc/site-setup.php:244
+msgid "%s: template or SEO meta filled in"
+msgstr ""
+
+#: inc/theme-options.php:1321
+msgid "&copy; %1$s %2$s. All rights reserved."
+msgstr ""
+
+#: inc/theme-options.php:1316
+msgid "(UEN %s)"
+msgstr ""
+
+#: inc/theme-options.php:405
+msgid "400 — Regular"
+msgstr ""
+
+#: inc/theme-options.php:406
+msgid "500 — Medium"
+msgstr ""
+
+#: inc/theme-options.php:407
+msgid "600 — Semibold"
+msgstr ""
+
+#: inc/theme-options.php:408
+msgid "700 — Bold"
+msgstr ""
+
+#: inc/theme-options.php:409
+msgid "800 — Extrabold"
+msgstr ""
+
+#: inc/theme-options.php:410
+msgid "900 — Black"
+msgstr ""
+
+#: inc/site-setup.php:79
+msgid "A Singapore-registered performance marketing and SEO agency built for how Asia actually buys. Meet the team."
+msgstr ""
+
+#: inc/leads.php:203
+msgid "A lead needs a valid email address."
+msgstr ""
+
+#: inc/feature-grids.php:141
+msgid "A team that plugs into yours"
+msgstr ""
+
+#: inc/classic-menus.php:303
+msgid "AI visibility, healthcare"
+msgstr ""
+
+#: inc/site-setup.php:73
+msgid "About"
+msgstr ""
+
+#: inc/theme-options.php:236
+msgid "About / team"
+msgstr ""
+
+#: inc/site-setup.php:78
+msgid "About Re:Motive Media Asia"
+msgstr ""
+
+#: inc/leads.php:635
+#: inc/site-setup.php:717
+#: inc/site-setup.php:743
+msgid "Action"
+msgstr ""
+
+#: inc/theme-options.php:570
+msgid "Add member"
+msgstr ""
+
+#: inc/theme-options.php:298
+msgid "Address — line 1"
+msgstr ""
+
+#: inc/theme-options.php:302
+msgid "Address — line 2"
+msgstr ""
+
+#: inc/theme-options.php:306
+msgid "Address — line 3"
+msgstr ""
+
+#: inc/feature-grids.php:100
+msgid "Agency sprawl"
+msgstr ""
+
+#: inc/leads.php:561
+msgid "Akismet is installed but has no API key, so contact form submissions are not being checked for spam. Add a key on the Akismet settings screen."
+msgstr ""
+
+#: inc/classic-menus.php:311
+msgid "All 13 case studies →"
+msgstr ""
+
+#: inc/feature-grids.php:84
+msgid "Analytics"
+msgstr ""
+
+#: inc/site-setup.php:119
+msgid "Answers to what we're usually asked before a first call: scope, results, markets, and measurement."
+msgstr ""
+
+#: inc/feature-grids.php:167
+msgid "Attribution reported as a model, platform numbers labelled as platform numbers."
+msgstr ""
+
+#: inc/theme-options.php:382
+msgid "Background colour"
+msgstr ""
+
+#: inc/theme-options.php:558
+msgid "Bio (About page)"
+msgstr ""
+
+#: inc/theme-options.php:454
+msgid "Branded login screen"
+msgstr ""
+
+#: inc/theme-options.php:977
+msgid "Built by MENJ"
+msgstr ""
+
+#: inc/feature-grids.php:108
+msgid "Buyers ask AI engines first, and most brands never appear in the answer."
+msgstr ""
+
+#: inc/theme-options.php:350
+msgid "Call-to-Action"
+msgstr ""
+
+#: inc/site-setup.php:63
+msgid "Case Studies"
+msgstr ""
+
+#: inc/site-setup.php:68
+msgid "Case Studies | Re:Motive Media"
+msgstr ""
+
+#: inc/feature-grids.php:174
+msgid "Case studies"
+msgstr ""
+
+#: inc/theme-options.php:231
+msgid "Case studies description"
+msgstr ""
+
+#: inc/feature-grids.php:172
+msgid "Case studies with the numbers shown, including what they do and do not prove."
+msgstr ""
+
+#: inc/site-setup.php:741
+msgid "Case study"
+msgstr ""
+
+#: inc/leads.php:626
+msgid "Check these occasionally. Not spam moves the enquiry back into the list above and tells Akismet it got that one wrong, which improves the filter. The full folder is on the enquiries screen, alongside the other views."
+msgstr ""
+
+#: inc/feature-grids.php:103
+msgid "Choosing an agency"
+msgstr ""
+
+#: inc/theme-options.php:394
+msgid "Colour of the vertical line between items. Accepts a hex colour or an rgba() value for transparency. Default: rgba(255,255,255,0.18)."
+msgstr ""
+
+#: inc/theme-options.php:379
+msgid "Comma-separated list of market names. At least two entries are required for the scroll to loop smoothly; fewer than two hides the band."
+msgstr ""
+
+#: inc/feature-grids.php:136
+msgid "Commercial accountability"
+msgstr ""
+
+#: inc/theme-options.php:315
+msgid "Company registration number (UEN)"
+msgstr ""
+
+#: inc/feature-grids.php:89
+msgid "Competition and CPCs climb while budgets hold flat."
+msgstr ""
+
+#: inc/site-setup.php:137
+msgid "Confirmation page every native form redirects to on success. Self-contained template. Kept out of menus and out of search results (noindex), but it must stay published: it is the conversion destination analytics and ad platforms fire on."
+msgstr ""
+
+#: inc/site-setup.php:93
+msgid "Contact"
+msgstr ""
+
+#: inc/theme-options.php:289
+msgid "Contact & Socials"
+msgstr ""
+
+#: inc/site-setup.php:98
+msgid "Contact Re:Motive Media Asia"
+msgstr ""
+
+#: inc/theme-options.php:294
+msgid "Contact email"
+msgstr ""
+
+#: inc/theme-options.php:806
+msgid "Contact email looked invalid — kept the previous value."
+msgstr ""
+
+#: inc/theme-options.php:377
+msgid "Countries"
+msgstr ""
+
+#: inc/theme-options.php:366
+msgid "Country ticker"
+msgstr ""
+
+#: inc/theme-options.php:481
+msgid "Dark"
+msgstr ""
+
+#: inc/feature-grids.php:114
+msgid "Dashboards nobody acts on"
+msgstr ""
+
+#: inc/theme-options.php:477
+msgid "Default colour mode"
+msgstr ""
+
+#: inc/site-setup.php:731
+msgid "Deleted"
+msgstr ""
+
+#: inc/leads.php:540
+msgid "Deleted automatically after %d months."
+msgstr ""
+
+#: inc/site-setup.php:168
+msgid "Digital Marketing Agency, Malaysia | KL & Penang"
+msgstr ""
+
+#: inc/site-setup.php:163
+msgid "Digital Marketing Malaysia"
+msgstr ""
+
+#: inc/theme-options.php:444
+msgid "Display"
+msgstr ""
+
+#: inc/theme-options.php:373
+msgid "Display the country ticker on the homepage"
+msgstr ""
+
+#: inc/classic-menus.php:307
+msgid "Ecommerce SEO, footwear"
+msgstr ""
+
+#: inc/site-setup.php:738
+#: inc/site-setup.php:796
+msgid "Edit"
+msgstr ""
+
+#: inc/site-setup.php:767
+msgid "Edit menus"
+msgstr ""
+
+#: inc/feature-grids.php:122
+msgid "Email"
+msgstr ""
+
+#: inc/leads.php:591
+msgid "Email failed"
+msgstr ""
+
+#: inc/feature-grids.php:120
+msgid "Email lists sit unmailed while paid buys the same audience twice."
+msgstr ""
+
+#: inc/lead-form-handler.php:114
+msgid "Email: %s"
+msgstr ""
+
+#: inc/theme-options.php:606
+msgid "Enabled"
+msgstr ""
+
+#: inc/leads.php:49
+#: inc/leads.php:51
+#: inc/leads.php:528
+msgid "Enquiries"
+msgstr ""
+
+#: inc/leads.php:50
+msgid "Enquiry"
+msgstr ""
+
+#: inc/leads.php:547
+msgid "Every enquiry is stored before the notification email is attempted, so a mail failure never loses one. Submissions from Contact Form 7 are captured here too when that plugin is active."
+msgstr ""
+
+#: inc/leads.php:652
+msgid "Export all as CSV"
+msgstr ""
+
+#: inc/theme-options.php:161
+msgid "Eyebrow (optional)"
+msgstr ""
+
+#: inc/site-setup.php:113
+msgid "FAQ"
+msgstr ""
+
+#: inc/site-setup.php:118
+msgid "FAQ | Re:Motive Media"
+msgstr ""
+
+#: inc/theme-options.php:332
+msgid "Facebook URL"
+msgstr ""
+
+#: inc/theme-options.php:473
+msgid "Fade and lift sections as they scroll into view"
+msgstr ""
+
+#: inc/theme-options.php:267
+msgid "Figure 1 — label"
+msgstr ""
+
+#: inc/theme-options.php:263
+msgid "Figure 1 — value"
+msgstr ""
+
+#: inc/theme-options.php:275
+msgid "Figure 2 — label"
+msgstr ""
+
+#: inc/theme-options.php:271
+msgid "Figure 2 — value"
+msgstr ""
+
+#: inc/theme-options.php:283
+msgid "Figure 3 — label"
+msgstr ""
+
+#: inc/theme-options.php:279
+msgid "Figure 3 — value"
+msgstr ""
+
+#: inc/theme-options.php:397
+msgid "Font size (rem)"
+msgstr ""
+
+#: inc/theme-options.php:402
+msgid "Font weight"
+msgstr ""
+
+#: inc/classic-menus.php:276
+msgid "Footer — Case Studies"
+msgstr ""
+
+#: inc/classic-menus.php:36
+msgid "Footer — Case Studies column"
+msgstr ""
+
+#: inc/classic-menus.php:261
+msgid "Footer — Company"
+msgstr ""
+
+#: inc/classic-menus.php:37
+msgid "Footer — Company column"
+msgstr ""
+
+#: inc/classic-menus.php:265
+msgid "Footer — Services"
+msgstr ""
+
+#: inc/classic-menus.php:35
+msgid "Footer — Services column"
+msgstr ""
+
+#: inc/theme-options.php:359
+msgid "Form submission URL"
+msgstr ""
+
+#: inc/leads.php:575
+#: inc/leads.php:594
+#: inc/leads.php:633
+msgid "From"
+msgstr ""
+
+#: inc/site-setup.php:47
+msgid "Front page. templates/front-page.html always wins for the homepage, so this page exists only to be assigned in Settings -> Reading."
+msgstr ""
+
+#: inc/feature-grids.php:161
+msgid "Full-funnel scope"
+msgstr ""
+
+#: inc/theme-options.php:465
+msgid "Graceful error handling"
+msgstr ""
+
+#: inc/theme-options.php:173
+msgid "Headline — highlighted words"
+msgstr ""
+
+#: inc/theme-options.php:165
+msgid "Headline — line 1"
+msgstr ""
+
+#: inc/theme-options.php:169
+msgid "Headline — line 2"
+msgstr ""
+
+#: inc/site-setup.php:43
+msgid "Home"
+msgstr ""
+
+#: inc/theme-options.php:156
+msgid "Homepage hero"
+msgstr ""
+
+#: inc/feature-grids.php:166
+msgid "Honest measurement"
+msgstr ""
+
+#: inc/theme-options.php:424
+msgid "Horizontal padding (rem)"
+msgstr ""
+
+#: inc/site-setup.php:129
+msgid "How Re:Motive Media Asia Pte. Ltd. collects, uses and protects personal data under Singapore's PDPA."
+msgstr ""
+
+#: inc/feature-grids.php:74
+msgid "In-house teams stretched thin"
+msgstr ""
+
+#: inc/site-setup.php:103
+msgid "Insights"
+msgstr ""
+
+#: inc/site-setup.php:741
+msgid "Insights article"
+msgstr ""
+
+#: inc/site-setup.php:108
+msgid "Insights | Re:Motive Media Blog"
+msgstr ""
+
+#: inc/theme-options.php:320
+msgid "Instagram URL"
+msgstr ""
+
+#: inc/feature-grids.php:107
+msgid "Invisible to AI search"
+msgstr ""
+
+#: inc/site-setup.php:714
+#: inc/site-setup.php:735
+msgid "Item"
+msgstr ""
+
+#: inc/theme-options.php:467
+msgid "Keep PHP notices and warnings off the page"
+msgstr ""
+
+#: inc/theme-options.php:449
+msgid "Keep enquiries for"
+msgstr ""
+
+#: inc/leads.php:544
+msgid "Kept indefinitely; set a retention period on the Display tab."
+msgstr ""
+
+#: inc/theme-options.php:361
+msgid "Leave as the default admin-post.php URL to use the built-in handler, or paste a different endpoint to use instead."
+msgstr ""
+
+#: inc/theme-options.php:437
+msgid "Left (default)"
+msgstr ""
+
+#: inc/theme-options.php:426
+msgid "Left and right padding inside each item (0.5–8.0). Controls spacing between country names. Default: 2.4."
+msgstr ""
+
+#: inc/site-setup.php:127
+msgid "Legal template renders editor content. A draft is in docs/legal-privacy-policy.md: fill in every CONFIRM marker and have it reviewed before publishing."
+msgstr ""
+
+#: inc/site-setup.php:147
+msgid "Legal template renders editor content. A draft is in docs/legal-terms-of-service.md: fill in every CONFIRM marker and have it reviewed before publishing."
+msgstr ""
+
+#: inc/theme-options.php:414
+msgid "Letter spacing (em)"
+msgstr ""
+
+#: inc/theme-options.php:485
+msgid "Light"
+msgstr ""
+
+#: inc/theme-options.php:324
+msgid "LinkedIn URL"
+msgstr ""
+
+#: inc/feature-grids.php:119
+msgid "Lists left idle"
+msgstr ""
+
+#: inc/theme-options.php:460
+msgid "Login screen message"
+msgstr ""
+
+#: inc/classic-menus.php:226
+msgid "Main"
+msgstr ""
+
+#: inc/classic-menus.php:257
+msgid "Main menu"
+msgstr ""
+
+#: inc/classic-menus.php:34
+msgid "Main menu (header)"
+msgstr ""
+
+#: inc/leads.php:611
+msgid "Mark as spam"
+msgstr ""
+
+#: inc/classic-menus.php:287
+msgid "Market entry, trading platform"
+msgstr ""
+
+#: inc/site-setup.php:167
+msgid "Market landing page, self-contained template. Auto-created since 1.65.7, for the same reason as SEO Singapore: internal links pointed here long before any mechanism existed to create the page."
+msgstr ""
+
+#: inc/site-setup.php:157
+msgid "Market landing page, self-contained template. Auto-created since 1.65.7: seeded content and services pages had linked to /seo-singapore/ since 1.63.0, but the page itself was documented as a manual step nobody had performed, so every one of those links 404ed."
+msgstr ""
+
+#: inc/feature-grids.php:82
+msgid "Marketing and account data sit apart, so no one sees what drives funded outcomes."
+msgstr ""
+
+#: inc/classic-menus.php:291
+msgid "Marketplace launch, skincare"
+msgstr ""
+
+#: inc/theme-options.php:490
+msgid "Match the visitor's device"
+msgstr ""
+
+#: inc/site-setup.php:83
+msgid "Meet the Team"
+msgstr ""
+
+#: inc/site-setup.php:88
+msgid "Meet the Team | Re:Motive Media"
+msgstr ""
+
+#: inc/feature-grids.php:77
+msgid "Meet the team"
+msgstr ""
+
+#: inc/theme-options.php:252
+msgid "Members"
+msgstr ""
+
+#: inc/classic-menus.php:99
+#: inc/classic-menus.php:100
+#: inc/site-setup.php:761
+msgid "Menus"
+msgstr ""
+
+#: inc/site-setup.php:763
+msgid "Menus are managed the classic way, in Appearance → Menus. The theme registers three locations: Main menu (header), Footer — Sitemap column, and Footer — Services column. Edit a menu there and the site updates immediately; no Site Editor needed. If a location has no menu assigned, the header or footer falls back to its built-in list of links, so the site never renders an empty menu."
+msgstr ""
+
+#: inc/leads.php:576
+#: inc/leads.php:600
+#: inc/leads.php:634
+msgid "Message"
+msgstr ""
+
+#: inc/lead-form-handler.php:117
+msgid "Message:\\n%s"
+msgstr ""
+
+#: inc/site-setup.php:802
+msgid "Missing"
+msgstr ""
+
+#: inc/feature-grids.php:156
+msgid "Modular by design"
+msgstr ""
+
+#: inc/theme-options.php:451
+msgid "Months to keep stored enquiries before they are deleted automatically. Your privacy policy has to state a period, and a period nothing enforces is worse than none. Set 0 to keep them indefinitely."
+msgstr ""
+
+#: inc/feature-grids.php:147
+msgid "Multi-market delivery across Asia, adapted to local regulation and platform."
+msgstr ""
+
+#: inc/theme-options.php:551
+msgid "Name"
+msgstr ""
+
+#: inc/lead-form-handler.php:111
+msgid "Name: %s"
+msgstr ""
+
+#: inc/cta-form-handler.php:27
+msgid "New audit request from %s"
+msgstr ""
+
+#: inc/about-form-handler.php:35
+#: inc/contact-form-handler.php:29
+msgid "New contact form message via %s"
+msgstr ""
+
+#: inc/feature-grids.php:151
+msgid "Next-gen discovery"
+msgstr ""
+
+#: inc/leads.php:641
+msgid "Not spam"
+msgstr ""
+
+#: inc/site-setup.php:771
+msgid "Note: new pages are not added to a menu automatically. The service pages and case studies sit under Services and Case Studies, so they are reachable through those pages and the footer; add them to the main menu only if you want them at the top level."
+msgstr ""
+
+#: inc/leads.php:569
+msgid "Nothing yet. Submissions will appear here."
+msgstr ""
+
+#: inc/theme-options.php:258
+msgid "Numbers"
+msgstr ""
+
+#: inc/theme-options.php:457
+msgid "Off by default. When on, the login screen uses the site logo, colours and typeface instead of the WordPress default. This changes appearance only: it does not alter how anyone signs in, and it does not add login security. If a login-branding plugin is already active, that plugin keeps control and this setting does nothing."
+msgstr ""
+
+#: inc/theme-options.php:468
+msgid "On by default. PHP notices, warnings and deprecation messages are captured and written to the error log instead of being printed into the page. This matters beyond tidiness: a printed notice is output, and once output has been sent no header can be set for the rest of the request, so a single notice from one plugin cascades into failed redirects and cookies. Administrators see a summary panel; visitors see nothing. Fatal errors are always handled separately and show the branded error page."
+msgstr ""
+
+#: inc/theme-options.php:474
+msgid "On by default. Section headings, cards and stats rise gently into place as you scroll, and the hero mark drifts behind the content. Only opacity and transform are animated, so nothing shifts position and page layout is unaffected. Visitors whose device is set to reduce motion never see any of it regardless of this setting."
+msgstr ""
+
+#: inc/theme-options.php:462
+msgid "One line shown above the login form. Leave blank for none."
+msgstr ""
+
+#: inc/feature-grids.php:162
+msgid "One team across search, paid, social, content, email and analytics, so nothing falls between vendors."
+msgstr ""
+
+#: inc/classic-menus.php:234
+msgid "Open menu"
+msgstr ""
+
+#: inc/site-setup.php:58
+msgid "Our Services | Re:Motive Media"
+msgstr ""
+
+#: inc/site-setup.php:741
+#: inc/site-setup.php:784
+msgid "Page"
+msgstr ""
+
+#: inc/site-setup.php:48
+msgid "Performance Marketing & SEO Agency | Re:Motive"
+msgstr ""
+
+#: inc/theme-options.php:556
+msgid "Photo slug"
+msgstr ""
+
+#: inc/feature-grids.php:101
+msgid "Point agencies each own a channel, and no one owns the number."
+msgstr ""
+
+#: inc/site-setup.php:107
+msgid "Posts page. Rendered by templates/home.html, so editor content is ignored."
+msgstr ""
+
+#: inc/site-setup.php:536
+msgid "Primary"
+msgstr ""
+
+#: inc/theme-options.php:181
+msgid "Primary button label"
+msgstr ""
+
+#: inc/site-setup.php:123
+#: inc/theme-options.php:1339
+msgid "Privacy Policy"
+msgstr ""
+
+#: inc/site-setup.php:128
+msgid "Privacy Policy | Re:Motive Media Asia"
+msgstr ""
+
+#: inc/theme-options.php:204
+msgid "Problem description"
+msgstr ""
+
+#: inc/classic-menus.php:295
+msgid "Programmatic, automotive"
+msgstr ""
+
+#: inc/theme-options.php:227
+msgid "Proof / work"
+msgstr ""
+
+#: inc/feature-grids.php:171
+msgid "Proof before promises"
+msgstr ""
+
+#: inc/site-setup.php:728
+msgid "Published"
+msgstr ""
+
+#: inc/site-setup.php:823
+msgid "Re-check pages"
+msgstr ""
+
+#: inc/site-setup.php:806
+msgid "Ready"
+msgstr ""
+
+#: inc/site-setup.php:69
+msgid "Real client results in SEO, paid media and analytics across Asia, with the measurement limits named on each page."
+msgstr ""
+
+#: inc/theme-options.php:189
+msgid "Reassurance line"
+msgstr ""
+
+#: inc/leads.php:574
+#: inc/leads.php:588
+#: inc/leads.php:632
+msgid "Received"
+msgstr ""
+
+#: inc/site-setup.php:749
+msgid "Recreate"
+msgstr ""
+
+#: inc/feature-grids.php:146
+msgid "Regional footprint"
+msgstr ""
+
+#: inc/theme-options.php:310
+msgid "Registered company name"
+msgstr ""
+
+#: inc/theme-options.php:560
+msgid "Remove"
+msgstr ""
+
+#: inc/site-setup.php:744
+msgid "Replace this item with the shipped version? Edits to it are lost."
+msgstr ""
+
+#: inc/feature-grids.php:115
+msgid "Reporting describes last month and decides nothing."
+msgstr ""
+
+#: inc/site-setup.php:707
+msgid "Restore replaces an item with the version shipped in the current theme release: title, content, excerpt and SEO meta. Use it after a theme update that improved the shipped copy, or to bring back an item that was deleted. Edits you made to that item are lost; nothing else on the site is touched."
+msgstr ""
+
+#: inc/site-setup.php:749
+msgid "Restore shipped version"
+msgstr ""
+
+#: inc/theme-options.php:904
+msgid "Restored to the shipped version: %s."
+msgstr ""
+
+#: inc/theme-options.php:438
+msgid "Right"
+msgstr ""
+
+#: inc/feature-grids.php:88
+msgid "Rising acquisition costs"
+msgstr ""
+
+#: inc/theme-options.php:554
+msgid "Role"
+msgstr ""
+
+#: inc/site-setup.php:158
+msgid "SEO & Digital Marketing Agency, Singapore"
+msgstr ""
+
+#: inc/site-setup.php:153
+msgid "SEO Singapore"
+msgstr ""
+
+#: inc/feature-grids.php:110
+msgid "SEO and GEO"
+msgstr ""
+
+#: inc/feature-grids.php:91
+msgid "SEO vs SEM"
+msgstr ""
+
+#: inc/site-setup.php:169
+msgid "SEO, SEM and social for Kuala Lumpur, Penang and PJ businesses, run as one connected system. See how."
+msgstr ""
+
+#: inc/site-setup.php:59
+msgid "SEO, paid media, social, content, email and analytics: modular capabilities, activate one or all three. See what we do."
+msgstr ""
+
+#: inc/site-setup.php:159
+msgid "SEO, performance marketing and paid social for Singapore businesses that want reporting they can trust."
+msgstr ""
+
+#: inc/theme-options.php:434
+msgid "Scroll direction"
+msgstr ""
+
+#: inc/theme-options.php:471
+msgid "Scroll motion"
+msgstr ""
+
+#: inc/theme-options.php:429
+msgid "Scroll speed (seconds)"
+msgstr ""
+
+#: inc/theme-options.php:185
+msgid "Secondary button label"
+msgstr ""
+
+#: inc/theme-options.php:431
+msgid "Seconds for one full loop (4–120). Lower is faster. Default: 26. The speed scales proportionally if you add or remove countries."
+msgstr ""
+
+#: inc/theme-options.php:195
+msgid "Section headings"
+msgstr ""
+
+#: inc/theme-options.php:976
+msgid "See ssot.md and readme.md in the theme folder for full documentation."
+msgstr ""
+
+#: inc/site-setup.php:97
+msgid "Self-contained template, including the contact form."
+msgstr ""
+
+#: inc/site-setup.php:67
+msgid "Self-contained template. Case study cards are placeholders until the custom post type lands."
+msgstr ""
+
+#: inc/site-setup.php:57
+msgid "Self-contained template. No editor content needed."
+msgstr ""
+
+#: inc/site-setup.php:117
+msgid "Self-contained template. Questions live in the template, and the FAQPage structured data is parsed from them, so the two cannot drift apart."
+msgstr ""
+
+#: inc/site-setup.php:87
+msgid "Self-contained template. The roster and portraits come from Theme Options; the gallery is in the template."
+msgstr ""
+
+#: inc/site-setup.php:77
+msgid "Self-contained template: how the company started, why the region, what it stands for, and the contact form."
+msgstr ""
+
+#: inc/site-setup.php:49
+msgid "Senior specialists running SEO, paid media and analytics across Singapore, Malaysia and Asia. Get a free audit."
+msgstr ""
+
+#: inc/site-setup.php:89
+msgid "Senior specialists who plug into your team: no junior handovers, one number everyone answers for. Meet them here."
+msgstr ""
+
+#: inc/feature-grids.php:142
+msgid "Senior specialists working inside your team, or white-label for creative and PR agencies."
+msgstr ""
+
+#: inc/feature-grids.php:75
+msgid "Senior strategic capacity is scarce and slow to hire."
+msgstr ""
+
+#: inc/theme-options.php:392
+msgid "Separator colour"
+msgstr ""
+
+#: inc/site-setup.php:53
+msgid "Services"
+msgstr ""
+
+#: inc/theme-options.php:213
+msgid "Services description"
+msgstr ""
+
+#: inc/site-setup.php:822
+msgid "Set up %d page(s)"
+msgstr ""
+
+#: inc/site-setup.php:695
+msgid "Shipped content"
+msgstr ""
+
+#: inc/theme-options.php:371
+msgid "Show ticker"
+msgstr ""
+
+#: inc/theme-options.php:317
+msgid "Shown in brackets after the company name in the footer. Singapore's Companies Act section 144 requires the registered name and number on a company's business communications and publications, and a website footer is the usual place for it. Leave blank to omit it entirely."
+msgstr ""
+
+#: inc/feature-grids.php:81
+msgid "Siloed data and CRM"
+msgstr ""
+
+#: inc/site-setup.php:776
+msgid "Site pages"
+msgstr ""
+
+#: inc/theme-options.php:919
+msgid "Site setup finished. %1$d page(s) created, %2$d template assignment(s) filled in."
+msgstr ""
+
+#: inc/theme-options.php:886
+msgid "Site-specific settings for the Remotive Media theme."
+msgstr ""
+
+#: inc/theme-options.php:399
+msgid "Size of the country names as a rem value (0.5–2.5). Default: 0.85."
+msgstr ""
+
+#: inc/site-setup.php:785
+msgid "Slug"
+msgstr ""
+
+#: inc/security.php:177
+msgid "Sorry, you are not allowed to list users."
+msgstr ""
+
+#: inc/leads.php:577
+#: inc/leads.php:603
+msgid "Source"
+msgstr ""
+
+#: inc/leads.php:171
+msgid "Spam"
+msgstr ""
+
+#: inc/leads.php:563
+msgid "Spam filtering is off. Install and connect the Akismet plugin and contact form submissions will be checked against the same service as comment spam. The forms work either way."
+msgstr ""
+
+#: inc/leads.php:557
+msgid "Spam filtering is on through Akismet. %d in the spam folder, kept rather than deleted."
+msgstr ""
+
+#: inc/leads.php:624
+msgid "Spam folder"
+msgstr ""
+
+#: inc/site-setup.php:716
+#: inc/site-setup.php:742
+#: inc/site-setup.php:786
+msgid "Status"
+msgstr ""
+
+#: inc/site-setup.php:787
+msgid "Still to do"
+msgstr ""
+
+#: inc/theme-options.php:177
+msgid "Sub-heading"
+msgstr ""
+
+#: inc/lead-form-handler.php:120
+msgid "Submitted: %s"
+msgstr ""
+
+#: inc/theme-options.php:489
+msgid "System"
+msgstr ""
+
+#: inc/feature-grids.php:157
+msgid "Take one capability or the full stack, and scale as quarters change."
+msgstr ""
+
+#: inc/theme-options.php:247
+msgid "Team"
+msgstr ""
+
+#: inc/theme-options.php:240
+msgid "Team description"
+msgstr ""
+
+#: inc/theme-options.php:550
+msgid "Team member"
+msgstr ""
+
+#: inc/feature-grids.php:96
+msgid "Teams cannot prove which channels open accounts and first orders."
+msgstr ""
+
+#: inc/classic-menus.php:299
+msgid "Technical SEO, automation"
+msgstr ""
+
+#: inc/site-setup.php:99
+msgid "Tell us what's not working. We reply within three business days with a view, not a brochure. Get in touch."
+msgstr ""
+
+#: inc/site-setup.php:804
+msgid "Template not set"
+msgstr ""
+
+#: inc/site-setup.php:143
+#: inc/theme-options.php:1340
+msgid "Terms of Service"
+msgstr ""
+
+#: inc/site-setup.php:148
+msgid "Terms of Service | Re:Motive Media Asia"
+msgstr ""
+
+#: inc/theme-options.php:387
+msgid "Text colour"
+msgstr ""
+
+#: inc/site-setup.php:133
+msgid "Thank You"
+msgstr ""
+
+#: inc/site-setup.php:138
+msgid "Thank You | Re:Motive Media Asia"
+msgstr ""
+
+#: inc/theme-options.php:897
+msgid "That item could not be restored. It may no longer ship with the theme."
+msgstr ""
+
+#: inc/theme-options.php:482
+msgid "The CMYK \"Registration\" direction"
+msgstr ""
+
+#: inc/theme-options.php:486
+msgid "The Remotive Media Asia brand system"
+msgstr ""
+
+#: inc/theme-options.php:389
+msgid "The colour of the country names. Default: Ivory (#f7f4ec)."
+msgstr ""
+
+#: inc/theme-options.php:291
+msgid "The email address, postal address and social profiles. These appear in the site footer, on the Contact page, in the blog sidebar, and in the site's structured data, so changing one here changes it everywhere. A social field left blank hides that icon rather than linking nowhere."
+msgstr ""
+
+#: inc/theme-options.php:384
+msgid "The fill colour of the ticker band. Default: Charcoal (#1a1a2e)."
+msgstr ""
+
+#: inc/theme-options.php:197
+msgid "The heading above each homepage section. These replace the headings in the templates, so a section keeps its layout and only its wording changes. Leave one blank to fall back to the shipped text."
+msgstr ""
+
+#: inc/theme-options.php:206
+#: inc/theme-options.php:215
+#: inc/theme-options.php:224
+#: inc/theme-options.php:233
+#: inc/theme-options.php:242
+msgid "The line under the heading. Every section on the site carries one; leave it blank only if the heading truly stands alone."
+msgstr ""
+
+#: inc/theme-options.php:249
+msgid "The members shown in both team grids and listed in the site's structured data. Add a row for a new member, edit any field in place, and use Remove (or clear the name) to delete one. Photo slug matches the portrait files: assets/team/<slug>.avif and <slug>-alt.avif; leave it blank for the placeholder tile. Bios appear on the About page only."
+msgstr ""
+
+#: inc/theme-options.php:158
+msgid "The opening block of the homepage. The headline is split into three parts so the last one can carry the brand colour."
+msgstr ""
+
+#: inc/theme-options.php:200
+msgid "The problem we solve"
+msgstr ""
+
+#: inc/theme-options.php:368
+msgid "The scrolling band of market names below the homepage hero. Adjust countries, colours, size and speed here."
+msgstr ""
+
+#: inc/site-setup.php:149
+msgid "The terms governing use of the Re:Motive Media Asia website and engagement with our services."
+msgstr ""
+
+#: inc/site-setup.php:778
+msgid "The theme ships the templates; WordPress still needs the Pages themselves. These are created automatically when the theme is activated, so the list below should already read Ready. Use the button to re-check, or to rebuild anything that was later deleted. It never overwrites a page that already exists."
+msgstr ""
+
+#: inc/theme-options.php:260
+msgid "The three-figure band between the work and about sections. Each entry is a value and its label. Keep values short, four or five characters, because they are set at display size and a long value wraps awkwardly on phones."
+msgstr ""
+
+#: inc/theme-options.php:829
+#: inc/theme-options.php:830
+#: inc/theme-options.php:885
+msgid "Theme Options"
+msgstr ""
+
+#: inc/theme-options.php:931
+msgid "Theme Options sections"
+msgstr ""
+
+#: inc/theme-options.php:344
+msgid "Threads URL"
+msgstr ""
+
+#: inc/theme-options.php:328
+msgid "TikTok URL"
+msgstr ""
+
+#: inc/security.php:63
+msgid "Too many failed attempts. Please try again in 10 minutes."
+msgstr ""
+
+#: inc/theme-options.php:421
+msgid "Top and bottom padding inside each item (0.2–4.0). Controls the band height. Default: 0.85."
+msgstr ""
+
+#: inc/theme-options.php:416
+msgid "Tracking applied to the country names (0.00–0.50). Default: 0.10."
+msgstr ""
+
+#: inc/site-setup.php:715
+#: inc/site-setup.php:741
+msgid "Type"
+msgstr ""
+
+#: inc/theme-options.php:456
+msgid "Use the site's branding on wp-login.php"
+msgstr ""
+
+#: inc/theme-options.php:312
+msgid "Used in the footer copyright line. This is the legal entity, which may differ from the brand name used elsewhere on the site."
+msgstr ""
+
+#: inc/theme-options.php:419
+msgid "Vertical padding (rem)"
+msgstr ""
+
+#: inc/leads.php:655
+msgid "View all enquiries"
+msgstr ""
+
+#: inc/thank-you.php:93
+msgid "We have your message and will reply within three business days, Singapore hours."
+msgstr ""
+
+#: inc/site-setup.php:139
+msgid "We have your message and will reply within three business days."
+msgstr ""
+
+#: inc/thank-you.php:89
+msgid "We have your message. A person reads it and replies within three business days, Singapore hours."
+msgstr ""
+
+#: inc/feature-grids.php:137
+msgid "We report funded accounts, qualified leads and pipeline value. That is the number that matters."
+msgstr ""
+
+#: inc/feature-grids.php:95
+msgid "Weak attribution"
+msgstr ""
+
+#: inc/theme-options.php:209
+msgid "What we do"
+msgstr ""
+
+#: inc/site-setup.php:109
+msgid "What we're seeing in search, paid media and measurement across Singapore, Malaysia and the wider region."
+msgstr ""
+
+#: inc/theme-options.php:374
+msgid "When off, the band is hidden entirely. All settings are preserved while hidden."
+msgstr ""
+
+#: inc/theme-options.php:354
+msgid "Where the homepage email-capture form submits to. By default, submissions email %s directly (the theme's built-in handler — no third-party account needed). Change this to a form plugin endpoint, a Formspree-style URL, or a CRM webhook if you'd rather use one of those instead."
+msgstr ""
+
+#: inc/theme-options.php:446
+msgid "Which colour mode first-time visitors see. Returning visitors who've used the toggle always see their own saved choice regardless of this setting."
+msgstr ""
+
+#: inc/theme-options.php:218
+msgid "Why Re:Motive"
+msgstr ""
+
+#: inc/theme-options.php:222
+msgid "Why Re:Motive description"
+msgstr ""
+
+#: inc/theme-options.php:336
+msgid "X (Twitter) URL"
+msgstr ""
+
+#: inc/akismet.php:136
+msgid "You are not allowed to do that."
+msgstr ""
+
+#: inc/leads.php:477
+msgid "You are not allowed to export enquiries."
+msgstr ""
+
+#: inc/site-setup.php:653
+msgid "You do not have permission to restore shipped content."
+msgstr ""
+
+#: inc/site-setup.php:614
+msgid "You do not have permission to set up site pages."
+msgstr ""
+
+#: inc/feature-grids.php:152
+msgid "You show up in classic search and in AI answers, through SEO and GEO."
+msgstr ""
+
+#: inc/theme-options.php:340
+msgid "YouTube URL"
+msgstr ""
+
+#: inc/thank-you.php:84
+msgid "Your audit request is in. We will look at what you have and reply within three business days with what we would fix first."
+msgstr ""
+
+#: inc/site-setup.php:100
+msgid "contact digital marketing agency"
+msgstr ""
+
+#: inc/site-setup.php:120
+msgid "digital marketing agency faq"
+msgstr ""
+
+#: inc/site-setup.php:170
+msgid "digital marketing agency malaysia"
+msgstr ""
+
+#: inc/site-setup.php:70
+msgid "digital marketing case studies"
+msgstr ""
+
+#: inc/site-setup.php:110
+msgid "digital marketing insights"
+msgstr ""
+
+#: inc/site-setup.php:60
+msgid "digital marketing services"
+msgstr ""
+
+#: inc/site-setup.php:90
+msgid "digital marketing team singapore"
+msgstr ""
+
+#: inc/site-setup.php:50
+msgid "performance marketing agency singapore"
+msgstr ""
+
+#: inc/site-setup.php:80
+msgid "re:motive media asia"
+msgstr ""
+
+#: inc/site-setup.php:160
+msgid "seo agency singapore"
+msgstr ""

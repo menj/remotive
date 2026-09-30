@@ -1,0 +1,24 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","className":"rm-main","layout":{"type":"constrained"}} -->
+<main id="main" class="wp-block-group rm-main is-layout-constrained">
+
+	<!-- wp:group {"tagName":"article","className":"rm-legal","layout":{"type":"constrained"}} -->
+	<article class="wp-block-group rm-legal is-layout-constrained">
+		<!-- wp:post-title {"level":1,"fontSize":"h2","className":"rm-legal__title"} /-->
+		<!-- wp:group {"className":"rm-legal__meta","layout":{"type":"flex"}} -->
+		<div class="wp-block-group rm-legal__meta is-layout-flex">
+			<!-- wp:paragraph {"className":"rm-legal__updated-label"} -->
+			<p class="rm-legal__updated-label">Last updated:</p>
+			<!-- /wp:paragraph -->
+			<!-- wp:post-date {"className":"rm-legal__updated-date"} /-->
+		</div>
+		<!-- /wp:group -->
+		<!-- wp:post-content {"className":"rm-legal__content","layout":{"type":"constrained"}} /-->
+	</article>
+	<!-- /wp:group -->
+
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

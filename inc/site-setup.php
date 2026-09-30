@@ -1,0 +1,983 @@
+<?php
+/**
+ * One-time site setup for the Remotive Media theme.
+ *
+ * The custom page templates (page-about, page-services, page-contact,
+ * page-case-studies) are self-contained: they carry their own content and do
+ * not render post_content. So a Page only has to exist with the right slug
+ * and the right template assigned, and it renders complete. This module
+ * creates those Pages and wires up the Posts page, which is the part a theme
+ * cannot do on its own.
+ *
+ * It runs automatically once, on theme activation (and on the first admin load
+ * after upgrading, for sites where the theme was already active). A stored
+ * flag keeps it to a single occurrence, so re-activating the theme will not
+ * run it again. The same routine is available as a button in Appearance ->
+ * Theme Options for re-checking, or for rebuilding a page that was deleted.
+ *
+ * Running unattended is safe because the routine only ever adds. A page is
+ * matched by slug; if one already exists the routine leaves its title, content
+ * and template alone, and only fills in a template assignment that is missing
+ * entirely. Nothing is deleted or overwritten, so the worst case on a site
+ * that already has these pages is that it finds them and changes nothing.
+ *
+ * @package Remotive
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+/**
+ * The pages the theme's navigation and templates expect to exist.
+ *
+ * 'template' is the block template slug, stored in the _wp_page_template
+ * meta key. An empty string means the page uses the default page.html, which
+ * renders the editor content, so those pages need copy written in the editor.
+ *
+ * @return array<string,array<string,string>> Keyed by slug.
+ */
+function remotive_required_pages() {
+	return array(
+		'home'     => array(
+			'title'    => __( 'Home', 'remotive' ),
+			'template' => '',
+			'order'    => 0,
+			'in_menu'  => false,
+			'note'     => __( 'Front page. templates/front-page.html always wins for the homepage, so this page exists only to be assigned in Settings -> Reading.', 'remotive' ),
+			'rm_title' => __( 'Performance Marketing & SEO Agency | Re:Motive', 'remotive' ),
+			'rm_desc'  => __( 'Senior specialists running SEO, paid media and analytics across Singapore, Malaysia and Asia. Get a free audit.', 'remotive' ),
+			'rm_kw'    => __( 'performance marketing agency singapore', 'remotive' ),
+		),
+		'services' => array(
+			'title'    => __( 'Services', 'remotive' ),
+			'template' => 'page-services',
+			'order'    => 10,
+			'in_menu'  => true,
+			'note'     => __( 'Self-contained template. No editor content needed.', 'remotive' ),
+			'rm_title' => __( 'Our Services | Re:Motive Media', 'remotive' ),
+			'rm_desc'  => __( 'SEO, paid media, social, content, email and analytics: modular capabilities, activate one or all three. See what we do.', 'remotive' ),
+			'rm_kw'    => __( 'digital marketing services', 'remotive' ),
+		),
+		'case-studies' => array(
+			'title'    => __( 'Case Studies', 'remotive' ),
+			'template' => 'page-case-studies',
+			'order'    => 20,
+			'in_menu'  => true,
+			'note'     => __( 'Self-contained template. Case study cards are placeholders until the custom post type lands.', 'remotive' ),
+			'rm_title' => __( 'Case Studies | Re:Motive Media', 'remotive' ),
+			'rm_desc'  => __( 'Real client results in SEO, paid media and analytics across Asia, with the measurement limits named on each page.', 'remotive' ),
+			'rm_kw'    => __( 'digital marketing case studies', 'remotive' ),
+		),
+		'about'    => array(
+			'title'    => __( 'About', 'remotive' ),
+			'template' => 'page-about',
+			'order'    => 30,
+			'in_menu'  => true,
+			'note'     => __( 'Self-contained template: how the company started, why the region, what it stands for, and the contact form.', 'remotive' ),
+			'rm_title' => __( 'About Re:Motive Media Asia', 'remotive' ),
+			'rm_desc'  => __( 'A Singapore-registered performance marketing and SEO agency built for how Asia actually buys. Meet the team.', 'remotive' ),
+			'rm_kw'    => __( 're:motive media asia', 'remotive' ),
+		),
+		'team'     => array(
+			'title'    => __( 'Meet the Team', 'remotive' ),
+			'template' => 'page-team',
+			'order'    => 35,
+			'in_menu'  => true,
+			'note'     => __( 'Self-contained template. The roster and portraits come from Theme Options; the gallery is in the template.', 'remotive' ),
+			'rm_title' => __( 'Meet the Team | Re:Motive Media', 'remotive' ),
+			'rm_desc'  => __( 'Senior specialists who plug into your team: no junior handovers, one number everyone answers for. Meet them here.', 'remotive' ),
+			'rm_kw'    => __( 'digital marketing team singapore', 'remotive' ),
+		),
+		'contact'  => array(
+			'title'    => __( 'Contact', 'remotive' ),
+			'template' => 'page-contact',
+			'order'    => 50,
+			'in_menu'  => true,
+			'note'     => __( 'Self-contained template, including the contact form.', 'remotive' ),
+			'rm_title' => __( 'Contact Re:Motive Media Asia', 'remotive' ),
+			'rm_desc'  => __( "Tell us what's not working. We reply within three business days with a view, not a brochure. Get in touch.", 'remotive' ),
+			'rm_kw'    => __( 'contact digital marketing agency', 'remotive' ),
+		),
+		'blog'     => array(
+			'title'    => __( 'Insights', 'remotive' ),
+			'template' => '',
+			'order'    => 40,
+			'in_menu'  => true,
+			'note'     => __( 'Posts page. Rendered by templates/home.html, so editor content is ignored.', 'remotive' ),
+			'rm_title' => __( 'Insights | Re:Motive Media Blog', 'remotive' ),
+			'rm_desc'  => __( "What we're seeing in search, paid media and measurement across Singapore, Malaysia and the wider region.", 'remotive' ),
+			'rm_kw'    => __( 'digital marketing insights', 'remotive' ),
+		),
+		'faq'      => array(
+			'title'    => __( 'FAQ', 'remotive' ),
+			'template' => 'page-faq',
+			'order'    => 55,
+			'in_menu'  => false,
+			'note'     => __( 'Self-contained template. Questions live in the template, and the FAQPage structured data is parsed from them, so the two cannot drift apart.', 'remotive' ),
+			'rm_title' => __( 'FAQ | Re:Motive Media', 'remotive' ),
+			'rm_desc'  => __( "Answers to what we're usually asked before a first call: scope, results, markets, and measurement.", 'remotive' ),
+			'rm_kw'    => __( 'digital marketing agency faq', 'remotive' ),
+		),
+		'privacy'  => array(
+			'title'    => __( 'Privacy Policy', 'remotive' ),
+			'template' => 'page-legal',
+			'order'    => 60,
+			'in_menu'  => false,
+			'note'     => __( 'Legal template renders editor content. A draft is in docs/legal-privacy-policy.md: fill in every CONFIRM marker and have it reviewed before publishing.', 'remotive' ),
+			'rm_title' => __( 'Privacy Policy | Re:Motive Media Asia', 'remotive' ),
+			'rm_desc'  => __( "How Re:Motive Media Asia Pte. Ltd. collects, uses and protects personal data under Singapore's PDPA.", 'remotive' ),
+			'rm_kw'    => '',
+		),
+		'thank-you' => array(
+			'title'    => __( 'Thank You', 'remotive' ),
+			'template' => 'page-thank-you',
+			'order'    => 80,
+			'in_menu'  => false,
+			'note'     => __( 'Confirmation page every native form redirects to on success. Self-contained template. Kept out of menus and out of search results (noindex), but it must stay published: it is the conversion destination analytics and ad platforms fire on.', 'remotive' ),
+			'rm_title' => __( 'Thank You | Re:Motive Media Asia', 'remotive' ),
+			'rm_desc'  => __( 'We have your message and will reply within three business days.', 'remotive' ),
+			'rm_kw'    => '',
+		),
+		'terms'    => array(
+			'title'    => __( 'Terms of Service', 'remotive' ),
+			'template' => 'page-legal',
+			'order'    => 70,
+			'in_menu'  => false,
+			'note'     => __( 'Legal template renders editor content. A draft is in docs/legal-terms-of-service.md: fill in every CONFIRM marker and have it reviewed before publishing.', 'remotive' ),
+			'rm_title' => __( 'Terms of Service | Re:Motive Media Asia', 'remotive' ),
+			'rm_desc'  => __( 'The terms governing use of the Re:Motive Media Asia website and engagement with our services.', 'remotive' ),
+			'rm_kw'    => '',
+		),
+	);
+}
+
+/**
+ * Current state of each required page, for the admin panel.
+ *
+ * @return array<string,array<string,mixed>>
+ */
+function remotive_site_setup_status() {
+	$status = array();
+
+	foreach ( remotive_required_pages() as $slug => $page ) {
+		$existing = get_page_by_path( $slug, OBJECT, 'page' );
+		$assigned = $existing ? get_post_meta( $existing->ID, '_wp_page_template', true ) : '';
+
+		$status[ $slug ] = array(
+			'title'            => $page['title'],
+			'note'             => $page['note'],
+			'wanted_template'  => $page['template'],
+			'exists'           => (bool) $existing,
+			'id'               => $existing ? (int) $existing->ID : 0,
+			'edit_link'        => $existing ? get_edit_post_link( $existing->ID, 'raw' ) : '',
+			'view_link'        => $existing ? get_permalink( $existing->ID ) : '',
+			'template_ok'      => $existing && ( '' === $page['template'] || $assigned === $page['template'] ),
+			'current_template' => $assigned,
+		);
+	}
+
+	return $status;
+}
+
+/**
+ * Create any missing pages, fill in missing template assignments, and point
+ * Settings -> Reading at the Home and Insights pages.
+ *
+ * @return array<string,array<string>> Lists of what was created, updated and skipped.
+ */
+function remotive_run_site_setup() {
+	$created = array();
+	$updated = array();
+	$skipped = array();
+
+	foreach ( remotive_required_pages() as $slug => $page ) {
+		$existing = get_page_by_path( $slug, OBJECT, 'page' );
+
+		if ( $existing ) {
+			// Never touch an existing page's title or content. Only fill in a
+			// template assignment if it is missing, so a deliberate change
+			// made in the editor is preserved. SEO meta follows the same
+			// rule: fill in only what Rank Math has never been given a
+			// value for, so a title or description already written in the
+			// editor is left alone.
+			$assigned      = get_post_meta( $existing->ID, '_wp_page_template', true );
+			$page_touched  = false;
+
+			if ( $page['template'] && ! $assigned ) {
+				update_post_meta( $existing->ID, '_wp_page_template', $page['template'] );
+				$page_touched = true;
+			}
+
+			foreach ( array( 'rm_title' => 'rank_math_title', 'rm_desc' => 'rank_math_description', 'rm_kw' => 'rank_math_focus_keyword' ) as $from => $meta_key ) {
+				if ( empty( $page[ $from ] ) ) {
+					continue;
+				}
+				if ( '' === (string) get_post_meta( $existing->ID, $meta_key, true ) ) {
+					update_post_meta( $existing->ID, $meta_key, $page[ $from ] );
+					$page_touched = true;
+				}
+			}
+
+			if ( $page_touched ) {
+				/* translators: %s: page title. */
+				$updated[] = sprintf( __( '%s: template or SEO meta filled in', 'remotive' ), $page['title'] );
+			} else {
+				$skipped[] = $page['title'];
+			}
+
+			continue;
+		}
+
+		$page_id = wp_insert_post(
+			array(
+				'post_title'   => $page['title'],
+				'post_name'    => $slug,
+				'post_type'    => 'page',
+				'post_status'  => 'publish',
+				'post_content' => '',
+				'menu_order'   => $page['order'],
+			),
+			true
+		);
+
+		if ( is_wp_error( $page_id ) ) {
+			continue;
+		}
+
+		if ( $page['template'] ) {
+			update_post_meta( $page_id, '_wp_page_template', $page['template'] );
+		}
+
+		// Rank Math reads these directly; harmless if the plugin is absent,
+		// and already correct if it is installed later. Same mapping
+		// content-seed.php uses for blog posts and case studies, so a page
+		// created here and a post seeded there behave identically.
+		foreach ( array( 'rm_title' => 'rank_math_title', 'rm_desc' => 'rank_math_description', 'rm_kw' => 'rank_math_focus_keyword' ) as $from => $meta_key ) {
+			if ( ! empty( $page[ $from ] ) ) {
+				update_post_meta( $page_id, $meta_key, $page[ $from ] );
+			}
+		}
+
+		$created[] = $page['title'];
+	}
+
+	// Point Reading settings at Home and Insights. front-page.html still wins
+	// for the homepage either way; this exists so the Posts page resolves at
+	// /blog/ and renders through templates/home.html.
+	//
+	// Only when the site hasn't configured a static front page already:
+	// this routine also runs from the manual repair action and (since
+	// 1.65.7) from upgrade migrations, and unconditionally rewriting
+	// show_on_front / page_on_front / page_for_posts on every run meant
+	// "repair" silently reverted a homepage an administrator had
+	// deliberately changed. A show_on_front of 'page' with a valid page
+	// assigned is an explicit choice, whoever made it — including this
+	// routine on a previous run — and gets left alone. Fresh installs
+	// (show_on_front 'posts', page_on_front 0) are still configured.
+	$home = get_page_by_path( 'home', OBJECT, 'page' );
+	$blog = get_page_by_path( 'blog', OBJECT, 'page' );
+
+	$front_configured = 'page' === get_option( 'show_on_front' )
+		&& (int) get_option( 'page_on_front' ) > 0
+		&& get_post( (int) get_option( 'page_on_front' ) ) instanceof WP_Post;
+
+	if ( ! $front_configured && $home && $blog && (int) $home->ID !== (int) $blog->ID ) {
+		update_option( 'show_on_front', 'page' );
+		update_option( 'page_on_front', (int) $home->ID );
+		update_option( 'page_for_posts', (int) $blog->ID );
+	}
+
+	// Built after the pages exist, so every menu item can link by post ID.
+	remotive_build_primary_navigation();
+
+	return array(
+		'created' => $created,
+		'updated' => $updated,
+		'skipped' => $skipped,
+	);
+}
+
+/**
+ * Option flag recording that the automatic pass has already run. Its value is
+ * the theme version that ran it, which makes the history readable later.
+ */
+const REMOTIVE_SETUP_FLAG = 'remotive_site_setup_done';
+
+/**
+ * The migration schema version this code knows how to bring a site up to.
+ *
+ * Separate from the theme version: bump this only when a migration actually
+ * needs to run on already-active sites (new required pages, menu changes,
+ * seed additions, etc.). Bumping the theme version alone never triggers
+ * migrations. This is the value stored in remotive_site_setup_done after
+ * all migrations for this release complete successfully.
+ */
+const REMOTIVE_SETUP_SCHEMA = '1.75.0';
+
+/**
+ * Migrations keyed by the schema version they introduce.
+ *
+ * Each migration runs once on sites whose stored schema version is less than
+ * the migration's key. After it completes, the stored version advances to
+ * that key. Safe to add new entries here for future releases without touching
+ * anything that already ran.
+ *
+ * @return array<string,callable>
+ */
+function remotive_migration_registry() {
+	return array(
+		// 1.65.7: first versioned migration — provisions the two market
+		// landing pages (RM-011), builds the three-column footer menu
+		// system (RM-006), and seeds any new articles (RM-012).
+		// Also migrates the old footer_sitemap location assignment to
+		// footer_company; that part runs on admin_init regardless, so
+		// we only call the seeder and menu builder here.
+		'1.65.7' => function() {
+			remotive_run_site_setup();
+			remotive_seed_run();
+			remotive_build_classic_menus();
+		},
+		// 1.65.8: rename /work/ to /case-studies/ if the page still lives
+		// at the old slug. The required-pages registry has used 'case-studies'
+		// since the slug was standardised, but any site activated before that
+		// change has the page at /work/ in the database — setup only creates,
+		// never renames, so it never fixed the mismatch automatically.
+		'1.65.8' => function() {
+			remotive_migrate_work_slug();
+		},
+		// 1.65.9: provisions the thank-you page. Existing sites need it
+		// created or every form redirect falls back to the inline
+		// confirmation and no conversion URL ever fires.
+		'1.65.9' => function() {
+			remotive_run_site_setup();
+		},
+		// 1.66.0: backfill featured images on seeded posts that have none.
+		// Three Insights articles were added to the seed data without an
+		// 'image' key, so they published without a thumbnail. Seeding only
+		// touches an item once, so correcting the data alone would fix new
+		// installs and leave every existing site with three blank cards.
+		'1.66.0' => function() {
+			remotive_backfill_seed_images();
+		},
+		// 1.66.1: retire the three unsubstantiated homepage figures.
+		'1.66.1' => function() {
+			remotive_retire_unsourced_stats();
+		},
+		// 1.75.0: re-run the image backfill. The 1.66.0 entry below already
+		// does exactly the right thing, but it ran once and then stopped
+		// being reachable: four seed images (seo-cost-singapore,
+		// seo-services-pricing-malaysia, seo-vs-sem, and the regenerated
+		// how-to-choose-an-seo-agency) were added to assets/seed-images/
+		// AFTER 1.66.0 had already completed on live sites. Seeding never
+		// revisits an item it has recorded, and the migration registry
+		// never replays a version, so those four articles kept publishing
+		// with no thumbnail and the Insights archive showed a grid of
+		// blank cards next to one that had an image.
+		//
+		// Safe to run repeatedly by design: remotive_backfill_seed_images()
+		// skips any post that already has a thumbnail, so this cannot
+		// overwrite an image the owner chose, and re-running it on a site
+		// that is already complete is a no-op that attaches nothing.
+		'1.75.0' => function() {
+			remotive_backfill_seed_images();
+		},
+	);
+}
+
+/**
+ * Create the pages automatically, once — and run any pending migrations.
+ *
+ * Runs on theme activation, and also on the first admin load after an upgrade
+ * for sites where the theme was already active when this shipped.
+ *
+ * Now versioned: the stored option holds the schema version of the last
+ * successful migration rather than just a truthy value. version_compare()
+ * decides which migrations still need to run, so an active site receives
+ * exactly the changes introduced since its last schema version, in order,
+ * without replaying anything it already has.
+ */
+function remotive_maybe_auto_setup() {
+	// wp_insert_post() during an install or a WP-CLI bootstrap can run before
+	// rewrite rules and post types are ready.
+	if ( wp_installing() ) {
+		return;
+	}
+
+	$stored   = (string) get_option( REMOTIVE_SETUP_FLAG, '' );
+	$required = REMOTIVE_SETUP_SCHEMA;
+
+	// Nothing stored yet: fresh install. Run everything in order.
+	$is_fresh = '' === $stored;
+
+	if ( ! $is_fresh && ! version_compare( $stored, $required, '<' ) ) {
+		return; // Already at or ahead of the current schema — nothing to do.
+	}
+
+	$migrations = remotive_migration_registry();
+	ksort( $migrations ); // Guarantee chronological order regardless of declaration order.
+
+	foreach ( $migrations as $version => $run ) {
+		// Skip migrations the stored schema already covers, but always run
+		// everything on a fresh install (stored is '' which sorts below all
+		// real versions under version_compare).
+		if ( ! $is_fresh && ! version_compare( $stored, $version, '<' ) ) {
+			continue;
+		}
+
+		call_user_func( $run );
+		update_option( REMOTIVE_SETUP_FLAG, $version );
+		$stored = $version; // Next loop iteration builds on this.
+	}
+
+	// Ensure the option always reflects the final schema even if the
+	// migrations array is empty (shouldn't happen, but defensive).
+	update_option( REMOTIVE_SETUP_FLAG, $required );
+}
+
+// Activation: fires once, for the user who switched to the theme.
+add_action( 'after_switch_theme', 'remotive_maybe_auto_setup' );
+
+/**
+ * Catch-up pass for installs where the theme was already active before this
+ * version, so after_switch_theme will not fire until they switch again.
+
+
+/**
+ * Reset the homepage results figures when they still hold the three
+ * unsubstantiated values.
+ *
+ * Theme Options are user data and a theme has no business overwriting them
+ * on a whim. This is the exception, and narrowly drawn.
+ *
+ * The values "3.2x average ROAS", "+140% organic traffic, year one" and
+ * "98% client retention" cannot be derived from any of the thirteen case
+ * studies this theme ships. One engagement reports ROAS at all, and that
+ * case's own text says platform-reported ROAS flatters; the only genuine
+ * year-on-year organic figure in the body of work is +43.5%, so +140% is
+ * contradicted rather than merely unsupported; retention appears nowhere.
+ *
+ * Left alone they would have stayed a claims problem. After v1.72.0 they
+ * became a worse one: the band now labels each figure with a service block
+ * and links it to a specific case study, so "3.2x average ROAS" carries a
+ * "read the case" link to a case study containing no such number. An
+ * unsourced claim became a checkable false attribution, which any visitor
+ * who clicks discovers immediately.
+ *
+ * Guarded so it only ever touches those exact strings: any other value,
+ * including one the owner has since written, is left untouched and the
+ * option is not saved at all. Matching is loose on case and whitespace but
+ * strict on substance.
+ *
+ * @return bool Whether anything was reset.
+ */
+function remotive_retire_unsourced_stats() {
+	$opts = get_option( 'remotive_theme_options' );
+
+	if ( ! is_array( $opts ) ) {
+		return false;
+	}
+
+	// Substrings that identify the retired claims, matched against the
+	// stored value and label together.
+	$retired = array(
+		'3.2',
+		'140',
+		'98',
+	);
+
+	$labels = array(
+		'average roas',
+		'organic traffic, year one',
+		'client retention',
+	);
+
+	$defaults = remotive_theme_option_defaults();
+	$changed  = false;
+
+	for ( $i = 1; $i <= 3; $i++ ) {
+		$value = isset( $opts[ 'stat_' . $i . '_value' ] ) ? (string) $opts[ 'stat_' . $i . '_value' ] : '';
+		$label = isset( $opts[ 'stat_' . $i . '_label' ] ) ? strtolower( trim( (string) $opts[ 'stat_' . $i . '_label' ] ) ) : '';
+
+		// Both the number and the label have to match a retired claim, so a
+		// coincidental "98%" of something else is never caught.
+		$is_retired = false;
+
+		foreach ( $labels as $k => $needle ) {
+			if ( $needle === $label && false !== strpos( $value, $retired[ $k ] ) ) {
+				$is_retired = true;
+				break;
+			}
+		}
+
+		if ( ! $is_retired ) {
+			continue;
+		}
+
+		foreach ( array( 'block', 'value', 'label', 'case' ) as $part ) {
+			$key = 'stat_' . $i . '_' . $part;
+			if ( isset( $defaults[ $key ] ) ) {
+				$opts[ $key ] = $defaults[ $key ];
+			}
+		}
+
+		$changed = true;
+	}
+
+	if ( $changed ) {
+		update_option( 'remotive_theme_options', $opts );
+	}
+
+	return $changed;
+}
+
+/**
+ * Attach featured images to seeded posts that are missing one.
+ *
+ * Only fills gaps: a post that already has a thumbnail is skipped, so a
+ * hand-picked image is never overwritten by the bundled one. Matched by
+ * slug, and silently skips anything whose file is absent.
+ *
+ * @return int Number of images attached.
+ */
+function remotive_backfill_seed_images() {
+	if ( ! function_exists( 'remotive_seed_content' ) || ! function_exists( 'remotive_seed_attach_image' ) ) {
+		return 0;
+	}
+
+	$attached = 0;
+
+	foreach ( remotive_seed_content() as $item ) {
+		if ( empty( $item['image'] ) || empty( $item['slug'] ) ) {
+			continue;
+		}
+
+		$type  = ( 'post' === ( $item['type'] ?? '' ) ) ? 'post' : 'page';
+		$posts = get_posts( array(
+			'name'             => $item['slug'],
+			'post_type'        => $type,
+			'post_status'      => 'publish',
+			'numberposts'      => 1,
+			'suppress_filters' => false,
+		) );
+
+		if ( ! $posts ) {
+			continue;
+		}
+
+		$post_id = $posts[0]->ID;
+
+		// Never replace an image somebody chose deliberately.
+		if ( has_post_thumbnail( $post_id ) ) {
+			continue;
+		}
+
+		remotive_seed_attach_image( $post_id, $item['image'], $item['title'] ?? '' );
+
+		if ( has_post_thumbnail( $post_id ) ) {
+			$attached++;
+		}
+	}
+
+	return $attached;
+}
+
+/**
+ * Rename the /work/ page to /case-studies/ if it still exists at the old slug.
+ *
+ * Idempotent: does nothing if a page already exists at /case-studies/, and
+ * does nothing if no page exists at /work/ — safe to run multiple times or
+ * on a fresh install. Child pages (individual case studies) have their parent
+ * ID unchanged, so their permalinks update automatically once the parent slug
+ * changes.
+ */
+function remotive_migrate_work_slug() {
+	if ( get_page_by_path( 'case-studies', OBJECT, 'page' ) ) {
+		return; // Already at the right slug.
+	}
+
+	$work = get_page_by_path( 'work', OBJECT, 'page' );
+	if ( ! $work ) {
+		return;
+	}
+
+	wp_update_post( array(
+		'ID'        => $work->ID,
+		'post_name' => 'case-studies',
+	) );
+
+	flush_rewrite_rules( false );
+}
+
+/**
+ * Restricted to an administrator loading the dashboard, so the pages are
+ * created by someone who is entitled to create them.
+ */
+function remotive_auto_setup_on_admin() {
+	if ( ! is_admin() || wp_doing_ajax() ) {
+		return;
+	}
+
+	if ( ! current_user_can( 'edit_theme_options' ) || ! current_user_can( 'publish_pages' ) ) {
+		return;
+	}
+
+	remotive_maybe_auto_setup();
+}
+add_action( 'admin_init', 'remotive_auto_setup_on_admin' );
+
+/**
+ * Option holding the ID of the navigation menu the header uses.
+ */
+const REMOTIVE_PRIMARY_NAV = 'remotive_primary_nav_id';
+
+/**
+ * Build the primary navigation menu from the pages, in menu_order.
+ *
+ * Block themes keep navigation in a `wp_navigation` post rather than in the
+ * classic Appearance -> Menus screen. Creating one here, and pointing the
+ * header at it, means the running order and the labels are editable in the
+ * Site Editor's Navigation panel instead of being frozen in the template
+ * file. Reordering the menu reorders the header.
+ *
+ * Skipped if a menu already exists, so an edited menu is never rebuilt.
+ *
+ * @return int Navigation post ID, or 0 on failure.
+ */
+function remotive_build_primary_navigation() {
+	$existing = (int) get_option( REMOTIVE_PRIMARY_NAV );
+
+	if ( $existing ) {
+		$post = get_post( $existing );
+
+		if ( $post && 'wp_navigation' === $post->post_type && 'trash' !== $post->post_status ) {
+			return $existing;
+		}
+	}
+
+	$items = array();
+
+	foreach ( remotive_required_pages() as $slug => $page ) {
+		if ( empty( $page['in_menu'] ) ) {
+			continue;
+		}
+
+		$target = get_page_by_path( $slug, OBJECT, 'page' );
+
+		if ( ! $target ) {
+			continue;
+		}
+
+		// Linking by post ID rather than by URL keeps the menu item pointing at
+		// the right page if the slug is ever changed in the editor.
+		$items[] = sprintf(
+			'<!-- wp:navigation-link {"label":"%1$s","type":"page","id":%2$d,"url":"%3$s","kind":"post-type"} /-->',
+			esc_attr( $page['title'] ),
+			(int) $target->ID,
+			esc_url( get_permalink( $target->ID ) )
+		);
+	}
+
+	if ( ! $items ) {
+		return 0;
+	}
+
+	$nav_id = wp_insert_post(
+		array(
+			'post_title'   => __( 'Primary', 'remotive' ),
+			'post_name'    => 'primary',
+			'post_type'    => 'wp_navigation',
+			'post_status'  => 'publish',
+			'post_content' => implode( "\n", $items ),
+		),
+		true
+	);
+
+	if ( is_wp_error( $nav_id ) ) {
+		return 0;
+	}
+
+	update_option( REMOTIVE_PRIMARY_NAV, (int) $nav_id );
+
+	return (int) $nav_id;
+}
+
+/**
+ * Point the header's navigation block at that menu.
+ *
+ * The block markup in parts/header.html carries a hard-coded list of links,
+ * which stays as the fallback. When a menu exists this filter sets the block's
+ * `ref`, so WordPress renders the menu instead and the site's running order
+ * follows whatever the menu says.
+ *
+ * Only the header navigation is touched. It is matched on its class name, so
+ * the footer's own navigation blocks keep their separate link lists.
+ *
+ * @param array $parsed_block A parsed block.
+ * @return array
+ */
+function remotive_use_primary_navigation( $parsed_block ) {
+	if ( empty( $parsed_block['blockName'] ) || 'core/navigation' !== $parsed_block['blockName'] ) {
+		return $parsed_block;
+	}
+
+	$class = $parsed_block['attrs']['className'] ?? '';
+
+	if ( false === strpos( $class, 'rm-nav__links' ) ) {
+		return $parsed_block;
+	}
+
+	// Already pointed somewhere deliberately — leave it alone.
+	if ( ! empty( $parsed_block['attrs']['ref'] ) ) {
+		return $parsed_block;
+	}
+
+	$nav_id = (int) get_option( REMOTIVE_PRIMARY_NAV );
+
+	if ( ! $nav_id ) {
+		return $parsed_block;
+	}
+
+	$nav = get_post( $nav_id );
+
+	// If the menu was deleted or trashed, fall through to the links written in
+	// the template rather than rendering an empty header.
+	if ( ! $nav || 'wp_navigation' !== $nav->post_type || 'publish' !== $nav->post_status ) {
+		return $parsed_block;
+	}
+
+	$parsed_block['attrs']['ref'] = $nav_id;
+
+	return $parsed_block;
+}
+// Superseded by inc/classic-menus.php (v1.33.0): menus are managed in
+// Appearance -> Menus and rendered by remotive_render_classic_menu(). The
+// wp_navigation wiring below is left in place, unhooked, so a site that
+// previously used the Site Editor menu can restore it by re-adding this
+// filter.
+// add_filter( 'render_block_data', 'remotive_use_primary_navigation' );
+
+/**
+ * Handle the setup button submission.
+ */
+function remotive_handle_site_setup() {
+	if ( ! current_user_can( 'edit_theme_options' ) || ! current_user_can( 'publish_pages' ) ) {
+		wp_die( esc_html__( 'You do not have permission to set up site pages.', 'remotive' ) );
+	}
+
+	check_admin_referer( 'remotive_site_setup' );
+
+	$result = remotive_run_site_setup();
+
+	// Pages exist now: publish any shipped content that is still missing,
+	// then populate and assign the classic menus.
+	$seeded = function_exists( 'remotive_seed_run' ) ? remotive_seed_run() : array();
+
+	if ( $seeded ) {
+		$result['created'] = array_merge( $result['created'] ?? array(), $seeded );
+	}
+
+	if ( function_exists( 'remotive_build_classic_menus' ) ) {
+		remotive_build_classic_menus();
+	}
+
+	$redirect = add_query_arg(
+		array(
+			'page'            => 'remotive-theme-options',
+			'remotive_setup'  => 'done',
+			'created'         => count( $result['created'] ),
+			'updated'         => count( $result['updated'] ),
+		),
+		admin_url( 'themes.php' )
+	);
+
+	wp_safe_redirect( $redirect );
+	exit;
+}
+add_action( 'admin_post_remotive_site_setup', 'remotive_handle_site_setup' );
+
+/**
+ * Handle a per-item restore from the Shipped content card.
+ */
+function remotive_handle_restore_seed() {
+	if ( ! current_user_can( 'edit_theme_options' ) || ! current_user_can( 'publish_pages' ) ) {
+		wp_die( esc_html__( 'You do not have permission to restore shipped content.', 'remotive' ) );
+	}
+
+	$key = isset( $_POST['item'] ) ? sanitize_text_field( wp_unslash( $_POST['item'] ) ) : '';
+
+	check_admin_referer( 'remotive_restore_seed_' . $key );
+
+	$restored = function_exists( 'remotive_seed_restore' ) ? remotive_seed_restore( $key ) : false;
+
+	$redirect = add_query_arg(
+		array(
+			'page'              => 'remotive-theme-options',
+			'remotive_restored' => $restored ? rawurlencode( $restored ) : '0',
+		),
+		admin_url( 'themes.php' )
+	);
+
+	wp_safe_redirect( $redirect );
+	exit;
+}
+add_action( 'admin_post_remotive_restore_seed', 'remotive_handle_restore_seed' );
+
+/**
+ * Render the setup card. Called from the options page, outside the settings
+ * form, since this posts to admin-post.php rather than options.php.
+ */
+function remotive_render_site_setup_card() {
+	if ( ! current_user_can( 'edit_theme_options' ) ) {
+		return;
+	}
+
+	$status  = remotive_site_setup_status();
+	$missing = 0;
+
+	foreach ( $status as $item ) {
+		if ( ! $item['exists'] || ! $item['template_ok'] ) {
+			$missing++;
+		}
+	}
+	?>
+	<?php $seed = function_exists( 'remotive_seed_status' ) ? remotive_seed_status() : array( 'total' => 0, 'live' => 0 ); ?>
+	<div class="rm-admin__card rm-admin__card--setup">
+		<h2><?php esc_html_e( 'Shipped content', 'remotive' ); ?></h2>
+		<p class="rm-admin__card-desc">
+			<?php
+			printf(
+				/* translators: 1: number live, 2: total. */
+				esc_html__( '%1$d of %2$d shipped items are published: four Insights articles, six service pages and thirteen case studies. These are created automatically when the theme is activated, so the site is complete from the start. Editing or deleting any of them is safe; setup never rewrites or resurrects an item on its own.', 'remotive' ),
+				(int) $seed['live'],
+				(int) $seed['total']
+			);
+			?>
+		</p>
+		<p class="rm-admin__card-desc">
+			<?php esc_html_e( 'Restore replaces an item with the version shipped in the current theme release: title, content, excerpt and SEO meta. Use it after a theme update that improved the shipped copy, or to bring back an item that was deleted. Edits you made to that item are lost; nothing else on the site is touched.', 'remotive' ); ?>
+		</p>
+
+		<?php if ( function_exists( 'remotive_seed_content' ) ) : ?>
+			<table class="rm-setup-table widefat striped">
+				<thead>
+					<tr>
+						<th scope="col"><?php esc_html_e( 'Item', 'remotive' ); ?></th>
+						<th scope="col"><?php esc_html_e( 'Type', 'remotive' ); ?></th>
+						<th scope="col"><?php esc_html_e( 'Status', 'remotive' ); ?></th>
+						<th scope="col"><?php esc_html_e( 'Action', 'remotive' ); ?></th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php foreach ( remotive_seed_content() as $rm_item ) : ?>
+						<?php
+						$rm_key  = $rm_item['type'] . ':' . $rm_item['slug'];
+						$rm_post = remotive_seed_find( $rm_item['slug'], $rm_item['type'] );
+
+						if ( $rm_post ) {
+							$rm_status = 'publish' === $rm_post->post_status
+								? __( 'Published', 'remotive' )
+								: ucfirst( $rm_post->post_status );
+						} else {
+							$rm_status = __( 'Deleted', 'remotive' );
+						}
+						?>
+						<tr>
+							<td data-label="<?php esc_attr_e( 'Item', 'remotive' ); ?>">
+								<strong><?php echo esc_html( $rm_item['title'] ); ?></strong>
+								<?php if ( $rm_post ) : ?>
+									<a href="<?php echo esc_url( get_edit_post_link( $rm_post->ID ) ); ?>"><?php esc_html_e( 'Edit', 'remotive' ); ?></a>
+								<?php endif; ?>
+							</td>
+							<td data-label="<?php esc_attr_e( 'Type', 'remotive' ); ?>"><?php echo esc_html( 'post' === $rm_item['type'] ? __( 'Insights article', 'remotive' ) : ( ( $rm_item['parent'] ?? '' ) === 'case-studies' ? __( 'Case study', 'remotive' ) : __( 'Page', 'remotive' ) ) ); ?></td>
+							<td data-label="<?php esc_attr_e( 'Status', 'remotive' ); ?>"><?php echo esc_html( $rm_status ); ?></td>
+							<td data-label="<?php esc_attr_e( 'Action', 'remotive' ); ?>">
+								<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" onsubmit="return confirm( '<?php echo esc_js( __( 'Replace this item with the shipped version? Edits to it are lost.', 'remotive' ) ); ?>' );">
+									<input type="hidden" name="action" value="remotive_restore_seed" />
+									<input type="hidden" name="item" value="<?php echo esc_attr( $rm_key ); ?>" />
+									<?php wp_nonce_field( 'remotive_restore_seed_' . $rm_key ); ?>
+									<button type="submit" class="button button-small">
+										<?php echo esc_html( $rm_post ? __( 'Restore shipped version', 'remotive' ) : __( 'Recreate', 'remotive' ) ); ?>
+									</button>
+								</form>
+							</td>
+						</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table>
+		<?php endif; ?>
+	</div>
+
+	<div class="rm-admin__card rm-admin__card--setup">
+		<h2><?php esc_html_e( 'Menus', 'remotive' ); ?></h2>
+		<p class="rm-admin__card-desc">
+			<?php esc_html_e( 'Menus are managed the classic way, in Appearance → Menus. The theme registers three locations: Main menu (header), Footer — Sitemap column, and Footer — Services column. Edit a menu there and the site updates immediately; no Site Editor needed. If a location has no menu assigned, the header or footer falls back to its built-in list of links, so the site never renders an empty menu.', 'remotive' ); ?>
+		</p>
+		<p>
+			<a class="button button-secondary" href="<?php echo esc_url( admin_url( 'nav-menus.php' ) ); ?>">
+				<?php esc_html_e( 'Edit menus', 'remotive' ); ?>
+			</a>
+		</p>
+		<p class="rm-admin__card-desc">
+			<?php esc_html_e( 'Note: new pages are not added to a menu automatically. The service pages and case studies sit under Services and Case Studies, so they are reachable through those pages and the footer; add them to the main menu only if you want them at the top level.', 'remotive' ); ?>
+		</p>
+	</div>
+
+	<div class="rm-admin__card rm-admin__card--setup">
+		<h2><?php esc_html_e( 'Site pages', 'remotive' ); ?></h2>
+		<p class="rm-admin__card-desc">
+			<?php esc_html_e( 'The theme ships the templates; WordPress still needs the Pages themselves. These are created automatically when the theme is activated, so the list below should already read Ready. Use the button to re-check, or to rebuild anything that was later deleted. It never overwrites a page that already exists.', 'remotive' ); ?>
+		</p>
+
+		<table class="rm-setup-table widefat striped">
+			<thead>
+				<tr>
+					<th scope="col"><?php esc_html_e( 'Page', 'remotive' ); ?></th>
+					<th scope="col"><?php esc_html_e( 'Slug', 'remotive' ); ?></th>
+					<th scope="col"><?php esc_html_e( 'Status', 'remotive' ); ?></th>
+					<th scope="col"><?php esc_html_e( 'Still to do', 'remotive' ); ?></th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php foreach ( $status as $slug => $item ) : ?>
+					<tr>
+						<td>
+							<strong><?php echo esc_html( $item['title'] ); ?></strong>
+							<?php if ( $item['exists'] && $item['edit_link'] ) : ?>
+								<a href="<?php echo esc_url( $item['edit_link'] ); ?>"><?php esc_html_e( 'Edit', 'remotive' ); ?></a>
+							<?php endif; ?>
+						</td>
+						<td><code>/<?php echo esc_html( $slug ); ?>/</code></td>
+						<td>
+							<?php if ( ! $item['exists'] ) : ?>
+								<span class="rm-setup-pill rm-setup-pill--missing"><?php esc_html_e( 'Missing', 'remotive' ); ?></span>
+							<?php elseif ( ! $item['template_ok'] ) : ?>
+								<span class="rm-setup-pill rm-setup-pill--warn"><?php esc_html_e( 'Template not set', 'remotive' ); ?></span>
+							<?php else : ?>
+								<span class="rm-setup-pill rm-setup-pill--ok"><?php esc_html_e( 'Ready', 'remotive' ); ?></span>
+							<?php endif; ?>
+						</td>
+						<td class="rm-setup-note"><?php echo esc_html( $item['note'] ); ?></td>
+					</tr>
+				<?php endforeach; ?>
+			</tbody>
+		</table>
+
+		<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+			<input type="hidden" name="action" value="remotive_site_setup">
+			<?php wp_nonce_field( 'remotive_site_setup' ); ?>
+			<?php
+			submit_button(
+				$missing > 0
+					/* translators: %d: number of pages needing work. */
+					? sprintf( __( 'Set up %d page(s)', 'remotive' ), $missing )
+					: __( 'Re-check pages', 'remotive' ),
+				$missing > 0 ? 'primary' : 'secondary',
+				'submit',
+				false
+			);
+			?>
+		</form>
+	</div>
+	<?php
+}
