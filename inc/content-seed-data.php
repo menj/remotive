@@ -1515,6 +1515,48 @@ function remotive_seed_content() {
 		),
 		array(
 			'type'     => 'page',
+			'slug'     => 'singapore-b2b-portfolio',
+			'title'    => 'Singapore B2B: A Six-Client Search Portfolio',
+			'excerpt'  => 'Off-page programmes and keyword mapping across six Singapore B2B clients in food service, logistics and trade. Learn more.',
+			'template' => 'page-service',
+			'parent'   => 'case-studies',
+			'rm_title' => 'Singapore B2B SEO: A Six-Client Portfolio',
+			'rm_desc'  => 'Singapore B2B SEO across six concurrent clients: keyword mapping, off-page programmes and position tracking. Read the case.',
+			'rm_kw'    => 'singapore b2b seo',
+			'content'  => '<!-- wp:paragraph -->
+<p>Six B2B clients in the Singapore market, run concurrently: food service and distribution, logistics and transport, manufacturing and trade. Different categories, one operating system — which is what running a portfolio well actually requires.</p>
+<!-- /wp:paragraph -->
+<!-- wp:heading -->
+<h2>What we did</h2>
+<!-- /wp:heading -->
+<!-- wp:list -->
+<ul>
+<!-- wp:list-item --><li>Keyword mapping and content optimisation templated for repeatable rollout</li><!-- /wp:list-item -->
+<!-- wp:list-item --><li>Off-page programmes tailored per client rather than a single link list reused</li><!-- /wp:list-item -->
+<!-- wp:list-item --><li>Coverage and technical drilldowns per domain</li><!-- /wp:list-item -->
+<!-- wp:list-item --><li>Organic position tracking in the Singapore market</li><!-- /wp:list-item -->
+<!-- wp:list-item --><li>Authority building through high-trust placements, including reference and Q&A platforms</li><!-- /wp:list-item -->
+<!-- wp:list-item --><li>Backlink quality control, with source-authority screening before acquisition</li><!-- /wp:list-item -->
+</ul>
+<!-- /wp:list -->
+<!-- wp:heading -->
+<h2>What happened</h2>
+<!-- /wp:heading -->
+<!-- wp:paragraph -->
+<p>Six concurrent programmes maintained to a consistent standard, with per-client keyword mapping, off-page execution and position tracking, and a shared template layer that kept quality even as the portfolio scaled.</p>
+<!-- /wp:paragraph -->
+<!-- wp:heading -->
+<h2>The honest read</h2>
+<!-- /wp:heading -->
+<!-- wp:paragraph -->
+<p>This is our most recent Singapore-market work, which is why it is here — but it is also the case where we are showing method rather than outcomes. The engagements were reported through the agency’s own client reporting, so the outcome data is not ours to publish; what we can speak to is the process, the standards applied, and the current-market familiarity. When a case study can only honestly demonstrate approach, saying so is better than borrowing a number.</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph -->
+<p><em>Client described by sector rather than named, and all figures are reported exactly as recorded at the time.</em></p>
+<!-- /wp:paragraph -->',
+		),
+		array(
+			'type'     => 'page',
 			'slug'     => 'healthcare-seo-malaysia',
 			'title'    => 'Healthcare Clinic: Six Months of Organic and Paid, Run Together',
 			'excerpt'  => 'A six-month organic and paid programme for a Malaysian clinic, built on realistic targets. Read the case.',

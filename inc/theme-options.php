@@ -53,12 +53,12 @@ function remotive_theme_option_defaults() {
 		// so the block templates stay static and the editable strings live in
 		// one place. Defaults match what the templates shipped with. ---
 		'hero_eyebrow'     => '',
-		'hero_line_1'      => 'Performance marketing & SEO,',
+		'hero_line_1'      => 'Performance marketing, media & SEO',
 		'hero_line_2'      => 'built to scale',
 		'hero_highlight'   => 'Asian brands.',
-		'hero_sub'         => 'Senior specialists who plug into your team and drive brand preference, qualified leads and measurable growth across Asia.',
-		'hero_cta_primary' => 'Get a free audit →',
-		'hero_cta_second'  => 'See the work',
+		'hero_sub'         => 'We serve as a senior-led independent media team for high-growth B2B and B2C brands, and a powerful modular, search, social, programmatic and SEO extension for agencies without in-house media capabilities. We fix the foundations, get you found and cited, then scale with paid media, turning performance marketing into predictable pipeline growth across Asia and beyond.',
+		'hero_cta_primary' => 'Show me a growth plan',
+		'hero_cta_second'  => 'View Our Capabilities',
 		'hero_reassure'    => '30 minutes · no commitment · reply in three business days',
 		'ticker_countries'      => 'Singapore, Malaysia, Thailand, Hong Kong, China',
 		'ticker_visible'        => '1',
@@ -74,7 +74,7 @@ function remotive_theme_option_defaults() {
 		'ticker_letter_spacing' => '0.10',
 
 		'problem_heading'  => 'Built for brands outgrowing their setup',
-		'services_heading' => 'What we do',
+		'services_heading' => 'Three Stages, In The Order That Makes Money',
 		'why_heading'      => 'Senior, accountable, everywhere you sell',
 		'lead_retention_months' => '24',
 		'branded_login'    => '0',
@@ -90,29 +90,37 @@ function remotive_theme_option_defaults() {
 			array( 'name' => 'Elfie Nieshaem', 'role' => 'SEO Specialist', 'slug' => 'elfie', 'bio' => '' ),
 			array( 'name' => 'Alif Aziz', 'role' => 'Paid Social Specialist', 'slug' => 'alif', 'bio' => '' ),
 			array( 'name' => 'Nabil Takiyuddin', 'role' => 'Data Analyst', 'slug' => 'nabil', 'bio' => '' ),
+			array( 'name' => 'Ally Foo', 'role' => 'Account Director', 'slug' => 'ally', 'bio' => '' ),
+			array( 'name' => 'Jay Spicer', 'role' => 'Performance Director', 'slug' => 'jay', 'bio' => '' ),
+			array( 'name' => 'Louie See', 'role' => 'Media Manager', 'slug' => 'louie', 'bio' => '' ),
+			array( 'name' => 'Freya Angel', 'role' => 'Media Manager', 'slug' => 'freya', 'bio' => '' ),
 		),
 		'work_heading'     => 'Work that moved the number',
-		'about_heading'    => 'The team that plugs into yours',
+		'about_heading'    => 'Independent Spirit. Enterprise Scale.',
 		'problem_sub'      => 'The patterns we see most often when a brand has outgrown the setup that got it here.',
-		'services_sub'     => 'Three connected blocks. Take one, take all of them, and change the mix as the quarter demands.',
-		'why_sub'          => 'What you are actually buying when you hire us, stated plainly enough to hold us to.',
+		'services_sub'     => 'Fix the foundations, get found and cited, then scale with paid media. Most agencies start at stage three; we start at stage one, which is why stage three works.',
+		'why_sub'          => 'What makes Fix, Found, Scale actually work, stated plainly enough to hold us to.',
 		'work_sub'         => 'A few engagements where the number moved, with the measurement limits named on each page.',
-		'about_sub'        => 'Senior operators only. No junior handlers. The people who run your accounts have built pipelines, launched brands and scaled search across Asia.',
+		'about_sub'        => '20+ senior professionals who run Fix, Found and Scale end to end, not handed off between departments. 50+ markets activated. Full boutique infrastructure across analytics, SEO, programmatic and cross-market audience activation.',
+
+		'cta_heading'      => 'Stop guessing where your growth is going to come from.',
+		'cta_sub'          => 'Let us show you exactly where your audiences are active, where the genuine market white space sits, and precisely what it takes for your brand to win. No generic advice. Just hard, regional demand data.',
+		'cta_button'       => 'Run a Market Diagnostic',
 
 		// One figure per service block, each from a single named engagement
 		// and each linked to the case study that sets out its measurement
 		// limits. Deliberately not averages: see remotive_render_stats().
-		'stat_1_block'     => 'Demand creation',
+		'stat_1_block'     => '01 · Fix',
 		'stat_1_value'     => '745k',
 		'stat_1_label'     => 'Addressable audience, from 53k · sports and entertainment',
 		'stat_1_case'      => 'cookieless-audience-sports',
 
-		'stat_2_block'     => 'Demand capture',
+		'stat_2_block'     => '02 · Found',
 		'stat_2_value'     => '+43.5%',
 		'stat_2_label'     => 'Organic search, year on year · FMCG across two markets',
 		'stat_2_case'      => 'seo-fmcg-malaysia-singapore',
 
-		'stat_3_block'     => 'Conversion & data',
+		'stat_3_block'     => '03 · Scale',
 		'stat_3_value'     => '+25–35%',
 		'stat_3_label'     => 'Conversion rate, four APAC markets · financial services',
 		'stat_3_case'      => 'paid-media-financial-services',
@@ -256,6 +264,25 @@ function remotive_theme_options_tabs() {
 					'label'  => __( 'Team description', 'remotive' ),
 					'type'   => 'textarea',
 					'helper' => __( 'The line under the heading. Every section on the site carries one; leave it blank only if the heading truly stands alone.', 'remotive' ),
+				),
+					),
+				),
+				array(
+					'label'       => __( 'Closing call to action', 'remotive' ),
+					'description' => __( 'The final banner before the footer, above the lead-capture form.', 'remotive' ),
+					'fields'      => array(
+
+				'cta_heading' => array(
+					'label' => __( 'Heading', 'remotive' ),
+					'type'  => 'text',
+				),
+				'cta_sub'     => array(
+					'label' => __( 'Sub-heading', 'remotive' ),
+					'type'  => 'textarea',
+				),
+				'cta_button'  => array(
+					'label' => __( 'Button label', 'remotive' ),
+					'type'  => 'text',
 				),
 					),
 				),
@@ -722,6 +749,7 @@ function remotive_sanitize_theme_options( $input ) {
 		'hero_eyebrow', 'hero_line_1', 'hero_line_2', 'hero_highlight', 'hero_sub',
 		'hero_cta_primary', 'hero_cta_second', 'hero_reassure',
 		'problem_heading', 'services_heading', 'why_heading', 'work_heading', 'about_heading',
+		'cta_heading', 'cta_button',
 		'stat_1_value', 'stat_1_label', 'stat_1_block', 'stat_1_case',
 		'stat_2_value', 'stat_2_label', 'stat_2_block', 'stat_2_case',
 		'stat_3_value', 'stat_3_label', 'stat_3_block', 'stat_3_case',
@@ -779,7 +807,7 @@ function remotive_sanitize_theme_options( $input ) {
 	$clean['graceful_errors']       = ( isset( $input['graceful_errors'] ) && '1' === (string) $input['graceful_errors'] ) ? '1' : '0';
 	$clean['branded_login_message'] = sanitize_text_field( $input['branded_login_message'] ?? $defaults['branded_login_message'] );
 
-	foreach ( array( 'problem_sub', 'services_sub', 'why_sub', 'work_sub', 'about_sub' ) as $sub_key ) {
+	foreach ( array( 'problem_sub', 'services_sub', 'why_sub', 'work_sub', 'about_sub', 'cta_sub' ) as $sub_key ) {
 		$clean[ $sub_key ] = sanitize_textarea_field( $input[ $sub_key ] ?? $defaults[ $sub_key ] );
 	}
 
@@ -1552,6 +1580,9 @@ function remotive_replace_theme_option_tokens( $block_content, $block ) {
 			'__REMOTIVE_WHY_SUB__'          => esc_html( remotive_get_theme_option( 'why_sub' ) ),
 			'__REMOTIVE_WORK_SUB__'         => esc_html( remotive_get_theme_option( 'work_sub' ) ),
 			'__REMOTIVE_ABOUT_SUB__'        => esc_html( remotive_get_theme_option( 'about_sub' ) ),
+			'__REMOTIVE_CTA_HEADING__'      => esc_html( remotive_get_theme_option( 'cta_heading' ) ),
+			'__REMOTIVE_CTA_SUB__'          => esc_html( remotive_get_theme_option( 'cta_sub' ) ),
+			'__REMOTIVE_CTA_BUTTON__'       => esc_html( remotive_get_theme_option( 'cta_button' ) ),
 			'__REMOTIVE_TEAM_TEASER__'      => remotive_render_team_markup( false ),
 			'__REMOTIVE_TEAM_FULL__'        => remotive_render_team_markup( true ),
 			'__REMOTIVE_CTA_NONCE_FIELD__'  => wp_nonce_field( 'remotive_cta_submit', 'remotive_cta_nonce', true, false ),

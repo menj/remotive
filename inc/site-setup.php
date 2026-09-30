@@ -981,3 +981,317 @@ function remotive_render_site_setup_card() {
 	</div>
 	<?php
 }
+
+/* ==========================================================================
+ * Version sync — everything that has to follow the theme, with no manual step.
+ *
+ * The migration registry above handles one-off schema changes. This handles
+ * the other half: things that live OUTSIDE the theme's files (saved options,
+ * the team roster, drop-ins in wp-content/, page slugs) and therefore never
+ * update just because new theme files were uploaded. It runs once per theme
+ * VERSION — on activation and on the first request after any upload, however
+ * the files got there (Appearance upload, FTP, deploy script) — rather than
+ * on a WordPress hook that only some of those routes fire.
+ * ======================================================================== */
+
+const REMOTIVE_SYNCED_VERSION    = 'remotive_synced_version';
+const REMOTIVE_DEFAULTS_SNAPSHOT = 'remotive_defaults_snapshot';
+const REMOTIVE_OPTIONS_BACKUP    = 'remotive_theme_options_backup';
+const REMOTIVE_SLUG_REDIRECTS    = 'remotive_slug_redirects';
+const REMOTIVE_SEEDED_VERSION    = 'remotive_seeded_version';
+
+/**
+ * Save remotive_theme_options without running the form sanitizer.
+ *
+ * The sanitizer exists to clean what a person typed into the settings form,
+ * and it fills every key it does not receive. A programmatic sync is not a
+ * form post: it must be able to REMOVE a key so the shipped default shows
+ * through again, which the sanitizer would immediately undo.
+ *
+ * @param array $value The full options array to store.
+ */
+function remotive_update_options_raw( $value ) {
+	$priority = has_filter( 'sanitize_option_remotive_theme_options', 'remotive_sanitize_theme_options' );
+
+	if ( false !== $priority ) {
+		remove_filter( 'sanitize_option_remotive_theme_options', 'remotive_sanitize_theme_options', $priority );
+	}
+
+	update_option( 'remotive_theme_options', $value );
+
+	if ( false !== $priority ) {
+		add_filter( 'sanitize_option_remotive_theme_options', 'remotive_sanitize_theme_options', $priority );
+	}
+}
+
+/**
+ * Option keys whose shipped default was rewritten in the release that
+ * introduced this sync (the Fix / Found / Scale story).
+ *
+ * The first time the sync runs there is no record of what defaults a site was
+ * last given, so it cannot tell "still the old default" from "someone edited
+ * it". For these keys only, that first run releases the saved value so the new
+ * default shows — the previous values are kept in REMOTIVE_OPTIONS_BACKUP so
+ * nothing is lost. Every later release uses the snapshot instead and never
+ * touches a value that was edited.
+ *
+ * @return string[]
+ */
+function remotive_forced_default_keys() {
+	return array(
+		'hero_line_1', 'hero_sub', 'hero_cta_primary', 'hero_cta_second',
+		'services_heading', 'services_sub', 'why_sub',
+		'about_heading', 'about_sub',
+		'cta_heading', 'cta_sub', 'cta_button',
+		'stat_1_block', 'stat_2_block', 'stat_3_block',
+	);
+}
+
+/**
+ * Let new shipped defaults reach a site whose options were already saved.
+ *
+ * remotive_get_theme_option() returns a saved value in preference to the code
+ * default, and the settings screen saves EVERY field on the first Save — so a
+ * site that has ever pressed Save has frozen all of its copy at that release's
+ * defaults, and no later release could change any of it.
+ *
+ * Rule: a saved value that still equals the default the theme shipped last
+ * time was never customised, so it is released (removed) and the getter falls
+ * back to the new default. A value that differs was written by a person and
+ * is left alone. The snapshot of shipped defaults is refreshed each run.
+ */
+function remotive_sync_option_defaults() {
+	$defaults = remotive_theme_option_defaults();
+	$saved    = get_option( 'remotive_theme_options', array() );
+	$saved    = is_array( $saved ) ? $saved : array();
+	$snapshot = get_option( REMOTIVE_DEFAULTS_SNAPSHOT, null );
+	$first    = ! is_array( $snapshot );
+	$forced   = remotive_forced_default_keys();
+	$version  = wp_get_theme( get_stylesheet() )->get( 'Version' );
+	$released = array();
+
+	foreach ( $defaults as $key => $shipped ) {
+		// The roster is an array with its own merge below; everything else
+		// here is a plain string setting.
+		if ( ! is_scalar( $shipped ) || ! array_key_exists( $key, $saved ) ) {
+			continue;
+		}
+
+		$current = $saved[ $key ];
+
+		if ( $current === $shipped ) {
+			continue; // Already showing the shipped value.
+		}
+
+		$was_stock = ! $first && array_key_exists( $key, $snapshot ) && $snapshot[ $key ] === $current;
+		$is_forced = $first && in_array( $key, $forced, true );
+
+		if ( $was_stock || $is_forced ) {
+			$released[ $key ] = $current;
+			unset( $saved[ $key ] );
+		}
+	}
+
+	if ( $released ) {
+		$backup = get_option( REMOTIVE_OPTIONS_BACKUP, array() );
+		$backup = is_array( $backup ) ? $backup : array();
+
+		$backup[ $version . ' @ ' . gmdate( 'Y-m-d H:i' ) . ' UTC' ] = $released;
+
+		// Keep the last few releases only; this is an undo, not an archive.
+		update_option( REMOTIVE_OPTIONS_BACKUP, array_slice( $backup, -5, null, true ), false );
+		remotive_update_options_raw( $saved );
+	}
+
+	update_option( REMOTIVE_DEFAULTS_SNAPSHOT, array_filter( $defaults, 'is_scalar' ), false );
+}
+
+/**
+ * Line the live case-study pages up with the slugs the theme links to.
+ *
+ * Every link in the templates, footer and seed points at the theme's own
+ * slugs. A site whose case studies were created some other way (or cleaned up
+ * by hand) can hold the same pages under different slugs, and then every one
+ * of those links 404s. Match by title, under /case-studies/, and move the
+ * page to the theme's slug. Pages that already sit at the right slug are only
+ * topped up with the theme's page template and SEO fields when those are
+ * empty — never overwritten.
+ *
+ * WordPress does not record an old-slug redirect for hierarchical types like
+ * pages, so the previous path is remembered here and redirected on 404.
+ */
+function remotive_sync_case_study_slugs() {
+	if ( ! function_exists( 'remotive_seed_content' ) ) {
+		return;
+	}
+
+	$parent = get_page_by_path( 'case-studies', OBJECT, 'page' );
+
+	if ( ! $parent ) {
+		return;
+	}
+
+	$redirects = get_option( REMOTIVE_SLUG_REDIRECTS, array() );
+	$redirects = is_array( $redirects ) ? $redirects : array();
+	$moved     = false;
+
+	foreach ( remotive_seed_content() as $item ) {
+		if ( 'page' !== $item['type'] || 'case-studies' !== ( $item['parent'] ?? '' ) ) {
+			continue;
+		}
+
+		$page = get_page_by_path( 'case-studies/' . $item['slug'], OBJECT, 'page' );
+
+		if ( ! $page ) {
+			$matches = get_posts(
+				array(
+					'post_type'        => 'page',
+					'post_status'      => 'publish',
+					'post_parent'      => $parent->ID,
+					'title'            => $item['title'],
+					'numberposts'      => 1,
+					'suppress_filters' => true,
+				)
+			);
+
+			if ( ! $matches ) {
+				continue; // Nothing to align; the seed creates it on an admin load.
+			}
+
+			$page     = $matches[0];
+			$old_slug = $page->post_name;
+
+			wp_update_post(
+				array(
+					'ID'        => $page->ID,
+					'post_name' => $item['slug'],
+				)
+			);
+
+			if ( $old_slug !== $item['slug'] ) {
+				$redirects[ 'case-studies/' . $old_slug ] = 'case-studies/' . $item['slug'];
+				$moved = true;
+			}
+		}
+
+		// Top up, never overwrite.
+		$template = get_post_meta( $page->ID, '_wp_page_template', true );
+
+		if ( ! empty( $item['template'] ) && ( '' === $template || 'default' === $template ) ) {
+			update_post_meta( $page->ID, '_wp_page_template', $item['template'] );
+		}
+
+		foreach ( array( 'rm_title' => 'rank_math_title', 'rm_desc' => 'rank_math_description', 'rm_kw' => 'rank_math_focus_keyword' ) as $from => $meta_key ) {
+			if ( ! empty( $item[ $from ] ) && '' === (string) get_post_meta( $page->ID, $meta_key, true ) ) {
+				update_post_meta( $page->ID, $meta_key, $item[ $from ] );
+			}
+		}
+	}
+
+	if ( $moved ) {
+		update_option( REMOTIVE_SLUG_REDIRECTS, $redirects, false );
+	}
+}
+
+/**
+ * 301 a remembered old path to its new one — only when it would 404.
+ */
+function remotive_redirect_moved_slugs() {
+	if ( ! is_404() ) {
+		return;
+	}
+
+	$redirects = get_option( REMOTIVE_SLUG_REDIRECTS, array() );
+
+	if ( empty( $redirects ) || ! is_array( $redirects ) ) {
+		return;
+	}
+
+	$path = isset( $_SERVER['REQUEST_URI'] ) ? wp_parse_url( wp_unslash( $_SERVER['REQUEST_URI'] ), PHP_URL_PATH ) : '';
+	$path = trim( (string) $path, '/' );
+
+	if ( isset( $redirects[ $path ] ) ) {
+		wp_safe_redirect( home_url( '/' . $redirects[ $path ] . '/' ), 301 );
+		exit;
+	}
+}
+add_action( 'template_redirect', 'remotive_redirect_moved_slugs', 1 );
+
+/**
+ * Run every sync once per theme version.
+ *
+ * Claims the version FIRST, then runs each step isolated, so one failing step
+ * can neither skip the others nor turn into an error on every page load.
+ * Hooked to `init` (not just activation) because uploading new theme files
+ * over the active theme fires no activation hook at all.
+ */
+function remotive_version_sync() {
+	if ( wp_installing() ) {
+		return;
+	}
+
+	$current = wp_get_theme( get_stylesheet() )->get( 'Version' );
+
+	if ( ! $current || get_option( REMOTIVE_SYNCED_VERSION ) === $current ) {
+		return;
+	}
+
+	update_option( REMOTIVE_SYNCED_VERSION, $current, false );
+
+	$steps = array(
+		'remotive_install_error_dropins',
+		'remotive_sync_team_roster',
+		'remotive_sync_option_defaults',
+		'remotive_sync_case_study_slugs',
+	);
+
+	foreach ( $steps as $step ) {
+		if ( ! function_exists( $step ) ) {
+			continue;
+		}
+
+		try {
+			call_user_func( $step );
+		} catch ( \Throwable $e ) {
+			error_log( sprintf( '[remotive] version sync step %s failed: %s', $step, $e->getMessage() ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+		}
+	}
+}
+add_action( 'init', 'remotive_version_sync', 20 );
+
+// Re-activating the same version should still repair a deleted drop-in.
+add_action(
+	'after_switch_theme',
+	function () {
+		delete_option( REMOTIVE_SYNCED_VERSION );
+		remotive_version_sync();
+	}
+);
+
+/**
+ * Create any content the theme has started shipping since the site was set up.
+ *
+ * Seeding records every item it has ever handled, so this only adds NEW items
+ * and never re-creates one an owner deleted. Admin-only for the same reason
+ * remotive_auto_setup_on_admin() is: content is created by someone entitled
+ * to create it.
+ */
+function remotive_seed_new_content_on_admin() {
+	if ( ! is_admin() || wp_doing_ajax() || ! current_user_can( 'publish_pages' ) ) {
+		return;
+	}
+
+	$current = wp_get_theme( get_stylesheet() )->get( 'Version' );
+
+	if ( ! $current || get_option( REMOTIVE_SEEDED_VERSION ) === $current ) {
+		return;
+	}
+
+	update_option( REMOTIVE_SEEDED_VERSION, $current, false );
+
+	if ( function_exists( 'remotive_seed_run' ) ) {
+		remotive_seed_run();
+		remotive_sync_case_study_slugs(); // A just-seeded page may need its template/meta topped up.
+	}
+}
+add_action( 'admin_init', 'remotive_seed_new_content_on_admin', 20 );

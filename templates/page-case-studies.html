@@ -21,11 +21,22 @@
 	<p class="rm-jump">Every engagement below started as somebody’s specific problem, so they are grouped that way rather than by service: entering a market or <a href="#strategy-market-entry">choosing where to place a bet</a>, spending on <a href="#paid-media-audience">paid media without knowing which audience pays back</a>, being <a href="#search-ai-visibility">invisible in search and in AI answers</a>, or holding <a href="#search-organic">organic rankings while the category moves</a>. Each case sets out its own measurement limits.</p>
 	<!-- /wp:paragraph -->
 
+	<!-- wp:html -->
+	<div class="rm-cs-filters" role="group" aria-label="Filter case studies by category">
+		<button type="button" class="rm-cs-filter is-active" data-cs-filter="all">All &middot; <span class="rm-cs-filter__count">14</span></button>
+		<button type="button" class="rm-cs-filter" data-cs-filter="strategy-market-entry">Strategy &amp; market entry &middot; <span class="rm-cs-filter__count">2</span></button>
+		<button type="button" class="rm-cs-filter" data-cs-filter="paid-media-audience">Paid media &amp; audience &middot; <span class="rm-cs-filter__count">4</span></button>
+		<button type="button" class="rm-cs-filter" data-cs-filter="search-ai-visibility">Search &amp; AI visibility &middot; <span class="rm-cs-filter__count">2</span></button>
+		<button type="button" class="rm-cs-filter" data-cs-filter="search-organic">Search &amp; organic &middot; <span class="rm-cs-filter__count">6</span></button>
+	</div>
+	<!-- /wp:html -->
+
 	<!-- wp:group {"className":"rm-section rm-measure-wide","layout":{"type":"constrained"}} -->
 	<div class="wp-block-group rm-section rm-measure-wide is-layout-constrained">
 
+		<div class="rm-cs-section" data-cs-category="strategy-market-entry">
 		<!-- wp:heading {"level":2,"className":"rm-cs-subhead","anchor":"strategy-market-entry"} -->
-		<h2 class="rm-cs-subhead" id="strategy-market-entry">Strategy &amp; market entry</h2>
+		<h2 class="rm-cs-subhead" id="strategy-market-entry">01 &middot; Strategy &amp; market entry</h2>
 		<!-- /wp:heading -->
 		<!-- wp:paragraph {"className":"rm-plates__note"} -->
 		<p class="rm-plates__note">Launches and market entries where the strategy decision carried the result.</p>
@@ -57,9 +68,11 @@
 			</a>
 		</div>
 		<!-- /wp:html -->
+		</div>
 
+		<div class="rm-cs-section" data-cs-category="paid-media-audience">
 		<!-- wp:heading {"level":2,"className":"rm-cs-subhead","anchor":"paid-media-audience"} -->
-		<h2 class="rm-cs-subhead" id="paid-media-audience">Paid media &amp; audience</h2>
+		<h2 class="rm-cs-subhead" id="paid-media-audience">02 &middot; Paid media &amp; audience</h2>
 		<!-- /wp:heading -->
 		<!-- wp:paragraph {"className":"rm-plates__note"} -->
 		<p class="rm-plates__note">Paid search, programmatic and audience-data engagements, with the measurement limits of each named on its page.</p>
@@ -113,9 +126,11 @@
 			</a>
 		</div>
 		<!-- /wp:html -->
+		</div>
 
+		<div class="rm-cs-section" data-cs-category="search-ai-visibility">
 		<!-- wp:heading {"level":2,"className":"rm-cs-subhead","anchor":"search-ai-visibility"} -->
-		<h2 class="rm-cs-subhead" id="search-ai-visibility">Search &amp; AI visibility</h2>
+		<h2 class="rm-cs-subhead" id="search-ai-visibility">03 &middot; Search &amp; AI visibility</h2>
 		<!-- /wp:heading -->
 		<!-- wp:paragraph {"className":"rm-plates__note"} -->
 		<p class="rm-plates__note">Technical SEO and AI-visibility engagements where structure and discoverability released the value.</p>
@@ -147,9 +162,11 @@
 			</a>
 		</div>
 		<!-- /wp:html -->
+		</div>
 
+		<div class="rm-cs-section" data-cs-category="search-organic">
 		<!-- wp:heading {"level":2,"className":"rm-cs-subhead","anchor":"search-organic"} -->
-		<h2 class="rm-cs-subhead" id="search-organic">Search &amp; organic</h2>
+		<h2 class="rm-cs-subhead" id="search-organic">04 &middot; Search &amp; organic</h2>
 		<!-- /wp:heading -->
 		<!-- wp:paragraph {"className":"rm-plates__note"} -->
 		<p class="rm-plates__note">Organic and search engagements. Clients are described by sector rather than named, and every figure is reported exactly as recorded at the time.</p>
@@ -212,8 +229,20 @@
 					<span class="rm-cs-card__link">View case study →</span>
 				</div>
 			</a>
+
+			<a class="rm-cs-card" href="/case-studies/singapore-b2b-portfolio/">
+				<div class="rm-cs-card__image" style="background:linear-gradient(135deg,#39b54a,#00aeef);"></div>
+				<div class="rm-cs-card__body">
+					<p class="rm-cs-card__tag">B2B · Search portfolio</p>
+					<h3 class="rm-cs-card__metric">6 clients</h3>
+					<p class="rm-cs-card__client">Six B2B accounts, Singapore</p>
+					<p class="rm-cs-card__desc">Method rather than outcomes: one operating system run across six concurrent search programmes.</p>
+					<span class="rm-cs-card__link">View case study →</span>
+				</div>
+			</a>
 		</div>
 		<!-- /wp:html -->
+		</div>
 
 		<!-- wp:paragraph {"className":"rm-plates__note"} -->
 		<p class="rm-plates__note">Every figure above comes from real client work, with clients described rather than named. Each card opens the full case, including what the numbers do and do not show.</p>
@@ -239,6 +268,39 @@
 		<!-- /wp:buttons -->
 	</section>
 	<!-- /wp:group -->
+	<!-- wp:html -->
+	<script>
+	(function () {
+		var filters = document.querySelectorAll( '.rm-cs-filter' );
+		var sections = document.querySelectorAll( '.rm-cs-section' );
+		if ( ! filters.length || ! sections.length ) {
+			return;
+		}
+		// Counts come from the cards on the page, so adding or removing a
+		// case study can never leave the chips saying something untrue.
+		filters.forEach( function ( btn ) {
+			var cat = btn.getAttribute( 'data-cs-filter' );
+			var scope = 'all' === cat ? document : document.querySelector( '.rm-cs-section[data-cs-category="' + cat + '"]' );
+			var out = btn.querySelector( '.rm-cs-filter__count' );
+			if ( scope && out ) {
+				out.textContent = scope.querySelectorAll( '.rm-cs-card' ).length;
+			}
+		} );
+		filters.forEach( function ( btn ) {
+			btn.addEventListener( 'click', function () {
+				var cat = btn.getAttribute( 'data-cs-filter' );
+				filters.forEach( function ( b ) {
+					b.classList.toggle( 'is-active', b === btn );
+				} );
+				sections.forEach( function ( section ) {
+					var show = cat === 'all' || section.getAttribute( 'data-cs-category' ) === cat;
+					section.style.display = show ? '' : 'none';
+				} );
+			} );
+		} );
+	})();
+	</script>
+	<!-- /wp:html -->
 
 </main>
 <!-- /wp:group -->

@@ -4,6 +4,275 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.87.0] — 2026-09-30
+
+### Fixed
+
+- **Uploading a new theme version now actually updates the site.**
+  Several things live outside the theme's files and were never touched by an
+  upload: saved options (which take priority over code defaults, and are
+  frozen for every field the first time the settings screen is saved), the
+  team roster, the drop-ins in `wp-content/`, and page slugs. A single
+  `remotive_version_sync()` (`inc/site-setup.php`) now runs once per theme
+  *version* — on activation and on the first request after any upload,
+  including FTP and deploy scripts that fire no WordPress hook — and each
+  step is isolated so one failure cannot skip the others or repeat on every
+  page load.
+  - **Options.** A saved value that still equals the default the theme last
+    shipped was never customised, so it is released and the new default
+    shows through; a value someone edited is never touched. The first run
+    has no record of prior defaults, so for the fifteen keys rewritten in the
+    Fix / Found / Scale release (hero, services, why, about, CTA, stat
+    labels) it releases the saved value once. Every value replaced is kept in
+    `remotive_theme_options_backup` (last five runs) so it can be restored.
+  - **Team roster.** Merges new members by slug and never overwrites,
+    reorders or removes anyone. It now also remembers which members it has
+    already offered, so someone removed on purpose stays removed instead of
+    being re-added every release.
+  - **Drop-ins.** Installed by the same runner, so they now also arrive on an
+    FTP/upload update, not only on activation.
+  - Options and roster are saved without the settings-form sanitizer, which
+    fills every key it is not given and would undo the release.
+- **Case-study links pointed at pages that did not exist.** Every link in the
+  templates, footer and seed uses the theme's own slugs, but the live pages
+  had different ones after the duplicate cleanup, so those links 404ed. The
+  sync now matches live pages by title under `/case-studies/`, moves them to
+  the theme's slug, tops up the theme's page template and SEO fields where
+  empty (never overwriting), and remembers the old path to 301 on a 404 —
+  WordPress records no old-slug redirect for hierarchical types like pages.
+- **Case Studies filter counts were wrong.** The chips said "All · 14" and
+  "Search & organic · 6" but the page had 13 cards (5 in that group), and the
+  Singapore B2B case study was not linked from the page at all. Added its card
+  and made the counts calculate from the cards on the page, so they cannot
+  drift again.
+
+### Added
+
+- **Singapore B2B case study in the seed data**, so a fresh install
+  autopopulates all 14 rather than depending on a page that only existed on
+  one site. New seed items are created on the first admin load after an
+  update; already-seeded items are never re-created, so a page an owner
+  deleted stays deleted.
+
+### Changed
+
+- Menu defaults now match the agreed structure: FAQ is footer-only (removed
+  from the built main menu) and the footer link reads "All 14 case studies".
+
+### Corrected
+
+- **`drop-ins/php-error.php` scope.** 1.84.0 said WordPress loads it for any
+  fatal. This theme's `inc/error-handler.php` switches WordPress's fatal
+  handler off once the theme has loaded and renders its own branded page, so
+  the drop-in is used only for a fatal that happens *before* the theme loads
+  (a plugin or mu-plugin). Header comment and `drop-ins/README.md` rewritten
+  to say so.
+
+## [1.86.2] — 2026-09-30
+
+### Changed
+
+- **Hero now previews the model.** The closing sentence of `hero_sub`
+  used to end on a generic "we turn performance marketing into
+  predictable pipeline growth" and never mentioned the Fix/Found/Scale
+  model the rest of the page is built around. It now reads "We fix the
+  foundations, get you found and cited, then scale with paid media,
+  turning performance marketing into predictable pipeline growth
+  across Asia and beyond," so the story opens on the same three
+  stages it later explains, proves and staffs.
+
+## [1.86.1] — 2026-09-30
+
+### Changed
+
+- **About section now closes the homepage story.** Continuing the
+  1.86.0 narrative pass: `about_sub` ("20+ senior professionals...")
+  didn't reference the Fix/Found/Scale model at all, so the section
+  meant to answer "who actually runs this" read as a generic team
+  blurb rather than the story's resolution (Problem → Model → Proof →
+  **the people who deliver it** → CTA). Now opens with "20+ senior
+  professionals who run Fix, Found and Scale end to end, not handed
+  off between departments." Left `work_sub` (the Proof section)
+  unchanged — it already works well without namedropping the model,
+  and forcing every section to reference it by name started to feel
+  repetitive rather than like a natural story.
+
+## [1.86.0] — 2026-09-30
+
+### Fixed
+
+- **Team roster wasn't reaching existing sites.** `team` lives in the
+  saved `remotive_theme_options` option, not in code — once WordPress
+  has a saved value, it never falls back to a new code default for
+  that key. Ally, Jay, Louie and Freya (added to the defaults back in
+  1.80.1) therefore never appeared on a site that already had a saved
+  roster, no matter how many theme versions shipped afterward. Added
+  `remotive_sync_team_roster()`, hooked the same way as the drop-ins
+  installer (`after_switch_theme` / `upgrader_process_complete`): it
+  merges any default team member missing from the saved roster by
+  slug, without touching or reordering anyone already there.
+- **Homepage story now connects section to section.** The stats band
+  meant to "prove" the Fix/Found/Scale model still used its pre-rename
+  labels (`Demand creation` / `Demand capture` / `Conversion & data`
+  — stale since the 1.81.0 Fix/Found/Scale rename), so it didn't read
+  as proof of the model shown two sections earlier. Relabelled to
+  `01 · Fix` / `02 · Found` / `03 · Scale`, matching the model section
+  exactly. The stats band's eyebrow ("The three blocks, proved" →
+  "Fix, Found, Scale — proved") and heading ("One engagement each" →
+  "The same three stages, real numbers") now name the model directly
+  instead of referring to it vaguely. The Why section's sub-heading
+  ("What you are actually buying..." → "What makes Fix, Found, Scale
+  actually work...") now explicitly bridges from the model section
+  above it instead of reading as an unrelated trust pitch.
+
+## [1.85.0] — 2026-09-30
+
+### Added
+
+- **Portraits for the three remaining new team members**: `jay.avif`,
+  `louie.avif`, `freya.avif` — background removed, cropped to the
+  standard 800×1000 team-photo frame. All three were genuine headshots
+  (unlike Ally's casual selfie in 1.80.2), so no acceptability check
+  was needed. Freya's needed two extra passes: the first crop centered
+  on the full-body bounding box, which skewed right because her hair
+  extends well past her shoulder — refit using the head-region
+  centroid instead; the initial matte also left a faint shadow-ghost
+  behind the flyaway hair (the pink-brick backdrop's own drop shadow,
+  partially kept as semi-transparent alpha), cleaned up with alpha
+  matting plus a harder foreground/background threshold. All ten team
+  slugs (`gordan`, `jazlan`, `adam`, `elfie`, `alif`, `nabil`, `ally`,
+  `jay`, `louie`, `freya`) now have real portraits; none fall back to
+  initials any longer.
+
+## [1.84.0] — 2026-09-30
+
+### Fixed
+
+- **Drop-ins now actually fire.** Bundling `db-error.php`,
+  `maintenance.php` and `php-error.php` inside the theme package
+  (1.82.0) didn't make WordPress load them — all three only ever load
+  from `wp-content/` root. `remotive_install_error_dropins()` now
+  copies them there automatically on `after_switch_theme` and on
+  every `upgrader_process_complete` (theme update), so no manual copy
+  step is needed. Skips the copy if a non-Remotive drop-in is already
+  in place (detected via a signature comment on each file's second
+  line), so it never clobbers something else.
+- **Corrected a wrong claim in `php-error.php`'s own header comment**:
+  it previously said this needed manual `.htaccess`/server wiring.
+  It doesn't — `WP_Fatal_Error_Handler` has auto-included
+  `wp-content/php-error.php` on uncaught fatals since WP 5.2, the
+  same mechanism as `db-error.php`. Comment corrected; `drop-ins/README.md`
+  updated to match.
+
+## [1.83.0] — 2026-09-30
+
+### Added
+
+- **Case Studies page: numbered sections + working category filter.**
+  Prototyped from the parent company's (remotivemedia.com) design
+  patterns per the earlier design-reference session: section headings
+  now read "01 · Strategy & market entry" through "04 · Search &
+  organic" (matches the "01 · Fix" numbering already on the homepage
+  framework), and a filter-chip bar above the grid ("All · 14",
+  "Strategy & market entry · 2", etc.) toggles each category's
+  `.rm-cs-section` via plain JS (`data-cs-filter` / `data-cs-category`
+  attributes, no dependency). Counts match the page's real 14 case
+  studies exactly. New styles in `assets/css/remotive.css`
+  (`.rm-cs-filters` / `.rm-cs-filter`), reusing existing tokens
+  (`--rm-line`, `--rm-ink-70`, the cyan/paper/ink palette) rather than
+  introducing new ones.
+
+## [1.82.0] — 2026-09-30
+
+### Added
+
+- **`drop-ins/` folder bundled into the theme package**: `db-error.php`,
+  `maintenance.php`, `php-error.php` — brand-matched 503/500 pages
+  (dark navy `#1a1a2e`, white ink, cyan/magenta CMYK-plate accent,
+  Archivo) for a DB-connection failure, a scheduled core/plugin
+  update, and a generic PHP fatal respectively. Bundled for
+  distribution alongside the theme, but WordPress does not load them
+  from inside a theme folder — `db-error.php` and `maintenance.php`
+  still have to be copied to `wp-content/` directly (see
+  `drop-ins/README.md`); `php-error.php` needs manual wiring since no
+  such WP core hook exists.
+
+## [1.81.0] — 2026-09-30
+
+### Changed
+
+- **Homepage framework replaced: Create/Capture/Convert → Fix/Found/Scale.**
+  Per Gordan's "Fix it. Get found. Then scale." positioning deck
+  (September 2026). The three service blocks in
+  `templates/front-page.html` now read 01 · Fix (technical SEO,
+  tracking/attribution, conversion paths), 02 · Found (topic authority,
+  AI visibility/entity work, distribution), 03 · Scale (paid media,
+  full-funnel attribution, lifecycle amplification) — each item still
+  links to its real `/services/` page. `services_heading` and
+  `services_sub` defaults updated to match; the hardcoded section
+  eyebrow above the blocks changed from "Modular, on-demand
+  capabilities" to "Our model." Hero copy was left unchanged — this
+  was scoped to the framework section only.
+
+## [1.80.2] — 2026-09-30
+
+### Added
+
+- **Ally Foo's portrait** (`assets/team/ally.avif`) — background removed
+  and cropped to the standard 800×1000 team-photo frame. Source was a
+  casual outdoor selfie rather than a studio headshot (confirmed
+  acceptable to use as-is for now); no `-alt.avif` variant exists
+  since only one source photo was available. Jay, Louie and Freya
+  still have no portrait files and show the initials fallback.
+
+## [1.80.1] — 2026-09-09
+
+### Added
+
+- **Four new team members**, per Gordan's confirmation: Ally Foo
+  (Account Director), Jay Spicer (Performance Director), Louie See
+  (Media Manager), Freya Angel (Media Manager). Added as roster
+  entries with slugs `ally`, `jay`, `louie`, `freya` — headshots can
+  be dropped into `assets/team/{slug}.avif` (and optionally
+  `{slug}-alt.avif`) with no further code change once received; until
+  then each shows branded initials per the existing fallback.
+
+### Changed
+
+- **Team page copy updated from six to ten** (hero sub-heading and
+  section heading on `templates/page-team.html`) to match the grown
+  roster.
+- **`about_sub` updated** to state "20+ senior professionals. 50+
+  markets activated." directly, per Gordan's positioning brief
+  (grow Asian brands globally, market knowledge + execution
+  expertise across markets).
+
+## [1.80.0] — 2026-09-09
+
+### Added
+
+- **Closing call-to-action is now editable.** The final CTA band above
+  the footer (heading, sub-heading, and button label) was hardcoded
+  directly in `templates/front-page.html`. Added `cta_heading`,
+  `cta_sub`, and `cta_button` as theme options, with a new "Closing
+  call to action" field group under Appearance → Theme Options →
+  Homepage, following the same default → admin field → sanitizer →
+  token pattern as every other homepage section.
+
+### Changed
+
+- **Problem grid leads with the brand/agency split.** The two people
+  actually being sold to — brands needing an on-demand senior team,
+  and agencies needing a modular capability extension — are now the
+  first two cards in the problem section, ahead of the five existing
+  pain-point cards (which keep their internal links to SEO/SEM blog
+  posts).
+- **Shipped defaults for hero, services, and about copy updated** to
+  match the new homepage brief (see docs/homepage-v1.80-brief for the
+  source draft). Sites with existing saved `remotive_theme_options`
+  values are unaffected until someone edits those fields in the admin
+  — this only changes what a fresh install or a reset ships with.
+
 ## [1.79.5] — 2026-09-01
 
 ### Fixed

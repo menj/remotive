@@ -83,22 +83,13 @@ function remotive_problem_items() {
 	return array(
 		array(
 			'icon'  => 'stretched',
-			'title' => __( 'In-house teams stretched thin', 'remotive' ),
-			'text'  => __( 'Senior strategic capacity is scarce and slow to hire.', 'remotive' ),
-			'post'  => 'how-to-choose-an-seo-agency',
-			'cta'   => __( 'Hiring vs outsourcing', 'remotive' ),
+			'title' => __( 'For brands', 'remotive' ),
+			'text'  => __( 'An experienced, independent on-demand media team without the agency overhead.', 'remotive' ),
 		),
 		array(
-			'icon'  => 'siloed',
-			'title' => __( 'Siloed data and CRM', 'remotive' ),
-			'text'  => __( 'Marketing and account data sit apart, so no one sees what drives funded outcomes.', 'remotive' ),
-		),
-		array(
-			'icon'  => 'costs',
-			'title' => __( 'Rising acquisition costs', 'remotive' ),
-			'text'  => __( 'Competition and CPCs climb while budgets hold flat.', 'remotive' ),
-			'post'  => 'seo-vs-sem',
-			'cta'   => __( 'SEO vs SEM', 'remotive' ),
+			'icon'  => 'plug',
+			'title' => __( 'For agencies', 'remotive' ),
+			'text'  => __( 'A powerful, modular business extension without having to build the capability in-house.', 'remotive' ),
 		),
 		array(
 			'icon'  => 'attribution',

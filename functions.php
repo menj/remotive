@@ -581,6 +581,101 @@ function remotive_bootstrap_branding() {
 add_action( 'after_switch_theme', 'remotive_bootstrap_branding' );
 
 /**
+ * Copy the bundled db-error.php / maintenance.php / php-error.php into
+ * wp-content/ so they actually fire — WordPress core hardcodes those
+ * three paths (WP_CONTENT_DIR root) and never looks inside a theme
+ * folder for them, so shipping them in drop-ins/ alone does nothing on
+ * its own. Runs on activation AND on every theme update (not gated by
+ * a "done once" flag like the branding bootstrap above), so an edit to
+ * one of these files in a future theme version actually reaches the
+ * live site instead of the stale copy sitting untouched forever.
+ *
+ * Never overwrites a file that isn't ours: each bundled copy carries a
+ * "Remotive Media db-error drop-in" style signature comment on its
+ * second line, and copying is skipped if the file that's already there
+ * doesn't have it — protects a hand-edited or third-party drop-in from
+ * being silently clobbered.
+ */
+// Runs from remotive_version_sync() in inc/site-setup.php — once per theme
+// version, on activation and after any file upload.
+function remotive_install_error_dropins() {
+	$files = array( 'db-error.php', 'maintenance.php', 'php-error.php' );
+
+	foreach ( $files as $file ) {
+		$src = get_stylesheet_directory() . '/drop-ins/' . $file;
+		$dest = WP_CONTENT_DIR . '/' . $file;
+
+		if ( ! is_readable( $src ) ) {
+			continue;
+		}
+
+		if ( file_exists( $dest ) ) {
+			$existing = file_get_contents( $dest, false, null, 0, 200 );
+			if ( false === strpos( $existing, 'Remotive Media' ) ) {
+				continue; // Someone else's drop-in — leave it alone.
+			}
+		}
+
+		if ( ! is_writable( WP_CONTENT_DIR ) ) {
+			continue;
+		}
+
+		copy( $src, $dest );
+	}
+}
+
+/**
+ * Merge any team members present in the code defaults but missing from
+ * the site's already-saved `remotive_theme_options` option.
+ *
+ * Shipping a new default in remotive_theme_option_defaults() only
+ * affects a FRESH install — once WordPress has a saved value for an
+ * option key, remotive_get_theme_option() returns the saved value and
+ * never falls back to the code default again for that key. A person
+ * added to the code's default 'team' array in a later theme version
+ * therefore never appears on an existing site without this: it merges
+ * by slug (never overwrites an existing member's name/role/bio, never
+ * reorders or removes anyone already saved) and only appends people
+ * it has not offered before — so a member removed on purpose through
+ * the settings screen stays removed across later releases.
+ */
+function remotive_sync_team_roster() {
+	$defaults = remotive_theme_option_defaults();
+	$slugs    = wp_list_pluck( $defaults['team'], 'slug' );
+	$offered  = get_option( 'remotive_team_offered', array() );
+	$offered  = is_array( $offered ) ? $offered : array();
+	$saved    = get_option( 'remotive_theme_options', array() );
+
+	// Nothing saved yet — a fresh install reads the code defaults directly.
+	// Still record what has been offered, so someone removed later through
+	// the settings screen is not put back by a future release.
+	if ( empty( $saved ) || ! isset( $saved['team'] ) || ! is_array( $saved['team'] ) ) {
+		update_option( 'remotive_team_offered', $slugs, false );
+		return;
+	}
+
+	$existing = wp_list_pluck( $saved['team'], 'slug' );
+	$changed  = false;
+
+	foreach ( $defaults['team'] as $member ) {
+		// Already on the roster, or offered in an earlier release and since
+		// removed on purpose — either way, leave it exactly as it is.
+		if ( in_array( $member['slug'], $existing, true ) || in_array( $member['slug'], $offered, true ) ) {
+			continue;
+		}
+
+		$saved['team'][] = $member;
+		$changed         = true;
+	}
+
+	if ( $changed ) {
+		remotive_update_options_raw( $saved );
+	}
+
+	update_option( 'remotive_team_offered', $slugs, false );
+}
+
+/**
  * Copy a bundled theme image into the media library and return its
  * attachment ID, without fetching anything over the network.
  *

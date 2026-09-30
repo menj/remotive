@@ -253,9 +253,11 @@ function remotive_build_classic_menus() {
 	$notes = array();
 
 	$definitions = array(
+		// FAQ is footer-only by decision (kept indexable for long-tail search,
+		// out of the primary journey), so it is not in the main menu.
 		'primary'         => array(
 			'name'  => __( 'Main menu', 'remotive' ),
-			'items' => array( 'services', 'case-studies', 'about', 'team', 'blog', 'faq', 'contact' ),
+			'items' => array( 'services', 'case-studies', 'about', 'team', 'blog', 'contact' ),
 		),
 		'footer_company'  => array(
 			'name'  => __( 'Footer — Company', 'remotive' ),
@@ -275,7 +277,7 @@ function remotive_build_classic_menus() {
 		'footer_cases'    => array(
 			'name'  => __( 'Footer — Case Studies', 'remotive' ),
 			// Mirrors the template fallback: a curated six with short
-			// labels plus the "all" link, not all 13 with their full
+			// labels plus the "all" link, not all 14 with their full
 			// page titles — a footer column is too narrow for titles
 			// like "Premium Skincare: +168% GMV Across Three SEA
 			// Markets" to read as navigation. An administrator can add
@@ -308,7 +310,7 @@ function remotive_build_classic_menus() {
 				),
 				array(
 					'path'  => 'case-studies',
-					'label' => __( 'All 13 case studies →', 'remotive' ),
+					'label' => __( 'All 14 case studies →', 'remotive' ),
 				),
 			),
 		),
