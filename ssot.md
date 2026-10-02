@@ -115,7 +115,8 @@ in the `remotive_theme_options` WordPress option, editable at
 Appearance → Theme Options, with defaults matching the values in this
 document.
 
-**Tabs added since v1.79.1.** Integrations (v1.91.0, holds the Pexels API
+**Tabs added since v1.79.1.** Colours (v1.95.0, the palette per mode with a
+contrast check; see `readme.md`), Integrations (v1.91.0, holds the Pexels API
 key) and a maintenance-mode switch under Site behaviour (v1.88.0). The ticker
 default now lists six markets (Singapore, Malaysia, Thailand, Vietnam, Hong
 Kong, China); a site that has saved its own ticker list keeps it.

@@ -14,6 +14,7 @@ defined( 'ABSPATH' ) || exit;
 // Loaded first so it is already registered if any later require fatals.
 require get_stylesheet_directory() . '/inc/error-handler.php';
 
+require get_stylesheet_directory() . '/inc/colours.php';
 require get_stylesheet_directory() . '/inc/theme-options.php';
 require get_stylesheet_directory() . '/inc/site-setup.php';
 require get_stylesheet_directory() . '/inc/lead-form-handler.php';
@@ -151,6 +152,14 @@ function remotive_enqueue_assets() {
 
 	if ( $ticker_css ) {
 		wp_add_inline_style( 'remotive-style', $ticker_css );
+	}
+
+	// Colour scheme changed under Theme Options -> Colours. Inline in the head
+	// with the critical CSS, so there is no flash of the shipped colours.
+	$colours_css = function_exists( 'remotive_colours_css' ) ? remotive_colours_css() : '';
+
+	if ( $colours_css ) {
+		wp_add_inline_style( wp_style_is( 'remotive-critical', 'registered' ) ? 'remotive-critical' : 'remotive-style', $colours_css );
 	}
 
 	$print_css_path = get_stylesheet_directory() . '/assets/css/print.css';

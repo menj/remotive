@@ -2,7 +2,7 @@
 # This file is distributed under the GNU General Public License v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Remotive Media 1.94.0\n"
+"Project-Id-Version: Remotive Media 1.95.0\n"
 "Report-Msgid-Bugs-To: https://remotivemedia.asia/\n"
 "POT-Creation-Date: 2026-10-02T19:24:39+00:00\n"
 "MIME-Version: 1.0\n"
@@ -1501,4 +1501,184 @@ msgstr ""
 
 #: inc/theme-options.php:1298
 msgid "Meet the whole team"
+msgstr ""
+
+#: inc/colours.php:32
+msgid "Text"
+msgstr ""
+
+#: inc/colours.php:32
+msgid "Body text and headings."
+msgstr ""
+
+#: inc/colours.php:33
+msgid "Page background"
+msgstr ""
+
+#: inc/colours.php:33
+msgid "The main page surface."
+msgstr ""
+
+#: inc/colours.php:34
+msgid "Deep background"
+msgstr ""
+
+#: inc/colours.php:34
+msgid "Recessed bands and panels."
+msgstr ""
+
+#: inc/colours.php:35
+msgid "Card surface"
+msgstr ""
+
+#: inc/colours.php:35
+msgid "Cards, forms and raised panels."
+msgstr ""
+
+#: inc/colours.php:36
+msgid "Cyan plate"
+msgstr ""
+
+#: inc/colours.php:36
+msgid "Cyan fills and decoration. Not for text in light mode."
+msgstr ""
+
+#: inc/colours.php:37
+msgid "Cyan, strong"
+msgstr ""
+
+#: inc/colours.php:37
+msgid "Cyan used for text, links and bands."
+msgstr ""
+
+#: inc/colours.php:38
+msgid "Magenta plate"
+msgstr ""
+
+#: inc/colours.php:38
+msgid "Magenta fills and decoration. Not for text in light mode."
+msgstr ""
+
+#: inc/colours.php:39
+msgid "Magenta, strong"
+msgstr ""
+
+#: inc/colours.php:39
+msgid "Magenta used for text, buttons and bands."
+msgstr ""
+
+#: inc/colours.php:40
+msgid "Third plate"
+msgstr ""
+
+#: inc/colours.php:40
+msgid "Green (dark) or yellow (light) fills and decoration."
+msgstr ""
+
+#: inc/colours.php:41
+msgid "Third plate, strong"
+msgstr ""
+
+#: inc/colours.php:41
+msgid "Third colour used for text."
+msgstr ""
+
+#: inc/colours.php:42
+msgid "Contrast band background"
+msgstr ""
+
+#: inc/colours.php:42
+msgid "Bands that stay dark in both modes."
+msgstr ""
+
+#: inc/colours.php:43
+msgid "Contrast band text"
+msgstr ""
+
+#: inc/colours.php:43
+msgid "Text on those bands."
+msgstr ""
+
+#: inc/colours.php:81
+msgid "Text on page background"
+msgstr ""
+
+#: inc/colours.php:82
+msgid "Text on cards"
+msgstr ""
+
+#: inc/colours.php:83
+msgid "Text on deep background"
+msgstr ""
+
+#: inc/colours.php:84
+msgid "Magenta text on page"
+msgstr ""
+
+#: inc/colours.php:85
+msgid "Cyan text on page"
+msgstr ""
+
+#: inc/colours.php:86
+msgid "Third-colour text on page"
+msgstr ""
+
+#: inc/colours.php:87
+msgid "Button label on magenta"
+msgstr ""
+
+#: inc/colours.php:88
+msgid "Text on contrast bands"
+msgstr ""
+
+#: inc/colours.php:163
+msgid "Dark mode"
+msgstr ""
+
+#: inc/colours.php:163
+msgid "Light mode"
+msgstr ""
+
+#: inc/colours.php:173
+msgid "%1$s: \"%2$s\" has a contrast of %3$s:1, below the recommended %4$s:1. Saved, but it may be hard to read."
+msgstr ""
+
+#: inc/colours.php:196
+msgid "The default look for first-time visitors unless you chose otherwise under Site behaviour."
+msgstr ""
+
+#: inc/colours.php:197
+msgid "Shown when a visitor switches to light, or their device asks for it."
+msgstr ""
+
+#: inc/colours.php:210
+msgid "Contrast check"
+msgstr ""
+
+#: inc/colours.php:223
+msgid "Reset"
+msgstr ""
+
+#: inc/colours.php:227
+msgid "Restore the shipped colours"
+msgstr ""
+
+#: inc/colours.php:229
+msgid "Put every colour back to its default when I save"
+msgstr ""
+
+#: inc/colours.php:235
+msgid "Colours"
+msgstr ""
+
+#: inc/colours.php:237
+msgid "The site's colour scheme, set separately for dark and light mode. Only colours you change are written to the site, so leaving this alone changes nothing. Each mode shows a live contrast check; a low-contrast pair is allowed but flagged."
+msgstr ""
+
+#: inc/colours.php:273
+msgid "Good"
+msgstr ""
+
+#: inc/colours.php:273
+msgid "Low"
 msgstr ""

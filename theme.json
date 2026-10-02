@@ -11,18 +11,18 @@
 			"defaultGradients": false,
 			"defaultDuotone": false,
 			"palette": [
-				{ "slug": "ink",         "name": "Ink",           "color": "#ffffff" },
-				{ "slug": "paper",       "name": "Paper",         "color": "#1a1a2e" },
-				{ "slug": "paper-2",     "name": "Paper Deep",    "color": "#0d1117" },
-				{ "slug": "card",        "name": "Card",          "color": "#252542" },
-				{ "slug": "cyan",        "name": "Cyan Plate",    "color": "#00aeef" },
-				{ "slug": "cyan-dark",   "name": "Cyan Plate Dark",    "color": "#00aeef" },
-				{ "slug": "magenta",     "name": "Magenta Plate", "color": "#ec008c" },
-				{ "slug": "magenta-dark","name": "Magenta Plate Dark", "color": "#ff0198" },
-				{ "slug": "accent-3",       "name": "Plate Accent 3",  "color": "#39b54a" },
-				{ "slug": "accent-3-dark",  "name": "Plate Accent 3 Dark",  "color": "#39b54a" },
-				{ "slug": "contrast-bg",   "name": "Contrast Background", "color": "#1a1a2e" },
-				{ "slug": "contrast-text", "name": "Contrast Text",       "color": "#ffffff" }
+				{ "slug": "ink",         "name": "Text",           "color": "#ffffff" },
+				{ "slug": "paper",       "name": "Page background",         "color": "#1a1a2e" },
+				{ "slug": "paper-2",     "name": "Deep background",    "color": "#0d1117" },
+				{ "slug": "card",        "name": "Card surface",          "color": "#252542" },
+				{ "slug": "cyan",        "name": "Cyan plate",    "color": "#00aeef" },
+				{ "slug": "cyan-dark",   "name": "Cyan, strong (text and bands)",    "color": "#00aeef" },
+				{ "slug": "magenta",     "name": "Magenta plate", "color": "#ec008c" },
+				{ "slug": "magenta-dark","name": "Magenta, strong (text and buttons)", "color": "#ff0198" },
+				{ "slug": "accent-3",       "name": "Third plate",  "color": "#39b54a" },
+				{ "slug": "accent-3-dark",  "name": "Third plate, strong (text)",  "color": "#39b54a" },
+				{ "slug": "contrast-bg",   "name": "Contrast band background", "color": "#1a1a2e" },
+				{ "slug": "contrast-text", "name": "Contrast band text",       "color": "#ffffff" }
 			]
 		},
 		"typography": {

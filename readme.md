@@ -47,7 +47,7 @@ remotive/
 ├── resources.md            Consolidated license/copyright record for the
 │                           theme and every bundled font/image.
 ├── languages/
-│   ├── remotive.pot         334 translatable strings, extracted by script
+│   ├── remotive.pot         411 translatable strings, extracted by script
 │   │                       from every __()/_e()/esc_html__() call in
 │   │                       functions.php and inc/*.php with real file:line
 │   │                       references (v1.69.2 — the previous hand-built
@@ -58,6 +58,8 @@ remotive/
 │   │                       settings sanitisation, the render_block
 │   │                       token-substitution filter, and the early
 │   │                       wp_head flash-prevention script (see below).
+│   ├── colours.php         Theme Options -> Colours: per-mode palette,
+│   │                       CSS variables, contrast check.
 │   ├── landing-copy.php    The landing pages' words: services and FAQ,
 │   │                       four languages each.
 │   ├── landing-pages.php   Ad landing pages (SEO, Google Ads, paid
@@ -843,6 +845,28 @@ see full detail without an admin session. Remove it afterwards.
 **Limit worth stating plainly:** errors raised before the theme loads —
 during core or plugin bootstrap — are outside any theme's reach. Production
 still wants `WP_DEBUG_DISPLAY` false and `display_errors` off.
+
+## Colour scheme (`inc/colours.php`)
+
+Theme Options → Colours sets the twelve palette roles separately for dark and
+light mode. The slugs are roles, not shades: `ink` is the text colour and
+`paper` the page background in whichever mode is showing, and the `-dark`
+variants are the stronger accent used for text and buttons (only darker than
+the plain colour in light mode; in dark mode `cyan-dark` equals `cyan`).
+
+- **Only changes are emitted.** A colour that matches the shipped value writes
+  nothing, so an untouched install is unchanged. Changed colours become CSS
+  variables inline in the head with the critical CSS (no flash), in
+  `html:not([data-theme="light"])` and `html[data-theme="light"]`, one step
+  more specific than the stylesheet so they win in any load order.
+- **Contrast** is checked live in the admin (WCAG ratio, eight key pairs per
+  mode) and again on save. A pair under 4.5:1 is allowed but flagged. The
+  button label on magenta uses the fixed label colour the stylesheet uses in
+  that mode.
+- **Defaults live in three places** and must stay in step: the dark values in
+  `theme.json`, the light overrides in `assets/css/remotive.css` and
+  `assets/css/critical.css`, and the defaults in `remotive_colour_tokens()`.
+- The block editor's own palette (`theme.json`) is not changed by this tab.
 
 ## Ad landing pages (`inc/landing-pages.php`)
 

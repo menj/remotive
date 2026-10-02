@@ -4,6 +4,17 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.95.0] — 2026-10-02
+
+### Added
+
+- **Colours tab** (Theme Options → Colours, `inc/colours.php`): all twelve palette roles can be set separately for dark and light mode. Only colours you change are written to the site (as CSS variables inline with the critical CSS, so there is no flash), so an untouched install is unchanged. Each mode shows a live WCAG contrast table for eight key pairs (text on page and cards, magenta, cyan and third-colour text, the button label on magenta, text on contrast bands); on save, a pair under 4.5:1 is allowed but flagged. Input is validated as hex (an injection attempt falls back to the default), and a switch restores every shipped colour.
+
+### Changed
+
+- Palette names in `theme.json` now say what each role is for ("Text", "Page background", "Magenta, strong (text and buttons)") instead of "Ink", "Paper" and "Magenta Plate Dark". Slugs are unchanged, so nothing that uses them breaks. The reason for the confusion is documented in `readme.md`: the slugs are roles, and in dark mode the `-dark` variants are not darker.
+- `languages/remotive.pot` refreshed.
+
 ## [1.94.0] — 2026-10-02
 
 ### Fixed
