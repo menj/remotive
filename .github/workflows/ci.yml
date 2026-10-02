@@ -29,6 +29,9 @@ jobs:
       - name: Landing page copy is complete in four languages
         run: php tests/check-landing-copy.php
 
+      - name: Version numbers agree
+        run: php tests/check-versions.php
+
   front-end:
     runs-on: ubuntu-latest
     steps:
