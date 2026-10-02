@@ -37,7 +37,13 @@
 			return;
 		}
 		el.setAttribute('data-state', result);
-		el.textContent = messages[result];
+		if (el.querySelector('[data-msg]')) {
+			// Pre-rendered, translated messages: CSS shows the one matching
+			// the state and the page language.
+			el.removeAttribute('hidden');
+		} else {
+			el.textContent = messages[result];
+		}
 		consumedKey = key;
 	});
 

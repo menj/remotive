@@ -59,6 +59,8 @@ function remotive_form_rate_limit_exceeded( $form_key ) {
  *     @type string $honeypot_field   $_POST key of the honeypot input.
  *     @type string $redirect_base    Where to send the visitor back to (with #fragment if relevant).
  *     @type string $email_subject    Already-translated subject line for the notification email.
+ *     @type string[] $extra_lines    Optional, already-sanitised "Label: value" lines appended to the stored and emailed message (service, campaign source).
+ *     @type array  $thanks_args      Optional query args added to the thank-you redirect (already sanitised).
  * }
  */
 function remotive_handle_lead_form_submission( $args ) {
@@ -103,6 +105,10 @@ function remotive_handle_lead_form_submission( $args ) {
 	// sanitized the same way regardless of which form they came from.
 	$name    = isset( $_POST['name'] ) ? sanitize_text_field( wp_unslash( $_POST['name'] ) ) : '';
 	$message = isset( $_POST['message'] ) ? sanitize_textarea_field( wp_unslash( $_POST['message'] ) ) : '';
+
+	if ( ! empty( $args['extra_lines'] ) ) {
+		$message = trim( $message . "\n\n" . implode( "\n", $args['extra_lines'] ) );
+	}
 
 	$to        = remotive_get_theme_option( 'contact_email' );
 	$body_lines = array();
@@ -188,7 +194,10 @@ function remotive_handle_lead_form_submission( $args ) {
 
 		if ( $thanks && 'publish' === $thanks->post_status ) {
 			wp_safe_redirect(
-				add_query_arg( 'from', $args['form_key'], get_permalink( $thanks->ID ) )
+				add_query_arg(
+					array_merge( array( 'from' => $args['form_key'] ), isset( $args['thanks_args'] ) ? $args['thanks_args'] : array() ),
+					get_permalink( $thanks->ID )
+				)
 			);
 			exit;
 		}

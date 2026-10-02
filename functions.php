@@ -34,7 +34,7 @@ require get_stylesheet_directory() . '/inc/stats-band.php';
 require get_stylesheet_directory() . '/inc/webmcp.php';
 require get_stylesheet_directory() . '/inc/security.php';
 require get_stylesheet_directory() . '/inc/maintenance-mode.php';
-require get_stylesheet_directory() . '/inc/one-page.php';
+require get_stylesheet_directory() . '/inc/landing-pages.php';
 
 /**
  * Gate scroll motion on a body class.
@@ -181,7 +181,7 @@ function remotive_enqueue_assets() {
 
 	// The status script only consumes a post-redirect query flag. Loading it on
 	// every ordinary visit added a request that could never do useful work.
-	$lead_status_keys = array( 'remotive_cta', 'remotive_about', 'remotive_contact' );
+	$lead_status_keys = array( 'remotive_cta', 'remotive_about', 'remotive_contact', 'remotive_lp' );
 	$has_lead_status  = false;
 	foreach ( $lead_status_keys as $lead_status_key ) {
 		if ( isset( $_GET[ $lead_status_key ] ) ) {

@@ -60,12 +60,12 @@ add_filter( 'wp_robots', 'remotive_thanks_noindex' );
  * so there is no nonce to check: nothing is written and an arbitrary value
  * falls through to the default sentence.
  *
- * @return string One of 'cta', 'about', 'contact', or '' when unknown.
+ * @return string One of 'cta', 'about', 'contact', 'lp', or '' when unknown.
  */
 function remotive_thanks_source() {
 	$from = isset( $_GET['from'] ) ? sanitize_key( wp_unslash( $_GET['from'] ) ) : '';
 
-	return in_array( $from, array( 'cta', 'about', 'contact' ), true ) ? $from : '';
+	return in_array( $from, array( 'cta', 'about', 'contact', 'lp' ), true ) ? $from : '';
 }
 
 /**
@@ -82,6 +82,10 @@ function remotive_thanks_tokens( $tokens ) {
 	switch ( remotive_thanks_source() ) {
 		case 'cta':
 			$lead = __( 'Your audit request is in. We will look at what you have and reply within three business days with what we would fix first.', 'remotive' );
+			break;
+
+		case 'lp':
+			$lead = __( 'Your request is in. We will look at what you have and reply within three business days with what we would fix first.', 'remotive' );
 			break;
 
 		case 'about':
@@ -126,13 +130,20 @@ function remotive_thanks_conversion_event() {
 		return;
 	}
 
+	$service = '';
+	if ( 'lp' === $source && function_exists( 'remotive_landing_services' ) ) {
+		$asked   = isset( $_GET['service'] ) ? sanitize_key( wp_unslash( $_GET['service'] ) ) : '';
+		$service = isset( remotive_landing_services()[ $asked ] ) ? $asked : '';
+	}
+
 	printf(
 		'<script>window.dataLayer=window.dataLayer||[];' .
-		'window.dataLayer.push({"event":"remotive_lead","form":%1$s});' .
+		'window.dataLayer.push({"event":"remotive_lead","form":%1$s,"service":%2$s});' .
 		'document.addEventListener("DOMContentLoaded",function(){' .
-		'document.dispatchEvent(new CustomEvent("remotive:lead",{detail:{form:%1$s}}));' .
+		'document.dispatchEvent(new CustomEvent("remotive:lead",{detail:{form:%1$s,service:%2$s}}));' .
 		'});</script>',
-		wp_json_encode( $source )
+		wp_json_encode( $source ),
+		wp_json_encode( $service )
 	);
 }
 add_action( 'wp_footer', 'remotive_thanks_conversion_event', 5 );
