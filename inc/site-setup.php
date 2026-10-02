@@ -343,7 +343,7 @@ const REMOTIVE_SETUP_FLAG = 'remotive_site_setup_done';
  * migrations. This is the value stored in remotive_site_setup_done after
  * all migrations for this release complete successfully.
  */
-const REMOTIVE_SETUP_SCHEMA = '1.75.0';
+const REMOTIVE_SETUP_SCHEMA = '1.90.0';
 
 /**
  * Migrations keyed by the schema version they introduce.
@@ -411,6 +411,15 @@ function remotive_migration_registry() {
 		// that is already complete is a no-op that attaches nothing.
 		'1.75.0' => function() {
 			remotive_backfill_seed_images();
+		},
+		// 1.90.0: provisions the three ad landing pages (lp-seo,
+		// lp-google-ads, lp-social-ads). Registering them in
+		// remotive_required_pages() only reaches fresh installs; sites
+		// already at an earlier schema skip setup, so without this the
+		// pages would never be created. Setup only creates what is missing
+		// and never touches an existing page's content.
+		'1.90.0' => function() {
+			remotive_run_site_setup();
 		},
 	);
 }
@@ -1248,6 +1257,60 @@ function remotive_redirect_moved_slugs() {
 add_action( 'template_redirect', 'remotive_redirect_moved_slugs', 1 );
 
 /**
+ * Files this theme no longer ships, relative to the theme folder.
+ *
+ * WordPress's "replace current theme" upload swaps the whole folder, but an
+ * FTP or deploy-script upload only ADDS files, so anything deleted from the
+ * theme lingers on the server indefinitely. Listing it here makes removal a
+ * one-line change in the release that retires it: the version sync deletes
+ * whatever is listed, wherever it is still sitting. Globs are allowed.
+ *
+ * Team portraits are personal likenesses, so a photo that has been retired or
+ * replaced under a new name belongs here rather than being left behind.
+ *
+ * @return string[]
+ */
+function remotive_retired_files() {
+	return array(
+		// 1.88.0: the rollover portrait was removed; one image per person.
+		'assets/team/*-alt.avif',
+	);
+}
+
+/**
+ * Delete every retired file that is still present.
+ *
+ * Confined to the theme folder: each match is resolved with realpath() and
+ * skipped unless it is a regular file inside the theme directory, so a bad
+ * pattern (or a symlink) can never reach outside it.
+ */
+function remotive_prune_retired_files() {
+	$root = realpath( get_stylesheet_directory() );
+
+	if ( false === $root ) {
+		return;
+	}
+
+	foreach ( remotive_retired_files() as $pattern ) {
+		if ( false !== strpos( $pattern, '..' ) || '/' === substr( $pattern, 0, 1 ) ) {
+			continue; // Relative to the theme folder only.
+		}
+
+		foreach ( (array) glob( $root . '/' . $pattern ) as $file ) {
+			$real = realpath( $file );
+
+			if ( false === $real || 0 !== strpos( $real, $root . DIRECTORY_SEPARATOR ) || ! is_file( $real ) ) {
+				continue;
+			}
+
+			// A read-only file system is not worth a fatal; the next version
+			// bump tries again.
+			@unlink( $real ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.unlink_unlink
+		}
+	}
+}
+
+/**
  * Run every sync once per theme version.
  *
  * Claims the version FIRST, then runs each step isolated, so one failing step
@@ -1271,8 +1334,11 @@ function remotive_version_sync() {
 	$steps = array(
 		'remotive_install_error_dropins',
 		'remotive_sync_team_roster',
+		'remotive_sync_team_order',
+		'remotive_sync_team_names',
 		'remotive_sync_option_defaults',
 		'remotive_sync_case_study_slugs',
+		'remotive_prune_retired_files',
 	);
 
 	foreach ( $steps as $step ) {

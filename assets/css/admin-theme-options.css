@@ -240,10 +240,12 @@
 .rm-admin__team-row input,
 .rm-admin__team-row textarea{ width:100%; }
 .rm-admin__team-bio{ grid-column:1 / -2; }
+.rm-admin__team-lead{ grid-column:1 / -2; flex-direction:row !important; align-items:center; gap:8px !important; }
+.rm-admin__team-lead input{ width:auto !important; }
 .rm-admin__team-remove{ justify-self:end; align-self:center; grid-column:-2 / -1; grid-row:1 / span 2; }
 @media (max-width:782px){
   .rm-admin__team-row{ grid-template-columns:1fr; }
-  .rm-admin__team-bio, .rm-admin__team-remove{ grid-column:auto; grid-row:auto; justify-self:start; }
+  .rm-admin__team-bio, .rm-admin__team-lead, .rm-admin__team-remove{ grid-column:auto; grid-row:auto; justify-self:start; }
 }
 
 /* ---- Shipped content list on small screens (v1.49.0) ----

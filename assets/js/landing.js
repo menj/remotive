@@ -35,17 +35,27 @@
 
 	// Campaign fields (utm_*, gclid, fbclid, ttclid): taken from the landing
 	// URL, kept for the session so a reload or a language switch does not lose
-	// them, and sent with the lead.
+	// them, and sent with the lead. The saved set belongs to one landing page:
+	// another service's page ignores it, and a URL that carries any campaign
+	// field starts a fresh set, so an older click can never be attributed to a
+	// newer lead.
+	var service = root.getAttribute('data-service');
 	var fields = root.querySelectorAll('input[data-track]');
 	var params = {};
-	try { params = JSON.parse(sessionStorage.getItem('remotive-lp-track') || '{}') || {}; } catch (e) {}
+	try {
+		var saved = JSON.parse(sessionStorage.getItem('remotive-lp-track') || '{}') || {};
+		if (saved.service === service && saved.data) { params = saved.data; }
+	} catch (e) {}
 	try {
 		var sp = new URLSearchParams(location.search);
+		var fresh = {};
+		var any = false;
 		for (var j = 0; j < fields.length; j++) {
 			var k = fields[j].getAttribute('data-track');
-			if (sp.get(k)) { params[k] = sp.get(k); }
+			if (sp.get(k)) { fresh[k] = sp.get(k); any = true; }
 		}
-		sessionStorage.setItem('remotive-lp-track', JSON.stringify(params));
+		if (any) { params = fresh; }
+		sessionStorage.setItem('remotive-lp-track', JSON.stringify({ service: service, data: params }));
 	} catch (e) {}
 	for (var m = 0; m < fields.length; m++) {
 		var key = fields[m].getAttribute('data-track');
@@ -54,7 +64,6 @@
 
 	// Funnel events for a tag manager. The conversion itself fires on the
 	// thank-you page (inc/thank-you.php).
-	var service = root.getAttribute('data-service');
 	window.dataLayer = window.dataLayer || [];
 	window.dataLayer.push({ event: 'remotive_lp_view', service: service });
 

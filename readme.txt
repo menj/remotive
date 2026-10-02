@@ -141,15 +141,25 @@ About page's gallery — see `upgrading.md`.
 Appearance → Theme Options → Homepage → Team. Each member is a row: name, role, a
 photo slug and a bio. "Add member" creates a blank row, "Remove" deletes
 one, and clearing a name also deletes it on save. The roster feeds three
-places at once — the homepage team strip, the About page grid, and the
+places at once — the homepage team strip, the Team page grid, and the
 site's structured data — so you only edit in one place.
 
+Tick "Leadership" on a member to show them on the homepage and list them
+first on the Team page. The homepage introduces the leadership only and links
+to the Team page for everyone else; the Team page always shows the whole
+roster. With fewer than four ticked, the homepage row ends in a "+N more" tile
+linking to the Team page. If nobody is ticked the homepage shows the first four
+members.
+
 The photo slug names the portrait files. A member with the slug `gordan`
-uses `assets/team/gordan.avif` and `gordan-alt.avif`, the second being the
-image shown on hover. Leave the slug empty and that member shows the
-placeholder tile instead. There is no upload field for these: the portraits
-are cut out and cropped to a shared framing before they ship with the
-theme, so send new photography to whoever maintains the theme.
+uses `assets/team/gordan.avif`. One image per person, and it does not change
+on hover. Leave the slug empty and that member shows the placeholder tile
+instead. There is no upload field for these: the portraits are cut out and
+cropped to a shared framing before they ship with the theme, so send new
+photography to whoever maintains the theme. To replace a photo, run
+`tools/normalise-portraits.py --replace <slug> <photo>`, which builds the new
+portrait to the same framing and deletes the old one, then ship the theme;
+the site picks up the change on its own.
 
 = A theme update improved the shipped articles or case studies. How do I
 get the new version? =

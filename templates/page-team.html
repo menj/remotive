@@ -12,7 +12,7 @@
 		<h1 class="has-display-font-size rm-hero__display">Meet the team.</h1>
 		<!-- /wp:heading -->
 		<!-- wp:paragraph {"className":"rm-hero__sub"} -->
-		<p class="rm-hero__sub">Senior specialists who plug into your team. Ten people, one number to answer for, and no junior handovers.</p>
+		<p class="rm-hero__sub">Senior specialists who plug into your team. __REMOTIVE_TEAM_COUNT__ people, one number to answer for, and no junior handovers.</p>
 		<!-- /wp:paragraph -->
 	</header>
 	<!-- /wp:group -->
@@ -21,9 +21,9 @@
 	<div class="wp-block-group rm-section rm-measure-wide is-layout-constrained" id="team">
 		<!-- wp:html -->
 		<p class="rm-eyebrow">The team</p>
-		<h2 class="has-h2-font-size" id="ten-specialists-accountable-team">Ten specialists, one accountable team</h2>
+		<h2 class="has-h2-font-size" id="accountable-team">__REMOTIVE_TEAM_COUNT__ specialists, one accountable team</h2>
 		<p class="rm-about__lead">Every account is run by the person who owns that discipline. No handoffs to junior staff, no account manager relaying messages.</p>
-		<div class="rm-team rm-team--full">__REMOTIVE_TEAM_FULL__
+		<div class="rm-team rm-team--full" style="--rm-team-cols:__REMOTIVE_TEAM_COLS__">__REMOTIVE_TEAM_FULL__
 		</div>
 		<!-- /wp:html -->
 	</div>
@@ -84,6 +84,24 @@
 	</div>
 	<!-- /wp:group -->
 
+
+	<!-- wp:group {"tagName":"section","className":"rm-cta rm-cta--centred rm-cta--cyan","align":"full","backgroundColor":"contrast-bg","textColor":"contrast-text","layout":{"type":"constrained"}} -->
+	<section class="wp-block-group alignfull rm-cta rm-cta--centred rm-cta--cyan has-contrast-text-color has-contrast-bg-background-color has-text-color has-background">
+		<!-- wp:heading {"level":2,"className":"rm-cta__title"} -->
+		<h2 class="rm-cta__title">Work with the people who&rsquo;d run it.</h2>
+		<!-- /wp:heading -->
+		<!-- wp:paragraph {"className":"rm-hero__reassure"} -->
+		<p class="rm-hero__reassure">Brands and agencies both work with us. Tell us what you are trying to grow and you will hear from the person who owns that discipline.</p>
+		<!-- /wp:paragraph -->
+		<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
+		<div class="wp-block-buttons is-layout-flex">
+			<!-- wp:button {"className":"is-style-fill"} -->
+			<div class="wp-block-button is-style-fill"><a class="wp-block-button__link wp-element-button" href="/contact/">Start a project →</a></div>
+			<!-- /wp:button -->
+		</div>
+		<!-- /wp:buttons -->
+	</section>
+	<!-- /wp:group -->
 
 </main>
 <!-- /wp:group -->
