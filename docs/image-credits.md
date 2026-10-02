@@ -15,8 +15,8 @@ resized and re-encoded (AVIF and JPEG); the originals are not stored here.
 | `city-hong-kong` | Hong Kong tile | Tito Zzzz | https://www.pexels.com/photo/20306805/ |
 | `city-china` | China tile | Zhengyang TIAN | https://www.pexels.com/photo/35919936/ |
 | `svc-seo-audit` | SEO page hero | Lukas Blazek | https://www.pexels.com/photo/577210/ |
-| `svc-google-ads-management` | Google Ads page hero | Darlene Alderson | https://www.pexels.com/photo/7970815/ |
-| `svc-paid-social-advertising` | Paid social page hero | ready made | https://www.pexels.com/photo/3850271/ |
+| `svc-google-ads-management` | Google Ads page hero | Caio | https://www.pexels.com/photo/67112/ |
+| `svc-paid-social-advertising` | Paid social page hero | Szabó Viktor | https://www.pexels.com/photo/7662060/ |
 
 Do not use these photos in a way that implies the photographers endorse the
 business, and keep any identifiable people out of misleading contexts (Pexels

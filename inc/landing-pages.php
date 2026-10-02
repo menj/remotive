@@ -37,50 +37,56 @@ function remotive_landing_services() {
 		'seo-audit'     => array(
 			'photo_alt' => array( 'A laptop showing search and analytics charts', 'Komputer riba yang memaparkan carta carian dan analitik', '显示搜索与分析图表的笔记本电脑', '顯示搜尋與分析圖表的筆記型電腦' ),
 			'label'   => array( 'SEO', 'SEO', 'SEO', 'SEO' ),
-			'eyebrow' => array( 'SEO for Asian markets', 'SEO untuk pasaran Asia', '面向亚洲市场的 SEO', '面向亞洲市場的 SEO' ),
-			'title'   => array( 'Be found when buyers search.', 'Dikenali apabila pembeli membuat carian.', '让买家在搜索时找到您。', '讓買家在搜尋時找到您。' ),
+			'eyebrow' => array( 'SEO for B2B and B2C brands in Asia', 'SEO untuk jenama B2B dan B2C di Asia', '面向亚洲 B2B 与 B2C 品牌的 SEO', '面向亞洲 B2B 與 B2C 品牌的 SEO' ),
+			'title'   => array( 'Be found by buyers already searching for you.', 'Dikenali oleh pembeli yang sedang mencari anda.', '让正在搜索您的买家找到您。', '讓正在搜尋您的買家找到您。' ),
 			'lead'    => array(
-				'We fix what holds your site back, then build the pages and authority that bring in qualified enquiries from Google and AI search.',
-				'Kami membaiki apa yang menghalang laman web anda, kemudian membina halaman dan kewibawaan yang membawa pertanyaan berkualiti daripada Google dan carian AI.',
-				'我们先解决拖累网站表现的问题，再打造能从 Google 和 AI 搜索带来优质咨询的页面与权威度。', '我們先解決拖累網站表現的問題，再打造能從 Google 和 AI 搜尋帶來優質諮詢的頁面與權威度。',
-			),
+				'Your site may be losing enquiries to problems you can fix: pages that miss what buyers search for, technical faults, tracking that cannot show what works. Our free audit finds them, ranks them by impact and tells you what to fix first, in Google and in AI search.',
+				'Laman web anda mungkin kehilangan pertanyaan kerana masalah yang boleh dibaiki: halaman yang tidak menepati carian pembeli, kesilapan teknikal, dan penjejakan yang tidak dapat menunjukkan apa yang berkesan. Audit percuma kami mengenal pasti masalah tersebut, menyusunnya mengikut impak dan memberitahu apa yang perlu dibaiki dahulu, di Google dan dalam carian AI.',
+				'您的网站可能正因这些可以解决的问题而流失咨询：页面没有对准买家的搜索需求、技术故障，以及无法显示成效的追踪。我们的免费审计会找出这些问题，按影响力排序，并告诉您应优先解决什么，无论在 Google 还是 AI 搜索中。',
+				'您的網站可能正因這些可以解決的問題而流失諮詢：頁面沒有對準買家的搜尋需求、技術故障，以及無法顯示成效的追蹤。我們的免費審計會找出這些問題，按影響力排序，並告訴您應優先解決什麼，無論在 Google 還是 AI 搜尋中。' ),
 			'points'  => array(
-				array( 'A technical and content audit that ranks fixes by impact', 'Audit teknikal dan kandungan yang menyusun pembaikan mengikut impak', '按影响力排序的技术与内容审计', '按影響力排序的技術與內容審計' ),
-				array( 'Pages built around what your buyers actually search for', 'Halaman dibina berdasarkan carian sebenar pembeli anda', '围绕买家真实搜索需求打造的页面', '圍繞買家真實搜尋需求打造的頁面' ),
-				array( 'Visibility in AI answers, not only the blue links', 'Keterlihatan dalam jawapan AI, bukan sekadar pautan biru', '不仅是搜索结果，也包括 AI 回答中的曝光', '不僅是搜尋結果，也包括 AI 回答中的曝光' ),
+				array( 'A ranked fix list: what to do first, and why', 'Senarai pembaikan mengikut keutamaan: apa yang perlu dibuat dahulu, dan sebabnya', '按优先级排序的修复清单：先做什么，为什么', '按優先順序排列的修復清單：先做什麼，為什麼' ),
+				array( 'Pages mapped to what your buyers actually search for', 'Halaman dipadankan dengan apa yang sebenarnya dicari pembeli anda', '页面对准买家的真实搜索需求', '頁面對準買家的真實搜尋需求' ),
+				array( 'A view of how you appear in AI answers, not only the blue links', 'Gambaran bagaimana anda muncul dalam jawapan AI, bukan sekadar pautan biru', '了解您在 AI 回答中的呈现，而不只是搜索结果链接', '了解您在 AI 回答中的呈現，而不只是搜尋結果連結' ),
 			),
+			'form_title' => array( 'Get your free SEO audit', 'Dapatkan audit SEO percuma anda', '获取您的免费 SEO 审计', '獲取您的免費 SEO 審計' ),
+			'cta'     => array( 'Get my free SEO audit', 'Dapatkan audit SEO percuma saya', '获取我的免费 SEO 审计', '獲取我的免費 SEO 審計' ),
 		),
 		'google-ads-management' => array(
-			'photo_alt' => array( 'A laptop on a desk with marketing material', 'Komputer riba di atas meja bersama bahan pemasaran', '桌上的笔记本电脑与营销资料', '桌上的筆記型電腦與行銷資料' ),
+			'photo_alt' => array( 'A laptop on a desk showing search results', 'Komputer riba di atas meja yang memaparkan hasil carian', '桌上显示搜索结果的笔记本电脑', '桌上顯示搜尋結果的筆記型電腦' ),
 			'label'   => array( 'Google Ads', 'Google Ads', 'Google Ads', 'Google Ads' ),
-			'eyebrow' => array( 'Google Ads management', 'Pengurusan Google Ads', 'Google Ads 投放管理', 'Google Ads 投放管理' ),
-			'title'   => array( 'Google Ads that bring leads, not just clicks.', 'Google Ads yang membawa prospek, bukan sekadar klik.', '带来销售线索的 Google Ads，而不只是点击。', '帶來銷售線索的 Google Ads，而不只是點擊。' ),
+			'eyebrow' => array( 'Google Ads management for lead generation', 'Pengurusan Google Ads untuk penjanaan prospek', '以获取线索为目标的 Google Ads 管理', '以獲取線索為目標的 Google Ads 管理' ),
+			'title'   => array( 'Stop paying for clicks that never turn into leads.', 'Berhenti membayar untuk klik yang tidak menjadi prospek.', '别再为无法转化为线索的点击付费。', '別再為無法轉換為線索的點擊付費。' ),
 			'lead'    => array(
-				'Senior-run search campaigns measured against qualified leads and pipeline, so budget goes where it earns.',
-				'Kempen carian yang diurus pakar kanan dan diukur berdasarkan prospek berkualiti serta saluran jualan, supaya bajet digunakan di tempat yang menjana hasil.',
-				'由资深团队管理的搜索广告，以合格线索与销售管道衡量成效，让预算花在真正带来回报的地方。', '由資深團隊管理的搜尋廣告，以合格線索與銷售管道衡量成效，讓預算花在真正帶來回報的地方。',
-			),
+				'We review your account and tracking first, then run search campaigns measured against qualified leads and pipeline, so your budget goes where it earns. The audit is free.',
+				'Kami menyemak akaun dan penjejakan anda dahulu, kemudian mengendalikan kempen carian yang diukur berdasarkan prospek berkualiti dan saluran jualan, supaya bajet anda digunakan di tempat yang menjana hasil. Audit ini percuma.',
+				'我们先审查您的账户与追踪设置，再运营以合格线索和销售管道衡量成效的搜索广告，让预算花在真正带来回报的地方。审计免费。',
+				'我們先審查您的帳戶與追蹤設定，再營運以合格線索和銷售管道衡量成效的搜尋廣告，讓預算花在真正帶來回報的地方。審計免費。' ),
 			'points'  => array(
-				array( 'Account and tracking review before any more spend', 'Semakan akaun dan penjejakan sebelum perbelanjaan tambahan', '追加预算之前，先审查账户与追踪设置', '追加預算之前，先審查帳戶與追蹤設定' ),
-				array( 'Campaigns structured around intent and conversion value', 'Kempen distruktur mengikut niat dan nilai penukaran', '围绕搜索意图与转化价值搭建的广告结构', '圍繞搜尋意圖與轉換價值搭建的廣告結構' ),
-				array( 'Plain-language reporting tied to your enquiries', 'Laporan bahasa mudah yang dikaitkan dengan pertanyaan anda', '与您的咨询挂钩、通俗易懂的报告', '與您的諮詢掛鉤、通俗易懂的報告' ),
+				array( 'A free review of your account and tracking before any more spend', 'Semakan percuma akaun dan penjejakan anda sebelum sebarang perbelanjaan tambahan', '追加预算之前，先免费审查您的账户与追踪设置', '追加預算之前，先免費審查您的帳戶與追蹤設定' ),
+				array( 'Campaigns built around buyer intent and what a lead is worth', 'Kempen dibina berdasarkan niat pembeli dan nilai sesuatu prospek', '围绕买家意图与线索价值搭建的广告', '圍繞買家意圖與線索價值搭建的廣告' ),
+				array( 'Plain-language reports tied to the enquiries you receive', 'Laporan bahasa mudah yang dikaitkan dengan pertanyaan yang anda terima', '与您实际收到的咨询挂钩、通俗易懂的报告', '與您實際收到的諮詢掛鉤、通俗易懂的報告' ),
 			),
+			'form_title' => array( 'Get your free Google Ads audit', 'Dapatkan audit Google Ads percuma anda', '获取您的免费 Google Ads 审计', '獲取您的免費 Google Ads 審計' ),
+			'cta'     => array( 'Get my free Google Ads audit', 'Dapatkan audit Google Ads percuma saya', '获取我的免费 Google Ads 审计', '獲取我的免費 Google Ads 審計' ),
 		),
 		'paid-social-advertising' => array(
 			'photo_alt' => array( 'A phone showing a social media feed', 'Telefon yang memaparkan suapan media sosial', '显示社交媒体动态的手机', '顯示社群媒體動態的手機' ),
 			'label'   => array( 'Paid social', 'Iklan sosial berbayar', '社交媒体广告', '社群媒體廣告' ),
-			'eyebrow' => array( 'Paid social advertising', 'Pengiklanan sosial berbayar', '社交媒体付费广告', '社群媒體付費廣告' ),
-			'title'   => array( 'Paid social that reaches the right buyers.', 'Iklan sosial berbayar yang mencapai pembeli yang tepat.', '精准触达目标买家的社交媒体广告。', '精準觸及目標買家的社群媒體廣告。' ),
+			'eyebrow' => array( 'Paid social on Meta, LinkedIn and TikTok', 'Iklan sosial berbayar di Meta, LinkedIn dan TikTok', 'Meta、LinkedIn 与 TikTok 社交媒体广告', 'Meta、LinkedIn 與 TikTok 社群媒體廣告' ),
+			'title'   => array( 'Paid social that reaches the right buyers, and shows what worked.', 'Iklan sosial berbayar yang mencapai pembeli yang tepat, dan menunjukkan apa yang berkesan.', '精准触达目标买家，并清楚显示什么有效的社交媒体广告。', '精準觸及目標買家，並清楚顯示什麼有效的社群媒體廣告。' ),
 			'lead'    => array(
-				'Meta, LinkedIn and TikTok campaigns built around your audience and your offer, tested fast and scaled on what converts.',
-				'Kempen Meta, LinkedIn dan TikTok yang dibina berdasarkan audiens dan tawaran anda, diuji dengan pantas dan dikembangkan mengikut apa yang menukar.',
-				'围绕您的受众与优惠打造 Meta、LinkedIn 和 TikTok 广告，快速测试，并按转化表现扩大投放。', '圍繞您的受眾與優惠打造 Meta、LinkedIn 和 TikTok 廣告，快速測試，並按轉換表現擴大投放。',
-			),
+				'We build campaigns around your audience and your offer, test creative quickly and scale what converts. It starts with a free audit.',
+				'Kami membina kempen berdasarkan audiens dan tawaran anda, menguji kreatif dengan pantas dan mengembangkan apa yang menukar. Ia bermula dengan audit percuma.',
+				'我们围绕您的受众与优惠搭建广告，快速测试创意，并将有转化的部分扩大投放。一切从免费审计开始。',
+				'我們圍繞您的受眾與優惠搭建廣告，快速測試創意，並將有轉換的部分擴大投放。一切從免費審計開始。' ),
 			'points'  => array(
-				array( 'Audience and offer worked out before creative is made', 'Audiens dan tawaran dikenal pasti sebelum kreatif dihasilkan', '在制作创意之前，先明确受众与优惠', '在製作創意之前，先明確受眾與優惠' ),
-				array( 'Structured creative tests, not guesswork', 'Ujian kreatif berstruktur, bukan andaian', '有结构的创意测试，而非凭猜测', '有結構的創意測試，而非憑猜測' ),
+				array( 'Audience and offer settled before any creative is made', 'Audiens dan tawaran dimuktamadkan sebelum sebarang kreatif dihasilkan', '在制作任何创意之前，先确定受众与优惠', '在製作任何創意之前，先確定受眾與優惠' ),
+				array( 'Structured creative tests, so you learn instead of guessing', 'Ujian kreatif berstruktur, supaya anda belajar dan bukan meneka', '有结构的创意测试，让您有依据而非靠猜', '有結構的創意測試，讓您有依據而非靠猜' ),
 				array( 'Lead quality tracked past the form, into your pipeline', 'Kualiti prospek dijejak melepasi borang, sehingga ke saluran jualan anda', '线索质量的追踪不止于表单，直达您的销售管道', '線索品質的追蹤不止於表單，直達您的銷售管道' ),
 			),
+			'form_title' => array( 'Get your free paid social audit', 'Dapatkan audit iklan sosial berbayar percuma anda', '获取您的免费社交媒体广告审计', '獲取您的免費社群媒體廣告審計' ),
+			'cta'     => array( 'Get my free paid social audit', 'Dapatkan audit iklan sosial percuma saya', '获取我的免费社交媒体广告审计', '獲取我的免費社群媒體廣告審計' ),
 		),
 	);
 }
@@ -254,6 +260,7 @@ function remotive_lp_t( $t, $tag = '', $cls = '' ) {
  * @return string
  */
 function remotive_lp_form( $service, $pos ) {
+	$cta = remotive_landing_services()[ $service ]['cta'];
 	$id = 'rm-lp-' . $pos;
 
 	$field = function ( $name, $type, $label, $required, $autocomplete ) use ( $id ) {
@@ -291,9 +298,9 @@ function remotive_lp_form( $service, $pos ) {
 		. '<input type="text" id="' . esc_attr( $id ) . '-hp" name="remotive_lp_website" tabindex="-1" autocomplete="off"></div>'
 		. $field( 'name', 'text', array( 'Your name', 'Nama anda', '您的姓名', '您的姓名' ), true, 'name' )
 		. $field( 'email', 'email', array( 'Work email', 'E-mel kerja', '工作邮箱', '工作信箱' ), true, 'email' )
-		. $field( 'site', 'text', array( 'Your website', 'Laman web anda', '您的网站', '您的網站' ), false, 'url' )
-		. '<button type="submit" class="rm-lp__submit">' . remotive_lp_t( array( 'Get my free audit', 'Dapatkan audit percuma saya', '获取免费审计', '獲取免費審計' ) ) . '</button>'
-		. '<p class="rm-lp__fine">' . remotive_lp_t( array( '30 minutes, no commitment. We reply within three business days.', '30 minit, tanpa komitmen. Kami membalas dalam tiga hari bekerja.', '30 分钟，无需承诺。我们将在三个工作日内回复。', '30 分鐘，無需承諾。我們將在三個工作日內回覆。' ) )
+		. $field( 'site', 'text', array( 'Website to review', 'Laman web untuk disemak', '待审查的网站', '待審查的網站' ), false, 'url' )
+		. '<button type="submit" class="rm-lp__submit">' . remotive_lp_t( $cta ) . '</button>'
+		. '<p class="rm-lp__fine">' . remotive_lp_t( array( 'Free. No commitment. No mailing list. We reply within three business days.', 'Percuma. Tiada komitmen. Tiada senarai mel. Kami membalas dalam tiga hari bekerja.', '免费，无需承诺，不加入邮件列表。我们会在三个工作日内回复。', '免費，無需承諾，不加入郵寄名單。我們會在三個工作日內回覆。' ) )
 		. ' <a href="' . esc_url( home_url( '/privacy/' ) ) . '">' . remotive_lp_t( array( 'Privacy', 'Privasi', '隐私政策', '隱私權政策' ) ) . '</a></p>'
 		. '<div class="rm-lp__status" data-lead-status="remotive_lp" role="status" aria-live="polite" hidden>' . $msgs . '</div>'
 		. '</form>';
@@ -484,7 +491,7 @@ function remotive_lp_render() {
 
 	$steps = '';
 	foreach ( array(
-		array( array( 'Book a 30-minute call', 'Tempah panggilan 30 minit', '预约 30 分钟通话', '預約 30 分鐘通話' ), array( 'Tell us what you sell, where, and what is not working.', 'Beritahu kami apa yang anda jual, di mana, dan apa yang tidak berjaya.', '告诉我们您的产品、市场，以及哪里不理想。', '告訴我們您的產品、市場，以及哪裡不理想。' ) ),
+		array( array( 'Tell us where to look', 'Beritahu kami di mana untuk meneliti', '告诉我们从哪里看起', '告訴我們從哪裡看起' ), array( 'Your name, email and website. It takes under a minute.', 'Nama, e-mel dan laman web anda. Ia mengambil masa kurang daripada seminit.', '您的姓名、邮箱和网站，用时不到一分钟。', '您的姓名、信箱和網站，用時不到一分鐘。' ) ),
 		array( array( 'We send what we would fix first', 'Kami hantar apa yang akan kami baiki dahulu', '我们告知会优先解决什么', '我們會告知將優先解決什麼' ), array( 'A specific view within three business days, not a brochure.', 'Pandangan khusus dalam tiga hari bekerja, bukan brosur.', '三个工作日内给出具体意见，而不是宣传册。', '三個工作日內提出具體意見，而不是宣傳冊。' ) ),
 		array( array( 'You decide', 'Anda yang memutuskan', '由您决定', '由您決定' ), array( 'Work with us or take the plan and run. No commitment either way.', 'Bekerja dengan kami atau gunakan pelan itu sendiri. Tiada komitmen.', '可与我们合作，也可自行执行方案，均无需承诺。', '可與我們合作，也可自行執行方案，皆無需承諾。' ) ),
 	) as $i => $st ) {
@@ -521,18 +528,18 @@ function remotive_lp_render() {
 		. remotive_lp_t( $s['lead'], 'p', 'rm-lp__lead' )
 		. '<ul class="rm-lp__points">' . $points . '</ul>'
 		. '<div class="rm-lp__photo">' . remotive_lp_picture( 'svc-' . $slug, array( 640 => 400, 1000 => 625 ), '(min-width: 56rem) 34rem, 0px', remotive_lp_t( $s['photo_alt'] ) ) . '</div></div>'
-		. '<div class="rm-lp__card" id="rm-lp-start"><h2>' . remotive_lp_t( array( 'Get a free audit', 'Dapatkan audit percuma', '获取免费审计', '獲取免費審計' ) ) . '</h2>'
+		. '<div class="rm-lp__card" id="rm-lp-start"><h2>' . remotive_lp_t( $s['form_title'] ) . '</h2><p class="rm-lp__intro">' . remotive_lp_t( array( 'Tell us where to look. We reply within three business days.', 'Beritahu kami di mana untuk meneliti. Kami membalas dalam tiga hari bekerja.', '告诉我们从哪里开始看。我们会在三个工作日内回复。', '告訴我們從哪裡開始看。我們會在三個工作日內回覆。' ) ) . '</p>'
 		. remotive_lp_form( $slug, 'top' ) . '</div></section>'
 		. '<section class="rm-lp__section" aria-labelledby="rm-lp-how"><h2 id="rm-lp-how">' . remotive_lp_t( array( 'How it works', 'Cara ia berfungsi', '合作流程', '合作流程' ) ) . '</h2>'
 		. '<ol class="rm-lp__steps">' . $steps . '</ol></section>'
 		. '<section class="rm-lp__section rm-lp__trust" aria-labelledby="rm-lp-where"><p id="rm-lp-where"><strong>' . remotive_lp_t( array( 'Senior-led and independent.', 'Diketuai pakar kanan dan bebas.', '资深团队领导，独立运营。', '資深團隊領導，獨立營運。' ) ) . '</strong> ' . remotive_lp_t( array( 'Working across six markets:', 'Beroperasi di enam pasaran:', '服务六大市场：', '服務六大市場：' ) ) . '</p>'
 		. '<ul class="rm-lp__cities">' . $cities . '</ul></section>'
-		. '<section class="rm-lp__section rm-lp__final" aria-labelledby="rm-lp-final"><div class="rm-lp__final-copy"><h2 id="rm-lp-final">' . remotive_lp_t( array( 'Ready to see what we would fix first?', 'Bersedia melihat apa yang akan kami baiki dahulu?', '想知道我们会优先解决什么吗？', '想知道我們會優先解決什麼嗎？' ) ) . '</h2>'
+		. '<section class="rm-lp__section rm-lp__final" aria-labelledby="rm-lp-final"><div class="rm-lp__final-copy"><h2 id="rm-lp-final">' . remotive_lp_t( array( 'See what we would fix first. It\'s free.', 'Lihat apa yang akan kami baiki dahulu. Percuma.', '看看我们会优先解决什么。免费。', '看看我們會優先解決什麼。免費。' ) ) . '</h2>'
 		. remotive_lp_t( array( 'A free audit, a specific view within three business days, and no commitment either way.', 'Audit percuma, pandangan khusus dalam tiga hari bekerja, dan tiada komitmen.', '免费审计，三个工作日内给出具体意见，无需任何承诺。', '免費審計，三個工作日內提出具體意見，無需任何承諾。' ), 'p', 'rm-lp__lead' ) . '</div>'
 		. '<div class="rm-lp__card">' . remotive_lp_form( $slug, 'bottom' ) . '</div></section>'
 		. '<section class="rm-lp__section rm-lp__faq" aria-labelledby="rm-lp-faq"><h2 id="rm-lp-faq">' . remotive_lp_t( array( 'Frequently asked questions', 'Soalan lazim', '常见问题', '常見問題' ) ) . '</h2><div class="rm-lp__faqs">' . $faqs . '</div></section>'
 		. '</main>'
-		. '<a class="rm-lp__sticky" href="#rm-lp-start">' . remotive_lp_t( array( 'Get my free audit', 'Dapatkan audit percuma saya', '获取免费审计', '獲取免費審計' ) ) . '</a>'
+		. '<a class="rm-lp__sticky" href="#rm-lp-start">' . remotive_lp_t( $s['cta'] ) . '</a>'
 		. '<footer class="rm-lp__foot">&copy; ' . esc_html( gmdate( 'Y' ) ) . ' Re:Motive Media. ' . remotive_lp_t( array( 'Photos via Pexels.', 'Foto melalui Pexels.', '图片来自 Pexels。', '圖片來自 Pexels。' ) ) . '</footer>'
 		. '</div>';
 }

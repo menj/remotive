@@ -4,6 +4,18 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.91.2] — 2026-10-02
+
+### Changed
+
+- **Landing page copy rewritten for conversion** in all four languages. Outcome-led headlines and a "who it is for" eyebrow per service; leads that name the problem, the mechanism and the free audit; deliverables written as benefits. A service-specific form title and button ("Get my free Google Ads audit"), a one-line promise under the form title, and risk-reversal microcopy ("Free. No commitment. No mailing list."). The first step no longer says "Book a call", which the form does not do: it now reads "Tell us where to look". The closing heading reads "See what we would fix first. It's free." No statistics, client names or invented urgency were added; real client results would be the next strongest lever once approved for use.
+
+## [1.91.1] — 2026-10-02
+
+### Changed
+
+- Landing page hero photos now match their services: the Google Ads page shows a laptop with search results, and the paid social page shows a phone with a social profile, replacing images that showed a "Social Media Strategy" booklet and a third-party brand name. Credits updated in `docs/image-credits.md`.
+
 ## [1.91.0] — 2026-10-02
 
 ### Added
