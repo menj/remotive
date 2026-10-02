@@ -30,11 +30,10 @@ of this theme and is **not** the registered address.
 |---|---|
 | `remotivemedia.asia` | This website. |
 | `github.com/menj/remotive` | The theme's repository. `Theme URI` in `style.css` points here. |
-| `remotivemedia.com` | Email domain (`hello@remotivemedia.com`) — legacy/parallel domain, still in active use for contact addresses at time of writing. |
+| `hello@remotivemedia.asia` | The contact address. Default of the `contact_email` option; migration 1.103.1 replaces a saved `hello@remotivemedia.com`. |
 | `menj.blog` | Theme author's (MENJ) personal site. `Author URI` in `style.css`. |
 
-If these domains diverge further in the future (e.g. email migrates to
-`@remotivemedia.asia`), update this table first, then propagate to
+If these domains diverge further in the future (e.g. the contact address moves), update this table first, then propagate to
 `parts/footer.html` and `readme.txt`.
 
 ## Design tokens

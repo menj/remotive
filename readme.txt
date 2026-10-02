@@ -4,7 +4,7 @@ Tags: block-theme, full-site-editing, child-theme, one-page
 Requires at least: 6.7
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.103.0
+Stable tag: 1.103.1
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -301,9 +301,13 @@ floor, not a replacement.
 
 == Changelog ==
 
-See `docs/changelog.md` for full version history. Latest version: 1.103.0.
+See `docs/changelog.md` for full version history. Latest version: 1.103.1.
 
 == Upgrade Notice ==
+
+= 1.103.1 =
+The contact address is hello@remotivemedia.asia. A site that had saved the
+older .com address is corrected once, on the next admin page load.
 
 = 1.103.0 =
 Security release. Closes a way to list usernames, stops the public site search

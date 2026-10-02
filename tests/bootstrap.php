@@ -93,6 +93,7 @@ function add_settings_error( $a, $code, $msg, $type = 'error' ) { $GLOBALS['T'][
 
 // Options and request state.
 function get_option( $k, $d = false ) { return $GLOBALS['T']['options'][ $k ] ?? $d; }
+function update_option( $k, $v ) { $GLOBALS['T']['options'][ $k ] = $v; return true; }
 function get_query_var( $k ) { return $GLOBALS['T']['query_var']; }
 function is_admin() { return $GLOBALS['T']['admin']; }
 function is_page() { return true; }

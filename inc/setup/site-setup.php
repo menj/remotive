@@ -353,7 +353,7 @@ const REMOTIVE_SETUP_FLAG = 'remotive_site_setup_done';
  * migrations. This is the value stored in remotive_site_setup_done after
  * all migrations for this release complete successfully.
  */
-const REMOTIVE_SETUP_SCHEMA = '1.98.0';
+const REMOTIVE_SETUP_SCHEMA = '1.103.1';
 
 /**
  * Migrations keyed by the schema version they introduce.
@@ -443,6 +443,13 @@ function remotive_migration_registry() {
 		// dropped items and the "All 14" label, never an administrator's edits.
 		'1.98.0' => function() {
 			remotive_refresh_case_study_menu();
+		},
+		// 1.103.1: the contact address is hello@remotivemedia.asia. A site that
+		// saved the older .com address keeps receiving enquiries there, because
+		// a saved option outranks the shipped default. Replace that one value
+		// only; any other address an administrator chose is left alone.
+		'1.103.1' => function() {
+			remotive_correct_contact_email();
 		},
 	);
 }
@@ -1331,6 +1338,23 @@ function remotive_prune_retired_files() {
 			@unlink( $real ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.unlink_unlink
 		}
 	}
+}
+
+/**
+ * Replace the retired .com contact address with the .asia one.
+ *
+ * @return bool Whether the saved value was changed.
+ */
+function remotive_correct_contact_email() {
+	$options = get_option( 'remotive_theme_options', array() );
+
+	if ( is_array( $options ) && isset( $options['contact_email'] ) && 'hello@remotivemedia.com' === strtolower( trim( (string) $options['contact_email'] ) ) ) {
+		$options['contact_email'] = 'hello@remotivemedia.asia';
+
+		return update_option( 'remotive_theme_options', $options );
+	}
+
+	return false;
 }
 
 /**
