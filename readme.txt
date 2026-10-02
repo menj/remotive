@@ -4,7 +4,7 @@ Tags: block-theme, full-site-editing, child-theme, one-page
 Requires at least: 6.7
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.97.0
+Stable tag: 1.98.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -301,9 +301,15 @@ floor, not a replacement.
 
 == Changelog ==
 
-See `docs/changelog.md` for full version history. Latest version: 1.97.0.
+See `docs/changelog.md` for full version history. Latest version: 1.98.0.
 
 == Upgrade Notice ==
+
+= 1.98.0 =
+The Case Studies page now shows six case studies in one grid, with no
+categories, and the footer lists the same six. The other case-study pages stay
+live but are no longer listed. The footer menu refreshes itself once on the
+next admin page load. See docs/upgrading.md.
 
 = 1.97.0 =
 Adds a Colours tab (the palette per light and dark mode, with a live contrast

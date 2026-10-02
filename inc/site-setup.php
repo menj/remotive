@@ -353,7 +353,7 @@ const REMOTIVE_SETUP_FLAG = 'remotive_site_setup_done';
  * migrations. This is the value stored in remotive_site_setup_done after
  * all migrations for this release complete successfully.
  */
-const REMOTIVE_SETUP_SCHEMA = '1.92.0';
+const REMOTIVE_SETUP_SCHEMA = '1.98.0';
 
 /**
  * Migrations keyed by the schema version they introduce.
@@ -436,6 +436,13 @@ function remotive_migration_registry() {
 		// back to the shared English thank-you page.
 		'1.92.0' => function() {
 			remotive_run_site_setup();
+		},
+		// 1.98.0: the site lists six case studies, not fourteen. The footer
+		// menu of an already-set-up site still carries the old links, because
+		// the menu builder never rewrites an assigned menu; swap only the
+		// dropped items and the "All 14" label, never an administrator's edits.
+		'1.98.0' => function() {
+			remotive_refresh_case_study_menu();
 		},
 	);
 }

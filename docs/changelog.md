@@ -4,6 +4,16 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.98.0] — 2026-10-02
+
+### Changed
+
+- **Six case studies, not categorised.** The Case Studies page is one grid of six cards (cookieless audience data for a sports precinct; SEO for FMCG nutrition; paid media for financial services; programmatic advertising for automotive; B2B SEO for an industrial supplier; AI visibility for a healthcare provider). The filter chips, jump links and category sections are gone, with the filter script and the dead CSS (`.rm-cs-filter*`, `.rm-cs-subhead`). The grid steps 3 → 2 → 1 columns so six cards never leave one stranded.
+- **The other eight case-study pages stay published but unlisted:** nothing on the site links to them, their URLs still work, and they are not removed from the database. Delete them later in Pages if wanted.
+- **Home page** features the automotive case as the spread, and the industrial-supplier and healthcare cases as the two rows (the third row is gone).
+- **Footer** lists the six with short labels plus "All case studies →". The curated list lives once in `remotive_listed_case_studies()` (`inc/classic-menus.php`) and feeds both the default menu and the migration.
+- **Migration 1.98.0** (`remotive_refresh_case_study_menu()`) updates the saved Footer — Case Studies menu on the next admin load: removes the four old default items, adds any of the six that are missing, renames the "All N case studies" link. Items an administrator added by hand are left alone.
+
 ## [1.97.0] — 2026-10-02
 
 ### Changed
