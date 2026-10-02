@@ -212,3 +212,5 @@ html:not([data-theme="light"]) .rm-lp__final{ background-color:#0d1117; } /* a s
 .rm-lp__q[open]{ border-left:4px solid var(--lp-c); }
 .rm-lp__q p{ margin:0; padding:0 1.1rem 1.1rem; color:var(--rm-ink-70); }
 .rm-lp__foot{ margin-top:var(--lp-gap); }
+
+.rm-lp__intro{ margin:-.5rem 0 1.1rem; font-size:.92rem; color:var(--rm-ink-70); }
