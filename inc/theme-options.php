@@ -1905,3 +1905,24 @@ function remotive_prevent_theme_flash() {
 	<?php
 }
 add_action( 'wp_head', 'remotive_prevent_theme_flash', 1 );
+
+/**
+ * Put data-theme on <html> from the server.
+ *
+ * The inline script above sets it from the saved choice before first paint,
+ * but without JavaScript nothing set it, and the stylesheets that key off
+ * `html[data-theme]` (the Saira typeface in particular) never applied, so those
+ * visitors got the fallback fonts. The server now sends the site's default
+ * mode ('system' becomes dark, since the server cannot know); the script still
+ * overrides it for a visitor with a saved choice or a light-mode device.
+ */
+function remotive_html_data_theme( $output ) {
+	if ( is_admin() || false !== strpos( $output, 'data-theme' ) ) {
+		return $output;
+	}
+
+	$default = remotive_get_theme_option( 'default_theme' );
+
+	return $output . ' data-theme="' . ( 'light' === $default ? 'light' : 'dark' ) . '"';
+}
+add_filter( 'language_attributes', 'remotive_html_data_theme' );

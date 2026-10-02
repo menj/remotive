@@ -311,3 +311,24 @@ function remotive_colours_css() {
 
 	return $css;
 }
+
+/**
+ * The block editor shows the same colours as the front end.
+ *
+ * theme.json's palette cannot follow a saved setting, so the changed values are
+ * handed to the editor as a stylesheet. The editor has no data-theme attribute,
+ * so the dark-mode selector applies there, matching the editor's dark default.
+ *
+ * @param array $settings Editor settings.
+ * @return array
+ */
+function remotive_colours_editor_settings( $settings ) {
+	$css = remotive_colours_css();
+
+	if ( $css ) {
+		$settings['styles'][] = array( 'css' => $css );
+	}
+
+	return $settings;
+}
+add_filter( 'block_editor_settings_all', 'remotive_colours_editor_settings' );

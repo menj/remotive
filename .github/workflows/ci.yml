@@ -29,6 +29,11 @@ jobs:
       - name: Landing page copy is complete in four languages
         run: php tests/check-landing-copy.php
 
+      - name: Unit tests
+        run: |
+          set -e
+          for t in tests/test-*.php; do php "$t"; done
+
       - name: Version numbers agree
         run: php tests/check-versions.php
 
