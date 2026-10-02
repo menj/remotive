@@ -7,10 +7,10 @@
 
 $root = dirname( __DIR__ );
 
-preg_match( '/^Version:\s*([0-9.]+)/m', file_get_contents( $root . '/style.css' ), $style );
-preg_match( '/^Stable tag:\s*([0-9.]+)/m', file_get_contents( $root . '/readme.txt' ), $stable );
-preg_match( '/Latest version:\s*([0-9.]+)/', file_get_contents( $root . '/readme.txt' ), $latest );
-preg_match( '/^## \[([0-9.]+)\]/m', file_get_contents( $root . '/docs/changelog.md' ), $log );
+preg_match( '/^Version:\s*([0-9]+\.[0-9]+\.[0-9]+)/m', file_get_contents( $root . '/style.css' ), $style );
+preg_match( '/^Stable tag:\s*([0-9]+\.[0-9]+\.[0-9]+)/m', file_get_contents( $root . '/readme.txt' ), $stable );
+preg_match( '/Latest version:\s*([0-9]+\.[0-9]+\.[0-9]+)/', file_get_contents( $root . '/readme.txt' ), $latest );
+preg_match( '/^## \[([0-9]+\.[0-9]+\.[0-9]+)\]/m', file_get_contents( $root . '/docs/changelog.md' ), $log );
 
 $found = array(
 	'style.css Version'            => $style[1] ?? null,
