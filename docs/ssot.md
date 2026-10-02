@@ -239,6 +239,72 @@ Outstanding server-level actions, unchanged by any theme release:
 - Deny `wp-admin/install.php` at server level
 - `WP_DEBUG_DISPLAY` false and `display_errors` off in production
 
+### Full-theme audit (v1.103.0, 2026-10-02)
+
+Scope: every PHP module under `inc/`, `functions.php`, the front-end scripts and
+the shipped drop-ins, at v1.102.0. Method: attack-surface inventory, then static
+review by pattern and by reading each state-changing path. Evidence for each
+finding is the code; fixes are covered by `tests/test-security.php`,
+`tests/test-landing.php` and `tests/check-security-patterns.php`. No live site
+was tested and no plugin other than the Rank Math 1.0.279 source was run.
+
+Attack surface: five public form endpoints (`admin-post.php` actions `cta`,
+`about`, `contact`, `lp`, with nopriv), one public AJAX nonce endpoint
+(`remotive_form_nonces`), one public REST route (`remotive/v1/search`, GET),
+four admin-post actions behind capability and nonce checks (site setup, restore
+shipped item, spam/ham, CSV export), the Theme Options page
+(`edit_theme_options`, Settings API), and query strings read on the landing and
+confirmation pages (`service`, `from`, campaign fields). No file upload, no
+`$wpdb` call, no outbound HTTP request, no custom XML-RPC method, no shortcode,
+no `wp_redirect`, no `unserialize` without `allowed_classes => false`.
+
+| ID | Severity | Status | Finding | Roles |
+|---|---|---|---|---|
+| WPSEC-001 | medium | fixed 1.103.0 | JSON-LD printed without `JSON_HEX_TAG`: a closing script tag in a title or excerpt breaks out of the block | contributor, author |
+| WPSEC-002 | medium | fixed 1.103.0 | Public search endpoint returned excerpts of password-protected posts and listed unlisted pages | anonymous |
+| WPSEC-003 | medium | fixed 1.103.0 | Username discovery: encoded `rest_route`, author redirect vs 404 difference, distinct login errors, users sitemap | anonymous |
+| WPSEC-004 | low | fixed 1.103.0 | No length limit on enquiry name and message; array values caused PHP errors on public endpoints | anonymous |
+| WPSEC-005 | medium | fixed 1.103.0 | Login lockout and form quotas keyed on the connecting address, which is Cloudflare's (inferred from the Cloudflare addresses in the v1.68.1 server logs): one bucket for everyone, so five failed sign-ins by anyone could lock out the administrator | anonymous |
+| WPSEC-006 | informational | accepted | `?from=lp` on the confirmation page fires a conversion event without a submission. Documented design (the page must work as a destination); the event carries no data | anonymous |
+
+Checked and not a vulnerability (false positives): CSV export formula injection
+(`remotive_csv_safe()` already neutralises leading `=`, `+`, `-`, `@`, tab and
+space forms); admin enquiry list output (every field escaped); nonce on public
+forms (present, with the fresh-nonce endpoint for cached pages, which discloses
+nothing secret); `open-remotive-page` in `assets/js/webmcp.js` (same-origin
+HTTP(S) only); `innerHTML` in `assets/js/remotive.js` (a constant string);
+`copy()` of the drop-ins (fixed source and destination, skips a file that is not
+ours); `unlink()` of retired files (realpath-confined to the theme folder);
+hero preload varying on `Accept` (`Vary: Accept` is sent); the Pexels key
+(never printed back to the page, never in the repository).
+
+Proposed, not code (owner in brackets):
+
+- Content-Security-Policy and HSTS at the edge; the theme sends the other
+  headers but a CSP needs the real list of third-party hosts [Cloudflare/server].
+- Deny `xmlrpc.php` and `wp-admin/install.php` at the server (unchanged from
+  v1.68.1) [hosting].
+- Rate-limit `wp-login.php` and `admin-post.php` at Cloudflare as well; the
+  theme's counter is per address and per ten minutes [Cloudflare].
+- Two-factor authentication for administrators and an application-password
+  review; the theme adds no login flow of its own and the lockout does not cover
+  REST application-password logins [WordPress admin, security plugin].
+- WordPress's lost-password screen still says whether an account exists; a
+  site-wide change belongs to a security plugin [WordPress admin].
+- Rotate the Pexels key shared in chat before saving it in Theme Options
+  [site owner].
+- Run WPScan against staging and a dependency check on the JavaScript
+  packages if any are added (none ship now) [developer].
+
+Residual risk: a scripted client that loads a page for a nonce and submits at the
+rate limit is still possible without a CAPTCHA (a product decision recorded since
+v1.67); contributors can still enter HTML only as WordPress allows them.
+
+Release readiness for 1.103.0: version bumped in `style.css` and `readme.txt`;
+changelog, upgrading, readme updated; tests run (`php tests/test-*.php`,
+`check-security-patterns`, `check-modules`, `check-versions`, `check-parent`);
+residual risk reviewed above.
+
 ### Lead forms and landing pages (v1.90.0 – v1.96.0)
 
 Recorded as findings and fixes, so a later maintainer knows what was decided.

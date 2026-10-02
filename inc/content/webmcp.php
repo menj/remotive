@@ -54,6 +54,10 @@ function remotive_webmcp_search( WP_REST_Request $request ) {
 			's'                      => $request->get_param( 'query' ),
 			'post_type'              => array( 'post', 'page' ),
 			'post_status'            => 'publish',
+			// Public and unauthenticated: never return a password-protected post
+			// (its excerpt would leak) or a page that is deliberately unlisted.
+			'has_password'           => false,
+			'post__not_in'           => function_exists( 'remotive_unlisted_page_ids' ) ? remotive_unlisted_page_ids() : array(),
 			'posts_per_page'         => (int) $request->get_param( 'limit' ),
 			'no_found_rows'          => true,
 			'ignore_sticky_posts'    => true,

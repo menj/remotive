@@ -71,6 +71,21 @@ function wp_json_encode( $d, $f = 0 ) { return json_encode( $d, $f ); }
 function is_serialized( $s ) { return is_string( $s ) && preg_match( '/^[aOsibd]:/', $s ); }
 
 // Hooks: record, never run.
+function apply_filters( $h, $v ) { return $v; }
+function remove_action() {}
+function is_user_logged_in() { return $GLOBALS['T']['logged_in'] ?? false; }
+function is_wp_error( $x ) { return $x instanceof WP_Error; }
+class WP_Error {
+	public $errors = array();
+	public function __construct( $code = '', $message = '' ) {
+		if ( '' !== $code ) {
+			$this->errors[ $code ][] = $message;
+		}
+	}
+	public function add( $code, $message ) { $this->errors[ $code ][] = $message; }
+	public function remove( $code ) { unset( $this->errors[ $code ] ); }
+	public function get_error_codes() { return array_keys( $this->errors ); }
+}
 function add_action( $h, $cb ) { $GLOBALS['filters'][ $h ][] = $cb; }
 function add_filter( $h, $cb ) { $GLOBALS['filters'][ $h ][] = $cb; }
 function add_rewrite_rule( $r, $q, $w ) { $GLOBALS['T']['rewrite'][] = array( $r, $q, $w ); }

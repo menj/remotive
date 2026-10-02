@@ -35,7 +35,7 @@ defined( 'ABSPATH' ) || exit;
  * unrelated visitors behind one address.
  */
 function remotive_form_rate_limit_exceeded( $form_key, $max = 3 ) {
-	$ip = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
+	$ip = function_exists( 'remotive_client_ip' ) ? remotive_client_ip() : '';
 	if ( empty( $ip ) ) {
 		return false; // Can't identify a submitter to throttle; fail open rather than block everyone.
 	}
@@ -49,6 +49,26 @@ function remotive_form_rate_limit_exceeded( $form_key, $max = 3 ) {
 
 	set_transient( $key, $count + 1, 10 * MINUTE_IN_SECONDS );
 	return false;
+}
+
+/** Longest name and message an enquiry may carry, in characters. */
+const REMOTIVE_LEAD_MAX_NAME    = 200;
+const REMOTIVE_LEAD_MAX_MESSAGE = 5000;
+
+/**
+ * Cut a submitted value to a maximum length, in characters.
+ *
+ * Without a ceiling an anonymous visitor could post megabytes into the
+ * enquiries table and the notification email.
+ *
+ * @param string $text Sanitised text.
+ * @param int    $max  Maximum characters.
+ * @return string
+ */
+function remotive_limit_text( $text, $max ) {
+	$text = (string) $text;
+
+	return function_exists( 'mb_substr' ) ? mb_substr( $text, 0, (int) $max ) : substr( $text, 0, (int) $max );
 }
 
 /**
@@ -91,7 +111,7 @@ function remotive_handle_lead_form_submission( $args ) {
 		exit;
 	}
 
-	$email = isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
+	$email = isset( $_POST['email'] ) && is_scalar( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
 
 	// sanitize_email() and is_email() below should already make CRLF
 	// injection into the Reply-To header impossible (neither permits raw
@@ -111,8 +131,8 @@ function remotive_handle_lead_form_submission( $args ) {
 	// Name and message are optional — the homepage CTA form only ever
 	// sends email, the About page's contact form sends both. Both are
 	// sanitized the same way regardless of which form they came from.
-	$name    = isset( $_POST['name'] ) ? sanitize_text_field( wp_unslash( $_POST['name'] ) ) : '';
-	$message = isset( $_POST['message'] ) ? sanitize_textarea_field( wp_unslash( $_POST['message'] ) ) : '';
+	$name    = isset( $_POST['name'] ) && is_scalar( $_POST['name'] ) ? remotive_limit_text( sanitize_text_field( wp_unslash( $_POST['name'] ) ), REMOTIVE_LEAD_MAX_NAME ) : '';
+	$message = isset( $_POST['message'] ) && is_scalar( $_POST['message'] ) ? remotive_limit_text( sanitize_textarea_field( wp_unslash( $_POST['message'] ) ), REMOTIVE_LEAD_MAX_MESSAGE ) : '';
 
 	if ( ! empty( $args['extra_lines'] ) ) {
 		$message = trim( $message . "\n\n" . implode( "\n", $args['extra_lines'] ) );

@@ -67,4 +67,11 @@ t_eq( remotive_lp_keep_language_url( 'https://example.com/x/' ), 'https://exampl
 $GLOBALS['T']['query_var'] = 'ms';
 t_eq( remotive_lp_keep_language_url( 'https://example.com/x/' ), false, 'language URL never redirected' );
 
+// Unlisted pages: the landing pages plus the confirmation pages, no duplicates.
+t_reset();
+$GLOBALS['T']['landing_ids'] = array( 11, 12, 5 );
+$ids = remotive_unlisted_page_ids();
+t_ok( in_array( 11, $ids, true ) && in_array( 12, $ids, true ), 'landing pages unlisted' );
+t_eq( count( $ids ), count( array_unique( $ids ) ), 'no duplicate ids' );
+
 t_done( 'landing' );

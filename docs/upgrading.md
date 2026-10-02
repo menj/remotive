@@ -54,6 +54,21 @@ WordPress site yet; this list is how to find out.
 - The first pull request that runs `.github/workflows/ci.yml` after a change to
   it should be watched, because the workflow itself is the thing under test.
 
+## v1.103.0: security release
+
+- **Behind Cloudflare** the theme now uses Cloudflare's forwarded address for the
+  login lockout and form limits. Check once: try five wrong sign-ins from one
+  device and confirm a second device can still sign in. If the site is behind a
+  different proxy, add its ranges with the `remotive_trusted_proxy_ranges`
+  filter.
+- If an SEO plugin or crawler used `/wp-sitemap-users-1.xml`, it is gone on
+  purpose. Submit the sitemap index again if Search Console lists it.
+- Retest: a contact form submission, the landing page form, the site search
+  (no confirmation pages or landing pages in results), and a failed sign-in
+  (one generic message).
+- Rollback: nothing is migrated or stored differently, so reverting the theme
+  restores the previous behaviour.
+
 ## v1.102.0: parent theme colours
 
 - View a post date, a code block and the 404 page in both light and dark mode
