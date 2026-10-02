@@ -298,3 +298,12 @@
   font-size:.86rem;
   max-width:60ch;
 }
+
+/* Colours tab: live contrast table. */
+.rm-admin__contrast table{ border-collapse:collapse; width:100%; max-width:36rem; }
+.rm-admin__contrast th{ text-align:left; font-weight:500; padding:.35rem .5rem .35rem 0; }
+.rm-admin__contrast td{ padding:.35rem .5rem; white-space:nowrap; }
+.rm-admin__swatch{ display:inline-block; min-width:2.4rem; padding:.15rem .5rem; text-align:center; font-weight:700; border:1px solid rgba(0,0,0,.2); border-radius:6px; }
+.rm-admin__verdict{ font-weight:600; }
+.rm-admin__contrast .is-ok .rm-admin__verdict{ color:#1a7f37; }
+.rm-admin__contrast .is-low .rm-admin__verdict{ color:#b32d2e; }

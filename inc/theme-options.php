@@ -28,7 +28,7 @@ defined( 'ABSPATH' ) || exit;
  * this options page existed, so activating this file changes nothing on
  * the front end until someone actually edits a setting.
  */
-function remotive_theme_option_defaults() {
+function remotive_theme_option_base_defaults() {
 	return array(
 		'contact_email'    => 'hello@remotivemedia.asia',
 		'address_line_1'   => '11 North Buona Vista Drive',
@@ -131,6 +131,13 @@ function remotive_theme_option_defaults() {
 }
 
 /**
+ * Every default: the settings above plus the colour scheme (inc/colours.php).
+ */
+function remotive_theme_option_defaults() {
+	return array_merge( remotive_theme_option_base_defaults(), remotive_colour_option_defaults() );
+}
+
+/**
  * Get one option value, falling back to its default if unset.
  */
 function remotive_get_theme_option( $key ) {
@@ -172,7 +179,7 @@ add_action( 'admin_init', 'remotive_register_theme_options' );
  * every key it accepts, on purpose, so a typo here can't silently widen
  * what gets saved.
  */
-function remotive_theme_options_tabs() {
+function remotive_theme_options_base_tabs() {
 	return array(
 		'homepage' => array(
 			'label'       => __( 'Homepage', 'remotive' ),
@@ -567,6 +574,22 @@ function remotive_theme_options_tabs() {
 	);
 }
 
+/**
+ * The tabs, with Colours (inc/colours.php) placed before Integrations.
+ */
+function remotive_theme_options_tabs() {
+	$tabs = array();
+
+	foreach ( remotive_theme_options_base_tabs() as $key => $tab ) {
+		if ( 'integrations' === $key ) {
+			$tabs['colours'] = remotive_colours_tab();
+		}
+		$tabs[ $key ] = $tab;
+	}
+
+	return $tabs;
+}
+
 
 function remotive_render_text_field( $key, $type ) {
 	$value = remotive_get_theme_option( $key );
@@ -692,6 +715,13 @@ function remotive_render_field_row( $key, $field ) {
 			esc_html( $field['toggle_label'] ?? __( 'Enabled', 'remotive' ) )
 		);
 		echo '</div>';
+		return;
+	}
+
+	if ( $field['type'] === 'contrast' ) {
+		echo '<span class="rm-admin__row-label">' . esc_html( $field['label'] ) . '</span><div>';
+		remotive_render_contrast_table( $field['mode'] );
+		echo '</div></div>';
 		return;
 	}
 
@@ -903,6 +933,8 @@ function remotive_sanitize_theme_options( $input ) {
 	$clean['ticker_direction'] = in_array( (string) ( $input['ticker_direction'] ?? $defaults['ticker_direction'] ), array( 'left', 'right' ), true )
 		? (string) ( $input['ticker_direction'] ?? $defaults['ticker_direction'] )
 		: 'left';
+
+	remotive_sanitize_colour_options( $input, $clean );
 
 	if ( empty( $clean['contact_email'] ) ) {
 		$clean['contact_email'] = $defaults['contact_email'];

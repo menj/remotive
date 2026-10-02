@@ -181,3 +181,71 @@
 		}
 	});
 })();
+
+/**
+ * Colours tab: live contrast check.
+ *
+ * Each row of a contrast table names its foreground and background by the id
+ * of a colour picker (or a fixed #hex for a colour the stylesheet hard-codes).
+ * On any change, the ratio is recomputed with the WCAG formula and the row is
+ * marked Good or Low. The server renders the same table from the saved values,
+ * so it is right before this runs; the same check runs again on save.
+ */
+(function () {
+	'use strict';
+
+	function luminance(hex) {
+		hex = hex.replace('#', '');
+		if (hex.length === 3) {
+			hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+		}
+		var rgb = [0, 2, 4].map(function (i) {
+			var c = parseInt(hex.substr(i, 2), 16) / 255;
+			return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+		});
+		return 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2];
+	}
+
+	function contrast(a, b) {
+		var la = luminance(a);
+		var lb = luminance(b);
+		return (Math.max(la, lb) + 0.05) / (Math.min(la, lb) + 0.05);
+	}
+
+	function colourOf(ref) {
+		if (ref.charAt(0) === '#' && /^#[0-9a-f]{3,6}$/i.test(ref)) {
+			return ref;
+		}
+		var input = document.querySelector(ref.replace(/^#/, '#'));
+		return input ? input.value : '#000000';
+	}
+
+	function refresh() {
+		Array.prototype.forEach.call(document.querySelectorAll('.rm-admin__contrast tr'), function (row) {
+			var fg = colourOf(row.getAttribute('data-fg'));
+			var bg = colourOf(row.getAttribute('data-bg'));
+			var ratio = contrast(fg, bg);
+			var ok = ratio >= parseFloat(row.getAttribute('data-min'));
+			var swatch = row.querySelector('.rm-admin__swatch');
+			if (swatch) {
+				swatch.style.background = bg;
+				swatch.style.color = fg;
+			}
+			row.querySelector('.rm-admin__ratio').textContent = ratio.toFixed(2) + ':1';
+			row.querySelector('.rm-admin__verdict').textContent = ok ? row.getAttribute('data-good') || 'Good' : row.getAttribute('data-bad') || 'Low';
+			row.classList.toggle('is-ok', ok);
+			row.classList.toggle('is-low', !ok);
+		});
+	}
+
+	if (!document.querySelector('.rm-admin__contrast')) {
+		return;
+	}
+
+	document.addEventListener('input', function (event) {
+		if (event.target && event.target.type === 'color') {
+			refresh();
+		}
+	});
+	refresh();
+})();
