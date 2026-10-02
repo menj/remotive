@@ -4,6 +4,28 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.102.0] — 2026-10-02
+
+### Fixed
+
+Checked against Twenty Twenty-Five 1.5. A child theme's palette merges with the parent's, so the parent's own slugs (`base`, `contrast`, `accent-1` to `accent-6`) survived with their light values, and the parent's merged `theme.json` styles still use them:
+
+- Post dates and comment authors (`accent-4`, #686868) sat on the dark page at 3.1:1, under the 4.5:1 minimum.
+- Code blocks (`accent-5` background, `contrast` text) and the parent's own patterns and unoverridden templates (404, page without title) used the parent's light palette.
+
+`base`, `contrast`, `accent-4` and `accent-5` are now declared in this theme's `theme.json` with dark values (so the editor matches) and aliased in `remotive.css` to `paper`, `ink`, the muted-text token and `card` on `html[data-theme]`, so they follow the light/dark switch, the Colours tab, and any parent style variation chosen in the Site Editor (the alias outranks the variation's `:root` values). `accent-1`, `accent-2` and `accent-6` are left alone: no template here uses them, and `accent-6` is a translucent line colour.
+
+### Verified, no change needed
+
+- No function, hook or block style in the parent (`twentytwentyfive_*`) is redefined or removed here, and the child's `remotive_` names do not collide with them.
+- The parent's `style.min.css` still loads normally; the child's `style.css` stays a header only.
+- Both themes require WordPress 6.7; the child's PHP 7.4 minimum is above the parent's 7.2.
+- The child overrides `front-page`, `home`, `index`, `archive`, `search`, `single`, `page`, `header`, `footer` and `sidebar`; the parent's `404`, `page-no-title` and the other parts now take their colours from the aliases above.
+
+### Added
+
+- `tests/check-parent.php`, run in CI: fails if `style.css` stops naming the parent, `theme.json` stops declaring the four slugs, `remotive.css` stops aliasing them, or any PHP file redefines a `twentytwentyfive_` function.
+
 ## [1.101.0] — 2026-10-02
 
 ### Fixed

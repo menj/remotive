@@ -22,7 +22,11 @@
 				{ "slug": "accent-3",       "name": "Third plate",  "color": "#39b54a" },
 				{ "slug": "accent-3-dark",  "name": "Third plate, strong (text)",  "color": "#39b54a" },
 				{ "slug": "contrast-bg",   "name": "Contrast band background", "color": "#1a1a2e" },
-				{ "slug": "contrast-text", "name": "Contrast band text",       "color": "#ffffff" }
+				{ "slug": "contrast-text", "name": "Contrast band text",       "color": "#ffffff" },
+				{ "slug": "base",          "name": "Base (parent theme, follows page background)", "color": "#1a1a2e" },
+				{ "slug": "contrast",      "name": "Contrast (parent theme, follows text)",        "color": "#ffffff" },
+				{ "slug": "accent-4",      "name": "Accent 4 (parent theme, muted text)",          "color": "#bcbcc5" },
+				{ "slug": "accent-5",      "name": "Accent 5 (parent theme, follows card surface)", "color": "#252542" }
 			]
 		},
 		"typography": {

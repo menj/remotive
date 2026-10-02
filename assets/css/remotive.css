@@ -25,6 +25,24 @@
   --rm-ink-55: rgba(255,255,255,.55);
   --rm-blend: screen;
 }
+/* ---- Parent theme colour slugs follow this theme's colours ----
+   Twenty Twenty-Five names its own palette base, contrast and accent-1..6,
+   and its stylesheet, its theme.json styles (post dates and comment authors
+   in accent-4, code blocks in accent-5) and its patterns use them. A child
+   theme's palette merges with the parent's, so those slugs survive with the
+   parent's light values: grey #686868 post dates on the dark page (3.1:1,
+   under the 4.5:1 minimum) and white-on-dark code blocks the wrong way
+   round. Pointing them at this theme's tokens makes everything the parent
+   draws follow the dark/light switch, the Colours tab and any parent style
+   variation chosen in the Site Editor, because this rule outranks the
+   variation's :root values. accent-1, accent-2 and accent-6 are left alone:
+   no template here uses them, and accent-6 is a translucent line colour. */
+html[data-theme]{
+  --wp--preset--color--base: var(--wp--preset--color--paper);
+  --wp--preset--color--contrast: var(--wp--preset--color--ink);
+  --wp--preset--color--accent-4: var(--rm-ink-70);
+  --wp--preset--color--accent-5: var(--wp--preset--color--card);
+}
 html[data-theme]{
   --wp--preset--font-family--archivo: 'Saira', 'Saira Fallback', system-ui, sans-serif;
   --wp--preset--font-family--newsreader: 'Saira', 'Saira Fallback', system-ui, sans-serif;

@@ -443,6 +443,7 @@ Canonical facts for the paid and social landing pages. Code: `inc/landing/landin
 | `docs/resources.md` | Legal, anyone redistributing/auditing the theme | Consolidated license/copyright for the theme and every bundled font/image |
 | `docs/image-credits.md` | Legal, editors | Photographer and Pexels photo for every landing-page image |
 | `tests/check-landing-copy.php` | Developers, CI | Fails if any landing-page text is missing one of its four languages |
+| `tests/check-parent.php` | Developers, CI | Fails if the parent theme's colour slugs stop following this theme, or a parent function is redefined |
 | `.github/workflows/ci.yml` | Developers | The checks every pull request runs |
 
 ## PHP module layout (v1.100.0)

@@ -4,7 +4,7 @@ Tags: block-theme, full-site-editing, child-theme, one-page
 Requires at least: 6.7
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.101.0
+Stable tag: 1.102.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -301,9 +301,15 @@ floor, not a replacement.
 
 == Changelog ==
 
-See `docs/changelog.md` for full version history. Latest version: 1.101.0.
+See `docs/changelog.md` for full version history. Latest version: 1.102.0.
 
 == Upgrade Notice ==
+
+= 1.102.0 =
+Checked against Twenty Twenty-Five 1.5. Anything the parent theme draws (post
+dates, comment authors, code blocks, its patterns) now follows this theme's
+dark and light colours; before, some of it used the parent's light colours on
+the dark page.
 
 = 1.101.0 =
 Works properly with Rank Math SEO 1.0.279. With that plugin active, the
