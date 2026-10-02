@@ -14,7 +14,8 @@
 
 /* Top bar: brand and language only. No navigation, so nothing leads away. */
 .rm-lp__bar{ display:flex; flex-wrap:wrap; gap:.5rem 1rem; align-items:center; justify-content:space-between; padding:1rem 0; }
-.rm-lp__brand{ font-weight:700; letter-spacing:.02em; }
+.rm-lp__logo{ display:inline-block; padding:.4rem .6rem; background:#fff; line-height:0; } /* the artwork is drawn for white; the plate keeps ":MOTIVE" readable in dark mode */
+.rm-lp__logo img{ height:56px; width:auto; }
 .rm-lp__langs{ display:flex; gap:.25rem; }
 .rm-lp__lang{
   min-height:44px; padding:.4rem .9rem; font:inherit; font-size:.88rem; cursor:pointer;

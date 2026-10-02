@@ -186,6 +186,26 @@ function remotive_lp_tracking_keys() {
 }
 
 /**
+ * The logo, from the theme's own files (AVIF with PNG fallback). Not linked:
+ * these pages have no way out except the form.
+ *
+ * @return string
+ */
+function remotive_lp_logo() {
+	$base = get_stylesheet_directory_uri() . '/assets/images/remotive-logo-';
+	$dir  = get_stylesheet_directory() . '/assets/images/remotive-logo-';
+
+	$avif = is_readable( $dir . '112.avif' ) && is_readable( $dir . '168.avif' )
+		? '<source type="image/avif" srcset="' . esc_url( $base . '112.avif' ) . ' 112w, ' . esc_url( $base . '168.avif' ) . ' 168w" sizes="73px">'
+		: '';
+
+	return '<span class="rm-lp__logo"><picture>' . $avif
+		. '<img src="' . esc_url( $base . '112.png' ) . '" srcset="' . esc_url( $base . '112.png' ) . ' 112w, ' . esc_url( $base . '168.png' ) . ' 168w" sizes="73px"'
+		. ' width="112" height="86" alt="Re:Motive Media" loading="eager" decoding="sync">'
+		. '</picture></span>';
+}
+
+/**
  * Markup for the page being rendered.
  *
  * @return string
@@ -233,7 +253,7 @@ function remotive_lp_render() {
 	);
 
 	return '<div class="rm-lp" data-lang="en" data-service="' . esc_attr( $slug ) . '">'
-		. '<header class="rm-lp__bar"><span class="rm-lp__brand">Re:Motive Media</span>'
+		. '<header class="rm-lp__bar">' . remotive_lp_logo()
 		. '<div class="rm-lp__langs" role="group" aria-label="Language / Bahasa / 语言">' . $btns . '</div></header>'
 		. '<main id="main" class="rm-lp__main">'
 		. '<section class="rm-lp__hero"><div class="rm-lp__copy">'
