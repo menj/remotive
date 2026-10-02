@@ -33,6 +33,8 @@ require get_stylesheet_directory() . '/inc/thank-you.php';
 require get_stylesheet_directory() . '/inc/stats-band.php';
 require get_stylesheet_directory() . '/inc/webmcp.php';
 require get_stylesheet_directory() . '/inc/security.php';
+require get_stylesheet_directory() . '/inc/maintenance-mode.php';
+require get_stylesheet_directory() . '/inc/one-page.php';
 
 /**
  * Gate scroll motion on a body class.

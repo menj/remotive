@@ -4,6 +4,13 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.88.0] — 2026-10-02
+
+### Added
+
+- **Maintenance mode** (Theme Options → Site behaviour). Off by default. When on, logged-out visitors get the "back shortly" page with a 503 and `Retry-After`; users who can edit posts, wp-admin, cron, AJAX, feeds and REST are unaffected. Nothing is unpublished. New `inc/maintenance-mode.php`.
+- **One-page prototype** (page template "One page (EN / BM / 中文)"): a single page covering what we do, where we work and how to get in touch, in English, Bahasa Melayu and Simplified Chinese, with a language switcher (`?lang=`, saved choice, browser language). Uses the existing colour tokens. Files: `templates/page-one-page.html`, `assets/css/one-page.css`, `assets/js/one-page.js`, `inc/one-page.php`. The Malay and Chinese copy is a first draft and needs native-speaker review.
+
 ## [1.87.0] — 2026-09-30
 
 ### Fixed
