@@ -639,6 +639,125 @@ function remotive_install_error_dropins() {
  * it has not offered before — so a member removed on purpose through
  * the settings screen stays removed across later releases.
  */
+/**
+ * Reorderings to apply to an already-saved roster, each exactly once.
+ *
+ * The roster sync only ever appends, and there is no reorder control in the
+ * settings screen, so a change to who is listed where would otherwise reach a
+ * fresh install (through the defaults) and never an existing site. Each entry
+ * moves one member to sit directly after another. Every key runs once and is
+ * then recorded, so a later manual reorder is never fought over.
+ *
+ * @return array<string, array{0:string,1:string}> key => [ slug to move, slug it follows ]
+ */
+function remotive_team_order_moves() {
+	return array(
+		'ally-after-jazlan' => array( 'ally', 'jazlan' ),
+	);
+}
+
+// Runs from remotive_version_sync() in inc/site-setup.php, after the roster sync.
+function remotive_sync_team_order() {
+	$moves = remotive_team_order_moves();
+	$done  = get_option( 'remotive_team_order_applied', array() );
+	$done  = is_array( $done ) ? $done : array();
+	$saved = get_option( 'remotive_theme_options', array() );
+
+	// Nothing saved: a fresh install reads the defaults, which already carry
+	// the order. Record the moves so they are not applied to a roster saved
+	// (and deliberately arranged) later.
+	if ( empty( $saved['team'] ) || ! is_array( $saved['team'] ) ) {
+		update_option( 'remotive_team_order_applied', array_keys( $moves ), false );
+		return;
+	}
+
+	$team    = array_values( $saved['team'] );
+	$changed = false;
+
+	foreach ( $moves as $key => list( $slug, $after ) ) {
+		if ( in_array( $key, $done, true ) ) {
+			continue;
+		}
+
+		$done[] = $key;
+		$from   = array_search( $slug, wp_list_pluck( $team, 'slug' ), true );
+
+		// Either person missing (removed on purpose) means there is nothing to move.
+		if ( false === $from || false === array_search( $after, wp_list_pluck( $team, 'slug' ), true ) ) {
+			continue;
+		}
+
+		$member = array_splice( $team, $from, 1 );
+		$to     = array_search( $after, wp_list_pluck( $team, 'slug' ), true );
+
+		array_splice( $team, $to + 1, 0, $member );
+		$changed = true;
+	}
+
+	if ( $changed ) {
+		$saved['team'] = $team;
+		remotive_update_options_raw( $saved );
+	}
+
+	update_option( 'remotive_team_order_applied', $done, false );
+}
+
+/**
+ * Display-name changes to apply to an already-saved roster, each exactly once.
+ *
+ * Same reason as remotive_team_order_moves(): a new default name reaches a
+ * fresh install and never an existing site, because a saved roster row wins
+ * over the code. Each entry is [ slug, name it replaces, new name ]. A row is
+ * renamed only while it still holds the OLD shipped name, so a name someone
+ * has already edited by hand is left exactly as they wrote it.
+ *
+ * @return array<string, array{0:string,1:string,2:string}>
+ */
+function remotive_team_renames() {
+	return array(
+		'elfie-full-name' => array( 'elfie', 'Elfie Nieshaem', 'Mohd Elfie Nieshaem' ),
+	);
+}
+
+// Runs from remotive_version_sync() in inc/site-setup.php, after the order step.
+function remotive_sync_team_names() {
+	$renames = remotive_team_renames();
+	$done    = get_option( 'remotive_team_renames_applied', array() );
+	$done    = is_array( $done ) ? $done : array();
+	$saved   = get_option( 'remotive_theme_options', array() );
+
+	// Nothing saved: a fresh install reads the new default name directly.
+	if ( empty( $saved['team'] ) || ! is_array( $saved['team'] ) ) {
+		update_option( 'remotive_team_renames_applied', array_keys( $renames ), false );
+		return;
+	}
+
+	$team    = $saved['team'];
+	$changed = false;
+
+	foreach ( $renames as $key => list( $slug, $from, $to ) ) {
+		if ( in_array( $key, $done, true ) ) {
+			continue;
+		}
+
+		$done[] = $key;
+
+		foreach ( $team as $i => $member ) {
+			if ( ( $member['slug'] ?? '' ) === $slug && ( $member['name'] ?? '' ) === $from ) {
+				$team[ $i ]['name'] = $to;
+				$changed            = true;
+			}
+		}
+	}
+
+	if ( $changed ) {
+		$saved['team'] = $team;
+		remotive_update_options_raw( $saved );
+	}
+
+	update_option( 'remotive_team_renames_applied', $done, false );
+}
+
 function remotive_sync_team_roster() {
 	$defaults = remotive_theme_option_defaults();
 	$slugs    = wp_list_pluck( $defaults['team'], 'slug' );

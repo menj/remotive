@@ -46,7 +46,7 @@ upstream release.
 | `assets/images/remotive-logo-landscape.png` | Remotive Media Asia Pte. Ltd. | Landscape lockup. Same proprietary status. |
 | `assets/images/remotive-lockup-square.jpg` | Remotive Media Asia Pte. Ltd. | Company logo lockup, square, used as the favicon and site icon source. Same proprietary status. |
 | `assets/seed-images/*.png` and `*.avif` | Remotive Media Asia Pte. Ltd. | Cover images for the four shipped Insights articles, generated for this theme. Same proprietary status. |
-| `assets/team/<slug>.avif` and `<slug>-alt.avif` | Remotive Media Asia Pte. Ltd. (photographs of the named individuals) | Team portraits for the hover effect, cut out and re-encoded from photography supplied by the company. **Proprietary, and additionally personal likenesses:** each depicts a named person, so redistribution or reuse needs that person's consent as well as the company's. Not covered by the theme's GPL licence. |
+| `assets/team/<slug>.avif` | Remotive Media Asia Pte. Ltd. (photographs of the named individuals) | Team portraits, one per person, cut out and re-encoded from photography supplied by the company. **Proprietary, and additionally personal likenesses:** each depicts a named person, so redistribution or reuse needs that person's consent as well as the company's. Not covered by the theme's GPL licence. |
 
 ## Theme's own code and styles
 

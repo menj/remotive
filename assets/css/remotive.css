@@ -1013,9 +1013,9 @@ html{ scroll-padding-top:100px; }
    compact desktop and tablet, 2 from 700px down. Portraits stay legible at
    two across on the narrowest screens, so this grid does not collapse to
    one column the way the abstract tiles did. */
-/* Four per row everywhere, per the standing instruction: the homepage
-   teaser and the About grid share the tier set, 4 on desktop, 2 on
-   tablets, 1 on phones. */
+/* Four per row by default: 4 on desktop, 2 on tablets, 1 on phones. The
+   Team page overrides the desktop count from its roster size (see
+   .rm-team--full below), so ten people are two rows of five. */
 .rm-team{ display:grid; grid-template-columns:repeat(4,1fr); gap:1.25rem; margin-top:1.75rem; }
 @media (max-width:1100px){
   .rm-team{ grid-template-columns:repeat(2,1fr); }
@@ -1032,41 +1032,60 @@ html{ scroll-padding-top:100px; }
 }
 .rm-team__photo img{ width:100%; height:100%; object-fit:cover; object-position:center top; }
 
-/* ---- Before/after hover portraits ----
-   Two crops of the same person layered in one tile: the base sits as the
-   tile's background, the alternate fades in over it on hover or touch.
-   URLs are stylesheet-relative, so the static templates need no theme
-   path. To add a member, ship assets/team/<person>.avif and
-   <person>-alt.avif and repeat this pair of rules for their data-person. */
+/* ---- Portraits ----
+   One image per person, no rollover: the tile shows the same photograph on
+   hover, focus and touch. (A second "alt" crop used to fade in over it; that
+   was removed in 1.88.0 together with the alternate image files.) */
 .rm-team__photo{ position:relative; }
-.rm-team__photo::after{
-  content:""; position:absolute; inset:0;
-  background-position:center top; background-size:cover;
-  /* Opacity only: composited on the GPU, no layout or paint work, and
-     held under 300ms so the swap feels immediate. */
-  opacity:0; transition:opacity .25s ease;
-}
-/* Hover runs only where hover is a real capability; on touch screens a
-   hover state would stick after the first tap. Touch gets :active
-   instead, which releases with the finger. */
-@media (hover:hover){
-  .rm-team__photo:hover::after{ opacity:1; }
-}
-.rm-team__photo:active::after{ opacity:1; }
-/* Cutout portraits over the tile's own gradient: the background stays
-   constant through the swap and follows the colour mode, so only the
-   pose cross-fades. The ::after layer repeats the gradient so the base
-   pose is fully covered at the end of the fade. */
+/* Cutout portraits sit over the tile's own gradient, which follows the
+   colour mode. */
 /* Per-member portrait rules are generated at enqueue time from the Theme
    Options roster (remotive_team_portrait_css() in inc/theme-options.php),
-   for every slug whose AVIF pair ships in assets/team/. Nothing is
-   hardcoded here, so adding a member in the tab plus two image files is
-   the whole job. */
+   for every slug whose AVIF ships in assets/team/. Nothing is hardcoded
+   here, so adding a member in the tab plus one image file is the whole
+   job. */
 .rm-team__name{ display:block; margin-top:.6rem; font-size:1rem; line-height:1.2; }
 .rm-team__role{ display:block; font-size:.82rem; color:var(--rm-ink-70); }
 .rm-team__bio{ margin:.45rem 0 0; font-size:.88rem; color:var(--rm-ink-70); }
+/* Under the homepage leadership row: how many more, and where they are. */
+/* The prompt tile that fills the rest of a short leadership row: it spans
+   the columns the portraits leave empty on desktop, and the full width
+   wherever the grid has fewer columns, so it never overflows a narrower one. */
+.rm-team__tile{
+  display:flex; flex-direction:column; justify-content:flex-end; gap:.4rem;
+  grid-column:1 / -1; min-height:12rem; padding:1.5rem;
+  border:1px solid var(--rm-line); border-radius:6px;
+  color:var(--wp--preset--color--ink); text-decoration:none;
+  transition:border-color .18s ease;
+}
+@media (min-width:1101px){
+  .rm-team__tile{ grid-column:span var(--rm-span,1); }
+}
+.rm-team__tile:hover, .rm-team__tile:focus-visible{ border-color:var(--wp--preset--color--magenta-dark); }
+.rm-team__tile-count{ font-size:clamp(3rem,6vw,5.5rem); line-height:1; font-weight:800; letter-spacing:-.03em; }
+.rm-team__tile-label{ max-width:26ch; font-size:1.05rem; line-height:1.35; color:var(--rm-ink-70); }
+.rm-team__tile-cta{
+  margin-top:.9rem; font-size:.82rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em;
+  transition:color .18s ease, letter-spacing .18s ease;
+}
+.rm-team__tile:hover .rm-team__tile-cta, .rm-team__tile:focus-visible .rm-team__tile-cta{
+  color:var(--wp--preset--color--magenta-dark); letter-spacing:.09em;
+}
+@media (prefers-reduced-motion:reduce){
+  .rm-team__tile, .rm-team__tile-cta{ transition:none !important; }
+}
+.rm-team__more{ margin:1.5rem 0 0; font-size:.98rem; color:var(--rm-ink-70); }
+.rm-team__more a{ color:var(--wp--preset--color--ink); text-decoration:underline; text-underline-offset:.2em; }
+.rm-team__more a:hover, .rm-team__more a:focus-visible{ color:var(--wp--preset--color--magenta); }
 /* The About grid differs from the teaser only in breathing room. */
 .rm-team--full{ gap:1.75rem; }
+/* Desktop only: below this the 2- and 1-column tiers above apply, so five
+   across can never squeeze portraits on a tablet. The count is set inline
+   from the roster size by remotive_team_columns() (3, 4 or 5, whichever
+   fills the last row best); 4 is the fallback if it is ever missing. */
+@media (min-width:1101px){
+  .rm-team--full{ grid-template-columns:repeat(var(--rm-team-cols,4),minmax(0,1fr)); }
+}
 
 /* The frame grids above are intrinsic, so they need no breakpoints. */
 
@@ -1348,11 +1367,10 @@ html{ scroll-padding-top:100px; }
 
 /* ---- 9. Reduced motion (LOW RISK, accessibility) ----
    The ticker animates continuously. Users asking for reduced motion get a
-   static strip; the portrait cross-fade and other transitions collapse to
-   an instant state change rather than disappearing. */
+   static strip; other transitions collapse to an instant state change
+   rather than disappearing. */
 @media (prefers-reduced-motion:reduce){
   .rm-ticker__track{ animation:none !important; transform:none !important; }
-  .rm-team__photo::after{ transition-duration:.01ms !important; }
   *{ scroll-behavior:auto !important; }
 }
 
@@ -2660,33 +2678,6 @@ html{ scroll-padding-top:100px; }
 @media (prefers-reduced-motion:reduce){
   .rm-stat, .rm-stat__cue{ transition:none !important; }
   .rm-stat--linked:hover{ transform:none !important; }
-}
-
-/* =================== TEAM PAGE PORTRAITS (v1.72.2) ===================
-   The two-crop hover swap stays on the homepage teaser, where it is a
-   small flourish on six tiles a visitor scrolls past. On the team page it
-   is the wrong behaviour: that page exists to show who these people are,
-   the portraits are the content rather than decoration, and a face that
-   changes under the cursor while someone is reading a name and a role is
-   a distraction rather than a detail.
-
-   Scoped to .rm-team--full, which only templates/page-team.html carries,
-   so templates/front-page.html is untouched.
-
-   The ::after layer is suppressed rather than removed: it is generated
-   per member by remotive_team_portrait_css() and carries the base
-   gradient as well as the alternate crop, so hiding it here keeps that
-   function and the homepage behaviour exactly as they are. Only the
-   alternate pose stops being reachable.
-   ================================================================== */
-
-.rm-team--full .rm-team__photo::after{
-  content:none;
-}
-
-/* With no swap to signal, the tile should not imply one. */
-.rm-team--full .rm-team__photo{
-  cursor:default;
 }
 
 /* =================== SITE-WIDE PARALLAX (v1.73.1, widened 1.77.0) ===

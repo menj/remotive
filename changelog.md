@@ -4,6 +4,226 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.89.6] — 2026-09-30
+
+### Changed
+
+- **Elfie is listed as "Mohd Elfie Nieshaem".** The default changes for fresh
+  installs, and `remotive_sync_team_names()` renames the row on an existing
+  site once (a saved roster row wins over the code, so the default alone would
+  never have reached it). Entries live in `remotive_team_renames()` as
+  [ slug, name it replaces, new name ]; a row is renamed only while it still
+  holds the old shipped name, so a name already edited by hand is left exactly
+  as written, each rename runs once and is recorded, and a member removed on
+  purpose is not re-added. The slug stays `elfie`, so the portrait file and
+  anything keyed on it are unaffected. The longest name on the page now, it
+  sits on one line in its tile at 1101, 1150 and 1440px (161px of text in a
+  190px tile at the narrowest).
+
+## [1.89.5] — 2026-09-30
+
+### Changed
+
+- **Ally's portrait rebuilt from the original photograph, filled to the
+  tile.** The copy used until now had its background stripped by another tool,
+  leaving a white halo round her hair; the original (Taipei hillside behind
+  her) was cut out with the tool's alpha matting instead, and the edge checks
+  clean against both the light and the dark tile. The photo is a close selfie
+  that stops at the chest, so the normal framing again left a small bust
+  fading out mid-tile (face 33%, bottom edge 70%). `--cover` fills the tile
+  from the photograph instead: bottom edge 99.9%, nothing floating. The price
+  is stated, not hidden: her face is 48% of the tile against 22-33% for the
+  rest of the set, and her arm runs off the left edge, which the tool's
+  "CLIPPED" flag reports and which is inherent to a close-up. `COVER = {'ally'}`
+  records the choice, so rebuilding the same photo reproduces it.
+- With this, every tile with a photograph reaches the bottom edge. The only
+  tile still without one is Adam's (initials fallback).
+
+## [1.89.4] — 2026-09-30
+
+### Changed
+
+- **Elfie's portrait replaced** with the new straight-on photograph
+  (`mohd-elfie-nieshaem-juferi.jpg`), through
+  `tools/normalise-portraits.py --replace`, which overwrites the old file. Face
+  height 31.1%, shirt to the bottom edge, in line with Jay and Ally (32-33%).
+  The sides of the shirt stop at 16% and 84% of the tile because that is where
+  the photograph itself ends. The alternative, `--cover`, fills the tile from
+  the photo instead (no inset sides) but makes the face 46% of the tile, which
+  would stand out in a row of five, so it was not used.
+
+### Fixed
+
+- **`--replace` no longer carries one photo's settings onto another.** The
+  per-person framing in `PEOPLE`, the rotation in `ROTATE` and the
+  `EXTEND` / `COVER` choices all describe a specific photograph. Elfie's entry
+  held a crop and a 7 degree rotation tuned to his previous, leaning pose;
+  `--replace` with a new photo would have applied both and tilted a straight
+  one. Settings are now inherited only when the file being rebuilt is the
+  same file the entry records, and explicit flags always win. Elfie's entry now
+  records the new photograph, with the rotation removed.
+
+### Added
+
+- **`--cover`** (`cover_tile()`) for a tight head-and-chest close-up that cannot
+  be shrunk to the set's face size without its torso ending in straight edges
+  inside the tile: fills the tile from the largest 4:5 window that fits inside
+  the photograph, crown placed 10% from the top. Opt-in, and the trade-off
+  (a larger face than the rest of the set) is stated in the function.
+
+## [1.89.3] — 2026-09-30
+
+### Changed
+
+- **Jay's portrait rebuilt from the supplied photo, and it now reaches the
+  bottom of the tile.** His photo stops partway down the chest, so matching
+  the set's face size left the cut-out ending mid-tile. 1.88.0 dissolved that
+  edge, which left a visible smear across the shirt, and the next attempt, a
+  hard cut, still floated. A plain black tee is the one case where the honest
+  fix is simple: continue the shirt. `tools/normalise-portraits.py` gains
+  `extend_bottom()`, which mirrors the real fabric just above the join
+  downward, so the weave and folds carry across without a seam (a flat fill
+  was tried first and drew a visible line, because it had no grain; measured
+  grain above and below the join now matches, 2.11 against 2.14), and keeps
+  the silhouette's sides straight. Face height is 32.8%, bottom edge 99.9%.
+- **Extension is opt-in, never automatic.** Mirroring is right for unpatterned
+  fabric and wrong for skin, straps, a logo or a hem, so it applies only to
+  slugs in `EXTEND` (currently `jay`) or with `--replace ... --extend`. It
+  declines, and feathers instead, when the gap is over 16% of the tile, since
+  mirroring further would reach up into the neckline. Ally's portrait is
+  unchanged: her source is a chest-cropped selfie with skin and backpack
+  straps at the cut, where this would be wrong.
+
+## [1.89.2] — 2026-09-30
+
+### Changed
+
+- **Team page: ten people are two rows of five.** Four per row left an
+  orphaned pair on the last row (4 + 4 + 2). The column count is not hardcoded
+  because the roster is editable: `remotive_team_columns()` picks whichever of
+  3, 4 or 5 leaves the last row fullest (a tie goes to the wider grid), so ten
+  is 5, nine is 3, eleven is 4, and from six people up no roster size strands a
+  single tile on its own row. The value reaches the grid as an inline
+  `--rm-team-cols` from a new `__REMOTIVE_TEAM_COLS__` token, and applies from
+  1101px up only. Below that the existing two-column and one-column tiers
+  stand, so five across cannot squeeze portraits on a tablet or phone;
+  measured at 1440, 1150 and 900px with no horizontal overflow. This
+  supersedes the stylesheet's earlier "four per row everywhere" note, which
+  pre-dated a roster of ten. The homepage leadership row is unchanged.
+
+## [1.89.1] — 2026-09-30
+
+### Changed
+
+- **Ally is listed third on the Team page**, directly after Jazlan: Gordan,
+  Jazlan, Ally, then everyone else in roster order. She had been seventh
+  because the roster sync only ever appends new members, so she sat behind
+  the specialists. Fresh installs get the order from the defaults. An
+  existing site's roster is reordered once by `remotive_sync_team_order()`,
+  which applies each entry in `remotive_team_order_moves()` exactly one time
+  and records it, so a later manual arrangement is never fought. A member
+  who has been removed on purpose is skipped rather than re-added.
+
+## [1.89.0] — 2026-09-30
+
+### Changed
+
+- **The homepage introduces the leadership; the Team page holds everyone.**
+  Both pages rendered the same full roster, so the Team page added nothing
+  the homepage did not already show, against the brief's own rule of not
+  putting the team in two places. The homepage About section now shows the
+  leadership only, and the Team page lists everyone, leadership first, then
+  the rest in roster order.
+- **Leadership is Gordan and Jazlan, and is a setting, not hardcoded.** Each
+  row in Theme Options → Homepage → Team has a "Leadership" checkbox.
+  A roster saved before the flag existed takes the shipped default for each
+  member by slug, so the homepage changes without anyone editing anything;
+  if nobody is ticked the homepage shows the first four rather than an empty
+  grid. Display ordering never rewrites the saved roster order.
+- **A short leadership row fills itself.** Two portraits in a four-column
+  grid left the right half empty. With fewer than four leaders the row now
+  ends in a tile spanning the free columns ("+8 more specialists, each
+  running their own discipline — Meet the whole team →"), full width where
+  the grid has fewer columns, so it cannot overflow a tablet or phone. With
+  four or more leaders the row is full and a line under it says the same
+  thing instead. Never both.
+- **Team page copy follows the roster.** "Ten people" / "Ten specialists"
+  were hardcoded and would have gone stale the day someone was added. They
+  now come from a count token (`__REMOTIVE_TEAM_COUNT__`, number words up to
+  twenty, digits beyond). The section anchor is `#accountable-team`.
+
+### Added
+
+- **A closing call to action on the Team page**, matching the page's role as
+  "Our Team / Partner With Us" in the original brief: "Work with the people
+  who'd run it." with a Start a project button. The page previously ended
+  on its gallery.
+
+## [1.88.0] — 2026-09-30
+
+### Removed
+
+- **Rollover portraits.** The alternate image that faded in over each team
+  photo on hover or touch is gone, along with everything behind it: the
+  `::after` layer, its hover/active and reduced-motion rules, the
+  Team-page rule that suppressed it, the generator that wired it up in
+  `remotive_team_portrait_css()`, and the five `assets/team/*-alt.avif`
+  files. One image per person; the tile no longer changes on hover, focus
+  or tap. `readme.txt`, `resources.md` and the Team-tab docblock updated.
+
+### Added
+
+- **Retired files delete themselves.** `remotive_retired_files()` in
+  `inc/site-setup.php` lists paths the theme no longer ships (globs
+  allowed) and `remotive_prune_retired_files()` deletes them as a step of
+  the version sync. WordPress's "replace current theme" upload swaps the
+  whole folder, but an FTP or deploy-script upload only adds files, so
+  anything removed from the theme otherwise lingers on the server for good.
+  This release's entry is `assets/team/*-alt.avif`, so the five alternate
+  photos are removed from the live server on the first request after the
+  update. Team portraits are personal likenesses, which is the reason this
+  is worth automating. Confined to the theme folder: patterns containing
+  `..` or starting with `/` are refused, and each match is resolved with
+  `realpath()` and skipped unless it is a regular file inside the theme, so
+  a symlink pointing elsewhere is never followed.
+- **Replacing a photo is one command.** `tools/normalise-portraits.py
+  --replace <slug> <photo>` builds the new portrait to the same framing as
+  the rest of the team, overwrites the old file (that is the deletion), and
+  removes anything else left over for that person (`<slug>-alt.avif` and
+  stale copies in other formats). `--check` reports face size and framing
+  for every shipped portrait. The tool now resolves its paths from its own
+  location instead of assuming it is run from `/home/claude`, and skips a
+  missing source with a message instead of crashing.
+- **Portrait URLs are cache-busted by file modified time.** A replaced
+  portrait keeps its filename, so a browser or CDN holding the old file
+  would keep showing it and the replacement would look as though it had not
+  worked. The URL now changes exactly when the file does.
+
+### Fixed
+
+- **The four newer portraits did not match the rest of the team.** Ally,
+  Jay, Louie and Freya (added in 1.80.2 and 1.85.0) were cropped by hand
+  instead of through the normalising tool, so face heights ran from 24% to
+  47% of the tile against 22-27% for everyone else, and three clipped at a
+  side edge. Rebuilt through `--replace`. Louie and Freya now sit with the
+  original five.
+- **Sources that stop at the chest no longer leave a floating cut edge.**
+  Ally's and Jay's photos cannot fill a tile at the set's face size, so the
+  cut-out ended mid-tile in a straight line. The tool now grows the person
+  until the cut reaches the bottom edge (capped at 1.3x the standard face
+  size so one face does not dwarf the rest) and feathers whatever gap
+  remains into the tile. A subject that already runs off the bottom is
+  untouched, so the original portraits are unchanged. Ally's selfie is the
+  limit case: a photo with more shoulder would fill the tile properly.
+
+### Changed
+
+- The tool no longer builds alternate frames: their entries, the `SPECIAL`
+  fill mode that existed only for one of them, and the cross-frame ratio
+  fallback that needed a second photo of the same person are removed. Four
+  team members are added to its `PEOPLE` table so a full rebuild includes
+  them.
+
 ## [1.87.0] — 2026-09-30
 
 ### Fixed

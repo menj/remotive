@@ -84,16 +84,16 @@ function remotive_theme_option_defaults() {
 		'legal_uen'        => '',
 		'branded_login_message' => 'Team access only.',
 		'team'             => array(
-			array( 'name' => 'Gordan Domlija', 'role' => 'Managing Partner', 'slug' => 'gordan', 'bio' => '' ),
-			array( 'name' => 'Jazlan Zakirin', 'role' => 'Performance Director', 'slug' => 'jazlan', 'bio' => '' ),
-			array( 'name' => 'Adam Azman', 'role' => 'Paid Search Specialist', 'slug' => 'adam', 'bio' => '' ),
-			array( 'name' => 'Elfie Nieshaem', 'role' => 'SEO Specialist', 'slug' => 'elfie', 'bio' => '' ),
-			array( 'name' => 'Alif Aziz', 'role' => 'Paid Social Specialist', 'slug' => 'alif', 'bio' => '' ),
-			array( 'name' => 'Nabil Takiyuddin', 'role' => 'Data Analyst', 'slug' => 'nabil', 'bio' => '' ),
-			array( 'name' => 'Ally Foo', 'role' => 'Account Director', 'slug' => 'ally', 'bio' => '' ),
-			array( 'name' => 'Jay Spicer', 'role' => 'Performance Director', 'slug' => 'jay', 'bio' => '' ),
-			array( 'name' => 'Louie See', 'role' => 'Media Manager', 'slug' => 'louie', 'bio' => '' ),
-			array( 'name' => 'Freya Angel', 'role' => 'Media Manager', 'slug' => 'freya', 'bio' => '' ),
+			array( 'name' => 'Gordan Domlija', 'role' => 'Managing Partner', 'slug' => 'gordan', 'bio' => '', 'home' => '1' ),
+			array( 'name' => 'Jazlan Zakirin', 'role' => 'Performance Director', 'slug' => 'jazlan', 'bio' => '', 'home' => '1' ),
+			array( 'name' => 'Ally Foo', 'role' => 'Account Director', 'slug' => 'ally', 'bio' => '', 'home' => '0' ),
+			array( 'name' => 'Adam Azman', 'role' => 'Paid Search Specialist', 'slug' => 'adam', 'bio' => '', 'home' => '0' ),
+			array( 'name' => 'Mohd Elfie Nieshaem', 'role' => 'SEO Specialist', 'slug' => 'elfie', 'bio' => '', 'home' => '0' ),
+			array( 'name' => 'Alif Aziz', 'role' => 'Paid Social Specialist', 'slug' => 'alif', 'bio' => '', 'home' => '0' ),
+			array( 'name' => 'Nabil Takiyuddin', 'role' => 'Data Analyst', 'slug' => 'nabil', 'bio' => '', 'home' => '0' ),
+			array( 'name' => 'Jay Spicer', 'role' => 'Performance Director', 'slug' => 'jay', 'bio' => '', 'home' => '0' ),
+			array( 'name' => 'Louie See', 'role' => 'Media Manager', 'slug' => 'louie', 'bio' => '', 'home' => '0' ),
+			array( 'name' => 'Freya Angel', 'role' => 'Media Manager', 'slug' => 'freya', 'bio' => '', 'home' => '0' ),
 		),
 		'work_heading'     => 'Work that moved the number',
 		'about_heading'    => 'Independent Spirit. Enterprise Scale.',
@@ -569,8 +569,9 @@ function remotive_render_text_field( $key, $type ) {
  * simply drops the row from the form, so it never reaches the sanitizer.
  */
 function remotive_render_team_repeater() {
-	$team = remotive_get_theme_option( 'team' );
-	$team = is_array( $team ) ? $team : array();
+	// Through the getter, so rows saved before the leadership flag existed
+	// show their shipped default instead of an unticked box.
+	$team = remotive_team_members();
 
 	echo '<div class="rm-admin__team" id="rmTeamRepeater">';
 
@@ -579,6 +580,7 @@ function remotive_render_team_repeater() {
 		$role = $template ? '' : ( $member['role'] ?? '' );
 		$slug = $template ? '' : ( $member['slug'] ?? '' );
 		$bio  = $template ? '' : ( $member['bio'] ?? '' );
+		$lead = ! $template && '1' === ( $member['home'] ?? '0' ) ? ' checked' : '';
 		$idx  = $template ? '__INDEX__' : (string) $i;
 
 		printf(
@@ -588,6 +590,7 @@ function remotive_render_team_repeater() {
 			'<label>%7$s <input type="text" name="remotive_theme_options[team][%5$s][role]" value="%8$s" /></label>' .
 			'<label>%9$s <input type="text" name="remotive_theme_options[team][%5$s][slug]" value="%10$s" /></label>' .
 			'<label class="rm-admin__team-bio">%11$s <textarea rows="2" name="remotive_theme_options[team][%5$s][bio]">%12$s</textarea></label>' .
+			'<label class="rm-admin__team-lead"><input type="checkbox" name="remotive_theme_options[team][%5$s][home]" value="1"%14$s /> %15$s</label>' .
 			'<button type="button" class="button-link-delete rm-admin__team-remove">%13$s</button>' .
 			'</fieldset>',
 			$template ? ' rm-admin__team-row--template' : '',
@@ -602,7 +605,9 @@ function remotive_render_team_repeater() {
 			esc_attr( $slug ),
 			esc_html__( 'Bio (About page)', 'remotive' ),
 			esc_textarea( $bio ),
-			esc_html__( 'Remove', 'remotive' )
+			esc_html__( 'Remove', 'remotive' ),
+			$lead,
+			esc_html__( 'Leadership: show on the homepage and list first on the Team page', 'remotive' )
 		);
 	};
 
@@ -791,6 +796,8 @@ function remotive_sanitize_theme_options( $input ) {
 				'role' => sanitize_text_field( $member['role'] ?? '' ),
 				'slug' => sanitize_key( $member['slug'] ?? '' ),
 				'bio'  => sanitize_textarea_field( $member['bio'] ?? '' ),
+				// An unticked checkbox submits nothing, so absence means off.
+				'home' => ( isset( $member['home'] ) && '1' === (string) $member['home'] ) ? '1' : '0',
 			);
 
 			if ( count( $clean['team'] ) >= 12 ) {
@@ -1135,20 +1142,79 @@ function remotive_team_members() {
 	$team = is_array( $team ) ? $team : array();
 	$out  = array();
 
+	// A roster saved before the leadership flag existed has no 'home' key on
+	// any row. Those members take the shipped default for their slug rather
+	// than all reading as "not a leader", which would empty the homepage.
+	$shipped = array();
+
+	foreach ( remotive_theme_option_defaults()['team'] as $default ) {
+		$shipped[ $default['slug'] ] = $default['home'] ?? '0';
+	}
+
 	foreach ( $team as $member ) {
 		if ( ! is_array( $member ) || '' === trim( $member['name'] ?? '' ) ) {
 			continue;
 		}
 
+		$slug = (string) ( $member['slug'] ?? '' );
+		$home = array_key_exists( 'home', $member ) ? $member['home'] : ( $shipped[ $slug ] ?? '0' );
+
 		$out[] = array(
 			'name' => (string) $member['name'],
 			'role' => (string) ( $member['role'] ?? '' ),
-			'slug' => (string) ( $member['slug'] ?? '' ),
+			'slug' => $slug,
 			'bio'  => (string) ( $member['bio'] ?? '' ),
+			'home' => '1' === (string) $home ? '1' : '0',
 		);
 	}
 
 	return $out;
+}
+
+/**
+ * Columns for the Team page grid: whichever of 3, 4 or 5 leaves the last row
+ * fullest, so ten people sit as two rows of five rather than 4 + 4 + 2, and
+ * eleven do not strand one tile on a row of five. A tie goes to the wider
+ * grid. The roster is editable, so this follows its size instead of a number
+ * that would be right only until the next person is added.
+ *
+ * @param int $count Number of members shown.
+ * @return int 3, 4 or 5.
+ */
+function remotive_team_columns( $count ) {
+	// An empty roster has no last row to fill; keep the stylesheet default.
+	if ( $count < 1 ) {
+		return 4;
+	}
+
+	$best = 4;
+	$fill = -1.0;
+
+	foreach ( array( 3, 4, 5 ) as $cols ) {
+		$last = $count % $cols;
+		$last = 0 === $last ? $cols : $last;
+		$rate = $last / $cols;
+
+		if ( $rate >= $fill ) { // >= so a tie goes to the wider grid.
+			$fill = $rate;
+			$best = $cols;
+		}
+	}
+
+	return $best;
+}
+
+/**
+ * A count as a word: 10 -> "ten" / "Ten". Copy that says how many people
+ * there are cannot be hardcoded when the roster is editable; it goes stale
+ * the day someone is added. Past twenty it falls back to digits.
+ */
+function remotive_number_word( $n, $capital = false ) {
+	$words = array( 'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten',
+		'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty' );
+	$word  = $words[ $n ] ?? (string) $n;
+
+	return $capital ? ucfirst( $word ) : $word;
 }
 
 /**
@@ -1160,10 +1226,62 @@ function remotive_team_members() {
  * @return string
  */
 /**
+ * A short leadership row leaves most of a four-column grid empty, and two
+ * portraits in the left half read as unfinished. The space goes to the
+ * prompt that answers "where is everyone else": a tile in the row itself,
+ * spanning the columns the portraits do not use.
+ *
+ * Only for fewer than four shown (four or more fill the row, and the line
+ * under it, remotive_render_team_more(), carries the prompt instead).
+ *
+ * @param int $shown How many leaders the row is already showing.
+ * @return string
+ */
+function remotive_render_team_tile( $shown ) {
+	$others = count( remotive_team_members() ) - $shown;
+
+	if ( $shown >= 4 || $others < 1 ) {
+		return '';
+	}
+
+	return '<a class="rm-team__member rm-team__tile" style="--rm-span:' . (int) ( 4 - $shown ) . '" href="' . esc_url( home_url( '/team/' ) ) . '">' .
+		'<span class="rm-team__tile-count">+' . (int) $others . '</span>' .
+		'<span class="rm-team__tile-label">' . esc_html( _n( 'more specialist, running their own discipline', 'more specialists, each running their own discipline', $others, 'remotive' ) ) . '</span>' .
+		'<span class="rm-team__tile-cta">' . esc_html__( 'Meet the whole team', 'remotive' ) . ' &rarr;</span>' .
+		'</a>';
+}
+
+/**
+ * The line under the homepage leadership row: how many more people there are
+ * and where to find them. Empty when the homepage already shows everyone.
+ *
+ * @return string
+ */
+function remotive_render_team_more() {
+	$all    = remotive_team_members();
+	$shown  = count( array_filter( $all, function ( $m ) {
+		return '1' === $m['home'];
+	} ) );
+	$shown  = $shown ? $shown : min( 4, count( $all ) );
+	$others = count( $all ) - $shown;
+
+	// Nothing more to say, or a short row that already has its tile.
+	if ( $others < 1 || $shown < 4 ) {
+		return '';
+	}
+
+	return '<p class="rm-team__more">' . esc_html( sprintf(
+		/* translators: %s: number of further team members, as a word. */
+		_n( 'Plus %s more specialist, each running their own discipline.', 'Plus %s more specialists, each running their own discipline.', $others, 'remotive' ),
+		remotive_number_word( $others )
+	) ) . ' <a href="' . esc_url( home_url( '/team/' ) ) . '">' . esc_html__( 'Meet the whole team', 'remotive' ) . ' &rarr;</a></p>';
+}
+
+/**
  * Per-member portrait CSS, generated from the roster for every slug whose
- * AVIF pair actually ships in assets/team/. This is what makes the Team
- * tab's promise true: a new member is a roster row plus two image files,
- * with no stylesheet edit. Attached as an inline style to the main
+ * AVIF actually ships in assets/team/. This is what makes the Team tab's
+ * promise true: a new member is a roster row plus one image file, with no
+ * stylesheet edit. Attached as an inline style to the main
  * stylesheet so it participates in the same load path, print excluded as
  * team photos collapse on paper anyway.
  *
@@ -1183,24 +1301,42 @@ function remotive_team_portrait_css() {
 		}
 
 		$sel  = '.rm-team__photo[data-person="' . $slug . '"]';
-		$base = $uri . rawurlencode( $slug ) . '.avif';
+
+		// The file's modified time is the cache key. A replaced portrait keeps
+		// its filename, so without this a browser or CDN that already holds the
+		// old one keeps showing it, and replacing a photo would look like it had
+		// not worked. The URL changes exactly when the file does.
+		$base = $uri . rawurlencode( $slug ) . '.avif?v=' . (int) filemtime( $dir . $slug . '.avif' );
 		$css .= $sel . '{background:url(' . $base . ') center bottom/cover no-repeat,' . $grad . ';}';
 		$css .= $sel . ' span{display:none;}';
-
-		if ( is_readable( $dir . $slug . '-alt.avif' ) ) {
-			$alt  = $uri . rawurlencode( $slug ) . '-alt.avif';
-			$css .= $sel . '::after{background:url(' . $alt . ') center bottom/cover no-repeat,' .
-				$grad . ' var(--wp--preset--color--paper);}';
-		}
 	}
 
 	return $css;
 }
 
-function remotive_render_team_markup( $with_bios ) {
-	$html = '';
+function remotive_render_team_markup( $with_bios, $scope = 'all' ) {
+	$html    = '';
+	$members = remotive_team_members();
+	$leaders = array_values( array_filter( $members, function ( $m ) {
+		return '1' === $m['home'];
+	} ) );
 
-	foreach ( remotive_team_members() as $member ) {
+	if ( 'home' === $scope ) {
+		// The homepage introduces the leadership; the Team page holds
+		// everyone. If nobody is flagged, show the first four rather than a
+		// heading over an empty grid.
+		$members = $leaders ? $leaders : array_slice( $members, 0, 4 );
+	} elseif ( $leaders ) {
+		// Team page: leadership first, then everyone else in roster order.
+		$members = array_merge(
+			$leaders,
+			array_values( array_filter( $members, function ( $m ) {
+				return '1' !== $m['home'];
+			} ) )
+		);
+	}
+
+	foreach ( $members as $member ) {
 		$person = $member['slug'] ? ' data-person="' . esc_attr( $member['slug'] ) . '"' : '';
 		$bio    = '';
 
@@ -1232,6 +1368,10 @@ function remotive_render_team_markup( $with_bios ) {
 			$bio .
 			'</figcaption>' .
 			'</figure>';
+	}
+
+	if ( 'home' === $scope ) {
+		$html .= remotive_render_team_tile( count( $members ) );
 	}
 
 	return $html;
@@ -1583,8 +1723,11 @@ function remotive_replace_theme_option_tokens( $block_content, $block ) {
 			'__REMOTIVE_CTA_HEADING__'      => esc_html( remotive_get_theme_option( 'cta_heading' ) ),
 			'__REMOTIVE_CTA_SUB__'          => esc_html( remotive_get_theme_option( 'cta_sub' ) ),
 			'__REMOTIVE_CTA_BUTTON__'       => esc_html( remotive_get_theme_option( 'cta_button' ) ),
-			'__REMOTIVE_TEAM_TEASER__'      => remotive_render_team_markup( false ),
+			'__REMOTIVE_TEAM_TEASER__'      => remotive_render_team_markup( false, 'home' ),
+			'__REMOTIVE_TEAM_MORE__'        => remotive_render_team_more(),
 			'__REMOTIVE_TEAM_FULL__'        => remotive_render_team_markup( true ),
+			'__REMOTIVE_TEAM_COUNT__'       => remotive_number_word( count( remotive_team_members() ), true ),
+			'__REMOTIVE_TEAM_COLS__'        => (string) remotive_team_columns( count( remotive_team_members() ) ),
 			'__REMOTIVE_CTA_NONCE_FIELD__'  => wp_nonce_field( 'remotive_cta_submit', 'remotive_cta_nonce', true, false ),
 			'__REMOTIVE_ABOUT_NONCE_FIELD__' => wp_nonce_field( 'remotive_about_submit', 'remotive_about_nonce', true, false ),
 			'__REMOTIVE_CONTACT_NONCE_FIELD__' => wp_nonce_field( 'remotive_contact_submit', 'remotive_contact_nonce', true, false ),

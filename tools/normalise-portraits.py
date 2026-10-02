@@ -20,8 +20,29 @@ The crop is then chosen so that, in the finished 4:5 tile:
   head top    sits HEAD_TOP_FRAC down from the top edge
   head centre sits on the tile's vertical centre line
 
-Run from /home/claude. Sources and per-person framing live in PEOPLE below.
+Usage (run from anywhere; paths resolve from this file's location):
+
+  normalise-portraits.py --replace SLUG PHOTO   build one portrait, replace the
+                                                old one and delete what it
+                                                leaves behind
+  normalise-portraits.py --replace SLUG PHOTO --extend
+                                                as above, for a photo that stops
+                                                at the chest in a plain shirt
+  normalise-portraits.py --check                report face size and framing
+                                                for every shipped portrait
+  normalise-portraits.py                        rebuild everyone in PEOPLE from
+                                                their sources
+
+PHOTO is a path, or a file name inside the sources folder (PORTRAIT_SOURCES,
+default /mnt/user-data/uploads/). One portrait per person: there is no
+alternate/rollover frame any more, so --replace also deletes any leftover
+<slug>-alt.avif, and the theme deletes those on the server by itself
+(remotive_retired_files() in inc/site-setup.php).
 """
+
+import argparse
+import os
+import sys
 
 import cv2
 import numpy as np
@@ -44,6 +65,16 @@ EYE_Y_FRAC = 0.34     # where the eye line sits down the tile
 SIDE_MARGIN = 0.02    # clear space each side, so shoulders are not cut off
 HEAD_TOP_FRAC = 0.10  # fallback framing when no face is found
 BAND_PX = 230         # fixed head-measuring band, in tile pixels
+# A source that stops at the chest cannot fill the tile at the set's face
+# size: the cut-out ends mid-tile and the straight edge floats over the
+# gradient, which reads as unfinished. Two measures, in order. First scale
+# the person up until the cut reaches the bottom edge, but never past
+# MAX_BOOST times the standard size, so one face does not dwarf the rest.
+# Whatever gap remains is closed by feathering the cut edge into the tile
+# over FEATHER_FRAC of its height, rather than leaving a hard line.
+MAX_BOOST = 1.30
+FLOAT_BELOW = 0.94    # subject bottom above this fraction of the tile = floating
+FEATHER_FRAC = 0.10
 
 FACE_CASCADE = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 PROFILE_CASCADE = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_profileface.xml')
@@ -72,53 +103,45 @@ def find_face(img):
 
     return None
 
-UPLOADS = '/mnt/user-data/uploads/'
-OUT = 'remotive/assets/team/'
+HERE = os.path.dirname(os.path.abspath(__file__))
+UPLOADS = os.environ.get('PORTRAIT_SOURCES', '/mnt/user-data/uploads/')
+OUT = os.path.join(HERE, '..', 'assets', 'team') + os.sep
 
 # Each entry is a generous starting crop: centre x, top, and height, all as
 # fractions of the source image. It only has to contain the subject with room
 # to spare; the measured geometry decides the final frame.
 PEOPLE = {
-    'gordan':     ('1704438368189.jpg', 0.40, 0.00, 1.00),
-    'gordan-alt': ('Untitled_design_-_2023-02-02T154126_752.webp', 0.52, 0.00, 1.00),
-    'elfie':      ('DSC07027.JPG', 0.46, 0.22, 0.60),
-    'elfie-alt':  ('DSC07025.JPG', 0.52, 0.18, 0.60),
-    'alif':       ('DSC07036.JPG', 0.47, 0.48, 0.52),
-    'alif-alt':   ('DSC07035.JPG', 0.49, 0.48, 0.52),
-    'jazlan':     ('DSC07029.JPG', 0.50, 0.36, 0.52),
-    # DSC07031 puts the shop sign beside him and DSC07033 leaves the face
-    # undetectable behind sunglasses and a raised chin, so the crop had to be
-    # inferred and came out leaning and pushed to one edge.
-    # Chin raised, hands clasped, standing square to the camera like his
-    # base frame. The window sits left of the subject on purpose: further
-    # right and the shop sign enters the frame, which the cut-out then
-    # treats as part of him.
-    'jazlan-alt': ('DSC07030.JPG', 0.44, 0.30, 0.46),
-    'nabil':      ('DSC07018.JPG', 0.47, 0.28, 0.60),
-        # Kept tight: a taller window pulls in the shop sign beside him, which
-    # the cut-out then treats as the subject.
-    'nabil-alt':  ('DSC07017.JPG', 0.44, 0.30, 0.42),
+    'gordan': ('1704438368189.jpg', 0.40, 0.00, 1.00),
+    'elfie':  ('mohd-elfie-nieshaem-juferi.jpg', 0.50, 0.00, 1.00),
+    'alif':   ('DSC07036.JPG', 0.47, 0.48, 0.52),
+    'jazlan': ('DSC07029.JPG', 0.50, 0.36, 0.52),
+    'nabil':  ('DSC07018.JPG', 0.47, 0.28, 0.60),
+    'ally':   ('ally-foo.jpg', 0.50, 0.00, 1.00),
+    'jay':    ('Jay.png', 0.50, 0.00, 1.00),
+    'louie':  ('Louie.png', 0.50, 0.00, 1.00),
+    'freya':  ('Freya.png', 0.52, 0.00, 1.00),
 }
 
 # Rotation applied before anything else, to level the eye line where the
 # source leans. Degrees counter-clockwise.
-ROTATE = {'elfie': 7, 'elfie-alt': 5}
+ROTATE = {}
 
-# Frames the general rule cannot serve, handled explicitly rather than by
-# bending the rule for everyone.
-#
-# gordan-alt's only source is a low-resolution landscape headshot with
-# nothing below the chest. Framed to the set's face size it floats with a
-# cut edge under the shoulders, so it is scaled to fill the tile instead
-# and its face reads larger than the rest. 'nudge' moves the subject left
-# as a fraction of the frame, because filling the tile puts him off centre.
-SPECIAL = {
-    'gordan-alt': {'mode': 'fill', 'nudge': 0.10},
-}
-
+# People whose photo stops short of the tile's bottom edge AND ends in plain
+# fabric: the garment is continued straight down instead of being feathered
+# out. Opt-in on purpose. Mirroring is right for an unpatterned shirt and wrong
+# for anything else (skin, straps, a logo, a visible hem), which is why this
+# is a list and not automatic. `--extend` adds a slug for one run.
+EXTEND = {'jay'}
+# Close-ups that cannot be shrunk to the set's face size without the torso ending
+# in straight edges inside the tile: filled from the photograph instead (see
+# cover_tile()). Ally's is a close selfie; the standard framing left a small
+# bust floating mid-tile.
+COVER = {'ally'}
+EXTEND_MAX_FRAC = 0.16   # never invent more than this fraction of the tile's height
 
 def load(name):
-    return ImageOps.exif_transpose(Image.open(UPLOADS + name)).convert('RGB')
+    path = name if os.path.isabs(name) or os.path.exists(name) else os.path.join(UPLOADS, name)
+    return ImageOps.exif_transpose(Image.open(path)).convert('RGB')
 
 
 def rough_crop(im, cx, top, h):
@@ -176,41 +199,19 @@ def build(slug, source, cx, top, h):
         alpha_matting_erode_size=12,
     )
 
+    if slug in COVER:
+        return cover_tile(cut)
+
     head_top, head_cx, head_w = measure(cut)
 
     # Scale from the face where one is found, and from head width only as a
     # fallback, calibrated by the ratio the faces themselves establish.
     face = find_face(cut)
-    person = slug.split('-')[0]
-    special = SPECIAL.get(slug)
-
-    if special and special.get('mode') == 'fill':
-        rows_v = np.where((np.array(cut)[:, :, 3] > 30).sum(axis=1) > 3)[0]
-        scale = (TILE_H * 0.999) / (rows_v.max() - rows_v.min())
-        cols_h = np.where((np.array(cut)[:, :, 3] > 30).sum(axis=0) > 3)[0]
-        win_w = TILE_W / scale
-        x0 = (cols_h.min() + cols_h.max()) / 2 - win_w / 2 + win_w * special.get('nudge', 0)
-        canvas = Image.new('RGBA', (int(round(win_w)), int(round(TILE_H / scale))), (0, 0, 0, 0))
-        canvas.paste(cut, (int(round(-x0)), int(round(-rows_v.min()))))
-
-        return canvas.resize((TILE_W, TILE_H), Image.LANCZOS)
-
     if face:
         fx, fy, fw, fh = face
         scale = (TILE_H * FACE_H_FRAC) / fh
         anchor_x = fx + fw / 2
         anchor_y = fy + 0.42 * fh          # eye line within a face box
-        anchor_frac = EYE_Y_FRAC
-        RATIO[person] = fh / head_w        # this person's face-to-head ratio
-    elif person in RATIO:
-        # Sunglasses and a raised chin defeat the cascade, which is exactly
-        # the sort of frame a hover state uses. The same person's other
-        # photograph gives the ratio between their head width and their face
-        # height, so the face can be sized without being seen.
-        implied_face = head_w * RATIO[person]
-        scale = (TILE_H * FACE_H_FRAC) / implied_face
-        anchor_x = head_cx
-        anchor_y = head_top + implied_face * 0.62
         anchor_frac = EYE_Y_FRAC
     else:
         scale = (TILE_W * 0.46) / head_w
@@ -229,6 +230,15 @@ def build(slug, source, cx, top, h):
 
     if fit_scale < scale:
         scale = fit_scale
+
+    # Short source: grow the person until the cut reaches the bottom edge,
+    # within MAX_BOOST. Shoulders still win over face size, as above.
+    rows_all = np.where((alpha > 30).sum(axis=1) > 3)[0]
+    bottom_frac = anchor_frac + (rows_all.max() - anchor_y) * scale / TILE_H
+
+    if bottom_frac < FLOAT_BELOW:
+        needed = (1 - anchor_frac) * TILE_H / max(1, rows_all.max() - anchor_y)
+        scale = min(scale * MAX_BOOST, max(scale, needed), fit_scale)
 
     # Two or three passes: render at the current scale, measure the result
     # against the fixed band, and correct. It converges immediately because
@@ -259,23 +269,213 @@ def build(slug, source, cx, top, h):
         canvas.paste(cut, (int(round(-x0)), int(round(-y0))))
         tile = canvas.resize((TILE_W, TILE_H), Image.LANCZOS)
 
-    return tile
+    return extend_bottom(tile) if slug in EXTEND else feather_bottom(tile)
 
 
-RATIO = {}
+def cover_tile(cut):
+    """Fill the tile from the photograph itself, like CSS `background-size: cover`.
+
+    For a tight head-and-chest shot. Shrinking one to the set's face size
+    leaves the torso ending in straight vertical and horizontal edges where the
+    photograph did, floating inside the tile; nothing can honestly continue a
+    shoulder that was never captured. So the largest window of the tile's 4:5
+    shape that fits INSIDE the photo is used (no empty margins, nothing to
+    hide), placed so the crown sits HEAD_TOP_FRAC below the top edge. The price
+    is honest and visible: the face reads larger than the rest of the set.
+    """
+    W, H = cut.size
+    ww = min(W, int(H * 0.8))
+    wh = int(round(ww / 0.8))
+
+    alpha = np.array(cut)[:, :, 3]
+    rows = np.where((alpha > 30).sum(axis=1) > 3)[0]
+    head_top = int(rows.min())
+
+    face = find_face(cut)
+    cx = face[0] + face[2] / 2 if face else measure(cut)[1]
+
+    x0 = int(round(min(max(cx - ww / 2, 0), W - ww)))
+    y0 = int(round(min(max(head_top - HEAD_TOP_FRAC * wh, 0), H - wh)))
+
+    return cut.crop((x0, y0, x0 + ww, y0 + wh)).resize((TILE_W, TILE_H), Image.LANCZOS)
+
+
+def extend_bottom(tile):
+    """Continue a plain garment straight down to the tile's bottom edge.
+
+    A source that stops at the chest leaves the cut-out ending mid-tile. For a
+    plain shirt the honest, natural fix is to carry the fabric on, which is
+    what the rest of the garment does in life. The real pixels just above the
+    join are mirrored downward, so the weave and folds continue without a
+    seam (a flat colour fill draws a visible line: it has no grain), while the
+    silhouette's sides continue straight down from the last solid row.
+
+    Returns the tile untouched if it already reaches the bottom, and falls back
+    to feathering if the gap is larger than EXTEND_MAX_FRAC, because mirroring
+    further than that starts reaching up past the chest into the neckline.
+    """
+    arr = np.array(tile)
+    alpha = arr[:, :, 3]
+    rows = np.where((alpha > 30).sum(axis=1) > 3)[0]
+    bottom = int(rows.max())
+    need = TILE_H - (bottom + 1)
+
+    if need <= 0:
+        return tile
+
+    if need > TILE_H * EXTEND_MAX_FRAC:
+        return feather_bottom(tile)
+
+    solid = bottom - 3                      # last row that is reliably solid, not the soft matte edge
+    mask = alpha[solid] > 128               # the silhouette continues straight down from here
+    width = arr.shape[1]
+    out = arr.copy()
+
+    for i in range(need):
+        src = solid - 2 - i                 # mirror the real fabric above the join
+        row = arr[src].copy()
+        valid = arr[src, :, 3] > 128
+
+        # Where the mirrored row is background but the silhouette continues,
+        # borrow the nearest real fabric pixel in that row.
+        if not valid.all() and valid.any():
+            idx = np.where(valid)[0]
+            nearest = idx[np.abs(np.arange(width)[:, None] - idx[None, :]).argmin(axis=1)]
+            row[~valid] = row[nearest[~valid]]
+
+        row[:, 3] = np.where(mask, 255, 0)
+        out[bottom + 1 + i] = row
+
+    # The matte's soft edge just above the join would show as a faint line.
+    for y in range(solid + 1, bottom + 1):
+        out[y, :, 3] = np.where(mask, 255, 0)
+        out[y, :, :3] = np.where(mask[:, None], out[y, :, :3], 0)
+
+    return Image.fromarray(out, 'RGBA')
+
+
+def feather_bottom(tile):
+    """Dissolve a cut edge that stops short of the tile's bottom.
+
+    Only acts on a floating edge; a subject that runs off the bottom of the
+    tile is returned untouched, so the normal portraits are byte-for-byte
+    what they were.
+    """
+    arr = np.array(tile)
+    rows = np.where((arr[:, :, 3] > 30).sum(axis=1) > 3)[0]
+    bottom = int(rows.max())
+
+    if bottom >= TILE_H * 0.985:
+        return tile
+
+    span = int(TILE_H * FEATHER_FRAC)
+    y0 = max(0, bottom - span)
+    ramp = np.linspace(1.0, 0.0, bottom - y0 + 1) ** 1.5   # ease, not a straight line
+    alpha = arr[:, :, 3].astype(np.float32)
+    alpha[y0:bottom + 1, :] *= ramp[:, None]
+    alpha[bottom + 1:, :] = 0
+    arr[:, :, 3] = alpha.astype(np.uint8)
+
+    return Image.fromarray(arr, 'RGBA')
+
+
+def report(slug, tile):
+    """One line of geometry, and whether any shoulder is clipped."""
+    a = np.array(tile)[:, :, 3]
+    cols = np.where((a > 30).sum(axis=0) > 3)[0]
+    rows = np.where((a > 30).sum(axis=1) > 3)[0]
+    face = find_face(tile)
+    fh = face[3] / TILE_H * 100 if face else 0
+    clipped = 'CLIPPED' if cols.min() < 4 or cols.max() > TILE_W - 4 else 'clear'
+    print(f'{slug:11} faceH={fh:5.1f}%  sides={cols.min()/TILE_W*100:4.1f}%..'
+          f'{cols.max()/TILE_W*100:5.1f}%  bottom={rows.max()/TILE_H*100:5.1f}%  {clipped}')
+    return fh
+
+
+def save(slug, tile):
+    """Write <slug>.avif, replacing any previous portrait, and delete leftovers.
+
+    Overwriting is the deletion of the old photograph. Anything else that
+    belongs to the same person and is no longer used goes too: the retired
+    rollover frame, and stale files of the same slug in another format.
+    """
+    os.makedirs(OUT, exist_ok=True)
+    target = os.path.join(OUT, slug + '.avif')
+    replaced = os.path.exists(target)
+    tile.save(target, quality=70)
+    print(('replaced ' if replaced else 'created  ') + os.path.relpath(target, HERE))
+
+    for leftover in (slug + '-alt.avif', slug + '.png', slug + '.jpg', slug + '.jpeg', slug + '.webp'):
+        path = os.path.join(OUT, leftover)
+
+        if os.path.exists(path):
+            os.remove(path)
+            print('deleted  ' + os.path.relpath(path, HERE))
+
+
+def check():
+    for name in sorted(f for f in os.listdir(OUT) if f.endswith('.avif')):
+        report(name[:-5], Image.open(os.path.join(OUT, name)).convert('RGBA'))
+
 
 if __name__ == '__main__':
+    ap = argparse.ArgumentParser(description='Build team portraits to one shared framing.')
+    ap.add_argument('--replace', nargs=2, metavar=('SLUG', 'PHOTO'), help='rebuild one portrait from a new photo')
+    ap.add_argument('--check', action='store_true', help='report geometry of the shipped portraits and exit')
+    ap.add_argument('--cx', type=float, default=None, help='--replace: rough crop centre x, fraction of the photo')
+    ap.add_argument('--top', type=float, default=None, help='--replace: rough crop top, fraction of the photo')
+    ap.add_argument('--h', type=float, default=None, help='--replace: rough crop height, fraction of the photo')
+    ap.add_argument('--cover', action='store_true', help='--replace: fill the tile from the photo itself, for a close-up that cannot be shrunk to the set\'s face size')
+    ap.add_argument('--extend', action='store_true', help='--replace: continue a plain garment down to the bottom edge instead of feathering it')
+    ap.add_argument('--rotate', type=float, default=0.0, help='--replace: level a leaning eye line (degrees CCW)')
+    args = ap.parse_args()
+
+    if args.check:
+        check()
+        sys.exit(0)
+
     SESSION = new_session('u2net')
 
-    for slug, (source, cx, top, h) in sorted(PEOPLE.items(), key=lambda kv: ('-alt' in kv[0], kv[0])):
-        out = build(slug, source, cx, top, h)
-        out.save(OUT + slug + '.avif', quality=70)
+    if args.replace:
+        slug, photo = args.replace
+        slug = ''.join(c for c in slug.lower() if c.isalnum() or c == '-')
+        # Framing, rotation and the EXTEND / COVER choices describe one
+        # specific photograph. They carry over only when this is that same
+        # file being rebuilt; a NEW photo of the same person must not inherit
+        # them (a rotation that levelled a leaning pose would tilt a straight
+        # one). Explicit flags always win.
+        known = PEOPLE.get(slug)
+        same = bool(known) and os.path.basename(photo) == known[0]
 
-        a = np.array(out)[:, :, 3]
-        cols = np.where((a > 30).sum(axis=0) > 3)[0]
-        rows = np.where((a > 30).sum(axis=1) > 3)[0]
-        face = find_face(out)
-        fh = face[3] / TILE_H * 100 if face else 0
-        clipped = 'CLIPPED' if cols.min() < 4 or cols.max() > TILE_W - 4 else 'clear'
-        print(f'{slug:11} faceH={fh:5.1f}%  sides={cols.min()/TILE_W*100:4.1f}%..'
-              f'{cols.max()/TILE_W*100:5.1f}%  bottom={rows.max()/TILE_H*100:5.1f}%  {clipped}')
+        if not same:
+            ROTATE.pop(slug, None)
+            EXTEND.discard(slug)
+            COVER.discard(slug)
+
+        if args.rotate:
+            ROTATE[slug] = args.rotate
+
+        if args.extend:
+            EXTEND.add(slug)
+
+        if args.cover:
+            COVER.add(slug)
+
+        cx = known[1] if same and args.cx is None else (0.50 if args.cx is None else args.cx)
+        top = known[2] if same and args.top is None else (0.00 if args.top is None else args.top)
+        h = known[3] if same and args.h is None else (1.00 if args.h is None else args.h)
+        tile = build(slug, photo, cx, top, h)
+        save(slug, tile)
+        report(slug, tile)
+        sys.exit(0)
+
+    for slug, (source, cx, top, h) in sorted(PEOPLE.items()):
+        path = source if os.path.isabs(source) else os.path.join(UPLOADS, source)
+
+        if not os.path.exists(path):
+            print(f'skipped  {slug}: source {source} not found in {UPLOADS}')
+            continue
+
+        tile = build(slug, source, cx, top, h)
+        save(slug, tile)
+        report(slug, tile)
