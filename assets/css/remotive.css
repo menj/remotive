@@ -2956,3 +2956,114 @@ body.rm-motion .rm-ticker-band{ overflow:hidden; }
 @media (prefers-reduced-motion:reduce){
   .rm-cs-filter{ transition:none !important; }
 }
+
+
+/* =============================================================
+   Rounded corners (v1.93.0)
+   One set of radii for the whole site: pill for buttons and chips, 16px for
+   cards and images, 10px for form fields. Full-bleed bands (nav, CTA bands,
+   stats band, footer) stay edge to edge.
+   ============================================================= */
+:root{
+  --rm-r-sm:10px;
+  --rm-r:16px;
+  --rm-r-lg:24px;
+  --rm-r-pill:999px;
+}
+
+/* Buttons and chips. */
+.wp-block-button__link,
+.wp-element-button,
+.rm-cta__form button,
+.rm-cta__form .wp-block-button__link,
+.rm-nav__cta a,
+.rm-nav__cta .wp-block-button__link,
+.rm-contact-form__submit,
+.rm-cs-filter,
+.rm-pagination .wp-block-query-pagination-numbers a,
+.rm-pagination .wp-block-query-pagination-numbers span,
+.rm-pagination .wp-block-query-pagination-previous,
+.rm-pagination .wp-block-query-pagination-next{
+  border-radius:var(--rm-r-pill) !important;
+}
+
+/* Buttons never carry an underline, in any state. */
+.wp-block-button__link,
+.wp-element-button,
+.rm-cta__form button,
+.rm-nav__cta a,
+.rm-contact-form__submit,
+.rm-cs-filter,
+.entry-content .wp-block-button__link,
+.wp-block-post-content .wp-block-button__link{
+  text-decoration:none !important;
+}
+.wp-block-button__link:hover,
+.wp-block-button__link:focus,
+.wp-block-button__link:focus-visible,
+.wp-block-button__link:active,
+.wp-element-button:hover,
+.wp-element-button:focus,
+.wp-element-button:focus-visible,
+.wp-element-button:active,
+.rm-nav__cta a:hover,
+.rm-nav__cta a:focus-visible{
+  text-decoration:none !important;
+}
+
+/* Cards and panels. */
+.rm-block,
+.rm-cs-card,
+.rm-post-card,
+.rm-stat,
+.rm-plate,
+.rm-feature,
+.rm-step,
+.rm-value,
+.rm-sidebar__card,
+.rm-team__tile,
+.wp-block-details,
+.rm-lightbox__stage{
+  border-radius:var(--rm-r);
+}
+.rm-cs-card,
+.rm-post-card,
+.rm-block,
+.rm-team__tile{ overflow:hidden; }
+
+/* Images. */
+.wp-block-image img,
+.wp-block-post-featured-image img,
+.rm-cs-card img,
+.rm-post-card img,
+.rm-gallery img{
+  border-radius:var(--rm-r);
+}
+.rm-cs-card img,
+.rm-post-card img{ border-radius:0; }
+
+/* Form fields. */
+.rm-contact-form input,
+.rm-contact-form textarea,
+.rm-contact-form select,
+.rm-about-form__row input,
+.rm-about-form__row textarea,
+.wp-block-search__input{
+  border-radius:var(--rm-r-sm);
+}
+.rm-cta__form input[type="email"]{ border-radius:var(--rm-r-pill); padding-inline:1.2rem; }
+
+/* CTA links carry no underline either: the animated rule under "View case
+   study" and the other section links is removed. They keep the arrow, the
+   uppercase bold type and the colour change on hover. */
+.rm-section-link a::after,
+.rm-row__link a::after,
+.rm-cs-card__link::after{
+  content:none !important;
+  display:none !important;
+}
+.rm-section-link a,
+.rm-row__link a,
+.rm-cs-card__link{
+  padding-bottom:.5rem;
+}
