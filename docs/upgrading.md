@@ -1,14 +1,17 @@
 # Upgrading — roadmap & future plans
 
 This is **not** a version-upgrade guide (there are no breaking changes to
-migrate yet — see `changelog.md` for what actually shipped). This is a
+migrate yet — see `docs/changelog.md` for what actually shipped). This is a
 running list of planned work, ideas, and known gaps, roughly ordered by
 what would matter most to fix or build next. Nothing here is scheduled or
 committed; it's a backlog for whoever picks this theme up next.
 
-## Deploying the ad landing pages (v1.90.0 – v1.92.0)
+## Deploying v1.90.0 – v1.97.0 (landing pages, colours, form tokens)
 
-Do these once after the release reaches the site:
+Do these once after the release reaches the site. None of it has run on a live
+WordPress site yet; this list is how to find out.
+
+**Landing pages**
 
 - **Pretty permalinks must be on** (Settings → Permalinks, not "Plain"); the
   `/ms/`, `/zh-cn/` and `/zh-tw/` paths are rewrite rules.
@@ -18,14 +21,99 @@ Do these once after the release reaches the site:
 - **Open each URL once** (4 pages × 4 languages) and confirm none is a 404.
 - Submit a test form; check the stored lead (service and campaign lines),
   the notification email, the `/audit-requested/` redirect and the
-  `remotive_lead` event in the tag manager.
-- Paste the Pexels key under Theme Options → Integrations if image sourcing
-  from the live site is wanted; nothing on the front end needs it.
+  `remotive_lead` event (with `service` and `language`) in the tag manager.
+- Confirm the pages carry `noindex, nofollow` and are absent from the sitemap
+  and the site search, and that `robots.txt` does not block them.
+
+**Form security tokens (v1.94.0)**
+
+- Load a form page, wait, and confirm the hidden `*_nonce` field changes value:
+  the page asked `admin-ajax.php?action=remotive_form_nonces` and swapped in a
+  fresh one. Then confirm that request is **not cached** by the host, CDN or
+  caching plugin (it must reach PHP every time); if it is cached, exclude it.
+- With a page cache on, submit a form from a page that has been cached for more
+  than a day. It should succeed.
+
+**Colours, design and admin**
+
+- Open Theme Options → Colours. Change one colour in each mode, save, and check
+  the front end follows; try a low-contrast pair and confirm the warning.
+- Visual pass over the rounded design on the live site, especially the
+  PHP-generated components (stats band, feature grids, team), which were covered
+  by class name but not rendered in testing. Check the header logo plate and the
+  cyan and magenta call-to-action bands in dark mode.
+- Paste the Pexels key under Theme Options → Integrations if wanted; nothing on
+  the front end needs it. It was shared in chat once, so rotate it first.
+
+**People**
+
 - Have native speakers review the Malay and both Chinese versions before paid
   traffic is pointed at them. Add approved client results to the pages: real
   proof is the biggest conversion lever still missing.
-- A site that saved its own country-ticker list keeps it; add Vietnam there
-  by hand.
+- A site that saved its own country-ticker list keeps it; add Vietnam by hand.
+- The first pull request that runs `.github/workflows/ci.yml` after a change to
+  it should be watched, because the workflow itself is the thing under test.
+
+## Shipped v1.90.0 – v1.97.0
+
+Moved here from the backlog as it was done, so the reasoning survives.
+Details are in `docs/changelog.md`.
+
+- **Ad landing pages** (v1.90.0 – v1.92.0): three services, four languages,
+  own URLs, hreflang, FAQPage schema, a localised confirmation page, noindex.
+- **Photography and layout** (v1.91.0): Pexels photos, six-market tiles,
+  responsive pass from 320 to 1920 px.
+- **Conversion copy** (v1.91.2) in all four languages.
+- **Maintenance mode** (v1.90.0) and the **Pexels key** field (v1.91.0).
+- **Dark-mode contrast fix** on the cyan and magenta CTA bands, and the header
+  logo plate (v1.92.0).
+- **Rounded design and no CTA underlines** (v1.93.0).
+- **Review fixes** (v1.94.0): form tokens refreshed on page load, per-form rate
+  limit, no landing-page style flash, an object-injection risk removed, CI,
+  landing copy split out, `.pot` regenerated.
+- **Colours tab** (v1.95.0): the palette per mode with a live contrast check;
+  palette names by role.
+- **Housekeeping** (v1.96.0 – v1.97.0): case-study gradients to classes, the
+  deliberately-left items documented, documentation brought current, and the
+  repository root reduced to the files WordPress needs (documents moved to
+  `docs/`).
+
+### Still open from the codebase review
+
+- **315 `!important` rules** in `remotive.css`. Most beat WordPress's block and
+  global styles, so they can only be pruned against a real WordPress page.
+  Do it on a staging site with before/after screenshots, one component at a
+  time. A test page without WordPress's CSS shows every removal as harmless.
+- **`remotive.css` is 143 KB (about 40 KB gzipped).** Splitting per template is
+  possible (`blog-and-about.css` is already conditional); measure on the live
+  site first.
+- **The block editor palette does not follow the Colours tab.** `theme.json`
+  keeps the shipped colours, so the editor can differ from the front end after
+  a change. Could be solved by emitting the same variables on
+  `enqueue_block_editor_assets`.
+- **No-JavaScript visitors** get Archivo (the fallback font) and the default
+  mode, because `data-theme` is set by script. Setting it server-side from the
+  saved default would close the gap and make those font files truly optional.
+- **The rate-limit counter is a read-then-write transient.** A simultaneous burst
+  can let one extra enquiry through. An atomic counter needs an object cache.
+- **Tests beyond syntax.** CI checks syntax and landing-copy completeness only.
+  A PHPUnit suite for the sanitisers (`remotive_sanitize_colour_options`, the
+  lead handler) would be the next step.
+
+### Open from the walkthrough feedback (Elfie and Jazlan)
+
+- **Simplify the main site.** The request was one clean page that explains the
+  business in English, Malay and Simplified Chinese, not many pages and
+  scattered content, and the case studies were drawing criticism. The landing
+  pages answer the "point people in Asia to one page" part; deciding which of
+  the other pages and the case studies to retire is the Monday walkthrough.
+- **Six markets are named on the landing pages and the ticker default, but
+  structured data `areaServed` is still Singapore and Malaysia**, and the FAQ
+  page lists a wider set. Decide the canonical list and make them agree
+  (`docs/ssot.md` → Deviations).
+- **Per-service content depth.** The three landing pages share steps, trust
+  line and form wording; give each its own sections (deliverables, a proof
+  line) once approved client results exist.
 
 ## Shipped since this file was last revised (v1.66.6 – v1.69.2)
 
@@ -57,12 +145,12 @@ Server-level, unchanged by any theme release:
 
 ### Documentation debt cleared
 
-`readme.md`, `readme.txt` and `ssot.md` had drifted roughly three days
+`readme.md`, `readme.txt` and `docs/ssot.md` had drifted roughly three days
 behind the code by v1.69.2 — none of the ticker, CTA, security, error
 handling or motion work appeared in any of them. Brought current in the
 same release. Worth a standing check: **if a release adds a Theme Options
 field or an `inc/` file, it is not finished until `readme.md`'s file map,
-`readme.txt`'s FAQ, and `ssot.md`'s configurable-values list say so.**
+`readme.txt`'s FAQ, and `docs/ssot.md`'s configurable-values list say so.**
 
 ## Near-term (would improve the current build)
 
@@ -248,7 +336,7 @@ field or an `inc/` file, it is not finished until `readme.md`'s file map,
 ## Explicitly out of scope for now
 
 - General-purpose reusability. This theme is intentionally single-site
-  (see `ssot.md`) — no plans to genericize it into a distributable product.
+  (see `docs/ssot.md`) — no plans to genericize it into a distributable product.
 - Automated testing. Given the theme's small, single-purpose surface area,
   manual QA has been judged sufficient so far; revisit if the codebase grows
   past a single homepage template.

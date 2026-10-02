@@ -4,6 +4,14 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.97.0] — 2026-10-02
+
+### Changed
+
+- **Theme root reduced to six files.** `changelog.md`, `ssot.md`, `upgrading.md` and `resources.md` moved into `docs/` (with `git mv`, so history follows); `readme.md` and `readme.txt` stay at the root. The root now holds only `style.css`, `theme.json`, `functions.php`, `screenshot.png`, `readme.txt` and `readme.md`; everything else is in a folder. Nothing loads these documents at runtime, so no code changed beyond comments and one admin hint string (Theme Options now points at `docs/ssot.md` and `readme.md`; `languages/remotive.pot` updated to match). References to the moved files in the other documents and in code comments were rewritten to the `docs/` paths. Entries in this changelog keep the names they were written with, because the files were at the root then.
+- **Version check in CI** (`tests/check-versions.php`): fails a pull request if `style.css`, `readme.txt` (Stable tag and Latest version) and the newest changelog entry disagree. `readme.txt` had been left at 1.94.0 while the theme moved to 1.97.0; it now matches.
+- **Documentation brought current.** `docs/ssot.md` (the landing pages as a section of canonical facts; a security record for the lead-form and landing-page changes; light-mode token names; the colour scheme being configurable; the CTA-band text deviation for dark mode; the new rounded, no-underline, photography and six-market deviations; versioning rules including CI; the document map) and `docs/upgrading.md` (a full deploy checklist for v1.90.0 – v1.97.0, what shipped, and what is still open from the codebase review and the walkthrough feedback).
+
 ## [1.96.0] — 2026-10-02
 
 ### Changed

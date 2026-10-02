@@ -25,4 +25,4 @@ closing-CTA copy ("Stop guessing where your growth is going to come
 from." / "Run a Market Diagnostic") are taken directly from the draft
 with no changes.
 
-See `changelog.md` [1.80.0] for the full list of code changes.
+See `docs/changelog.md` [1.80.0] for the full list of code changes.

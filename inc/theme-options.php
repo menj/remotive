@@ -1198,7 +1198,7 @@ function remotive_render_theme_options_page() {
 		<?php endif; ?>
 
 		<div class="rm-admin__footer">
-			<span><?php esc_html_e( 'See ssot.md and readme.md in the theme folder for full documentation.', 'remotive' ); ?></span>
+			<span><?php esc_html_e( 'See docs/ssot.md and readme.md in the theme folder for full documentation.', 'remotive' ); ?></span>
 			<a href="https://menj.blog" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Built by MENJ', 'remotive' ); ?></a>
 		</div>
 
@@ -1877,7 +1877,7 @@ add_action( 'wp_enqueue_scripts', 'remotive_inline_theme_option_data', 21 );
  * visitor whose saved choice differs from the server-rendered default
  * mode sees one frame of the *wrong* mode before the footer script runs
  * and corrects it — a real, visible flash, previously documented in
- * upgrading.md as a known trade-off rather than fixed.
+ * docs/upgrading.md as a known trade-off rather than fixed.
  *
  * The actual fix has to run before first paint, which means a small
  * inline <script> directly in <head> — there's no way to defer this to

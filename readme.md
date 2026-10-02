@@ -4,8 +4,8 @@ Child theme of **Twenty Twenty-Five**, built for `remotivemedia.asia`. This
 document is for developers, theme maintainers, and hosting/sysadmins. For a
 plain-language overview, see `readme.txt`. For canonical brand/entity facts
 that this theme (and any other Remotive collateral) must stay consistent
-with, see `ssot.md`. For version history, see `changelog.md`. For planned
-work, see `upgrading.md`.
+with, see `docs/ssot.md`. For version history, see `docs/changelog.md`. For planned
+work, see `docs/upgrading.md`.
 
 ## Requirements
 
@@ -20,6 +20,12 @@ No build step, no npm/composer dependency at runtime. Fonts are pre-built
 static `.woff2` files already committed to `assets/fonts/`.
 
 ## File map
+
+**Root rule (v1.97.0).** The theme root holds only what WordPress needs or
+expects there, plus the two readmes: `style.css`, `theme.json`, `functions.php`,
+`screenshot.png`, `readme.txt` (the WordPress readme) and `readme.md` (this
+file). Every other document lives in `docs/`, code in `inc/`, and everything else
+in its own folder. A new document goes in `docs/`, not the root.
 
 ```
 remotive/
@@ -44,8 +50,19 @@ remotive/
 │                           enqueues scripts, adds preload/resource hints;
 │                           explicit theme supports + textdomain loading;
 │                           one-time logo/favicon bootstrap on activation.
-├── resources.md            Consolidated license/copyright record for the
-│                           theme and every bundled font/image.
+├── readme.txt              WordPress-style readme (stable tag, FAQ, upgrade
+│                           notice).
+├── readme.md               This file: architecture, file map, gotchas.
+├── docs/                   Every other document: ssot.md, changelog.md, upgrading.md, resources.md
+│                           (licences), image-credits.md, accessibility.md,
+│                           cache-headers.md, htaccess-cache.txt, the legal
+│                           drafts and the homepage brief.
+├── drop-ins/               maintenance.php, db-error.php, php-error.php —
+│                           copied to wp-content/ automatically.
+├── tests/                  check-landing-copy.php (also run in CI).
+├── tools/                  normalise-portraits.py (portrait processing).
+├── .github/workflows/      ci.yml — syntax, theme.json and copy checks on
+│                           every pull request.
 ├── languages/
 │   ├── remotive.pot         411 translatable strings, extracted by script
 │   │                       from every __()/_e()/esc_html__() call in
@@ -255,14 +272,14 @@ Legal, Contact, generic `page.html`). A few things worth knowing:
   `assets/js/lightbox.js` currently copies each tile's CSS gradient into
   the preview stage; once real images replace the tiles, that needs to
   change to read an actual image URL instead (commented inline in the
-  file, and tracked in `upgrading.md`).
+  file, and tracked in `docs/upgrading.md`).
 - **The Legal page template (`page-legal.html`) doesn't contain any
   actual legal text** — that's deliberate. It provides the chrome (title,
   a live "last updated" date pulled from the page's own post date,
   readable typography for long-form content) and expects the admin to
   write the real Privacy Policy / Terms content in the block editor.
 - **The lightbox was built from scratch**, not adapted from any
-  reference template — see `resources.md` for why, and the "Security"-
+  reference template — see `docs/resources.md` for why, and the "Security"-
   adjacent reasoning doesn't apply here, but the same "verify, don't
   assume" discipline does: the focus trap, arrow-key navigation, and
   focus-return-on-close were all confirmed with an automated test during
@@ -324,7 +341,7 @@ browser lifetime (normally one year plus `immutable`), set a deliberate policy
 for media-library files, and verify plugin/core files in the active cache
 layer. Never add a theme-local `.htaccess` as the supposed fix: it is
 Apache-specific, does not control uploads/core/plugin files, and disappears
-when themes change. The live follow-up is tracked in `upgrading.md`.
+when themes change. The live follow-up is tracked in `docs/upgrading.md`.
 
 ### Print and PDF layout (v1.44.1)
 
@@ -394,10 +411,10 @@ top of what WordPress already generates from `theme.json`
 - **Dark** (default, no `data-theme` attribute needed) — values come
   straight from `theme.json`'s palette/typography. True near-black
   background (`#1a1a2e`), Archivo + Newsreader. Colour values match
-  `remotive-reporting` (see `ssot.md`) as of v1.9.0.
+  `remotive-reporting` (see `docs/ssot.md`) as of v1.9.0.
 - **Light** (`[data-theme="light"]` on `<html>`) — overridden in
   `remotive.css`: Remotive Media Asia's brand palette (from
-  `remotive_brand_5.json` — see `ssot.md`), Saira throughout, cream
+  `remotive_brand_5.json` — see `docs/ssot.md`), Saira throughout, cream
   background (`#f7f4ec`).
 
 Because every block already reads colour/type via `var()`, the override
@@ -452,7 +469,7 @@ sets `backgroundColor:"ink"` or `textColor:"paper"` (or vice versa) will
 silently invert its own colours between modes**, even though nothing
 about that specific block changed. This bit the CTA section and the
 global button style in v1.2.0–v1.3.0 (both fixed in v1.4.0, see
-`changelog.md`) — the CTA band rendered as a light cream stripe, and every
+`docs/changelog.md`) — the CTA band rendered as a light cream stripe, and every
 solid button as a light pill, specifically in dark mode, the site's
 default, which is why it went unnoticed for two releases.
 
@@ -475,7 +492,7 @@ you **must also** add the matching `is-layout-constrained` (or
 `is-layout-flex`/`is-layout-flow`) class directly to that block's opening
 tag — the JSON attribute alone does nothing on the front end. This bit
 every `wp:group`/`wp:columns` block across all three template files
-until fixed in v1.9.1; see `changelog.md` for the full account, including
+until fixed in v1.9.1; see `docs/changelog.md` for the full account, including
 how it went undetected through several earlier rounds of visual QA
 because the hand-built test harness used for those checks never included
 WordPress core's own generated layout CSS in the first place.
@@ -503,7 +520,7 @@ Two more things worth knowing if you touch layout again:
   the exact same "stuck at 740px" bug as the homepage sections this fix
   originally addressed, but wasn't included in the original selector and
   went unnoticed for several releases (fixed in v1.13.1 — see
-  `changelog.md` for the full trace, including why it surfaced as a
+  `docs/changelog.md` for the full trace, including why it surfaced as a
   broken email address in the footer rather than an obviously narrow
   layout). If you add another section that needs the wide measure —
   a new template's hero, a new full-width band — add it to this same
@@ -549,7 +566,7 @@ troubleshooting it.
   covers *any* focus-triggered scroll into view (Tab key or anchor jump,
   with or without an id) so the sticky nav never lands directly on top of
   whatever just received focus. `:where([id]){ scroll-margin-top:100px }`
-  additionally covers fragment-link jumps specifically. See `changelog.md`
+  additionally covers fragment-link jumps specifically. See `docs/changelog.md`
   v1.7.0 for why both exist — the id-based rule alone didn't cover plain
   keyboard tabbing.
 - **Focus ring.** A global two-tone "sandwich" focus style (white outline
@@ -562,7 +579,7 @@ troubleshooting it.
   computed (not estimated) against the actual WCAG relative-luminance
   formula. Two of the client's brand-JSON colours failed as text in light
   mode and were replaced with darkened, same-hue variants that pass — see
-  `ssot.md`'s design tokens table and `changelog.md` v1.7.0 for the exact
+  `docs/ssot.md`'s design tokens table and `docs/changelog.md` v1.7.0 for the exact
   before/after values.
 
 ## Editing menus (v1.33.0)
@@ -632,7 +649,7 @@ them indefinitely.
 ## Structured data (v1.26.0)
 
 `inc/schema-markup.php` emits one JSON-LD `@graph` in `<head>`:
-Organization (legal facts per `ssot.md`, contact facts from Theme
+Organization (legal facts per `docs/ssot.md`, contact facts from Theme
 Options — the same source the rendered footer uses), WebSite with a
 SearchAction, a typed WebPage per template (AboutPage, ContactPage,
 CollectionPage, SearchResultsPage), BlogPosting on single posts,
@@ -707,7 +724,7 @@ handles any type added to it.
 ## Security
 
 Audited against a structured security policy (v1.8.0). Full findings and
-fixes are in `changelog.md`'s v1.8.0 entry and `ssot.md`'s audit record;
+fixes are in `docs/changelog.md`'s v1.8.0 entry and `docs/ssot.md`'s audit record;
 summarized here for anyone extending this code.
 
 - **Sanitize on input, escape on output — both, independently.** Every
@@ -1051,7 +1068,7 @@ the template files and wonder where it went.
 (`__REMOTIVE_KEY__`), no braces or punctuation, so the token string passes
 through `esc_url()` and WordPress's other sanitisation functions completely
 unchanged before the filter ever runs. Curly-brace-style tokens were tried
-first and rejected for this reason — see `changelog.md` v1.3.0.
+first and rejected for this reason — see `docs/changelog.md` v1.3.0.
 
 **Defaults.** `remotive_theme_option_defaults()` in `inc/theme-options.php`
 matches exactly what was hardcoded before this page existed, so installing
@@ -1064,7 +1081,7 @@ case-study rows, the three stats, and all hero/CTA copy remain directly in
 them in the Site Editor), not settings-page material. Only things that are
 either outside the block editor's reach (a `<form>` attribute) or naturally
 site-configuration rather than content (contact details, socials) went into
-Theme Options. See `upgrading.md` for the custom-post-type plan for
+Theme Options. See `docs/upgrading.md` for the custom-post-type plan for
 services/case studies specifically.
 
 **Admin UI.** The settings page doesn't use WordPress's default
@@ -1144,7 +1161,7 @@ files are kept for reference/reuse only). The same
 `__REMOTIVE_SOCIAL_*__` tokens from Theme Options still drive the `href`
 values, via the existing `render_block` token filter — nothing new
 needed there, it already applies to any block's output regardless of
-type. See `resources.md` for licensing — two of the three icons are CC0
+type. See `docs/resources.md` for licensing — two of the three icons are CC0
 (no attribution needed), one (LinkedIn) is CC BY 4.0 and requires the
 visible "Icons by Font Awesome" credit already added next to the
 copyright line — don't remove that credit without removing the icon it
@@ -1170,7 +1187,7 @@ needed during development). If a change affects the first viewport, mirror the
 minimum required declarations in `assets/css/critical.css`; if it affects paper
 output, update `assets/css/print.css` and inspect A4 and Letter Print Preview.
 Remember to bump the theme's own `Version:` in `style.css` for releases, see
-`changelog.md`.
+`docs/changelog.md`.
 
 To validate the block templates after hand-editing them, check that every
 `<!-- wp:X -->` has a matching `<!-- /wp:X -->` (or is self-closing via
@@ -1203,16 +1220,16 @@ sufficient; there's no official CLI linter for hand-authored block HTML.
 
 - The six services and two case-study rows on the homepage are hardcoded in
   `templates/front-page.html`, not backed by a custom post type. See
-  `upgrading.md`.
+  `docs/upgrading.md`.
 - No automated tests. Manual QA against both theme modes recommended after
   any change to `remotive.css` or `theme.json`.
 - WebMCP browser support is experimental and limited. The integration is
   feature-detected, ships no polyfill, and cannot make an unsupported browser
-  expose `document.modelContext`. See `upgrading.md` for the live-validation
+  expose `document.modelContext`. See `docs/upgrading.md` for the live-validation
   checklist and future compatibility work.
 - Static-asset cache headers cannot be guaranteed by the theme. They belong to
   the production origin/cache/CDN and include WordPress core, plugin and upload
-  paths outside this theme; see "Performance delivery" and `upgrading.md`.
+  paths outside this theme; see "Performance delivery" and `docs/upgrading.md`.
 - Internationalized as far as `.pot` extraction reaches: `languages/remotive.pot`
   covers the 34 strings across `inc/theme-options.php`,
   `inc/cta-form-handler.php`, `inc/about-form-handler.php`, and

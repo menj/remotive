@@ -103,7 +103,7 @@ This is the standard, expected split for a theme's bundled assets: the
 licensing; a company's own logo is not required to be GPL and commonly
 isn't — WordPress.org's own theme-review guidelines make this same
 distinction for directory-submitted themes, and this theme isn't
-distributed there anyway (see `ssot.md` — it's built exclusively for
+distributed there anyway (see `docs/ssot.md` — it's built exclusively for
 `remotivemedia.asia`).
 
 ## No other bundled third-party code
@@ -111,7 +111,7 @@ distributed there anyway (see `ssot.md` — it's built exclusively for
 No JavaScript libraries, icon fonts, or other third-party code are
 bundled in this theme. `assets/js/theme-toggle.js`, `assets/js/admin-theme-options.js`,
 `assets/js/lightbox.js`, `assets/js/parallax.js`, and `assets/js/webmcp.js`
-are original, theme-specific code (see `changelog.md` for authorship/version
+are original, theme-specific code (see `docs/changelog.md` for authorship/version
 history). WebMCP is used as a browser API when available; no WebMCP package,
 polyfill, or specification code is bundled.
 The performance and paper-delivery styles in `assets/css/critical.css` and
