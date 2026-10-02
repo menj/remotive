@@ -18,7 +18,7 @@ Twenty Twenty-Five (bundled with WordPress core, GPL-2.0-or-later).
 ## Bundled fonts
 
 All three are Google Fonts, redistributed here as self-hosted `.woff2`
-files (see `docs/readme.md` → "Fonts" for why: no Google Fonts CDN calls at
+files (see `readme.md` → "Fonts" for why: no Google Fonts CDN calls at
 runtime, for GDPR compliance). All are licensed under the SIL Open Font
 License 1.1 (https://openfontlicense.org/), which explicitly permits
 bundling and redistribution, including inside a commercial theme, with

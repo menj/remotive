@@ -1198,7 +1198,7 @@ function remotive_render_theme_options_page() {
 		<?php endif; ?>
 
 		<div class="rm-admin__footer">
-			<span><?php esc_html_e( 'See docs/ssot.md and docs/readme.md in the theme folder for full documentation.', 'remotive' ); ?></span>
+			<span><?php esc_html_e( 'See docs/ssot.md and readme.md in the theme folder for full documentation.', 'remotive' ); ?></span>
 			<a href="https://menj.blog" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Built by MENJ', 'remotive' ); ?></a>
 		</div>
 
@@ -1785,7 +1785,7 @@ function remotive_replace_theme_option_tokens( $block_content, $block ) {
 			'__REMOTIVE_CONTACT_FORM_ACTION__' => esc_url( admin_url( 'admin-post.php' ) ),
 			// wp_nonce_field() with $echo=false returns the HTML string
 			// instead of printing it — needed here since block templates
-			// can't run PHP directly (see docs/readme.md's "Theme Options"
+			// can't run PHP directly (see readme.md's "Theme Options"
 			// section for why this token-substitution mechanism exists
 			// at all). Safe to compute once per request: nonces are
 			// deterministic per user+action+time-window, not random per

@@ -2,7 +2,7 @@
 
 This is the canonical reference for facts about this theme, the brand it
 implements, and the legal entity behind it. If any other document (readme.txt,
-docs/readme.md, a slide deck, a client-facing brief) ever conflicts with what's
+readme.md, a slide deck, a client-facing brief) ever conflicts with what's
 written here, **this file is correct and the other document is out of date.**
 
 Last verified: theme v1.79.1.
@@ -39,7 +39,7 @@ If these domains diverge further in the future (e.g. email migrates to
 ## Design tokens
 
 Two modes, both defined in `theme.json` (dark, the baseline) and
-`assets/css/remotive.css` (light, an override — see `docs/readme.md` for the
+`assets/css/remotive.css` (light, an override — see `readme.md` for the
 mechanism). Source of truth for each hex value:
 
 ### Dark mode — "Registration" (CMYK direction, default)
@@ -127,7 +127,7 @@ Appearance → Theme Options, with defaults matching the values in this
 document.
 
 **Tabs added since v1.79.1.** Colours (v1.95.0, the palette per mode with a
-contrast check; see `docs/readme.md`), Integrations (v1.91.0, holds the Pexels API
+contrast check; see `readme.md`), Integrations (v1.91.0, holds the Pexels API
 key) and a maintenance-mode switch under Site behaviour (v1.88.0). The ticker
 default now lists six markets (Singapore, Malaysia, Thailand, Vietnam, Hong
 Kong, China); a site that has saved its own ticker list keeps it.
@@ -169,7 +169,7 @@ both when the underlying fact changes (e.g. the registered address).
 | `assets/images/remotive-logo-112/168` `.png` and `.avif` | Derived from the mark | Header (1x, 2x, 3x) and the ad landing pages. The artwork's wordmark is dark, so in dark mode it sits on a white plate (header since v1.92.0, landing pages since v1.90.0) |
 
 Both are bundled in the theme and sideloaded into the media library on
-first activation (see `docs/readme.md` → Logo bootstrap).
+first activation (see `readme.md` → Logo bootstrap).
 
 ## Deviations from this document
 
@@ -196,8 +196,9 @@ the token name.
 ## Versioning & file naming
 
 - **Repository root:** only `style.css`, `theme.json`, `functions.php`,
-  `screenshot.png` and `readme.txt`. Every other document lives in `docs/`
-  (moved there in v1.97.0, so the paths in this table are `docs/…`).
+  `screenshot.png`, `readme.txt` and `readme.md`. Every other document lives in
+  `docs/` (moved there in v1.97.0, so those paths in the document map are
+  `docs/…`).
 - Semver (`MAJOR.MINOR.PATCH`), tracked in `style.css`'s `Version:` field
   and mirrored in `docs/changelog.md`.
 - Release zip naming convention: `[theme-name]-[version].zip`, all
@@ -326,7 +327,7 @@ garbled comments (caught before packaging, not after).
 **Release readiness:** version bumped (1.8.0, all four locations:
 `style.css`, `readme.txt` Stable tag, `readme.txt` "Latest version"
 line, and this file) · changelog updated · upgrade notice added ·
-docs/readme.md and readme.txt updated · no sensitive exploit details in any
+readme.md and readme.txt updated · no sensitive exploit details in any
 public-facing doc · package contains no VCS artifacts, backups, or debug
 files (re-verified this pass, not just carried over from the last check).
 
@@ -343,7 +344,7 @@ also publishes the ACRA incorporation date (2024-01-31) as
 `foundingDate` and the UEN (202404376G) as an `identifier` — both from
 the Legal entity table above — and types the organization
 ProfessionalService over the registered office. The full
-Google-feature coverage matrix lives in docs/readme.md.
+Google-feature coverage matrix lives in readme.md.
 
 The ad landing pages (v1.91.0) publish a separate `FAQPage` JSON-LD block,
 generated from the same items as the visible FAQ so the two cannot drift, in
@@ -429,7 +430,7 @@ Canonical facts for the paid and social landing pages. Code: `inc/landing-pages.
 | File | Audience | Purpose |
 |---|---|---|
 | `readme.txt` | General / WP admin users | Plain-language description, install steps, FAQ |
-| `docs/readme.md` | Developers, hosting, sysadmins | Architecture, file map, implementation gotchas |
+| `readme.md` | Developers, hosting, sysadmins | Architecture, file map, implementation gotchas |
 | `docs/ssot.md` | Anyone maintaining brand/entity accuracy | This file — canonical facts |
 | `docs/upgrading.md` | Future maintainers, MENJ | Roadmap, planned work, not-yet-built ideas |
 | `docs/changelog.md` | Everyone | Version history |

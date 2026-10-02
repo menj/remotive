@@ -22,9 +22,10 @@ static `.woff2` files already committed to `assets/fonts/`.
 ## File map
 
 **Root rule (v1.97.0).** The theme root holds only what WordPress needs or
-expects there: `style.css`, `theme.json`, `functions.php`, `screenshot.png` and
-`readme.txt`. Documents live in `docs/`, code in `inc/`, and everything else in
-its own folder. A new document goes in `docs/`, not the root.
+expects there, plus the two readmes: `style.css`, `theme.json`, `functions.php`,
+`screenshot.png`, `readme.txt` (the WordPress readme) and `readme.md` (this
+file). Every other document lives in `docs/`, code in `inc/`, and everything else
+in its own folder. A new document goes in `docs/`, not the root.
 
 ```
 remotive/
@@ -50,9 +51,9 @@ remotive/
 │                           explicit theme supports + textdomain loading;
 │                           one-time logo/favicon bootstrap on activation.
 ├── readme.txt              WordPress-style readme (stable tag, FAQ, upgrade
-│                           notice) — the one document kept at the root.
-├── docs/                   Every other document: readme.md (this file),
-│                           ssot.md, changelog.md, upgrading.md, resources.md
+│                           notice).
+├── readme.md               This file: architecture, file map, gotchas.
+├── docs/                   Every other document: ssot.md, changelog.md, upgrading.md, resources.md
 │                           (licences), image-credits.md, accessibility.md,
 │                           cache-headers.md, htaccess-cache.txt, the legal
 │                           drafts and the homepage brief.

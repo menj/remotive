@@ -126,7 +126,7 @@ Moved here from the roadmap rather than deleted, so the reasoning survives.
   with no prompt; colour variants and a centred layout for button-only bands.
 - **`/work/` → `/case-studies/` slug migration** (v1.68.0) — runs once on the
   next admin load; child pages follow.
-- **Security hardening module** (v1.68.1) — see `docs/readme.md` → Security.
+- **Security hardening module** (v1.68.1) — see `readme.md` → Security.
 - **Branded error handling** (v1.69.0, v1.69.2) — fatals and non-fatals.
 - **Scroll motion** (v1.69.1) — CSS scroll-driven animations with an
   observer fallback.
@@ -145,11 +145,11 @@ Server-level, unchanged by any theme release:
 
 ### Documentation debt cleared
 
-`docs/readme.md`, `readme.txt` and `docs/ssot.md` had drifted roughly three days
+`readme.md`, `readme.txt` and `docs/ssot.md` had drifted roughly three days
 behind the code by v1.69.2 — none of the ticker, CTA, security, error
 handling or motion work appeared in any of them. Brought current in the
 same release. Worth a standing check: **if a release adds a Theme Options
-field or an `inc/` file, it is not finished until `docs/readme.md`'s file map,
+field or an `inc/` file, it is not finished until `readme.md`'s file map,
 `readme.txt`'s FAQ, and `docs/ssot.md`'s configurable-values list say so.**
 
 ## Near-term (would improve the current build)
@@ -309,18 +309,18 @@ field or an `inc/` file, it is not finished until `docs/readme.md`'s file map,
   visitor-facing dark/light toggle, which is a different, runtime-only
   system.
 - **A third `--rm-blend`-aware theme, if ever added, needs its blend mode
-  set explicitly** (see `docs/readme.md`) — flagging here so it's not forgotten
+  set explicitly** (see `readme.md`) — flagging here so it's not forgotten
   mid-build.
 - **Any future palette change should grep for `"ink"` and `"paper"` usage
   across every template/theme.json before shipping.** The v1.2.0 dark-mode
   rework silently broke the CTA section and every button for two releases
   by swapping what those slugs mean without checking where they were
-  referenced directly (see `docs/readme.md`'s "ink/paper swap gotcha"). A
+  referenced directly (see `readme.md`'s "ink/paper swap gotcha"). A
   simple `grep -rn '"ink"\|"paper"' templates/ parts/ theme.json` before
   any future palette edit would have caught it immediately.
 - **Revisit the token/`render_block`-filter approach if WordPress's Block
   Bindings API widens its allow-list.** `inc/theme-options.php` currently
-  uses a theme-specific token convention (see `docs/readme.md`) instead of the
+  uses a theme-specific token convention (see `readme.md`) instead of the
   official Block Bindings API because Navigation Link and Custom HTML
   blocks aren't bindable as of this writing. If core adds support for
   those block types, migrating to the standard mechanism would be more

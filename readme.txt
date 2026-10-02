@@ -103,7 +103,7 @@ the default since that's the primary design direction.
 A few small pieces of the homepage (the main headline, the marquee strip
 under it, and the light/dark toggle button) are built with raw code rather
 than the usual text blocks, because they need small technical behaviours a
-normal text block can't do. See `docs/readme.md` for exactly which parts these
+normal text block can't do. See `readme.md` for exactly which parts these
 are and what to be careful of when editing them.
 
 = Where do I update the contact email, address, or social links? =
@@ -225,7 +225,7 @@ The theme optimizes the requests it controls, but cache lifetime headers are
 sent by the web server, host, or CDN. Configure long-lived browser caching for
 versioned theme assets and an appropriate media-library policy in that layer;
 do not add those rules to the theme because they would not follow the site when
-the hosting stack changes. See `docs/readme.md` and `docs/upgrading.md` for the checklist.
+the hosting stack changes. See `readme.md` and `docs/upgrading.md` for the checklist.
 
 = How do I change the scrolling list of countries under the homepage headline? =
 
@@ -572,7 +572,7 @@ at every width instead of packing five and stranding the sixth on its
 own. No content or markup changes; CSS only.
 
 = 1.65.3 =
-Documentation only: docs/readme.md, docs/upgrading.md and docs/resources.md are
+Documentation only: readme.md, docs/upgrading.md and docs/resources.md are
 brought up to date with the modules, templates and deployment steps
 added since v1.29.0.
 
