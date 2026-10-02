@@ -4,6 +4,12 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.103.1] — 2026-10-02
+
+### Fixed
+
+- **Contact address is `hello@remotivemedia.asia`.** The shipped default already was, but a site that had saved the older `hello@remotivemedia.com` in Theme Options kept receiving enquiries there, because a saved option outranks the default. Migration 1.103.1 (`remotive_correct_contact_email()`) replaces that one value, once, on the next admin page load; any other address an administrator chose is left alone. `docs/ssot.md` no longer lists the `.com` domain as the contact address. `tests/test-setup.php` covers the migration.
+
 ## [1.103.0] — 2026-10-02
 
 Security audit of the whole theme (details and the finding register in `docs/ssot.md`). Minor version because it adds two filters, changes two defaults and adds a size limit.

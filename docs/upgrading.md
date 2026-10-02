@@ -54,6 +54,13 @@ WordPress site yet; this list is how to find out.
 - The first pull request that runs `.github/workflows/ci.yml` after a change to
   it should be watched, because the workflow itself is the thing under test.
 
+## v1.103.1: contact address
+
+- After updating, open any admin page once, then check Appearance → Theme
+  Options → Contact: the email should read hello@remotivemedia.asia. Send a
+  test enquiry and confirm it arrives there. If the old .com mailbox still
+  forwards, it can be retired once you are sure.
+
 ## v1.103.0: security release
 
 - **Behind Cloudflare** the theme now uses Cloudflare's forwarded address for the
