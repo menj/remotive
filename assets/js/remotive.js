@@ -451,3 +451,44 @@
 		observer.observe(el);
 	});
 })();
+
+/* ------------------------------------------------------------------
+ * Fresh form nonces.
+ *
+ * A page served from a cache can be older than a nonce lives (12 to 24
+ * hours), which would reject a real enquiry as "link expired". On load, ask
+ * the uncacheable endpoint in inc/lead-form-handler.php for current nonces
+ * and swap them into the lead forms' hidden fields. The server-rendered
+ * values stay as the fallback if the request fails or scripts are off.
+ * ------------------------------------------------------------------ */
+(function () {
+	var url = (window.remotiveThemeOptions || {}).ajaxUrl;
+	var fields = document.querySelectorAll(
+		'input[name="remotive_cta_nonce"], input[name="remotive_about_nonce"], input[name="remotive_contact_nonce"], input[name="remotive_lp_nonce"]'
+	);
+	if (!url || !fields.length || !window.fetch) { return; }
+
+	// Held until the request settles, so a fast submit cannot go out carrying the
+	// expired server-rendered nonce.
+	var pending = fetch(url + '?action=remotive_form_nonces', { credentials: 'same-origin', cache: 'no-store' })
+		.then(function (r) { return r.ok ? r.json() : null; })
+		.then(function (data) {
+			if (!data) { return; }
+			Array.prototype.forEach.call(fields, function (el) {
+				if (data[el.name]) { el.value = data[el.name]; }
+			});
+		})
+		.catch(function () { /* keep the server-rendered nonce */ })
+		.then(function () { pending = null; });
+
+	Array.prototype.forEach.call(fields, function (el) {
+		var form = el.form;
+		if (!form || form.getAttribute('data-nonce-wait')) { return; }
+		form.setAttribute('data-nonce-wait', '1');
+		form.addEventListener('submit', function (e) {
+			if (!pending) { return; }
+			e.preventDefault();
+			pending.then(function () { form.submit(); });
+		});
+	});
+})();

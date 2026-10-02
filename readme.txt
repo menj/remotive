@@ -4,7 +4,7 @@ Tags: block-theme, full-site-editing, child-theme, one-page
 Requires at least: 6.7
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.79.5
+Stable tag: 1.94.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -301,9 +301,17 @@ floor, not a replacement.
 
 == Changelog ==
 
-See `changelog.md` for full version history. Latest version: 1.74.0.
+See `changelog.md` for full version history. Latest version: 1.94.0.
 
 == Upgrade Notice ==
+
+= 1.94.0 =
+Adds ad landing pages in four languages (English, Bahasa Melayu, Simplified
+and Traditional Chinese) with their own confirmation page, a maintenance-mode
+switch, a rounded-corner design and a fix for white-on-bright text on the
+dark-mode call-to-action bands. Lead forms now fetch a fresh security token
+when the page loads, so a cached page can no longer reject a real enquiry.
+Pretty permalinks must be on. See upgrading.md for the deploy checklist.
 
 = 1.79.1 =
 Fixes the country ticker in dark mode, where it rendered as a navy band on

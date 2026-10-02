@@ -1826,7 +1826,12 @@ function remotive_inline_theme_option_data() {
 
 	wp_add_inline_script(
 		'remotive-front',
-		'window.remotiveThemeOptions = ' . wp_json_encode( array( 'defaultTheme' => $default_theme ) ) . ';',
+		'window.remotiveThemeOptions = ' . wp_json_encode(
+			array(
+				'defaultTheme' => $default_theme,
+				'ajaxUrl'      => admin_url( 'admin-ajax.php' ),
+			)
+		) . ';',
 		'before'
 	);
 }

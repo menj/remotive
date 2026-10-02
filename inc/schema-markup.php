@@ -119,7 +119,13 @@ function remotive_schema_suppressed_types() {
 						continue;
 					}
 					foreach ( (array) $values as $value ) {
-						$value = maybe_unserialize( $value );
+						// get_post_meta() has already unserialised once. A second
+						// unserialize of a custom field a contributor can edit is an
+						// object-injection risk, so it is not done; a still-serialised
+						// string is read without allowing any class to be built.
+						if ( is_string( $value ) && is_serialized( $value ) ) {
+							$value = @unserialize( $value, array( 'allowed_classes' => false ) ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_unserialize
+						}
 						if ( is_array( $value ) && ! empty( $value['@type'] ) ) {
 							foreach ( (array) $value['@type'] as $type ) {
 								$suppressed[] = (string) $type;

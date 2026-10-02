@@ -47,7 +47,7 @@ remotive/
 ├── resources.md            Consolidated license/copyright record for the
 │                           theme and every bundled font/image.
 ├── languages/
-│   ├── remotive.pot         265 translatable strings, extracted by script
+│   ├── remotive.pot         334 translatable strings, extracted by script
 │   │                       from every __()/_e()/esc_html__() call in
 │   │                       functions.php and inc/*.php with real file:line
 │   │                       references (v1.69.2 — the previous hand-built
@@ -58,6 +58,8 @@ remotive/
 │   │                       settings sanitisation, the render_block
 │   │                       token-substitution filter, and the early
 │   │                       wp_head flash-prevention script (see below).
+│   ├── landing-copy.php    The landing pages' words: services and FAQ,
+│   │                       four languages each.
 │   ├── landing-pages.php   Ad landing pages (SEO, Google Ads, paid
 │   │                       social) in four languages on their own paths,
 │   │                       with the audit-requested confirmation page,
@@ -851,9 +853,11 @@ Each is also served in Bahasa Melayu (`/ms/…`), Simplified Chinese
 language of the URL, with a self-referencing canonical, `<html lang>` and
 `hreflang` alternates; there is no `?lang=` parameter.
 
-- **Copy and data** live in `remotive_landing_services()` (one entry per
-  service, each text an array of en, ms, zh-Hans, zh-Hant) and in the render
-  functions. `templates/page-landing.html` only holds the
+- **Copy and data** live in `inc/landing-copy.php` (`remotive_landing_services()`,
+  one entry per service, and the FAQ; each text an array of en, ms, zh-Hans,
+  zh-Hant) and, for the short shared labels, in the render functions.
+  `php tests/check-landing-copy.php` (also run in CI) fails if any text is
+  missing a language. `templates/page-landing.html` only holds the
   `__REMOTIVE_LANDING__` token. A new service is one entry there plus one
   page in `remotive_required_pages()`.
 - **Funnel:** form above the fold, how it works, six market photo tiles, a
