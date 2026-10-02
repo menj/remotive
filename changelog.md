@@ -4,6 +4,12 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.91.1] — 2026-10-02
+
+### Changed
+
+- Landing page hero photos now match their services: the Google Ads page shows a laptop with search results, and the paid social page shows a phone with a social profile, replacing images that showed a "Social Media Strategy" booklet and a third-party brand name. Credits updated in `docs/image-credits.md`.
+
 ## [1.91.0] — 2026-10-02
 
 ### Added

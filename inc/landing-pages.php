@@ -51,7 +51,7 @@ function remotive_landing_services() {
 			),
 		),
 		'google-ads-management' => array(
-			'photo_alt' => array( 'A laptop on a desk with marketing material', 'Komputer riba di atas meja bersama bahan pemasaran', '桌上的笔记本电脑与营销资料', '桌上的筆記型電腦與行銷資料' ),
+			'photo_alt' => array( 'A laptop on a desk showing search results', 'Komputer riba di atas meja yang memaparkan hasil carian', '桌上显示搜索结果的笔记本电脑', '桌上顯示搜尋結果的筆記型電腦' ),
 			'label'   => array( 'Google Ads', 'Google Ads', 'Google Ads', 'Google Ads' ),
 			'eyebrow' => array( 'Google Ads management', 'Pengurusan Google Ads', 'Google Ads 投放管理', 'Google Ads 投放管理' ),
 			'title'   => array( 'Google Ads that bring leads, not just clicks.', 'Google Ads yang membawa prospek, bukan sekadar klik.', '带来销售线索的 Google Ads，而不只是点击。', '帶來銷售線索的 Google Ads，而不只是點擊。' ),
