@@ -54,6 +54,24 @@ WordPress site yet; this list is how to find out.
 - The first pull request that runs `.github/workflows/ci.yml` after a change to
   it should be watched, because the workflow itself is the thing under test.
 
+## v1.102.0: parent theme colours
+
+- View a post date, a code block and the 404 page in both light and dark mode
+  on the live site; they should use this theme's colours and read clearly.
+- If the Site Editor's Styles → Browse styles has a Twenty Twenty-Five
+  variation selected, switching it no longer changes the base, contrast,
+  accent-4 and accent-5 colours; this theme's colours stay.
+
+## v1.101.0: Rank Math
+
+- With Rank Math active, check on the live site: view source on
+  `/ms/seo-audit/` (canonical should be that URL), on `/thank-you/` (robots
+  should say noindex, follow), and open `/sitemap_index.xml` → page sitemap
+  (no landing pages, no confirmation pages). Rank Math caches its sitemap;
+  clear it under Rank Math → Sitemap Settings if an old entry lingers.
+- Rank Math's own settings are untouched. If it is told to noindex or
+  canonicalise those pages by hand, its per-page setting wins over these rules.
+
 ## v1.100.0: `inc/` folders
 
 - If you deploy by uploading the theme over the old one, the old `inc/*.php`

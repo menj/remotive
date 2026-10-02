@@ -4,6 +4,42 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.102.0] — 2026-10-02
+
+### Fixed
+
+Checked against Twenty Twenty-Five 1.5. A child theme's palette merges with the parent's, so the parent's own slugs (`base`, `contrast`, `accent-1` to `accent-6`) survived with their light values, and the parent's merged `theme.json` styles still use them:
+
+- Post dates and comment authors (`accent-4`, #686868) sat on the dark page at 3.1:1, under the 4.5:1 minimum.
+- Code blocks (`accent-5` background, `contrast` text) and the parent's own patterns and unoverridden templates (404, page without title) used the parent's light palette.
+
+`base`, `contrast`, `accent-4` and `accent-5` are now declared in this theme's `theme.json` with dark values (so the editor matches) and aliased in `remotive.css` to `paper`, `ink`, the muted-text token and `card` on `html[data-theme]`, so they follow the light/dark switch, the Colours tab, and any parent style variation chosen in the Site Editor (the alias outranks the variation's `:root` values). `accent-1`, `accent-2` and `accent-6` are left alone: no template here uses them, and `accent-6` is a translucent line colour.
+
+### Verified, no change needed
+
+- No function, hook or block style in the parent (`twentytwentyfive_*`) is redefined or removed here, and the child's `remotive_` names do not collide with them.
+- The parent's `style.min.css` still loads normally; the child's `style.css` stays a header only.
+- Both themes require WordPress 6.7; the child's PHP 7.4 minimum is above the parent's 7.2.
+- The child overrides `front-page`, `home`, `index`, `archive`, `search`, `single`, `page`, `header`, `footer` and `sidebar`; the parent's `404`, `page-no-title` and the other parts now take their colours from the aliases above.
+
+### Added
+
+- `tests/check-parent.php`, run in CI: fails if `style.css` stops naming the parent, `theme.json` stops declaring the four slugs, `remotive.css` stops aliasing them, or any PHP file redefines a `twentytwentyfive_` function.
+
+## [1.101.0] — 2026-10-02
+
+### Fixed
+
+Checked against the Rank Math SEO 1.0.279 source. The plugin replaces three things the theme also did, so the theme's versions were being discarded whenever it was active:
+
+- **Confirmation page indexable.** Rank Math calls `remove_all_filters( 'wp_robots' )`, which removed the theme's noindex on the thank-you page. Added a `rank_math/frontend/robots` rule (noindex, follow). The landing-page robots rule already used the plugin's filter.
+- **Landing languages canonical to English.** Rank Math removes core's `rel_canonical`, so the theme's `get_canonical_url` filter never ran and `/ms/`, `/zh-cn/` and `/zh-tw/` pages named the English page as canonical. Added a `rank_math/frontend/canonical` rule that gives each language its own URL.
+- **Landing and confirmation pages in the Rank Math sitemap.** The theme only removed them from core's sitemap, which the plugin switches off, and the plugin omits only posts with `noindex` in `rank_math_robots` meta. Added a `rank_math/sitemap/entry` rule that drops them.
+
+### Added
+
+- `inc/core/rank-math.php` holds the three rules; `tests/test-rank-math.php` (12 checks) covers them. All are inert without the plugin. The schema-markup comment now cites 1.0.279.
+
 ## [1.100.0] — 2026-10-02
 
 ### Changed
