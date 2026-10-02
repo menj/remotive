@@ -14,7 +14,7 @@
  * to fetch it to review the ad.
  *
  * Copy is English / Bahasa Melayu / Simplified Chinese, switched client-side
- * (assets/js/landing.js; ?lang=en|ms|zh lets an ad pick the language). The
+ * (assets/js/landing.js; ?lang=en|ms|zh|zht lets an ad pick the language). The
  * server always renders English visible, so the page works without
  * JavaScript. Template: templates/page-landing.html, which holds only the
  * __REMOTIVE_LANDING__ token this file replaces.
@@ -29,55 +29,55 @@ const REMOTIVE_LANDING_TEMPLATE = 'page-landing';
 /**
  * The services, keyed by the slug of the page that sells them.
  *
- * Each text is array( en, ms, zh ).
+ * Each text is array( en, ms, zh-Hans, zh-Hant ).
  *
  * @return array<string,array<string,mixed>>
  */
 function remotive_landing_services() {
 	return array(
 		'lp-seo'        => array(
-			'label'   => array( 'SEO', 'SEO', 'SEO' ),
-			'eyebrow' => array( 'SEO for Asian markets', 'SEO untuk pasaran Asia', '面向亚洲市场的 SEO' ),
-			'title'   => array( 'Be found when buyers search.', 'Dikenali apabila pembeli membuat carian.', '让买家在搜索时找到您。' ),
+			'label'   => array( 'SEO', 'SEO', 'SEO', 'SEO' ),
+			'eyebrow' => array( 'SEO for Asian markets', 'SEO untuk pasaran Asia', '面向亚洲市场的 SEO', '面向亞洲市場的 SEO' ),
+			'title'   => array( 'Be found when buyers search.', 'Dikenali apabila pembeli membuat carian.', '让买家在搜索时找到您。', '讓買家在搜尋時找到您。' ),
 			'lead'    => array(
 				'We fix what holds your site back, then build the pages and authority that bring in qualified enquiries from Google and AI search.',
 				'Kami membaiki apa yang menghalang laman web anda, kemudian membina halaman dan kewibawaan yang membawa pertanyaan berkualiti daripada Google dan carian AI.',
-				'我们先解决拖累网站表现的问题，再打造能从 Google 和 AI 搜索带来优质咨询的页面与权威度。',
+				'我们先解决拖累网站表现的问题，再打造能从 Google 和 AI 搜索带来优质咨询的页面与权威度。', '我們先解決拖累網站表現的問題，再打造能從 Google 和 AI 搜尋帶來優質諮詢的頁面與權威度。',
 			),
 			'points'  => array(
-				array( 'A technical and content audit that ranks fixes by impact', 'Audit teknikal dan kandungan yang menyusun pembaikan mengikut impak', '按影响力排序的技术与内容审计' ),
-				array( 'Pages built around what your buyers actually search for', 'Halaman dibina berdasarkan carian sebenar pembeli anda', '围绕买家真实搜索需求打造的页面' ),
-				array( 'Visibility in AI answers, not only the blue links', 'Keterlihatan dalam jawapan AI, bukan sekadar pautan biru', '不仅是搜索结果，也包括 AI 回答中的曝光' ),
+				array( 'A technical and content audit that ranks fixes by impact', 'Audit teknikal dan kandungan yang menyusun pembaikan mengikut impak', '按影响力排序的技术与内容审计', '按影響力排序的技術與內容審計' ),
+				array( 'Pages built around what your buyers actually search for', 'Halaman dibina berdasarkan carian sebenar pembeli anda', '围绕买家真实搜索需求打造的页面', '圍繞買家真實搜尋需求打造的頁面' ),
+				array( 'Visibility in AI answers, not only the blue links', 'Keterlihatan dalam jawapan AI, bukan sekadar pautan biru', '不仅是搜索结果，也包括 AI 回答中的曝光', '不僅是搜尋結果，也包括 AI 回答中的曝光' ),
 			),
 		),
 		'lp-google-ads' => array(
-			'label'   => array( 'Google Ads', 'Google Ads', 'Google Ads' ),
-			'eyebrow' => array( 'Google Ads management', 'Pengurusan Google Ads', 'Google Ads 投放管理' ),
-			'title'   => array( 'Google Ads that bring leads, not just clicks.', 'Google Ads yang membawa prospek, bukan sekadar klik.', '带来销售线索的 Google Ads，而不只是点击。' ),
+			'label'   => array( 'Google Ads', 'Google Ads', 'Google Ads', 'Google Ads' ),
+			'eyebrow' => array( 'Google Ads management', 'Pengurusan Google Ads', 'Google Ads 投放管理', 'Google Ads 投放管理' ),
+			'title'   => array( 'Google Ads that bring leads, not just clicks.', 'Google Ads yang membawa prospek, bukan sekadar klik.', '带来销售线索的 Google Ads，而不只是点击。', '帶來銷售線索的 Google Ads，而不只是點擊。' ),
 			'lead'    => array(
 				'Senior-run search campaigns measured against qualified leads and pipeline, so budget goes where it earns.',
 				'Kempen carian yang diurus pakar kanan dan diukur berdasarkan prospek berkualiti serta saluran jualan, supaya bajet digunakan di tempat yang menjana hasil.',
-				'由资深团队管理的搜索广告，以合格线索与销售管道衡量成效，让预算花在真正带来回报的地方。',
+				'由资深团队管理的搜索广告，以合格线索与销售管道衡量成效，让预算花在真正带来回报的地方。', '由資深團隊管理的搜尋廣告，以合格線索與銷售管道衡量成效，讓預算花在真正帶來回報的地方。',
 			),
 			'points'  => array(
-				array( 'Account and tracking review before any more spend', 'Semakan akaun dan penjejakan sebelum perbelanjaan tambahan', '追加预算之前，先审查账户与追踪设置' ),
-				array( 'Campaigns structured around intent and conversion value', 'Kempen distruktur mengikut niat dan nilai penukaran', '围绕搜索意图与转化价值搭建的广告结构' ),
-				array( 'Plain-language reporting tied to your enquiries', 'Laporan bahasa mudah yang dikaitkan dengan pertanyaan anda', '与您的咨询挂钩、通俗易懂的报告' ),
+				array( 'Account and tracking review before any more spend', 'Semakan akaun dan penjejakan sebelum perbelanjaan tambahan', '追加预算之前，先审查账户与追踪设置', '追加預算之前，先審查帳戶與追蹤設定' ),
+				array( 'Campaigns structured around intent and conversion value', 'Kempen distruktur mengikut niat dan nilai penukaran', '围绕搜索意图与转化价值搭建的广告结构', '圍繞搜尋意圖與轉換價值搭建的廣告結構' ),
+				array( 'Plain-language reporting tied to your enquiries', 'Laporan bahasa mudah yang dikaitkan dengan pertanyaan anda', '与您的咨询挂钩、通俗易懂的报告', '與您的諮詢掛鉤、通俗易懂的報告' ),
 			),
 		),
 		'lp-social-ads' => array(
-			'label'   => array( 'Paid social', 'Iklan sosial berbayar', '社交媒体广告' ),
-			'eyebrow' => array( 'Paid social advertising', 'Pengiklanan sosial berbayar', '社交媒体付费广告' ),
-			'title'   => array( 'Paid social that reaches the right buyers.', 'Iklan sosial berbayar yang mencapai pembeli yang tepat.', '精准触达目标买家的社交媒体广告。' ),
+			'label'   => array( 'Paid social', 'Iklan sosial berbayar', '社交媒体广告', '社群媒體廣告' ),
+			'eyebrow' => array( 'Paid social advertising', 'Pengiklanan sosial berbayar', '社交媒体付费广告', '社群媒體付費廣告' ),
+			'title'   => array( 'Paid social that reaches the right buyers.', 'Iklan sosial berbayar yang mencapai pembeli yang tepat.', '精准触达目标买家的社交媒体广告。', '精準觸及目標買家的社群媒體廣告。' ),
 			'lead'    => array(
 				'Meta, LinkedIn and TikTok campaigns built around your audience and your offer, tested fast and scaled on what converts.',
 				'Kempen Meta, LinkedIn dan TikTok yang dibina berdasarkan audiens dan tawaran anda, diuji dengan pantas dan dikembangkan mengikut apa yang menukar.',
-				'围绕您的受众与优惠打造 Meta、LinkedIn 和 TikTok 广告，快速测试，并按转化表现扩大投放。',
+				'围绕您的受众与优惠打造 Meta、LinkedIn 和 TikTok 广告，快速测试，并按转化表现扩大投放。', '圍繞您的受眾與優惠打造 Meta、LinkedIn 和 TikTok 廣告，快速測試，並按轉換表現擴大投放。',
 			),
 			'points'  => array(
-				array( 'Audience and offer worked out before creative is made', 'Audiens dan tawaran dikenal pasti sebelum kreatif dihasilkan', '在制作创意之前，先明确受众与优惠' ),
-				array( 'Structured creative tests, not guesswork', 'Ujian kreatif berstruktur, bukan andaian', '有结构的创意测试，而非凭猜测' ),
-				array( 'Lead quality tracked past the form, into your pipeline', 'Kualiti prospek dijejak melepasi borang, sehingga ke saluran jualan anda', '线索质量的追踪不止于表单，直达您的销售管道' ),
+				array( 'Audience and offer worked out before creative is made', 'Audiens dan tawaran dikenal pasti sebelum kreatif dihasilkan', '在制作创意之前，先明确受众与优惠', '在製作創意之前，先明確受眾與優惠' ),
+				array( 'Structured creative tests, not guesswork', 'Ujian kreatif berstruktur, bukan andaian', '有结构的创意测试，而非凭猜测', '有結構的創意測試，而非憑猜測' ),
+				array( 'Lead quality tracked past the form, into your pipeline', 'Kualiti prospek dijejak melepasi borang, sehingga ke saluran jualan anda', '线索质量的追踪不止于表单，直达您的销售管道', '線索品質的追蹤不止於表單，直達您的銷售管道' ),
 			),
 		),
 	);
@@ -95,13 +95,13 @@ function remotive_is_landing_page() {
 /**
  * Text in all three languages, one element per language.
  *
- * @param array  $t   array( en, ms, zh ).
+ * @param array  $t   array( en, ms, zh-Hans, zh-Hant ).
  * @param string $tag Wrapping element.
  * @param string $cls Optional class.
  * @return string
  */
 function remotive_lp_t( $t, $tag = 'span', $cls = '' ) {
-	$langs = array( 'en' => 'en', 'ms' => 'ms', 'zh' => 'zh-Hans' );
+	$langs = array( 'en' => 'en', 'ms' => 'ms', 'zh' => 'zh-Hans', 'zht' => 'zh-Hant' );
 	$out   = '';
 	$i     = 0;
 
@@ -138,7 +138,7 @@ function remotive_lp_form( $service, $pos ) {
 			esc_attr( $id ),
 			esc_attr( $name ),
 			remotive_lp_t( $label ),
-			$required ? '' : ' <span class="rm-lp__opt">' . remotive_lp_t( array( '(optional)', '(pilihan)', '（选填）' ) ) . '</span>',
+			$required ? '' : ' <span class="rm-lp__opt">' . remotive_lp_t( array( '(optional)', '(pilihan)', '（选填）', '（選填）' ) ) . '</span>',
 			esc_attr( $type ),
 			esc_attr( $autocomplete ),
 			$required ? ' required' : ''
@@ -152,8 +152,8 @@ function remotive_lp_form( $service, $pos ) {
 
 	$msgs = '';
 	foreach ( array(
-		'success' => array( 'Thanks. We will be in touch within three business days.', 'Terima kasih. Kami akan menghubungi anda dalam tiga hari bekerja.', '谢谢。我们将在三个工作日内与您联系。' ),
-		'error'   => array( 'Something went wrong sending that. Please try again, or email us directly.', 'Sesuatu tidak kena semasa menghantar. Sila cuba lagi, atau e-mel kami terus.', '提交时出了问题。请重试，或直接给我们发送电子邮件。' ),
+		'success' => array( 'Thanks. We will be in touch within three business days.', 'Terima kasih. Kami akan menghubungi anda dalam tiga hari bekerja.', '谢谢。我们将在三个工作日内与您联系。', '謝謝。我們將在三個工作日內與您聯絡。' ),
+		'error'   => array( 'Something went wrong sending that. Please try again, or email us directly.', 'Sesuatu tidak kena semasa menghantar. Sila cuba lagi, atau e-mel kami terus.', '提交时出了问题。请重试，或直接给我们发送电子邮件。', '提交時發生問題。請重試，或直接寄電子郵件給我們。' ),
 	) as $state => $t ) {
 		$msgs .= remotive_lp_t( $t, 'span', 'rm-lp__msg rm-lp__msg--' . $state ) ;
 	}
@@ -166,12 +166,12 @@ function remotive_lp_form( $service, $pos ) {
 		. $tracked
 		. '<div class="rm-lp__hp" aria-hidden="true"><label for="' . esc_attr( $id ) . '-hp">Leave this field empty</label>'
 		. '<input type="text" id="' . esc_attr( $id ) . '-hp" name="remotive_lp_website" tabindex="-1" autocomplete="off"></div>'
-		. $field( 'name', 'text', array( 'Your name', 'Nama anda', '您的姓名' ), true, 'name' )
-		. $field( 'email', 'email', array( 'Work email', 'E-mel kerja', '工作邮箱' ), true, 'email' )
-		. $field( 'site', 'text', array( 'Your website', 'Laman web anda', '您的网站' ), false, 'url' )
-		. '<button type="submit" class="rm-lp__submit">' . remotive_lp_t( array( 'Get my free audit', 'Dapatkan audit percuma saya', '获取免费审计' ) ) . '</button>'
-		. '<p class="rm-lp__fine">' . remotive_lp_t( array( '30 minutes, no commitment. We reply within three business days.', '30 minit, tanpa komitmen. Kami membalas dalam tiga hari bekerja.', '30 分钟，无需承诺。我们将在三个工作日内回复。' ) )
-		. ' <a href="' . esc_url( home_url( '/privacy/' ) ) . '">' . remotive_lp_t( array( 'Privacy', 'Privasi', '隐私政策' ) ) . '</a></p>'
+		. $field( 'name', 'text', array( 'Your name', 'Nama anda', '您的姓名', '您的姓名' ), true, 'name' )
+		. $field( 'email', 'email', array( 'Work email', 'E-mel kerja', '工作邮箱', '工作信箱' ), true, 'email' )
+		. $field( 'site', 'text', array( 'Your website', 'Laman web anda', '您的网站', '您的網站' ), false, 'url' )
+		. '<button type="submit" class="rm-lp__submit">' . remotive_lp_t( array( 'Get my free audit', 'Dapatkan audit percuma saya', '获取免费审计', '獲取免費審計' ) ) . '</button>'
+		. '<p class="rm-lp__fine">' . remotive_lp_t( array( '30 minutes, no commitment. We reply within three business days.', '30 minit, tanpa komitmen. Kami membalas dalam tiga hari bekerja.', '30 分钟，无需承诺。我们将在三个工作日内回复。', '30 分鐘，無需承諾。我們將在三個工作日內回覆。' ) )
+		. ' <a href="' . esc_url( home_url( '/privacy/' ) ) . '">' . remotive_lp_t( array( 'Privacy', 'Privasi', '隐私政策', '隱私權政策' ) ) . '</a></p>'
 		. '<div class="rm-lp__status" data-lead-status="remotive_lp" role="status" aria-live="polite" hidden>' . $msgs . '</div>'
 		. '</form>';
 }
@@ -220,13 +220,22 @@ function remotive_lp_render() {
 
 	$s    = $services[ $slug ];
 	$btns = '';
-	foreach ( array( 'en' => 'English', 'ms' => 'Bahasa Melayu', 'zh' => '简体中文' ) as $key => $name ) {
+	// Buttons are labelled with language codes; the full name is the
+	// accessible name, so a screen reader still says "Traditional Chinese".
+	$langs_ui = array(
+		'en'  => array( 'EN', 'en', 'English' ),
+		'ms'  => array( 'MS', 'ms', 'Bahasa Melayu' ),
+		'zh'  => array( 'ZH-CN', 'zh-Hans', '简体中文' ),
+		'zht' => array( 'ZH-TW', 'zh-Hant', '繁體中文' ),
+	);
+	foreach ( $langs_ui as $key => $ui ) {
 		$btns .= sprintf(
-			'<button type="button" class="rm-lp__lang" data-set-lang="%1$s" lang="%2$s" aria-pressed="%3$s">%4$s</button>',
+			'<button type="button" class="rm-lp__lang" data-set-lang="%1$s" lang="%2$s" aria-label="%3$s" title="%3$s" aria-pressed="%4$s">%5$s</button>',
 			esc_attr( $key ),
-			'zh' === $key ? 'zh-Hans' : esc_attr( $key ),
+			esc_attr( $ui[1] ),
+			esc_attr( $ui[2] ),
 			'en' === $key ? 'true' : 'false',
-			esc_html( $name )
+			esc_html( $ui[0] )
 		);
 	}
 
@@ -237,9 +246,9 @@ function remotive_lp_render() {
 
 	$steps = '';
 	foreach ( array(
-		array( array( 'Book a 30-minute call', 'Tempah panggilan 30 minit', '预约 30 分钟通话' ), array( 'Tell us what you sell, where, and what is not working.', 'Beritahu kami apa yang anda jual, di mana, dan apa yang tidak berjaya.', '告诉我们您的产品、市场，以及哪里不理想。' ) ),
-		array( array( 'We send what we would fix first', 'Kami hantar apa yang akan kami baiki dahulu', '我们告知会优先解决什么' ), array( 'A specific view within three business days, not a brochure.', 'Pandangan khusus dalam tiga hari bekerja, bukan brosur.', '三个工作日内给出具体意见，而不是宣传册。' ) ),
-		array( array( 'You decide', 'Anda yang memutuskan', '由您决定' ), array( 'Work with us or take the plan and run. No commitment either way.', 'Bekerja dengan kami atau gunakan pelan itu sendiri. Tiada komitmen.', '可与我们合作，也可自行执行方案，均无需承诺。' ) ),
+		array( array( 'Book a 30-minute call', 'Tempah panggilan 30 minit', '预约 30 分钟通话', '預約 30 分鐘通話' ), array( 'Tell us what you sell, where, and what is not working.', 'Beritahu kami apa yang anda jual, di mana, dan apa yang tidak berjaya.', '告诉我们您的产品、市场，以及哪里不理想。', '告訴我們您的產品、市場，以及哪裡不理想。' ) ),
+		array( array( 'We send what we would fix first', 'Kami hantar apa yang akan kami baiki dahulu', '我们告知会优先解决什么', '我們會告知將優先解決什麼' ), array( 'A specific view within three business days, not a brochure.', 'Pandangan khusus dalam tiga hari bekerja, bukan brosur.', '三个工作日内给出具体意见，而不是宣传册。', '三個工作日內提出具體意見，而不是宣傳冊。' ) ),
+		array( array( 'You decide', 'Anda yang memutuskan', '由您决定', '由您決定' ), array( 'Work with us or take the plan and run. No commitment either way.', 'Bekerja dengan kami atau gunakan pelan itu sendiri. Tiada komitmen.', '可与我们合作，也可自行执行方案，均无需承诺。', '可與我們合作，也可自行執行方案，皆無需承諾。' ) ),
 	) as $i => $st ) {
 		$steps .= '<li class="rm-lp__step"><span class="rm-lp__num">' . ( $i + 1 ) . '</span><h3>' . remotive_lp_t( $st[0] ) . '</h3><p>' . remotive_lp_t( $st[1] ) . '</p></li>';
 	}
@@ -248,28 +257,28 @@ function remotive_lp_render() {
 		array(
 			'Singapore · Malaysia · Thailand · Hong Kong · China',
 			'Singapura · Malaysia · Thailand · Hong Kong · China',
-			'新加坡 · 马来西亚 · 泰国 · 香港 · 中国',
+			'新加坡 · 马来西亚 · 泰国 · 香港 · 中国', '新加坡 · 馬來西亞 · 泰國 · 香港 · 中國',
 		)
 	);
 
 	return '<div class="rm-lp" data-lang="en" data-service="' . esc_attr( $slug ) . '">'
 		. '<header class="rm-lp__bar">' . remotive_lp_logo()
-		. '<div class="rm-lp__langs" role="group" aria-label="Language / Bahasa / 语言">' . $btns . '</div></header>'
+		. '<div class="rm-lp__langs" role="group" aria-label="Language / Bahasa / 语言 / 語言">' . $btns . '</div></header>'
 		. '<main id="main" class="rm-lp__main">'
 		. '<section class="rm-lp__hero"><div class="rm-lp__copy">'
 		. '<p class="rm-lp__eyebrow">' . remotive_lp_t( $s['eyebrow'] ) . '</p>'
 		. '<h1>' . remotive_lp_t( $s['title'] ) . '</h1>'
 		. remotive_lp_t( $s['lead'], 'p', 'rm-lp__lead' )
 		. '<ul class="rm-lp__points">' . $points . '</ul></div>'
-		. '<div class="rm-lp__card" id="rm-lp-start"><h2>' . remotive_lp_t( array( 'Get a free audit', 'Dapatkan audit percuma', '获取免费审计' ) ) . '</h2>'
+		. '<div class="rm-lp__card" id="rm-lp-start"><h2>' . remotive_lp_t( array( 'Get a free audit', 'Dapatkan audit percuma', '获取免费审计', '獲取免費審計' ) ) . '</h2>'
 		. remotive_lp_form( $slug, 'top' ) . '</div></section>'
-		. '<section class="rm-lp__section" aria-labelledby="rm-lp-how"><h2 id="rm-lp-how">' . remotive_lp_t( array( 'How it works', 'Cara ia berfungsi', '合作流程' ) ) . '</h2>'
+		. '<section class="rm-lp__section" aria-labelledby="rm-lp-how"><h2 id="rm-lp-how">' . remotive_lp_t( array( 'How it works', 'Cara ia berfungsi', '合作流程', '合作流程' ) ) . '</h2>'
 		. '<ol class="rm-lp__steps">' . $steps . '</ol></section>'
-		. '<section class="rm-lp__section rm-lp__trust"><p><strong>' . remotive_lp_t( array( 'Senior-led and independent.', 'Diketuai pakar kanan dan bebas.', '资深团队领导，独立运营。' ) ) . '</strong> ' . $markets . '</p></section>'
-		. '<section class="rm-lp__section rm-lp__final" aria-labelledby="rm-lp-final"><h2 id="rm-lp-final">' . remotive_lp_t( array( 'Ready to see what we would fix first?', 'Bersedia melihat apa yang akan kami baiki dahulu?', '想知道我们会优先解决什么吗？' ) ) . '</h2>'
+		. '<section class="rm-lp__section rm-lp__trust"><p><strong>' . remotive_lp_t( array( 'Senior-led and independent.', 'Diketuai pakar kanan dan bebas.', '资深团队领导，独立运营。', '資深團隊領導，獨立營運。' ) ) . '</strong> ' . $markets . '</p></section>'
+		. '<section class="rm-lp__section rm-lp__final" aria-labelledby="rm-lp-final"><h2 id="rm-lp-final">' . remotive_lp_t( array( 'Ready to see what we would fix first?', 'Bersedia melihat apa yang akan kami baiki dahulu?', '想知道我们会优先解决什么吗？', '想知道我們會優先解決什麼嗎？' ) ) . '</h2>'
 		. '<div class="rm-lp__card">' . remotive_lp_form( $slug, 'bottom' ) . '</div></section>'
 		. '</main>'
-		. '<a class="rm-lp__sticky" href="#rm-lp-start">' . remotive_lp_t( array( 'Get my free audit', 'Dapatkan audit percuma saya', '获取免费审计' ) ) . '</a>'
+		. '<a class="rm-lp__sticky" href="#rm-lp-start">' . remotive_lp_t( array( 'Get my free audit', 'Dapatkan audit percuma saya', '获取免费审计', '獲取免費審計' ) ) . '</a>'
 		. '<footer class="rm-lp__foot">&copy; ' . esc_html( gmdate( 'Y' ) ) . ' Re:Motive Media</footer>'
 		. '</div>';
 }

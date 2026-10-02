@@ -9,8 +9,10 @@
 .rm-lp [data-l]{ display:none; }
 .rm-lp[data-lang="en"] [data-l="en"],
 .rm-lp[data-lang="ms"] [data-l="ms"],
-.rm-lp[data-lang="zh"] [data-l="zh"]{ display:revert; }
+.rm-lp[data-lang="zh"] [data-l="zh"],
+.rm-lp[data-lang="zht"] [data-l="zht"]{ display:revert; }
 .rm-lp[data-lang="zh"]{ font-family:"PingFang SC","Noto Sans SC","Microsoft YaHei",var(--wp--preset--font-family--archivo),sans-serif; }
+.rm-lp[data-lang="zht"]{ font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",var(--wp--preset--font-family--archivo),sans-serif; }
 
 /* Top bar: brand and language only. No navigation, so nothing leads away. */
 .rm-lp__bar{ display:flex; flex-wrap:wrap; gap:.5rem 1rem; align-items:center; justify-content:space-between; padding:1rem 0; }
@@ -18,7 +20,7 @@
 .rm-lp__logo img{ height:56px; width:auto; }
 .rm-lp__langs{ display:flex; gap:.25rem; }
 .rm-lp__lang{
-  min-height:44px; padding:.4rem .9rem; font:inherit; font-size:.88rem; cursor:pointer;
+  min-height:44px; min-width:44px; padding:.4rem .75rem; font:inherit; font-size:.82rem; letter-spacing:.06em; cursor:pointer;
   color:var(--rm-ink-70); background:transparent; border:1px solid transparent; border-radius:2rem;
 }
 .rm-lp__lang:hover{ color:var(--wp--preset--color--ink); }
@@ -62,7 +64,8 @@
 .rm-lp__status[data-state="error"] .rm-lp__msg--error{ display:block; }
 .rm-lp[data-lang="en"] .rm-lp__status [data-l]:not([data-l="en"]),
 .rm-lp[data-lang="ms"] .rm-lp__status [data-l]:not([data-l="ms"]),
-.rm-lp[data-lang="zh"] .rm-lp__status [data-l]:not([data-l="zh"]){ display:none; }
+.rm-lp[data-lang="zh"] .rm-lp__status [data-l]:not([data-l="zh"]),
+.rm-lp[data-lang="zht"] .rm-lp__status [data-l]:not([data-l="zht"]){ display:none; }
 
 /* Sections below the fold */
 .rm-lp__section{ padding:var(--lp-gap) 0 0; }
@@ -86,5 +89,6 @@
 .rm-lp__sticky [data-l]{ display:none; }
 .rm-lp[data-lang="en"] .rm-lp__sticky [data-l="en"],
 .rm-lp[data-lang="ms"] .rm-lp__sticky [data-l="ms"],
-.rm-lp[data-lang="zh"] .rm-lp__sticky [data-l="zh"]{ display:inline; }
+.rm-lp[data-lang="zh"] .rm-lp__sticky [data-l="zh"],
+.rm-lp[data-lang="zht"] .rm-lp__sticky [data-l="zht"]{ display:inline; }
 @media (min-width:56rem){ .rm-lp__sticky{ display:none !important; } }

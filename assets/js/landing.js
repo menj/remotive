@@ -3,19 +3,27 @@
 	var root = document.querySelector('.rm-lp');
 	if (!root) { return; }
 
-	var langs = { en: 'en', ms: 'ms', zh: 'zh-Hans' };
+	var langs = { en: 'en', ms: 'ms', zh: 'zh-Hans', zht: 'zh-Hant' };
+	var aliases = { 'zh-cn': 'zh', 'zh-hans': 'zh', 'zh-tw': 'zht', 'zh-hk': 'zht', 'zh-hant': 'zht' };
 	var buttons = root.querySelectorAll('[data-set-lang]');
 
 	function pick() {
-		var q = /[?&]lang=(en|ms|zh)\b/.exec(location.search);
-		if (q) { return q[1]; }
+		var q = /[?&]lang=([A-Za-z-]+)/.exec(location.search);
+		if (q) {
+			var want = q[1].toLowerCase();
+			want = aliases[want] || want;
+			if (langs[want]) { return want; }
+		}
 		try {
 			var s = localStorage.getItem('remotive-lang');
 			if (langs[s]) { return s; }
 		} catch (e) {}
 		var n = (navigator.language || 'en').toLowerCase();
 		if (n.indexOf('ms') === 0 || n.indexOf('id') === 0) { return 'ms'; }
-		if (n.indexOf('zh') === 0) { return 'zh'; }
+		if (n.indexOf('zh') === 0) {
+			// Traditional for Taiwan, Hong Kong, Macau or an explicit Hant tag.
+			return /^zh-(tw|hk|mo|hant)/.test(n) ? 'zht' : 'zh';
+		}
 		return 'en';
 	}
 
