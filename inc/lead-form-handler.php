@@ -61,6 +61,7 @@ function remotive_form_rate_limit_exceeded( $form_key ) {
  *     @type string $email_subject    Already-translated subject line for the notification email.
  *     @type string[] $extra_lines    Optional, already-sanitised "Label: value" lines appended to the stored and emailed message (service, campaign source).
  *     @type array  $thanks_args      Optional query args added to the thank-you redirect (already sanitised).
+ *     @type string $thanks_url       Optional confirmation URL to use instead of the shared thank-you page.
  * }
  */
 function remotive_handle_lead_form_submission( $args ) {
@@ -190,13 +191,14 @@ function remotive_handle_lead_form_submission( $args ) {
 	// unpublished or renamed — a deleted page must not swallow a lead that
 	// has already been stored and emailed.
 	if ( $sent ) {
-		$thanks = get_page_by_path( 'thank-you', OBJECT, 'page' );
+		$thanks     = get_page_by_path( 'thank-you', OBJECT, 'page' );
+		$thanks_url = ! empty( $args['thanks_url'] ) ? $args['thanks_url'] : ( $thanks && 'publish' === $thanks->post_status ? get_permalink( $thanks->ID ) : '' );
 
-		if ( $thanks && 'publish' === $thanks->post_status ) {
+		if ( $thanks_url ) {
 			wp_safe_redirect(
 				add_query_arg(
 					array_merge( array( 'from' => $args['form_key'] ), isset( $args['thanks_args'] ) ? $args['thanks_args'] : array() ),
-					get_permalink( $thanks->ID )
+					$thanks_url
 				)
 			);
 			exit;

@@ -60,7 +60,7 @@ function remotive_theme_option_defaults() {
 		'hero_cta_primary' => 'Show me a growth plan',
 		'hero_cta_second'  => 'View Our Capabilities',
 		'hero_reassure'    => '30 minutes · no commitment · reply in three business days',
-		'ticker_countries'      => 'Singapore, Malaysia, Thailand, Hong Kong, China',
+		'ticker_countries'      => 'Singapore, Malaysia, Thailand, Vietnam, Hong Kong, China',
 		'ticker_visible'        => '1',
 		'ticker_bg'             => '#1a1a2e',
 		'ticker_color'          => '#f7f4ec',

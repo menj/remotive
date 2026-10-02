@@ -169,6 +169,16 @@ function remotive_required_pages() {
 			'rm_desc'  => '',
 			'rm_kw'    => '',
 		),
+		'audit-requested' => array(
+			'title'    => __( 'Audit requested', 'remotive' ),
+			'template' => 'page-landing',
+			'order'    => 93,
+			'in_menu'  => false,
+			'note'     => __( 'Confirmation page for the ad landing page forms (noindex, nofollow), in four languages. It is the conversion URL for those forms: keep it published.', 'remotive' ),
+			'rm_title' => '',
+			'rm_desc'  => '',
+			'rm_kw'    => '',
+		),
 		'terms'    => array(
 			'title'    => __( 'Terms of Service', 'remotive' ),
 			'template' => 'page-legal',
@@ -343,7 +353,7 @@ const REMOTIVE_SETUP_FLAG = 'remotive_site_setup_done';
  * migrations. This is the value stored in remotive_site_setup_done after
  * all migrations for this release complete successfully.
  */
-const REMOTIVE_SETUP_SCHEMA = '1.90.0';
+const REMOTIVE_SETUP_SCHEMA = '1.92.0';
 
 /**
  * Migrations keyed by the schema version they introduce.
@@ -419,6 +429,12 @@ function remotive_migration_registry() {
 		// pages would never be created. Setup only creates what is missing
 		// and never touches an existing page's content.
 		'1.90.0' => function() {
+			remotive_run_site_setup();
+		},
+		// 1.92.0: provisions the audit-requested confirmation page that the
+		// landing page forms redirect to. Without it the forms would fall
+		// back to the shared English thank-you page.
+		'1.92.0' => function() {
 			remotive_run_site_setup();
 		},
 	);

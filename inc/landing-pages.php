@@ -25,6 +25,9 @@ defined( 'ABSPATH' ) || exit;
 
 const REMOTIVE_LANDING_TEMPLATE = 'page-landing';
 
+/** Slug of the confirmation page landing-page leads are sent to. */
+const REMOTIVE_LP_THANKS_SLUG = 'audit-requested';
+
 /**
  * The services, keyed by the slug of the page that sells them.
  *
@@ -177,7 +180,7 @@ function remotive_lp_rewrites() {
 		}
 	}
 
-	$slugs = array_map( 'preg_quote', array_keys( remotive_landing_services() ) );
+	$slugs = array_map( 'preg_quote', array_merge( array_keys( remotive_landing_services() ), array( REMOTIVE_LP_THANKS_SLUG ) ) );
 
 	add_rewrite_rule(
 		'^(' . implode( '|', $prefixes ) . ')/(' . implode( '|', $slugs ) . ')/?$',
@@ -193,9 +196,9 @@ add_action( 'init', 'remotive_lp_rewrites' );
  * changes) and never on an ordinary request.
  */
 function remotive_lp_maybe_flush_rewrites() {
-	if ( '1' !== get_option( 'remotive_lp_rewrite_v' ) ) {
+	if ( '2' !== get_option( 'remotive_lp_rewrite_v' ) ) {
 		flush_rewrite_rules( false );
-		update_option( 'remotive_lp_rewrite_v', '1', true );
+		update_option( 'remotive_lp_rewrite_v', '2', true );
 	}
 }
 add_action( 'wp_loaded', 'remotive_lp_maybe_flush_rewrites' );
@@ -214,7 +217,7 @@ function remotive_lp_canonical( $url, $post ) {
 	if ( $post && remotive_is_landing_page() ) {
 		$slug = get_post_field( 'post_name', $post );
 
-		if ( isset( remotive_landing_services()[ $slug ] ) ) {
+		if ( isset( remotive_landing_services()[ $slug ] ) || REMOTIVE_LP_THANKS_SLUG === $slug ) {
 			return remotive_lp_url( $slug, remotive_lp_requested_lang() );
 		}
 	}
@@ -293,6 +296,7 @@ function remotive_lp_form( $service, $pos ) {
 		. '<input type="hidden" name="action" value="remotive_lp_submit">'
 		. '<input type="hidden" name="remotive_lp_nonce" value="' . esc_attr( wp_create_nonce( 'remotive_lp_submit' ) ) . '">'
 		. '<input type="hidden" name="service" value="' . esc_attr( $service ) . '">'
+		. '<input type="hidden" name="lp_lang" value="' . esc_attr( remotive_lp_requested_lang() ) . '">'
 		. $tracked
 		. '<div class="rm-lp__hp" aria-hidden="true"><label for="' . esc_attr( $id ) . '-hp">Leave this field empty</label>'
 		. '<input type="text" id="' . esc_attr( $id ) . '-hp" name="remotive_lp_website" tabindex="-1" autocomplete="off"></div>'
@@ -455,24 +459,18 @@ function remotive_lp_logo() {
 }
 
 /**
- * Markup for the page being rendered.
+ * The language links: real links to each language's own URL, labelled with
+ * the language code (the full name is the accessible name). Campaign
+ * parameters are added to these links by assets/js/landing.js, so switching
+ * keeps them.
  *
+ * @param string $slug Page slug.
  * @return string
  */
-function remotive_lp_render() {
-	$slug     = get_post_field( 'post_name', get_queried_object_id() );
-	$services = remotive_landing_services();
-
-	if ( ! isset( $services[ $slug ] ) ) {
-		return '';
-	}
-
-	$s    = $services[ $slug ];
-	// Real links to each language's own URL, labelled with the language
-	// code; the full name is the accessible name. Campaign parameters are
-	// added to these links by assets/js/landing.js, so switching keeps them.
+function remotive_lp_lang_nav( $slug ) {
 	$btns    = '';
 	$current = remotive_lp_requested_lang();
+
 	foreach ( remotive_lp_languages() as $key => $lang ) {
 		$btns .= sprintf(
 			'<a class="rm-lp__lang" href="%1$s" hreflang="%2$s" lang="%2$s" aria-label="%3$s" title="%3$s"%4$s>%5$s</a>',
@@ -483,6 +481,83 @@ function remotive_lp_render() {
 			esc_html( $lang[2] )
 		);
 	}
+
+	return $btns;
+}
+
+/**
+ * The confirmation page landing-page leads arrive on: the same chrome as the
+ * landing pages (logo and language links only), in the language of the URL.
+ * It is the conversion URL for landing-page forms; the event itself is pushed
+ * from inc/thank-you.php.
+ *
+ * @return string
+ */
+function remotive_lp_render_thanks() {
+	$services = remotive_landing_services();
+	$asked    = isset( $_GET['service'] ) ? sanitize_key( wp_unslash( $_GET['service'] ) ) : '';
+	$i        = remotive_lp_lang_index();
+	$label    = isset( $services[ $asked ] ) ? $services[ $asked ]['label'][ $i ] : '';
+
+	if ( '' !== $label ) {
+		// A Latin label inside Chinese text needs spaces; a Chinese label does not.
+		$spaced = ( $i >= 2 && preg_match( '/[A-Za-z]/', $label ) ) ? ' ' . $label . ' ' : $label;
+		$titles = array(
+			sprintf( 'Thanks. Your free %s audit request is in.', $label ),
+			sprintf( 'Terima kasih. Permintaan audit %s percuma anda telah diterima.', $label ),
+			sprintf( '谢谢。您的免费%s审计申请已收到。', $spaced ),
+			sprintf( '謝謝。您的免費%s審計申請已收到。', $spaced ),
+		);
+	} else {
+		$titles = array( 'Thanks. Your request is in.', 'Terima kasih. Permintaan anda telah diterima.', '谢谢。您的申请已收到。', '謝謝。您的申請已收到。' );
+	}
+
+	$steps = '';
+	foreach ( array(
+		array( array( 'We read it', 'Kami membacanya', '我们会阅读', '我們會閱讀' ), array( 'Your details go to a named specialist, not a shared inbox.', 'Butiran anda dihantar kepada pakar yang dinamakan, bukan peti mel kongsi.', '您的资料会交给指定的专员，而不是共用收件箱。', '您的資料會交給指定的專員，而不是共用收件匣。' ) ),
+		array( array( 'We reply within three business days', 'Kami membalas dalam tiga hari bekerja', '三个工作日内回复', '三個工作日內回覆' ), array( 'Singapore hours. A specific view of what we would fix first, not a brochure.', 'Waktu Singapura. Pandangan khusus tentang apa yang akan kami baiki dahulu, bukan brosur.', '新加坡时间。给出我们会优先解决什么的具体意见，而不是宣传册。', '新加坡時間。給出我們會優先解決什麼的具體意見，而不是宣傳冊。' ) ),
+		array( array( 'You decide', 'Anda yang memutuskan', '由您决定', '由您決定' ), array( 'If an audit fits, we book 30 minutes. No commitment either way.', 'Jika audit sesuai, kami tempah 30 minit. Tiada komitmen.', '如果适合做审计，我们会预约 30 分钟。无需任何承诺。', '如果適合做審計，我們會預約 30 分鐘。無需任何承諾。' ) ),
+	) as $n => $st ) {
+		$steps .= '<li class="rm-lp__step"><span class="rm-lp__num">' . ( $n + 1 ) . '</span><h3>' . remotive_lp_t( $st[0] ) . '</h3><p>' . remotive_lp_t( $st[1] ) . '</p></li>';
+	}
+
+	return '<div class="rm-lp" data-lang="' . esc_attr( remotive_lp_requested_lang() ) . '" data-page="thanks">'
+		. '<header class="rm-lp__bar">' . remotive_lp_logo()
+		. '<nav class="rm-lp__langs" aria-label="Language / Bahasa / 语言 / 語言">' . remotive_lp_lang_nav( REMOTIVE_LP_THANKS_SLUG ) . '</nav></header>'
+		. '<main id="main" class="rm-lp__main">'
+		. '<section class="rm-lp__hero rm-lp__thanks"><div class="rm-lp__copy">'
+		. '<p class="rm-lp__eyebrow">' . remotive_lp_t( array( 'Request received', 'Permintaan diterima', '申请已收到', '申請已收到' ) ) . '</p>'
+		. '<h1>' . esc_html( $titles[ $i ] ) . '</h1>'
+		. remotive_lp_t( array( 'A person reads what you sent and replies within three business days, Singapore hours, with a specific view of what we would fix first.', 'Seorang pakar membaca apa yang anda hantar dan membalas dalam tiga hari bekerja, waktu Singapura, dengan pandangan khusus tentang apa yang akan kami baiki dahulu.', '会有专人阅读您提交的内容，并在三个工作日内（新加坡时间）回复，给出我们会优先解决什么的具体意见。', '會有專人閱讀您提交的內容，並在三個工作日內（新加坡時間）回覆，給出我們會優先解決什麼的具體意見。' ), 'p', 'rm-lp__lead' )
+		. '</div></section>'
+		. '<section class="rm-lp__section" aria-labelledby="rm-lp-next"><h2 id="rm-lp-next">' . remotive_lp_t( array( 'What happens next', 'Apa yang berlaku seterusnya', '接下来会怎样', '接下來會怎樣' ) ) . '</h2>'
+		. '<ol class="rm-lp__steps">' . $steps . '</ol>'
+		. '<p class="rm-lp__fine">' . remotive_lp_t( array( 'Nothing was added to a mailing list. Your details are used to reply to you and nothing else.', 'Tiada apa-apa ditambah ke senarai mel. Butiran anda hanya digunakan untuk membalas anda.', '我们没有将您加入任何邮件列表。您的资料仅用于回复您。', '我們沒有將您加入任何郵寄名單。您的資料僅用於回覆您。' ) )
+		. ' <a href="' . esc_url( home_url( '/privacy/' ) ) . '">' . remotive_lp_t( array( 'Privacy', 'Privasi', '隐私政策', '隱私權政策' ) ) . '</a></p></section>'
+		. '</main>'
+		. '<footer class="rm-lp__foot">&copy; ' . esc_html( gmdate( 'Y' ) ) . ' Re:Motive Media</footer>'
+		. '</div>';
+}
+
+/**
+ * Markup for the page being rendered.
+ *
+ * @return string
+ */
+function remotive_lp_render() {
+	$slug     = get_post_field( 'post_name', get_queried_object_id() );
+	$services = remotive_landing_services();
+
+	if ( REMOTIVE_LP_THANKS_SLUG === $slug ) {
+		return remotive_lp_render_thanks();
+	}
+
+	if ( ! isset( $services[ $slug ] ) ) {
+		return '';
+	}
+
+	$s    = $services[ $slug ];
+	$btns = remotive_lp_lang_nav( $slug );
 
 	$points = '';
 	foreach ( $s['points'] as $p ) {
@@ -582,6 +657,10 @@ function remotive_handle_landing_submission() {
 		}
 	}
 
+	// The confirmation page is in the language the form was filled in.
+	$lang = isset( $_POST['lp_lang'] ) ? sanitize_key( wp_unslash( $_POST['lp_lang'] ) ) : 'en';
+	$lang = isset( remotive_lp_languages()[ $lang ] ) ? $lang : 'en';
+
 	$base = wp_get_referer();
 	$base = $base ? remove_query_arg( 'remotive_lp', $base ) : home_url( '/' );
 
@@ -594,6 +673,7 @@ function remotive_handle_landing_submission() {
 		/* translators: %s: the site name */
 		'email_subject'  => sprintf( __( 'New landing page enquiry from %s', 'remotive' ), get_bloginfo( 'name' ) ),
 		'extra_lines'    => $extra,
+		'thanks_url'     => remotive_lp_url( REMOTIVE_LP_THANKS_SLUG, $lang ),
 		'thanks_args'    => '' !== $service ? array( 'service' => $service ) : array(),
 	) );
 }
@@ -618,7 +698,7 @@ function remotive_lp_hreflang() {
 
 	$slug = get_post_field( 'post_name', get_queried_object_id() );
 
-	if ( ! isset( remotive_landing_services()[ $slug ] ) ) {
+	if ( ! isset( remotive_landing_services()[ $slug ] ) && REMOTIVE_LP_THANKS_SLUG !== $slug ) {
 		return;
 	}
 
