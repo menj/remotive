@@ -85,8 +85,11 @@ remotive/
 │   │   ├── accessibility.php   WCAG remediation helpers. (v1.47.0)
 │   │   ├── avif.php        Wraps images in a picture element with an AVIF
 │   │   │                   source when a companion file exists. (v1.45.0)
-│   │   └── branded-login.php   Optional branded wp-login screen, off by
-│   │                       default. (v1.53.0)
+│   │   ├── branded-login.php   Optional branded wp-login screen, off by
+│   │   │                   default. (v1.53.0)
+│   │   └── rank-math.php   Rank Math SEO 1.0.279 compatibility: robots,
+│   │                       canonical and sitemap rules the plugin would
+│   │                       otherwise discard. (v1.101.0)
 │   ├── options/            Settings the site owner changes.
 │   │   ├── theme-options.php   Appearance -> Theme Options admin page,
 │   │   │                   settings sanitisation, the render_block token

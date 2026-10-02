@@ -81,8 +81,10 @@ function get_option( $k, $d = false ) { return $GLOBALS['T']['options'][ $k ] ??
 function get_query_var( $k ) { return $GLOBALS['T']['query_var']; }
 function is_admin() { return $GLOBALS['T']['admin']; }
 function is_page() { return true; }
-function is_page_template() { return true; }
+function is_page_template() { return $GLOBALS['T']['template'] ?? true; }
 function get_queried_object_id() { return 1; }
+function get_queried_object() { return (object) array( 'ID' => 1 ); }
+function get_posts() { return $GLOBALS['T']['landing_ids'] ?? array( 5, 6 ); }
 function get_post_field() { return $GLOBALS['T']['slug']; }
 function get_page_by_path( $s ) { return (object) array( 'ID' => 5 ); }
 function get_permalink() { return 'https://example.com/' . $GLOBALS['T']['slug'] . '/'; }

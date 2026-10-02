@@ -4,6 +4,20 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.101.0] — 2026-10-02
+
+### Fixed
+
+Checked against the Rank Math SEO 1.0.279 source. The plugin replaces three things the theme also did, so the theme's versions were being discarded whenever it was active:
+
+- **Confirmation page indexable.** Rank Math calls `remove_all_filters( 'wp_robots' )`, which removed the theme's noindex on the thank-you page. Added a `rank_math/frontend/robots` rule (noindex, follow). The landing-page robots rule already used the plugin's filter.
+- **Landing languages canonical to English.** Rank Math removes core's `rel_canonical`, so the theme's `get_canonical_url` filter never ran and `/ms/`, `/zh-cn/` and `/zh-tw/` pages named the English page as canonical. Added a `rank_math/frontend/canonical` rule that gives each language its own URL.
+- **Landing and confirmation pages in the Rank Math sitemap.** The theme only removed them from core's sitemap, which the plugin switches off, and the plugin omits only posts with `noindex` in `rank_math_robots` meta. Added a `rank_math/sitemap/entry` rule that drops them.
+
+### Added
+
+- `inc/core/rank-math.php` holds the three rules; `tests/test-rank-math.php` (12 checks) covers them. All are inert without the plugin. The schema-markup comment now cites 1.0.279.
+
 ## [1.100.0] — 2026-10-02
 
 ### Changed

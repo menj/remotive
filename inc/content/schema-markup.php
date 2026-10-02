@@ -49,7 +49,7 @@ function remotive_schema_plugin_managed_types() {
 	}
 	if ( class_exists( 'RankMath' ) ) {
 		// Rank Math's entire schema output lives behind its "rich-snippet"
-		// module (verified against plugin source v1.0.277: every snippet —
+		// module (verified against plugin source v1.0.279: every snippet —
 		// WebSite, WebPage, Article, BreadcrumbList, Person, publisher —
 		// is loaded by that module, and its REST/admin paths gate on
 		// Helper::is_module_active( 'rich-snippet' )). With the module

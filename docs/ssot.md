@@ -452,7 +452,7 @@ by path, error handler first.
 
 | Folder | Files |
 |---|---|
-| `inc/core/` | `error-handler`, `security`, `accessibility`, `avif`, `branded-login` |
+| `inc/core/` | `error-handler`, `security`, `accessibility`, `avif`, `branded-login`, `rank-math` |
 | `inc/options/` | `theme-options`, `colours`, `maintenance-mode` |
 | `inc/setup/` | `site-setup`, `classic-menus`, `content-seed`, `content-seed-data` |
 | `inc/forms/` | `lead-form-handler`, `cta-form-handler`, `about-form-handler`, `contact-form-handler`, `leads`, `akismet`, `thank-you` |
