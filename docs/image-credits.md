@@ -11,6 +11,7 @@ resized and re-encoded (AVIF and JPEG); the originals are not stored here.
 | `city-singapore` | Singapore tile | Mark Baldovino | https://www.pexels.com/photo/18662417/ |
 | `city-malaysia` | Malaysia tile | Mohammed Alim | https://www.pexels.com/photo/37723021/ |
 | `city-thailand` | Thailand tile | Balazs Simon | https://www.pexels.com/photo/7368342/ |
+| `city-vietnam` | Vietnam tile | Đan Thy Nguyễn Mai | https://www.pexels.com/photo/32499988/ |
 | `city-hong-kong` | Hong Kong tile | Tito Zzzz | https://www.pexels.com/photo/20306805/ |
 | `city-china` | China tile | Zhengyang TIAN | https://www.pexels.com/photo/35919936/ |
 | `svc-seo-audit` | SEO page hero | Lukas Blazek | https://www.pexels.com/photo/577210/ |

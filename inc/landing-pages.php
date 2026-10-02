@@ -365,7 +365,7 @@ function remotive_lp_faq_items( $slug ) {
 		),
 		array(
 			array( 'Which markets do you work in?', 'Di pasaran mana anda beroperasi?', '你们服务哪些市场？', '你們服務哪些市場？' ),
-			array( 'Singapore, Malaysia, Thailand, Hong Kong and China.', 'Singapura, Malaysia, Thailand, Hong Kong dan China.', '新加坡、马来西亚、泰国、香港和中国。', '新加坡、馬來西亞、泰國、香港和中國。' ),
+			array( 'Singapore, Malaysia, Thailand, Vietnam, Hong Kong and China.', 'Singapura, Malaysia, Thailand, Vietnam, Hong Kong dan China.', '新加坡、马来西亚、泰国、越南、香港和中国。', '新加坡、馬來西亞、泰國、越南、香港和中國。' ),
 		),
 	);
 
@@ -496,6 +496,7 @@ function remotive_lp_render() {
 		'singapore' => array( 'Singapore', 'Singapura', '新加坡', '新加坡' ),
 		'malaysia'  => array( 'Malaysia', 'Malaysia', '马来西亚', '馬來西亞' ),
 		'thailand'  => array( 'Thailand', 'Thailand', '泰国', '泰國' ),
+		'vietnam'   => array( 'Vietnam', 'Vietnam', '越南', '越南' ),
 		'hong-kong' => array( 'Hong Kong', 'Hong Kong', '香港', '香港' ),
 		'china'     => array( 'China', 'China', '中国', '中國' ),
 	) as $stem => $label ) {
@@ -524,7 +525,7 @@ function remotive_lp_render() {
 		. remotive_lp_form( $slug, 'top' ) . '</div></section>'
 		. '<section class="rm-lp__section" aria-labelledby="rm-lp-how"><h2 id="rm-lp-how">' . remotive_lp_t( array( 'How it works', 'Cara ia berfungsi', '合作流程', '合作流程' ) ) . '</h2>'
 		. '<ol class="rm-lp__steps">' . $steps . '</ol></section>'
-		. '<section class="rm-lp__section rm-lp__trust" aria-labelledby="rm-lp-where"><p id="rm-lp-where"><strong>' . remotive_lp_t( array( 'Senior-led and independent.', 'Diketuai pakar kanan dan bebas.', '资深团队领导，独立运营。', '資深團隊領導，獨立營運。' ) ) . '</strong> ' . remotive_lp_t( array( 'Working across five markets:', 'Beroperasi di lima pasaran:', '服务五大市场：', '服務五大市場：' ) ) . '</p>'
+		. '<section class="rm-lp__section rm-lp__trust" aria-labelledby="rm-lp-where"><p id="rm-lp-where"><strong>' . remotive_lp_t( array( 'Senior-led and independent.', 'Diketuai pakar kanan dan bebas.', '资深团队领导，独立运营。', '資深團隊領導，獨立營運。' ) ) . '</strong> ' . remotive_lp_t( array( 'Working across six markets:', 'Beroperasi di enam pasaran:', '服务六大市场：', '服務六大市場：' ) ) . '</p>'
 		. '<ul class="rm-lp__cities">' . $cities . '</ul></section>'
 		. '<section class="rm-lp__section rm-lp__final" aria-labelledby="rm-lp-final"><div class="rm-lp__final-copy"><h2 id="rm-lp-final">' . remotive_lp_t( array( 'Ready to see what we would fix first?', 'Bersedia melihat apa yang akan kami baiki dahulu?', '想知道我们会优先解决什么吗？', '想知道我們會優先解決什麼嗎？' ) ) . '</h2>'
 		. remotive_lp_t( array( 'A free audit, a specific view within three business days, and no commitment either way.', 'Audit percuma, pandangan khusus dalam tiga hari bekerja, dan tiada komitmen.', '免费审计，三个工作日内给出具体意见，无需任何承诺。', '免費審計，三個工作日內提出具體意見，無需任何承諾。' ), 'p', 'rm-lp__lead' ) . '</div>'
