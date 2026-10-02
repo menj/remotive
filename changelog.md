@@ -4,6 +4,13 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.91.0] — 2026-10-02
+
+### Added
+
+- **Landing pages: photography, FAQ and a fuller layout.** Self-hosted Pexels photos (AVIF with JPEG fallback, about 1 MB in total, credited in `docs/image-credits.md`): a hero photo per service (desktop only, so the form is never pushed down on a phone) and photo tiles for the five markets. A two-column closing band, tighter section spacing and an FAQ at the foot of each page: four questions per page (three shared, one per service) in all four languages, with matching `FAQPage` structured data built from the same items.
+- **Theme Options → Integrations → Pexels API key.** A write-only field: the saved key is never printed back into the page, a blank box keeps the saved key, and a toggle removes it. The front end of the site does not call Pexels.
+
 ## [1.90.0] — 2026-10-02
 
 ### Added

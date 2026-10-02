@@ -35,6 +35,7 @@ const REMOTIVE_LANDING_TEMPLATE = 'page-landing';
 function remotive_landing_services() {
 	return array(
 		'seo-audit'     => array(
+			'photo_alt' => array( 'A laptop showing search and analytics charts', 'Komputer riba yang memaparkan carta carian dan analitik', '显示搜索与分析图表的笔记本电脑', '顯示搜尋與分析圖表的筆記型電腦' ),
 			'label'   => array( 'SEO', 'SEO', 'SEO', 'SEO' ),
 			'eyebrow' => array( 'SEO for Asian markets', 'SEO untuk pasaran Asia', '面向亚洲市场的 SEO', '面向亞洲市場的 SEO' ),
 			'title'   => array( 'Be found when buyers search.', 'Dikenali apabila pembeli membuat carian.', '让买家在搜索时找到您。', '讓買家在搜尋時找到您。' ),
@@ -50,6 +51,7 @@ function remotive_landing_services() {
 			),
 		),
 		'google-ads-management' => array(
+			'photo_alt' => array( 'A laptop on a desk with marketing material', 'Komputer riba di atas meja bersama bahan pemasaran', '桌上的笔记本电脑与营销资料', '桌上的筆記型電腦與行銷資料' ),
 			'label'   => array( 'Google Ads', 'Google Ads', 'Google Ads', 'Google Ads' ),
 			'eyebrow' => array( 'Google Ads management', 'Pengurusan Google Ads', 'Google Ads 投放管理', 'Google Ads 投放管理' ),
 			'title'   => array( 'Google Ads that bring leads, not just clicks.', 'Google Ads yang membawa prospek, bukan sekadar klik.', '带来销售线索的 Google Ads，而不只是点击。', '帶來銷售線索的 Google Ads，而不只是點擊。' ),
@@ -65,6 +67,7 @@ function remotive_landing_services() {
 			),
 		),
 		'paid-social-advertising' => array(
+			'photo_alt' => array( 'A phone showing a social media feed', 'Telefon yang memaparkan suapan media sosial', '显示社交媒体动态的手机', '顯示社群媒體動態的手機' ),
 			'label'   => array( 'Paid social', 'Iklan sosial berbayar', '社交媒体广告', '社群媒體廣告' ),
 			'eyebrow' => array( 'Paid social advertising', 'Pengiklanan sosial berbayar', '社交媒体付费广告', '社群媒體付費廣告' ),
 			'title'   => array( 'Paid social that reaches the right buyers.', 'Iklan sosial berbayar yang mencapai pembeli yang tepat.', '精准触达目标买家的社交媒体广告。', '精準觸及目標買家的社群媒體廣告。' ),
@@ -306,6 +309,125 @@ function remotive_lp_tracking_keys() {
 }
 
 /**
+ * A responsive photo from assets/images/landing/ (AVIF with JPEG fallback),
+ * self-hosted. Sizes are pre-generated as <stem>-<width>.avif|jpg.
+ *
+ * @param string          $stem  File stem, e.g. 'city-singapore'.
+ * @param array<int,int>  $sizes Width => height of each generated size.
+ * @param string          $sizes_attr The `sizes` attribute.
+ * @param string          $alt   Alt text ('' for decorative).
+ * @param string          $cls   Optional class on the <img>.
+ * @return string
+ */
+function remotive_lp_picture( $stem, $sizes, $sizes_attr, $alt = '', $cls = '' ) {
+	$base = get_stylesheet_directory_uri() . '/assets/images/landing/';
+	$dir  = get_stylesheet_directory() . '/assets/images/landing/';
+
+	$avif = array();
+	$jpg  = array();
+
+	foreach ( $sizes as $w => $h ) {
+		if ( is_readable( $dir . $stem . '-' . $w . '.avif' ) ) {
+			$avif[] = esc_url( $base . $stem . '-' . $w . '.avif' ) . ' ' . (int) $w . 'w';
+		}
+		$jpg[] = esc_url( $base . $stem . '-' . $w . '.jpg' ) . ' ' . (int) $w . 'w';
+	}
+
+	$widths = array_keys( $sizes );
+	$last_w = end( $widths );
+	$last_h = end( $sizes );
+
+	return '<picture>'
+		. ( $avif ? '<source type="image/avif" srcset="' . implode( ', ', $avif ) . '" sizes="' . esc_attr( $sizes_attr ) . '">' : '' )
+		. '<img src="' . esc_url( $base . $stem . '-' . $widths[0] . '.jpg' ) . '" srcset="' . implode( ', ', $jpg ) . '" sizes="' . esc_attr( $sizes_attr ) . '"'
+		. ' width="' . (int) $last_w . '" height="' . (int) $last_h . '" alt="' . esc_attr( $alt ) . '"'
+		. ( $cls ? ' class="' . esc_attr( $cls ) . '"' : '' )
+		. ' loading="lazy" decoding="async"></picture>';
+}
+
+/**
+ * The questions answered at the foot of every landing page, and in its
+ * FAQPage structured data: three shared ones plus one per service. Each is
+ * array( question, answer ), each of those array( en, ms, zh-Hans, zh-Hant ).
+ *
+ * @param string $slug Service slug.
+ * @return array<int,array<int,array<int,string>>>
+ */
+function remotive_lp_faq_items( $slug ) {
+	$shared = array(
+		array(
+			array( 'What happens after I send the form?', 'Apa yang berlaku selepas saya menghantar borang?', '提交表单后会怎样？', '提交表單後會怎樣？' ),
+			array( 'We look at what you have and reply within three business days with what we would fix first. A 30-minute call can follow if you want one.', 'Kami meneliti apa yang anda ada dan membalas dalam tiga hari bekerja dengan apa yang akan kami baiki dahulu. Panggilan 30 minit boleh menyusul jika anda mahu.', '我们会查看您的情况，并在三个工作日内回复，告诉您我们会优先解决什么。如有需要，可再安排 30 分钟通话。', '我們會查看您的情況，並在三個工作日內回覆，告訴您我們會優先解決什麼。如有需要，可再安排 30 分鐘通話。' ),
+		),
+		array(
+			array( 'Is there a commitment?', 'Adakah terdapat komitmen?', '需要承诺吗？', '需要承諾嗎？' ),
+			array( 'No. The audit is free. You can work with us, or take the plan and run it yourself.', 'Tidak. Audit ini percuma. Anda boleh bekerja dengan kami, atau menggunakan pelan itu sendiri.', '不需要。审计是免费的。您可以与我们合作，也可以自行执行方案。', '不需要。審計是免費的。您可以與我們合作，也可以自行執行方案。' ),
+		),
+		array(
+			array( 'Which markets do you work in?', 'Di pasaran mana anda beroperasi?', '你们服务哪些市场？', '你們服務哪些市場？' ),
+			array( 'Singapore, Malaysia, Thailand, Hong Kong and China.', 'Singapura, Malaysia, Thailand, Hong Kong dan China.', '新加坡、马来西亚、泰国、香港和中国。', '新加坡、馬來西亞、泰國、香港和中國。' ),
+		),
+	);
+
+	$specific = array(
+		'seo-audit'               => array(
+			array( 'Do you also optimise for AI search?', 'Adakah anda juga mengoptimumkan untuk carian AI?', '你们也做 AI 搜索优化吗？', '你們也做 AI 搜尋優化嗎？' ),
+			array( 'Yes. We look at how your pages appear in AI answers as well as in Google, and shape them so they can be found and cited.', 'Ya. Kami meneliti bagaimana halaman anda muncul dalam jawapan AI serta di Google, dan membentuknya supaya boleh ditemui dan dirujuk.', '是的。我们会查看您的页面在 AI 回答和 Google 中的呈现方式，并优化页面，使其更容易被找到和引用。', '是的。我們會查看您的頁面在 AI 回答和 Google 中的呈現方式，並優化頁面，使其更容易被找到和引用。' ),
+		),
+		'google-ads-management'   => array(
+			array( 'Do I need an existing Google Ads account?', 'Adakah saya perlukan akaun Google Ads sedia ada?', '我需要已有 Google Ads 账户吗？', '我需要已有 Google Ads 帳戶嗎？' ),
+			array( 'No. If you have one we review it first. If you do not, we start with the account and tracking setup before any budget is spent.', 'Tidak. Jika anda ada, kami menyemaknya dahulu. Jika tiada, kami bermula dengan penyediaan akaun dan penjejakan sebelum sebarang bajet dibelanjakan.', '不需要。如果已有账户，我们会先审查；如果没有，我们会先完成账户与追踪设置，再投入预算。', '不需要。如果已有帳戶，我們會先審查；如果沒有，我們會先完成帳戶與追蹤設定，再投入預算。' ),
+		),
+		'paid-social-advertising' => array(
+			array( 'Which platforms do you run?', 'Platform mana yang anda uruskan?', '你们投放哪些平台？', '你們投放哪些平台？' ),
+			array( 'Meta (Facebook and Instagram), LinkedIn and TikTok, chosen to fit where your buyers are.', 'Meta (Facebook dan Instagram), LinkedIn dan TikTok, dipilih mengikut tempat pembeli anda berada.', 'Meta（Facebook 和 Instagram）、LinkedIn 和 TikTok，根据您的买家所在之处选择。', 'Meta（Facebook 和 Instagram）、LinkedIn 和 TikTok，根據您的買家所在之處選擇。' ),
+		),
+	);
+
+	return isset( $specific[ $slug ] ) ? array_merge( array( $specific[ $slug ] ), $shared ) : $shared;
+}
+
+/**
+ * FAQPage structured data, built from the same items as the visible FAQ so
+ * the two cannot drift apart. In the language of the current URL.
+ */
+function remotive_lp_faq_schema() {
+	if ( ! remotive_is_landing_page() ) {
+		return;
+	}
+
+	$slug = get_post_field( 'post_name', get_queried_object_id() );
+
+	if ( ! isset( remotive_landing_services()[ $slug ] ) ) {
+		return;
+	}
+
+	$i        = remotive_lp_lang_index();
+	$entities = array();
+
+	foreach ( remotive_lp_faq_items( $slug ) as $qa ) {
+		$entities[] = array(
+			'@type'          => 'Question',
+			'name'           => $qa[0][ $i ],
+			'acceptedAnswer' => array(
+				'@type' => 'Answer',
+				'text'  => $qa[1][ $i ],
+			),
+		);
+	}
+
+	$data = array(
+		'@context'   => 'https://schema.org',
+		'@type'      => 'FAQPage',
+		'inLanguage' => remotive_lp_languages()[ remotive_lp_requested_lang() ][1],
+		'mainEntity' => $entities,
+	);
+
+	echo '<script type="application/ld+json" id="remotive-lp-faq">' . wp_json_encode( $data, JSON_HEX_TAG | JSON_HEX_AMP ) . '</script>' . "\n";
+}
+add_action( 'wp_head', 'remotive_lp_faq_schema', 7 );
+
+/**
  * The logo, from the theme's own files (AVIF with PNG fallback). Not linked:
  * these pages have no way out except the form.
  *
@@ -369,13 +491,24 @@ function remotive_lp_render() {
 		$steps .= '<li class="rm-lp__step"><span class="rm-lp__num">' . ( $i + 1 ) . '</span><h3>' . remotive_lp_t( $st[0] ) . '</h3><p>' . remotive_lp_t( $st[1] ) . '</p></li>';
 	}
 
-	$markets = remotive_lp_t(
-		array(
-			'Singapore · Malaysia · Thailand · Hong Kong · China',
-			'Singapura · Malaysia · Thailand · Hong Kong · China',
-			'新加坡 · 马来西亚 · 泰国 · 香港 · 中国', '新加坡 · 馬來西亞 · 泰國 · 香港 · 中國',
-		)
-	);
+	$cities = '';
+	foreach ( array(
+		'singapore' => array( 'Singapore', 'Singapura', '新加坡', '新加坡' ),
+		'malaysia'  => array( 'Malaysia', 'Malaysia', '马来西亚', '馬來西亞' ),
+		'thailand'  => array( 'Thailand', 'Thailand', '泰国', '泰國' ),
+		'hong-kong' => array( 'Hong Kong', 'Hong Kong', '香港', '香港' ),
+		'china'     => array( 'China', 'China', '中国', '中國' ),
+	) as $stem => $label ) {
+		$cities .= '<li class="rm-lp__city">'
+			. remotive_lp_picture( 'city-' . $stem, array( 480 => 360, 720 => 540 ), '(min-width: 56rem) 14rem, 45vw' )
+			. '<span>' . remotive_lp_t( $label ) . '</span></li>';
+	}
+
+	$faqs = '';
+	$qi   = remotive_lp_lang_index();
+	foreach ( remotive_lp_faq_items( $slug ) as $qa ) {
+		$faqs .= '<details class="rm-lp__q"><summary>' . esc_html( $qa[0][ $qi ] ) . '</summary><p>' . esc_html( $qa[1][ $qi ] ) . '</p></details>';
+	}
 
 	return '<div class="rm-lp" data-lang="' . esc_attr( remotive_lp_requested_lang() ) . '" data-service="' . esc_attr( $slug ) . '">'
 		. '<header class="rm-lp__bar">' . remotive_lp_logo()
@@ -385,17 +518,21 @@ function remotive_lp_render() {
 		. '<p class="rm-lp__eyebrow">' . remotive_lp_t( $s['eyebrow'] ) . '</p>'
 		. '<h1>' . remotive_lp_t( $s['title'] ) . '</h1>'
 		. remotive_lp_t( $s['lead'], 'p', 'rm-lp__lead' )
-		. '<ul class="rm-lp__points">' . $points . '</ul></div>'
+		. '<ul class="rm-lp__points">' . $points . '</ul>'
+		. '<div class="rm-lp__photo">' . remotive_lp_picture( 'svc-' . $slug, array( 640 => 400, 1000 => 625 ), '(min-width: 56rem) 34rem, 0px', remotive_lp_t( $s['photo_alt'] ) ) . '</div></div>'
 		. '<div class="rm-lp__card" id="rm-lp-start"><h2>' . remotive_lp_t( array( 'Get a free audit', 'Dapatkan audit percuma', '获取免费审计', '獲取免費審計' ) ) . '</h2>'
 		. remotive_lp_form( $slug, 'top' ) . '</div></section>'
 		. '<section class="rm-lp__section" aria-labelledby="rm-lp-how"><h2 id="rm-lp-how">' . remotive_lp_t( array( 'How it works', 'Cara ia berfungsi', '合作流程', '合作流程' ) ) . '</h2>'
 		. '<ol class="rm-lp__steps">' . $steps . '</ol></section>'
-		. '<section class="rm-lp__section rm-lp__trust"><p><strong>' . remotive_lp_t( array( 'Senior-led and independent.', 'Diketuai pakar kanan dan bebas.', '资深团队领导，独立运营。', '資深團隊領導，獨立營運。' ) ) . '</strong> ' . $markets . '</p></section>'
-		. '<section class="rm-lp__section rm-lp__final" aria-labelledby="rm-lp-final"><h2 id="rm-lp-final">' . remotive_lp_t( array( 'Ready to see what we would fix first?', 'Bersedia melihat apa yang akan kami baiki dahulu?', '想知道我们会优先解决什么吗？', '想知道我們會優先解決什麼嗎？' ) ) . '</h2>'
+		. '<section class="rm-lp__section rm-lp__trust" aria-labelledby="rm-lp-where"><p id="rm-lp-where"><strong>' . remotive_lp_t( array( 'Senior-led and independent.', 'Diketuai pakar kanan dan bebas.', '资深团队领导，独立运营。', '資深團隊領導，獨立營運。' ) ) . '</strong> ' . remotive_lp_t( array( 'Working across five markets:', 'Beroperasi di lima pasaran:', '服务五大市场：', '服務五大市場：' ) ) . '</p>'
+		. '<ul class="rm-lp__cities">' . $cities . '</ul></section>'
+		. '<section class="rm-lp__section rm-lp__final" aria-labelledby="rm-lp-final"><div class="rm-lp__final-copy"><h2 id="rm-lp-final">' . remotive_lp_t( array( 'Ready to see what we would fix first?', 'Bersedia melihat apa yang akan kami baiki dahulu?', '想知道我们会优先解决什么吗？', '想知道我們會優先解決什麼嗎？' ) ) . '</h2>'
+		. remotive_lp_t( array( 'A free audit, a specific view within three business days, and no commitment either way.', 'Audit percuma, pandangan khusus dalam tiga hari bekerja, dan tiada komitmen.', '免费审计，三个工作日内给出具体意见，无需任何承诺。', '免費審計，三個工作日內提出具體意見，無需任何承諾。' ), 'p', 'rm-lp__lead' ) . '</div>'
 		. '<div class="rm-lp__card">' . remotive_lp_form( $slug, 'bottom' ) . '</div></section>'
+		. '<section class="rm-lp__section rm-lp__faq" aria-labelledby="rm-lp-faq"><h2 id="rm-lp-faq">' . remotive_lp_t( array( 'Frequently asked questions', 'Soalan lazim', '常见问题', '常見問題' ) ) . '</h2><div class="rm-lp__faqs">' . $faqs . '</div></section>'
 		. '</main>'
 		. '<a class="rm-lp__sticky" href="#rm-lp-start">' . remotive_lp_t( array( 'Get my free audit', 'Dapatkan audit percuma saya', '获取免费审计', '獲取免費審計' ) ) . '</a>'
-		. '<footer class="rm-lp__foot">&copy; ' . esc_html( gmdate( 'Y' ) ) . ' Re:Motive Media</footer>'
+		. '<footer class="rm-lp__foot">&copy; ' . esc_html( gmdate( 'Y' ) ) . ' Re:Motive Media. ' . remotive_lp_t( array( 'Photos via Pexels.', 'Foto melalui Pexels.', '图片来自 Pexels。', '圖片來自 Pexels。' ) ) . '</footer>'
 		. '</div>';
 }
 

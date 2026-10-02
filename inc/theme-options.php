@@ -81,6 +81,8 @@ function remotive_theme_option_defaults() {
 		'motion_effects'   => '1',
 		'graceful_errors'  => '1',
 		'maintenance_mode' => '0',
+		'pexels_api_key'       => '',
+		'pexels_api_key_clear' => '0',
 		'legal_name'       => 'Remotive Media Asia',
 		'legal_uen'        => '',
 		'branded_login_message' => 'Team access only.',
@@ -486,6 +488,23 @@ function remotive_theme_options_tabs() {
 				),
 			),
 		),
+		'integrations' => array(
+			'label'       => __( 'Integrations', 'remotive' ),
+			'icon'        => 'dashicons-admin-network',
+			'description' => __( 'Keys for outside services. They are stored in this site\'s database, never printed into a page, and never shown again after saving.', 'remotive' ),
+			'fields'      => array(
+				'pexels_api_key'       => array(
+					'label'  => __( 'Pexels API key', 'remotive' ),
+					'type'   => 'secret',
+					'helper' => __( 'Used for finding free photography on Pexels. Paste a key to save it; leave the box empty to keep the one already saved. The front end of the site does not call Pexels, so nothing here affects page speed.', 'remotive' ),
+				),
+				'pexels_api_key_clear' => array(
+					'label'        => __( 'Remove saved key', 'remotive' ),
+					'type'         => 'toggle',
+					'toggle_label' => __( 'Delete the saved Pexels key when I save', 'remotive' ),
+				),
+			),
+		),
 		'display' => array(
 			'label'       => __( 'Site behaviour', 'remotive' ),
 			'icon'        => 'dashicons-admin-appearance',
@@ -557,6 +576,16 @@ function remotive_render_text_field( $key, $type ) {
 			'<textarea id="remotive_field_%1$s" name="remotive_theme_options[%1$s]" rows="3">%2$s</textarea>',
 			esc_attr( $key ),
 			esc_textarea( $value )
+		);
+		return;
+	}
+
+	if ( 'secret' === $type ) {
+		// Never echo the stored value back into the page.
+		printf(
+			'<input type="password" id="remotive_field_%1$s" name="remotive_theme_options[%1$s]" value="" autocomplete="new-password" spellcheck="false" placeholder="%2$s" />',
+			esc_attr( $key ),
+			esc_attr( '' !== (string) $value ? __( 'Saved. Paste a new key to replace it.', 'remotive' ) : __( 'Not set', 'remotive' ) )
 		);
 		return;
 	}
@@ -818,6 +847,17 @@ function remotive_sanitize_theme_options( $input ) {
 	// An unchecked checkbox submits nothing, so absence means off.
 	$clean['branded_login']         = ( isset( $input['branded_login'] ) && '1' === (string) $input['branded_login'] ) ? '1' : '0';
 	$clean['motion_effects']        = ( isset( $input['motion_effects'] ) && '1' === (string) $input['motion_effects'] ) ? '1' : '0';
+	// Secret: blank keeps the saved key, a valid key replaces it, and the
+	// toggle removes it. Only letters and digits are accepted.
+	$key_in = isset( $input['pexels_api_key'] ) ? trim( sanitize_text_field( wp_unslash( $input['pexels_api_key'] ) ) ) : '';
+	if ( isset( $input['pexels_api_key_clear'] ) && '1' === (string) $input['pexels_api_key_clear'] ) {
+		$clean['pexels_api_key'] = '';
+	} elseif ( '' !== $key_in && preg_match( '/^[A-Za-z0-9]{20,120}$/', $key_in ) ) {
+		$clean['pexels_api_key'] = $key_in;
+	} else {
+		$clean['pexels_api_key'] = (string) remotive_get_theme_option( 'pexels_api_key' );
+	}
+	$clean['pexels_api_key_clear']  = '0';
 	$clean['maintenance_mode']      = ( isset( $input['maintenance_mode'] ) && '1' === (string) $input['maintenance_mode'] ) ? '1' : '0';
 	$clean['graceful_errors']       = ( isset( $input['graceful_errors'] ) && '1' === (string) $input['graceful_errors'] ) ? '1' : '0';
 	$clean['branded_login_message'] = sanitize_text_field( $input['branded_login_message'] ?? $defaults['branded_login_message'] );
