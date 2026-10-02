@@ -28,7 +28,8 @@ of this theme and is **not** the registered address.
 
 | Domain | Use |
 |---|---|
-| `remotivemedia.asia` | This website. `Theme URI` in `style.css` points here. |
+| `remotivemedia.asia` | This website. |
+| `github.com/menj/remotive` | The theme's repository. `Theme URI` in `style.css` points here. |
 | `remotivemedia.com` | Email domain (`hello@remotivemedia.com`) — legacy/parallel domain, still in active use for contact addresses at time of writing. |
 | `menj.blog` | Theme author's (MENJ) personal site. `Author URI` in `style.css`. |
 
