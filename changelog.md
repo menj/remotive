@@ -4,6 +4,17 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.96.0] — 2026-10-02
+
+### Changed
+
+- The 14 hand-written inline gradients on the case-study cards are now classes (`.rm-grad--cyan-magenta` and eight more, in `blog-and-about.css`). Checked by rendering the template before and after: the computed gradient of all 14 cards is identical.
+- Removed the duplicate Space Grotesk 900 face from `theme.json`; it pointed at the 700 file, which is what a 900 request already used.
+
+### Notes
+
+- Reviewed and deliberately left: the remaining inline styles (WordPress block markup that must match the block comments, plus the runtime `--rm-team-cols`), the Archivo and Newsreader files (the no-JavaScript fallback; browsers only fetch fonts a page uses), the 315 `!important` rules (they beat WordPress's own block styles and can only be pruned safely against a real WordPress page) and the 143 KB (about 40 KB gzipped) `remotive.css`. The reasoning is in `readme.md` under Known limitations.
+
 ## [1.95.0] — 2026-10-02
 
 ### Added

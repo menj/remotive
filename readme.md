@@ -1179,6 +1179,28 @@ sufficient; there's no official CLI linter for hand-authored block HTML.
 
 ## Known limitations
 
+### Left deliberately (reviewed v1.96.0)
+
+- **Inline `style=""` in templates.** What remains is WordPress's own block
+  markup (column `flex-basis`, group padding, footer spacing), which must match
+  each block's comment attributes or the editor reports the block as invalid,
+  plus one runtime value (`--rm-team-cols` on the team grid). Hand-written
+  inline styles (the case-study card gradients) were moved to classes.
+- **Archivo and Newsreader files.** They look unused because `remotive.css`
+  points both presets at Saira, but that override only applies once the page
+  script has set `data-theme`. They are the fallback when JavaScript is off,
+  and browsers only download font files a page actually uses, so they cost
+  nothing on a normal visit.
+- **315 `!important` rules.** Most beat WordPress's block and global styles
+  (`.wp-block-*`, theme.json element styles). They can only be pruned safely
+  with a real WordPress page to compare against, because a test page without
+  WordPress's own CSS would show every removal as harmless. Do it on a staging
+  site with before/after screenshots, one component at a time.
+- **`remotive.css` size.** 143 KB raw, about 40 KB gzipped, loaded
+  asynchronously behind inline critical CSS. Splitting it per template is
+  possible (`blog-and-about.css` is already loaded conditionally) but the saving
+  should be measured on the live site first.
+
 - The six services and two case-study rows on the homepage are hardcoded in
   `templates/front-page.html`, not backed by a custom post type. See
   `upgrading.md`.

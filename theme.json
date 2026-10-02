@@ -71,8 +71,7 @@
 						{ "fontFamily": "Space Grotesk", "fontWeight": "400", "fontStyle": "normal", "fontDisplay": "swap", "src": [ "file:./assets/fonts/space-grotesk/space-grotesk-latin-400-normal.woff2" ] },
 						{ "fontFamily": "Space Grotesk", "fontWeight": "500", "fontStyle": "normal", "fontDisplay": "swap", "src": [ "file:./assets/fonts/space-grotesk/space-grotesk-latin-500-normal.woff2" ] },
 						{ "fontFamily": "Space Grotesk", "fontWeight": "600", "fontStyle": "normal", "fontDisplay": "swap", "src": [ "file:./assets/fonts/space-grotesk/space-grotesk-latin-600-normal.woff2" ] },
-						{ "fontFamily": "Space Grotesk", "fontWeight": "700", "fontStyle": "normal", "fontDisplay": "swap", "src": [ "file:./assets/fonts/space-grotesk/space-grotesk-latin-700-normal.woff2" ] },
-						{ "fontFamily": "Space Grotesk", "fontWeight": "900", "fontStyle": "normal", "fontDisplay": "swap", "src": [ "file:./assets/fonts/space-grotesk/space-grotesk-latin-700-normal.woff2" ] }
+						{ "fontFamily": "Space Grotesk", "fontWeight": "700", "fontStyle": "normal", "fontDisplay": "swap", "src": [ "file:./assets/fonts/space-grotesk/space-grotesk-latin-700-normal.woff2" ] }
 					]
 				}
 			],
