@@ -47,7 +47,7 @@ remotive/
 ├── resources.md            Consolidated license/copyright record for the
 │                           theme and every bundled font/image.
 ├── languages/
-│   ├── remotive.pot         355 translatable strings, extracted by script
+│   ├── remotive.pot         411 translatable strings, extracted by script
 │   │                       from every __()/_e()/esc_html__() call in
 │   │                       functions.php and inc/*.php with real file:line
 │   │                       references (v1.69.2 — the previous hand-built
