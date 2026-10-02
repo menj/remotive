@@ -174,7 +174,7 @@
 }
 
 /* ---- Toggle switch (component only — no boolean setting exists yet to
-   attach it to; see readme.md/changelog.md for why this ships unused). ---- */
+   attach it to; see docs/readme.md/changelog.md for why this ships unused). ---- */
 .rm-admin__toggle{ display:inline-flex; align-items:center; gap:.6rem; cursor:pointer; }
 .rm-admin__toggle input{ position:absolute; opacity:0; width:1px; height:1px; }
 .rm-admin__toggle-track{

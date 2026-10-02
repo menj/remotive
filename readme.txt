@@ -89,7 +89,7 @@ dashboard.
 
 It isn't designed for that. Colours, copy, and the registered business
 address are all specific to Remotive Media Asia. Treat it as this one site's
-theme, not a starting template — see `ssot.md` for what's site-specific.
+theme, not a starting template — see `docs/ssot.md` for what's site-specific.
 
 = Why is there a light/dark toggle? =
 
@@ -103,7 +103,7 @@ the default since that's the primary design direction.
 A few small pieces of the homepage (the main headline, the marquee strip
 under it, and the light/dark toggle button) are built with raw code rather
 than the usual text blocks, because they need small technical behaviours a
-normal text block can't do. See `readme.md` for exactly which parts these
+normal text block can't do. See `docs/readme.md` for exactly which parts these
 are and what to be careful of when editing them.
 
 = Where do I update the contact email, address, or social links? =
@@ -123,7 +123,7 @@ Create or edit a Page, then choose "About (gallery + contact form)" from
 the Template dropdown in the editor's sidebar (under Page → Template).
 The gallery currently shows placeholder colour tiles rather than real
 photos — see the note directly under the gallery on that page, or
-`upgrading.md`, for swapping in real images later.
+`docs/upgrading.md`, for swapping in real images later.
 
 = What about Services, Case Studies, Contact, and a Privacy Policy? =
 
@@ -134,7 +134,7 @@ deliberately doesn't include any actual policy text — write your real
 Privacy Policy or Terms content in the block editor after selecting it;
 the template just provides the on-brand chrome and readable typography.
 The Case Studies page's four cards are placeholder content, same as the
-About page's gallery — see `upgrading.md`.
+About page's gallery — see `docs/upgrading.md`.
 
 = How do I add, edit or remove a team member? =
 
@@ -225,7 +225,7 @@ The theme optimizes the requests it controls, but cache lifetime headers are
 sent by the web server, host, or CDN. Configure long-lived browser caching for
 versioned theme assets and an appropriate media-library policy in that layer;
 do not add those rules to the theme because they would not follow the site when
-the hosting stack changes. See `readme.md` and `upgrading.md` for the checklist.
+the hosting stack changes. See `docs/readme.md` and `docs/upgrading.md` for the checklist.
 
 = How do I change the scrolling list of countries under the homepage headline? =
 
@@ -301,7 +301,7 @@ floor, not a replacement.
 
 == Changelog ==
 
-See `changelog.md` for full version history. Latest version: 1.94.0.
+See `docs/changelog.md` for full version history. Latest version: 1.94.0.
 
 == Upgrade Notice ==
 
@@ -311,7 +311,7 @@ and Traditional Chinese) with their own confirmation page, a maintenance-mode
 switch, a rounded-corner design and a fix for white-on-bright text on the
 dark-mode call-to-action bands. Lead forms now fetch a fresh security token
 when the page loads, so a cached page can no longer reject a real enquiry.
-Pretty permalinks must be on. See upgrading.md for the deploy checklist.
+Pretty permalinks must be on. See docs/upgrading.md for the deploy checklist.
 
 = 1.79.1 =
 Fixes the country ticker in dark mode, where it rendered as a navy band on
@@ -502,7 +502,7 @@ Grotesk kept only as a scoped accent on the footer column headings.
 Brand typeface changed from Saira to Space Grotesk (bold, geometric,
 distinctive) across both light and dark modes. Footer column heading
 size increased. This deviates from the client's own brand-guideline
-JSON, which still specifies Saira — noted in ssot.md, not silently
+JSON, which still specifies Saira — noted in docs/ssot.md, not silently
 changed there. Metric-matched fallback recalculated from real font
 data, not estimated, so no layout shift on load.
 
@@ -572,7 +572,7 @@ at every width instead of packing five and stranding the sixth on its
 own. No content or markup changes; CSS only.
 
 = 1.65.3 =
-Documentation only: readme.md, upgrading.md and resources.md are
+Documentation only: docs/readme.md, docs/upgrading.md and docs/resources.md are
 brought up to date with the modules, templates and deployment steps
 added since v1.29.0.
 
@@ -812,7 +812,7 @@ Fixes the supplied print/PDF pagination defects and addresses the reported
 PageSpeed findings with font swapping, early hero-image discovery, a correctly
 sized logo, non-blocking component CSS, and deferred or conditional scripts.
 No migration is required. Browser cache lifetime still belongs in the hosting
-or CDN configuration; the exact follow-up is documented in `upgrading.md`.
+or CDN configuration; the exact follow-up is documented in `docs/upgrading.md`.
 
 = 1.44.0 =
 Adds progressive WebMCP tools for published-content search, canonical
@@ -1090,7 +1090,7 @@ design. No colour, font or copy changes.
 = 1.24.4 =
 Documentation only. Records the v1.24.2 audit's open items (interior-page
 measure alignment decision, real-browser responsive verification) in the
-upgrading.md backlog. No code changes.
+docs/upgrading.md backlog. No code changes.
 
 = 1.24.3 =
 Re-anchors the hero sub-heading to the headline's left edge. Its 56ch box
@@ -1275,7 +1275,7 @@ is unaffected.
 = 1.5.0 =
 Adds a skip link and a proper `<main>` landmark (neither existed before),
 full translation-readiness on the Theme Options page, and a consolidated
-license/copyright record (`resources.md`). No visible change to the
+license/copyright record (`docs/resources.md`). No visible change to the
 homepage design.
 
 = 1.4.0 =

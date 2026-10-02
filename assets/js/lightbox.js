@@ -44,7 +44,7 @@
 		var tile = tiles[index];
 		// Copies the tile's CSS gradient into the stage — works because
 		// the gallery currently uses placeholder gradients, not real
-		// photos (see upgrading.md). Once real images replace these
+		// photos (see docs/upgrading.md). Once real images replace these
 		// tiles, this should read an actual image URL (e.g. a
 		// data-full-src attribute) and set stage's background-image (or
 		// swap to an <img> element) instead of copying computed CSS.

@@ -877,7 +877,7 @@ msgid "Section headings"
 msgstr ""
 
 #: inc/theme-options.php:976
-msgid "See ssot.md and readme.md in the theme folder for full documentation."
+msgid "See docs/ssot.md and docs/readme.md in the theme folder for full documentation."
 msgstr ""
 
 #: inc/site-setup.php:97

@@ -25,7 +25,7 @@
  *    and socials (wp-admin editable), get_bloginfo()/home_url() for the
  *    site, the FAQ answers parsed from the landing-page templates
  *    themselves so the schema can never drift from the visible content.
- *    The legal name and registration facts mirror ssot.md.
+ *    The legal name and registration facts mirror docs/ssot.md.
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -164,7 +164,7 @@ function remotive_schema_same_as() {
 }
 
 /**
- * Organization node built from theme options + ssot.md facts.
+ * Organization node built from theme options + docs/ssot.md facts.
  *
  * @return array
  */
@@ -186,7 +186,7 @@ function remotive_schema_organization() {
 
 	// Dual-typed: ProfessionalService is the LocalBusiness subtype for
 	// agencies with a real registered office (which this one has, per
-	// ACRA / ssot.md) — it carries the Local-business feature without
+	// ACRA / docs/ssot.md) — it carries the Local-business feature without
 	// fabricating opening hours the business doesn't publish.
 	$org = array(
 		'@type'       => array( 'Organization', 'ProfessionalService' ),
@@ -293,7 +293,7 @@ function remotive_schema_organization() {
 /**
  * Services the site offers, per surface. The three core blocks mirror
  * the Services page; the landing pages add their market-specific
- * service (the consolidation strategy documented in ssot.md — one page
+ * service (the consolidation strategy documented in docs/ssot.md — one page
  * per market, not one per keyword).
  *
  * @return array[]

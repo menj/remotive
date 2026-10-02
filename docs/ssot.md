@@ -2,7 +2,7 @@
 
 This is the canonical reference for facts about this theme, the brand it
 implements, and the legal entity behind it. If any other document (readme.txt,
-readme.md, a slide deck, a client-facing brief) ever conflicts with what's
+docs/readme.md, a slide deck, a client-facing brief) ever conflicts with what's
 written here, **this file is correct and the other document is out of date.**
 
 Last verified: theme v1.79.1.
@@ -39,7 +39,7 @@ If these domains diverge further in the future (e.g. email migrates to
 ## Design tokens
 
 Two modes, both defined in `theme.json` (dark, the baseline) and
-`assets/css/remotive.css` (light, an override — see `readme.md` for the
+`assets/css/remotive.css` (light, an override — see `docs/readme.md` for the
 mechanism). Source of truth for each hex value:
 
 ### Dark mode — "Registration" (CMYK direction, default)
@@ -47,7 +47,7 @@ mechanism). Source of truth for each hex value:
 Aligned to `remotive-reporting` (the skill governing every client-facing
 deck/report) as of v1.9.0, per explicit request. Was previously its own
 separate palette sampled from an early concept deck, not the actual
-reporting brand — see `changelog.md` v1.9.0 for the full before/after.
+reporting brand — see `docs/changelog.md` v1.9.0 for the full before/after.
 
 | Token | Value | Source |
 |---|---|---|
@@ -88,9 +88,9 @@ spec (colours, fonts, logo usage rules for slide decks and documents).
 | `cyan` | `#00a2ff` | brand JSON `colors.accent_1` |
 | `cyan-dark` | `#00308f` | brand JSON `colors.accent_2` |
 | `magenta` | `#ff449f` | brand JSON `colors.accent_5` |
-| `magenta-dark` | `#cd360b` | Darkened from brand JSON `colors.accent_6` (`#f2410f`) — the literal brand value failed WCAG 1.4.3 as text (3.45:1 against the cream background, needs 4.5:1). Same hue, darkened until it cleared 4.5:1. See `changelog.md` v1.7.0. |
-| `yellow` | `#f2f216` | brand JSON `colors.accent_3` |
-| `yellow-dark` | `#008110` | Darkened from brand JSON `colors.accent_4` (`#00aa15`) — the literal brand value failed even the 3:1 large-text minimum (2.83:1). Same hue, darkened until it cleared 4.5:1. |
+| `magenta-dark` | `#cd360b` | Darkened from brand JSON `colors.accent_6` (`#f2410f`) — the literal brand value failed WCAG 1.4.3 as text (3.45:1 against the cream background, needs 4.5:1). Same hue, darkened until it cleared 4.5:1. See `docs/changelog.md` v1.7.0. |
+| `accent-3` (yellow in this mode) | `#f2f216` | brand JSON `colors.accent_3` |
+| `accent-3-dark` (green in this mode) | `#008110` | Darkened from brand JSON `colors.accent_4` (`#00aa15`) — the literal brand value failed even the 3:1 large-text minimum (2.83:1). Same hue, darkened until it cleared 4.5:1. |
 | Font (all roles) | Saira | brand JSON `fonts.heading/subheading/body/caption` — brand spec uses one typeface throughout, no serif accent. **Scoped exception, v1.66.5:** footer column headings (`.rm-footer__heading` in `remotive.css`) use Space Grotesk as a small accent; everything else on the site stays Saira, matching the brand JSON. (v1.66.4 briefly swapped the whole site to Space Grotesk; reverted the same session once it became clear only the footer headings were meant to change.) |
 
 **If the brand JSON (`remotive_brand_5.json`) is ever updated** — new accent
@@ -104,6 +104,17 @@ panels, the landing-page form cards) and `--rm-r-pill` 999px (buttons and
 chips), defined at the end of `assets/css/remotive.css`. Full-bleed bands stay
 edge to edge. CTAs carry no underline.
 
+**Slugs are roles, and the colours are configurable (v1.95.0).** `ink` is the
+text colour and `paper` the page background in whichever mode is showing; the
+`-dark` variants are the stronger accent used for text and buttons, and are
+only darker than the plain colour in light mode (in dark mode `cyan-dark` equals
+`cyan`). Theme Options → Colours sets all twelve per mode and checks contrast;
+only values that differ from the tables above are written to the site. The
+defaults exist in three places that must change together: the dark values in
+`theme.json`, the light overrides in `assets/css/remotive.css` and
+`assets/css/critical.css`, and `remotive_colour_tokens()` in `inc/colours.php`.
+The block editor's palette (`theme.json`) does not follow the Colours tab.
+
 ## Admin-configurable values (as of v1.79.1)
 
 Contact email, the three footer address lines, the seven social URLs, the
@@ -116,7 +127,7 @@ Appearance → Theme Options, with defaults matching the values in this
 document.
 
 **Tabs added since v1.79.1.** Colours (v1.95.0, the palette per mode with a
-contrast check; see `readme.md`), Integrations (v1.91.0, holds the Pexels API
+contrast check; see `docs/readme.md`), Integrations (v1.91.0, holds the Pexels API
 key) and a maintenance-mode switch under Site behaviour (v1.88.0). The ticker
 default now lists six markets (Singapore, Malaysia, Thailand, Vietnam, Hong
 Kong, China); a site that has saved its own ticker list keeps it.
@@ -129,7 +140,12 @@ homepage, so changing one page meant moving between four tabs. Two were
 also renamed to match their contents — Display became Site behaviour
 (it holds lead retention, branded login and error handling), and Contact &
 Socials became Business details (it also holds the legal name and UEN).
-The field set is unchanged at 57.
+The field set was 57 at v1.79.1 and is 94 stored settings as of v1.96.0: the
+twenty-four colours and a reset switch (Colours, v1.95.0), maintenance mode
+(v1.90.0), the Pexels API key and its remove switch (Integrations, v1.91.0),
+and other additions recorded in `docs/changelog.md`. The Pexels key is a write-only
+secret: stored in the options table, never printed back into a page, never
+exposed through REST, and not used by the front end.
 
 **Ticker colour defaults are mode-specific.** `ticker_bg` (`#1a1a2e`) and
 `ticker_color` (`#f7f4ec`) describe the light-mode band — navy on cream.
@@ -150,9 +166,10 @@ both when the underlying fact changes (e.g. the registered address).
 |---|---|---|
 | `assets/images/remotive-mark.png` | Cropped from `Remotive_logo_landscape.png` (tight bounding box, alpha-transparent) | Nav, footer, hero watermark |
 | `assets/images/remotive-lockup-square.jpg` | `remotivemedia_logo.jpg` (white background, square) | Favicon / Site Icon |
+| `assets/images/remotive-logo-112/168` `.png` and `.avif` | Derived from the mark | Header (1x, 2x, 3x) and the ad landing pages. The artwork's wordmark is dark, so in dark mode it sits on a white plate (header since v1.92.0, landing pages since v1.90.0) |
 
 Both are bundled in the theme and sideloaded into the media library on
-first activation (see `readme.md` → Logo bootstrap).
+first activation (see `docs/readme.md` → Logo bootstrap).
 
 ## Deviations from this document
 
@@ -162,8 +179,12 @@ back to the spec.
 | Item | Spec | Shipped | Why |
 |---|---|---|---|
 | Body typeface | Saira (`remotive_brand_5.json`) | Saira site-wide; Space Grotesk scoped to `.rm-footer__heading` only | Accent contrast in the footer; documented deviation, brand JSON unchanged |
-| CTA band colour | Single navy `contrast-bg` everywhere | Navy, plus magenta and cyan variants on six pages | Visual variance across a long scroll; see `changelog.md` v1.67.3–v1.67.4 |
-| CTA band text on coloured variants | White | Ink (`#1e1e1e`) | White fails WCAG on the real palette values: 2.76:1 on `--cyan` (`#00a2ff`), 3.19:1 on `--magenta` (`#ff449f`). Ink gives 6.04:1 and 5.22:1 |
+| CTA band colour | Single navy `contrast-bg` everywhere | Navy, plus magenta and cyan variants on six pages | Visual variance across a long scroll; see `docs/changelog.md` v1.67.3–v1.67.4 |
+| CTA band text on coloured variants | White | Light mode: ink (`#1e1e1e`). Dark mode: near-black (`#14141f`) | White fails WCAG on the real palette values: 2.76:1 on light `--cyan` (`#00a2ff`), 3.19:1 on light `--magenta` (`#ff449f`); ink gives 6.04:1 and 5.22:1. In dark mode the bands are the *bright* `#00aeef` and `#ff0198` (the `-dark` tokens are not dark there), where white was 2.53:1 and 3.68:1; near-black gives about 7:1 and 4.9:1 (v1.92.0) |
+| Corners | Not specified (the "Registration" direction is sharp-edged) | Rounded: 10px fields, 16px cards and images, pill buttons and chips (v1.93.0) | Requested design change; full-bleed bands stay edge to edge |
+| CTA links and buttons | Not specified | No underline in any state; the animated underline under text-link CTAs was removed (v1.93.0) | Requested design change; the arrow, uppercase bold type and hover colour carry the affordance |
+| Landing-page photography | Not specified | Pexels photos, self-hosted, credited in `docs/image-credits.md` (v1.91.0) | Not Remotive's own work, so it is listed separately in `docs/resources.md` |
+| Markets named on the landing pages | `areaServed` in structured data is Singapore and Malaysia | Six: Singapore, Malaysia, Thailand, Vietnam, Hong Kong, China (v1.91.0) | The landing pages and the country ticker default name six markets; the schema `areaServed` has not been widened. Decide whether it should be |
 
 **Palette values that have caught people out.** `--magenta-dark` is
 `#cd360b` — an orange-red, not a darker magenta. `--accent-3` is `#f2f216`
@@ -174,11 +195,21 @@ the token name.
 
 ## Versioning & file naming
 
+- **Repository root:** only `style.css`, `theme.json`, `functions.php`,
+  `screenshot.png` and `readme.txt`. Every other document lives in `docs/`
+  (moved there in v1.97.0, so the paths in this table are `docs/…`).
 - Semver (`MAJOR.MINOR.PATCH`), tracked in `style.css`'s `Version:` field
-  and mirrored in `changelog.md`.
+  and mirrored in `docs/changelog.md`.
 - Release zip naming convention: `[theme-name]-[version].zip`, all
   lowercase, theme name matching the `Theme Name:` header with spaces
   replaced by hyphens — e.g. `remotive-media-1.2.0.zip`.
+- Two other numbers move independently of the theme version: the migration
+  schema, `REMOTIVE_SETUP_SCHEMA` in `inc/site-setup.php` (1.92.0 as of
+  v1.96.0), which only changes when an already-set-up site needs a migration,
+  and the rewrite-rule version, the `remotive_lp_rewrite_v` option (2), which
+  only changes when the landing-page URL rules change.
+- Every pull request runs `.github/workflows/ci.yml` (PHP syntax on 7.4 and
+  8.3, JavaScript syntax, valid `theme.json`, and `tests/check-landing-copy.php`).
 - The zip's top-level folder is `remotive` (matches `wp-content/themes/remotive`),
   independent of the zip filename or the `Theme Name:` display string.
 
@@ -206,6 +237,20 @@ Outstanding server-level actions, unchanged by any theme release:
 - Deny `wp-admin/install.php` at server level
 - `WP_DEBUG_DISPLAY` false and `display_errors` off in production
 
+### Lead forms and landing pages (v1.90.0 – v1.96.0)
+
+Recorded as findings and fixes, so a later maintainer knows what was decided.
+
+| Finding | Decision |
+|---|---|
+| Landing and homepage forms embed a nonce that lives 12 to 24 hours; a cached page older than that rejected a real lead as "link expired" | Fixed in v1.94.0 without weakening the check: `assets/js/remotive.js` fetches current nonces from the uncacheable `remotive_form_nonces` endpoint on page load, and a form submitted before it returns waits for it. The server-rendered nonce stays as the no-script fallback. The endpoint returns nothing secret (a logged-out nonce is the same for everyone and authorises only its own form). Removing the nonce check was considered and rejected |
+| The rate limit (3 per IP per ten minutes) blocks real visitors behind carrier-grade NAT | Per-form limit (`rate_limit`); landing forms allow 10. The spam-trap check now runs before the limit so bot traffic cannot use up the quota. The counter is a read-then-write transient and can let one extra enquiry through under a simultaneous burst; accepted, it cannot block a real one |
+| `maybe_unserialize()` on custom fields a contributor can edit (`schema-markup.php`) | Removed in v1.94.0; a still-serialised value is read with no classes allowed |
+| Maintenance mode could lock out the owner | It exempts users who can edit posts, wp-admin, cron, AJAX, feeds and REST, and never runs on `wp-login.php`; it returns 503 with `Retry-After` so search engines keep the indexed pages |
+| Pexels API key in the settings | Write-only: never printed back, blank keeps the saved key, a switch removes it; not exposed through REST; the front end does not use it. It was pasted into chat once, so rotating it is advisable |
+| Colours tab input | Hex only (`sanitize_hex_color`), stored as lowercase `#rrggbb`; anything else, including CSS injection attempts, falls back to the default |
+| Landing pages are public and cached | `noindex, nofollow` by meta, `X-Robots-Tag` and Rank Math; excluded from site search and the core sitemap; never blocked in `robots.txt` (crawlers must fetch the page to see the noindex, and Google Ads must fetch it to review the ad) |
+
 ### Original code audit
 
 | Field | Value |
@@ -213,7 +258,7 @@ Outstanding server-level actions, unchanged by any theme release:
 | Current version | 1.8.0 |
 | Previous version | 1.7.0 |
 | Audit date | 2026-08-26 |
-| Release type | Minor (new settings/defaults — the CTA form's default handler and `cta_form_action`'s default value both changed; see `changelog.md`) |
+| Release type | Minor (new settings/defaults — the CTA form's default handler and `cta_form_action`'s default value both changed; see `docs/changelog.md`) |
 | Scope reviewed | `functions.php`, `inc/theme-options.php`, `inc/cta-form-handler.php`, and every enqueued JS file. No `$wpdb`/SQL, file uploads, REST routes, or custom authentication exist anywhere in this theme, so those categories had no surface to review. |
 
 **Security summary**
@@ -281,7 +326,7 @@ garbled comments (caught before packaging, not after).
 **Release readiness:** version bumped (1.8.0, all four locations:
 `style.css`, `readme.txt` Stable tag, `readme.txt` "Latest version"
 line, and this file) · changelog updated · upgrade notice added ·
-readme.md and readme.txt updated · no sensitive exploit details in any
+docs/readme.md and readme.txt updated · no sensitive exploit details in any
 public-facing doc · package contains no VCS artifacts, backups, or debug
 files (re-verified this pass, not just carried over from the last check).
 
@@ -298,7 +343,14 @@ also publishes the ACRA incorporation date (2024-01-31) as
 `foundingDate` and the UEN (202404376G) as an `identifier` — both from
 the Legal entity table above — and types the organization
 ProfessionalService over the registered office. The full
-Google-feature coverage matrix lives in readme.md.
+Google-feature coverage matrix lives in docs/readme.md.
+
+The ad landing pages (v1.91.0) publish a separate `FAQPage` JSON-LD block,
+generated from the same items as the visible FAQ so the two cannot drift, in
+the language of the URL (`inLanguage`). The pages are `noindex`, so search
+engines ignore the markup; it is correct and ready if a page is ever made
+indexable. They also declare `hreflang` alternates (`en`, `ms`, `zh-Hans`,
+`zh-Hant`, `x-default`) and a self-referencing canonical per language.
 
 ## Rank Math meta coverage (v1.66.2)
 
@@ -325,25 +377,66 @@ description limits:
   template convention below, so there is no post content for the
   checklist to analyse. Reaching a 90+ Rank Math score there would
   require duplicating template copy into `post_content`, which the
-  project has deliberately not done; see `changelog.md` v1.66.2 for
+  project has deliberately not done; see `docs/changelog.md` v1.66.2 for
   the tradeoff.
 - The two market landing pages were removed in v1.79.3, so they are not
   covered here. The same on-page-checklist limitation as the core
   pages applies once they are.
 
+- The ad landing pages (`seo-audit`, `google-ads-management`,
+  `paid-social-advertising`, `audit-requested`) deliberately carry **no** Rank
+  Math title, description or keyword: they are `noindex, nofollow`, so there is
+  nothing to score. The theme also forces Rank Math's robots output to the same
+  answer (`inc/landing-pages.php`).
+
 Both site-setup paths fill in only meta keys that are currently
 empty, never overwriting a value already written by hand.
+
+## Ad landing pages (v1.90.0 – v1.96.0)
+
+Canonical facts for the paid and social landing pages. Code: `inc/landing-pages.php`
+(routing, rendering, form, SEO rules) and `inc/landing-copy.php` (the words).
+
+| Service | English URL | Page slug |
+|---|---|---|
+| SEO | `/seo-audit/` | `seo-audit` |
+| Google Ads | `/google-ads-management/` | `google-ads-management` |
+| Paid social | `/paid-social-advertising/` | `paid-social-advertising` |
+| Confirmation (conversion URL) | `/audit-requested/` | `audit-requested` |
+
+- **Languages**, each on its own path: English (no prefix), Bahasa Melayu
+  `/ms/`, Simplified Chinese `/zh-cn/` (`zh-Hans`), Traditional Chinese
+  `/zh-tw/` (`zh-Hant`). The server renders only the language of the URL. There
+  is no `?lang=` parameter and no script-based switching. The Malay and Chinese
+  copy is a first draft until a native speaker has reviewed it.
+- **Markets named:** Singapore, Malaysia, Thailand, Vietnam, Hong Kong, China
+  (six). See the deviations table for how this relates to structured data.
+- **Funnel:** form above the fold, how it works, six market photo tiles, a
+  second form, an FAQ. No site navigation. The form records the service, the
+  visitor's website and the campaign parameters (`utm_*`, `gclid`, `fbclid`,
+  `ttclid`) with the enquiry, then redirects to `/audit-requested/` in the
+  same language.
+- **Events** (for a tag manager): `remotive_lp_view` and
+  `remotive_lp_form_start` on the landing pages; `remotive_lead` on the
+  confirmation page with `form`, `service` and `language`.
+- **Rights:** the photography is from Pexels (credited in
+  `docs/image-credits.md`, rights in `docs/resources.md`); the logo is Remotive's own.
+- **Requirements:** pretty permalinks (the language paths are rewrite rules).
+  Keep the pages out of `robots.txt`.
 
 ## Document map
 
 | File | Audience | Purpose |
 |---|---|---|
 | `readme.txt` | General / WP admin users | Plain-language description, install steps, FAQ |
-| `readme.md` | Developers, hosting, sysadmins | Architecture, file map, implementation gotchas |
-| `ssot.md` | Anyone maintaining brand/entity accuracy | This file — canonical facts |
-| `upgrading.md` | Future maintainers, MENJ | Roadmap, planned work, not-yet-built ideas |
-| `changelog.md` | Everyone | Version history |
-| `resources.md` | Legal, anyone redistributing/auditing the theme | Consolidated license/copyright for the theme and every bundled font/image |
+| `docs/readme.md` | Developers, hosting, sysadmins | Architecture, file map, implementation gotchas |
+| `docs/ssot.md` | Anyone maintaining brand/entity accuracy | This file — canonical facts |
+| `docs/upgrading.md` | Future maintainers, MENJ | Roadmap, planned work, not-yet-built ideas |
+| `docs/changelog.md` | Everyone | Version history |
+| `docs/resources.md` | Legal, anyone redistributing/auditing the theme | Consolidated license/copyright for the theme and every bundled font/image |
+| `docs/image-credits.md` | Legal, editors | Photographer and Pexels photo for every landing-page image |
+| `tests/check-landing-copy.php` | Developers, CI | Fails if any landing-page text is missing one of its four languages |
+| `.github/workflows/ci.yml` | Developers | The checks every pull request runs |
 
 ## SEO content strategy (v1.12.0)
 
@@ -379,4 +472,4 @@ malaysia`, `website design company kuala lumpur` — combined volume over
 9,000) are untargeted anywhere. Remotive doesn't offer web design as a
 service; the Malaysia landing page says so explicitly in its own FAQ.
 Revisit only if that service offering changes — tracked in
-`upgrading.md`.
+`docs/upgrading.md`.

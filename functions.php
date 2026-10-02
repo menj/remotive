@@ -479,7 +479,7 @@ add_filter( 'wp_resource_hints', 'remotive_google_signin_resource_hint', 10, 2 )
  * Blog (archive/single) and secondary page templates' assets — only
  * loaded where actually used, not on every page. Per the theme's own
  * security/performance audit principle of conditional enqueuing (see
- * changelog.md v1.8.0): most visits never touch these templates, so
+ * docs/changelog.md v1.8.0): most visits never touch these templates, so
  * there's no reason to ship their CSS/JS everywhere.
  */
 function remotive_conditional_enqueue_assets() {
