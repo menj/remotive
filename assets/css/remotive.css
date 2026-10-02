@@ -210,6 +210,8 @@ html{ scroll-padding-top:100px; }
 .rm-nav__row{ display:flex; align-items:center; justify-content:space-between; min-height:84px; gap:1.5rem; flex-wrap:nowrap; padding-block:.5rem; }
 .rm-brand{ display:flex; align-items:center; }
 .rm-brand img{ height:42px; width:auto; }
+/* The logo artwork is drawn for white; its dark ":MOTIVE" wordmark vanishes on the dark header, so it sits on a white plate in dark mode (as on the landing pages). */
+html:not([data-theme="light"]) .rm-brand img{ background:#fff; padding:2px 4px; }
 .rm-nav__links{ font-size:1rem; font-weight:600; letter-spacing:.02em; }
 .rm-nav__links .wp-block-navigation-item a{ position:relative; padding-block:.6rem !important; text-decoration:none !important; }
 /* Core's navigation block underlines the link text on hover, which stacked
@@ -1688,16 +1690,16 @@ html{ scroll-padding-top:100px; }
 .rm-cta--cyan .wp-block-button.is-style-outline > .wp-block-button__link:hover{
   background-color:rgba(30,30,30,.1) !important;
 }
-/* Dark mode: cyan-dark (#00308f) — white text 11.54:1 ✓ */
+/* Dark mode: the -dark tokens are NOT darker here. Dark palette cyan-dark is #00aeef, so the band stays bright cyan and carries near-black text (#14141f, 7.0:1); white on it was 2.53:1. */
 :root:not([data-theme="light"]) .rm-cta--cyan{
   background-color:var(--wp--preset--color--cyan-dark) !important;
-  color:#fff !important;
+  color:#14141f !important;
 }
 :root:not([data-theme="light"]) .rm-cta--cyan .rm-cta__title{
-  color:#fff !important;
+  color:#14141f !important;
 }
 :root:not([data-theme="light"]) .rm-cta--cyan .rm-hero__reassure{
-  color:rgba(255,255,255,.72) !important;
+  color:rgba(20,20,31,.82) !important;
 }
 :root:not([data-theme="light"]) .rm-cta--cyan .wp-block-button.is-style-fill > .wp-block-button__link{
   background-color:var(--wp--preset--color--paper) !important;
@@ -1705,8 +1707,8 @@ html{ scroll-padding-top:100px; }
   border-color:var(--wp--preset--color--paper) !important;
 }
 :root:not([data-theme="light"]) .rm-cta--cyan .wp-block-button.is-style-outline > .wp-block-button__link{
-  border-color:rgba(255,255,255,.7) !important;
-  color:#fff !important;
+  border-color:rgba(20,20,31,.7) !important;
+  color:#14141f !important;
 }
 
 /* ---- Magenta variant ---- */
@@ -1739,16 +1741,16 @@ html{ scroll-padding-top:100px; }
 .rm-cta--magenta .wp-block-button.is-style-outline > .wp-block-button__link:hover{
   background-color:rgba(30,30,30,.1) !important;
 }
-/* Dark mode: magenta-dark (#cd360b, orange-red) — white text 5.09:1 ✓ */
+/* Dark mode: dark palette magenta-dark is #ff0198, so the band is hot magenta and carries near-black text (#14141f, 4.9:1); white on it was 3.68:1. */
 :root:not([data-theme="light"]) .rm-cta--magenta{
   background-color:var(--wp--preset--color--magenta-dark) !important;
-  color:#fff !important;
+  color:#14141f !important;
 }
 :root:not([data-theme="light"]) .rm-cta--magenta .rm-cta__title{
-  color:#fff !important;
+  color:#14141f !important;
 }
 :root:not([data-theme="light"]) .rm-cta--magenta .rm-hero__reassure{
-  color:rgba(255,255,255,.72) !important;
+  color:rgba(20,20,31,.82) !important;
 }
 :root:not([data-theme="light"]) .rm-cta--magenta .wp-block-button.is-style-fill > .wp-block-button__link{
   background-color:var(--wp--preset--color--paper) !important;
@@ -1878,8 +1880,9 @@ html{ scroll-padding-top:100px; }
 }
 :root:not([data-theme="light"]) .rm-cta.rm-cta--centred.rm-cta--cyan .wp-block-button.is-style-outline > .wp-block-button__link,
 :root:not([data-theme="light"]) .rm-cta.rm-cta--centred.rm-cta--magenta .wp-block-button.is-style-outline > .wp-block-button__link{
-  border-color:rgba(255,255,255,.65) !important;
-  color:#fff !important;
+  /* Near-black: the bands are bright cyan and magenta in dark mode (white was 2.53:1 on the cyan). */
+  border-color:rgba(20,20,31,.7) !important;
+  color:#14141f !important;
 }
 
 @media (max-width:600px){

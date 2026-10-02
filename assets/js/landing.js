@@ -4,6 +4,10 @@
 	var root = document.querySelector('.rm-lp');
 	if (!root) { return; }
 
+	// The confirmation page has no form and is not a landing view: the
+	// conversion event comes from the server (inc/thank-you.php).
+	if (root.getAttribute('data-page') === 'thanks') { return; }
+
 	// Campaign fields (utm_*, gclid, fbclid, ttclid): taken from the landing
 	// URL, kept for the session so a reload or a language switch does not lose
 	// them, and sent with the lead. The saved set belongs to one landing page:

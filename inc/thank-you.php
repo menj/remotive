@@ -26,7 +26,7 @@ defined( 'ABSPATH' ) || exit;
  * @return bool
  */
 function remotive_is_thanks_page() {
-	return is_page( 'thank-you' );
+	return is_page( 'thank-you' ) || ( defined( 'REMOTIVE_LP_THANKS_SLUG' ) && is_page( REMOTIVE_LP_THANKS_SLUG ) );
 }
 
 /**
@@ -138,12 +138,13 @@ function remotive_thanks_conversion_event() {
 
 	printf(
 		'<script>window.dataLayer=window.dataLayer||[];' .
-		'window.dataLayer.push({"event":"remotive_lead","form":%1$s,"service":%2$s});' .
+		'window.dataLayer.push({"event":"remotive_lead","form":%1$s,"service":%2$s,"language":%3$s});' .
 		'document.addEventListener("DOMContentLoaded",function(){' .
-		'document.dispatchEvent(new CustomEvent("remotive:lead",{detail:{form:%1$s,service:%2$s}}));' .
+		'document.dispatchEvent(new CustomEvent("remotive:lead",{detail:{form:%1$s,service:%2$s,language:%3$s}}));' .
 		'});</script>',
 		wp_json_encode( $source ),
-		wp_json_encode( $service )
+		wp_json_encode( $service ),
+		wp_json_encode( function_exists( 'remotive_lp_requested_lang' ) ? remotive_lp_requested_lang() : 'en' )
 	);
 }
 add_action( 'wp_footer', 'remotive_thanks_conversion_event', 5 );

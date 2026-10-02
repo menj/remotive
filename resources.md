@@ -45,6 +45,7 @@ upstream release.
 | `assets/images/remotive-logo-admin.png` and `.avif` | Remotive Media Asia Pte. Ltd. | Logo shown on the Theme Options screen. Same proprietary status. |
 | `assets/images/remotive-logo-landscape.png` | Remotive Media Asia Pte. Ltd. | Landscape lockup. Same proprietary status. |
 | `assets/images/remotive-lockup-square.jpg` | Remotive Media Asia Pte. Ltd. | Company logo lockup, square, used as the favicon and site icon source. Same proprietary status. |
+| `assets/images/landing/*.avif` and `*.jpg` | Photographers via Pexels (see `docs/image-credits.md`) | Photography on the ad landing pages: six city skylines and one hero per service. Used under the [Pexels License](https://www.pexels.com/license/) (free for commercial use, no attribution required, credited anyway). Resized and re-encoded; do not imply the photographers endorse the business. **Not** Remotive's own work and not covered by the theme's licence. |
 | `assets/seed-images/*.png` and `*.avif` | Remotive Media Asia Pte. Ltd. | Cover images for the four shipped Insights articles, generated for this theme. Same proprietary status. |
 | `assets/team/<slug>.avif` | Remotive Media Asia Pte. Ltd. (photographs of the named individuals) | Team portraits, one per person, cut out and re-encoded from photography supplied by the company. **Proprietary, and additionally personal likenesses:** each depicts a named person, so redistribution or reuse needs that person's consent as well as the company's. Not covered by the theme's GPL licence. |
 

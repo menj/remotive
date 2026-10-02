@@ -214,3 +214,8 @@ html:not([data-theme="light"]) .rm-lp__final{ background-color:#0d1117; } /* a s
 .rm-lp__foot{ margin-top:var(--lp-gap); }
 
 .rm-lp__intro{ margin:-.5rem 0 1.1rem; font-size:.92rem; color:var(--rm-ink-70); }
+
+/* Confirmation page: one column, no form. */
+.rm-lp__thanks{ display:block; }
+.rm-lp__thanks .rm-lp__copy{ max-width:44rem; }
+.rm-lp__section > .rm-lp__fine{ margin-top:1.25rem; }

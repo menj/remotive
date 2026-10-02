@@ -4,6 +4,22 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.92.0] — 2026-10-02
+
+### Added
+
+- **Localised confirmation page for landing-page leads** at `/audit-requested/` (and `/ms/`, `/zh-cn/`, `/zh-tw/`). It matches the landing pages (logo and language links only), names the service in the headline, and is a conversion URL separate from the shared English thank-you page. The form's language is carried in a hidden field, and the `remotive_lead` event now includes `language`. A migration (1.92.0) creates the page on existing sites.
+
+### Fixed
+
+- **Dark-mode contrast on the main site's cyan and magenta call-to-action bands.** In dark mode the `-dark` palette tokens are bright, not dark (cyan-dark is `#00aeef`, magenta-dark is `#ff0198`), but the CSS assumed navy and orange-red, so the bands carried white text at 2.53:1 and 3.68:1. They now use near-black text (about 7:1 and 4.9:1), including the outline buttons and the small reassurance line. Found by measuring every button in both modes.
+- **Header logo in dark mode.** The artwork's dark ":MOTIVE" wordmark disappeared on the dark header; the logo now sits on a white plate in dark mode, as on the landing pages.
+
+### Changed
+
+- The country ticker's default list now includes Vietnam (a site that has saved its own list keeps it).
+- Docs brought up to date: `readme.md` (file map, landing pages, maintenance mode), `ssot.md` (admin settings), `resources.md` (Pexels image rights) and `upgrading.md` (deploy checklist).
+
 ## [1.91.2] — 2026-10-02
 
 ### Changed

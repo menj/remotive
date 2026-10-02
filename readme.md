@@ -58,6 +58,12 @@ remotive/
 │   │                       settings sanitisation, the render_block
 │   │                       token-substitution filter, and the early
 │   │                       wp_head flash-prevention script (see below).
+│   ├── landing-pages.php   Ad landing pages (SEO, Google Ads, paid
+│   │                       social) in four languages on their own paths,
+│   │                       with the audit-requested confirmation page,
+│   │                       hreflang, FAQPage schema and noindex rules.
+│   ├── maintenance-mode.php  Theme Options switch: 503 "back shortly"
+│   │                       page for logged-out visitors.
 │   ├── lead-form-handler.php  Shared nonce/rate-limit/honeypot/email
 │   │                       logic every native form goes through.
 │   ├── cta-form-handler.php   Thin wrapper: homepage CTA form.
@@ -835,6 +841,44 @@ see full detail without an admin session. Remove it afterwards.
 **Limit worth stating plainly:** errors raised before the theme loads —
 during core or plugin bootstrap — are outside any theme's reach. Production
 still wants `WP_DEBUG_DISPLAY` false and `display_errors` off.
+
+## Ad landing pages (`inc/landing-pages.php`)
+
+Three single-purpose pages for paid and social traffic, one per service:
+`/seo-audit/`, `/google-ads-management/` and `/paid-social-advertising/`.
+Each is also served in Bahasa Melayu (`/ms/…`), Simplified Chinese
+(`/zh-cn/…`) and Traditional Chinese (`/zh-tw/…`). The server renders only the
+language of the URL, with a self-referencing canonical, `<html lang>` and
+`hreflang` alternates; there is no `?lang=` parameter.
+
+- **Copy and data** live in `remotive_landing_services()` (one entry per
+  service, each text an array of en, ms, zh-Hans, zh-Hant) and in the render
+  functions. `templates/page-landing.html` only holds the
+  `__REMOTIVE_LANDING__` token. A new service is one entry there plus one
+  page in `remotive_required_pages()`.
+- **Funnel:** form above the fold, how it works, six market photo tiles, a
+  second form, an FAQ with matching `FAQPage` JSON-LD. No site navigation.
+  Forms use the shared lead handler, record the service and campaign
+  parameters (`utm_*`, `gclid`, `fbclid`, `ttclid`) with the enquiry, and
+  redirect to `/audit-requested/` (also per language). That page is the
+  conversion URL; `inc/thank-you.php` pushes `remotive_lead` with the form,
+  service and language.
+- **Search engines:** `noindex, nofollow` by meta, `X-Robots-Tag` and Rank
+  Math, and excluded from site search and the core sitemap. Never block them in
+  `robots.txt`: crawlers must fetch the page to see the noindex, and Google Ads
+  must fetch it to review the ad.
+- **Assets:** `assets/css/landing.css`, `assets/js/landing.js` (campaign
+  capture, funnel events, sticky CTA; no language logic) and
+  `assets/images/landing/` (Pexels photography, credited in
+  `docs/image-credits.md`).
+- **Requires pretty permalinks.** The language paths are rewrite rules,
+  flushed once per rule-set version (`remotive_lp_rewrite_v`).
+
+## Maintenance mode (`inc/maintenance-mode.php`)
+
+Theme Options → Site behaviour → Maintenance mode. Logged-out visitors get
+`drop-ins/maintenance.php` with a 503 and `Retry-After`; users who can edit
+posts, wp-admin, cron, AJAX, feeds and REST are unaffected. Off by default.
 
 ## Theme Options (`inc/theme-options.php`)
 

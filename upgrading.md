@@ -6,6 +6,27 @@ running list of planned work, ideas, and known gaps, roughly ordered by
 what would matter most to fix or build next. Nothing here is scheduled or
 committed; it's a backlog for whoever picks this theme up next.
 
+## Deploying the ad landing pages (v1.90.0 – v1.92.0)
+
+Do these once after the release reaches the site:
+
+- **Pretty permalinks must be on** (Settings → Permalinks, not "Plain"); the
+  `/ms/`, `/zh-cn/` and `/zh-tw/` paths are rewrite rules.
+- The next admin load creates the pages (`seo-audit`, `google-ads-management`,
+  `paid-social-advertising`, `audit-requested`) and flushes rewrites. Use
+  Appearance → Theme Options → Create missing pages if any is missing.
+- **Open each URL once** (4 pages × 4 languages) and confirm none is a 404.
+- Submit a test form; check the stored lead (service and campaign lines),
+  the notification email, the `/audit-requested/` redirect and the
+  `remotive_lead` event in the tag manager.
+- Paste the Pexels key under Theme Options → Integrations if image sourcing
+  from the live site is wanted; nothing on the front end needs it.
+- Have native speakers review the Malay and both Chinese versions before paid
+  traffic is pointed at them. Add approved client results to the pages: real
+  proof is the biggest conversion lever still missing.
+- A site that saved its own country-ticker list keeps it; add Vietnam there
+  by hand.
+
 ## Shipped since this file was last revised (v1.66.6 – v1.69.2)
 
 Moved here from the roadmap rather than deleted, so the reasoning survives.

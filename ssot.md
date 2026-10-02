@@ -103,10 +103,15 @@ Contact email, the three footer address lines, the seven social URLs, the
 CTA form's submission URL, the default colour mode, enquiry retention
 period, branded login, the twelve country-ticker settings (countries,
 visibility, colours, size, weight, tracking, padding, speed, direction),
-scroll motion, and graceful error handling are **no longer hardcoded** — they're stored
+scroll motion, graceful error handling, maintenance mode and the Pexels API key (a write-only secret, never printed back) are **no longer hardcoded** — they're stored
 in the `remotive_theme_options` WordPress option, editable at
 Appearance → Theme Options, with defaults matching the values in this
 document.
+
+**Tabs added since v1.79.1.** Integrations (v1.91.0, holds the Pexels API
+key) and a maintenance-mode switch under Site behaviour (v1.88.0). The ticker
+default now lists six markets (Singapore, Malaysia, Thailand, Vietnam, Hong
+Kong, China); a site that has saved its own ticker list keeps it.
 
 **Where to find them (restructured v1.79.1).** Theme Options has four tabs:
 **Homepage** (with Hero, Section headings, Numbers and Team as groups
