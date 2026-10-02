@@ -4,6 +4,12 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.103.2] — 2026-10-02
+
+### Changed
+
+- **Theme screenshot** (`screenshot.png`, 1200 × 900) replaced. The old one showed the pre-1.93 design (square buttons, the old navigation and headline). The new one is the live front page as rendered by WordPress 6.9-series core with the theme activated on a fresh install: dark mode, rounded buttons, current navigation and headline, and the six-market ticker. No code changed.
+
 ## [1.103.1] — 2026-10-02
 
 ### Fixed
