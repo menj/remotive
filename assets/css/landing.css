@@ -11,11 +11,6 @@
   color:var(--wp--preset--color--ink); line-height:1.6;
 }
 .rm-lp, .rm-lp *{ box-sizing:border-box; }
-.rm-lp [data-l]{ display:none; }
-.rm-lp[data-lang="en"] [data-l="en"],
-.rm-lp[data-lang="ms"] [data-l="ms"],
-.rm-lp[data-lang="zh"] [data-l="zh"],
-.rm-lp[data-lang="zht"] [data-l="zht"]{ display:revert; }
 .rm-lp[data-lang="zh"]{ font-family:"PingFang SC","Noto Sans SC","Microsoft YaHei",var(--wp--preset--font-family--archivo),sans-serif; }
 .rm-lp[data-lang="zht"]{ font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",var(--wp--preset--font-family--archivo),sans-serif; }
 
@@ -25,11 +20,12 @@
 .rm-lp__logo img{ height:56px; width:auto; }
 .rm-lp__langs{ display:flex; gap:.25rem; }
 .rm-lp__lang{
+  display:inline-flex; align-items:center; text-decoration:none;
   min-height:44px; min-width:44px; padding:.4rem .75rem; font:inherit; font-size:.82rem; letter-spacing:.06em; cursor:pointer;
   color:var(--rm-ink-70); background:transparent; border:1px solid transparent; border-radius:2rem;
 }
 .rm-lp__lang:hover{ color:var(--wp--preset--color--ink); }
-.rm-lp__lang[aria-pressed="true"]{ color:var(--wp--preset--color--ink); border-color:var(--rm-line); background:var(--wp--preset--color--card); }
+.rm-lp__lang[aria-current="true"]{ color:var(--wp--preset--color--ink); border-color:var(--rm-line); background:var(--wp--preset--color--card); }
 .rm-lp :focus-visible{ outline:2px solid var(--wp--preset--color--cyan-dark); outline-offset:2px; }
 
 /* Hero: promise on the left, form on the right (stacked on phones). */
@@ -67,10 +63,6 @@
 .rm-lp__msg{ display:none; }
 .rm-lp__status[data-state="success"] .rm-lp__msg--success,
 .rm-lp__status[data-state="error"] .rm-lp__msg--error{ display:block; }
-.rm-lp[data-lang="en"] .rm-lp__status [data-l]:not([data-l="en"]),
-.rm-lp[data-lang="ms"] .rm-lp__status [data-l]:not([data-l="ms"]),
-.rm-lp[data-lang="zh"] .rm-lp__status [data-l]:not([data-l="zh"]),
-.rm-lp[data-lang="zht"] .rm-lp__status [data-l]:not([data-l="zht"]){ display:none; }
 
 /* Sections below the fold */
 .rm-lp__section{ padding:var(--lp-gap) var(--lp-pad) 0; }
@@ -91,11 +83,6 @@
   color:var(--wp--preset--color--contrast-text); background:var(--wp--preset--color--contrast-bg); border:2px solid var(--wp--preset--color--ink);
 }
 .rm-lp__sticky.is-on{ display:flex; }
-.rm-lp__sticky [data-l]{ display:none; }
-.rm-lp[data-lang="en"] .rm-lp__sticky [data-l="en"],
-.rm-lp[data-lang="ms"] .rm-lp__sticky [data-l="ms"],
-.rm-lp[data-lang="zh"] .rm-lp__sticky [data-l="zh"],
-.rm-lp[data-lang="zht"] .rm-lp__sticky [data-l="zht"]{ display:inline; }
 @media (min-width:56rem){ .rm-lp__sticky{ display:none !important; } }
 
 /* ---- Colour: the brand's CMYK plates, via the theme tokens ---- */
@@ -130,7 +117,7 @@
   margin:0 14px 14px 0;
 }
 .rm-lp__field input:focus{ border-color:var(--lp-c); outline:2px solid var(--lp-c); outline-offset:0; }
-.rm-lp__lang[aria-pressed="true"]{ border-color:var(--lp-c); }
+.rm-lp__lang[aria-current="true"]{ border-color:var(--lp-c); }
 
 /* Buttons: magenta fill. White text in light mode (5.1:1), navy in dark (4.6:1). */
 .rm-lp__submit,.rm-lp__sticky{

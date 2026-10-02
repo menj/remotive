@@ -13,10 +13,9 @@
  * a crawler has to fetch the page to see the noindex, and Google Ads needs
  * to fetch it to review the ad.
  *
- * Copy is English / Bahasa Melayu / Simplified Chinese, switched client-side
- * (assets/js/landing.js; ?lang=en|ms|zh|zht lets an ad pick the language). The
- * server always renders English visible, so the page works without
- * JavaScript. Template: templates/page-landing.html, which holds only the
+ * Copy is English / Bahasa Melayu / Simplified Chinese / Traditional Chinese, one URL each
+ * by URL: each language has its own path (see remotive_lp_languages()), the
+ * server renders only that language, and no JavaScript is needed to read the page. Template: templates/page-landing.html, which holds only the
  * __REMOTIVE_LANDING__ token this file replaces.
  *
  * The Malay and Chinese copy is a first draft for native-speaker review.
@@ -35,7 +34,7 @@ const REMOTIVE_LANDING_TEMPLATE = 'page-landing';
  */
 function remotive_landing_services() {
 	return array(
-		'lp-seo'        => array(
+		'seo-audit'     => array(
 			'label'   => array( 'SEO', 'SEO', 'SEO', 'SEO' ),
 			'eyebrow' => array( 'SEO for Asian markets', 'SEO untuk pasaran Asia', '面向亚洲市场的 SEO', '面向亞洲市場的 SEO' ),
 			'title'   => array( 'Be found when buyers search.', 'Dikenali apabila pembeli membuat carian.', '让买家在搜索时找到您。', '讓買家在搜尋時找到您。' ),
@@ -50,7 +49,7 @@ function remotive_landing_services() {
 				array( 'Visibility in AI answers, not only the blue links', 'Keterlihatan dalam jawapan AI, bukan sekadar pautan biru', '不仅是搜索结果，也包括 AI 回答中的曝光', '不僅是搜尋結果，也包括 AI 回答中的曝光' ),
 			),
 		),
-		'lp-google-ads' => array(
+		'google-ads-management' => array(
 			'label'   => array( 'Google Ads', 'Google Ads', 'Google Ads', 'Google Ads' ),
 			'eyebrow' => array( 'Google Ads management', 'Pengurusan Google Ads', 'Google Ads 投放管理', 'Google Ads 投放管理' ),
 			'title'   => array( 'Google Ads that bring leads, not just clicks.', 'Google Ads yang membawa prospek, bukan sekadar klik.', '带来销售线索的 Google Ads，而不只是点击。', '帶來銷售線索的 Google Ads，而不只是點擊。' ),
@@ -65,7 +64,7 @@ function remotive_landing_services() {
 				array( 'Plain-language reporting tied to your enquiries', 'Laporan bahasa mudah yang dikaitkan dengan pertanyaan anda', '与您的咨询挂钩、通俗易懂的报告', '與您的諮詢掛鉤、通俗易懂的報告' ),
 			),
 		),
-		'lp-social-ads' => array(
+		'paid-social-advertising' => array(
 			'label'   => array( 'Paid social', 'Iklan sosial berbayar', '社交媒体广告', '社群媒體廣告' ),
 			'eyebrow' => array( 'Paid social advertising', 'Pengiklanan sosial berbayar', '社交媒体付费广告', '社群媒體付費廣告' ),
 			'title'   => array( 'Paid social that reaches the right buyers.', 'Iklan sosial berbayar yang mencapai pembeli yang tepat.', '精准触达目标买家的社交媒体广告。', '精準觸及目標買家的社群媒體廣告。' ),
@@ -84,43 +83,136 @@ function remotive_landing_services() {
 }
 
 /**
- * The language codes behind the switcher: URL key => BCP 47 tag (also the
- * hreflang value).
+ * The languages: key => array( URL path prefix, BCP 47 tag, button code,
+ * accessible name ). English lives at the page's own URL; the others sit under
+ * a language directory:
  *
- * @return array<string,string>
+ *   /seo-audit/            English
+ *   /ms/seo-audit/         Bahasa Melayu
+ *   /zh-cn/seo-audit/      Simplified Chinese
+ *   /zh-tw/seo-audit/      Traditional Chinese
+ *
+ * The key is also the index of that language's text in each copy array.
+ *
+ * @return array<string,array<int,string>>
  */
 function remotive_lp_languages() {
 	return array(
-		'en'  => 'en',
-		'ms'  => 'ms',
-		'zh'  => 'zh-Hans',
-		'zht' => 'zh-Hant',
+		'en'  => array( '', 'en', 'EN', 'English' ),
+		'ms'  => array( 'ms', 'ms', 'MS', 'Bahasa Melayu' ),
+		'zh'  => array( 'zh-cn', 'zh-Hans', 'ZH-CN', '简体中文' ),
+		'zht' => array( 'zh-tw', 'zh-Hant', 'ZH-TW', '繁體中文' ),
 	);
 }
 
 /**
- * The language requested by ?lang=, or 'en'. Accepts the URL keys and the
- * usual tags (zh-CN, zh-TW, zh-HK, zh-Hans, zh-Hant). With no parameter the
- * server renders English and assets/js/landing.js applies the saved or
- * browser language.
+ * The language of the current request, from the URL's language directory.
  *
  * @return string One of the keys of remotive_lp_languages().
  */
 function remotive_lp_requested_lang() {
-	$aliases = array(
-		'zh-cn'   => 'zh',
-		'zh-hans' => 'zh',
-		'zh-tw'   => 'zht',
-		'zh-hk'   => 'zht',
-		'zh-hant' => 'zht',
-	);
+	$prefix = (string) get_query_var( 'rm_lang' );
 
-	// Read-only selection between known values; nothing is stored.
-	$want = isset( $_GET['lang'] ) ? strtolower( sanitize_text_field( wp_unslash( $_GET['lang'] ) ) ) : '';
-	$want = isset( $aliases[ $want ] ) ? $aliases[ $want ] : $want;
+	foreach ( remotive_lp_languages() as $key => $lang ) {
+		if ( '' !== $prefix && $lang[0] === $prefix ) {
+			return $key;
+		}
+	}
 
-	return isset( remotive_lp_languages()[ $want ] ) ? $want : 'en';
+	return 'en';
 }
+
+/**
+ * Index of the current language in a copy array.
+ *
+ * @return int
+ */
+function remotive_lp_lang_index() {
+	return (int) array_search( remotive_lp_requested_lang(), array_keys( remotive_lp_languages() ), true );
+}
+
+/**
+ * URL of one service page in one language.
+ *
+ * @param string $slug Service page slug.
+ * @param string $lang Language key.
+ * @return string
+ */
+function remotive_lp_url( $slug, $lang ) {
+	$prefix = remotive_lp_languages()[ $lang ][0];
+
+	if ( '' === $prefix ) {
+		$page = get_page_by_path( $slug, OBJECT, 'page' );
+
+		return $page ? get_permalink( $page->ID ) : user_trailingslashit( home_url( '/' . $slug ) );
+	}
+
+	return user_trailingslashit( home_url( '/' . $prefix . '/' . $slug ) );
+}
+
+/* ---- Language URLs: /ms/<slug>/, /zh-cn/<slug>/, /zh-tw/<slug>/ ---- */
+
+function remotive_lp_query_vars( $vars ) {
+	$vars[] = 'rm_lang';
+
+	return $vars;
+}
+add_filter( 'query_vars', 'remotive_lp_query_vars' );
+
+function remotive_lp_rewrites() {
+	$prefixes = array();
+
+	foreach ( remotive_lp_languages() as $lang ) {
+		if ( '' !== $lang[0] ) {
+			$prefixes[] = preg_quote( $lang[0], '#' );
+		}
+	}
+
+	$slugs = array_map( 'preg_quote', array_keys( remotive_landing_services() ) );
+
+	add_rewrite_rule(
+		'^(' . implode( '|', $prefixes ) . ')/(' . implode( '|', $slugs ) . ')/?$',
+		'index.php?pagename=$matches[2]&rm_lang=$matches[1]',
+		'top'
+	);
+}
+add_action( 'init', 'remotive_lp_rewrites' );
+
+/**
+ * Rewrite rules are stored, so a new rule needs one flush. Tracked by a
+ * version, so it runs once after an upgrade (and again if the rule set
+ * changes) and never on an ordinary request.
+ */
+function remotive_lp_maybe_flush_rewrites() {
+	if ( '1' !== get_option( 'remotive_lp_rewrite_v' ) ) {
+		flush_rewrite_rules( false );
+		update_option( 'remotive_lp_rewrite_v', '1', true );
+	}
+}
+add_action( 'wp_loaded', 'remotive_lp_maybe_flush_rewrites' );
+
+/**
+ * Without this, WordPress "corrects" /ms/<slug>/ back to /<slug>/, because the
+ * page's permalink has no language directory.
+ */
+function remotive_lp_keep_language_url( $redirect_url ) {
+	return '' !== (string) get_query_var( 'rm_lang' ) ? false : $redirect_url;
+}
+add_filter( 'redirect_canonical', 'remotive_lp_keep_language_url' );
+
+/** Each language URL is its own canonical. */
+function remotive_lp_canonical( $url, $post ) {
+	if ( $post && remotive_is_landing_page() ) {
+		$slug = get_post_field( 'post_name', $post );
+
+		if ( isset( remotive_landing_services()[ $slug ] ) ) {
+			return remotive_lp_url( $slug, remotive_lp_requested_lang() );
+		}
+	}
+
+	return $url;
+}
+add_filter( 'get_canonical_url', 'remotive_lp_canonical', 10, 2 );
 
 /**
  * Whether the current request is one of the landing pages.
@@ -132,31 +224,21 @@ function remotive_is_landing_page() {
 }
 
 /**
- * Text in all three languages, one element per language.
+ * Text in the language of the current URL. Only that language is output.
  *
  * @param array  $t   array( en, ms, zh-Hans, zh-Hant ).
- * @param string $tag Wrapping element.
- * @param string $cls Optional class.
+ * @param string $tag Optional wrapping element; plain text when empty.
+ * @param string $cls Optional class on that element.
  * @return string
  */
-function remotive_lp_t( $t, $tag = 'span', $cls = '' ) {
-	$langs = array( 'en' => 'en', 'ms' => 'ms', 'zh' => 'zh-Hans', 'zht' => 'zh-Hant' );
-	$out   = '';
-	$i     = 0;
+function remotive_lp_t( $t, $tag = '', $cls = '' ) {
+	$text = esc_html( $t[ remotive_lp_lang_index() ] );
 
-	foreach ( $langs as $key => $lang ) {
-		$out .= sprintf(
-			'<%1$s%2$s lang="%3$s" data-l="%4$s">%5$s</%1$s>',
-			$tag,
-			$cls ? ' class="' . esc_attr( $cls ) . '"' : '',
-			esc_attr( $lang ),
-			esc_attr( $key ),
-			esc_html( $t[ $i ] )
-		);
-		$i++;
+	if ( '' === $tag ) {
+		return $text;
 	}
 
-	return $out;
+	return sprintf( '<%1$s%2$s>%3$s</%1$s>', $tag, $cls ? ' class="' . esc_attr( $cls ) . '"' : '', $text );
 }
 
 /**
@@ -194,9 +276,8 @@ function remotive_lp_form( $service, $pos ) {
 		'success' => array( 'Thanks. We will be in touch within three business days.', 'Terima kasih. Kami akan menghubungi anda dalam tiga hari bekerja.', '谢谢。我们将在三个工作日内与您联系。', '謝謝。我們將在三個工作日內與您聯絡。' ),
 		'error'   => array( 'Something went wrong sending that. Please try again, or email us directly.', 'Sesuatu tidak kena semasa menghantar. Sila cuba lagi, atau e-mel kami terus.', '提交时出了问题。请重试，或直接给我们发送电子邮件。', '提交時發生問題。請重試，或直接寄電子郵件給我們。' ),
 	) as $state => $t ) {
-		$msgs .= remotive_lp_t( $t, 'span', 'rm-lp__msg rm-lp__msg--' . $state ) ;
+		$msgs .= '<span data-msg class="rm-lp__msg rm-lp__msg--' . esc_attr( $state ) . '">' . remotive_lp_t( $t ) . '</span>';
 	}
-	$msgs = str_replace( '<span class=', '<span data-msg class=', $msgs );
 
 	return '<form class="rm-lp__form" method="post" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '">'
 		. '<input type="hidden" name="action" value="remotive_lp_submit">'
@@ -258,24 +339,19 @@ function remotive_lp_render() {
 	}
 
 	$s    = $services[ $slug ];
-	$btns = '';
-	// Buttons are labelled with language codes; the full name is the
-	// accessible name, so a screen reader still says "Traditional Chinese".
-	$langs_ui = array(
-		'en'  => array( 'EN', 'en', 'English' ),
-		'ms'  => array( 'MS', 'ms', 'Bahasa Melayu' ),
-		'zh'  => array( 'ZH-CN', 'zh-Hans', '简体中文' ),
-		'zht' => array( 'ZH-TW', 'zh-Hant', '繁體中文' ),
-	);
+	// Real links to each language's own URL, labelled with the language
+	// code; the full name is the accessible name. Campaign parameters are
+	// added to these links by assets/js/landing.js, so switching keeps them.
+	$btns    = '';
 	$current = remotive_lp_requested_lang();
-	foreach ( $langs_ui as $key => $ui ) {
+	foreach ( remotive_lp_languages() as $key => $lang ) {
 		$btns .= sprintf(
-			'<button type="button" class="rm-lp__lang" data-set-lang="%1$s" lang="%2$s" aria-label="%3$s" title="%3$s" aria-pressed="%4$s">%5$s</button>',
-			esc_attr( $key ),
-			esc_attr( $ui[1] ),
-			esc_attr( $ui[2] ),
-			$current === $key ? 'true' : 'false',
-			esc_html( $ui[0] )
+			'<a class="rm-lp__lang" href="%1$s" hreflang="%2$s" lang="%2$s" aria-label="%3$s" title="%3$s"%4$s>%5$s</a>',
+			esc_url( remotive_lp_url( $slug, $key ) ),
+			esc_attr( $lang[1] ),
+			esc_attr( $lang[3] ),
+			$current === $key ? ' aria-current="true"' : '',
+			esc_html( $lang[2] )
 		);
 	}
 
@@ -303,7 +379,7 @@ function remotive_lp_render() {
 
 	return '<div class="rm-lp" data-lang="' . esc_attr( remotive_lp_requested_lang() ) . '" data-service="' . esc_attr( $slug ) . '">'
 		. '<header class="rm-lp__bar">' . remotive_lp_logo()
-		. '<div class="rm-lp__langs" role="group" aria-label="Language / Bahasa / 语言 / 語言">' . $btns . '</div></header>'
+		. '<nav class="rm-lp__langs" aria-label="Language / Bahasa / 语言 / 語言">' . $btns . '</nav></header>'
 		. '<main id="main" class="rm-lp__main">'
 		. '<section class="rm-lp__hero"><div class="rm-lp__copy">'
 		. '<p class="rm-lp__eyebrow">' . remotive_lp_t( $s['eyebrow'] ) . '</p>'
@@ -382,44 +458,44 @@ add_action( 'admin_post_nopriv_remotive_lp_submit', 'remotive_handle_landing_sub
 /* ---- Language alternates ---- */
 
 /**
- * hreflang links: one per language plus x-default, each pointing at the same
- * page with ?lang=, which the server renders in that language. Every page
- * lists itself and all its alternates, as hreflang requires.
+ * hreflang links: one per language plus x-default (the English page), each
+ * pointing at that language's own URL. Every page lists itself and all its
+ * alternates, as hreflang requires.
  *
  * These pages are noindex, so search engines ignore the annotations; they
- * are still correct, and they identify the language versions to anything
- * else that reads them (ad review, link checkers, a future indexable page).
+ * are still correct, and identify the language versions to anything else that
+ * reads them (ad review, link checkers, a future indexable page).
  */
 function remotive_lp_hreflang() {
 	if ( ! remotive_is_landing_page() ) {
 		return;
 	}
 
-	$url = get_permalink( get_queried_object_id() );
+	$slug = get_post_field( 'post_name', get_queried_object_id() );
 
-	if ( ! $url ) {
+	if ( ! isset( remotive_landing_services()[ $slug ] ) ) {
 		return;
 	}
 
-	foreach ( remotive_lp_languages() as $key => $tag ) {
+	foreach ( remotive_lp_languages() as $key => $lang ) {
 		printf(
 			'<link rel="alternate" hreflang="%1$s" href="%2$s">' . "\n",
-			esc_attr( $tag ),
-			esc_url( add_query_arg( 'lang', $key, $url ) )
+			esc_attr( $lang[1] ),
+			esc_url( remotive_lp_url( $slug, $key ) )
 		);
 	}
 
-	printf( '<link rel="alternate" hreflang="x-default" href="%s">' . "\n", esc_url( $url ) );
+	printf( '<link rel="alternate" hreflang="x-default" href="%s">' . "\n", esc_url( remotive_lp_url( $slug, 'en' ) ) );
 }
 add_action( 'wp_head', 'remotive_lp_hreflang', 2 );
 
 /**
- * <html lang> follows the language the server rendered, so the declared
- * language matches the content.
+ * <html lang> follows the language of the URL, so the declared language
+ * matches the content.
  */
 function remotive_lp_html_lang( $output ) {
 	if ( ! is_admin() && remotive_is_landing_page() ) {
-		$tag    = remotive_lp_languages()[ remotive_lp_requested_lang() ];
+		$tag    = remotive_lp_languages()[ remotive_lp_requested_lang() ][1];
 		$output = preg_replace( '/lang="[^"]*"/', 'lang="' . esc_attr( $tag ) . '"', $output, 1, $n );
 		if ( ! $n ) {
 			$output .= ' lang="' . esc_attr( $tag ) . '"';

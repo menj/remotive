@@ -1,55 +1,8 @@
-/* Service landing pages: language switch, campaign capture, funnel events. */
+/* Service landing pages: campaign capture, funnel events, sticky CTA.
+   Language is chosen by URL (/ms/, /zh-cn/, /zh-tw/), not by script. */
 (function () {
 	var root = document.querySelector('.rm-lp');
 	if (!root) { return; }
-
-	var langs = { en: 'en', ms: 'ms', zh: 'zh-Hans', zht: 'zh-Hant' };
-	var aliases = { 'zh-cn': 'zh', 'zh-hans': 'zh', 'zh-tw': 'zht', 'zh-hk': 'zht', 'zh-hant': 'zht' };
-	var buttons = root.querySelectorAll('[data-set-lang]');
-
-	function pick() {
-		var q = /[?&]lang=([A-Za-z-]+)/.exec(location.search);
-		if (q) {
-			var want = q[1].toLowerCase();
-			want = aliases[want] || want;
-			if (langs[want]) { return want; }
-		}
-		try {
-			var s = localStorage.getItem('remotive-lang');
-			if (langs[s]) { return s; }
-		} catch (e) {}
-		var n = (navigator.language || 'en').toLowerCase();
-		if (n.indexOf('ms') === 0 || n.indexOf('id') === 0) { return 'ms'; }
-		if (n.indexOf('zh') === 0) {
-			// Traditional for Taiwan, Hong Kong, Macau or an explicit Hant tag.
-			return /^zh-(tw|hk|mo|hant)/.test(n) ? 'zht' : 'zh';
-		}
-		return 'en';
-	}
-
-	function apply(l, save) {
-		root.setAttribute('data-lang', l);
-		document.documentElement.setAttribute('lang', langs[l]);
-		for (var i = 0; i < buttons.length; i++) {
-			buttons[i].setAttribute('aria-pressed', buttons[i].getAttribute('data-set-lang') === l ? 'true' : 'false');
-		}
-		if (save) { try { localStorage.setItem('remotive-lang', l); } catch (e) {} }
-	}
-
-	for (var i = 0; i < buttons.length; i++) {
-		buttons[i].addEventListener('click', function () {
-			var l = this.getAttribute('data-set-lang');
-			apply(l, true);
-			// Keep the address in step with the language (and keep any utm_*),
-			// so a copied or shared link opens in the same language.
-			try {
-				var u = new URL(location.href);
-				u.searchParams.set('lang', l);
-				history.replaceState({}, '', u.toString());
-			} catch (e) {}
-		});
-	}
-	apply(pick(), false);
 
 	// Campaign fields (utm_*, gclid, fbclid, ttclid): taken from the landing
 	// URL, kept for the session so a reload or a language switch does not lose
@@ -78,6 +31,18 @@
 	for (var m = 0; m < fields.length; m++) {
 		var key = fields[m].getAttribute('data-track');
 		if (params[key]) { fields[m].value = params[key]; }
+	}
+
+	// Language links keep the campaign parameters, so switching language does
+	// not lose the ad click.
+	var qs = Object.keys(params).filter(function (k) { return params[k]; }).map(function (k) {
+		return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
+	}).join('&');
+	if (qs) {
+		var langLinks = root.querySelectorAll('.rm-lp__lang');
+		for (var n = 0; n < langLinks.length; n++) {
+			langLinks[n].href += (langLinks[n].href.indexOf('?') < 0 ? '?' : '&') + qs;
+		}
 	}
 
 	// Funnel events for a tag manager. The conversion itself fires on the

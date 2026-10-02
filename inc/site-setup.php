@@ -139,7 +139,7 @@ function remotive_required_pages() {
 			'rm_desc'  => __( 'We have your message and will reply within three business days.', 'remotive' ),
 			'rm_kw'    => '',
 		),
-		'lp-seo' => array(
+		'seo-audit' => array(
 			'title'    => __( 'SEO landing page', 'remotive' ),
 			'template' => 'page-landing',
 			'order'    => 90,
@@ -149,7 +149,7 @@ function remotive_required_pages() {
 			'rm_desc'  => '',
 			'rm_kw'    => '',
 		),
-		'lp-google-ads' => array(
+		'google-ads-management' => array(
 			'title'    => __( 'Google Ads landing page', 'remotive' ),
 			'template' => 'page-landing',
 			'order'    => 91,
@@ -159,7 +159,7 @@ function remotive_required_pages() {
 			'rm_desc'  => '',
 			'rm_kw'    => '',
 		),
-		'lp-social-ads' => array(
+		'paid-social-advertising' => array(
 			'title'    => __( 'Paid social landing page', 'remotive' ),
 			'template' => 'page-landing',
 			'order'    => 92,
@@ -412,8 +412,8 @@ function remotive_migration_registry() {
 		'1.75.0' => function() {
 			remotive_backfill_seed_images();
 		},
-		// 1.90.0: provisions the three ad landing pages (lp-seo,
-		// lp-google-ads, lp-social-ads). Registering them in
+		// 1.90.0: provisions the three ad landing pages (seo-audit,
+		// google-ads-management, paid-social-advertising). Registering them in
 		// remotive_required_pages() only reaches fresh installs; sites
 		// already at an earlier schema skip setup, so without this the
 		// pages would never be created. Setup only creates what is missing
