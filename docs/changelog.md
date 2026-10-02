@@ -4,6 +4,17 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.99.0] — 2026-10-02
+
+### Changed
+
+- **Editor palette follows the Colours tab.** `remotive_colours_editor_settings()` hands the saved colour overrides to the block editor as a stylesheet (`block_editor_settings_all`), so what an editor sees matches the front end. The editor has no `data-theme` attribute, so the dark-mode values apply there, matching its dark default.
+- **`data-theme` is set on `<html>` by the server** (`remotive_html_data_theme()`, via `language_attributes`) from the site's default mode (`system` becomes dark). Before, only the inline script set it, so visitors without JavaScript never got the rules keyed on `html[data-theme]` (the Saira typeface in particular) and saw the fallback fonts. The script still overrides it for a visitor with a saved choice or a light-mode device.
+
+### Added
+
+- **Unit tests** that run without WordPress: `tests/test-colours.php` (37 checks: overrides, contrast maths, validation, CSS output) and `tests/test-landing.php` (25 checks: language from URL, path-based URLs, hreflang, `<html lang>`, robots), with WordPress stubs in `tests/bootstrap.php`. CI runs every `tests/test-*.php`. Run locally with `php tests/test-landing.php`.
+
 ## [1.98.0] — 2026-10-02
 
 ### Changed

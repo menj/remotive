@@ -54,6 +54,14 @@ WordPress site yet; this list is how to find out.
 - The first pull request that runs `.github/workflows/ci.yml` after a change to
   it should be watched, because the workflow itself is the thing under test.
 
+## v1.99.0: editor colours, server-side mode, tests
+
+- Nothing to run. Open the block editor after changing a colour under Theme
+  Options → Colours and confirm the editor shows it. View the site with
+  JavaScript off and confirm the Saira headings load.
+- Contributors: `php tests/test-colours.php` and `php tests/test-landing.php`
+  need only PHP; CI runs them on every pull request.
+
 ## v1.98.0: six case studies
 
 - Nothing to run by hand: the footer menu refreshes once on the next admin page
