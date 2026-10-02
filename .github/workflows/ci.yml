@@ -29,6 +29,9 @@ jobs:
       - name: Landing page copy is complete in four languages
         run: php tests/check-landing-copy.php
 
+      - name: Every module under inc/ is loaded
+        run: php tests/check-modules.php
+
       - name: Unit tests
         run: |
           set -e

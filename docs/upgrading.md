@@ -54,6 +54,15 @@ WordPress site yet; this list is how to find out.
 - The first pull request that runs `.github/workflows/ci.yml` after a change to
   it should be watched, because the workflow itself is the thing under test.
 
+## v1.100.0: `inc/` folders
+
+- If you deploy by uploading the theme over the old one, the old `inc/*.php`
+  files stay on the server unused. Delete them, or deploy by replacing the
+  theme folder. A deploy that mirrors the repository (git, rsync --delete)
+  needs nothing.
+- Anything of yours that requires a theme file by its old path (a child theme,
+  a mu-plugin) needs the new path; the table in `docs/ssot.md` lists them.
+
 ## v1.99.0: editor colours, server-side mode, tests
 
 - Nothing to run. Open the block editor after changing a colour under Theme
@@ -271,10 +280,10 @@ field or an `inc/` file, it is not finished until `readme.md`'s file map,
   "View case study →" links go nowhere — `href="#"` — since there's no
   per-case-study page to link to yet). Deliberately not built
   speculatively ahead of that need.
-- **Stronger form bot resistance.** `inc/lead-form-handler.php` (shared
+- **Stronger form bot resistance.** `inc/forms/lead-form-handler.php` (shared
   by the CTA, About, and Contact forms) has a nonce, a honeypot, an
   Akismet check (v1.67.2) and a per-IP rate limit (3/10min) — and since
-  v1.68.1 `inc/security.php` applies a comparable limit to login attempts
+  v1.68.1 `inc/core/security.php` applies a comparable limit to login attempts
   — but none of that stops a scripted client
   that first loads the real page for a valid nonce, then submits
   repeatedly at a slower rate. A CAPTCHA (hCaptcha/Turnstile) or a
@@ -339,7 +348,7 @@ field or an `inc/` file, it is not finished until `readme.md`'s file map,
   simple `grep -rn '"ink"\|"paper"' templates/ parts/ theme.json` before
   any future palette edit would have caught it immediately.
 - **Revisit the token/`render_block`-filter approach if WordPress's Block
-  Bindings API widens its allow-list.** `inc/theme-options.php` currently
+  Bindings API widens its allow-list.** `inc/options/theme-options.php` currently
   uses a theme-specific token convention (see `readme.md`) instead of the
   official Block Bindings API because Navigation Link and Custom HTML
   blocks aren't bindable as of this writing. If core adds support for

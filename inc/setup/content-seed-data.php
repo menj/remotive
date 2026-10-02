@@ -3,7 +3,7 @@
  * Seed content shipped with the theme.
  *
  * Generated from the editorial source; edit the source and regenerate rather
- * than hand-editing this file. Consumed by inc/content-seed.php, which creates
+ * than hand-editing this file. Consumed by inc/setup/content-seed.php, which creates
  * each item once on activation and never touches it again.
  *
  * @package Remotive

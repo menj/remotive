@@ -3,7 +3,7 @@
  * Remotive Media — homepage CTA form handler.
  *
  * Thin wrapper around remotive_handle_lead_form_submission() (see
- * inc/lead-form-handler.php for the shared nonce/rate-limit/honeypot/
+ * inc/forms/lead-form-handler.php for the shared nonce/rate-limit/honeypot/
  * email logic every native form on this theme goes through). The
  * homepage's email-capture form (templates/front-page.html) submits here
  * by default via WordPress's standard admin-post.php pattern — no

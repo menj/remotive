@@ -5,7 +5,7 @@
 	if (!root) { return; }
 
 	// The confirmation page has no form and is not a landing view: the
-	// conversion event comes from the server (inc/thank-you.php).
+	// conversion event comes from the server (inc/forms/thank-you.php).
 	if (root.getAttribute('data-page') === 'thanks') { return; }
 
 	// Campaign fields (utm_*, gclid, fbclid, ttclid): taken from the landing
@@ -50,7 +50,7 @@
 	}
 
 	// Funnel events for a tag manager. The conversion itself fires on the
-	// thank-you page (inc/thank-you.php).
+	// thank-you page (inc/forms/thank-you.php).
 	window.dataLayer = window.dataLayer || [];
 	window.dataLayer.push({ event: 'remotive_lp_view', service: service });
 

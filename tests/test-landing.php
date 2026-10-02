@@ -5,7 +5,7 @@
  */
 
 require __DIR__ . '/bootstrap.php';
-require dirname( __DIR__ ) . '/inc/landing-pages.php';
+require dirname( __DIR__ ) . '/inc/landing/landing-pages.php';
 
 // Language comes from the URL's language directory only.
 $cases = array(

@@ -5,7 +5,7 @@
  * One page per service (SEO, Google Ads, paid social), each a short funnel:
  * promise and form above the fold, what you get, how it works, a second
  * form. Every form ends on the thank-you page, which fires the conversion
- * event (see inc/thank-you.php).
+ * event (see inc/forms/thank-you.php).
  *
  * These pages exist for ads and social posts, not for search. They are
  * noindex + nofollow, carry no site navigation, and are kept out of the
@@ -383,7 +383,7 @@ function remotive_lp_lang_nav( $slug ) {
  * The confirmation page landing-page leads arrive on: the same chrome as the
  * landing pages (logo and language links only), in the language of the URL.
  * It is the conversion URL for landing-page forms; the event itself is pushed
- * from inc/thank-you.php.
+ * from inc/forms/thank-you.php.
  *
  * @return string
  */

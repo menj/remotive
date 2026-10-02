@@ -4,7 +4,7 @@
 // A real WordPress drop-in: since WP 5.2, WP_Fatal_Error_Handler requires
 // wp-content/php-error.php automatically when it exists.
 //
-// Scope, precisely: once the theme has loaded, inc/error-handler.php takes
+// Scope, precisely: once the theme has loaded, inc/core/error-handler.php takes
 // over fatals with its own branded page (full detail for administrators,
 // a reference ID for everyone else) and switches WordPress's handler off,
 // so this file is NOT used for those. It covers the gap before that: a

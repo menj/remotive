@@ -2,7 +2,7 @@
    Remotive Options — admin settings UI
    Scoped entirely under .rm-admin so nothing here touches wp-admin's own
    chrome or any other plugin's settings page. Loaded only on this one
-   admin page (see remotive_admin_enqueue_assets() in inc/theme-options.php).
+   admin page (see remotive_admin_enqueue_assets() in inc/options/theme-options.php).
    ========================================================================== */
 
 .rm-admin{

@@ -12,30 +12,30 @@
 defined( 'ABSPATH' ) || exit;
 
 // Loaded first so it is already registered if any later require fatals.
-require get_stylesheet_directory() . '/inc/error-handler.php';
+require get_stylesheet_directory() . '/inc/core/error-handler.php';
 
-require get_stylesheet_directory() . '/inc/colours.php';
-require get_stylesheet_directory() . '/inc/theme-options.php';
-require get_stylesheet_directory() . '/inc/site-setup.php';
-require get_stylesheet_directory() . '/inc/lead-form-handler.php';
-require get_stylesheet_directory() . '/inc/cta-form-handler.php';
-require get_stylesheet_directory() . '/inc/about-form-handler.php';
-require get_stylesheet_directory() . '/inc/contact-form-handler.php';
-require get_stylesheet_directory() . '/inc/schema-markup.php';
-require get_stylesheet_directory() . '/inc/classic-menus.php';
-require get_stylesheet_directory() . '/inc/accessibility.php';
-require get_stylesheet_directory() . '/inc/leads.php';
-require get_stylesheet_directory() . '/inc/akismet.php';
-require get_stylesheet_directory() . '/inc/avif.php';
-require get_stylesheet_directory() . '/inc/branded-login.php';
-require get_stylesheet_directory() . '/inc/content-seed.php';
-require get_stylesheet_directory() . '/inc/feature-grids.php';
-require get_stylesheet_directory() . '/inc/thank-you.php';
-require get_stylesheet_directory() . '/inc/stats-band.php';
-require get_stylesheet_directory() . '/inc/webmcp.php';
-require get_stylesheet_directory() . '/inc/security.php';
-require get_stylesheet_directory() . '/inc/maintenance-mode.php';
-require get_stylesheet_directory() . '/inc/landing-pages.php';
+require get_stylesheet_directory() . '/inc/options/colours.php';
+require get_stylesheet_directory() . '/inc/options/theme-options.php';
+require get_stylesheet_directory() . '/inc/setup/site-setup.php';
+require get_stylesheet_directory() . '/inc/forms/lead-form-handler.php';
+require get_stylesheet_directory() . '/inc/forms/cta-form-handler.php';
+require get_stylesheet_directory() . '/inc/forms/about-form-handler.php';
+require get_stylesheet_directory() . '/inc/forms/contact-form-handler.php';
+require get_stylesheet_directory() . '/inc/content/schema-markup.php';
+require get_stylesheet_directory() . '/inc/setup/classic-menus.php';
+require get_stylesheet_directory() . '/inc/core/accessibility.php';
+require get_stylesheet_directory() . '/inc/forms/leads.php';
+require get_stylesheet_directory() . '/inc/forms/akismet.php';
+require get_stylesheet_directory() . '/inc/core/avif.php';
+require get_stylesheet_directory() . '/inc/core/branded-login.php';
+require get_stylesheet_directory() . '/inc/setup/content-seed.php';
+require get_stylesheet_directory() . '/inc/content/feature-grids.php';
+require get_stylesheet_directory() . '/inc/forms/thank-you.php';
+require get_stylesheet_directory() . '/inc/content/stats-band.php';
+require get_stylesheet_directory() . '/inc/content/webmcp.php';
+require get_stylesheet_directory() . '/inc/core/security.php';
+require get_stylesheet_directory() . '/inc/options/maintenance-mode.php';
+require get_stylesheet_directory() . '/inc/landing/landing-pages.php';
 
 /**
  * Gate scroll motion on a body class.
@@ -607,7 +607,7 @@ add_action( 'after_switch_theme', 'remotive_bootstrap_branding' );
  * doesn't have it — protects a hand-edited or third-party drop-in from
  * being silently clobbered.
  */
-// Runs from remotive_version_sync() in inc/site-setup.php — once per theme
+// Runs from remotive_version_sync() in inc/setup/site-setup.php — once per theme
 // version, on activation and after any file upload.
 function remotive_install_error_dropins() {
 	$files = array( 'db-error.php', 'maintenance.php', 'php-error.php' );
@@ -667,7 +667,7 @@ function remotive_team_order_moves() {
 	);
 }
 
-// Runs from remotive_version_sync() in inc/site-setup.php, after the roster sync.
+// Runs from remotive_version_sync() in inc/setup/site-setup.php, after the roster sync.
 function remotive_sync_team_order() {
 	$moves = remotive_team_order_moves();
 	$done  = get_option( 'remotive_team_order_applied', array() );
@@ -730,7 +730,7 @@ function remotive_team_renames() {
 	);
 }
 
-// Runs from remotive_version_sync() in inc/site-setup.php, after the order step.
+// Runs from remotive_version_sync() in inc/setup/site-setup.php, after the order step.
 function remotive_sync_team_names() {
 	$renames = remotive_team_renames();
 	$done    = get_option( 'remotive_team_renames_applied', array() );

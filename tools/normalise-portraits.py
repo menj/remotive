@@ -37,7 +37,7 @@ PHOTO is a path, or a file name inside the sources folder (PORTRAIT_SOURCES,
 default /mnt/user-data/uploads/). One portrait per person: there is no
 alternate/rollover frame any more, so --replace also deletes any leftover
 <slug>-alt.avif, and the theme deletes those on the server by itself
-(remotive_retired_files() in inc/site-setup.php).
+(remotive_retired_files() in inc/setup/site-setup.php).
 """
 
 import argparse

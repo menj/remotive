@@ -3,7 +3,7 @@
  * Remotive Media — copy for the ad landing pages.
  *
  * The words, kept apart from the rendering and routing in
- * inc/landing-pages.php so they can be edited, translated and reviewed without
+ * inc/landing/landing-pages.php so they can be edited, translated and reviewed without
  * reading code. Every text is an array of four strings in this order:
  * English, Bahasa Melayu, Simplified Chinese (zh-Hans), Traditional Chinese
  * (zh-Hant). The Malay and Chinese copy is a first draft for native-speaker

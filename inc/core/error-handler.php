@@ -11,7 +11,7 @@
  * A stack trace names absolute server paths, function names, plugin files
  * and often version numbers. Showing that to anonymous visitors hands an
  * attacker a map of the installation, which directly undoes the version
- * fingerprinting removal in inc/security.php. So:
+ * fingerprinting removal in inc/core/security.php. So:
  *
  *   - Administrators (manage_options) see the full message, file, line and
  *     trace, formatted and readable.
@@ -405,7 +405,7 @@ function remotive_handle_shutdown() {
  *
  * Read straight from the option row rather than through
  * remotive_get_theme_option(), because this file is required first — before
- * inc/theme-options.php exists — so that the handler is registered before
+ * inc/options/theme-options.php exists — so that the handler is registered before
  * any other include can emit anything. Defaults to on when the option has
  * never been saved.
  *

@@ -246,7 +246,7 @@ function remotive_schema_organization() {
 	}
 
 	// The team, from the same roster the grids render
-	// (remotive_team_members() in inc/theme-options.php), so an edit in
+	// (remotive_team_members() in inc/options/theme-options.php), so an edit in
 	// Theme Options updates the display and the structured data together.
 	$employees = array();
 

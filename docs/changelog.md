@@ -4,6 +4,15 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.100.0] — 2026-10-02
+
+### Changed
+
+- **`inc/` grouped into six folders** instead of 25 files side by side, moved with `git mv` so history follows: `core/` (error-handler, security, accessibility, avif, branded-login), `options/` (theme-options, colours, maintenance-mode), `setup/` (site-setup, classic-menus, content-seed, content-seed-data), `forms/` (lead, cta, about and contact handlers, leads, akismet, thank-you), `landing/` (landing-pages, landing-copy) and `content/` (schema-markup, webmcp, feature-grids, stats-band).
+- Every `require` in `functions.php` and the tests, and every reference in comments, documents, the `.pot` file and the tools, now uses the new path. Load order is unchanged (the error handler is still first). Entries in this changelog below keep the old flat paths, because that is where the files were then.
+- `Theme URI` in `style.css` now points at the repository, `https://github.com/menj/remotive`, instead of the site.
+- No behaviour change: the two files that load a sibling (`landing-pages.php` → `landing-copy.php`, `content-seed.php` → `content-seed-data.php`) moved together, so their `__DIR__` requires still resolve.
+
 ## [1.99.0] — 2026-10-02
 
 ### Changed

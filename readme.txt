@@ -4,7 +4,7 @@ Tags: block-theme, full-site-editing, child-theme, one-page
 Requires at least: 6.7
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.99.0
+Stable tag: 1.100.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -301,9 +301,15 @@ floor, not a replacement.
 
 == Changelog ==
 
-See `docs/changelog.md` for full version history. Latest version: 1.99.0.
+See `docs/changelog.md` for full version history. Latest version: 1.100.0.
 
 == Upgrade Notice ==
+
+= 1.100.0 =
+Internal change only: the PHP modules in inc/ now live in subfolders (core,
+options, setup, forms, landing, content). No settings or behaviour change. If
+you deploy by copying files over the old theme, delete the old inc/*.php files
+afterwards. See docs/upgrading.md.
 
 = 1.99.0 =
 The block editor now shows the colours chosen under Theme Options -> Colours,

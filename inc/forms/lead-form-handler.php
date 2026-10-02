@@ -6,8 +6,8 @@
  * contact form) goes through this one function rather than each having
  * its own near-duplicate copy of the same nonce/honeypot/rate-limit/
  * escaping logic. One security-reviewed code path is easier to keep
- * correct than several drifting copies — see inc/cta-form-handler.php
- * and inc/about-form-handler.php for the two thin wrappers that call
+ * correct than several drifting copies — see inc/forms/cta-form-handler.php
+ * and inc/forms/about-form-handler.php for the two thin wrappers that call
  * this with their own action/nonce names.
  *
  * Threat model / residual risk, documented rather than silently assumed

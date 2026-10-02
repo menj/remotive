@@ -8,7 +8,7 @@ function remotive_get_theme_option( $k ) {
 	return $GLOBALS['T']['options'][ $k ] ?? ( $d[ $k ] ?? '' );
 }
 
-require dirname( __DIR__ ) . '/inc/colours.php';
+require dirname( __DIR__ ) . '/inc/options/colours.php';
 
 $defaults = remotive_colour_option_defaults();
 t_eq( count( $defaults ), 25, 'twelve roles x two modes + the reset switch' );

@@ -457,7 +457,7 @@
  *
  * A page served from a cache can be older than a nonce lives (12 to 24
  * hours), which would reject a real enquiry as "link expired". On load, ask
- * the uncacheable endpoint in inc/lead-form-handler.php for current nonces
+ * the uncacheable endpoint in inc/forms/lead-form-handler.php for current nonces
  * and swap them into the lead forms' hidden fields. The server-rendered
  * values stay as the fallback if the request fails or scripts are off.
  * ------------------------------------------------------------------ */
