@@ -8,14 +8,14 @@ follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 
 ### Fixed
 
-- **Lead forms no longer lose enquiries from cached pages.** A nonce lives 12 to 24 hours, and a page cached for longer carries an expired one, so the visitor was told "the link has expired" and the lead was lost. The nonce check is unchanged; `assets/js/remotive.js` now asks a new uncacheable endpoint (`remotive_form_nonces`, in `inc/lead-form-handler.php`) for current nonces on page load and swaps them into the forms (landing pages, homepage CTA, About and Contact). The server-rendered nonce stays as the fallback.
-- **Rate limit no longer blocks real landing-page leads.** The limit is now a per-form setting (`rate_limit`); landing page forms allow 10 submissions per IP per ten minutes instead of 3, because mobile carriers put many unrelated visitors behind one address. Other forms keep 3.
+- **Lead forms no longer lose enquiries from cached pages.** A nonce lives 12 to 24 hours, and a page cached for longer carries an expired one, so the visitor was told "the link has expired" and the lead was lost. The nonce check is unchanged; `assets/js/remotive.js` now asks a new uncacheable endpoint (`remotive_form_nonces`, in `inc/lead-form-handler.php`) for current nonces on page load and swaps them into the forms (landing pages, homepage CTA, About and Contact). The server-rendered nonce stays as the fallback, and a form submitted before the refresh finishes waits for it, so a fast submit cannot carry the expired value.
+- **Rate limit no longer blocks real landing-page leads.** The limit is now a per-form setting (`rate_limit`); landing page forms allow 10 submissions per IP per ten minutes instead of 3, because mobile carriers put many unrelated visitors behind one address. Other forms keep 3. The spam-trap check now runs before the limit, so bot traffic does not use up real visitors' quota.
 - **Flash of missing borders and corners on the landing pages.** `landing.css` used variables defined only in the asynchronously loaded `remotive.css`; it now defines the ones it needs.
 - **Object-injection risk in `inc/schema-markup.php`.** A second `maybe_unserialize()` on custom-field values a contributor can edit is gone; a still-serialised string is read with no classes allowed.
 
 ### Added
 
-- **Automated checks on every pull request** (`.github/workflows/ci.yml`): PHP syntax on 7.4 and 8.3, JavaScript syntax, valid `theme.json`, and `tests/check-landing-copy.php`, which fails if any landing page text is missing a language.
+- **Automated checks on every pull request** (`.github/workflows/ci.yml`): PHP syntax on 7.4 and 8.3, JavaScript syntax, valid `theme.json`, and `tests/check-landing-copy.php`, which fails if any landing page text is missing a language (it checks the exact positions, not just the count).
 
 ### Changed
 

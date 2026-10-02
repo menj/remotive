@@ -13,7 +13,8 @@ require dirname( __DIR__ ) . '/inc/landing-copy.php';
 $problems = array();
 
 $check_text = function ( $where, $t ) use ( &$problems ) {
-	if ( ! is_array( $t ) || 4 !== count( $t ) ) {
+	// Rendering reads indexes 0 to 3, so the keys must be exactly those.
+	if ( ! is_array( $t ) || array( 0, 1, 2, 3 ) !== array_keys( $t ) ) {
 		$problems[] = "$where: expected 4 strings, got " . ( is_array( $t ) ? count( $t ) : gettype( $t ) );
 		return;
 	}

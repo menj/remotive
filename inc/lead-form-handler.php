@@ -75,17 +75,19 @@ function remotive_handle_lead_form_submission( $args ) {
 	$redirect_base = $args['redirect_base'];
 	$status_key    = 'remotive_' . $args['form_key'];
 
-	if ( remotive_form_rate_limit_exceeded( $args['form_key'], isset( $args['rate_limit'] ) ? (int) $args['rate_limit'] : 3 ) ) {
-		wp_safe_redirect( add_query_arg( $status_key, 'error', $redirect_base ) );
-		exit;
-	}
-
 	// Honeypot: a real visitor never sees or reaches this field. Any
 	// value here means a bot filled every input it could find. Redirect
 	// exactly as if the submission succeeded — no error, no signal that
 	// a trap was hit.
 	if ( ! empty( $_POST[ $args['honeypot_field'] ] ) ) {
 		wp_safe_redirect( add_query_arg( $status_key, 'success', $redirect_base ) );
+		exit;
+	}
+
+	// After the honeypot, so bot traffic that fills the trap does not use up the
+	// quota of real visitors who share its address.
+	if ( remotive_form_rate_limit_exceeded( $args['form_key'], isset( $args['rate_limit'] ) ? (int) $args['rate_limit'] : 3 ) ) {
+		wp_safe_redirect( add_query_arg( $status_key, 'error', $redirect_base ) );
 		exit;
 	}
 
