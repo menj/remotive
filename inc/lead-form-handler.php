@@ -29,8 +29,12 @@ defined( 'ABSPATH' ) || exit;
  * spoofed or shared behind a proxy/CDN (an inherent limitation of
  * IP-based throttling generally, not something introduced here), so
  * this is a real but imperfect mitigation, not a guarantee.
+ *
+ * $max is the number of submissions allowed per ten minutes. Forms that
+ * receive paid mobile traffic raise it, because carrier-grade NAT puts many
+ * unrelated visitors behind one address.
  */
-function remotive_form_rate_limit_exceeded( $form_key ) {
+function remotive_form_rate_limit_exceeded( $form_key, $max = 3 ) {
 	$ip = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
 	if ( empty( $ip ) ) {
 		return false; // Can't identify a submitter to throttle; fail open rather than block everyone.
@@ -39,7 +43,7 @@ function remotive_form_rate_limit_exceeded( $form_key ) {
 	$key   = 'remotive_rl_' . $form_key . '_' . md5( $ip );
 	$count = (int) get_transient( $key );
 
-	if ( $count >= 3 ) {
+	if ( $count >= $max ) {
 		return true;
 	}
 
@@ -62,6 +66,7 @@ function remotive_form_rate_limit_exceeded( $form_key ) {
  *     @type string[] $extra_lines    Optional, already-sanitised "Label: value" lines appended to the stored and emailed message (service, campaign source).
  *     @type array  $thanks_args      Optional query args added to the thank-you redirect (already sanitised).
  *     @type string $thanks_url       Optional confirmation URL to use instead of the shared thank-you page.
+ *     @type int    $rate_limit       Default 3. Submissions allowed per IP per ten minutes.
  * }
  */
 function remotive_handle_lead_form_submission( $args ) {
@@ -70,7 +75,7 @@ function remotive_handle_lead_form_submission( $args ) {
 	$redirect_base = $args['redirect_base'];
 	$status_key    = 'remotive_' . $args['form_key'];
 
-	if ( remotive_form_rate_limit_exceeded( $args['form_key'] ) ) {
+	if ( remotive_form_rate_limit_exceeded( $args['form_key'], isset( $args['rate_limit'] ) ? (int) $args['rate_limit'] : 3 ) ) {
 		wp_safe_redirect( add_query_arg( $status_key, 'error', $redirect_base ) );
 		exit;
 	}
@@ -208,3 +213,31 @@ function remotive_handle_lead_form_submission( $args ) {
 	wp_safe_redirect( add_query_arg( $status_key, $sent ? 'success' : 'error', $redirect_base ) );
 	exit;
 }
+
+/**
+ * Fresh nonces for the lead forms, for pages served from a cache.
+ *
+ * A nonce lives 12 to 24 hours, and a page cached for longer carries expired
+ * ones: the visitor would be told the link has expired and the lead would be
+ * lost. The nonce check stays exactly as it is; instead, assets/js/remotive.js
+ * asks this endpoint on page load and swaps fresh values into the form's
+ * hidden fields. The server-rendered nonce remains as the no-script fallback.
+ *
+ * The response carries nothing secret: for a logged-out visitor a nonce is the
+ * same for everyone, and it only authorises the form it belongs to. The
+ * response is marked uncacheable so a cache cannot freeze it.
+ */
+function remotive_ajax_form_nonces() {
+	nocache_headers();
+
+	wp_send_json(
+		array(
+			'remotive_cta_nonce'     => wp_create_nonce( 'remotive_cta_submit' ),
+			'remotive_about_nonce'   => wp_create_nonce( 'remotive_about_submit' ),
+			'remotive_contact_nonce' => wp_create_nonce( 'remotive_contact_submit' ),
+			'remotive_lp_nonce'      => wp_create_nonce( 'remotive_lp_submit' ),
+		)
+	);
+}
+add_action( 'wp_ajax_remotive_form_nonces', 'remotive_ajax_form_nonces' );
+add_action( 'wp_ajax_nopriv_remotive_form_nonces', 'remotive_ajax_form_nonces' );

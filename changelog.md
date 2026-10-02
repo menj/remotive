@@ -4,6 +4,24 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.94.0] — 2026-10-02
+
+### Fixed
+
+- **Lead forms no longer lose enquiries from cached pages.** A nonce lives 12 to 24 hours, and a page cached for longer carries an expired one, so the visitor was told "the link has expired" and the lead was lost. The nonce check is unchanged; `assets/js/remotive.js` now asks a new uncacheable endpoint (`remotive_form_nonces`, in `inc/lead-form-handler.php`) for current nonces on page load and swaps them into the forms (landing pages, homepage CTA, About and Contact). The server-rendered nonce stays as the fallback.
+- **Rate limit no longer blocks real landing-page leads.** The limit is now a per-form setting (`rate_limit`); landing page forms allow 10 submissions per IP per ten minutes instead of 3, because mobile carriers put many unrelated visitors behind one address. Other forms keep 3.
+- **Flash of missing borders and corners on the landing pages.** `landing.css` used variables defined only in the asynchronously loaded `remotive.css`; it now defines the ones it needs.
+- **Object-injection risk in `inc/schema-markup.php`.** A second `maybe_unserialize()` on custom-field values a contributor can edit is gone; a still-serialised string is read with no classes allowed.
+
+### Added
+
+- **Automated checks on every pull request** (`.github/workflows/ci.yml`): PHP syntax on 7.4 and 8.3, JavaScript syntax, valid `theme.json`, and `tests/check-landing-copy.php`, which fails if any landing page text is missing a language.
+
+### Changed
+
+- **Landing page copy moved to `inc/landing-copy.php`**, apart from the rendering and routing in `inc/landing-pages.php`.
+- **`languages/remotive.pot` regenerated** (49 strings that had never been extracted, 367 entries in all). `readme.txt` brought up to date (stable tag, upgrade notice).
+
 ## [1.93.0] — 2026-10-02
 
 ### Changed

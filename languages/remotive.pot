@@ -2,9 +2,9 @@
 # This file is distributed under the GNU General Public License v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Remotive Media 1.74.0\n"
+"Project-Id-Version: Remotive Media 1.94.0\n"
 "Report-Msgid-Bugs-To: https://remotivemedia.asia/\n"
-"POT-Creation-Date: 2026-08-31T07:49:05+00:00\n"
+"POT-Creation-Date: 2026-10-02T19:24:39+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1305,4 +1305,200 @@ msgstr ""
 
 #: inc/site-setup.php:160
 msgid "seo agency singapore"
+msgstr ""
+
+#: inc/classic-menus.php:313
+msgid "All 14 case studies →"
+msgstr ""
+
+#: inc/feature-grids.php:86
+msgid "For brands"
+msgstr ""
+
+#: inc/feature-grids.php:87
+msgid "An experienced, independent on-demand media team without the agency overhead."
+msgstr ""
+
+#: inc/feature-grids.php:91
+msgid "For agencies"
+msgstr ""
+
+#: inc/feature-grids.php:92
+msgid "A powerful, modular business extension without having to build the capability in-house."
+msgstr ""
+
+#: inc/feature-grids.php:104
+msgid "What SEM includes"
+msgstr ""
+
+#: inc/feature-grids.php:111
+msgid "What search reads"
+msgstr ""
+
+#: inc/feature-grids.php:123
+msgid "Paid vs owned audiences"
+msgstr ""
+
+#: inc/landing-pages.php:569
+msgid "New landing page enquiry from %s"
+msgstr ""
+
+#: inc/lead-form-handler.php:129
+msgid "Message:\n%s"
+msgstr ""
+
+#: inc/maintenance-mode.php:32
+msgid "Back shortly."
+msgstr ""
+
+#: inc/maintenance-mode.php:33
+msgid "Back shortly"
+msgstr ""
+
+#: inc/site-setup.php:143
+msgid "SEO landing page"
+msgstr ""
+
+#: inc/site-setup.php:147
+msgid "Ad landing page for SEO (noindex, nofollow). Copy lives in inc/landing-pages.php. Point ads and social posts here, not the main site."
+msgstr ""
+
+#: inc/site-setup.php:153
+msgid "Google Ads landing page"
+msgstr ""
+
+#: inc/site-setup.php:157
+msgid "Ad landing page for Google Ads (noindex, nofollow). Copy lives in inc/landing-pages.php. Point ads and social posts here, not the main site."
+msgstr ""
+
+#: inc/site-setup.php:163
+msgid "Paid social landing page"
+msgstr ""
+
+#: inc/site-setup.php:167
+msgid "Ad landing page for paid social (noindex, nofollow). Copy lives in inc/landing-pages.php. Point ads and social posts here, not the main site."
+msgstr ""
+
+#: inc/site-setup.php:173
+msgid "Audit requested"
+msgstr ""
+
+#: inc/site-setup.php:177
+msgid "Confirmation page for the ad landing page forms (noindex, nofollow), in four languages. It is the conversion URL for those forms: keep it published."
+msgstr ""
+
+#: inc/stats-band.php:106
+msgid "Read the case"
+msgstr ""
+
+#: inc/thank-you.php:88
+msgid "Your request is in. We will look at what you have and reply within three business days with what we would fix first."
+msgstr ""
+
+#: inc/theme-options.php:178
+msgid "Homepage"
+msgstr ""
+
+#: inc/theme-options.php:180
+msgid "Everything on the front page, in the order it appears: the opening hero, the heading above each section, the three-figure band, and the team grid. These were four separate tabs until v1.79.1, which meant editing one page meant moving between four of them."
+msgstr ""
+
+#: inc/theme-options.php:183
+msgid "Hero"
+msgstr ""
+
+#: inc/theme-options.php:184
+msgid "The opening block. The headline is split into three parts so the last can carry the brand colour."
+msgstr ""
+
+#: inc/theme-options.php:223
+msgid "The heading and standfirst above each homepage section. A section keeps its layout; only the wording changes."
+msgstr ""
+
+#: inc/theme-options.php:274
+msgid "Closing call to action"
+msgstr ""
+
+#: inc/theme-options.php:275
+msgid "The final banner before the footer, above the lead-capture form."
+msgstr ""
+
+#: inc/theme-options.php:279
+msgid "Heading"
+msgstr ""
+
+#: inc/theme-options.php:287
+msgid "Button label"
+msgstr ""
+
+#: inc/theme-options.php:294
+msgid "The three-figure band between the work and about sections. Keep values to four or five characters. Each should be traceable to a named case study."
+msgstr ""
+
+#: inc/theme-options.php:325
+msgid "Members shown in both team grids and in the structured data."
+msgstr ""
+
+#: inc/theme-options.php:337
+msgid "Business details"
+msgstr ""
+
+#: inc/theme-options.php:492
+msgid "Integrations"
+msgstr ""
+
+#: inc/theme-options.php:494
+msgid "Keys for outside services. They are stored in this site's database, never printed into a page, and never shown again after saving."
+msgstr ""
+
+#: inc/theme-options.php:497
+msgid "Pexels API key"
+msgstr ""
+
+#: inc/theme-options.php:499
+msgid "Used for finding free photography on Pexels. Paste a key to save it; leave the box empty to keep the one already saved. The front end of the site does not call Pexels, so nothing here affects page speed."
+msgstr ""
+
+#: inc/theme-options.php:502
+msgid "Remove saved key"
+msgstr ""
+
+#: inc/theme-options.php:504
+msgid "Delete the saved Pexels key when I save"
+msgstr ""
+
+#: inc/theme-options.php:509
+msgid "Site behaviour"
+msgstr ""
+
+#: inc/theme-options.php:530
+msgid "Maintenance mode"
+msgstr ""
+
+#: inc/theme-options.php:532
+msgid "Show a \"back shortly\" page to visitors who are not logged in"
+msgstr ""
+
+#: inc/theme-options.php:533
+msgid "Off by default. When on, logged-out visitors get a 503 \"back shortly\" page that search engines treat as temporary. Administrators and editors still see the live site, and nothing is deleted or unpublished. Switch it off here to bring the site back."
+msgstr ""
+
+#: inc/theme-options.php:588
+msgid "Saved. Paste a new key to replace it."
+msgstr ""
+
+#: inc/theme-options.php:588
+msgid "Not set"
+msgstr ""
+
+#: inc/theme-options.php:646
+msgid "Leadership: show on the homepage and list first on the Team page"
+msgstr ""
+
+#: inc/theme-options.php:1054
+msgid "Site setup"
+msgstr ""
+
+#: inc/theme-options.php:1298
+msgid "Meet the whole team"
 msgstr ""

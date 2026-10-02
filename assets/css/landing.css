@@ -1,5 +1,21 @@
 /* Service landing pages (inc/landing-pages.php). Built on the theme's colour
    tokens, so dark/light mode and any palette change apply here too. */
+/* remotive.css loads asynchronously, so the tokens used below are defined
+   here as well (same values) to avoid a flash of missing borders and corners. */
+.rm-lp{
+  --rm-line:rgba(255,255,255,.16);
+  --rm-ink-70:rgba(255,255,255,.72);
+  --rm-ink-55:rgba(255,255,255,.55);
+  --rm-r-sm:10px;
+  --rm-r:16px;
+  --rm-r-lg:24px;
+}
+html[data-theme="light"] .rm-lp{
+  --rm-line:rgba(30,30,30,.14);
+  --rm-ink-70:rgba(30,30,30,.7);
+  --rm-ink-55:rgba(30,30,30,.64);
+}
+
 .rm-lp{
   --lp-gap:clamp(2rem,4.5vw,3.5rem);
   --lp-pad:max(1.25rem,calc((100vw - 70rem) / 2));
