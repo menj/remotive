@@ -144,7 +144,7 @@ function remotive_required_pages() {
 			'template' => 'page-landing',
 			'order'    => 90,
 			'in_menu'  => false,
-			'note'     => __( 'Ad landing page for SEO (noindex, nofollow). Copy lives in inc/landing-pages.php. Point ads and social posts here, not the main site.', 'remotive' ),
+			'note'     => __( 'Ad landing page for SEO (noindex, nofollow). Copy lives in inc/landing/landing-pages.php. Point ads and social posts here, not the main site.', 'remotive' ),
 			'rm_title' => '',
 			'rm_desc'  => '',
 			'rm_kw'    => '',
@@ -154,7 +154,7 @@ function remotive_required_pages() {
 			'template' => 'page-landing',
 			'order'    => 91,
 			'in_menu'  => false,
-			'note'     => __( 'Ad landing page for Google Ads (noindex, nofollow). Copy lives in inc/landing-pages.php. Point ads and social posts here, not the main site.', 'remotive' ),
+			'note'     => __( 'Ad landing page for Google Ads (noindex, nofollow). Copy lives in inc/landing/landing-pages.php. Point ads and social posts here, not the main site.', 'remotive' ),
 			'rm_title' => '',
 			'rm_desc'  => '',
 			'rm_kw'    => '',
@@ -164,7 +164,7 @@ function remotive_required_pages() {
 			'template' => 'page-landing',
 			'order'    => 92,
 			'in_menu'  => false,
-			'note'     => __( 'Ad landing page for paid social (noindex, nofollow). Copy lives in inc/landing-pages.php. Point ads and social posts here, not the main site.', 'remotive' ),
+			'note'     => __( 'Ad landing page for paid social (noindex, nofollow). Copy lives in inc/landing/landing-pages.php. Point ads and social posts here, not the main site.', 'remotive' ),
 			'rm_title' => '',
 			'rm_desc'  => '',
 			'rm_kw'    => '',
@@ -812,7 +812,7 @@ function remotive_use_primary_navigation( $parsed_block ) {
 
 	return $parsed_block;
 }
-// Superseded by inc/classic-menus.php (v1.33.0): menus are managed in
+// Superseded by inc/setup/classic-menus.php (v1.33.0): menus are managed in
 // Appearance -> Menus and rendered by remotive_render_classic_menu(). The
 // wp_navigation wiring below is left in place, unhooked, so a site that
 // previously used the Site Editor menu can restore it by re-adding this

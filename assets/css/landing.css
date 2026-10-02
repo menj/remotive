@@ -1,4 +1,4 @@
-/* Service landing pages (inc/landing-pages.php). Built on the theme's colour
+/* Service landing pages (inc/landing/landing-pages.php). Built on the theme's colour
    tokens, so dark/light mode and any palette change apply here too. */
 /* remotive.css loads asynchronously, so the tokens used below are defined
    here as well (same values) to avoid a flash of missing borders and corners. */

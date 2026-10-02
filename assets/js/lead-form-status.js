@@ -1,6 +1,6 @@
 /**
  * Shows a status message after any native lead form's admin-post.php
- * redirect (inc/lead-form-handler.php) sends the visitor back with a
+ * redirect (inc/forms/lead-form-handler.php) sends the visitor back with a
  * `?remotive_<form_key>=success|error` query param attached. Shared by
  * every form this theme has — each one just needs a status element with
  * `data-lead-status="remotive_<form_key>"` matching its form_key (see

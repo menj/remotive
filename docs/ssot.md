@@ -112,7 +112,7 @@ only darker than the plain colour in light mode (in dark mode `cyan-dark` equals
 only values that differ from the tables above are written to the site. The
 defaults exist in three places that must change together: the dark values in
 `theme.json`, the light overrides in `assets/css/remotive.css` and
-`assets/css/critical.css`, and `remotive_colour_tokens()` in `inc/colours.php`.
+`assets/css/critical.css`, and `remotive_colour_tokens()` in `inc/options/colours.php`.
 The block editor's palette (`theme.json`) does not follow the Colours tab.
 
 ## Admin-configurable values (as of v1.79.1)
@@ -205,7 +205,7 @@ the token name.
   lowercase, theme name matching the `Theme Name:` header with spaces
   replaced by hyphens — e.g. `remotive-media-1.2.0.zip`.
 - Two other numbers move independently of the theme version: the migration
-  schema, `REMOTIVE_SETUP_SCHEMA` in `inc/site-setup.php` (1.92.0 as of
+  schema, `REMOTIVE_SETUP_SCHEMA` in `inc/setup/site-setup.php` (1.92.0 as of
   v1.96.0), which only changes when an already-set-up site needs a migration,
   and the rewrite-rule version, the `remotive_lp_rewrite_v` option (2), which
   only changes when the landing-page URL rules change.
@@ -223,7 +223,7 @@ Aug 2026 rather than by a code review. What the logs actually showed:
 
 | Observation | Volume | Response |
 |---|---|---|
-| `wp-login.php` brute force from `103.138.189.98` | 271 hits | Login rate limit in `inc/security.php`; **IP block still required at firewall — a theme cannot do this** |
+| `wp-login.php` brute force from `103.138.189.98` | 271 hits | Login rate limit in `inc/core/security.php`; **IP block still required at firewall — a theme cannot do this** |
 | 500s on `/wp-admin/install.php` from one Cloudflare IPv6 | 91 | Endpoint redirected to home on `admin_init` |
 | `setup-config.php` returning 200 to external IPs | 2 IPs | Same redirect |
 | `xmlrpc.php` probes | 7 hits, 5 IPs | XML-RPC disabled entirely; server-level deny also recommended |
@@ -260,7 +260,7 @@ Recorded as findings and fixes, so a later maintainer knows what was decided.
 | Previous version | 1.7.0 |
 | Audit date | 2026-08-26 |
 | Release type | Minor (new settings/defaults — the CTA form's default handler and `cta_form_action`'s default value both changed; see `docs/changelog.md`) |
-| Scope reviewed | `functions.php`, `inc/theme-options.php`, `inc/cta-form-handler.php`, and every enqueued JS file. No `$wpdb`/SQL, file uploads, REST routes, or custom authentication exist anywhere in this theme, so those categories had no surface to review. |
+| Scope reviewed | `functions.php`, `inc/options/theme-options.php`, `inc/forms/cta-form-handler.php`, and every enqueued JS file. No `$wpdb`/SQL, file uploads, REST routes, or custom authentication exist anywhere in this theme, so those categories had no surface to review. |
 
 **Security summary**
 
@@ -333,13 +333,13 @@ files (re-verified this pass, not just carried over from the last check).
 
 ## Structured data (v1.26.0)
 
-`inc/schema-markup.php` publishes the entity facts in this file as
+`inc/content/schema-markup.php` publishes the entity facts in this file as
 schema.org JSON-LD: `legalName` is the ACRA registered name above
 (title-cased), the address is read from Theme Options (shipped defaults
 = the registered office above), `areaServed` is Singapore and Malaysia
 per the SEO content strategy section. If the legal entity facts change,
 update this file, the Theme Options defaults, and the `legalName`
-constant in `inc/schema-markup.php` together. As of v1.27.0 the schema
+constant in `inc/content/schema-markup.php` together. As of v1.27.0 the schema
 also publishes the ACRA incorporation date (2024-01-31) as
 `foundingDate` and the UEN (202404376G) as an `identifier` — both from
 the Legal entity table above — and types the organization
@@ -357,7 +357,7 @@ indexable. They also declare `hreflang` alternates (`en`, `ms`, `zh-Hans`,
 
 **Listed case studies (v1.98.0).** Six are listed, in one uncategorised grid, in
 the footer and on the home page; `remotive_listed_case_studies()` in
-`inc/classic-menus.php` is the single list for the menu. The other eight case-study
+`inc/setup/classic-menus.php` is the single list for the menu. The other eight case-study
 pages stay published at their URLs but nothing links to them.
 
 Every page and post the theme ships or creates carries a Rank Math
@@ -374,7 +374,7 @@ description limits:
   one external link. No two items share a focus keyword.
 - The 9 auto-created core pages (Home, Services, Case Studies, About,
   Team, Contact, Insights, FAQ, Privacy, Terms): set by
-  `remotive_run_site_setup()` in `inc/site-setup.php` from the same
+  `remotive_run_site_setup()` in `inc/setup/site-setup.php` from the same
   three keys, added to `remotive_required_pages()`. Privacy and Terms
   carry no focus keyword by design. These pages have title/description/
   keyword meta but are not scored against Rank Math's on-page content
@@ -393,15 +393,15 @@ description limits:
   `paid-social-advertising`, `audit-requested`) deliberately carry **no** Rank
   Math title, description or keyword: they are `noindex, nofollow`, so there is
   nothing to score. The theme also forces Rank Math's robots output to the same
-  answer (`inc/landing-pages.php`).
+  answer (`inc/landing/landing-pages.php`).
 
 Both site-setup paths fill in only meta keys that are currently
 empty, never overwriting a value already written by hand.
 
 ## Ad landing pages (v1.90.0 – v1.96.0)
 
-Canonical facts for the paid and social landing pages. Code: `inc/landing-pages.php`
-(routing, rendering, form, SEO rules) and `inc/landing-copy.php` (the words).
+Canonical facts for the paid and social landing pages. Code: `inc/landing/landing-pages.php`
+(routing, rendering, form, SEO rules) and `inc/landing/landing-copy.php` (the words).
 
 | Service | English URL | Page slug |
 |---|---|---|
@@ -443,6 +443,24 @@ Canonical facts for the paid and social landing pages. Code: `inc/landing-pages.
 | `docs/image-credits.md` | Legal, editors | Photographer and Pexels photo for every landing-page image |
 | `tests/check-landing-copy.php` | Developers, CI | Fails if any landing-page text is missing one of its four languages |
 | `.github/workflows/ci.yml` | Developers | The checks every pull request runs |
+
+## PHP module layout (v1.100.0)
+
+`inc/` holds the theme's PHP, in six folders. `functions.php` requires each file
+by path, error handler first.
+
+| Folder | Files |
+|---|---|
+| `inc/core/` | `error-handler`, `security`, `accessibility`, `avif`, `branded-login` |
+| `inc/options/` | `theme-options`, `colours`, `maintenance-mode` |
+| `inc/setup/` | `site-setup`, `classic-menus`, `content-seed`, `content-seed-data` |
+| `inc/forms/` | `lead-form-handler`, `cta-form-handler`, `about-form-handler`, `contact-form-handler`, `leads`, `akismet`, `thank-you` |
+| `inc/landing/` | `landing-pages`, `landing-copy` |
+| `inc/content/` | `schema-markup`, `webmcp`, `feature-grids`, `stats-band` |
+
+A new module goes in the folder that matches its job and gets one `require`
+line in `functions.php`. Older entries in `docs/changelog.md` and the security
+record name the files by their earlier flat paths.
 
 ## SEO content strategy (v1.12.0)
 

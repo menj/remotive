@@ -130,7 +130,7 @@ unknown copyright status. **None of their code, CSS, JavaScript, images,
 or content was copied into this theme.** The interaction *patterns* they
 demonstrate — a sidebar blog layout, a lightbox-enabled image gallery, a
 parallax hero — are generic, uncopyrightable UX conventions; this theme's
-implementations of them (`inc/lead-form-handler.php`,
+implementations of them (`inc/forms/lead-form-handler.php`,
 `assets/js/lightbox.js`, `assets/js/parallax.js`, `templates/index.html`,
 `templates/page-about.html`) are original code written for this project,
 using this theme's own design system throughout. This was a deliberate

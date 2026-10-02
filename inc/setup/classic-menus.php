@@ -391,7 +391,7 @@ function remotive_listed_case_studies() {
  * items the old default had and the new one drops, adds any of the six that are
  * missing, and renames the "All 14 case studies" link. Anything an
  * administrator added or renamed is left as it is. Runs from the 1.98.0
- * migration in inc/site-setup.php.
+ * migration in inc/setup/site-setup.php.
  */
 function remotive_refresh_case_study_menu() {
 	$locations = get_theme_mod( 'nav_menu_locations', array() );

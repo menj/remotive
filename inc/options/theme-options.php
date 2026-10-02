@@ -41,7 +41,7 @@ function remotive_theme_option_base_defaults() {
 		'social_x'         => '#',
 		'social_youtube'   => '#',
 		'social_threads'   => '#',
-		// Defaults to the theme's own native handler (inc/cta-form-handler.php)
+		// Defaults to the theme's own native handler (inc/forms/cta-form-handler.php)
 		// so the form works out of the box with no third-party account
 		// needed. Change this in Appearance -> Theme Options -> Call-to-
 		// Action to point at a form plugin, Formspree, or a CRM webhook
@@ -131,7 +131,7 @@ function remotive_theme_option_base_defaults() {
 }
 
 /**
- * Every default: the settings above plus the colour scheme (inc/colours.php).
+ * Every default: the settings above plus the colour scheme (inc/options/colours.php).
  */
 function remotive_theme_option_defaults() {
 	return array_merge( remotive_theme_option_base_defaults(), remotive_colour_option_defaults() );
@@ -575,7 +575,7 @@ function remotive_theme_options_base_tabs() {
 }
 
 /**
- * The tabs, with Colours (inc/colours.php) placed before Integrations.
+ * The tabs, with Colours (inc/options/colours.php) placed before Integrations.
  */
 function remotive_theme_options_tabs() {
 	$tabs = array();
@@ -1470,7 +1470,7 @@ function remotive_render_team_markup( $with_bios, $scope = 'all' ) {
  * whole set server-side, skipping anything blank or still '#', is what
  * actually keeps that promise; a per-icon token can only fill in an
  * href, not remove the anchor around it. remotive_schema_same_as() in
- * inc/schema-markup.php runs the identical not-empty / not-'#' /
+ * inc/content/schema-markup.php runs the identical not-empty / not-'#' /
  * valid-URL check for the same reason, on the same seven keys.
  *
  * @return string Anchor markup for configured platforms, in a fixed
@@ -1777,7 +1777,7 @@ function remotive_replace_theme_option_tokens( $block_content, $block ) {
 			'__REMOTIVE_SOCIAL_LINKS__'    => remotive_render_social_links(),
 			'__REMOTIVE_CTA_FORM_ACTION__'  => esc_url( remotive_get_theme_option( 'cta_form_action' ) ),
 			// Not admin-configurable like the CTA's — see
-			// inc/about-form-handler.php's docblock for why this one
+			// inc/forms/about-form-handler.php's docblock for why this one
 			// always uses the native handler directly.
 			'__REMOTIVE_ABOUT_FORM_ACTION__' => esc_url( admin_url( 'admin-post.php' ) ),
 			// Same reasoning as the About form's — always the native
@@ -1822,7 +1822,7 @@ function remotive_replace_theme_option_tokens( $block_content, $block ) {
 		 * Values added here are spliced into rendered block output as-is,
 		 * so a filter that adds one is responsible for escaping it — the
 		 * same contract the entries above follow. Used by
-		 * inc/feature-grids.php, which returns markup rather than a
+		 * inc/content/feature-grids.php, which returns markup rather than a
 		 * plain string and therefore cannot be escaped at this stage.
 		 *
 		 * @param array $map Token => replacement.

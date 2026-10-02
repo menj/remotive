@@ -9,11 +9,11 @@ automatically** — see below.
 |---|---|
 | `db-error.php` | The database connection fails |
 | `maintenance.php` | A core / plugin / theme update is in progress |
-| `php-error.php` | A fatal error occurs **before the theme loads** (a plugin or mu-plugin). Once the theme is running, `inc/error-handler.php` handles fatals with its own branded page and this file is not used. |
+| `php-error.php` | A fatal error occurs **before the theme loads** (a plugin or mu-plugin). Once the theme is running, `inc/core/error-handler.php` handles fatals with its own branded page and this file is not used. |
 
 ## How they install
 
-`remotive_version_sync()` (`inc/site-setup.php`) copies all three into
+`remotive_version_sync()` (`inc/setup/site-setup.php`) copies all three into
 `wp-content/` once per theme version: on activation and on the first request
 after any upload — Appearance upload, FTP or a deploy script alike. Editing a
 file here and shipping a new version is enough; there is no manual step.

@@ -3,7 +3,7 @@
  * Remotive Media — Contact page form handler.
  *
  * Thin wrapper around remotive_handle_lead_form_submission() (see
- * inc/lead-form-handler.php) — the third form using that shared logic,
+ * inc/forms/lead-form-handler.php) — the third form using that shared logic,
  * alongside the homepage CTA and the About page. Own nonce action and
  * honeypot field name so its rate-limit/nonce state never collides with
  * the other two, even if a visitor has multiple tabs open across pages.

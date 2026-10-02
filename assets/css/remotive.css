@@ -811,7 +811,7 @@ html:not([data-theme="light"]) .rm-brand img{ background:#fff; padding:2px 4px; 
    (not just display:none, which some bots skip filling correctly; a
    field that's technically present but never perceivable is the more
    reliable trap). Real visitors never see or reach it; if it arrives
-   filled, the handler in inc/cta-form-handler.php silently discards the
+   filled, the handler in inc/forms/cta-form-handler.php silently discards the
    submission as spam. */
 .rm-cta__honeypot{
   position:absolute !important; width:1px; height:1px; overflow:hidden;
@@ -1042,7 +1042,7 @@ html:not([data-theme="light"]) .rm-brand img{ background:#fff; padding:2px 4px; 
 /* Cutout portraits sit over the tile's own gradient, which follows the
    colour mode. */
 /* Per-member portrait rules are generated at enqueue time from the Theme
-   Options roster (remotive_team_portrait_css() in inc/theme-options.php),
+   Options roster (remotive_team_portrait_css() in inc/options/theme-options.php),
    for every slug whose AVIF ships in assets/team/. Nothing is hardcoded
    here, so adding a member in the tab plus one image file is the whole
    job. */

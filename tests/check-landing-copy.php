@@ -8,7 +8,7 @@
 
 define( 'ABSPATH', __DIR__ . '/' );
 
-require dirname( __DIR__ ) . '/inc/landing-copy.php';
+require dirname( __DIR__ ) . '/inc/landing/landing-copy.php';
 
 $problems = array();
 

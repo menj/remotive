@@ -36,15 +36,15 @@ remotive/
 ├── theme.json              Design tokens: colour palette, font families
 │                           (fontFace definitions pointing at self-hosted
 │                           woff2 files), font sizes, layout widths.
-├── functions.php           Requires inc/error-handler.php FIRST (so it is
+├── functions.php           Requires inc/core/error-handler.php FIRST (so it is
 │                           registered before anything else can fatal), then
-│                           inc/theme-options.php,
-│                           inc/lead-form-handler.php,
-│                           inc/cta-form-handler.php,
-│                           inc/about-form-handler.php,
-│                           inc/contact-form-handler.php,
-│                           inc/schema-markup.php, inc/webmcp.php and
-│                           inc/security.php; inlines
+│                           inc/options/theme-options.php,
+│                           inc/forms/lead-form-handler.php,
+│                           inc/forms/cta-form-handler.php,
+│                           inc/forms/about-form-handler.php,
+│                           inc/forms/contact-form-handler.php,
+│                           inc/content/schema-markup.php, inc/content/webmcp.php and
+│                           inc/core/security.php; inlines
 │                           the critical header/hero shell, asynchronously
 │                           loads assets/css/remotive.css, conditionally
 │                           enqueues scripts, adds preload/resource hints;
@@ -59,79 +59,76 @@ remotive/
 │                           drafts and the homepage brief.
 ├── drop-ins/               maintenance.php, db-error.php, php-error.php —
 │                           copied to wp-content/ automatically.
-├── tests/                  check-landing-copy.php (also run in CI).
+├── tests/                  test-*.php unit tests and check-*.php checks, all run in CI.
 ├── tools/                  normalise-portraits.py (portrait processing).
 ├── .github/workflows/      ci.yml — syntax, theme.json and copy checks on
 │                           every pull request.
 ├── languages/
 │   ├── remotive.pot         411 translatable strings, extracted by script
 │   │                       from every __()/_e()/esc_html__() call in
-│   │                       functions.php and inc/*.php with real file:line
+│   │                       functions.php and inc/*/*.php with real file:line
 │   │                       references (v1.69.2 — the previous hand-built
 │   │                       file covered only 35 and had drifted badly).
 │   └── README.txt           Notes on adding translations.
-├── inc/
-│   ├── theme-options.php   Appearance -> Theme Options admin page,
-│   │                       settings sanitisation, the render_block
-│   │                       token-substitution filter, and the early
-│   │                       wp_head flash-prevention script (see below).
-│   ├── colours.php         Theme Options -> Colours: per-mode palette,
-│   │                       CSS variables, contrast check.
-│   ├── landing-copy.php    The landing pages' words: services and FAQ,
-│   │                       four languages each.
-│   ├── landing-pages.php   Ad landing pages (SEO, Google Ads, paid
-│   │                       social) in four languages on their own paths,
-│   │                       with the audit-requested confirmation page,
-│   │                       hreflang, FAQPage schema and noindex rules.
-│   ├── maintenance-mode.php  Theme Options switch: 503 "back shortly"
-│   │                       page for logged-out visitors.
-│   ├── lead-form-handler.php  Shared nonce/rate-limit/honeypot/email
-│   │                       logic every native form goes through.
-│   ├── cta-form-handler.php   Thin wrapper: homepage CTA form.
-│   ├── about-form-handler.php Thin wrapper: About page contact form.
-│   ├── contact-form-handler.php  Thin wrapper: Contact page form.
-│   │                       See "Security" below for all four handlers.
-│   ├── leads.php           Enquiry storage: a private custom post type
-│   │                       written to before the notification email is
-│   │                       attempted, a spam folder as its own post
-│   │                       status, the admin card, CSV export and the
-│   │                       daily retention purge. (v1.63.0, v1.65.2)
-│   ├── akismet.php         Spam checking through the Akismet plugin when
-│   │                       it is installed and connected, and reporting
-│   │                       missed spam and false positives back to it.
-│   │                       Fails open: no plugin, no key or an outage all
-│   │                       mean submissions proceed. (v1.64.0)
-│   ├── avif.php            Wraps rendered images in a picture element
-│   │                       with an AVIF source when a companion file
-│   │                       exists beside the original. (v1.45.0)
-│   ├── branded-login.php   Optional branded wp-login screen, off by
-│   │                       default. Presentation only; no auth or
-│   │                       hardening. (v1.53.0)
-│   ├── accessibility.php   WCAG remediation helpers. (v1.47.0)
-│   ├── classic-menus.php   Classic menu support and fallback menus for
-│   │                       sites not using the block navigation.
-│   ├── content-seed.php    Creates the shipped pages, posts and case
-│   ├── content-seed-data.php  studies on activation; create-once, with
+├── inc/                    PHP modules, grouped by job. functions.php requires
+│   │                       each one by path; nothing is autoloaded.
+│   ├── core/               Site-wide behaviour, no admin screen.
+│   │   ├── error-handler.php   Branded fatal error page with detail shown to
+│   │   │                   administrators only, plus capture of non-fatal
+│   │   │                   notices so they never print into the page. Required
+│   │   │                   first so it is active before any other include can
+│   │   │                   fail. (v1.69.0, v1.69.2)
+│   │   ├── security.php    Login rate limiting, XML-RPC disabled, install
+│   │   │                   endpoints redirected, version fingerprinting
+│   │   │                   removed, user enumeration blocked, security
+│   │   │                   headers. Theme-layer only — see "Security" below.
+│   │   ├── accessibility.php   WCAG remediation helpers. (v1.47.0)
+│   │   ├── avif.php        Wraps images in a picture element with an AVIF
+│   │   │                   source when a companion file exists. (v1.45.0)
+│   │   └── branded-login.php   Optional branded wp-login screen, off by
+│   │                       default. (v1.53.0)
+│   ├── options/            Settings the site owner changes.
+│   │   ├── theme-options.php   Appearance -> Theme Options admin page,
+│   │   │                   settings sanitisation, the render_block token
+│   │   │                   filter, and the early flash-prevention script.
+│   │   ├── colours.php     Theme Options -> Colours: per-mode palette, CSS
+│   │   │                   variables, contrast check, editor palette.
+│   │   └── maintenance-mode.php  Switch: 503 "back shortly" page for
+│   │                       logged-out visitors.
+│   ├── setup/              Pages, menus and starter content.
+│   │   ├── site-setup.php  Shipped-page list, template assignment, setup
+│   │   │                   cards, and the versioned migrations.
+│   │   ├── classic-menus.php   Classic menu support and the default menus,
+│   │   │                   including the six listed case studies.
+│   │   ├── content-seed.php        Creates the shipped pages, posts and case
+│   │   └── content-seed-data.php   studies on activation; create-once, with
 │   │                       per-item restore from Theme Options.
-│   ├── site-setup.php      Shipped-page list, template assignment and the
-│   │                       setup cards on the Theme Options screen.
-│   ├── webmcp.php          Public read-only search endpoint, resolved site
-│   │                       destinations, and progressive WebMCP enqueue.
-│   ├── security.php        Login rate limiting, XML-RPC disabled,
-│   │                       install/setup endpoints redirected, version
-│   │                       fingerprinting removed, REST and author-archive
-│   │                       user enumeration blocked, security headers.
-│   │                       Theme-layer only — see "Security" below for
-│   │                       what still needs the server. (v1.68.1)
-│   ├── error-handler.php   Branded fatal error page with detail shown to
-│   │                       administrators only, plus capture of non-fatal
-│   │                       notices and warnings so they never print into
-│   │                       the page. Required first in functions.php so it
-│   │                       is active before any other include can fail.
-│   │                       (v1.69.0, v1.69.2)
-│   └── schema-markup.php   JSON-LD structured data with per-type
-│                           acquiescence to active SEO plugins — see
-│                           "Structured data" below.
+│   ├── forms/              Enquiries, from submission to storage.
+│   │   ├── lead-form-handler.php  Shared nonce/rate-limit/honeypot/email
+│   │   │                   logic every native form goes through.
+│   │   ├── cta-form-handler.php   Thin wrapper: homepage CTA form.
+│   │   ├── about-form-handler.php Thin wrapper: About page form.
+│   │   ├── contact-form-handler.php  Thin wrapper: Contact page form.
+│   │   │                   See "Security" below for all four handlers.
+│   │   ├── leads.php       Enquiry storage: private custom post type, spam
+│   │   │                   status, admin card, CSV export, retention purge.
+│   │   ├── akismet.php     Spam checking through the Akismet plugin when
+│   │   │                   installed; fails open. (v1.64.0)
+│   │   └── thank-you.php   Form confirmation page: noindex, opening line by form,
+│   │                   conversion event.
+│   ├── landing/            Ad landing pages.
+│   │   ├── landing-pages.php   SEO, Google Ads and paid social pages in four
+│   │   │                   languages on their own paths, with the
+│   │   │                   audit-requested page, hreflang, FAQPage schema and
+│   │   │                   noindex rules.
+│   │   └── landing-copy.php    The pages' words: services and FAQ, four
+│   │                       languages each.
+│   └── content/            What the public pages emit.
+│       ├── schema-markup.php   JSON-LD structured data, deferring to active
+│       │                   SEO plugins — see "Structured data" below.
+│       ├── webmcp.php      Public read-only search endpoint and WebMCP.
+│       ├── feature-grids.php   Homepage "problem we solve" and "why Re:Motive" grids.
+│       └── stats-band.php  Homepage three-figure results band.
 ├── templates/            (incl. page-service.html — reusable service
 │                          detail template, v1.29.0: title hero + editable
 │                          content + CTA band; pages ship separately)
@@ -253,10 +250,10 @@ Legal, Contact, generic `page.html`). A few things worth knowing:
   show at a real URL — `templates/index.html` is ready the moment that's
   set up; nothing in the theme can configure that setting itself, it's
   an admin action.
-- **`inc/lead-form-handler.php`** is the one security-reviewed code path
+- **`inc/forms/lead-form-handler.php`** is the one security-reviewed code path
   every native form on this theme goes through — the homepage CTA, the
-  About page, and the Contact page. See `inc/cta-form-handler.php`,
-  `inc/about-form-handler.php`, and `inc/contact-form-handler.php` for
+  About page, and the Contact page. See `inc/forms/cta-form-handler.php`,
+  `inc/forms/about-form-handler.php`, and `inc/forms/contact-form-handler.php` for
   the three thin wrappers, and the "Security" section above for the full
   threat-model writeup (nonce, honeypot, rate limit, CRLF guard — all of
   it applies to all three identically). If a fourth form is ever added,
@@ -424,7 +421,7 @@ cascades to the entire page with zero per-component or per-template changes.
 `document.documentElement` and persists the visitor's choice via
 `localStorage` (key: `remotive-theme`). Before a visitor has ever used the
 toggle, the mode shown comes from `window.remotiveThemeOptions.defaultTheme`
-— set server-side by `inc/theme-options.php` from the **Appearance →
+— set server-side by `inc/options/theme-options.php` from the **Appearance →
 Theme Options** admin setting (dark / light / match the visitor's
 device via `prefers-color-scheme`), defaulting to dark if that variable is
 somehow missing.
@@ -433,7 +430,7 @@ somehow missing.
 (standard WP practice, doesn't block rendering), which alone would mean a
 returning visitor who chose light sees one frame of dark before their
 saved preference applies. Fixed by `remotive_prevent_theme_flash()`
-(`inc/theme-options.php`, hooked to `wp_head` at priority 1) — a small
+(`inc/options/theme-options.php`, hooked to `wp_head` at priority 1) — a small
 inline `<script>` that reads the same `localStorage` key and applies
 `data-theme` before first paint. It duplicates a little of
 `theme-toggle.js`'s own resolution logic on purpose: the early copy
@@ -585,7 +582,7 @@ troubleshooting it.
 ## Editing menus (v1.33.0)
 
 Menus are managed in **Appearance → Menus**, the classic way. WordPress
-hides that screen for block themes, so `inc/classic-menus.php` re-adds it
+hides that screen for block themes, so `inc/setup/classic-menus.php` re-adds it
 and registers three locations:
 
 | Location | Renders in |
@@ -604,7 +601,7 @@ an empty menu. Site setup creates and assigns all three from the site's
 pages.
 
 New pages are never added to a menu automatically. The Site Editor
-navigation wiring from v1.11.0 remains in `inc/site-setup.php`, unhooked,
+navigation wiring from v1.11.0 remains in `inc/setup/site-setup.php`, unhooked,
 should anyone want to switch back.
 
 ## Enquiries and spam (v1.63.0 – v1.65.2)
@@ -648,7 +645,7 @@ them indefinitely.
 
 ## Structured data (v1.26.0)
 
-`inc/schema-markup.php` emits one JSON-LD `@graph` in `<head>`:
+`inc/content/schema-markup.php` emits one JSON-LD `@graph` in `<head>`:
 Organization (legal facts per `docs/ssot.md`, contact facts from Theme
 Options — the same source the rendered footer uses), WebSite with a
 SearchAction, a typed WebPage per template (AboutPage, ContactPage,
@@ -738,10 +735,10 @@ summarized here for anyone extending this code.
   later output automatically safe.
 - **Every native form** (the homepage CTA, the About page, and the
   Contact page) goes through one shared, reviewed function —
-  `remotive_handle_lead_form_submission()` in `inc/lead-form-handler.php`
+  `remotive_handle_lead_form_submission()` in `inc/forms/lead-form-handler.php`
   — rather than each having its own copy of the same logic.
-  `inc/cta-form-handler.php`, `inc/about-form-handler.php`, and
-  `inc/contact-form-handler.php` are thin wrappers supplying their own
+  `inc/forms/cta-form-handler.php`, `inc/forms/about-form-handler.php`, and
+  `inc/forms/contact-form-handler.php` are thin wrappers supplying their own
   nonce action, honeypot field name, and redirect target. All three
   endpoints are intentionally public
   (`admin_post_nopriv_*` — anonymous visitors must be able to submit a
@@ -783,7 +780,7 @@ summarized here for anyone extending this code.
   tool additionally rejects non-HTTP(S) and cross-origin targets; its lead
   tools never submit forms or touch action, nonce, or honeypot fields.
 
-### Hardening module (`inc/security.php`, v1.68.1)
+### Hardening module (`inc/core/security.php`, v1.68.1)
 
 Added in response to patterns in the site's own first-week server logs
 rather than as generic best practice. Each measure is a named function with
@@ -818,7 +815,7 @@ breaks the editor when wrong. Leave it to the server or a security plugin.
 protect `wp-login.php` before PHP runs. Those need the firewall or
 `.htaccess`. This module raises the cost of automation; it is not a WAF.
 
-### Error handling (`inc/error-handler.php`, v1.69.0 / v1.69.2)
+### Error handling (`inc/core/error-handler.php`, v1.69.0 / v1.69.2)
 
 Replaces WordPress's generic critical-error page and keeps PHP diagnostics
 off the page entirely.
@@ -863,7 +860,7 @@ see full detail without an admin session. Remove it afterwards.
 during core or plugin bootstrap — are outside any theme's reach. Production
 still wants `WP_DEBUG_DISPLAY` false and `display_errors` off.
 
-## Colour scheme (`inc/colours.php`)
+## Colour scheme (`inc/options/colours.php`)
 
 Theme Options → Colours sets the twelve palette roles separately for dark and
 light mode. The slugs are roles, not shades: `ink` is the text colour and
@@ -885,7 +882,7 @@ the plain colour in light mode; in dark mode `cyan-dark` equals `cyan`).
   `assets/css/critical.css`, and the defaults in `remotive_colour_tokens()`.
 - The block editor's own palette (`theme.json`) is not changed by this tab.
 
-## Ad landing pages (`inc/landing-pages.php`)
+## Ad landing pages (`inc/landing/landing-pages.php`)
 
 Three single-purpose pages for paid and social traffic, one per service:
 `/seo-audit/`, `/google-ads-management/` and `/paid-social-advertising/`.
@@ -894,7 +891,7 @@ Each is also served in Bahasa Melayu (`/ms/…`), Simplified Chinese
 language of the URL, with a self-referencing canonical, `<html lang>` and
 `hreflang` alternates; there is no `?lang=` parameter.
 
-- **Copy and data** live in `inc/landing-copy.php` (`remotive_landing_services()`,
+- **Copy and data** live in `inc/landing/landing-copy.php` (`remotive_landing_services()`,
   one entry per service, and the FAQ; each text an array of en, ms, zh-Hans,
   zh-Hant) and, for the short shared labels, in the render functions.
   `php tests/check-landing-copy.php` (also run in CI) fails if any text is
@@ -906,7 +903,7 @@ language of the URL, with a self-referencing canonical, `<html lang>` and
   Forms use the shared lead handler, record the service and campaign
   parameters (`utm_*`, `gclid`, `fbclid`, `ttclid`) with the enquiry, and
   redirect to `/audit-requested/` (also per language). That page is the
-  conversion URL; `inc/thank-you.php` pushes `remotive_lead` with the form,
+  conversion URL; `inc/forms/thank-you.php` pushes `remotive_lead` with the form,
   service and language.
 - **Search engines:** `noindex, nofollow` by meta, `X-Robots-Tag` and Rank
   Math, and excluded from site search and the core sitemap. Never block them in
@@ -919,13 +916,13 @@ language of the URL, with a self-referencing canonical, `<html lang>` and
 - **Requires pretty permalinks.** The language paths are rewrite rules,
   flushed once per rule-set version (`remotive_lp_rewrite_v`).
 
-## Maintenance mode (`inc/maintenance-mode.php`)
+## Maintenance mode (`inc/options/maintenance-mode.php`)
 
 Theme Options → Site behaviour → Maintenance mode. Logged-out visitors get
 `drop-ins/maintenance.php` with a 503 and `Retry-After`; users who can edit
 posts, wp-admin, cron, AJAX, feeds and REST are unaffected. Off by default.
 
-## Theme Options (`inc/theme-options.php`)
+## Theme Options (`inc/options/theme-options.php`)
 
 An admin page under **Appearance → Theme Options** covers the handful of
 values that used to be hardcoded directly in the block templates: contact
@@ -1022,7 +1019,7 @@ IntersectionObserver pause-when-off-screen logic untouched.
 | Option | Default | Effect |
 |---|---|---|
 | `motion_effects` | on | Adds an `rm-motion` body class. All scroll-motion CSS and the JS reveal fallback are scoped to it, so off means no rule matches and no observer is created rather than effects being overridden. Not added in the admin, so the block editor is unaffected. |
-| `graceful_errors` | on | Registers the non-fatal error handler in `inc/error-handler.php`. Read directly from the option row, not via `remotive_get_theme_option()`, because that file loads before `inc/theme-options.php`. |
+| `graceful_errors` | on | Registers the non-fatal error handler in `inc/core/error-handler.php`. Read directly from the option row, not via `remotive_get_theme_option()`, because that file loads before `inc/options/theme-options.php`. |
 
 **Scroll motion (v1.69.1).** Two implementations, one behaviour. Where the
 browser supports CSS scroll-driven animations (`animation-timeline`,
@@ -1048,7 +1045,7 @@ PHP interpolation available inside them, so the options can't be injected
 via the normal "just echo a PHP variable" approach classic themes use.
 Instead, the templates contain plain-text placeholder tokens —
 `__REMOTIVE_CONTACT_EMAIL__`, `__REMOTIVE_SOCIAL_LINKS__`, and so on —
-and a `render_block` filter in `inc/theme-options.php` does a `strtr()`
+and a `render_block` filter in `inc/options/theme-options.php` does a `strtr()`
 token swap against every block's rendered output, on every request.
 
 This runs *after* WordPress renders each block, so it works identically
@@ -1070,7 +1067,7 @@ through `esc_url()` and WordPress's other sanitisation functions completely
 unchanged before the filter ever runs. Curly-brace-style tokens were tried
 first and rejected for this reason — see `docs/changelog.md` v1.3.0.
 
-**Defaults.** `remotive_theme_option_defaults()` in `inc/theme-options.php`
+**Defaults.** `remotive_theme_option_defaults()` in `inc/options/theme-options.php`
 matches exactly what was hardcoded before this page existed, so installing
 this feature changes nothing on the front end until someone actually edits
 a setting.
@@ -1135,7 +1132,7 @@ exceptions, all in `templates/front-page.html`, and one in `parts/header.html`:
 |---|---|
 | Hero headline | Needs `data-t="..."` attributes on each line for the misregistration hover (see above). If you edit the wording via the Code Editor, update the matching `data-t` attribute or the hover will show stale text. |
 | Ticker marquee | Infinite horizontal scroll of repeated text — no core block does this. |
-| CTA email form | Core WordPress has no native `<form>` block. Submits by default to `inc/cta-form-handler.php`'s native handler (see "Security" above) — no third-party service needed, but the destination address is set via Theme Options, not hardcoded here. |
+| CTA email form | Core WordPress has no native `<form>` block. Submits by default to `inc/forms/cta-form-handler.php`'s native handler (see "Security" above) — no third-party service needed, but the destination address is set via Theme Options, not hardcoded here. |
 | Theme toggle button | Needs `id` attributes (`rmThemeToggle`, `rmThemeToggleLabel`) as JS hooks, not editable copy. |
 
 ## Logo bootstrap
@@ -1231,9 +1228,9 @@ sufficient; there's no official CLI linter for hand-authored block HTML.
   the production origin/cache/CDN and include WordPress core, plugin and upload
   paths outside this theme; see "Performance delivery" and `docs/upgrading.md`.
 - Internationalized as far as `.pot` extraction reaches: `languages/remotive.pot`
-  covers the 34 strings across `inc/theme-options.php`,
-  `inc/cta-form-handler.php`, `inc/about-form-handler.php`, and
-  `inc/lead-form-handler.php` (the admin UI, plus a couple of email
+  covers the 34 strings across `inc/options/theme-options.php`,
+  `inc/forms/cta-form-handler.php`, `inc/forms/about-form-handler.php`, and
+  `inc/forms/lead-form-handler.php` (the admin UI, plus a couple of email
   strings). It does **not** cover the homepage's actual copy — headlines,
   service descriptions, case-study text all live as static content in
   `templates/front-page.html`'s block markup, which gettext has no reach

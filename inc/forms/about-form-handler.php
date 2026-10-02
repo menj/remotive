@@ -3,11 +3,11 @@
  * Remotive Media — About page contact form handler.
  *
  * Thin wrapper around remotive_handle_lead_form_submission() (see
- * inc/lead-form-handler.php). Unlike the homepage CTA, this form's
+ * inc/forms/lead-form-handler.php). Unlike the homepage CTA, this form's
  * destination isn't configurable in Theme Options — it's a simpler,
  * secondary contact point, always using the native handler. If that
  * changes, add an 'about_form_action' option following the exact same
- * pattern as 'cta_form_action' in inc/theme-options.php.
+ * pattern as 'cta_form_action' in inc/options/theme-options.php.
  */
 
 defined( 'ABSPATH' ) || exit;
