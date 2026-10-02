@@ -84,6 +84,45 @@ function remotive_landing_services() {
 }
 
 /**
+ * The language codes behind the switcher: URL key => BCP 47 tag (also the
+ * hreflang value).
+ *
+ * @return array<string,string>
+ */
+function remotive_lp_languages() {
+	return array(
+		'en'  => 'en',
+		'ms'  => 'ms',
+		'zh'  => 'zh-Hans',
+		'zht' => 'zh-Hant',
+	);
+}
+
+/**
+ * The language requested by ?lang=, or 'en'. Accepts the URL keys and the
+ * usual tags (zh-CN, zh-TW, zh-HK, zh-Hans, zh-Hant). With no parameter the
+ * server renders English and assets/js/landing.js applies the saved or
+ * browser language.
+ *
+ * @return string One of the keys of remotive_lp_languages().
+ */
+function remotive_lp_requested_lang() {
+	$aliases = array(
+		'zh-cn'   => 'zh',
+		'zh-hans' => 'zh',
+		'zh-tw'   => 'zht',
+		'zh-hk'   => 'zht',
+		'zh-hant' => 'zht',
+	);
+
+	// Read-only selection between known values; nothing is stored.
+	$want = isset( $_GET['lang'] ) ? strtolower( sanitize_text_field( wp_unslash( $_GET['lang'] ) ) ) : '';
+	$want = isset( $aliases[ $want ] ) ? $aliases[ $want ] : $want;
+
+	return isset( remotive_lp_languages()[ $want ] ) ? $want : 'en';
+}
+
+/**
  * Whether the current request is one of the landing pages.
  *
  * @return bool
@@ -228,13 +267,14 @@ function remotive_lp_render() {
 		'zh'  => array( 'ZH-CN', 'zh-Hans', '简体中文' ),
 		'zht' => array( 'ZH-TW', 'zh-Hant', '繁體中文' ),
 	);
+	$current = remotive_lp_requested_lang();
 	foreach ( $langs_ui as $key => $ui ) {
 		$btns .= sprintf(
 			'<button type="button" class="rm-lp__lang" data-set-lang="%1$s" lang="%2$s" aria-label="%3$s" title="%3$s" aria-pressed="%4$s">%5$s</button>',
 			esc_attr( $key ),
 			esc_attr( $ui[1] ),
 			esc_attr( $ui[2] ),
-			'en' === $key ? 'true' : 'false',
+			$current === $key ? 'true' : 'false',
 			esc_html( $ui[0] )
 		);
 	}
@@ -261,7 +301,7 @@ function remotive_lp_render() {
 		)
 	);
 
-	return '<div class="rm-lp" data-lang="en" data-service="' . esc_attr( $slug ) . '">'
+	return '<div class="rm-lp" data-lang="' . esc_attr( remotive_lp_requested_lang() ) . '" data-service="' . esc_attr( $slug ) . '">'
 		. '<header class="rm-lp__bar">' . remotive_lp_logo()
 		. '<div class="rm-lp__langs" role="group" aria-label="Language / Bahasa / 语言 / 語言">' . $btns . '</div></header>'
 		. '<main id="main" class="rm-lp__main">'
@@ -338,6 +378,57 @@ function remotive_handle_landing_submission() {
 }
 add_action( 'admin_post_remotive_lp_submit', 'remotive_handle_landing_submission' );
 add_action( 'admin_post_nopriv_remotive_lp_submit', 'remotive_handle_landing_submission' );
+
+/* ---- Language alternates ---- */
+
+/**
+ * hreflang links: one per language plus x-default, each pointing at the same
+ * page with ?lang=, which the server renders in that language. Every page
+ * lists itself and all its alternates, as hreflang requires.
+ *
+ * These pages are noindex, so search engines ignore the annotations; they
+ * are still correct, and they identify the language versions to anything
+ * else that reads them (ad review, link checkers, a future indexable page).
+ */
+function remotive_lp_hreflang() {
+	if ( ! remotive_is_landing_page() ) {
+		return;
+	}
+
+	$url = get_permalink( get_queried_object_id() );
+
+	if ( ! $url ) {
+		return;
+	}
+
+	foreach ( remotive_lp_languages() as $key => $tag ) {
+		printf(
+			'<link rel="alternate" hreflang="%1$s" href="%2$s">' . "\n",
+			esc_attr( $tag ),
+			esc_url( add_query_arg( 'lang', $key, $url ) )
+		);
+	}
+
+	printf( '<link rel="alternate" hreflang="x-default" href="%s">' . "\n", esc_url( $url ) );
+}
+add_action( 'wp_head', 'remotive_lp_hreflang', 2 );
+
+/**
+ * <html lang> follows the language the server rendered, so the declared
+ * language matches the content.
+ */
+function remotive_lp_html_lang( $output ) {
+	if ( ! is_admin() && remotive_is_landing_page() ) {
+		$tag    = remotive_lp_languages()[ remotive_lp_requested_lang() ];
+		$output = preg_replace( '/lang="[^"]*"/', 'lang="' . esc_attr( $tag ) . '"', $output, 1, $n );
+		if ( ! $n ) {
+			$output .= ' lang="' . esc_attr( $tag ) . '"';
+		}
+	}
+
+	return $output;
+}
+add_filter( 'language_attributes', 'remotive_lp_html_lang' );
 
 /* ---- Keep these pages away from search engines and site search ---- */
 

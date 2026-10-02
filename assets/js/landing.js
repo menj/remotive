@@ -37,7 +37,17 @@
 	}
 
 	for (var i = 0; i < buttons.length; i++) {
-		buttons[i].addEventListener('click', function () { apply(this.getAttribute('data-set-lang'), true); });
+		buttons[i].addEventListener('click', function () {
+			var l = this.getAttribute('data-set-lang');
+			apply(l, true);
+			// Keep the address in step with the language (and keep any utm_*),
+			// so a copied or shared link opens in the same language.
+			try {
+				var u = new URL(location.href);
+				u.searchParams.set('lang', l);
+				history.replaceState({}, '', u.toString());
+			} catch (e) {}
+		});
 	}
 	apply(pick(), false);
 
