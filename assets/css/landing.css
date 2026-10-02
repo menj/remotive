@@ -1,7 +1,7 @@
 /* Service landing pages (inc/landing-pages.php). Built on the theme's colour
    tokens, so dark/light mode and any palette change apply here too. */
 .rm-lp{
-  --lp-gap:clamp(2.5rem,7vw,5rem);
+  --lp-gap:clamp(2rem,4.5vw,3.5rem);
   --lp-pad:max(1.25rem,calc((100vw - 70rem) / 2));
   --lp-c:var(--wp--preset--color--cyan);
   --lp-m:var(--wp--preset--color--magenta-dark);
@@ -67,18 +67,18 @@
 /* Sections below the fold */
 .rm-lp__section{ padding:var(--lp-gap) var(--lp-pad) 0; }
 .rm-lp__section h2{ margin:0 0 1.5rem; font-size:clamp(1.4rem,3vw,2rem); text-transform:none; }
-.rm-lp__steps{ display:grid; gap:1.25rem; margin:0; padding:0; list-style:none; grid-template-columns:repeat(auto-fit,minmax(15rem,1fr)); }
+.rm-lp__steps{ display:grid; gap:1.25rem; margin:0; padding:0; list-style:none; grid-template-columns:1fr; }
+@media (min-width:40rem){ .rm-lp__steps{ grid-template-columns:repeat(3,1fr); } }
 .rm-lp__step{ padding:1.5rem; border:1px solid var(--rm-line); }
 .rm-lp__step h3{ margin:.5rem 0; font-size:1.1rem; text-transform:none; }
 .rm-lp__step p{ margin:0; color:var(--rm-ink-70); }
 .rm-lp__num{ font-size:.8rem; letter-spacing:.1em; color:var(--rm-ink-55); }
 .rm-lp__trust p{ margin:0; color:var(--rm-ink-70); }
-.rm-lp__final>*{ max-width:34rem; }
 .rm-lp__foot{ margin:0 var(--lp-pad); padding-top:1.25rem; border-top:1px solid var(--rm-line); font-size:.85rem; color:var(--rm-ink-55); }
 
 /* Phones: a CTA that stays reachable once the hero form scrolls away. */
 .rm-lp__sticky{
-  position:fixed; left:1rem; right:1rem; bottom:1rem; z-index:20; display:none; align-items:center; justify-content:center;
+  position:fixed; left:1rem; right:1rem; bottom:1rem; z-index:20; display:none; max-width:30rem; margin-inline:auto; align-items:center; justify-content:center;
   min-height:52px; font-weight:700; text-decoration:none;
   color:var(--wp--preset--color--contrast-text); background:var(--wp--preset--color--contrast-bg); border:2px solid var(--wp--preset--color--ink);
 }
@@ -141,7 +141,7 @@ html:not([data-theme="light"]) .rm-lp__step:nth-child(2) .rm-lp__num{ color:var(
 
 /* Trust strip: a tinted band. */
 .rm-lp__trust{
-  margin-top:var(--lp-gap); padding-block:1.5rem;
+  margin-top:var(--lp-gap); padding-block:2rem;
   background:color-mix(in srgb,var(--lp-c) 14%,transparent);
 }
 .rm-lp__trust p{ color:var(--wp--preset--color--ink); }
@@ -158,3 +158,57 @@ html:not([data-theme="light"]) .rm-lp__final{ background-color:#0d1117; } /* a s
 .rm-lp__final h2{ color:#fff; }
 .rm-lp__final .rm-lp__card{ background:#fff; color:#1e1e1e; --wp--preset--color--ink:#1e1e1e; --wp--preset--color--paper:#f7f4ec; --rm-ink-55:rgba(30,30,30,.64); --rm-line:rgba(30,30,30,.2); }
 .rm-lp__foot{ margin-top:0; padding-block:1.25rem; }
+
+/* ---- Photography ---- */
+
+/* Hero photo: fills the left column under the bullets, desktop only so the
+   form is never pushed down on a phone. Offset plate matches the cards. */
+.rm-lp__photo{ display:none; margin-top:2rem; }
+.rm-lp__photo img{ display:block; width:100%; height:auto; aspect-ratio:16/10; object-fit:cover; box-shadow:-7px 7px 0 var(--lp-y); }
+@media (min-width:56rem){ .rm-lp__photo{ display:block; max-width:34rem; } }
+
+/* Markets: photo tiles with the name over a navy fade. */
+.rm-lp__trust > p{ margin:0 0 1.25rem; }
+.rm-lp__cities{ display:grid; gap:.75rem; margin:0; padding:0; list-style:none; grid-template-columns:repeat(2,1fr); }
+@media (min-width:40rem){ .rm-lp__cities{ grid-template-columns:repeat(3,1fr); } }
+@media (min-width:56rem){ .rm-lp__cities{ grid-template-columns:repeat(6,1fr); gap:1rem; } }
+.rm-lp__city{ position:relative; overflow:hidden; aspect-ratio:4/3; background:var(--lp-navy); }
+.rm-lp__city img{ display:block; width:100%; height:100%; object-fit:cover; transition:transform .5s ease; }
+.rm-lp__city:hover img{ transform:scale(1.05); }
+.rm-lp__city span{
+  position:absolute; left:0; right:0; bottom:0; padding:1.4rem .75rem .6rem;
+  color:#fff; font-weight:700; font-size:.95rem;
+  background:linear-gradient(to top,rgba(26,26,46,.9),rgba(26,26,46,0));
+}
+.rm-lp__city:nth-child(1) span{ border-bottom:4px solid var(--lp-c); }
+.rm-lp__city:nth-child(2) span{ border-bottom:4px solid var(--lp-m); }
+.rm-lp__city:nth-child(3) span{ border-bottom:4px solid var(--lp-y); }
+.rm-lp__city:nth-child(4) span{ border-bottom:4px solid var(--lp-c); }
+.rm-lp__city:nth-child(5) span{ border-bottom:4px solid var(--lp-m); }
+.rm-lp__city:nth-child(6) span{ border-bottom:4px solid var(--lp-y); }
+@media (prefers-reduced-motion:reduce){ .rm-lp__city img{ transition:none; } .rm-lp__city:hover img{ transform:none; } }
+
+/* ---- Closing band: copy beside the form on desktop, so there is no empty half ---- */
+@media (min-width:40rem){
+  .rm-lp__final{ display:grid; grid-template-columns:1fr 1fr; gap:2.5rem; align-items:center; }
+}
+@media (min-width:56rem){ .rm-lp__final{ gap:3.5rem; } }
+.rm-lp__final-copy h2{ margin-bottom:1rem; }
+.rm-lp__final .rm-lp__lead{ color:rgba(255,255,255,.78); margin:0; }
+.rm-lp__final .rm-lp__card{ max-width:34rem; }
+
+/* ---- FAQ ---- */
+.rm-lp__faq{ padding-bottom:0; }
+.rm-lp__faqs{ display:grid; gap:.75rem; max-width:48rem; }
+@media (min-width:40rem){ .rm-lp__faqs{ max-width:none; grid-template-columns:1fr 1fr; align-items:start; } }
+.rm-lp__q{ border:1px solid var(--rm-line); background:var(--wp--preset--color--card); }
+.rm-lp__q summary{
+  display:flex; justify-content:space-between; align-items:center; gap:1rem; cursor:pointer; list-style:none;
+  min-height:48px; padding:.9rem 1.1rem; font-weight:700;
+}
+.rm-lp__q summary::-webkit-details-marker{ display:none; }
+.rm-lp__q summary::after{ content:"+"; flex:0 0 auto; font-size:1.3rem; line-height:1; color:var(--lp-m); }
+.rm-lp__q[open] summary::after{ content:"\2212"; }
+.rm-lp__q[open]{ border-left:4px solid var(--lp-c); }
+.rm-lp__q p{ margin:0; padding:0 1.1rem 1.1rem; color:var(--rm-ink-70); }
+.rm-lp__foot{ margin-top:var(--lp-gap); }
