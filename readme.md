@@ -165,7 +165,7 @@ remotive/
 │   ├── page-services.html   Custom template: services grouped into the
 │   │                       three blocks (Demand Creation/Capture/Data),
 │   │                       matching the homepage; detailed breakdowns.
-│   ├── page-case-studies.html  Custom template: case-study card grid.
+│   ├── page-case-studies.html  Custom template: one grid of six case studies, uncategorised.
 │   ├── page-legal.html      Custom template for Privacy Policy/Terms —
 │   │                       minimal chrome, no fabricated legal content.
 │   └── page-contact.html    Custom template: contact form + details.

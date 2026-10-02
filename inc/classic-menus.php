@@ -277,40 +277,28 @@ function remotive_build_classic_menus() {
 		'footer_cases'    => array(
 			'name'  => __( 'Footer — Case Studies', 'remotive' ),
 			// Mirrors the template fallback: a curated six with short
-			// labels plus the "all" link, not all 14 with their full
+			// labels plus the "all" link, not every case study with its full
 			// page titles — a footer column is too narrow for titles
 			// like "Premium Skincare: +168% GMV Across Three SEA
 			// Markets" to read as navigation. An administrator can add
 			// the rest from the Menus screen; that editability is the
 			// point of this location existing at all.
-			'items' => array(
-				array(
-					'path'  => 'case-studies/market-entry-trading-platform',
-					'label' => __( 'Market entry, trading platform', 'remotive' ),
+			'items' => array_merge(
+				array_map(
+					function ( $path, $label ) {
+						return array(
+							'path'  => $path,
+							'label' => $label,
+						);
+					},
+					array_keys( remotive_listed_case_studies() ),
+					array_values( remotive_listed_case_studies() )
 				),
 				array(
-					'path'  => 'case-studies/marketplace-launch-skincare',
-					'label' => __( 'Marketplace launch, skincare', 'remotive' ),
-				),
-				array(
-					'path'  => 'case-studies/programmatic-advertising-automotive',
-					'label' => __( 'Programmatic, automotive', 'remotive' ),
-				),
-				array(
-					'path'  => 'case-studies/technical-seo-industrial-automation',
-					'label' => __( 'Technical SEO, automation', 'remotive' ),
-				),
-				array(
-					'path'  => 'case-studies/seo-ai-visibility-healthcare',
-					'label' => __( 'AI visibility, healthcare', 'remotive' ),
-				),
-				array(
-					'path'  => 'case-studies/ecommerce-seo-footwear',
-					'label' => __( 'Ecommerce SEO, footwear', 'remotive' ),
-				),
-				array(
-					'path'  => 'case-studies',
-					'label' => __( 'All 14 case studies →', 'remotive' ),
+					array(
+						'path'  => 'case-studies',
+						'label' => __( 'All case studies →', 'remotive' ),
+					),
 				),
 			),
 		),
@@ -374,4 +362,105 @@ function remotive_build_classic_menus() {
 	set_theme_mod( 'nav_menu_locations', $locations );
 
 	return $notes;
+}
+
+/**
+ * The six case studies the site lists (v1.98.0): path => short footer label.
+ *
+ * The case studies page, the homepage and the footer all show exactly these.
+ * The other case study pages stay published but are not linked from anywhere.
+ *
+ * @return array<string,string>
+ */
+function remotive_listed_case_studies() {
+	return array(
+		'case-studies/cookieless-audience-sports'       => __( 'Audience data, sports precinct', 'remotive' ),
+		'case-studies/seo-fmcg-malaysia-singapore'      => __( 'SEO, FMCG nutrition', 'remotive' ),
+		'case-studies/paid-media-financial-services'    => __( 'Paid media, financial services', 'remotive' ),
+		'case-studies/programmatic-advertising-automotive' => __( 'Programmatic, automotive', 'remotive' ),
+		'case-studies/b2b-seo-industrial-supplier'      => __( 'SEO, industrial supplier', 'remotive' ),
+		'case-studies/seo-ai-visibility-healthcare'     => __( 'AI visibility, healthcare', 'remotive' ),
+	);
+}
+
+/**
+ * Bring an existing site's footer Case Studies menu in line with the six.
+ *
+ * remotive_build_classic_menus() leaves an already-assigned menu alone, so a
+ * site set up before v1.98.0 keeps the old links. This removes only the four
+ * items the old default had and the new one drops, adds any of the six that are
+ * missing, and renames the "All 14 case studies" link. Anything an
+ * administrator added or renamed is left as it is. Runs from the 1.98.0
+ * migration in inc/site-setup.php.
+ */
+function remotive_refresh_case_study_menu() {
+	$locations = get_theme_mod( 'nav_menu_locations', array() );
+
+	if ( empty( $locations['footer_cases'] ) ) {
+		return;
+	}
+
+	$menu_id = (int) $locations['footer_cases'];
+	$items   = wp_get_nav_menu_items( $menu_id );
+
+	if ( ! is_array( $items ) ) {
+		return;
+	}
+
+	$dropped = array(
+		'case-studies/market-entry-trading-platform',
+		'case-studies/marketplace-launch-skincare',
+		'case-studies/technical-seo-industrial-automation',
+		'case-studies/ecommerce-seo-footwear',
+	);
+	$have    = array();
+
+	foreach ( $items as $item ) {
+		$path = trim( (string) wp_parse_url( $item->url, PHP_URL_PATH ), '/' );
+
+		if ( in_array( $path, $dropped, true ) ) {
+			wp_delete_post( $item->ID, true );
+			continue;
+		}
+
+		$have[ $path ] = true;
+
+		if ( 'case-studies' === $path && preg_match( '/^All \d+ case studies/u', (string) $item->title ) ) {
+			wp_update_nav_menu_item(
+				$menu_id,
+				$item->ID,
+				array(
+					'menu-item-title'     => __( 'All case studies →', 'remotive' ),
+					'menu-item-object'    => 'page',
+					'menu-item-object-id' => (int) $item->object_id,
+					'menu-item-type'      => 'post_type',
+					'menu-item-status'    => 'publish',
+				)
+			);
+		}
+	}
+
+	foreach ( remotive_listed_case_studies() as $path => $label ) {
+		if ( ! empty( $have[ $path ] ) ) {
+			continue;
+		}
+
+		$page = get_page_by_path( $path, OBJECT, 'page' );
+
+		if ( ! $page ) {
+			continue;
+		}
+
+		wp_update_nav_menu_item(
+			$menu_id,
+			0,
+			array(
+				'menu-item-title'     => $label,
+				'menu-item-object'    => 'page',
+				'menu-item-object-id' => $page->ID,
+				'menu-item-type'      => 'post_type',
+				'menu-item-status'    => 'publish',
+			)
+		);
+	}
 }

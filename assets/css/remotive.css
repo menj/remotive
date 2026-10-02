@@ -2932,32 +2932,6 @@ body.rm-motion .rm-ticker-band{ overflow:hidden; }
   .rm-jump a{ transition:none !important; }
 }
 
-/* ---- Case-studies filter chips --------------------------------------- */
-.rm-cs-filters{
-  display:flex; flex-wrap:wrap; gap:.6rem;
-  margin:0 0 2.2rem;
-}
-.rm-cs-filter{
-  font-family:inherit; font-size:.78rem !important; font-weight:700;
-  text-transform:uppercase; letter-spacing:.08em;
-  padding:.55rem 1rem; border-radius:999px;
-  border:1px solid var(--rm-line);
-  background:transparent; color:var(--rm-ink-70);
-  cursor:pointer; transition:background-color .15s ease, color .15s ease, border-color .15s ease;
-}
-.rm-cs-filter:hover{ border-color:var(--wp--preset--color--cyan); color:var(--wp--preset--color--ink); }
-.rm-cs-filter.is-active{
-  background:var(--wp--preset--color--ink); color:var(--wp--preset--color--paper);
-  border-color:var(--wp--preset--color--ink);
-}
-.rm-cs-filter__count{ opacity:.65; font-weight:500; }
-.rm-cs-filter.is-active .rm-cs-filter__count{ opacity:.8; }
-
-@media (prefers-reduced-motion:reduce){
-  .rm-cs-filter{ transition:none !important; }
-}
-
-
 /* =============================================================
    Rounded corners (v1.93.0)
    One set of radii for the whole site: pill for buttons and chips, 16px for
@@ -2979,7 +2953,6 @@ body.rm-motion .rm-ticker-band{ overflow:hidden; }
 .rm-nav__cta a,
 .rm-nav__cta .wp-block-button__link,
 .rm-contact-form__submit,
-.rm-cs-filter,
 .rm-pagination .wp-block-query-pagination-numbers a,
 .rm-pagination .wp-block-query-pagination-numbers span,
 .rm-pagination .wp-block-query-pagination-previous,
@@ -2993,7 +2966,6 @@ body.rm-motion .rm-ticker-band{ overflow:hidden; }
 .rm-cta__form button,
 .rm-nav__cta a,
 .rm-contact-form__submit,
-.rm-cs-filter,
 .entry-content .wp-block-button__link,
 .wp-block-post-content .wp-block-button__link{
   text-decoration:none !important;

@@ -355,6 +355,11 @@ indexable. They also declare `hreflang` alternates (`en`, `ms`, `zh-Hans`,
 
 ## Rank Math meta coverage (v1.66.2)
 
+**Listed case studies (v1.98.0).** Six are listed, in one uncategorised grid, in
+the footer and on the home page; `remotive_listed_case_studies()` in
+`inc/classic-menus.php` is the single list for the menu. The other eight case-study
+pages stay published at their URLs but nothing links to them.
+
 Every page and post the theme ships or creates carries a Rank Math
 title, description and focus keyword, written via
 `rank_math_title` / `rank_math_description` / `rank_math_focus_keyword`

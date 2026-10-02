@@ -54,6 +54,18 @@ WordPress site yet; this list is how to find out.
 - The first pull request that runs `.github/workflows/ci.yml` after a change to
   it should be watched, because the workflow itself is the thing under test.
 
+## v1.98.0: six case studies
+
+- Nothing to run by hand: the footer menu refreshes once on the next admin page
+  load (migration 1.98.0). If the site uses a hand-built footer menu, edit it in
+  Appearance → Menus; the migration only touches the "Footer — Case Studies"
+  menu.
+- The saved Navigation block (block themes) is not touched by template changes;
+  if the footer on the live site still shows the old links, edit it under
+  Appearance → Editor → Patterns/Navigation.
+- The other eight case-study pages remain live at their URLs but are not linked
+  from anywhere. To retire one properly, set it to Draft or add a redirect.
+
 ## Shipped v1.90.0 – v1.97.0
 
 Moved here from the backlog as it was done, so the reasoning survives.
@@ -176,7 +188,7 @@ field or an `inc/` file, it is not finished until `readme.md`'s file map,
   to the template's version. The Team page has been missing from the live
   header since v1.56.0 for this reason.
 - **Rename the Work page rather than recreating it.** v1.59.0 moves it to
-  /case-studies/ and takes the thirteen case studies with it. Renaming in the
+  /case-studies/ and takes the case studies with it. Renaming in the
   editor makes WordPress record the old slug and redirect it; recreating the
   page loses that.
 - **Create the pages added since your last update**: Team (v1.56.0), FAQ
@@ -240,7 +252,7 @@ field or an `inc/` file, it is not finished until `readme.md`'s file map,
   image URL instead of copying computed CSS) once real photos exist.
 - **Replace hardcoded services/case studies with custom post types.**
   Right now the homepage's six service "plates," `page-services.html`'s
-  detailed breakdown, and `page-case-studies.html`'s four cards are all
+  detailed breakdown, and `page-case-studies.html`'s six cards are all
   hand-written block markup, maintained by hand in three separate places.
   The theme's classic-PHP predecessor (`remotive` v1.0.0/v1.1.0,
   pre-block-theme) had `remotive_service` and `remotive_case_study`
