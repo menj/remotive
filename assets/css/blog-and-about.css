@@ -598,3 +598,16 @@
   margin:.85rem 0 0;
   max-width:46ch;
 }
+
+/* Case-study card gradients (were inline style attributes). The colours are
+   the brand plates, fixed in both modes, so they are literal values rather
+   than the mode-aware palette tokens. */
+.rm-grad--cyan-green{ background:linear-gradient(135deg,#00aeef,#39b54a); }
+.rm-grad--cyan-magenta{ background:linear-gradient(135deg,#00aeef,#ec008c); }
+.rm-grad--cyan-navy{ background:linear-gradient(135deg,#00aeef,#1a1a2e); }
+.rm-grad--green-cyan{ background:linear-gradient(135deg,#39b54a,#00aeef); }
+.rm-grad--green-navy{ background:linear-gradient(135deg,#39b54a,#1a1a2e); }
+.rm-grad--magenta-amber{ background:linear-gradient(135deg,#ec008c,#f2b416); }
+.rm-grad--magenta-cyan{ background:linear-gradient(135deg,#ec008c,#00aeef); }
+.rm-grad--magenta-navy{ background:linear-gradient(135deg,#ec008c,#1a1a2e); }
+.rm-grad--navy-magenta{ background:linear-gradient(135deg,#1a1a2e,#ec008c); }
