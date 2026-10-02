@@ -723,7 +723,12 @@ handles any type added to it.
 
 ## Security
 
-Audited against a structured security policy (v1.8.0). Full findings and
+Audited against a structured security policy (v1.8.0), and again across the
+whole theme in v1.103.0 (finding register in `docs/ssot.md`). Tests that guard
+this: `tests/test-security.php` and `tests/check-security-patterns.php`.
+Client addresses for the rate limits come from `remotive_client_ip()`, which
+believes Cloudflare's forwarded-address header only from Cloudflare's own
+ranges. Full findings and
 fixes are in `docs/changelog.md`'s v1.8.0 entry and `docs/ssot.md`'s audit record;
 summarized here for anyone extending this code.
 

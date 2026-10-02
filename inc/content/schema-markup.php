@@ -733,7 +733,7 @@ function remotive_output_schema_markup() {
 	);
 
 	echo "\n" . '<script type="application/ld+json" id="remotive-schema">'
-		. wp_json_encode( $data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE )
+		. wp_json_encode( $data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP )
 		. '</script>' . "\n";
 }
 add_action( 'wp_head', 'remotive_output_schema_markup', 6 );

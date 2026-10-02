@@ -61,7 +61,7 @@ function remotive_akismet_is_spam( $lead ) {
 		'comment_author_email' => $lead['email'] ?? '',
 		'comment_content'      => $lead['message'] ?? '',
 		'permalink'            => wp_get_referer() ? wp_get_referer() : home_url( '/' ),
-		'user_ip'              => isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '',
+		'user_ip'              => function_exists( 'remotive_client_ip' ) ? remotive_client_ip() : '',
 		'user_agent'           => isset( $_SERVER['HTTP_USER_AGENT'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) ) : '',
 		'referrer'             => isset( $_SERVER['HTTP_REFERER'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_REFERER'] ) ) : '',
 	);

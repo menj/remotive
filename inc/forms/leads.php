@@ -195,9 +195,9 @@ add_action( 'init', 'remotive_register_lead_spam_status' );
  */
 function remotive_store_lead( $lead ) {
 	$email   = sanitize_email( $lead['email'] ?? '' );
-	$name    = sanitize_text_field( $lead['name'] ?? '' );
-	$message = sanitize_textarea_field( $lead['message'] ?? '' );
-	$source  = sanitize_text_field( $lead['source'] ?? 'form' );
+	$name    = remotive_limit_text( sanitize_text_field( $lead['name'] ?? '' ), REMOTIVE_LEAD_MAX_NAME );
+	$message = remotive_limit_text( sanitize_textarea_field( $lead['message'] ?? '' ), REMOTIVE_LEAD_MAX_MESSAGE );
+	$source  = remotive_limit_text( sanitize_text_field( $lead['source'] ?? 'form' ), 100 );
 
 	if ( ! is_email( $email ) ) {
 		return new WP_Error( 'remotive_lead_email', __( 'A lead needs a valid email address.', 'remotive' ) );
@@ -229,8 +229,8 @@ function remotive_store_lead( $lead ) {
 	// Kept so a later spam or false-positive report can carry the same
 	// context Akismet saw at submission time. Both are already in the
 	// server logs the privacy policy describes.
-	if ( isset( $_SERVER['REMOTE_ADDR'] ) ) {
-		update_post_meta( $post_id, '_remotive_lead_ip', sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) );
+	if ( function_exists( 'remotive_client_ip' ) && '' !== remotive_client_ip() ) {
+		update_post_meta( $post_id, '_remotive_lead_ip', remotive_client_ip() );
 	}
 	if ( isset( $_SERVER['HTTP_USER_AGENT'] ) ) {
 		update_post_meta( $post_id, '_remotive_lead_agent', sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) ) );

@@ -71,27 +71,8 @@ function remotive_rank_math_canonical( $canonical ) {
 add_filter( 'rank_math/frontend/canonical', 'remotive_rank_math_canonical' );
 
 /**
- * IDs the plugin's sitemap must not list: the landing pages (they are for
- * ads, not search) and the confirmation pages.
- *
- * @return int[]
- */
-function remotive_rank_math_hidden_ids() {
-	$ids = function_exists( 'remotive_lp_page_ids' ) ? remotive_lp_page_ids() : array();
-
-	foreach ( array( 'thank-you', defined( 'REMOTIVE_LP_THANKS_SLUG' ) ? REMOTIVE_LP_THANKS_SLUG : '' ) as $slug ) {
-		$page = '' !== $slug ? get_page_by_path( $slug ) : null;
-
-		if ( $page ) {
-			$ids[] = (int) $page->ID;
-		}
-	}
-
-	return array_values( array_unique( array_map( 'intval', $ids ) ) );
-}
-
-/**
- * Drop those pages from the plugin's XML sitemap.
+ * Drop the unlisted pages (landing and confirmation pages, see
+ * remotive_unlisted_page_ids()) from the plugin's XML sitemap.
  *
  * @param array|false $url  Sitemap entry (array with 'loc').
  * @param string      $type Entry type.
@@ -99,7 +80,7 @@ function remotive_rank_math_hidden_ids() {
  * @return array|false False makes the plugin skip the entry.
  */
 function remotive_rank_math_sitemap_entry( $url, $type = '', $post = null ) {
-	if ( 'post' === $type && is_object( $post ) && in_array( (int) $post->ID, remotive_rank_math_hidden_ids(), true ) ) {
+	if ( 'post' === $type && is_object( $post ) && in_array( (int) $post->ID, remotive_unlisted_page_ids(), true ) ) {
 		return false;
 	}
 

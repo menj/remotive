@@ -526,7 +526,7 @@ add_filter( 'remotive_theme_option_tokens', 'remotive_lp_token' );
  */
 function remotive_handle_landing_submission() {
 	$services = remotive_landing_services();
-	$service  = isset( $_POST['service'] ) ? sanitize_key( wp_unslash( $_POST['service'] ) ) : '';
+	$service  = isset( $_POST['service'] ) && is_scalar( $_POST['service'] ) ? sanitize_key( wp_unslash( $_POST['service'] ) ) : '';
 	$service  = isset( $services[ $service ] ) ? $service : '';
 
 	$extra = array();
@@ -535,8 +535,8 @@ function remotive_handle_landing_submission() {
 		$extra[] = 'Service: ' . $services[ $service ]['label'][0];
 	}
 
-	$site = isset( $_POST['site'] ) ? esc_url_raw( wp_unslash( $_POST['site'] ), array( 'http', 'https' ) ) : '';
-	if ( '' === $site && ! empty( $_POST['site'] ) ) {
+	$site = isset( $_POST['site'] ) && is_scalar( $_POST['site'] ) ? esc_url_raw( wp_unslash( $_POST['site'] ), array( 'http', 'https' ) ) : '';
+	if ( '' === $site && ! empty( $_POST['site'] ) && is_scalar( $_POST['site'] ) ) {
 		$typed = sanitize_text_field( wp_unslash( $_POST['site'] ) );
 		$site  = esc_url_raw( 'https://' . $typed, array( 'https' ) );
 	}
@@ -545,14 +545,14 @@ function remotive_handle_landing_submission() {
 	}
 
 	foreach ( remotive_lp_tracking_keys() as $key ) {
-		$value = isset( $_POST[ $key ] ) ? sanitize_text_field( wp_unslash( $_POST[ $key ] ) ) : '';
+		$value = isset( $_POST[ $key ] ) && is_scalar( $_POST[ $key ] ) ? sanitize_text_field( wp_unslash( $_POST[ $key ] ) ) : '';
 		if ( '' !== $value ) {
 			$extra[] = $key . ': ' . substr( $value, 0, 120 );
 		}
 	}
 
 	// The confirmation page is in the language the form was filled in.
-	$lang = isset( $_POST['lp_lang'] ) ? sanitize_key( wp_unslash( $_POST['lp_lang'] ) ) : 'en';
+	$lang = isset( $_POST['lp_lang'] ) && is_scalar( $_POST['lp_lang'] ) ? sanitize_key( wp_unslash( $_POST['lp_lang'] ) ) : 'en';
 	$lang = isset( remotive_lp_languages()[ $lang ] ) ? $lang : 'en';
 
 	$base = wp_get_referer();
@@ -675,12 +675,33 @@ function remotive_lp_page_ids() {
 	) );
 }
 
+/**
+ * Pages that are not for browsing: the landing pages (they are for ads) and
+ * the confirmation pages. Kept out of site search, the sitemaps and the public
+ * search endpoint.
+ *
+ * @return int[]
+ */
+function remotive_unlisted_page_ids() {
+	$ids = remotive_lp_page_ids();
+
+	foreach ( array( 'thank-you', REMOTIVE_LP_THANKS_SLUG ) as $slug ) {
+		$page = get_page_by_path( $slug );
+
+		if ( $page ) {
+			$ids[] = (int) $page->ID;
+		}
+	}
+
+	return array_values( array_unique( array_map( 'intval', $ids ) ) );
+}
+
 function remotive_lp_hide_from_search( $query ) {
 	if ( is_admin() || ! $query->is_main_query() || ! $query->is_search() ) {
 		return;
 	}
 
-	$ids = remotive_lp_page_ids();
+	$ids = remotive_unlisted_page_ids();
 
 	if ( $ids ) {
 		$query->set( 'post__not_in', array_merge( (array) $query->get( 'post__not_in' ), $ids ) );
@@ -690,7 +711,7 @@ add_action( 'pre_get_posts', 'remotive_lp_hide_from_search' );
 
 function remotive_lp_hide_from_sitemap( $args, $post_type ) {
 	if ( 'page' === $post_type ) {
-		$ids = remotive_lp_page_ids();
+		$ids = remotive_unlisted_page_ids();
 		if ( $ids ) {
 			$args['post__not_in'] = array_merge( isset( $args['post__not_in'] ) ? (array) $args['post__not_in'] : array(), $ids );
 		}

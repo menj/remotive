@@ -4,6 +4,28 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.103.0] — 2026-10-02
+
+Security audit of the whole theme (details and the finding register in `docs/ssot.md`). Minor version because it adds two filters, changes two defaults and adds a size limit.
+
+### Security
+
+- **WPSEC-001, JSON-LD could be broken out of.** The structured data block was printed without `JSON_HEX_TAG`, so a title or excerpt containing a closing script tag, entered by a contributor or author, would have ended the block and run script on every page it appears on. Now encoded with `JSON_HEX_TAG | JSON_HEX_AMP` (`inc/content/schema-markup.php`).
+- **WPSEC-002, public search endpoint over-shared.** `/wp-json/remotive/v1/search` returned excerpts of password-protected posts and listed the landing and confirmation pages that are meant to be unlisted. It now excludes both (`inc/content/webmcp.php`). The same unlisted set (`remotive_unlisted_page_ids()`) now also keeps the confirmation pages out of site search and the core sitemap, which previously covered the landing pages only.
+- **WPSEC-003, usernames could still be discovered.** The REST users block missed the URL-encoded `rest_route` form; the author redirect returned a 404 for names that do not exist and a redirect for ones that do; the login form said which half was wrong; and the core users sitemap listed author URLs. Each is closed in `inc/core/security.php`: the route is matched after decoding, the redirect applies to the request rather than the result, wrong user and wrong password read the same, and the users sitemap is removed. WordPress's own lost-password messages are unchanged (proposed below).
+- **WPSEC-004, enquiries had no size limit.** An anonymous visitor could post a very large name or message into the enquiries table and the notification email. Name is now cut at 200 characters and message at 5,000 (`inc/forms/lead-form-handler.php`, `inc/forms/leads.php`, so enquiries captured from Contact Form 7 are covered too). Non-text values in those fields, and in the landing form's fields, no longer cause a PHP error (`is_scalar` guards).
+- **WPSEC-005, rate limits shared one address behind Cloudflare.** Logs already in this repository's records show Cloudflare addresses reaching the server, so the login lockout and the form quotas counted every visitor as one. `remotive_client_ip()` now uses Cloudflare's forwarded-client header, but only when the connecting address is inside Cloudflare's published ranges, so a visitor cannot choose their own address. The ranges and the final result are filterable (`remotive_trusted_proxy_ranges`, `remotive_client_ip`). Enquiry records store the same address.
+
+### Added
+
+- `tests/test-security.php` (35 checks: forwarded address, CIDR matching, users route spellings, generic login errors, users sitemap, length caps) and `tests/check-security-patterns.php` (CI: no `wp_redirect`, `eval`, command execution, `base64_decode`, raw `$wpdb`, unrestricted `unserialize`, REST route without a permission callback, JSON-LD without `JSON_HEX_TAG`, or module without the direct-access guard). `tests/test-landing.php` covers the unlisted set.
+
+### Compatibility
+
+- Failed sign-ins now show one message instead of "unknown username" or "incorrect password".
+- The core users sitemap (`/wp-sitemap-users-1.xml`) no longer exists.
+- Enquiries over the length limits are cut rather than rejected.
+
 ## [1.102.0] — 2026-10-02
 
 ### Fixed
