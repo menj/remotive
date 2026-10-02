@@ -139,6 +139,36 @@ function remotive_required_pages() {
 			'rm_desc'  => __( 'We have your message and will reply within three business days.', 'remotive' ),
 			'rm_kw'    => '',
 		),
+		'seo-audit' => array(
+			'title'    => __( 'SEO landing page', 'remotive' ),
+			'template' => 'page-landing',
+			'order'    => 90,
+			'in_menu'  => false,
+			'note'     => __( 'Ad landing page for SEO (noindex, nofollow). Copy lives in inc/landing-pages.php. Point ads and social posts here, not the main site.', 'remotive' ),
+			'rm_title' => '',
+			'rm_desc'  => '',
+			'rm_kw'    => '',
+		),
+		'google-ads-management' => array(
+			'title'    => __( 'Google Ads landing page', 'remotive' ),
+			'template' => 'page-landing',
+			'order'    => 91,
+			'in_menu'  => false,
+			'note'     => __( 'Ad landing page for Google Ads (noindex, nofollow). Copy lives in inc/landing-pages.php. Point ads and social posts here, not the main site.', 'remotive' ),
+			'rm_title' => '',
+			'rm_desc'  => '',
+			'rm_kw'    => '',
+		),
+		'paid-social-advertising' => array(
+			'title'    => __( 'Paid social landing page', 'remotive' ),
+			'template' => 'page-landing',
+			'order'    => 92,
+			'in_menu'  => false,
+			'note'     => __( 'Ad landing page for paid social (noindex, nofollow). Copy lives in inc/landing-pages.php. Point ads and social posts here, not the main site.', 'remotive' ),
+			'rm_title' => '',
+			'rm_desc'  => '',
+			'rm_kw'    => '',
+		),
 		'terms'    => array(
 			'title'    => __( 'Terms of Service', 'remotive' ),
 			'template' => 'page-legal',
@@ -313,7 +343,7 @@ const REMOTIVE_SETUP_FLAG = 'remotive_site_setup_done';
  * migrations. This is the value stored in remotive_site_setup_done after
  * all migrations for this release complete successfully.
  */
-const REMOTIVE_SETUP_SCHEMA = '1.75.0';
+const REMOTIVE_SETUP_SCHEMA = '1.90.0';
 
 /**
  * Migrations keyed by the schema version they introduce.
@@ -381,6 +411,15 @@ function remotive_migration_registry() {
 		// that is already complete is a no-op that attaches nothing.
 		'1.75.0' => function() {
 			remotive_backfill_seed_images();
+		},
+		// 1.90.0: provisions the three ad landing pages (seo-audit,
+		// google-ads-management, paid-social-advertising). Registering them in
+		// remotive_required_pages() only reaches fresh installs; sites
+		// already at an earlier schema skip setup, so without this the
+		// pages would never be created. Setup only creates what is missing
+		// and never touches an existing page's content.
+		'1.90.0' => function() {
+			remotive_run_site_setup();
 		},
 	);
 }

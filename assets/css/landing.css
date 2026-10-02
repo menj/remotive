@@ -1,0 +1,160 @@
+/* Service landing pages (inc/landing-pages.php). Built on the theme's colour
+   tokens, so dark/light mode and any palette change apply here too. */
+.rm-lp{
+  --lp-gap:clamp(2.5rem,7vw,5rem);
+  --lp-pad:max(1.25rem,calc((100vw - 70rem) / 2));
+  --lp-c:var(--wp--preset--color--cyan);
+  --lp-m:var(--wp--preset--color--magenta-dark);
+  --lp-y:var(--wp--preset--color--accent-3);
+  --lp-navy:#1a1a2e;
+  padding:0 0 5rem;
+  color:var(--wp--preset--color--ink); line-height:1.6;
+}
+.rm-lp, .rm-lp *{ box-sizing:border-box; }
+.rm-lp[data-lang="zh"]{ font-family:"PingFang SC","Noto Sans SC","Microsoft YaHei",var(--wp--preset--font-family--archivo),sans-serif; }
+.rm-lp[data-lang="zht"]{ font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",var(--wp--preset--font-family--archivo),sans-serif; }
+
+/* Top bar: brand and language only. No navigation, so nothing leads away. */
+.rm-lp__bar{ display:flex; flex-wrap:wrap; gap:.5rem 1rem; align-items:center; justify-content:space-between; padding:1.25rem var(--lp-pad) 1rem; }
+.rm-lp__logo{ display:inline-block; padding:.4rem .6rem; background:#fff; line-height:0; } /* the artwork is drawn for white; the plate keeps ":MOTIVE" readable in dark mode */
+.rm-lp__logo img{ height:56px; width:auto; }
+.rm-lp__langs{ display:flex; gap:.25rem; }
+.rm-lp__lang{
+  display:inline-flex; align-items:center; text-decoration:none;
+  min-height:44px; min-width:44px; padding:.4rem .75rem; font:inherit; font-size:.82rem; letter-spacing:.06em; cursor:pointer;
+  color:var(--rm-ink-70); background:transparent; border:1px solid transparent; border-radius:2rem;
+}
+.rm-lp__lang:hover{ color:var(--wp--preset--color--ink); }
+.rm-lp__lang[aria-current="true"]{ color:var(--wp--preset--color--ink); border-color:var(--rm-line); background:var(--wp--preset--color--card); }
+.rm-lp :focus-visible{ outline:2px solid var(--wp--preset--color--cyan-dark); outline-offset:2px; }
+
+/* Hero: promise on the left, form on the right (stacked on phones). */
+.rm-lp__hero{ display:grid; gap:2rem; padding:var(--lp-gap) var(--lp-pad); align-items:start; }
+@media (min-width:56rem){ .rm-lp__hero{ grid-template-columns:1.1fr .9fr; gap:3.5rem; } }
+.rm-lp__eyebrow{ margin:0 0 1rem; font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--rm-ink-55); }
+.rm-lp h1{ margin:0 0 1.25rem; font-size:clamp(2rem,5.5vw,3.75rem); line-height:1.08; text-transform:none; }
+.rm-lp__lead{ margin:0 0 1.5rem; font-size:clamp(1.05rem,1.5vw,1.25rem); color:var(--rm-ink-70); }
+.rm-lp__points{ margin:0; padding:0; list-style:none; display:grid; gap:.75rem; }
+.rm-lp__points li{ padding-left:1.6rem; position:relative; }
+.rm-lp__points li::before{ content:""; position:absolute; left:0; top:.7em; width:.8rem; height:2px; background:var(--wp--preset--color--magenta-dark); }
+
+/* Form card */
+.rm-lp__card{ padding:1.5rem; background:var(--wp--preset--color--card); border:1px solid var(--rm-line); }
+.rm-lp__card h2{ margin:0 0 1rem; font-size:1.35rem; text-transform:none; }
+.rm-lp__field{ margin:0 0 1rem; }
+.rm-lp__field label{ display:block; margin-bottom:.35rem; font-size:.88rem; font-weight:600; }
+.rm-lp__opt{ font-weight:400; color:var(--rm-ink-55); }
+.rm-lp__field input{
+  width:100%; min-height:48px; padding:.7rem .85rem; font:inherit; font-size:1rem; /* 16px+ stops iOS zoom on focus */
+  color:var(--wp--preset--color--ink); background:var(--wp--preset--color--paper);
+  border:1px solid var(--rm-line); border-radius:0;
+}
+.rm-lp__field input:focus{ border-color:var(--wp--preset--color--ink); }
+.rm-lp__submit{
+  width:100%; min-height:52px; padding:1rem 1.6rem; font:inherit; font-weight:700; cursor:pointer;
+  color:var(--wp--preset--color--contrast-text); background:var(--wp--preset--color--contrast-bg);
+  border:2px solid var(--wp--preset--color--ink);
+}
+.rm-lp__submit:hover{ border-color:var(--wp--preset--color--magenta-dark); }
+.rm-lp__fine{ margin:.9rem 0 0; font-size:.82rem; color:var(--rm-ink-55); }
+.rm-lp__fine a{ color:inherit; text-decoration:underline; text-underline-offset:2px; }
+.rm-lp__hp{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; }
+.rm-lp__status{ margin-top:1rem; font-size:.9rem; font-weight:600; }
+.rm-lp__msg{ display:none; }
+.rm-lp__status[data-state="success"] .rm-lp__msg--success,
+.rm-lp__status[data-state="error"] .rm-lp__msg--error{ display:block; }
+
+/* Sections below the fold */
+.rm-lp__section{ padding:var(--lp-gap) var(--lp-pad) 0; }
+.rm-lp__section h2{ margin:0 0 1.5rem; font-size:clamp(1.4rem,3vw,2rem); text-transform:none; }
+.rm-lp__steps{ display:grid; gap:1.25rem; margin:0; padding:0; list-style:none; grid-template-columns:repeat(auto-fit,minmax(15rem,1fr)); }
+.rm-lp__step{ padding:1.5rem; border:1px solid var(--rm-line); }
+.rm-lp__step h3{ margin:.5rem 0; font-size:1.1rem; text-transform:none; }
+.rm-lp__step p{ margin:0; color:var(--rm-ink-70); }
+.rm-lp__num{ font-size:.8rem; letter-spacing:.1em; color:var(--rm-ink-55); }
+.rm-lp__trust p{ margin:0; color:var(--rm-ink-70); }
+.rm-lp__final>*{ max-width:34rem; }
+.rm-lp__foot{ margin:0 var(--lp-pad); padding-top:1.25rem; border-top:1px solid var(--rm-line); font-size:.85rem; color:var(--rm-ink-55); }
+
+/* Phones: a CTA that stays reachable once the hero form scrolls away. */
+.rm-lp__sticky{
+  position:fixed; left:1rem; right:1rem; bottom:1rem; z-index:20; display:none; align-items:center; justify-content:center;
+  min-height:52px; font-weight:700; text-decoration:none;
+  color:var(--wp--preset--color--contrast-text); background:var(--wp--preset--color--contrast-bg); border:2px solid var(--wp--preset--color--ink);
+}
+.rm-lp__sticky.is-on{ display:flex; }
+@media (min-width:56rem){ .rm-lp__sticky{ display:none !important; } }
+
+/* ---- Colour: the brand's CMYK plates, via the theme tokens ---- */
+
+/* A tri-colour registration stripe across the very top. */
+.rm-lp::before{
+  content:""; position:fixed; z-index:30; top:0; left:0; right:0; height:6px;
+  background:linear-gradient(90deg,var(--lp-c) 0 33.4%,var(--lp-m) 33.4% 66.7%,var(--lp-y) 66.7%);
+}
+
+/* Hero: soft cyan and magenta washes behind the promise and the form. */
+.rm-lp__hero{
+  background:
+    radial-gradient(40rem 22rem at 85% 30%, color-mix(in srgb,var(--lp-c) 26%,transparent), transparent 70%),
+    radial-gradient(30rem 18rem at 8% 85%, color-mix(in srgb,var(--lp-m) 18%,transparent), transparent 70%);
+}
+.rm-lp__eyebrow{
+  display:flex; align-items:center; gap:.6rem;
+  color:var(--wp--preset--color--cyan-dark); font-weight:700;
+}
+.rm-lp__eyebrow::before{ content:""; width:.7rem; height:.7rem; background:var(--lp-m); flex:0 0 auto; }
+.rm-lp h1{ font-weight:800; }
+.rm-lp__points li:nth-child(1)::before{ background:var(--lp-c); }
+.rm-lp__points li:nth-child(2)::before{ background:var(--lp-m); }
+.rm-lp__points li:nth-child(3)::before{ background:var(--lp-y); }
+.rm-lp__points li::before{ height:.7rem; width:.7rem; top:.45em; }
+
+/* Form card: offset colour plates, like misregistered print. */
+.rm-lp__card{
+  border-color:transparent; border-top:6px solid var(--lp-c);
+  box-shadow:7px 7px 0 var(--lp-m), 14px 14px 0 var(--lp-c);
+  margin:0 14px 14px 0;
+}
+.rm-lp__field input:focus{ border-color:var(--lp-c); outline:2px solid var(--lp-c); outline-offset:0; }
+.rm-lp__lang[aria-current="true"]{ border-color:var(--lp-c); }
+
+/* Buttons: magenta fill. White text in light mode (5.1:1), navy in dark (4.6:1). */
+.rm-lp__submit,.rm-lp__sticky{
+  color:#fff; background:var(--lp-m); border-color:var(--lp-m);
+}
+html:not([data-theme="light"]) .rm-lp__submit,
+html:not([data-theme="light"]) .rm-lp__sticky{ color:var(--lp-navy); }
+.rm-lp__submit:hover,.rm-lp__sticky:hover{ color:var(--lp-navy); background:var(--lp-c); border-color:var(--lp-c); }
+
+/* Steps: one plate colour each. */
+.rm-lp__step{ border-top-width:6px; border-top-color:var(--lp-c); }
+.rm-lp__step:nth-child(2){ border-top-color:var(--lp-m); }
+.rm-lp__step:nth-child(3){ border-top-color:var(--lp-y); }
+.rm-lp__num{
+  display:inline-grid; place-items:center; width:2rem; height:2rem; border-radius:50%;
+  font-weight:700; letter-spacing:0; color:var(--lp-navy); background:var(--lp-c);
+}
+.rm-lp__step:nth-child(2) .rm-lp__num{ background:var(--lp-m); color:#fff; }
+html:not([data-theme="light"]) .rm-lp__step:nth-child(2) .rm-lp__num{ color:var(--lp-navy); }
+.rm-lp__step:nth-child(3) .rm-lp__num{ background:var(--lp-y); }
+
+/* Trust strip: a tinted band. */
+.rm-lp__trust{
+  margin-top:var(--lp-gap); padding-block:1.5rem;
+  background:color-mix(in srgb,var(--lp-c) 14%,transparent);
+}
+.rm-lp__trust p{ color:var(--wp--preset--color--ink); }
+
+/* Closing band: navy in both modes, so the second form is the loudest thing on the page. */
+.rm-lp__final{
+  margin-top:0; padding-bottom:var(--lp-gap);
+  color:#fff; background:var(--lp-navy);
+  background-image:linear-gradient(90deg,var(--lp-c) 0 33.4%,var(--lp-m) 33.4% 66.7%,var(--lp-y) 66.7%);
+  background-size:100% 6px; background-repeat:no-repeat;
+}
+.rm-lp__trust + .rm-lp__final{ margin-top:var(--lp-gap); }
+html:not([data-theme="light"]) .rm-lp__final{ background-color:#0d1117; } /* a step darker than the page, so the band still reads in dark mode */
+.rm-lp__final h2{ color:#fff; }
+.rm-lp__final .rm-lp__card{ background:#fff; color:#1e1e1e; --wp--preset--color--ink:#1e1e1e; --wp--preset--color--paper:#f7f4ec; --rm-ink-55:rgba(30,30,30,.64); --rm-line:rgba(30,30,30,.2); }
+.rm-lp__foot{ margin-top:0; padding-block:1.25rem; }

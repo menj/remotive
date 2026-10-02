@@ -80,6 +80,7 @@ function remotive_theme_option_defaults() {
 		'branded_login'    => '0',
 		'motion_effects'   => '1',
 		'graceful_errors'  => '1',
+		'maintenance_mode' => '0',
 		'legal_name'       => 'Remotive Media Asia',
 		'legal_uen'        => '',
 		'branded_login_message' => 'Team access only.',
@@ -506,6 +507,12 @@ function remotive_theme_options_tabs() {
 					'type'   => 'text',
 					'helper' => __( 'One line shown above the login form. Leave blank for none.', 'remotive' ),
 				),
+				'maintenance_mode' => array(
+					'label'        => __( 'Maintenance mode', 'remotive' ),
+					'type'         => 'toggle',
+					'toggle_label' => __( 'Show a "back shortly" page to visitors who are not logged in', 'remotive' ),
+					'helper'       => __( 'Off by default. When on, logged-out visitors get a 503 "back shortly" page that search engines treat as temporary. Administrators and editors still see the live site, and nothing is deleted or unpublished. Switch it off here to bring the site back.', 'remotive' ),
+				),
 				'graceful_errors' => array(
 					'label'        => __( 'Graceful error handling', 'remotive' ),
 					'type'         => 'toggle',
@@ -811,6 +818,7 @@ function remotive_sanitize_theme_options( $input ) {
 	// An unchecked checkbox submits nothing, so absence means off.
 	$clean['branded_login']         = ( isset( $input['branded_login'] ) && '1' === (string) $input['branded_login'] ) ? '1' : '0';
 	$clean['motion_effects']        = ( isset( $input['motion_effects'] ) && '1' === (string) $input['motion_effects'] ) ? '1' : '0';
+	$clean['maintenance_mode']      = ( isset( $input['maintenance_mode'] ) && '1' === (string) $input['maintenance_mode'] ) ? '1' : '0';
 	$clean['graceful_errors']       = ( isset( $input['graceful_errors'] ) && '1' === (string) $input['graceful_errors'] ) ? '1' : '0';
 	$clean['branded_login_message'] = sanitize_text_field( $input['branded_login_message'] ?? $defaults['branded_login_message'] );
 

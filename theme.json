@@ -130,6 +130,7 @@
 		}
 	},
 	"customTemplates": [
+		{ "name": "page-landing", "title": "Ad landing page (noindex, EN / BM / 中文)", "postTypes": [ "page" ] },
 		{ "name": "front-page", "title": "Front Page", "postTypes": [ "page" ] },
 		{ "name": "page-about", "title": "About (company story + contact form)", "postTypes": [ "page" ] },
 		{ "name": "page-team", "title": "Meet the Team (roster + gallery)", "postTypes": [ "page" ] },
