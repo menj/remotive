@@ -4,6 +4,13 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.93.0] — 2026-10-02
+
+### Changed
+
+- **Rounded-corner design.** One radius scale for the whole site (`--rm-r-sm` 10px, `--rm-r` 16px, `--rm-r-lg` 24px, `--rm-r-pill` 999px): pill buttons and filter chips, 16px cards and images, 10px form fields, a pill email field on the CTA form. The block theme's default button radius is now pill too (`theme.json`), so the editor matches. Full-bleed bands (navigation, CTA bands, stats band, footer) stay edge to edge. The landing pages use the same scale: rounded form cards, step cards, FAQ items, photo tiles and hero photo.
+- **No underlines on CTAs.** Buttons never carry an underline in any state (resting, hover, focus, active), including buttons inside post content. The animated underline under the text-link CTAs ("View case study", section and row links) is removed; they keep the arrow, uppercase bold type and the hover colour change. Body-copy links keep their underline.
+
 ## [1.92.0] — 2026-10-02
 
 ### Added

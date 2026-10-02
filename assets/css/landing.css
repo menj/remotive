@@ -219,3 +219,16 @@ html:not([data-theme="light"]) .rm-lp__final{ background-color:#0d1117; } /* a s
 .rm-lp__thanks{ display:block; }
 .rm-lp__thanks .rm-lp__copy{ max-width:44rem; }
 .rm-lp__section > .rm-lp__fine{ margin-top:1.25rem; }
+
+/* ---- Rounded corners ---- */
+.rm-lp__logo{ border-radius:var(--rm-r-sm,10px); }
+.rm-lp__logo img{ border-radius:6px; }
+.rm-lp__card{ border-radius:var(--rm-r-lg,24px); border-top-width:0; }
+.rm-lp__card::before{ content:""; display:block; height:6px; margin:-1.5rem -1.5rem 1.25rem; border-radius:var(--rm-r-lg,24px) var(--rm-r-lg,24px) 0 0; background:var(--lp-c); }
+.rm-lp__field input{ border-radius:var(--rm-r-sm,10px); }
+.rm-lp__submit,.rm-lp__sticky{ border-radius:999px; }
+.rm-lp__step,.rm-lp__q{ border-radius:var(--rm-r,16px); overflow:hidden; }
+.rm-lp__q[open]{ border-left-width:1px; }
+.rm-lp__city{ border-radius:var(--rm-r,16px); }
+.rm-lp__photo img{ border-radius:var(--rm-r-lg,24px); }
+.rm-lp__num{ border-radius:50%; }

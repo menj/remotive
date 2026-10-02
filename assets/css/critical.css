@@ -79,6 +79,8 @@ html[data-theme]{
 .rm-brand img{height:42px;width:auto}
 /* The logo artwork is drawn for white; its dark ":MOTIVE" wordmark vanishes on the dark header, so it sits on a white plate in dark mode (as on the landing pages). */
 html:not([data-theme="light"]) .rm-brand img{background:#fff;padding:2px 4px;}
+.rm-brand img{border-radius:8px}
+.rm-nav__cta a,.rm-nav__cta .wp-block-button__link{border-radius:999px;text-decoration:none}
 .rm-nav__links{font-size:1rem;font-weight:600;letter-spacing:.02em;min-width:0}
 .rm-nav__links .wp-block-navigation-item a{position:relative;padding-block:.6rem!important;text-decoration:none!important}
 .rm-nav__links .wp-block-navigation-item a::after{

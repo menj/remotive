@@ -97,6 +97,13 @@ spec (colours, fonts, logo usage rules for slide decks and documents).
 colours, a font change — light mode's tokens above must be updated to match,
 and this table updated in the same commit/session so it doesn't drift.
 
+
+**Corner radii (v1.93.0).** The design is rounded, not square: `--rm-r-sm`
+10px (form fields), `--rm-r` 16px (cards, images), `--rm-r-lg` 24px (large
+panels, the landing-page form cards) and `--rm-r-pill` 999px (buttons and
+chips), defined at the end of `assets/css/remotive.css`. Full-bleed bands stay
+edge to edge. CTAs carry no underline.
+
 ## Admin-configurable values (as of v1.79.1)
 
 Contact email, the three footer address lines, the seven social URLs, the
