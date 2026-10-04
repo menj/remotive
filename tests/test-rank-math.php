@@ -5,6 +5,11 @@
  */
 
 require __DIR__ . '/bootstrap.php';
+// Stands in for the language layer, which reads the URL's language directory.
+function remotive_i18n_lang() {
+	return $GLOBALS['remotive_i18n_lang'] ?? 'en';
+}
+
 require dirname( __DIR__ ) . '/inc/landing/landing-pages.php';
 require dirname( __DIR__ ) . '/inc/forms/thank-you.php';
 require dirname( __DIR__ ) . '/inc/core/rank-math.php';
@@ -16,10 +21,10 @@ foreach ( array( 'rank_math/frontend/robots', 'rank_math/frontend/canonical', 'r
 
 // Landing language keeps its own canonical.
 t_reset();
-$GLOBALS['T']['query_var'] = 'ms';
+$GLOBALS['remotive_i18n_lang'] = 'ms';
 $GLOBALS['T']['slug']      = 'seo-audit';
 t_eq( remotive_rank_math_canonical( 'https://example.com/seo-audit/' ), 'https://example.com/ms/seo-audit/', 'Malay canonical' );
-$GLOBALS['T']['query_var'] = '';
+$GLOBALS['remotive_i18n_lang'] = 'en';
 t_eq( remotive_rank_math_canonical( 'https://example.com/seo-audit/' ), 'https://example.com/seo-audit/', 'English canonical' );
 
 // A page that is not a landing page keeps the plugin's canonical.

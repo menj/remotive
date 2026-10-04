@@ -1298,6 +1298,26 @@ function remotive_number_word( $n, $capital = false ) {
 }
 
 /**
+ * How many case studies are published: the pages under /case-studies/.
+ * Copy that says how many there are goes stale the day one is added, so it
+ * reads this. Falls back to the number the theme ships when the section does
+ * not exist (a fresh site before its content is seeded).
+ *
+ * @return int
+ */
+function remotive_case_study_count() {
+	static $count = null;
+
+	if ( null === $count ) {
+		$parent = get_page_by_path( 'case-studies' );
+		$count  = $parent ? count( get_pages( array( 'child_of' => $parent->ID, 'post_status' => 'publish' ) ) ) : 0;
+		$count  = $count > 0 ? $count : 14;
+	}
+
+	return $count;
+}
+
+/**
  * Member figures for a team grid, escaped here at output. The wrapper div
  * (.rm-team / .rm-team--full) stays in the template; this renders only the
  * figures inside it, teaser without bios, About grid with them.
@@ -1807,7 +1827,10 @@ function remotive_replace_theme_option_tokens( $block_content, $block ) {
 			'__REMOTIVE_TEAM_MORE__'        => remotive_render_team_more(),
 			'__REMOTIVE_TEAM_FULL__'        => remotive_render_team_markup( true ),
 			'__REMOTIVE_TEAM_COUNT__'       => remotive_number_word( count( remotive_team_members() ), true ),
+			'__REMOTIVE_TEAM_COUNT_LC__'    => remotive_number_word( count( remotive_team_members() ), false ),
+			'__REMOTIVE_CASE_COUNT__'       => remotive_number_word( remotive_case_study_count(), true ),
 			'__REMOTIVE_TEAM_COLS__'        => (string) remotive_team_columns( count( remotive_team_members() ) ),
+			'__REMOTIVE_LANG_SWITCHER__'    => function_exists( 'remotive_i18n_render_switcher' ) ? remotive_i18n_render_switcher() : '',
 			'__REMOTIVE_CTA_NONCE_FIELD__'  => wp_nonce_field( 'remotive_cta_submit', 'remotive_cta_nonce', true, false ),
 			'__REMOTIVE_ABOUT_NONCE_FIELD__' => wp_nonce_field( 'remotive_about_submit', 'remotive_about_nonce', true, false ),
 			'__REMOTIVE_CONTACT_NONCE_FIELD__' => wp_nonce_field( 'remotive_contact_submit', 'remotive_contact_nonce', true, false ),

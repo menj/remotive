@@ -126,6 +126,16 @@ remotive/
 │   │   │                   noindex rules.
 │   │   └── landing-copy.php    The pages' words: services and FAQ, four
 │   │                       languages each.
+│   ├── i18n/               Language versions of the site (v1.104.0).
+│   │   ├── i18n.php        /ms/, /zh-hans/, /zh-hant/: removes the prefix
+│   │   │                   from the request, translates the rendered page
+│   │   │                   from a dictionary, adds title, canonical, hreflang,
+│   │   │                   the footer switcher and /sitemap-languages.xml.
+│   │   │                   Only the home page is live by default.
+│   │   ├── i18n-admin.php  Tools > Translations: edit, import and export
+│   │   │                   translations; switch pages on. Edits are kept in
+│   │   │                   the database.
+│   │   └── ms.php, zh-hans.php, zh-hant.php   The dictionaries.
 │   └── content/            What the public pages emit.
 │       ├── schema-markup.php   JSON-LD structured data, deferring to active
 │       │                   SEO plugins — see "Structured data" below.
@@ -720,6 +730,21 @@ abuse, and fabricated nodes risk a manual action.
 An excluded feature activates by adding the real content and a node via
 the `remotive_schema_graph` filter — the acquiescence machinery already
 handles any type added to it.
+
+## Language versions (`inc/i18n/`, v1.104.0)
+
+Serves `/ms/`, `/zh-hans/` and `/zh-hant/` beside the English site. It is a
+language layer, not a set of copied pages: the prefix is removed from the
+request before WordPress parses it, so `/ms/team/` is the same page as
+`/team/`, and the rendered text is translated by text node from the
+dictionaries. Anything without an entry stays in English, visibly and without
+breaking the page. A page is live in a language only if switched on (Tools >
+Translations), except the home page, which is live to begin with (the brief is
+one simple page; see `docs/ssot.md`). A page that is off redirects to its
+English address. The ad landing pages carry their own copy for each language and
+opt out of the translator with the `remotive_i18n_translates_request` filter.
+Add a launch page with the `remotive_i18n_live_pages` filter. Hreflang uses
+language plus script (`zh-Hans`, `zh-Hant`), `ms-MY` for Malay.
 
 ## Security
 

@@ -4,6 +4,30 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.104.0] — 2026-10-04
+
+Brings together two lines of work that both started from 1.89.6: this repository (landing pages, colours, folders, security, parent and Rank Math compatibility, up to 1.103.2) and a separate build that adds language versions of the site (numbered 1.89.7 to 1.92.1 there, listed below under "Language layer build"). One version number from here on.
+
+### Added
+
+- **Language versions: `/ms/`, `/zh-hans/`, `/zh-hant/`** beside the English site (`inc/i18n/i18n.php`, `inc/i18n/i18n-admin.php`, dictionaries `inc/i18n/ms.php`, `zh-hans.php`, `zh-hant.php`). A language layer, not copies: the language prefix is removed from the request before WordPress parses it, so `/ms/team/` is served by the same page as `/team/`, and the rendered text is translated from a dictionary. Each live page gets its own title and description, a self-referencing canonical, `<html lang>`, hreflang between every language that has it, a language switcher in the footer (English, Bahasa Melayu, 简体中文, 繁體中文, each in its own writing), and a language sitemap (`/sitemap-languages.xml`, also offered to Rank Math and listed in `robots.txt`). Tools > Translations manages the dictionaries from the admin, with edits kept in the database so a theme update never overwrites them.
+- **Only the home page is live in each language.** The brief for the site is one simple, clean page that explains what the company does, in English, Malay and Chinese, rather than many pages. The dictionaries carry 37 translated pages, but all are off except the home page until someone switches them on in Tools > Translations (a page that is off redirects to its English address). `remotive_i18n_default_live_pages()` and the `remotive_i18n_live_pages` filter set the launch page. This reverses the language build's own default, which published every translated page.
+- `tests/test-i18n.php` (148 checks: prefixes, hreflang tags, URLs, the one-page default, dictionary parity). The module check knows the dictionaries are loaded by name.
+
+### Changed
+
+- **Landing pages use the same language addresses.** `/zh-cn/` and `/zh-tw/` become `/zh-hans/` and `/zh-hant/` (Chinese is told apart by script, not by country), and Malay is tagged `ms-MY`. The landing pages no longer register their own rewrite rules or query variable; the language layer reads the language directory and the pages resolve as ordinary pages. The old `/zh-cn/` and `/zh-tw/` addresses redirect (301) to the new ones, and stored rewrite rules are flushed once. The language layer skips these pages (`remotive_i18n_translates_request`), so they are neither translated again nor redirected to English.
+- **Language buttons are readable.** The landing pages' switcher reads EN, BM, 简体 and 繁體; a code such as ZH-CN means nothing to the person who needs it.
+- **The language layer's redirects use `wp_safe_redirect`.** The Chinese and Malay strings that changed since the dictionaries were written (the automotive case, the two case-study rows, the footer case-study links and the market ticker, including Vietnam) are translated, as a first draft for a native speaker to check.
+
+### Fixed
+
+- **The footer case-study menu could list the six twice** on a site with plain permalinks (every URL is `?page_id=N`, so the migration found no match by address). It now matches by the page each item points to.
+
+### Security
+
+- The language layer was read against the v1.103.0 audit questions. Every action on its admin screen checks `manage_options` and a nonce; every query takes request values through `prepare()` or a cast; its redirects stay on the site. `tests/check-security-patterns.php` now allows database queries only inside `inc/i18n/` and fails if a request value reaches a query unprepared anywhere.
+
 ## [1.103.2] — 2026-10-02
 
 ### Changed
@@ -6641,3 +6665,194 @@ response; summarized here.
   Paragraph, Navigation, Quote, Site Logo); three intentional Custom HTML
   blocks for the hero headline's hover effect, the ticker marquee, and the
   CTA form — documented in `readme.md`.
+
+## Language layer build (separate line of work, entries as written there)
+
+Numbered 1.89.7 to 1.92.1 in that build; the numbers do not match this repository's 1.90.0 to 1.92.0. All of it is included in 1.104.0.
+
+## [1.92.1] — 2026-10-04
+
+### Fixed
+
+- **The FAQ no longer states numbers that go stale.** Two answers said the team
+  page lists "six people" (there are ten) and that "Thirteen engagements" are
+  written up (there are 14). They now read the live roster size and the number
+  of published case studies (`__REMOTIVE_TEAM_COUNT_LC__`,
+  `__REMOTIVE_CASE_COUNT__`, `remotive_case_study_count()`), so they follow as
+  people and case studies are added. The FAQ structured data is parsed from the
+  same template and resolves the same tokens, so it carries the live words and
+  never a raw token. The three translations changed from fixed words to count
+  patterns, so they follow the numbers too, with "ten" and "Ten" cased as the
+  English sentence uses them. Checked by adding an 11th member and a 15th case
+  study in the test site: the English and all three translated FAQs, text and
+  structured data, followed both.
+- **Translated FAQ pages published their FAQ structured data in English**
+  (questions and answers) beside a translated page. It is now rebuilt from the
+  translated page, so it matches what the visitor reads exactly: 11 of 11 entries
+  in each language.
+
+### Not changed, and why
+
+- **The structured-data service names stay "Demand Creation / Demand Capture /
+  Conversion & Data".** 1.92.0 called them stale; that was wrong. They match the
+  visible Services page, whose three sections still use exactly those names.
+  Renaming them alone would make the structured data contradict the page it
+  describes. The Services page and the home page describe the services with two
+  different models (three blocks versus Fix / Found / Scale); that is a content
+  decision, not a code fix.
+- English: 41 of 42 pages are byte-identical to 1.92.0; `/faq/` differs in
+  exactly the two answers and its structured data.
+
+## [1.92.0] — 2026-10-01
+
+### Added
+
+- **Every page is now translated** into Bahasa Melayu, Simplified Chinese and
+  Traditional Chinese: all 37 pages that have a search listing (home, about,
+  services and its six pages, case studies and its 14 pages, 7 articles, blog,
+  FAQ, team, contact, privacy, terms), 1,193 strings per language, each
+  language written natively. The thank-you page is left English on purpose: it
+  is noindex, and a noindex URL does not belong in a sitemap.
+- **Tools > Translations**, a translation management system built into the
+  theme, with no plugin (`inc/i18n-admin.php`). A scanner that finds every
+  translatable string on every page by walking each page with the same code
+  that translates it, so the list cannot drift from what the site renders; a
+  per-page editor with the English beside each string, the page's search title
+  and description, and a Live switch; draft and approved states; an all-strings
+  search; CSV and JSON export and import (imports arrive as drafts, and only
+  text the site really contains is accepted); and a list of saved translations
+  the site no longer uses. Edits live in three small tables (translations,
+  strings seen, per-language page state) and are laid over the shipped
+  dictionaries, so a theme update never overwrites them. Administrators only,
+  nonce-checked, text sanitised to plain text.
+- Number patterns (`%n%`, `%count%`) keep sentences that quote a changing figure
+  translated when the figure changes.
+
+### Fixed
+
+- **A second `<title>` printed by Rank Math stayed English** on translated pages;
+  all titles are now replaced. Found by testing against the real Rank Math
+  1.0.279 instead of an emulation.
+- **Rank Math's Article structured data** kept the English headline, description,
+  language and URL; it now becomes the translated page.
+- The blog index (WordPress's posts page, an archive rather than a page) was not
+  recognised and redirected to English; it is now translated and live.
+- The comments-feed link named the English post and pointed at its English feed;
+  it is removed from translated pages.
+- Lone punctuation between inline elements (`,` `;` `:`) uses the Chinese marks,
+  as the full stop already did.
+
+### Verified
+
+- Every English page, robots.txt and both sitemaps were rendered with the original
+  1.89.7 theme and with this one in the same site, with the real Rank Math: 44 of
+  45 responses are byte-identical once the footer selector and hreflang tags are
+  removed; the 45th is robots.txt, which gains one `Sitemap:` line.
+- 1,594 checks across all 111 translated pages (routing, canonical, hreflang,
+  titles, descriptions, `lang`, no leftover English, every internal link resolving
+  and staying in language, selector, fallbacks, sitemap), 39 checks of head and
+  structured data against the real Rank Math, 41 end-to-end checks of the
+  management screen including access control and sanitising.
+
+### Known limits
+
+- The thank-you page after a form submission is English.
+- (Fixed in 1.92.1: the first two of these.) Three statements in the **English** copy were out of date and were translated
+  faithfully rather than changed: the FAQ says the team page lists "six people"
+  (there are ten) and "Thirteen engagements" are written up (there are 14), and
+  the home page's structured data still names the three services "Demand Creation", "Demand Capture" and "Conversion & Data" (the old model, before Fix / Found / Scale). Those names are also left untranslated in the structured data.
+- Written natively but not reviewed by a native speaker; a review before the
+  texts are published is recommended.
+
+## [1.90.0] — 2026-10-01
+
+### Added
+
+- **Bahasa Melayu, Simplified Chinese and Traditional Chinese versions**
+  at `/ms/`, `/zh-hans/` and `/zh-hant/`, beside the unchanged English site.
+  A language layer, not a set of copies: the English content is delivered four
+  ways at once (page bodies in the database, copy hardcoded in templates, theme
+  options, PHP-generated HTML), and the template-driven pages have no stored body
+  to copy, so separate WordPress pages per language would have missed most of
+  it. `inc/i18n.php` removes the language prefix from the request before
+  WordPress parses it, so `/ms/team/` is served by the same page as `/team/`;
+  the rendered page is then translated from per-language dictionaries
+  (`inc/i18n/ms.php`, `zh-hans.php`, `zh-hant.php`) by text node. No posts,
+  pages, options or rewrite rules are created: verified by checksumming the
+  posts, postmeta, options, users and terms tables before and after about 35
+  language requests, with zero rows changed.
+- **First content set:** the header and footer, and the Home, Team and Contact
+  pages, 209 strings per language with SEO titles and descriptions, written
+  natively for each language (Simplified and Traditional are not conversions of
+  one another). The remaining pages are untranslated by design; their prefixed
+  addresses redirect (302) to the English page, so a translated URL never shows
+  an English body, and links to them stay on English.
+- **SEO per language:** each translated page has its own title and description
+  (set explicitly, because the live ones come from Rank Math settings), a
+  self-referencing canonical, `<html lang>` and `Content-Language`, and
+  `hreflang` between every language that has the page (`en`, `ms-MY`,
+  `zh-Hans`, `zh-Hant`, `x-default`; script codes for Chinese, not country codes),
+  also printed on the English page so the relationship is mutual. Open Graph
+  and Twitter tags follow. The page's own structured data (WebPage node and
+  breadcrumb) becomes the translated page, while the Organization and WebSite
+  stay one shared entity. Worked against whichever of core or Rank Math prints
+  the tags, because it edits what was printed.
+- **`/sitemap-languages.xml`** lists every translated URL with its alternates,
+  advertised in robots.txt so it is found independently of any SEO plugin, and
+  offered to Rank Math's sitemap index where that hook exists (not verified
+  against the real plugin). The existing sitemap is untouched.
+- **Language selector** in the footer's bottom bar: English, Bahasa Melayu,
+  简体中文, 繁體中文, each linking to the equivalent page where it exists and to
+  that language's home page where it does not.
+- **Typography for the new languages:** CJK-capable font stacks, tracking off
+  and looser line height for Chinese, and word-breaking for Malay's longer words,
+  all scoped to a non-English `<html lang>`.
+- An administrator can append `?rm_i18n_missing=1` to a translated page to list
+  its untranslated strings in an HTML comment.
+
+### Changed
+
+- The colour-mode toggle reads its Light / Dark words from the button when a
+  language version supplies them, so its label no longer flips back to English
+  on click. English supplies none and behaves exactly as before.
+- Footer: one extra block (the language list). The header is untouched.
+
+### Fixed during testing
+
+- **The selector was first placed in the header and was moved to the footer.**
+  The header has no spare room at most widths: adding to it made the nav wrap
+  and grew the header from 85px to 123px at 1100px wide, collapsed the
+  hamburger on phones, and pushed the Malay page 11px past the screen edge.
+  Compared against the original header at 13 widths before it was moved.
+- WordPress resolves the path from `PATH_INFO` ahead of `REQUEST_URI` when the
+  server sets it, so the prefix is now removed from both.
+- WordPress's own canonical redirects (a missing trailing slash, `?p=ID`,
+  `index.php`) computed the English address and dropped visitors out of their
+  language; they now keep it. An upper-case prefix (`/MS/`) redirects to the
+  lower-case one so each page has one address.
+
+### Known limits
+
+- 27 long-form pages remain untranslated (6 services, 14 case studies, 7
+  articles, about 19,000 words).
+- The thank-you page after a form submission is the English one.
+- Structured data for the home page's Service nodes stays English.
+- Written and checked here; a native speaker should review the Malay and both
+  Chinese texts before they are published.
+
+## [1.89.7] — 2026-09-30
+
+### Fixed
+
+- **Elfie's portrait showed where his photograph ended.** 1.89.4 kept his face
+  at the set's size (31%), which shrank a chest-up photo until its own left
+  and right edges sat inside the tile at 16% and 84%: the sleeves stopped in
+  two straight vertical lines and his torso read as a boxed-in block, where
+  every other tile has shoulders that round off or run off the edge. That
+  release's note called the straight sides acceptable "at tile size"; on the
+  live page they are plainly not, and that judgement was wrong. Rebuilt with
+  `--cover`, which fills the tile from the photograph edge to edge (sides 0%
+  to 99.9%, bottom 99.9%), so there is no photograph edge left to see. The
+  face is 46% of the tile, the same trade Ally's tile already makes, and
+  checked against both the light and the dark tile with clean hair edges.
+  `COVER` now records both `ally` and `elfie`.

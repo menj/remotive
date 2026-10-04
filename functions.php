@@ -14,6 +14,11 @@ defined( 'ABSPATH' ) || exit;
 // Loaded first so it is already registered if any later require fatals.
 require get_stylesheet_directory() . '/inc/core/error-handler.php';
 
+// Language versions (/ms/, /zh-hans/, /zh-hant/). Loaded early on purpose: it removes the
+// language prefix from the request, which has to happen before WordPress parses it.
+require get_stylesheet_directory() . '/inc/i18n/i18n.php';
+require get_stylesheet_directory() . '/inc/i18n/i18n-admin.php'; // Tools > Translations: the screen that manages them.
+
 require get_stylesheet_directory() . '/inc/options/colours.php';
 require get_stylesheet_directory() . '/inc/options/theme-options.php';
 require get_stylesheet_directory() . '/inc/setup/site-setup.php';

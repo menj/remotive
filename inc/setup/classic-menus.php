@@ -416,7 +416,12 @@ function remotive_refresh_case_study_menu() {
 	$have    = array();
 
 	foreach ( $items as $item ) {
-		$path = trim( (string) wp_parse_url( $item->url, PHP_URL_PATH ), '/' );
+		// By the page the item points at, not its URL: on a site with plain
+		// permalinks every URL is ?page_id=N, which has no path to compare, and
+		// the six would be added a second time.
+		$path = ( 'page' === $item->object && $item->object_id )
+			? trim( (string) get_page_uri( (int) $item->object_id ), '/' )
+			: trim( (string) wp_parse_url( $item->url, PHP_URL_PATH ), '/' );
 
 		if ( in_array( $path, $dropped, true ) ) {
 			wp_delete_post( $item->ID, true );

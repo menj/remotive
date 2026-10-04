@@ -54,6 +54,37 @@ WordPress site yet; this list is how to find out.
 - The first pull request that runs `.github/workflows/ci.yml` after a change to
   it should be watched, because the workflow itself is the thing under test.
 
+## v1.104.0: language versions (the one-page brief)
+
+The brief for the site is **one simple, clean page** that explains what the
+company does, in English, Malay and Chinese, not many pages. This release adds
+the languages and keeps them to that: only the home page is live in each
+language.
+
+1. **Turn the site off first** (Gordan asked for it before the walkthrough):
+   Appearance → Theme Options → Site behaviour → Maintenance mode → on. Visitors
+   get the 503 "back shortly" page; logged-in editors still see the site. Turn
+   it off again after the walkthrough.
+2. Deploy, then open any admin page once (rewrite rules are flushed and the
+   language tables are created on first use).
+3. Check `/ms/`, `/zh-hans/` and `/zh-hant/` (the home page in each language,
+   with the right title, `<html lang>` and a canonical to itself), then
+   `/ms/team/` (should redirect to `/team/`: not live), and the old
+   `/zh-cn/seo-audit/` (should redirect to `/zh-hans/seo-audit/`).
+4. To put another page live in a language: Tools → Translations → pick the page
+   → tick "Live". Nothing else is needed; a native speaker should read it first.
+5. Submit `/sitemap-languages.xml` in Search Console. Rank Math caches its
+   sitemap; clear it if the index does not list it.
+6. The Malay and Chinese text (home page, footer, the home page case studies)
+   is a first draft. Have a native speaker check it before paid traffic or
+   clients see it.
+7. Landing-page language addresses changed: `/zh-cn/` and `/zh-tw/` became
+   `/zh-hans/` and `/zh-hant/`. Update any ad that points at the old ones (they
+   redirect, but ads should land directly).
+8. Rollback: the language layer writes only its own tables and options
+   (`wp_rm_i18n*`, `remotive_i18n_*`); reverting the theme removes the language
+   URLs and leaves everything else as it was.
+
 ## v1.103.1: contact address
 
 - After updating, open any admin page once, then check Appearance → Theme
