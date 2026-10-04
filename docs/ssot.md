@@ -518,10 +518,11 @@ designed page that explains what we do, in English, Malay and Simplified
 Chinese, that we can point people in Asia to. Not lots of pages, not content all
 over the place"; other things can be built as it goes; turn the site off until a
 walkthrough has agreed the changes. Every change should be checked against this
-first. In practice: only the home page is live in each language
-(`remotive_i18n_default_live_pages()`); the ad landing pages are a separate,
-noindex tool for paid traffic; the site is switched off with Maintenance mode
-during review. Traditional Chinese is also supported because the language layer
+first. In practice: the one page is a landing page (they carry their own copy in
+every language); the site's ordinary pages, home included, have no translated
+version unless switched on (`remotive_i18n_default_live_pages()` is empty); the
+landing pages are noindex and for paid traffic; the site is switched off with
+Maintenance mode during review. Traditional Chinese is also supported because the language layer
 and landing pages provide it; it is not part of Gordan's list.
 
 ## PHP module layout (v1.100.0)

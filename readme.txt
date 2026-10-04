@@ -341,10 +341,10 @@ See `docs/changelog.md` for full version history. Latest version: 1.104.0.
 == Upgrade Notice ==
 
 = 1.104.0 =
-Adds Bahasa Melayu, Simplified Chinese and Traditional Chinese versions of the
-home page at /ms/, /zh-hans/ and /zh-hant/, with a language switcher and
-hreflang. Only the home page is live in each language; other translated pages
-are off until switched on under Tools > Translations. The ad landing pages move
+Adds a language layer (Bahasa Melayu, Simplified and Traditional Chinese at
+/ms/, /zh-hans/ and /zh-hant/) with a switcher and hreflang. It is off until a
+page is switched on under Tools > Translations; no ordinary page is live in
+another language to begin with. The ad landing pages move
 to the same addresses (/zh-hans/, /zh-hant/); the old /zh-cn/ and /zh-tw/
 addresses redirect. See docs/upgrading.md.
 

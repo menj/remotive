@@ -57,9 +57,11 @@ WordPress site yet; this list is how to find out.
 ## v1.104.0: language versions (the one-page brief)
 
 The brief for the site is **one simple, clean page** that explains what the
-company does, in English, Malay and Chinese, not many pages. This release adds
-the languages and keeps them to that: only the home page is live in each
-language.
+company does, in English, Malay and Chinese, not many pages. That page is a
+landing page: the landing pages already carry their own copy in every language
+and now use the same addresses. This release adds the language layer for the
+rest of the site but leaves it **off**: no ordinary page, including the home
+page, has a Malay or Chinese version until someone switches it on.
 
 1. **Turn the site off first** (Gordan asked for it before the walkthrough):
    Appearance → Theme Options → Site behaviour → Maintenance mode → on. Visitors
@@ -67,16 +69,16 @@ language.
    it off again after the walkthrough.
 2. Deploy, then open any admin page once (rewrite rules are flushed and the
    language tables are created on first use).
-3. Check `/ms/`, `/zh-hans/` and `/zh-hant/` (the home page in each language,
-   with the right title, `<html lang>` and a canonical to itself), then
-   `/ms/team/` (should redirect to `/team/`: not live), and the old
-   `/zh-cn/seo-audit/` (should redirect to `/zh-hans/seo-audit/`).
-4. To put another page live in a language: Tools → Translations → pick the page
-   → tick "Live". Nothing else is needed; a native speaker should read it first.
+3. Check that `/ms/` and `/ms/team/` redirect to `/` and `/team/` (nothing live
+   yet, and no language switcher in the footer), that `/ms/seo-audit/`,
+   `/zh-hans/seo-audit/` and `/zh-hant/seo-audit/` show the landing page in each
+   language, and that the old `/zh-cn/seo-audit/` redirects to `/zh-hans/seo-audit/`.
+4. To put an ordinary page live in a language: Tools → Translations → pick the
+   page → tick "Live". The footer switcher then appears on that page. A native
+   speaker should read the text first.
 5. Submit `/sitemap-languages.xml` in Search Console. Rank Math caches its
    sitemap; clear it if the index does not list it.
-6. The Malay and Chinese text (home page, footer, the home page case studies)
-   is a first draft. Have a native speaker check it before paid traffic or
+6. The Malay and Chinese text (landing pages and the dictionaries) is a first draft. Have a native speaker check it before paid traffic or
    clients see it.
 7. Landing-page language addresses changed: `/zh-cn/` and `/zh-tw/` became
    `/zh-hans/` and `/zh-hant/`. Update any ad that points at the old ones (they

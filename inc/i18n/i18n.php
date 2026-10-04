@@ -220,19 +220,20 @@ function remotive_i18n_data( $lang ) {
 }
 
 /**
- * The pages that have language versions without anyone switching them on.
+ * The pages that have language versions without anyone switching them on: none.
  *
  * The brief for the site is one simple, clean page that explains what the
- * company does, in English, Malay and Chinese, rather than many pages: so the
- * home page is the only one live in each language. Every other translation in
- * the dictionaries is ready but off; Tools > Translations turns a page on, and
- * a page that is off redirects to its English address. Filterable, for a site
- * that launches with a different single page.
+ * company does, in English, Malay and Chinese, and that page is a landing page
+ * (inc/landing/), which carries its own copy for every language. The site's
+ * ordinary pages therefore start English-only: their translations are in the
+ * dictionaries, ready, but each is off until Tools > Translations turns it on,
+ * and a page that is off redirects to its English address. Filterable, for a
+ * site that launches with particular pages translated.
  *
  * @return string[] English paths; '' is the home page.
  */
 function remotive_i18n_default_live_pages() {
-	return array_map( 'strval', (array) apply_filters( 'remotive_i18n_live_pages', array( '' ) ) );
+	return array_map( 'strval', (array) apply_filters( 'remotive_i18n_live_pages', array() ) );
 }
 
 /** Does this page (an English path such as 'team', '' for home) exist in this language? */
@@ -523,12 +524,19 @@ function remotive_i18n_render_switcher() {
 	$current = remotive_i18n_lang();
 	$key     = remotive_i18n_key();
 	$items   = '';
+	$offered = 0;
 
 	foreach ( $langs as $code => $lang ) {
 		if ( 'en' === $code ) {
 			$href = remotive_i18n_english_url();
+		} elseif ( remotive_i18n_available( $code, $key ) ) {
+			$href = remotive_i18n_url( $code, $key );
+			++$offered;
+		} elseif ( remotive_i18n_available( $code, '' ) ) {
+			$href = remotive_i18n_url( $code, '' ); // That language's home page, where this page has no translation.
+			++$offered;
 		} else {
-			$href = remotive_i18n_url( $code, remotive_i18n_available( $code, $key ) ? $key : '' );
+			continue; // Never link to a page that would only redirect back.
 		}
 
 		$items .= sprintf(
@@ -538,6 +546,12 @@ function remotive_i18n_render_switcher() {
 			$code === $current ? ' aria-current="true"' : '',
 			esc_html( $lang['native'] )
 		);
+	}
+
+	// A page with no other language has no switcher: a row holding only
+	// "English" would be noise, and links that redirect back would be worse.
+	if ( 0 === $offered ) {
+		return '';
 	}
 
 	$strings = remotive_i18n_data( $current )['strings'];
