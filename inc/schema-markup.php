@@ -364,8 +364,10 @@ function remotive_schema_faq_from_template( $template ) {
 		$html = (string) file_get_contents( $path );
 		if ( preg_match_all( '#<summary>(.*?)</summary>(.*?)</details>#s', $html, $m, PREG_SET_ORDER ) ) {
 			foreach ( $m as $hit ) {
-				$q = trim( wp_strip_all_tags( $hit[1] ) );
-				$a = trim( preg_replace( '/\s+/', ' ', wp_strip_all_tags( $hit[2] ) ) );
+				// The template carries live tokens (a count of people, of case studies); resolve them
+				// here too, or the structured data would publish the raw token.
+				$q = trim( wp_strip_all_tags( remotive_replace_theme_option_tokens( $hit[1], array() ) ) );
+				$a = trim( preg_replace( '/\s+/', ' ', wp_strip_all_tags( remotive_replace_theme_option_tokens( $hit[2], array() ) ) ) );
 				if ( '' !== $q && '' !== $a ) {
 					$pairs[] = array( $q, $a );
 				}
