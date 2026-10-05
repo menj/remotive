@@ -244,6 +244,11 @@ function remotive_i18n_data( $lang ) {
 		$out['seo'][ $path ] = array_merge( isset( $out['seo'][ $path ] ) ? $out['seo'][ $path ] : array(), $fields );
 	}
 
+	// A page translated in the admin with only a title (or only a description) still has both keys.
+	foreach ( $out['seo'] as $path => $fields ) {
+		$out['seo'][ $path ] = array_merge( array( 'title' => '', 'description' => '' ), (array) $fields );
+	}
+
 	$out['count_words'] = isset( $raw['count_words'] ) ? $raw['count_words'] : array();
 	$out['published']   = $db['published'];
 
