@@ -4,6 +4,12 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.108.1] — 2026-10-05
+
+### Changed
+
+- **Landing pages: the form comes straight after the headline on phones and tablets.** Below 56rem the order is logo bar, eyebrow, headline, the lead form (full width), then the intro and bullets, so the form is on the first screen (before, a phone showed only the first field). From 56rem it stays in the right column beside the copy. CSS only (`assets/css/landing.css`); applies to the three services in all four languages. Checked at 390 and 820 px in dark and light, and in Malay and Simplified Chinese, with no horizontal scroll.
+
 ## [1.108.0] — 2026-10-05
 
 ### Changed
