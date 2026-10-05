@@ -41,6 +41,28 @@ function remotive_landing_services() {
 			),
 			'form_title' => array( 'Get your free SEO audit', 'Dapatkan audit SEO percuma anda', '获取您的免费 SEO 审计', '獲取您的免費 SEO 審計' ),
 			'cta'     => array( 'Get my free SEO audit', 'Dapatkan audit SEO percuma saya', '获取我的免费 SEO 审计', '獲取我的免費 SEO 審計' ),
+			'proof'   => array(
+				array(
+					array( '+198%', '+198%', '+198%', '+198%' ),
+					array( 'Organic traffic tripled in month two, then held through four consecutive Google core updates.', 'Trafik organik meningkat tiga kali ganda pada bulan kedua, kemudian kekal melalui empat kemas kini teras Google berturut-turut.', '有机流量在第二个月增长两倍，并在连续四次 Google 核心算法更新中保持稳定。', '有機流量在第二個月成長兩倍，並在連續四次 Google 核心演算法更新中保持穩定。' ),
+					array( 'B2B industrial supplier · 8-month engagement', 'Pembekal industri B2B · penglibatan 8 bulan', 'B2B 工业供应商 · 8 个月合作', 'B2B 工業供應商 · 8 個月合作' ),
+				),
+				array(
+					array( '+86%', '+86%', '+86%', '+86%' ),
+					array( 'Organic sessions up 86% in one month, and a target phrase taken from unranked to position 3.', 'Sesi organik naik 86% dalam sebulan, dan satu frasa sasaran naik daripada tiada kedudukan kepada kedudukan 3.', '一个月内自然会话增长 86%，一个目标词从无排名升至第 3 位。', '一個月內自然工作階段成長 86%，一個目標詞從無排名升至第 3 位。' ),
+					array( 'Industrial automation · technical and internal-link rebuild', 'Automasi industri · pembinaan semula teknikal dan pautan dalaman', '工业自动化 · 技术与内链重建', '工業自動化 · 技術與內部連結重建' ),
+				),
+				array(
+					array( '+94%', '+94%', '+94%', '+94%' ),
+					array( 'Every tracked SEO metric up in a single month: traffic, sessions and engagement.', 'Setiap metrik SEO yang dijejaki meningkat dalam satu bulan: trafik, sesi, dan penglibatan.', '一个月内，所有被追踪的 SEO 指标全部上升：流量、会话与互动。', '一個月內，所有被追蹤的 SEO 指標全部上升：流量、工作階段與互動。' ),
+					array( 'B2B services site', 'Tapak perkhidmatan B2B', 'B2B 服务网站', 'B2B 服務網站' ),
+				),
+				array(
+					array( '+34%', '+34%', '+34%', '+34%' ),
+					array( 'Search clicks up in month one, with 150% more sales-qualified leads within four weeks.', 'Klik carian naik pada bulan pertama, dengan prospek berkelayakan jualan 150% lebih banyak dalam empat minggu.', '第一个月搜索点击增长，四周内销售合格线索增加 150%。', '第一個月搜尋點擊成長，四週內銷售合格潛在客戶增加 150%。' ),
+					array( 'Premium healthcare provider', 'Penyedia penjagaan kesihatan premium', '高端医疗服务机构', '高端醫療服務機構' ),
+				),
+			),
 		),
 		'google-ads-management' => array(
 			'photo_alt' => array( 'A laptop on a desk showing search results', 'Komputer riba di atas meja yang memaparkan hasil carian', '桌上显示搜索结果的笔记本电脑', '桌上顯示搜尋結果的筆記型電腦' ),
@@ -59,6 +81,23 @@ function remotive_landing_services() {
 			),
 			'form_title' => array( 'Get your free Google Ads audit', 'Dapatkan audit Google Ads percuma anda', '获取您的免费 Google Ads 审计', '獲取您的免費 Google Ads 審計' ),
 			'cta'     => array( 'Get my free Google Ads audit', 'Dapatkan audit Google Ads percuma saya', '获取我的免费 Google Ads 审计', '獲取我的免費 Google Ads 審計' ),
+			'proof'   => array(
+				array(
+					array( '+150%', '+150%', '+150%', '+150%' ),
+					array( 'Qualified leads up 150% on the same budget, after restructuring paid search.', 'Prospek berkelayakan naik 150% dengan belanjawan yang sama selepas carian berbayar distruktur semula.', '重构付费搜索后，同等预算下合格线索增长 150%。', '重構付費搜尋後，同等預算下合格潛在客戶成長 150%。' ),
+					array( 'B2B corporate gifting brand', 'Jenama hadiah korporat B2B', 'B2B 企业礼品品牌', 'B2B 企業禮品品牌' ),
+				),
+				array(
+					array( '+25–35%', '+25 – 35%', '+25–35%', '+25–35%' ),
+					array( 'Conversion rate lifted while cost per conversion fell 20–30%, across four regulated markets.', 'Kadar penukaran meningkat manakala kos setiap penukaran turun 20 – 30%, merentasi empat pasaran terkawal.', '转化率提升，同时每次转化成本下降 20–30%，覆盖四个受监管市场。', '轉換率提升，同時每次轉換成本下降 20–30%，涵蓋四個受監管市場。' ),
+					array( 'Global asset manager · 4 APAC markets', 'Pengurus aset global · 4 pasaran APAC', '全球资产管理公司 · 4 个亚太市场', '全球資產管理公司 · 4 個亞太市場' ),
+				),
+				array(
+					array( '85%', '85%', '85%', '85%' ),
+					array( 'CPM saving against market rate, with 26.1M completed views and 32,298 leads for distributors.', 'Penjimatan CPM berbanding kadar pasaran, dengan 26.1 juta tontonan lengkap dan 32,298 prospek untuk pengedar.', '相比市场价格节省 85% 的 CPM，并带来 2,610 万次完整播放与 32,298 条经销商线索。', '相較市場價格節省 85% 的 CPM，並帶來 2,610 萬次完整播放與 32,298 條經銷商潛在客戶。' ),
+					array( 'Global automotive marque · 7 Asian markets', 'Jenama automotif global · 7 pasaran Asia', '全球汽车品牌 · 7 个亚洲市场', '全球汽車品牌 · 7 個亞洲市場' ),
+				),
+			),
 		),
 		'paid-social-advertising' => array(
 			'photo_alt' => array( 'A phone showing a social media feed', 'Telefon yang memaparkan suapan media sosial', '显示社交媒体动态的手机', '顯示社群媒體動態的手機' ),
@@ -77,6 +116,18 @@ function remotive_landing_services() {
 			),
 			'form_title' => array( 'Get your free paid social audit', 'Dapatkan audit iklan sosial berbayar percuma anda', '获取您的免费社交媒体广告审计', '獲取您的免費社群媒體廣告審計' ),
 			'cta'     => array( 'Get my free paid social audit', 'Dapatkan audit iklan sosial percuma saya', '获取我的免费社交媒体广告审计', '獲取我的免費社群媒體廣告審計' ),
+			'proof'   => array(
+				array(
+					array( '+168%', '+168%', '+168%', '+168%' ),
+					array( 'GMV up 168% in three months across three Southeast Asian markets, after moving sales to marketplaces.', 'GMV naik 168% dalam tiga bulan merentasi tiga pasaran Asia Tenggara selepas jualan dialihkan ke marketplace.', '将销售转向电商平台后，三个月内东南亚三个市场的 GMV 增长 168%。', '將銷售轉向電商平台後，三個月內東南亞三個市場的 GMV 成長 168%。' ),
+					array( 'Premium skincare launch', 'Pelancaran penjagaan kulit premium', '高端护肤品牌上市', '高端護膚品牌上市' ),
+				),
+				array(
+					array( '745k', '745 ribu', '74.5万', '74.5萬' ),
+					array( 'Addressable audience grown from 53k to 745k with cookieless personas; campaigns run 20–30% better on CPA.', 'Audiens yang boleh disasarkan berkembang daripada 53 ribu kepada 745 ribu dengan persona tanpa kuki; kempen berjalan 20 – 30% lebih baik pada CPA.', '利用无 Cookie 用户画像，将可触达受众从 5.3 万扩大到 74.5 万；广告活动的 CPA 表现提升 20–30%。', '利用無 Cookie 使用者輪廓，將可觸及受眾從 5.3 萬擴大到 74.5 萬；廣告活動的 CPA 表現提升 20–30%。' ),
+					array( 'National sports precinct', 'Kompleks sukan kebangsaan', '国家体育综合体', '國家體育綜合體' ),
+				),
+			),
 		),
 	);
 }
