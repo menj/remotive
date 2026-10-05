@@ -13,6 +13,7 @@ follows [Keep a Changelog](https://keepachangelog.com/); versioning is
   - **Google Ads management (3):** +150% qualified leads on the same budget (B2B gifting), +25–35% conversion rate with cost per conversion down 20–30% (asset manager), 85% CPM saving (automotive programmatic).
   - **Paid social (2):** +168% GMV (skincare marketplace launch), 745k addressable audience from 53k (sports precinct).
   - Not used: the footwear, healthcare clinic, market-entry and Singapore portfolio case studies, which report method or recovery rather than a headline result.
+- **Kagnue display serif for the big figures.** The figures on these cards and on the Case Studies page cards (`+198%`, `745k`) use Kagnue Regular, a one-weight display serif: self-hosted as a 28 KB WOFF2 subset (Basic Latin, dashes, quotes, arrow) in `assets/fonts/kagnue/`, `font-display: swap`, with Georgia as the fallback. Used only at large sizes and nowhere else (body, navigation, forms and headlines keep Saira and Archivo); it has no Chinese glyphs, but the figures are Latin digits. Used under the site owner's licence (the font's own licence file is not part of the repository).
 - The copy lives in each service's `proof` list in `inc/landing/landing-copy.php` (figure, result, client, each in four languages); `tests/check-landing-copy.php` and `tests/check-ejaan.php` cover it.
 
 ## [1.108.3] — 2026-10-05

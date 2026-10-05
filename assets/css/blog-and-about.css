@@ -378,7 +378,9 @@
 .rm-cs-card__image{ aspect-ratio:16/9; }
 .rm-cs-card__body{ padding:1.5rem !important; }
 .rm-cs-card__tag{ font-size:.72rem; text-transform:uppercase; letter-spacing:.06em; color:var(--rm-ink-55); margin:0 0 .75rem; }
-.rm-cs-card__metric{ font-size:2.25rem; color:var(--wp--preset--color--magenta-dark); margin:0 0 .5rem; }
+/* Kagnue (display serif, one weight) for the big figures only; licensed, self-hosted. */
+@font-face{ font-family:'Kagnue'; src:url('../fonts/kagnue/kagnue-regular.woff2') format('woff2'); font-weight:400; font-style:normal; font-display:swap; }
+.rm-cs-card__metric{ font-family:'Kagnue',Georgia,serif; font-weight:400; text-transform:none; font-size:2.75rem; line-height:1.05; color:var(--wp--preset--color--magenta-dark); margin:0 0 .5rem; }
 .rm-cs-card__client{ font-size:.95rem; font-weight:700; text-transform:none; margin:0 0 .5rem; }
 .rm-cs-card__desc{ font-size:.88rem; color:var(--rm-ink-70); line-height:1.5; margin:0 0 1rem; }
 .rm-cs-card__link{ font-size:.82rem; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--wp--preset--color--ink); }

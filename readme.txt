@@ -341,6 +341,7 @@ See `docs/changelog.md` for full version history. Latest version: 1.109.0.
 == Upgrade Notice ==
 
 = 1.109.0 =
+The big figures on the cards use the licensed Kagnue display serif (self-hosted).
 The ad landing pages now show a "Results from the work" strip right after the form: real numbers from the case studies, matched to each service, in all four languages.
 
 = 1.108.3 =

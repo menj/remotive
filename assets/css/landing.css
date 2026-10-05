@@ -271,6 +271,8 @@ html:not([data-theme="light"]) .rm-lp__final{ background-color:#0d1117; } /* a s
 .rm-lp__proofitem{ display:flex; flex-direction:column; gap:.5rem; padding:1.25rem 1.25rem 1.1rem; background:var(--wp--preset--color--card); border:1px solid var(--rm-line); border-top:6px solid var(--lp-c); border-radius:var(--rm-r-lg,24px); }
 .rm-lp__proofitem:nth-child(3n+2){ border-top-color:var(--lp-m); }
 .rm-lp__proofitem:nth-child(3n+3){ border-top-color:var(--lp-y); }
-.rm-lp__metric{ font-size:clamp(2.2rem,5vw,3rem); font-weight:800; line-height:1; color:var(--wp--preset--color--ink); }
+/* Kagnue (display serif, one weight) for the big figures only; licensed, self-hosted. */
+@font-face{ font-family:'Kagnue'; src:url('../fonts/kagnue/kagnue-regular.woff2') format('woff2'); font-weight:400; font-style:normal; font-display:swap; }
+.rm-lp__metric{ font-family:'Kagnue',Georgia,serif; text-transform:none; font-size:clamp(2.6rem,6vw,3.6rem); font-weight:400; line-height:1; color:var(--wp--preset--color--ink); }
 .rm-lp__proofhead{ font-weight:600; line-height:1.35; }
 .rm-lp__proofwho{ margin-top:auto; font-size:.82rem; color:var(--rm-ink-55); }
