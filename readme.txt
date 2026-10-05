@@ -4,7 +4,7 @@ Tags: block-theme, full-site-editing, child-theme, one-page
 Requires at least: 6.7
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.110.0
+Stable tag: 1.110.1
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -336,9 +336,12 @@ floor, not a replacement.
 
 == Changelog ==
 
-See `docs/changelog.md` for full version history. Latest version: 1.110.0.
+See `docs/changelog.md` for full version history. Latest version: 1.110.1.
 
 == Upgrade Notice ==
+
+= 1.110.1 =
+Works with the AI Discovery Files plugin: the landing and confirmation pages are never listed in its llms.txt, llms.html or ai.json.
 
 = 1.110.0 =
 Landing pages: noindex and nofollow can now be changed in Rank Math (Advanced tab), and no visitor can reach a landing page by clicking from the main site.

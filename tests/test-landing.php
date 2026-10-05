@@ -110,6 +110,21 @@ t_ok( ! $in( array( 'HTTP_REFERER' => 'https://example.com/ms/google-ads-managem
 t_ok( ! $in( array( 'HTTP_REFERER' => 'https://example.com/zh-hans/paid-social-advertising', 'HTTP_SEC_FETCH_SITE' => 'same-origin' ) ), 'the form redirect to the thank-you page works (referer is the landing page)' );
 t_ok( $in( array( 'HTTP_REFERER' => 'https://example.com/seo-audit-guide/', 'HTTP_SEC_FETCH_SITE' => 'same-origin' ) ), 'a main-site page whose address merely starts like a landing page is turned back' );
 
+// The AI Discovery Files plugin: its page list never carries a landing or confirmation page, even when built from wp-admin.
+t_reset();
+require_once dirname( __DIR__ ) . '/inc/core/ai-discovery-files.php';
+if ( ! function_exists( 'untrailingslashit' ) ) {
+	function untrailingslashit( $s ) { return rtrim( (string) $s, '/' ); }
+}
+$GLOBALS['T']['slug'] = 'seo-audit';
+$data = array( 'pages' => array(
+	array( 'title' => 'About', 'url' => 'https://example.com/about' ),
+	array( 'title' => 'SEO landing', 'url' => 'https://example.com/seo-audit' ),
+) );
+$out = remotive_aidf_template_data( $data, 'llms-txt' );
+t_eq( array_column( $out['pages'], 'title' ), array( 'About' ), 'a landing page is removed from the plugin page list' );
+t_eq( remotive_aidf_template_data( array( 'x' => 1 ) ), array( 'x' => 1 ), 'data without pages passes through' );
+
 // Button labels are readable: Chinese in characters, never a code like ZH-CN.
 $labels = array_column( remotive_lp_languages(), 2 );
 t_eq( $labels, array( 'EN', 'BM', '简体', '繁體' ), 'switcher labels' );
