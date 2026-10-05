@@ -292,6 +292,14 @@ function remotive_i18n_available( $lang, $key ) {
 		return false; // Switched off in Theme Options > Languages.
 	}
 
+	return remotive_i18n_page_live( $lang, $key );
+}
+
+/**
+ * Whether a page is live in a language by its own setting, ignoring the
+ * language's master switch (the admin form edits this, not the switch).
+ */
+function remotive_i18n_page_live( $lang, $key ) {
 	if ( null === $key ) {
 		return false;
 	}
@@ -1233,9 +1241,9 @@ function remotive_i18n_sitemap_entries() {
 	return $entries;
 }
 
-/** Last modified time of a page's English source, as an ISO 8601 string, or ''. */
+/** Last modified time of a page's (or dated article's) English source, as an ISO 8601 string, or ''. */
 function remotive_i18n_lastmod( $key ) {
-	$post = '' === $key ? get_post( (int) get_option( 'page_on_front' ) ) : get_page_by_path( $key );
+	$post = '' === $key ? get_post( (int) get_option( 'page_on_front' ) ) : get_page_by_path( $key, OBJECT, array( 'page', 'post' ) );
 
 	return ( $post && ! empty( $post->post_modified_gmt ) ) ? gmdate( 'c', strtotime( $post->post_modified_gmt . ' UTC' ) ) : '';
 }
