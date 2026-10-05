@@ -4,7 +4,7 @@ Tags: block-theme, full-site-editing, child-theme, one-page
 Requires at least: 6.7
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.106.1
+Stable tag: 1.107.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -336,9 +336,15 @@ floor, not a replacement.
 
 == Changelog ==
 
-See `docs/changelog.md` for full version history. Latest version: 1.106.1.
+See `docs/changelog.md` for full version history. Latest version: 1.107.0.
 
 == Upgrade Notice ==
+
+= 1.107.0 =
+The Malay text now follows the Dewan Bahasa dan Pustaka's Pedoman Umum Ejaan
+Bahasa Melayu: punctuation, number and currency forms, headings without a final
+full stop, and dates written the Malay way. Dates on the Malay and Chinese
+pages (the Insights list) are no longer in English.
 
 = 1.106.1 =
 Fixes the header language switcher on phones: it was pushed off the right edge.

@@ -526,6 +526,28 @@ beyond one page, so the walkthrough decides what stays
 paid traffic; the site is switched off with Maintenance mode during review. Traditional Chinese is also supported because the language layer
 and landing pages provide it; it is not part of Gordan's list.
 
+## Malay spelling (ms-MY, from v1.107.0)
+
+The Malay text follows the Dewan Bahasa dan Pustaka's *Pedoman Umum Ejaan Bahasa
+Melayu* (Sistem Ejaan Rumi, the 65-page copy supplied by the site owner; it is
+not stored in the repository). What is applied and checked by
+`tests/check-ejaan.php`:
+
+| Pedoman | Rule applied |
+|---|---|
+| Penulisan unsur serapan | Loan words are adapted by the Pedoman's table (-ity → -iti, -tion → -si, -ization → -isasi, c/q/x/ph/th/y changes, -ics → -ik, -cy → -si). Already followed throughout. |
+| Kata depan, partikel, kata ganti | di/ke/dari apart (kepada, daripada together); -lah/-kah/-tah and -nya/-ku/-mu attached; pun apart except the Pedoman's list; per apart. |
+| Angka | `ke-2`, `50-an` with a hyphen; amounts as `250 juta`, `745 ribu`, not 745k; `US$`, `RM`, `S$` for money; `%` or `peratus`; decimal point and comma thousands for quantities. |
+| Tanda koma | No comma before an anak ayat that follows its main clause; a comma before tetapi and melainkan; a comma after a sentence-opening connective. |
+| Tanda titik | No full stop at the end of a title, a figure caption or a table caption. |
+| Tanda pisah | The unspaced em dash, also between numbers; titles are separated with ` \| `. |
+| Huruf besar | Months and weekdays, languages and peoples (bahasa Melayu, orang Inggeris), places and official names with a capital. |
+| Tarikh | Day, month name, year: `2 Oktober 2026`. |
+
+Not enforced: foreign terms in italics (the language layer swaps text, not
+markup, so quoted search phrases and terms such as retainer and sprint stay as
+written), and wording.
+
 ## PHP module layout (v1.100.0)
 
 `inc/` holds the theme's PHP, in six folders. `functions.php` requires each file

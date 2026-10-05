@@ -54,6 +54,14 @@ WordPress site yet; this list is how to find out.
 - The first pull request that runs `.github/workflows/ci.yml` after a change to
   it should be watched, because the workflow itself is the thing under test.
 
+## v1.107.0: Malay spelling
+
+- Nothing to run. Open `/ms/` and one of the case studies and read the headings
+  (no full stop at the end), the money (`US$`) and the Insights dates
+  (`2 Oktober 2026`). The check is `php tests/check-ejaan.php`; it runs in CI.
+- Rule changes after this: edit `docs/ssot.md` ("Malay spelling") and
+  `tests/check-ejaan.php` together.
+
 ## v1.106.0: Languages tab, language sitemap, Rank Math
 
 - Appearance → Theme Options → **Languages**: switch Bahasa Melayu, Simplified

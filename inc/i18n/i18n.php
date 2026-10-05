@@ -404,6 +404,42 @@ function remotive_i18n_is_invariant( $core ) {
  * @param string $lang    Target language.
  * @param array  $missing Collects text that has no entry (for the admin report).
  */
+/**
+ * A date as WordPress prints it in English ("October 2, 2026"), written the way
+ * the language writes dates: "2 Oktober 2026" in Malay (day, month name with a
+ * capital, year, as in the Pedoman Umum Ejaan: "31 Ogos 1957"), and
+ * "2026年10月2日" in Chinese. Null when the text is not such a date.
+ *
+ * @param string $core Normalised text.
+ * @param string $lang Language code.
+ * @return string|null
+ */
+function remotive_i18n_localise_date( $core, $lang ) {
+	static $months = array(
+		'January' => 1, 'February' => 2, 'March' => 3, 'April' => 4, 'May' => 5, 'June' => 6,
+		'July' => 7, 'August' => 8, 'September' => 9, 'October' => 10, 'November' => 11, 'December' => 12,
+	);
+
+	if ( ! preg_match( '/^(January|February|March|April|May|June|July|August|September|October|November|December) (\d{1,2}), (\d{4})$/', $core, $m ) ) {
+		return null;
+	}
+
+	$number = $months[ $m[1] ];
+	$day    = (int) $m[2];
+
+	if ( 'ms' === $lang ) {
+		$names = array( 1 => 'Januari', 2 => 'Februari', 3 => 'Mac', 4 => 'April', 5 => 'Mei', 6 => 'Jun', 7 => 'Julai', 8 => 'Ogos', 9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Disember' );
+
+		return $day . ' ' . $names[ $number ] . ' ' . $m[3];
+	}
+
+	if ( 0 === strpos( $lang, 'zh' ) ) {
+		return $m[3] . "\u{5E74}" . $number . "\u{6708}" . $day . "\u{65E5}";
+	}
+
+	return null;
+}
+
 function remotive_i18n_lookup( $core, $lang, &$missing ) {
 	$data = remotive_i18n_data( $lang );
 
@@ -431,6 +467,12 @@ function remotive_i18n_lookup( $core, $lang, &$missing ) {
 		}
 
 		return str_replace( array( '%n%', '%count%' ), $value, $pattern['target'] );
+	}
+
+	$date = remotive_i18n_localise_date( $core, $lang );
+
+	if ( null !== $date ) {
+		return $date;
 	}
 
 	// Punctuation left alone in a text node, between two inline elements, is

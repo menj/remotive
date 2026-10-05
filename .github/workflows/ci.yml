@@ -29,6 +29,9 @@ jobs:
       - name: Landing page copy is complete in four languages
         run: php tests/check-landing-copy.php
 
+      - name: Malay spelling and punctuation (Pedoman Umum Ejaan)
+        run: php tests/check-ejaan.php
+
       - name: Security patterns
         run: php tests/check-security-patterns.php
 

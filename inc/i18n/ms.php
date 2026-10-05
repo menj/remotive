@@ -21,7 +21,7 @@ return array(
 		'Automotive · Programmatic + video, 7 Asian markets' =>
 			'Automotif · Programatik + video, 7 pasaran Asia',
 		'A global automotive marque launching its Asia brand film across seven markets at once, with distributor lead generation attached. AI-driven programmatic buying, optimised to completed views rather than impressions, delivered CPMs 85% under market rate, 26.1M completed views at $0.0048 CPCV and 32,298 leads to market distributors. It was a brand campaign, so read the numbers as reach economics: views bought cheaply at scale, with the leads a secondary outcome.' =>
-			'Sebuah jenama automotif global melancarkan filem jenama Asianya serentak di tujuh pasaran, dengan penjanaan prospek untuk pengedar disertakan. Pembelian programatik dipacu AI, dioptimumkan kepada tontonan lengkap dan bukan tera iklan, menghasilkan CPM 85% di bawah kadar pasaran, 26.1 juta tontonan lengkap pada $0.0048 CPCV dan 32,298 prospek kepada pengedar pasaran. Ini ialah kempen jenama, jadi baca angka ini sebagai ekonomi jangkauan: tontonan dibeli murah pada skala besar, dengan prospek sebagai hasil sampingan.',
+			'Sebuah jenama automotif global melancarkan filem jenama Asianya serentak di tujuh pasaran, dengan penjanaan prospek untuk pengedar disertakan. Pembelian programatik dipacu AI, dioptimumkan kepada tontonan lengkap dan bukan tera iklan, menghasilkan CPM 85% di bawah kadar pasaran, 26.1 juta tontonan lengkap pada US$0.0048 CPCV dan 32,298 prospek kepada pengedar pasaran. Ini ialah kempen jenama, jadi baca angka ini sebagai ekonomi jangkauan: tontonan dibeli murah pada skala besar, dengan prospek sebagai hasil sampingan.',
 		'Industrial supplier, B2B' =>
 			'Pembekal industri, B2B',
 		'Organic traffic tripled in month two · held through four consecutive Google core updates' =>
@@ -126,7 +126,7 @@ return array(
 		'built to scale' =>
 			'dibina untuk mengembangkan',
 		'Asian brands.' =>
-			'jenama Asia.',
+			'jenama Asia',
 		'We serve as a senior-led independent media team for high-growth B2B and B2C brands, and a powerful modular, search, social, programmatic and SEO extension for agencies without in-house media capabilities. We fix the foundations, get you found and cited, then scale with paid media, turning performance marketing into predictable pipeline growth across Asia and beyond.' =>
 			'Kami ialah pasukan media bebas yang diterajui pakar kanan untuk jenama B2B dan B2C yang berkembang pesat, serta lanjutan modular yang berkuasa bagi carian, sosial, programatik dan SEO untuk agensi yang tidak mempunyai keupayaan media dalaman. Kami membaiki asas, memastikan anda ditemui dan dipetik, kemudian menskalakan dengan media berbayar, menjadikan pemasaran prestasi sebagai pertumbuhan saluran jualan yang boleh diramal di seluruh Asia dan seterusnya.',
 		'Show me a growth plan' =>
@@ -206,7 +206,7 @@ return array(
 		'Tracking & Attribution' =>
 			'Penjejakan & Atribusi',
 		'GA4, GTM and CRM wired up, so every lead is measured.' =>
-			'GA4, GTM dan CRM disambungkan, supaya setiap prospek dapat diukur.',
+			'GA4, GTM dan CRM disambungkan supaya setiap prospek dapat diukur.',
 		'Conversion Paths' =>
 			'Laluan Penukaran',
 		'Landing pages and lead capture matched to buyer intent.' =>
@@ -214,7 +214,7 @@ return array(
 		'AI-Crawler Access' =>
 			'Akses Perangkak AI',
 		'robots.txt and llms.txt set deliberately, so the right bots can find and cite you.' =>
-			'robots.txt dan llms.txt ditetapkan dengan sengaja, supaya bot yang betul dapat menemui dan memetik anda.',
+			'robots.txt dan llms.txt ditetapkan dengan sengaja supaya bot yang betul dapat menemui dan memetik anda.',
 		'Outcome: a site that converts, and data you can trust' =>
 			'Hasilnya: tapak web yang menukar pelawat kepada pelanggan, dan data yang boleh dipercayai',
 		'02 · Found' =>
@@ -228,7 +228,7 @@ return array(
 		'AI Visibility & Entity Work' =>
 			'Keterlihatan AI & Kerja Entiti',
 		'SEO, GEO and AI-citation work, so models recommend you by name.' =>
-			'Kerja SEO, GEO dan pemetikan AI, supaya model AI mengesyorkan anda dengan menyebut nama anda.',
+			'Kerja SEO, GEO dan pemetikan AI supaya model AI mengesyorkan anda dengan menyebut nama anda.',
 		'Distribution' =>
 			'Pengedaran',
 		'Owned, earned and social channels that carry the work to your audience.' =>
@@ -294,7 +294,7 @@ return array(
 		'Full-funnel scope' =>
 			'Skop seluruh corong',
 		'One team across search, paid, social, content, email and analytics, so nothing falls between vendors.' =>
-			'Satu pasukan merentasi carian, media berbayar, sosial, kandungan, e-mel dan analitik, supaya tiada yang tercicir antara pembekal.',
+			'Satu pasukan merentasi carian, media berbayar, sosial, kandungan, e-mel dan analitik supaya tiada yang tercicir antara pembekal.',
 		'Honest measurement' =>
 			'Pengukuran yang jujur',
 		'Attribution reported as a model, platform numbers labelled as platform numbers.' =>
@@ -334,13 +334,13 @@ return array(
 		'Organic sessions in one month · average position 16.3 → 10.6' =>
 			'Sesi organik dalam sebulan · kedudukan purata 16.3 → 10.6',
 		'Fix, Found, Scale — proved' =>
-			'Baiki, Ditemui, Skala — terbukti',
+			'Baiki, Ditemui, Skala—terbukti',
 		'The same three stages, real numbers' =>
 			'Tiga peringkat yang sama, angka sebenar',
 		'A figure from each of the blocks above, taken from one named engagement rather than averaged across clients. Each opens the case study where the measurement limits are set out.' =>
 			'Satu angka daripada setiap blok di atas, diambil daripada satu projek yang dinamakan dan bukan purata merentasi pelanggan. Setiap satu membuka kajian kes yang menyatakan had pengukurannya.',
 		'Addressable audience, from 53k · sports and entertainment' =>
-			'Audiens yang boleh disasarkan, daripada 53k · sukan dan hiburan',
+			'Audiens yang boleh disasarkan, daripada 53 ribu · sukan dan hiburan',
 		'Read the case' =>
 			'Baca kajian kes',
 		'Organic search, year on year · FMCG across two markets' =>
@@ -348,7 +348,7 @@ return array(
 		'Conversion rate, four APAC markets · financial services' =>
 			'Kadar penukaran, empat pasaran APAC · perkhidmatan kewangan',
 		'Independent Spirit. Enterprise Scale.' =>
-			'Semangat Bebas. Skala Perusahaan.',
+			'Semangat Bebas. Skala Perusahaan',
 		'20+ senior professionals who run Fix, Found and Scale end to end, not handed off between departments. 50+ markets activated. Full boutique infrastructure across analytics, SEO, programmatic and cross-market audience activation.' =>
 			'20+ profesional kanan yang menjalankan Baiki, Ditemui dan Skala dari awal hingga akhir, bukan diserahkan antara jabatan. 50+ pasaran telah diaktifkan. Infrastruktur butik yang lengkap merentasi analitik, SEO, programatik dan pengaktifan audiens merentas pasaran.',
 		'Meet the team' =>
@@ -364,7 +364,7 @@ return array(
 		'Meet the whole team →' =>
 			'Kenali seluruh pasukan →',
 		'Stop guessing where your growth is going to come from.' =>
-			'Berhenti meneka dari mana pertumbuhan anda akan datang.',
+			'Berhenti meneka dari mana pertumbuhan anda akan datang',
 		'Let us show you exactly where your audiences are active, where the genuine market white space sits, and precisely what it takes for your brand to win. No generic advice. Just hard, regional demand data.' =>
 			'Biar kami tunjukkan dengan tepat di mana audiens anda aktif, di mana terletaknya ruang pasaran yang benar-benar kosong, dan apa sebenarnya yang diperlukan supaya jenama anda menang. Tiada nasihat umum. Hanya data permintaan serantau yang mantap.',
 		'Leave this field empty' =>
@@ -382,7 +382,7 @@ return array(
 		'The people' =>
 			'Insan kami',
 		'Meet the team.' =>
-			'Kenali pasukan kami.',
+			'Kenali pasukan kami',
 		'Senior specialists who plug into your team. %count% people, one number to answer for, and no junior handovers.' =>
 			'Pakar kanan yang menyatu dengan pasukan anda. %count% orang, satu angka untuk dipertanggungjawabkan, dan tiada serah tugas kepada staf junior.',
 		'The team' =>
@@ -442,7 +442,7 @@ return array(
 		'Next image' =>
 			'Imej seterusnya',
 		'Work with the people who\'d run it.' =>
-			'Bekerjasama dengan orang yang akan mengendalikannya.',
+			'Bekerjasama dengan orang yang akan mengendalikannya',
 		'Brands and agencies both work with us. Tell us what you are trying to grow and you will hear from the person who owns that discipline.' =>
 			'Jenama dan agensi sama-sama bekerjasama dengan kami. Beritahu kami apa yang ingin anda kembangkan dan anda akan mendapat maklum balas daripada orang yang memiliki bidang tersebut.',
 		'Start a project →' =>
@@ -450,7 +450,7 @@ return array(
 		'Get in touch' =>
 			'Hubungi kami',
 		'Let\'s talk.' =>
-			'Mari berbual.',
+			'Mari berbual',
 		'Tell us what\'s not working, or what you want to be working better. We reply within three business days.' =>
 			'Beritahu kami apa yang tidak berfungsi, atau apa yang anda mahu berfungsi dengan lebih baik. Kami membalas dalam tempoh tiga hari bekerja.',
 		'Name' =>
@@ -514,7 +514,7 @@ return array(
 		'Organic search grew from' =>
 			'Carian organik berkembang daripada',
 		'sessions (June–October 2022) to' =>
-			'sesi (Jun–Oktober 2022) kepada',
+			'sesi (Jun—Oktober 2022) kepada',
 		'in the same period of 2023, a' =>
 			'dalam tempoh yang sama pada 2023, satu',
 		'43.5% year-on-year' =>
@@ -528,13 +528,13 @@ return array(
 		', and average session duration improved while bounce rate fell.' =>
 			', dan purata tempoh sesi bertambah baik manakala kadar lantunan menurun.',
 		'Organic sessions, June to October, year on year.' =>
-			'Sesi organik, Jun hingga Oktober, tahun ke tahun.',
+			'Sesi organik, Jun hingga Oktober, tahun ke tahun',
 		'Organic sessions, Jun–Oct' =>
-			'Sesi organik, Jun–Okt',
+			'Sesi organik, Jun—Okt',
 		'72,572 to 104,153 (+43.5% YoY)' =>
 			'72,572 kepada 104,153 (+43.5% tahun ke tahun)',
 		'Conversions, Aug–Oct 2023' =>
-			'Penukaran, Ogos–Okt 2023',
+			'Penukaran, Ogos—Okt 2023',
 		'71 to 87 (+23%)' =>
 			'71 kepada 87 (+23%)',
 		'Engagement rate' =>
@@ -588,7 +588,7 @@ return array(
 		'Why one month, not three or six' =>
 			'Mengapa satu bulan, bukan tiga atau enam',
 		'Most technical SEO rebuild work takes months to show in rankings because it\'s waiting on new content to be crawled, indexed and evaluated for the first time. This engagement moved faster because the content already existed and had already accumulated some authority; the rebuild simply let Google\'s crawler reach and credit pages it had previously been struggling to find efficiently. A technical SEO rebuild on a brand-new site with no content history would show the same structural improvement but a much slower ranking response, since there\'s no existing authority for the improved structure to redistribute.' =>
-			'Kebanyakan kerja pembinaan semula SEO teknikal mengambil masa berbulan-bulan untuk dilihat dalam kedudukan kerana ia menunggu kandungan baharu diperangkak, diindeks dan dinilai buat kali pertama. Projek ini bergerak lebih pantas kerana kandungan itu sudah wujud dan sudah mengumpul sedikit autoriti; pembinaan semula itu sekadar membolehkan perangkak Google mencapai dan mengiktiraf halaman yang sebelum ini sukar ditemuinya dengan cekap. Pembinaan semula SEO teknikal pada tapak baharu tanpa sejarah kandungan akan menunjukkan peningkatan struktur yang sama tetapi respons kedudukan yang jauh lebih perlahan, kerana tiada autoriti sedia ada untuk diagihkan semula oleh struktur yang diperbaiki.',
+			'Kebanyakan kerja pembinaan semula SEO teknikal mengambil masa berbulan-bulan untuk dilihat dalam kedudukan kerana ia menunggu kandungan baharu diperangkak, diindeks dan dinilai buat kali pertama. Projek ini bergerak lebih pantas kerana kandungan itu sudah wujud dan sudah mengumpul sedikit autoriti; pembinaan semula itu sekadar membolehkan perangkak Google mencapai dan mengiktiraf halaman yang sebelum ini sukar ditemuinya dengan cekap. Pembinaan semula SEO teknikal pada tapak baharu tanpa sejarah kandungan akan menunjukkan peningkatan struktur yang sama, tetapi respons kedudukan yang jauh lebih perlahan kerana tiada autoriti sedia ada untuk diagihkan semula oleh struktur yang diperbaiki.',
 		'What we track after the rebuild ships' =>
 			'Apa yang kami jejaki selepas pembinaan semula dihantar',
 		'Crawl stats from Search Console, specifically pages crawled per day and time spent on each page, tell us within days whether the new structure is actually being read differently by Google\'s crawler, well before ranking movement confirms it. A technical SEO rebuild that doesn\'t change crawl behaviour within the first two weeks usually means something in the implementation didn\'t take, and it\'s worth checking before waiting a full month for the ranking data to say the same thing more slowly.' =>
@@ -638,7 +638,7 @@ return array(
 		'Who we are' =>
 			'Siapa kami',
 		'Built for how Asia actually buys.' =>
-			'Dibina untuk cara Asia sebenarnya membeli.',
+			'Dibina untuk cara Asia sebenarnya membeli',
 		'Re:Motive Media is a performance marketing and SEO agency registered in Singapore, working across Southeast Asia.' =>
 			'Re:Motive Media ialah agensi pemasaran prestasi dan SEO yang berdaftar di Singapura dan beroperasi di seluruh Asia Tenggara.',
 		'We started because marketing leads kept describing' =>
@@ -714,7 +714,7 @@ return array(
 		'Modular, on-demand capabilities' =>
 			'Keupayaan modular, atas permintaan',
 		'What we do, in detail.' =>
-			'Apa yang kami lakukan, secara terperinci.',
+			'Apa yang kami lakukan, secara terperinci',
 		'Three connected blocks: create demand, capture it, then convert and measure it. Activate one block or all three, with no retainer bloat.' =>
 			'Tiga blok yang saling berkaitan: cipta permintaan, tangkap permintaan itu, kemudian tukarkan dan ukur. Aktifkan satu blok atau ketiga-tiganya, tanpa retainer yang membengkak.',
 		'Most briefs turn out to be one of three problems. Either nobody is looking for you yet, so the job is to' =>
@@ -722,11 +722,11 @@ return array(
 		'build new demand' =>
 			'membina permintaan baharu',
 		'through paid, social and creative. Or the demand exists and someone else is meeting it, so the job is to' =>
-			'melalui media berbayar, sosial dan kreatif. Atau permintaan itu wujud tetapi dipenuhi oleh pihak lain, jadi tugasnya ialah',
+			'melalui media berbayar, sosial dan kreatif. Atau permintaan itu wujud, tetapi dipenuhi oleh pihak lain, jadi tugasnya ialah',
 		'capture existing intent' =>
 			'menangkap niat sedia ada',
 		'through search and category strategy. Or the traffic arrives and nothing can be proven, so the job is to' =>
-			'melalui carian dan strategi kategori. Atau trafik tiba tetapi tiada apa yang dapat dibuktikan, jadi tugasnya ialah',
+			'melalui carian dan strategi kategori. Atau trafik tiba, tetapi tiada apa yang dapat dibuktikan, jadi tugasnya ialah',
 		'convert and prove value' =>
 			'menukar dan membuktikan nilai',
 		'with analytics and CRM in place.' =>
@@ -838,7 +838,7 @@ return array(
 		'Proof, not promises' =>
 			'Bukti, bukan janji',
 		'Case studies.' =>
-			'Kajian kes.',
+			'Kajian kes',
 		'A few of the numbers we\'d stand behind in a room with the client.' =>
 			'Beberapa angka yang akan kami pertahankan di hadapan pelanggan.',
 		'Every engagement below started as somebody\'s specific problem, so they are grouped that way rather than by service: entering a market or' =>
@@ -898,7 +898,7 @@ return array(
 		'Global automotive marque, 7 Asian markets' =>
 			'Jenama automotif global, 7 pasaran Asia',
 		'CPM saving against market rate, 26.1M completed views at $0.0048 CPCV, and 32,298 leads to market distributors.' =>
-			'Penjimatan CPM berbanding kadar pasaran, 26.1 juta tontonan lengkap pada CPCV $0.0048, dan 32,298 prospek kepada pengedar pasaran.',
+			'Penjimatan CPM berbanding kadar pasaran, 26.1 juta tontonan lengkap pada CPCV US$0.0048, dan 32,298 prospek kepada pengedar pasaran.',
 		'B2B gifting · Paid search' =>
 			'Hadiah B2B · Carian berbayar',
 		'Corporate gifting brand, global B2B' =>
@@ -910,13 +910,13 @@ return array(
 		'Global asset manager, 4 APAC markets' =>
 			'Pengurus aset global, 4 pasaran APAC',
 		'Conversion-rate lift with cost per conversion down 20–30%, across regulated markets with compliance built in.' =>
-			'Peningkatan kadar penukaran dengan kos setiap penukaran turun 20–30%, merentasi pasaran terkawal dengan pematuhan terbina dalam.',
+			'Peningkatan kadar penukaran dengan kos setiap penukaran turun 20—30%, merentasi pasaran terkawal dengan pematuhan terbina dalam.',
 		'Sports & entertainment · Audience data' =>
 			'Sukan & hiburan · Data audiens',
 		'National sports precinct, ongoing' =>
 			'Kompleks sukan kebangsaan, berterusan',
 		'Addressable audience grown from 53k using cookieless personas. Campaigns since run 20–30% better on CPA.' =>
-			'Audiens yang boleh disasarkan berkembang daripada 53k menggunakan persona tanpa kuki. Kempen sejak itu berjalan 20–30% lebih baik pada CPA.',
+			'Audiens yang boleh disasarkan berkembang daripada 53 ribu menggunakan persona tanpa kuki. Kempen sejak itu berjalan 20—30% lebih baik pada CPA.',
 		'03 · Search & AI visibility' =>
 			'03 · Carian & keterlihatan AI',
 		'Technical SEO and AI-visibility engagements where structure and discoverability released the value.' =>
@@ -986,7 +986,7 @@ return array(
 		'Questions' =>
 			'Soalan',
 		'Frequently asked questions.' =>
-			'Soalan lazim.',
+			'Soalan lazim',
 		'What we are usually asked before a first call, answered here rather than saved for the pitch.' =>
 			'Apa yang biasanya ditanya sebelum panggilan pertama, dijawab di sini dan bukannya disimpan untuk pembentangan.',
 		'Most of these come up on a first call, roughly in this order: what actually happens once you sign and' =>
@@ -1012,7 +1012,7 @@ return array(
 		'Do I have to buy the full stack?' =>
 			'Adakah saya perlu membeli keseluruhan pakej?',
 		'No. Take one capability or all of them, and change the mix as the quarter demands. Some clients start with search alone and add paid media once the demand is there; others hand over everything from the first month. What we will not do is quote a retainer that only grows, because that arrangement serves the agency rather than the client.' =>
-			'Tidak. Ambil satu keupayaan atau kesemuanya, dan ubah campurannya mengikut keperluan suku tahun. Sesetengah pelanggan bermula dengan carian sahaja dan menambah media berbayar apabila permintaan sudah ada; yang lain menyerahkan segalanya sejak bulan pertama. Apa yang tidak akan kami lakukan ialah menawarkan retainer yang hanya bertambah, kerana susunan itu memanfaatkan agensi dan bukannya pelanggan.',
+			'Tidak. Ambil satu keupayaan atau kesemuanya, dan ubah campurannya mengikut keperluan suku tahun. Sesetengah pelanggan bermula dengan carian sahaja dan menambah media berbayar apabila permintaan sudah ada; yang lain menyerahkan segalanya sejak bulan pertama. Apa yang tidak akan kami lakukan ialah menawarkan retainer yang hanya bertambah kerana susunan itu memanfaatkan agensi dan bukannya pelanggan.',
 		'Who actually works on the account?' =>
 			'Siapa sebenarnya yang mengendalikan akaun?',
 		'The specialist who scopes your account is the one who runs it. There is no handover to a junior team after the pitch, which is the single most common complaint we hear about previous agencies. You can see who that is on the' =>
@@ -1066,7 +1066,7 @@ return array(
 		'case studies page' =>
 			'halaman kajian kes',
 		', each with the figures, the period they cover and the starting position. Clients are described by category rather than named, because most of this work is covered by confidentiality, and the numbers are unchanged.' =>
-			', masing-masing dengan angka, tempoh yang dilitupi dan kedudukan permulaan. Pelanggan diterangkan mengikut kategori dan tidak dinamakan, kerana kebanyakan kerja ini diliputi kerahsiaan, dan angkanya tidak diubah.',
+			', masing-masing dengan angka, tempoh yang dilitupi dan kedudukan permulaan. Pelanggan diterangkan mengikut kategori dan tidak dinamakan kerana kebanyakan kerja ini diliputi kerahsiaan, dan angkanya tidak diubah.',
 		'What is GEO, AIO and AEO, and do I need it?' =>
 			'Apakah GEO, AIO dan AEO, dan adakah saya memerlukannya?',
 		'They are names for the same shift: buyers increasingly ask an AI engine before they ask a search engine, and most brands never appear in the answer. Generative engine optimisation, AI optimisation and answer engine optimisation all describe work aimed at that surface. Whether you need it depends on whether your buyers research that way, which is answerable from your own data rather than from a trend piece.' =>
@@ -1080,7 +1080,7 @@ return array(
 		'From the team' =>
 			'Daripada pasukan',
 		'Insights.' =>
-			'Wawasan.',
+			'Wawasan',
 		'What we are seeing in search, paid media and measurement across Singapore, Malaysia and the wider region.' =>
 			'Apa yang kami lihat dalam carian, media berbayar dan pengukuran merentasi Singapura, Malaysia dan rantau yang lebih luas.',
 		'How to evaluate SEO agencies in Singapore and Malaysia: audits, reporting, red flags and the questions to ask. Find out more.' =>
@@ -1100,7 +1100,7 @@ return array(
 		'Pagination' =>
 			'Penomboran halaman',
 		'Read enough. Let\'s talk.' =>
-			'Sudah cukup membaca. Mari berbual.',
+			'Sudah cukup membaca. Mari berbual',
 		'See what we do' =>
 			'Lihat apa yang kami lakukan',
 		'Message received' =>
@@ -1164,11 +1164,11 @@ return array(
 		'Signs your marketing analytics needs a rebuild' =>
 			'Tanda analitik pemasaran anda perlu dibina semula',
 		'No attribution model is the truth, each one is a lens with a bias built in: last-click favours bottom-funnel channels, first-click favours awareness, and data-driven models inherit whatever pattern the platform\'s black box decided to weight. Our marketing analytics work reports more than one model side by side rather than picking a favourite and presenting it as fact, and labels platform-reported numbers as platform-reported, since a platform grading its own performance has an obvious incentive to grade generously.' =>
-			'Tiada model atribusi yang menjadi kebenaran, setiap satu ialah kanta dengan kecondongan terbina dalam: klik terakhir mengutamakan saluran di bahagian bawah corong, klik pertama mengutamakan kesedaran, dan model berasaskan data mewarisi apa sahaja corak yang diputuskan oleh kotak hitam platform untuk diberi pemberat. Kerja analitik pemasaran kami melaporkan lebih daripada satu model bersebelahan dan bukannya memilih kegemaran dan mempersembahkannya sebagai fakta, serta melabelkan angka yang dilaporkan platform sebagai dilaporkan platform, kerana platform yang menilai prestasinya sendiri jelas mempunyai insentif untuk menilai dengan murah hati.',
+			'Tiada model atribusi yang menjadi kebenaran, setiap satu ialah kanta dengan kecondongan terbina dalam: klik terakhir mengutamakan saluran di bahagian bawah corong, klik pertama mengutamakan kesedaran, dan model berasaskan data mewarisi apa sahaja corak yang diputuskan oleh kotak hitam platform untuk diberi pemberat. Kerja analitik pemasaran kami melaporkan lebih daripada satu model bersebelahan dan bukannya memilih kegemaran dan mempersembahkannya sebagai fakta, serta melabelkan angka yang dilaporkan platform sebagai dilaporkan platform kerana platform yang menilai prestasinya sendiri jelas mempunyai insentif untuk menilai dengan murah hati.',
 		'What marketing analytics costs to set up properly' =>
 			'Berapa kos untuk menyediakan analitik pemasaran dengan betul',
 		'Almost every account we open has the same fault somewhere: a conversion event firing twice, a UTM convention nobody\'s followed since the person who set it up left, or a CRM field that marketing and sales define differently. Small individually, compounding badly, since every downstream report inherits the error.' =>
-			'Hampir setiap akaun yang kami buka mempunyai kesilapan yang sama di suatu tempat: peristiwa penukaran yang dicetuskan dua kali, konvensyen UTM yang tiada siapa ikuti sejak orang yang menyediakannya berhenti, atau medan CRM yang ditakrifkan secara berbeza oleh pemasaran dan jualan. Kecil secara individu, tetapi bertambah buruk apabila terkumpul, kerana setiap laporan seterusnya mewarisi kesilapan itu.',
+			'Hampir setiap akaun yang kami buka mempunyai kesilapan yang sama di suatu tempat: peristiwa penukaran yang dicetuskan dua kali, konvensyen UTM yang tiada siapa ikuti sejak orang yang menyediakannya berhenti, atau medan CRM yang ditakrifkan secara berbeza oleh pemasaran dan jualan. Kecil secara individu, tetapi bertambah buruk apabila terkumpul kerana setiap laporan seterusnya mewarisi kesilapan itu.',
 		'Google\'s own GA4 setup documentation' =>
 			'Dokumentasi persediaan GA4 daripada Google sendiri',
 		'is a reasonable first check before trusting any dashboard built on top of it.' =>
@@ -1194,7 +1194,7 @@ return array(
 		'Why marketing analytics comes first' =>
 			'Mengapa analitik pemasaran didahulukan',
 		'For a national sports and entertainment precinct we grew the addressable audience from 53k to 745k defined individuals using cookieless personas, and ongoing campaigns against those segments run 20–30% better on CPA with platform-reported ROAS above 400%, platform-reported deliberately said aloud, since ROAS a platform grades for itself flatters; incrementality is the harder, better question, and we\'ll tell you when a number is which. The audience work made the media work.' =>
-			'Untuk sebuah kompleks sukan dan hiburan kebangsaan, kami mengembangkan audiens yang boleh disasarkan daripada 53k kepada 745k individu yang ditakrifkan menggunakan persona tanpa kuki, dan kempen berterusan terhadap segmen tersebut berjalan 20–30% lebih baik pada CPA dengan ROAS yang dilaporkan platform melebihi 400%, dilaporkan platform dengan sengaja disebut, kerana ROAS yang dinilai platform untuk dirinya sendiri membodek; inkrementaliti ialah soalan yang lebih sukar dan lebih baik, dan kami akan memberitahu anda yang mana satu apabila sesuatu angka itu. Kerja audiens itulah yang menjadikan kerja media berjaya.',
+			'Untuk sebuah kompleks sukan dan hiburan kebangsaan, kami mengembangkan audiens yang boleh disasarkan daripada 53 ribu kepada 745 ribu individu yang ditakrifkan menggunakan persona tanpa kuki, dan kempen berterusan terhadap segmen tersebut berjalan 20—30% lebih baik pada CPA dengan ROAS yang dilaporkan platform melebihi 400%, dilaporkan platform dengan sengaja disebut kerana ROAS yang dinilai platform untuk dirinya sendiri membodek; inkrementaliti ialah soalan yang lebih sukar dan lebih baik, dan kami akan memberitahu anda yang mana satu apabila sesuatu angka itu. Kerja audiens itulah yang menjadikan kerja media berjaya.',
 		'Connected to everything else' =>
 			'Berhubung dengan segala yang lain',
 		'Analytics underpins our' =>
@@ -1206,11 +1206,11 @@ return array(
 		'Content strategy and performance creative: assets built to rank, get cited by AI engines, and convert. Explore the service.' =>
 			'Strategi kandungan dan kreatif prestasi: aset yang dibina untuk mendapat kedudukan, dipetik oleh enjin AI, dan menukar. Terokai perkhidmatan ini.',
 		'Access to subject-matter experts, honestly. The content that performs best in our own work is never the generic industry overview, it\'s the piece written together with someone who actually does the job day to day, carrying the specific detail that only comes from having done it themselves. A content marketing programme without access to real expertise inside the company produces competent, forgettable pages. That access matters more to the outcome than the size of the budget.' =>
-			'Akses kepada pakar subjek, dengan jujur. Kandungan yang paling berprestasi dalam kerja kami sendiri tidak pernah ulasan industri yang umum, ia ialah karya yang ditulis bersama seseorang yang benar-benar melakukan kerja itu setiap hari, membawa butiran khusus yang hanya datang daripada pengalaman sendiri. Program pemasaran kandungan tanpa akses kepada kepakaran sebenar dalam syarikat menghasilkan halaman yang cekap tetapi mudah dilupakan. Akses itu lebih penting kepada hasilnya daripada saiz belanjawan.',
+			'Akses kepada pakar subjek, dengan jujur. Kandungan yang paling berprestasi dalam kerja kami sendiri tidak pernah ulasan industri yang umum, ia ialah karya yang ditulis bersama seseorang yang benar-benar melakukan kerja itu setiap hari, membawa butiran khusus yang hanya datang daripada pengalaman sendiri. Program pemasaran kandungan tanpa akses kepada kepakaran sebenar dalam syarikat menghasilkan halaman yang cekap, tetapi mudah dilupakan. Akses itu lebih penting kepada hasilnya daripada saiz belanjawan.',
 		'How long content marketing takes to show results' =>
 			'Berapa lama pemasaran kandungan mengambil masa untuk menunjukkan hasil',
 		'Performance creative can show a signal within weeks, since paid distribution surfaces winners and losers fast. Authority content, the guides and long-form pieces meant to earn organic trust and citations, runs on a slower clock, usually three to six months before rankings and citation volume are meaningful enough to judge. Mixing the two timelines into one report is the most common way a content marketing programme gets killed early: a stakeholder reads a three-month authority-content number against a performance-creative expectation and calls it a failure, when the piece was never supposed to move that fast, and the fix is a shared timeline agreed before the first brief goes out, not a defensive explanation after the first report lands badly.' =>
-			'Kreatif prestasi boleh menunjukkan isyarat dalam beberapa minggu, kerana pengedaran berbayar mendedahkan pemenang dan pecundang dengan cepat. Kandungan autoriti, iaitu panduan dan karya panjang yang bertujuan memperoleh kepercayaan organik dan petikan, berjalan pada jam yang lebih perlahan, biasanya tiga hingga enam bulan sebelum kedudukan dan jumlah petikan cukup bermakna untuk dinilai. Mencampurkan kedua-dua garis masa ke dalam satu laporan ialah cara paling biasa sesuatu program pemasaran kandungan dihentikan lebih awal: pihak berkepentingan membaca angka kandungan autoriti tiga bulan berdasarkan jangkaan kreatif prestasi dan menyebutnya kegagalan, sedangkan karya itu tidak pernah sepatutnya bergerak sepantas itu, dan penyelesaiannya ialah garis masa bersama yang dipersetujui sebelum taklimat pertama dikeluarkan, bukannya penjelasan defensif selepas laporan pertama diterima dengan buruk.',
+			'Kreatif prestasi boleh menunjukkan isyarat dalam beberapa minggu kerana pengedaran berbayar mendedahkan pemenang dan pecundang dengan cepat. Kandungan autoriti, iaitu panduan dan karya panjang yang bertujuan memperoleh kepercayaan organik dan petikan, berjalan pada jam yang lebih perlahan, biasanya tiga hingga enam bulan sebelum kedudukan dan jumlah petikan cukup bermakna untuk dinilai. Mencampurkan kedua-dua garis masa ke dalam satu laporan ialah cara paling biasa sesuatu program pemasaran kandungan dihentikan lebih awal: pihak berkepentingan membaca angka kandungan autoriti tiga bulan berdasarkan jangkaan kreatif prestasi dan menyebutnya kegagalan, sedangkan karya itu tidak pernah sepatutnya bergerak sepantas itu, dan penyelesaiannya ialah garis masa bersama yang dipersetujui sebelum taklimat pertama dikeluarkan, bukannya penjelasan defensif selepas laporan pertama diterima dengan buruk.',
 		'Every brief starts with a question: who is this for, and what do they do differently after reading it? Content without a clearly named reader and a clearly named next action is just decoration.' =>
 			'Setiap taklimat bermula dengan satu soalan: untuk siapa ini, dan apa yang mereka lakukan secara berbeza selepas membacanya? Kandungan tanpa pembaca yang dinamakan dengan jelas dan tindakan seterusnya yang dinamakan dengan jelas hanyalah hiasan.',
 		'Google\'s own guidance on helpful content' =>
@@ -1252,11 +1252,11 @@ return array(
 		'Enterprise marketing automation: email and WhatsApp lifecycle flows, AI assistants and CRM integration. Find out more.' =>
 			'Automasi pemasaran perusahaan: aliran kitaran hayat e-mel dan WhatsApp, pembantu AI dan integrasi CRM. Ketahui lebih lanjut.',
 		'The report that matters tracks revenue attributable to automated flows against the manual baseline they replaced, not open rates and click rates in isolation. A welcome sequence with a 60% open rate that converts nobody is not working, whatever the platform dashboard says about engagement. We report flow-level revenue and conversion rate monthly, alongside the operational metric that actually predicts both: list health, since a shrinking, disengaged list degrades every flow built on top of it regardless of how well each individual message is written.' =>
-			'Laporan yang penting menjejaki hasil jualan yang boleh dikaitkan dengan aliran automatik berbanding garis dasar manual yang digantikannya, bukannya kadar buka dan kadar klik secara berasingan. Urutan sambutan dengan kadar buka 60% yang tidak menukar sesiapa tidak berfungsi, apa pun yang dikatakan papan pemuka platform tentang penglibatan. Kami melaporkan hasil jualan dan kadar penukaran peringkat aliran setiap bulan, bersama metrik operasi yang sebenarnya meramalkan kedua-duanya: kesihatan senarai, kerana senarai yang mengecil dan tidak terlibat merosotkan setiap aliran yang dibina di atasnya tanpa mengira betapa baik setiap mesej ditulis.',
+			'Laporan yang penting menjejaki hasil jualan yang boleh dikaitkan dengan aliran automatik berbanding garis dasar manual yang digantikannya, bukannya kadar buka dan kadar klik secara berasingan. Urutan sambutan dengan kadar buka 60% yang tidak menukar sesiapa tidak berfungsi, apa pun yang dikatakan papan pemuka platform tentang penglibatan. Kami melaporkan hasil jualan dan kadar penukaran peringkat aliran setiap bulan, bersama metrik operasi yang sebenarnya meramalkan kedua-duanya: kesihatan senarai kerana senarai yang mengecil dan tidak terlibat merosotkan setiap aliran yang dibina di atasnya tanpa mengira betapa baik setiap mesej ditulis.',
 		'Tools we build enterprise marketing automation on' =>
 			'Alat yang kami gunakan untuk membina automasi pemasaran perusahaan',
 		'We work inside whatever CRM and marketing platform a client already runs rather than forcing a migration for its own sake, since the cost of ripping out an embedded system rarely pays for itself in the improvement a newer tool offers. The exception is when the existing stack genuinely can\'t do the job, no API access, no way to trigger messaging from behavioural data, in which case we\'ll say so plainly and scope a migration as its own project with its own timeline, rather than quietly inflating the automation budget to cover a platform problem nobody actually asked us to go and solve in the first place.' =>
-			'Kami bekerja di dalam CRM dan platform pemasaran yang sudah digunakan pelanggan dan bukannya memaksa migrasi demi migrasi itu sendiri, kerana kos mencabut sistem yang sudah tertanam jarang berbaloi dengan peningkatan yang ditawarkan alat yang lebih baharu. Pengecualiannya ialah apabila tindanan sedia ada benar-benar tidak mampu melakukan kerja itu, tiada akses API, tiada cara mencetuskan pesanan daripada data tingkah laku, dalam hal itu kami akan menyatakannya dengan jelas dan menskopkan migrasi sebagai projek tersendiri dengan garis masanya sendiri, bukannya diam-diam membesarkan belanjawan automasi untuk menampung masalah platform yang tiada siapa pun minta kami selesaikan pada mulanya.',
+			'Kami bekerja di dalam CRM dan platform pemasaran yang sudah digunakan pelanggan dan bukannya memaksa migrasi demi migrasi itu sendiri kerana kos mencabut sistem yang sudah tertanam jarang berbaloi dengan peningkatan yang ditawarkan alat yang lebih baharu. Pengecualiannya ialah apabila tindanan sedia ada benar-benar tidak mampu melakukan kerja itu, tiada akses API, tiada cara mencetuskan pesanan daripada data tingkah laku, dalam hal itu kami akan menyatakannya dengan jelas dan menskopkan migrasi sebagai projek tersendiri dengan garis masanya sendiri, bukannya diam-diam membesarkan belanjawan automasi untuk menampung masalah platform yang tiada siapa pun minta kami selesaikan pada mulanya.',
 		'Automation makes it easy to message people more than they\'ve agreed to.' =>
 			'Automasi memudahkan menghantar mesej kepada orang lebih daripada yang mereka bersetuju.',
 		'Singapore\'s PDPA' =>
@@ -1270,7 +1270,7 @@ return array(
 		'The consent question, answered honestly' =>
 			'Soalan persetujuan, dijawab dengan jujur',
 		'Enterprise marketing automation is supposed to make leads convert while they\'re warm and customers come back without being chased manually, not turn every touchpoint into a robotic drip. Leads that wait, lapse. We automate the conversations and journeys around your marketing carefully, because over-automation is its own failure mode: premium buyers can tell when nobody\'s home, and consent rules (PDPA here, and platform policies on WhatsApp) bound what good automation is allowed to do. The craft is knowing where the human takes over: email flows, WhatsApp and messaging automation, AI assistants, all wired into your CRM.' =>
-			'Automasi pemasaran perusahaan sepatutnya membuat prospek menukar semasa masih hangat dan pelanggan kembali tanpa perlu dikejar secara manual, bukannya menjadikan setiap titik sentuh satu titisan robotik. Prospek yang menunggu, akan pudar. Kami mengautomasikan perbualan dan perjalanan di sekitar pemasaran anda dengan berhati-hati, kerana automasi berlebihan ialah satu bentuk kegagalan tersendiri: pembeli premium dapat mengesan apabila tiada sesiapa di rumah, dan peraturan persetujuan (PDPA di sini, dan dasar platform di WhatsApp) menghadkan apa yang dibenarkan oleh automasi yang baik. Kemahirannya ialah mengetahui di mana manusia mengambil alih: aliran e-mel, automasi WhatsApp dan pesanan, pembantu AI, semuanya disambungkan ke CRM anda.',
+			'Automasi pemasaran perusahaan sepatutnya membuat prospek menukar semasa masih hangat dan pelanggan kembali tanpa perlu dikejar secara manual, bukannya menjadikan setiap titik sentuh satu titisan robotik. Prospek yang menunggu, akan pudar. Kami mengautomasikan perbualan dan perjalanan di sekitar pemasaran anda dengan berhati-hati kerana automasi berlebihan ialah satu bentuk kegagalan tersendiri: pembeli premium dapat mengesan apabila tiada sesiapa di rumah, dan peraturan persetujuan (PDPA di sini, dan dasar platform di WhatsApp) menghadkan apa yang dibenarkan oleh automasi yang baik. Kemahirannya ialah mengetahui di mana manusia mengambil alih: aliran e-mel, automasi WhatsApp dan pesanan, pembantu AI, semuanya disambungkan ke CRM anda.',
 		'Lifecycle email flows: nurture, cart recovery, re-engagement, repeat purchase' =>
 			'Aliran e-mel kitaran hayat: pemupukan, pemulihan troli, penglibatan semula, pembelian berulang',
 		'WhatsApp and messaging automation for lead gen, enquiries and campaigns' =>
@@ -1318,7 +1318,7 @@ return array(
 		'Paid media, proof it moves numbers' =>
 			'Media berbayar, bukti ia menggerakkan angka',
 		'Restructuring paid search for a premium B2B corporate-gifting brand lifted conversion rates 50% and qualified leads 150% on the same budget. Launching a global automotive marque\'s Asia brand film across seven markets, AI-driven programmatic delivered 26.1 million completed views at a $0.0048 CPCV, CPMs 85% under market rate, and 32,298 distributor leads, a brand campaign, so read those as reach economics; view metrics don\'t translate directly into lead-gen unit costs. For a global asset manager across four APAC markets, regulated financial services, MAS-grade compliance throughout, persona-led targeting improved conversion rates 25–35% and cut cost per conversion 20–30%, with paid-search engagement at 40.8% (3.9× the CTR benchmark) and 5.9% programmatic engagement across 21.8M in-target impressions. Those are engagement measures, chosen because regulated finance restricts what conversion data can travel, we\'d rather show you the honest metric than dress one up.' =>
-			'Penstrukturan semula carian berbayar untuk jenama hadiah korporat B2B premium meningkatkan kadar penukaran 50% dan prospek berkelayakan 150% dengan belanjawan yang sama. Semasa melancarkan filem jenama Asia bagi sebuah jenama automotif global merentasi tujuh pasaran, penghantaran programatik didorong AI menghasilkan 26.1 juta tontonan lengkap pada CPCV $0.0048, CPM 85% di bawah kadar pasaran, dan 32,298 prospek pengedar, sebuah kempen jenama, jadi bacalah itu sebagai ekonomi capaian; metrik tontonan tidak diterjemahkan terus kepada kos unit penjanaan prospek. Untuk sebuah pengurus aset global merentasi empat pasaran APAC, perkhidmatan kewangan terkawal, pematuhan bertaraf MAS sepanjang masa, penyasaran berasaskan persona meningkatkan kadar penukaran 25–35% dan mengurangkan kos setiap penukaran 20–30%, dengan penglibatan carian berbayar pada 40.8% (3.9× penanda aras CTR) dan penglibatan programatik 5.9% merentasi 21.8 juta tera dalam sasaran. Itu ukuran penglibatan, dipilih kerana kewangan terkawal menghadkan data penukaran yang boleh berpindah, kami lebih rela menunjukkan metrik yang jujur kepada anda daripada menghiasi satu.',
+			'Penstrukturan semula carian berbayar untuk jenama hadiah korporat B2B premium meningkatkan kadar penukaran 50% dan prospek berkelayakan 150% dengan belanjawan yang sama. Semasa melancarkan filem jenama Asia bagi sebuah jenama automotif global merentasi tujuh pasaran, penghantaran programatik didorong AI menghasilkan 26.1 juta tontonan lengkap pada CPCV US$0.0048, CPM 85% di bawah kadar pasaran, dan 32,298 prospek pengedar, sebuah kempen jenama, jadi bacalah itu sebagai ekonomi capaian; metrik tontonan tidak diterjemahkan terus kepada kos unit penjanaan prospek. Untuk sebuah pengurus aset global merentasi empat pasaran APAC, perkhidmatan kewangan terkawal, pematuhan bertaraf MAS sepanjang masa, penyasaran berasaskan persona meningkatkan kadar penukaran 25—35% dan mengurangkan kos setiap penukaran 20—30%, dengan penglibatan carian berbayar pada 40.8% (3.9× penanda aras CTR) dan penglibatan programatik 5.9% merentasi 21.8 juta tera dalam sasaran. Itu ukuran penglibatan, dipilih kerana kewangan terkawal menghadkan data penukaran yang boleh berpindah, kami lebih rela menunjukkan metrik yang jujur kepada anda daripada menghiasi satu.',
 		'Entering a new market?' =>
 			'Memasuki pasaran baharu?',
 		'Paid media is also how brands land. We built a global trading platform\'s Southeast Asia entry, category analysis, positioning, creative strategy, scripts and the media plan, produced in an intense 48-hour sprint format and replicated market by market with local experts. For a global premium sleep brand in China, we developed the full brand growth strategy: positioning, segmentation, messaging, media mix and the measurement framework to hold it accountable.' =>
@@ -1344,11 +1344,11 @@ return array(
 		'Google\'s own guidance on Smart Bidding' =>
 			'Panduan Google sendiri tentang Smart Bidding',
 		'explains why: bidding algorithms need conversion volume to learn from, and an underfunded campaign never gives them enough to work with. We\'ll tell you honestly if a budget is too thin to test properly, before we take it.' =>
-			'menerangkan sebabnya: algoritma bidaan memerlukan jumlah penukaran untuk belajar, dan kempen yang kekurangan dana tidak pernah memberikan cukup bahan untuk dikerjakan. Kami akan memberitahu anda dengan jujur jika belanjawan terlalu nipis untuk diuji dengan betul, sebelum kami menerimanya.',
+			'menerangkan sebabnya: algoritma bidaan memerlukan jumlah penukaran untuk belajar, dan kempen yang kekurangan dana tidak pernah memberikan cukup bahan untuk dikerjakan. Kami akan memberitahu anda dengan jujur jika belanjawan terlalu nipis untuk diuji dengan betul sebelum kami menerimanya.',
 		'What we need from you to start' =>
 			'Apa yang kami perlukan daripada anda untuk bermula',
 		'Ad accounts with history, whatever exists, even underperforming ones; access to the site or app for tracking; and a real conversion definition agreed before the first dollar spends. Accounts that start clean, no history, no baseline, take longer to judge, since there\'s nothing to compare the new numbers against. If you\'re migrating from another agency, keep the old account live in read-only mode for at least a quarter so the before-and-after comparison is honest rather than assumed, not asserted from memory once the new numbers look good.' =>
-			'Akaun iklan yang mempunyai sejarah, apa sahaja yang ada, walaupun yang berprestasi rendah; akses kepada tapak atau apl untuk penjejakan; dan takrifan penukaran sebenar yang dipersetujui sebelum dolar pertama dibelanjakan. Akaun yang bermula bersih, tanpa sejarah, tanpa garis dasar, mengambil masa lebih lama untuk dinilai, kerana tiada apa-apa untuk membandingkan angka baharu. Jika anda berhijrah daripada agensi lain, kekalkan akaun lama aktif dalam mod baca sahaja sekurang-kurangnya satu suku tahun supaya perbandingan sebelum dan selepas adalah jujur dan bukannya diandaikan, tidak ditegaskan daripada ingatan sebaik sahaja angka baharu kelihatan baik.',
+			'Akaun iklan yang mempunyai sejarah, apa sahaja yang ada, walaupun yang berprestasi rendah; akses kepada tapak atau apl untuk penjejakan; dan takrifan penukaran sebenar yang dipersetujui sebelum dolar pertama dibelanjakan. Akaun yang bermula bersih, tanpa sejarah, tanpa garis dasar, mengambil masa lebih lama untuk dinilai kerana tiada apa-apa untuk membandingkan angka baharu. Jika anda berhijrah daripada agensi lain, kekalkan akaun lama aktif dalam mod baca sahaja sekurang-kurangnya satu suku tahun supaya perbandingan sebelum dan selepas adalah jujur dan bukannya diandaikan, tidak ditegaskan daripada ingatan sebaik sahaja angka baharu kelihatan baik.',
 		'Search engine optimisation plus generative, AI and answer engine visibility, one organic discipline. Get a free audit.' =>
 			'Pengoptimuman enjin carian ditambah keterlihatan enjin generatif, AI dan jawapan, satu disiplin organik. Dapatkan audit percuma.',
 		'Most of this runs in Singapore and Malaysia; both markets\' pricing is published openly on' =>
@@ -1366,7 +1366,7 @@ return array(
 		'No timeline for page one, no guaranteed position, no fixed number of keywords ranked by a set date. Anyone offering those numbers is quoting outcomes Google itself doesn\'t control. What we will commit to in writing: the audit scope, the reporting cadence, and the priority list for the first quarter.' =>
 			'Tiada garis masa untuk halaman pertama, tiada kedudukan terjamin, tiada bilangan kata kunci tetap yang berkedudukan menjelang tarikh tertentu. Sesiapa yang menawarkan angka itu sedang memetik hasil yang Google sendiri tidak kawal. Apa yang kami akan komitkan secara bertulis: skop audit, rentak pelaporan, dan senarai keutamaan untuk suku tahun pertama.',
 		'Our SEO services used to end at Google\'s ten blue links. It doesn\'t any more. People now ask ChatGPT which agency to use, let Perplexity compare their options, and take Google\'s AI Overview as the answer without clicking anything. So our organic practice covers the whole surface: classic SEO, and the newer work the industry variously calls generative engine optimisation, artificial intelligence optimisation, or answer engine optimisation, GEO, AIO and AEO all name the same job from different angles: being the source the machines cite when they answer. It\'s early-stage work, the engines change fast, citation tracking is imperfect, and anyone selling AI-visibility guarantees is guessing, which is exactly why it belongs inside a measured SEO practice rather than sold as magic on its own.' =>
-			'Perkhidmatan SEO kami dahulu berakhir pada sepuluh pautan biru Google. Ia tidak lagi begitu. Orang kini bertanya ChatGPT agensi mana yang perlu digunakan, membiarkan Perplexity membandingkan pilihan mereka, dan menerima Ringkasan AI Google sebagai jawapan tanpa mengklik apa-apa. Jadi amalan organik kami meliputi seluruh permukaan: SEO klasik, dan kerja baharu yang dinamakan industri pelbagai nama sebagai pengoptimuman enjin generatif, pengoptimuman kecerdasan buatan, atau pengoptimuman enjin jawapan, GEO, AIO dan AEO semuanya menamakan tugas yang sama dari sudut berbeza: menjadi sumber yang dipetik mesin apabila menjawab. Ia kerja peringkat awal, enjin berubah dengan pantas, penjejakan petikan tidak sempurna, dan sesiapa yang menjual jaminan keterlihatan AI sedang meneka, itulah sebabnya ia tergolong dalam amalan SEO yang diukur dan bukannya dijual sebagai sihir tersendiri.',
+			'Perkhidmatan SEO kami dahulu berakhir pada sepuluh pautan biru Google. Ia tidak lagi begitu. Orang kini bertanya ChatGPT agensi mana yang perlu digunakan, membiarkan Perplexity membandingkan pilihan mereka, dan menerima Ringkasan AI Google sebagai jawapan tanpa mengklik apa-apa. Jadi, amalan organik kami meliputi seluruh permukaan: SEO klasik, dan kerja baharu yang dinamakan industri pelbagai nama sebagai pengoptimuman enjin generatif, pengoptimuman kecerdasan buatan, atau pengoptimuman enjin jawapan, GEO, AIO dan AEO semuanya menamakan tugas yang sama dari sudut berbeza: menjadi sumber yang dipetik mesin apabila menjawab. Ia kerja peringkat awal, enjin berubah dengan pantas, penjejakan petikan tidak sempurna, dan sesiapa yang menjual jaminan keterlihatan AI sedang meneka, itulah sebabnya ia tergolong dalam amalan SEO yang diukur dan bukannya dijual sebagai sihir tersendiri.',
 		'What our SEO services include' =>
 			'Apa yang termasuk dalam perkhidmatan SEO kami',
 		'Technical SEO and site performance remediation' =>
@@ -1384,7 +1384,7 @@ return array(
 		'What it looks like when it works' =>
 			'Rupanya apabila ia berjaya',
 		'Results this sharp come with context. The B2B industrial automation client below had strong content held back by a weak technical foundation, structure released value that already existed, and structure alone won\'t rescue thin content. With that said: organic sessions up 86% in one month after our technical and internal-link rebuild, average position from 16.3 to 10.6 in three months, and "turnkey automation systems" from unranked to position 3. A premium healthcare provider serving high-net-worth patients, a category increasingly decided by AI recommendation engines and search validation, gained 8.04 average positions in month one, with clicks up 34%, 2,553 keywords ranking, 150% more sales-qualified leads inside four weeks, and attributed pipeline revenue of $723k in month one rising to $1.4m by month three, "attributed" doing honest work in that sentence, since pipeline attribution is a model, and models estimate.' =>
-			'Hasil yang setajam ini datang dengan konteks. Pelanggan automasi industri B2B di bawah mempunyai kandungan yang kukuh yang terhalang oleh asas teknikal yang lemah; struktur melepaskan nilai yang sudah wujud, dan struktur sahaja tidak akan menyelamatkan kandungan yang nipis. Dengan itu dinyatakan: sesi organik naik 86% dalam sebulan selepas pembinaan semula teknikal dan pautan dalaman kami, kedudukan purata daripada 16.3 kepada 10.6 dalam tiga bulan, dan "sistem automasi turnkey" daripada tiada kedudukan kepada kedudukan 3. Sebuah penyedia penjagaan kesihatan premium yang melayani pesakit berpendapatan tinggi, kategori yang semakin ditentukan oleh enjin cadangan AI dan pengesahan carian, memperoleh 8.04 kedudukan purata pada bulan pertama, dengan klik naik 34%, 2,553 kata kunci berkedudukan, 150% lebih banyak prospek berkelayakan jualan dalam empat minggu, dan hasil saluran jualan yang dikaitkan sebanyak $723k pada bulan pertama meningkat kepada $1.4 juta menjelang bulan ketiga, "dikaitkan" membuat kerja jujur dalam ayat itu, kerana atribusi saluran jualan ialah satu model, dan model menganggar.',
+			'Hasil yang setajam ini datang dengan konteks. Pelanggan automasi industri B2B di bawah mempunyai kandungan yang kukuh yang terhalang oleh asas teknikal yang lemah; struktur melepaskan nilai yang sudah wujud, dan struktur sahaja tidak akan menyelamatkan kandungan yang nipis. Dengan itu dinyatakan: sesi organik naik 86% dalam sebulan selepas pembinaan semula teknikal dan pautan dalaman kami, kedudukan purata daripada 16.3 kepada 10.6 dalam tiga bulan, dan "sistem automasi turnkey" daripada tiada kedudukan kepada kedudukan 3. Sebuah penyedia penjagaan kesihatan premium yang melayani pesakit berpendapatan tinggi, kategori yang semakin ditentukan oleh enjin cadangan AI dan pengesahan carian, memperoleh 8.04 kedudukan purata pada bulan pertama, dengan klik naik 34%, 2,553 kata kunci berkedudukan, 150% lebih banyak prospek berkelayakan jualan dalam empat minggu, dan hasil saluran jualan yang dikaitkan sebanyak US$723 ribu pada bulan pertama meningkat kepada US$1.4 juta menjelang bulan ketiga, "dikaitkan" membuat kerja jujur dalam ayat itu kerana atribusi saluran jualan ialah satu model, dan model menganggar.',
 		'How engagements run' =>
 			'Bagaimana projek berjalan',
 		'Retainers run from SGD 3,800 a month: full technical and content audits as standard, all fixes handled on an ongoing basis, content built to be quoted accurately by both crawlers and answer engines, and seeding across the platforms answer engines draw from. We ask for a four-month minimum because honest organic work needs that long to show its first real returns, and even then, how far it goes is set partly by your category: a contested head term in finance behaves nothing like a niche B2B phrase, the reasoning is in our guide to' =>
@@ -1398,17 +1398,17 @@ return array(
 		'Reporting that isn\'t vanity metrics' =>
 			'Pelaporan yang bukan metrik kosong',
 		'Followers and impressions go in the report because clients ask for them, not because they decide budget. The numbers that decide budget are cost per lead, assisted conversions from social touchpoints, and creator content that gets reused in paid, since content earning its keep twice changes the unit economics of the whole retainer, which is the actual argument for treating social as one connected system instead of a standalone line item on a media plan.' =>
-			'Pengikut dan tera dimasukkan dalam laporan kerana pelanggan memintanya, bukan kerana ia menentukan belanjawan. Angka yang menentukan belanjawan ialah kos setiap prospek, penukaran dibantu daripada titik sentuh sosial, dan kandungan pencipta yang digunakan semula dalam media berbayar, kerana kandungan yang memberi pulangan dua kali mengubah ekonomi unit seluruh retainer, yang merupakan hujah sebenar untuk melayan sosial sebagai satu sistem yang berhubung dan bukannya satu baris berasingan pada pelan media.',
+			'Pengikut dan tera dimasukkan dalam laporan kerana pelanggan memintanya, bukan kerana ia menentukan belanjawan. Angka yang menentukan belanjawan ialah kos setiap prospek, penukaran dibantu daripada titik sentuh sosial, dan kandungan pencipta yang digunakan semula dalam media berbayar kerana kandungan yang memberi pulangan dua kali mengubah ekonomi unit seluruh retainer, yang merupakan hujah sebenar untuk melayan sosial sebagai satu sistem yang berhubung dan bukannya satu baris berasingan pada pelan media.',
 		'Audit of existing channels and creative history first, so we\'re not repeating tests you\'ve already run. Then a content and creator plan built against your actual funnel stage, not a generic calendar. Paid amplification starts once organic and creator content has something worth amplifying; spending on distribution before the creative is tested is how budgets get burned on the wrong asset at scale.' =>
-			'Audit saluran sedia ada dan sejarah kreatif dahulu, supaya kami tidak mengulangi ujian yang telah anda jalankan. Kemudian pelan kandungan dan pencipta yang dibina berdasarkan peringkat corong sebenar anda, bukan kalendar generik. Penguatan berbayar bermula apabila kandungan organik dan pencipta mempunyai sesuatu yang layak diperkuat; membelanjakan untuk pengedaran sebelum kreatif diuji ialah cara belanjawan dibakar pada aset yang salah secara besar-besaran.',
+			'Audit saluran sedia ada dan sejarah kreatif dahulu supaya kami tidak mengulangi ujian yang telah anda jalankan. Kemudian pelan kandungan dan pencipta yang dibina berdasarkan peringkat corong sebenar anda, bukan kalendar generik. Penguatan berbayar bermula apabila kandungan organik dan pencipta mempunyai sesuatu yang layak diperkuat; membelanjakan untuk pengedaran sebelum kreatif diuji ialah cara belanjawan dibakar pada aset yang salah secara besar-besaran.',
 		'Who a social media marketing agency actually helps' =>
 			'Siapa yang sebenarnya dibantu oleh agensi pemasaran media sosial',
 		'Content production, community management, creator sourcing and paid amplification are billed as one connected retainer rather than four separate line items, because splitting them into vendors is exactly the fragmentation that makes social underperform in the first place.' =>
-			'Penerbitan kandungan, pengurusan komuniti, pencarian pencipta dan penguatan berbayar dibilkan sebagai satu retainer yang berhubung dan bukannya empat baris berasingan, kerana memecahkannya kepada pembekal ialah pemecahan yang menyebabkan sosial berprestasi rendah pada mulanya.',
+			'Penerbitan kandungan, pengurusan komuniti, pencarian pencipta dan penguatan berbayar dibilkan sebagai satu retainer yang berhubung dan bukannya empat baris berasingan kerana memecahkannya kepada pembekal ialah pemecahan yang menyebabkan sosial berprestasi rendah pada mulanya.',
 		'Meta\'s ads guide' =>
 			'Panduan iklan Meta',
 		'and each platform\'s own creative specs sit underneath the strategy; we build to them rather than around them, since ignoring platform-native formats is the fastest way to waste a paid social budget.' =>
-			'dan spesifikasi kreatif setiap platform terletak di bawah strategi; kami membina mengikutnya dan bukannya mengelilinginya, kerana mengabaikan format asli platform ialah cara terpantas membazirkan belanjawan sosial berbayar.',
+			'dan spesifikasi kreatif setiap platform terletak di bawah strategi; kami membina mengikutnya dan bukannya mengelilinginya kerana mengabaikan format asli platform ialah cara terpantas membazirkan belanjawan sosial berbayar.',
 		'What a first month with our social media marketing agency looks like' =>
 			'Rupa bulan pertama bersama agensi pemasaran media sosial kami',
 		'As a social media marketing agency, we work on one premise: creative, creators and paid distribution have to run as one system with one scoreboard, or they compete with each other for the same budget. We plan platform strategy, produce and test content, manage creator partnerships and amplify with paid, measured on leads, sales and pipeline, never reach.' =>
@@ -1420,13 +1420,13 @@ return array(
 		'Paid social amplification and full-funnel campaigns' =>
 			'Penguatan media sosial berbayar dan kempen seluruh corong',
 		'Social commerce and livestream campaign support' =>
-			'Sokongan kempen social commerce dan siaran langsung',
+			'Sokongan kempen perdagangan sosial dan siaran langsung',
 		'Dynamic creative testing with weekly winner selection' =>
 			'Ujian kreatif dinamik dengan pemilihan pemenang mingguan',
 		'Proof it moves numbers' =>
 			'Bukti ia menggerakkan angka',
 		'Launching a premium medical-grade skincare brand into three Southeast Asian markets on under 0.5% share of category spend, we grew GMV 168% through Shopee and Lazada in the first three months and brought 65,000 new visitors averaging 2 minutes 20 seconds with the content, after our customer-journey analysis rerouted the launch from a D2C site to the marketplaces where that category, in those markets, actually buys. The lesson generalises; the playbook doesn\'t: the same engagement ran a doctor-and-dermatologist B2B strategy in Singapore, because the channel follows the buyer, and buyers differ by market from one launch to the next. Advertisers in Malaysia can start with our' =>
-			'Semasa melancarkan jenama penjagaan kulit premium gred perubatan ke tiga pasaran Asia Tenggara dengan kurang daripada 0.5% bahagian perbelanjaan kategori, kami mengembangkan GMV 168% melalui Shopee dan Lazada dalam tiga bulan pertama dan membawa 65,000 pelawat baharu yang menghabiskan purata 2 minit 20 saat pada kandungan, selepas analisis perjalanan pelanggan kami mengalihkan pelancaran daripada tapak D2C kepada marketplace tempat kategori itu, di pasaran tersebut, sebenarnya membeli. Pengajarannya boleh diamalkan secara umum; buku strateginya tidak: projek yang sama menjalankan strategi B2B untuk doktor dan pakar dermatologi di Singapura, kerana saluran mengikut pembeli, dan pembeli berbeza mengikut pasaran dari satu pelancaran ke satu pelancaran. Pengiklan di Malaysia boleh bermula dengan',
+			'Semasa melancarkan jenama penjagaan kulit premium gred perubatan ke tiga pasaran Asia Tenggara dengan kurang daripada 0.5% bahagian perbelanjaan kategori, kami mengembangkan GMV 168% melalui Shopee dan Lazada dalam tiga bulan pertama dan membawa 65,000 pelawat baharu yang menghabiskan purata 2 minit 20 saat pada kandungan selepas analisis perjalanan pelanggan kami mengalihkan pelancaran daripada tapak D2C kepada marketplace tempat kategori itu, di pasaran tersebut, sebenarnya membeli. Pengajarannya boleh diamalkan secara umum; buku strateginya tidak: projek yang sama menjalankan strategi B2B untuk doktor dan pakar dermatologi di Singapura kerana saluran mengikut pembeli, dan pembeli berbeza mengikut pasaran dari satu pelancaran ke satu pelancaran. Pengiklan di Malaysia boleh bermula dengan',
 		'practical guide to Facebook ads in Malaysia' =>
 			'panduan praktikal iklan Facebook di Malaysia kami',
 		'What our social media marketing agency won\'t do' =>
@@ -1434,7 +1434,7 @@ return array(
 		'On a global automotive marque\'s regional campaign, programmatic video beat both YouTube and Meta direct buys decisively. We run social for a client because the numbers earn it, and move budget through' =>
 			'Dalam kempen serantau sebuah jenama automotif global, video programatik mengalahkan pembelian langsung YouTube dan Meta dengan jelas. Kami menjalankan media sosial untuk pelanggan kerana angkanya melayakkannya, dan memindahkan belanjawan melalui',
 		'when they don\'t. The reverse also holds: for community-led and creator-led categories, social earns budget that search never could, because the buying decision itself gets made inside the feed. Channel answers are category answers.' =>
-			'apabila angka tidak melayakkannya. Sebaliknya juga benar: untuk kategori yang diterajui komuniti dan pencipta kandungan, media sosial memperoleh belanjawan yang tidak mungkin diperoleh carian, kerana keputusan membeli itu sendiri dibuat di dalam suapan. Jawapan saluran ialah jawapan kategori.',
+			'apabila angka tidak melayakkannya. Sebaliknya juga benar: untuk kategori yang diterajui komuniti dan pencipta kandungan, media sosial memperoleh belanjawan yang tidak mungkin diperoleh carian kerana keputusan membeli itu sendiri dibuat di dalam suapan. Jawapan saluran ialah jawapan kategori.',
 		'How we structure a retainer' =>
 			'Bagaimana kami menyusun retainer',
 		'Facebook Advertising in Malaysia: Costs, Targeting and What Works' =>
@@ -1466,7 +1466,7 @@ return array(
 		'When to bring in a specialist' =>
 			'Bila hendak membawa masuk pakar',
 		'Running Facebook advertising Malaysia campaigns in-house works fine below a certain spend and complexity threshold, usually while one person can hold the whole account structure and creative calendar in their head. Past that point, the coordination cost, testing several creative variants, tracking three languages, reconciling WhatsApp leads against ad spend, tends to eat more time than the media budget itself. That is the point at which a specialist earns their fee on hours saved alone, before the performance gains even enter the conversation.' =>
-			'Menjalankan kempen pengiklanan Facebook di Malaysia secara dalaman berjalan baik di bawah ambang perbelanjaan dan kerumitan tertentu, biasanya selagi seorang dapat memegang keseluruhan struktur akaun dan kalendar kreatif dalam kepalanya. Selepas itu, kos penyelarasan, menguji beberapa varian kreatif, menjejak tiga bahasa, menyelaraskan prospek WhatsApp dengan perbelanjaan iklan, cenderung memakan lebih banyak masa daripada belanjawan media itu sendiri. Itulah titik di mana seorang pakar melayakkan yuran mereka hanya daripada jam yang dijimatkan, sebelum keuntungan prestasi memasuki perbualan.',
+			'Menjalankan kempen pengiklanan Facebook di Malaysia secara dalaman berjalan baik di bawah ambang perbelanjaan dan kerumitan tertentu, biasanya selagi seorang dapat memegang keseluruhan struktur akaun dan kalendar kreatif dalam kepalanya. Selepas itu, kos penyelarasan, menguji beberapa varian kreatif, menjejak tiga bahasa, menyelaraskan prospek WhatsApp dengan perbelanjaan iklan, cenderung memakan lebih banyak masa daripada belanjawan media itu sendiri. Itulah titik di mana seorang pakar melayakkan yuran mereka hanya daripada jam yang dijimatkan sebelum keuntungan prestasi memasuki perbualan.',
 		'Meta\'s own ads guide' =>
 			'Panduan iklan Meta sendiri',
 		'is a reasonable place to sanity-check any agency\'s recommendations against the platform\'s current rules.' =>
@@ -1524,7 +1524,7 @@ return array(
 		'Interrogate the reporting' =>
 			'Soal siasat pelaporan',
 		'Ranking reports alone are theatre. Ask to see a real (anonymised) client report: does it connect organic performance to leads, revenue, or pipeline? Does it cover search alongside the other channels you run, so budget decisions get made across them rather than inside each silo? An agency that can\'t show attribution beyond positions is optimising for its own renewal.' =>
-			'Laporan kedudukan semata-mata ialah lakonan. Minta melihat laporan pelanggan sebenar (tanpa nama): adakah ia mengaitkan prestasi organik dengan prospek, hasil jualan atau saluran jualan? Adakah ia meliputi carian bersama saluran lain yang anda jalankan, supaya keputusan belanjawan dibuat merentasinya dan bukannya dalam setiap silo? Agensi yang tidak dapat menunjukkan atribusi melangkaui kedudukan sedang mengoptimumkan pembaharuan kontraknya sendiri.',
+			'Laporan kedudukan semata-mata ialah lakonan. Minta melihat laporan pelanggan sebenar (tanpa nama): adakah ia mengaitkan prestasi organik dengan prospek, hasil jualan atau saluran jualan? Adakah ia meliputi carian bersama saluran lain yang anda jalankan supaya keputusan belanjawan dibuat merentasinya dan bukannya dalam setiap silo? Agensi yang tidak dapat menunjukkan atribusi melangkaui kedudukan sedang mengoptimumkan pembaharuan kontraknya sendiri.',
 		'Ask who at the SEO agency does the work' =>
 			'Tanya siapa di agensi SEO yang melakukan kerja',
 		'The people in the pitch and the people in your account are frequently different people. Ask directly: who runs this engagement, what\'s their seniority, and how many accounts do they carry? Thin answers here explain most agency disappointments in this region.' =>
@@ -1536,7 +1536,7 @@ return array(
 		'Google\'s own SEO starter guide' =>
 			'Panduan permulaan SEO Google sendiri',
 		'is worth skimming first, so you can tell whether an agency\'s pitch matches what the platform itself says matters.' =>
-			'wajar disemak dahulu, supaya anda dapat mengetahui sama ada pembentangan agensi sepadan dengan apa yang platform itu sendiri katakan penting.',
+			'wajar disemak dahulu supaya anda dapat mengetahui sama ada pembentangan agensi sepadan dengan apa yang platform itu sendiri katakan penting.',
 		'Red flags that end the meeting' =>
 			'Tanda amaran yang menamatkan mesyuarat',
 		'Guaranteed rankings, nobody controls Google. Secret methods. Reporting only inside the agency\'s own tool. Refusal to itemise media or third-party costs. And be sceptical of both extremes on commitment: perpetual lock-ins are a trap, and "cancel anytime" is often a confession that nothing compounding is being built. We ask for a four-month minimum on SEO precisely because honest SEO needs that long to show its first real returns.' =>
@@ -1574,7 +1574,7 @@ return array(
 		'What clicks cost in Singapore' =>
 			'Berapa kos klik di Singapura',
 		'Singapore is a small, affluent, intensely contested market, and CPCs reflect it. From the keyword data we work with daily: "seo agency singapore" runs around US$10 per click, "digital marketing agency singapore" over US$11, and "sem agency singapore" close to US$14. At the extreme end, financial services keywords in Singapore run roughly S$5–18 per click. At those rates, structure and negatives decide whether a budget produces pipeline or noise, and treat every figure here as an average with a wide spread: actual CPCs move with match types, quality scores, seasonality and who else decided to bid this quarter.' =>
-			'Singapura ialah pasaran kecil, makmur dan sangat dipertandingkan, dan CPC mencerminkannya. Daripada data kata kunci yang kami gunakan setiap hari: "seo agency singapore" kira-kira AS$10 setiap klik, "digital marketing agency singapore" melebihi AS$11, dan "sem agency singapore" hampir AS$14. Pada hujung ekstrem, kata kunci perkhidmatan kewangan di Singapura kira-kira S$5–18 setiap klik. Pada kadar sebegitu, struktur dan kata kunci negatif menentukan sama ada belanjawan menghasilkan saluran jualan atau hingar, dan anggaplah setiap angka di sini sebagai purata dengan sebaran yang luas: CPC sebenar bergerak mengikut jenis padanan, skor kualiti, musim dan siapa lagi yang memutuskan untuk membida suku tahun ini.',
+			'Singapura ialah pasaran kecil, makmur dan sangat dipertandingkan, dan CPC mencerminkannya. Daripada data kata kunci yang kami gunakan setiap hari: "seo agency singapore" kira-kira US$10 setiap klik, "digital marketing agency singapore" melebihi US$11, dan "sem agency singapore" hampir US$14. Pada hujung ekstrem, kata kunci perkhidmatan kewangan di Singapura kira-kira S$5—18 setiap klik. Pada kadar sebegitu, struktur dan kata kunci negatif menentukan sama ada belanjawan menghasilkan saluran jualan atau hingar, dan anggaplah setiap angka di sini sebagai purata dengan sebaran yang luas: CPC sebenar bergerak mengikut jenis padanan, skor kualiti, musim dan siapa lagi yang memutuskan untuk membida suku tahun ini.',
 		'Google\'s own Quality Score documentation' =>
 			'Dokumentasi Skor Kualiti Google sendiri',
 		'is worth reading before you argue with an account manager about why your CPC sits where it does.' =>
@@ -1586,11 +1586,11 @@ return array(
 		'How SEM management is priced' =>
 			'Bagaimana pengurusan SEM dihargakan',
 		'Three common models: percentage of ad spend (typically 10–20%), flat monthly retainer, or hybrid. Each has a failure mode, percentage models reward spending more, flat retainers can reward doing less, so the safeguard is transparency. We work on flat retainers, paid media management from SGD 2,200 a month, with media billed at net cost and 0% markup, platform invoices attached to every recharge. Whatever model you choose, insist on seeing platform billing directly. Media margin hidden inside "management" is the oldest trick in the industry.' =>
-			'Tiga model biasa: peratusan perbelanjaan iklan (lazimnya 10–20%), retainer bulanan tetap, atau hibrid. Setiap satu mempunyai mod kegagalan; model peratusan memberi ganjaran kepada perbelanjaan lebih banyak, retainer tetap boleh memberi ganjaran kepada melakukan lebih sedikit, jadi perlindungannya ialah ketelusan. Kami bekerja dengan retainer tetap, pengurusan media berbayar daripada SGD 2,200 sebulan, dengan media dibilkan pada kos bersih dan mark-up 0%, invois platform dilampirkan pada setiap tambah nilai. Apa pun model yang anda pilih, tegaskan untuk melihat pengebilan platform secara terus. Margin media yang tersembunyi di dalam "pengurusan" ialah helah paling tua dalam industri ini.',
+			'Tiga model biasa: peratusan perbelanjaan iklan (lazimnya 10—20%), retainer bulanan tetap, atau hibrid. Setiap satu mempunyai mod kegagalan; model peratusan memberi ganjaran kepada perbelanjaan lebih banyak, retainer tetap boleh memberi ganjaran kepada melakukan lebih sedikit, jadi perlindungannya ialah ketelusan. Kami bekerja dengan retainer tetap, pengurusan media berbayar daripada SGD 2,200 sebulan, dengan media dibilkan pada kos bersih dan mark-up 0%, invois platform dilampirkan pada setiap tambah nilai. Apa pun model yang anda pilih, tegaskan untuk melihat pengebilan platform secara terus. Margin media yang tersembunyi di dalam "pengurusan" ialah helah paling tua dalam industri ini.',
 		'SEM or SEO?' =>
 			'SEM atau SEO?',
 		'Wrong question, the real one is sequencing. SEM buys visibility today; SEO compounds it over quarters. Whether that sequencing suits you depends on unit economics: at S$10+ per click, thin margins can make SEM a treadmill, while high-LTV businesses can afford it indefinitely. Most Singapore businesses we work with run SEM immediately while SEO builds underneath, then rebalance as organic takes share, and the rebalancing point is a margin decision, not a calendar one. We\'ve written a full comparison in' =>
-			'Soalan yang salah; yang sebenar ialah urutan. SEM membeli keterlihatan hari ini; SEO menggandakannya sepanjang suku tahun. Sama ada urutan itu sesuai dengan anda bergantung pada ekonomi unit: pada S$10+ setiap klik, margin nipis boleh menjadikan SEM sebagai treadmill, manakala perniagaan LTV tinggi boleh menanggungnya tanpa had. Kebanyakan perniagaan Singapura yang kami layani menjalankan SEM serta-merta sementara SEO dibina di bawahnya, kemudian mengimbangi semula apabila organik mengambil bahagian, dan titik pengimbangan semula ialah keputusan margin, bukan kalendar. Kami telah menulis perbandingan penuh dalam',
+			'Soalan yang salah; yang sebenar ialah urutan. SEM membeli keterlihatan hari ini; SEO menggandakannya sepanjang suku tahun. Sama ada urutan itu sesuai dengan anda bergantung pada ekonomi unit: pada S$10+ setiap klik, margin nipis boleh menjadikan SEM sebagai mesin lari, manakala perniagaan LTV tinggi boleh menanggungnya tanpa had. Kebanyakan perniagaan Singapura yang kami layani menjalankan SEM serta-merta sementara SEO dibina di bawahnya, kemudian mengimbangi semula apabila organik mengambil bahagian, dan titik pengimbangan semula ialah keputusan margin, bukan kalendar. Kami telah menulis perbandingan penuh dalam',
 		'SEO vs SEM' =>
 			'SEO berbanding SEM',
 		', and the organic half of the picture is set out on our' =>
@@ -1622,7 +1622,7 @@ return array(
 		'What actually drives the price' =>
 			'Apa yang sebenarnya mendorong harga',
 		'Keyword difficulty first: ranking a niche B2B supplier and ranking in finance, insurance or legal are different jobs, because the competition in the second group has been investing for a decade. Site size and technical state second: a 30-page site with clean structure needs far less monthly labour than a 5,000-SKU store carrying years of technical debt. Content requirements third, since categories where' =>
-			'Kesukaran kata kunci dahulu: mendapat kedudukan sebagai pembekal B2B khusus dan mendapat kedudukan dalam kewangan, insurans atau undang-undang ialah kerja yang berbeza, kerana persaingan dalam kumpulan kedua telah melabur selama sedekad. Saiz tapak dan keadaan teknikal kedua: tapak 30 halaman dengan struktur bersih memerlukan jauh kurang tenaga kerja bulanan daripada kedai 5,000 SKU yang membawa hutang teknikal bertahun-tahun. Keperluan kandungan ketiga, kerana kategori di mana',
+			'Kesukaran kata kunci dahulu: mendapat kedudukan sebagai pembekal B2B khusus dan mendapat kedudukan dalam kewangan, insurans atau undang-undang ialah kerja yang berbeza kerana persaingan dalam kumpulan kedua telah melabur selama sedekad. Saiz tapak dan keadaan teknikal kedua: tapak 30 halaman dengan struktur bersih memerlukan jauh kurang tenaga kerja bulanan daripada kedai 5,000 SKU yang membawa hutang teknikal bertahun-tahun. Keperluan kandungan ketiga, kerana kategori di mana',
 		'Google\'s helpful-content standards' =>
 			'piawaian kandungan berguna Google',
 		'demand genuine expertise cost more to write for than categories where serviceable coverage ranks. Scope of markets and languages last: Singapore-only English is one price; add Malaysia, add Mandarin, and the scope multiplies.' =>
@@ -1630,11 +1630,11 @@ return array(
 		'What cheap SEO actually buys' =>
 			'Apa yang sebenarnya dibeli oleh SEO murah',
 		'Below roughly S$800 a month, the economics only work through templated deliverables: auto-generated reports, thin syndicated content, directory links. None of it is free labour, so something is being skipped, and it\'s usually the parts that move rankings. That doesn\'t make every low quote a scam; a genuinely small local niche can be served cheaply. It does mean a low quote for a competitive category deserves the question: what specifically will be done each month, by whom, for this money? The other tell is contract length. Cheap SEO sold on a twelve-month lock-in is priced on the assumption you\'ll leave once you notice nothing is moving, and the lock-in exists so you can\'t. Month-to-month terms at a low price are rarer, because an agency doing real work at that price loses money and an agency doing no work gets cancelled.' =>
-			'Di bawah kira-kira S$800 sebulan, ekonominya hanya berfungsi melalui hasil kerja berdasarkan templat: laporan yang dijana secara automatik, kandungan sindiket yang nipis, pautan direktori. Tiada satu pun tenaga kerja percuma, jadi sesuatu sedang dilangkau, dan biasanya bahagian yang menggerakkan kedudukan. Itu tidak menjadikan setiap sebut harga rendah satu penipuan; niche tempatan yang benar-benar kecil boleh dilayani dengan murah. Ia bermakna sebut harga rendah untuk kategori yang dipertandingkan wajar disoal: apa tepatnya yang akan dilakukan setiap bulan, oleh siapa, untuk wang ini? Tanda lain ialah tempoh kontrak. SEO murah yang dijual dengan kunci mati dua belas bulan dihargakan atas andaian anda akan pergi sebaik sahaja menyedari tiada apa yang bergerak, dan kunci mati itu wujud supaya anda tidak boleh. Terma bulan ke bulan pada harga rendah lebih jarang, kerana agensi yang melakukan kerja sebenar pada harga itu rugi, dan agensi yang tidak melakukan kerja akan dibatalkan.',
+			'Di bawah kira-kira S$800 sebulan, ekonominya hanya berfungsi melalui hasil kerja berdasarkan templat: laporan yang dijana secara automatik, kandungan sindiket yang nipis, pautan direktori. Tiada satu pun tenaga kerja percuma, jadi sesuatu sedang dilangkau, dan biasanya bahagian yang menggerakkan kedudukan. Itu tidak menjadikan setiap sebut harga rendah satu penipuan; niche tempatan yang benar-benar kecil boleh dilayani dengan murah. Ia bermakna sebut harga rendah untuk kategori yang dipertandingkan wajar disoal: apa tepatnya yang akan dilakukan setiap bulan, oleh siapa, untuk wang ini? Tanda lain ialah tempoh kontrak. SEO murah yang dijual dengan kunci mati dua belas bulan dihargakan atas andaian anda akan pergi sebaik sahaja menyedari tiada apa yang bergerak, dan kunci mati itu wujud supaya anda tidak boleh. Terma bulan ke bulan pada harga rendah lebih jarang kerana agensi yang melakukan kerja sebenar pada harga itu rugi, dan agensi yang tidak melakukan kerja akan dibatalkan.',
 		'Retainer, project, or performance pricing' =>
 			'Harga retainer, projek atau prestasi',
 		'Retainers suit ongoing programmes, which is what SEO mostly is. Fixed-price projects suit bounded work like an audit or a migration. Performance pricing, paying per ranking achieved, sounds aligned and usually isn\'t: it pushes the agency toward easy keywords nobody searches, because those pay the same as hard ones. The honest structure for a serious SEO cost in Singapore discussion is a retainer scoped against your actual keyword difficulty, with the monthly deliverables listed and the measurement defined before work starts.' =>
-			'Retainer sesuai untuk program berterusan, yang sebahagian besarnya ialah SEO. Projek harga tetap sesuai untuk kerja terhad seperti audit atau migrasi. Harga prestasi, membayar bagi setiap kedudukan yang dicapai, kedengaran sejajar tetapi biasanya tidak: ia mendorong agensi ke arah kata kunci mudah yang tiada siapa cari, kerana ia dibayar sama seperti yang sukar. Struktur yang jujur untuk perbincangan kos SEO di Singapura yang serius ialah retainer yang diskopkan berdasarkan kesukaran kata kunci sebenar anda, dengan hasil kerja bulanan disenaraikan dan pengukuran ditakrifkan sebelum kerja bermula.',
+			'Retainer sesuai untuk program berterusan, yang sebahagian besarnya ialah SEO. Projek harga tetap sesuai untuk kerja terhad seperti audit atau migrasi. Harga prestasi, membayar bagi setiap kedudukan yang dicapai, kedengaran sejajar, tetapi biasanya tidak: ia mendorong agensi ke arah kata kunci mudah yang tiada siapa cari kerana ia dibayar sama seperti yang sukar. Struktur yang jujur untuk perbincangan kos SEO di Singapura yang serius ialah retainer yang diskopkan berdasarkan kesukaran kata kunci sebenar anda, dengan hasil kerja bulanan disenaraikan dan pengukuran ditakrifkan sebelum kerja bermula.',
 		'How to pressure-test any quote' =>
 			'Cara menguji tekanan mana-mana sebut harga',
 		'Ask what the first ninety days contain, item by item. Ask which of your keywords the price was scoped against, and what the agency believes ranking them will take. Ask how progress is reported and against which baseline. An agency that priced your situation can answer all three in specifics; an agency reading from a rate card can\'t. Our own guide to' =>
@@ -1658,7 +1658,7 @@ return array(
 		'SEO-Friendly Web Design: What Actually Matters' =>
 			'Reka Bentuk Web Mesra SEO: Apa yang Sebenarnya Penting',
 		'We say this to clients weekly: most of our work starts with a website someone else built, and the difference between a site designed with search in mind and one designed purely for looks shows up in every audit we run. This guide covers what SEO friendly web design actually means, so that whoever builds your next site builds it right.' =>
-			'Kami menyebut ini kepada pelanggan setiap minggu: kebanyakan kerja kami bermula dengan tapak web yang dibina orang lain, dan perbezaan antara tapak yang direka dengan mengambil kira carian dan yang direka semata-mata untuk rupa muncul dalam setiap audit yang kami jalankan. Panduan ini merangkumi maksud sebenar reka bentuk web mesra SEO, supaya sesiapa yang membina tapak anda yang seterusnya membinanya dengan betul.',
+			'Kami menyebut ini kepada pelanggan setiap minggu: kebanyakan kerja kami bermula dengan tapak web yang dibina orang lain, dan perbezaan antara tapak yang direka dengan mengambil kira carian dan yang direka semata-mata untuk rupa muncul dalam setiap audit yang kami jalankan. Panduan ini merangkumi maksud sebenar reka bentuk web mesra SEO supaya sesiapa yang membina tapak anda yang seterusnya membinanya dengan betul.',
 		'Design decisions are ranking decisions' =>
 			'Keputusan reka bentuk ialah keputusan kedudukan',
 		'Google doesn\'t rank designs. It ranks pages it can crawl, render, understand and trust. Every design choice either helps or hinders those four things. A beautiful site built as a single JavaScript bundle with no semantic structure can be invisible to search; a plain site with clean HTML, fast loads and a logical hierarchy can outrank it with half the budget.' =>
@@ -1732,7 +1732,7 @@ return array(
 		'What moves the number here specifically' =>
 			'Apa yang menggerakkan angka di sini secara khusus',
 		'Language scope is the big one. Malaysian search demand splits across English and Malay in most categories, with Mandarin mattering in several, and every language you cover means separate keyword research, separate content, separate on-page work. A single-language quote and a bilingual quote for the same site are different engagements at different prices. Location count is second: one PJ clinic and a chain across KL, Penang and JB carry different local-SEO workloads. Keyword difficulty and technical state drive the rest, exactly as they do everywhere. One more Malaysia-specific driver worth naming: platform mix. A meaningful share of Malaysian SMB sites still run on older page builders or heavily customised themes carrying years of accumulated technical debt, and remediating that before content work can pay off adds real hours to the early months of an engagement. An agency that quotes without having crawled your site hasn\'t priced that debt, because it can\'t have; it has priced an assumption.' =>
-			'Skop bahasa ialah yang terbesar. Permintaan carian Malaysia berpecah antara bahasa Inggeris dan Melayu dalam kebanyakan kategori, dengan Mandarin penting dalam beberapa, dan setiap bahasa yang anda liputi bermakna kajian kata kunci berasingan, kandungan berasingan, kerja pada halaman berasingan. Sebut harga satu bahasa dan sebut harga dwibahasa untuk tapak yang sama ialah projek berbeza pada harga berbeza. Bilangan lokasi kedua: satu klinik di PJ dan rangkaian merentasi KL, Pulau Pinang dan JB membawa beban kerja SEO tempatan yang berbeza. Kesukaran kata kunci dan keadaan teknikal mendorong selebihnya, sama seperti di tempat lain. Satu lagi pendorong khusus Malaysia yang wajar disebut: campuran platform. Sebahagian ketara tapak PKS Malaysia masih berjalan pada pembina halaman lama atau tema yang disesuaikan dengan banyak membawa hutang teknikal terkumpul bertahun-tahun, dan memperbaikinya sebelum kerja kandungan membuahkan hasil menambah jam sebenar pada bulan-bulan awal sesuatu projek. Agensi yang membuat sebut harga tanpa memerangkak tapak anda belum menghargakan hutang itu, kerana ia tidak mungkin; ia telah menghargakan satu andaian.',
+			'Skop bahasa ialah yang terbesar. Permintaan carian Malaysia berpecah antara bahasa Inggeris dan Melayu dalam kebanyakan kategori, dengan Mandarin penting dalam beberapa, dan setiap bahasa yang anda liputi bermakna kajian kata kunci berasingan, kandungan berasingan, kerja pada halaman berasingan. Sebut harga satu bahasa dan sebut harga dwibahasa untuk tapak yang sama ialah projek berbeza pada harga berbeza. Bilangan lokasi kedua: satu klinik di PJ dan rangkaian merentasi KL, Pulau Pinang dan JB membawa beban kerja SEO tempatan yang berbeza. Kesukaran kata kunci dan keadaan teknikal mendorong selebihnya, sama seperti di tempat lain. Satu lagi pendorong khusus Malaysia yang wajar disebut: campuran platform. Sebahagian ketara tapak PKS Malaysia masih berjalan pada pembina halaman lama atau tema yang disesuaikan dengan banyak membawa hutang teknikal terkumpul bertahun-tahun, dan memperbaikinya sebelum kerja kandungan membuahkan hasil menambah jam sebenar pada bulan-bulan awal sesuatu projek. Agensi yang membuat sebut harga tanpa memerangkak tapak anda belum menghargakan hutang itu kerana ia tidak mungkin; ia telah menghargakan satu andaian.',
 		'The models you\'ll be offered' =>
 			'Model yang akan ditawarkan kepada anda',
 		'Retainers dominate, and for ongoing SEO they should. Project pricing fits bounded work: an audit, a migration, a one-time technical cleanup. Per-keyword and pay-on-ranking offers appear more often in the Malaysian market than they deserve to, and the incentive problem is structural: the agency gets paid the same for ranking an easy term nobody searches as for a hard term that drives revenue, so guess which ones end up in the report. Treat any pay-on-ranking pitch as a prompt to look closely at the keyword list.' =>
@@ -1766,11 +1766,11 @@ return array(
 		'The sequencing rule we actually use' =>
 			'Peraturan urutan yang sebenarnya kami gunakan',
 		'Run SEM immediately while SEO builds underneath, then rebalance as organic takes share. The rebalancing point is a margin decision. At S$10+ per click, a thin-margin business is on a treadmill it can\'t afford forever, so shifting spend toward organic as rankings arrive is survival arithmetic. A high-LTV business can afford SEM indefinitely and may keep both at full strength. There is no calendar answer; there is a unit-economics answer, and it\'s different for every business.' =>
-			'Jalankan SEM serta-merta sementara SEO dibina di bawahnya, kemudian imbangkan semula apabila organik mengambil bahagian. Titik pengimbangan semula ialah keputusan margin. Pada S$10+ setiap klik, perniagaan bermargin nipis berada di atas treadmill yang tidak mampu ditanggungnya selama-lamanya, jadi mengalihkan perbelanjaan ke arah organik apabila kedudukan tiba ialah aritmetik kelangsungan hidup. Perniagaan LTV tinggi mampu menanggung SEM tanpa had dan mungkin mengekalkan kedua-duanya pada kekuatan penuh. Tiada jawapan kalendar; ada jawapan ekonomi unit, dan ia berbeza bagi setiap perniagaan.',
+			'Jalankan SEM serta-merta sementara SEO dibina di bawahnya, kemudian imbangkan semula apabila organik mengambil bahagian. Titik pengimbangan semula ialah keputusan margin. Pada S$10+ setiap klik, perniagaan bermargin nipis berada di atas mesin lari yang tidak mampu ditanggungnya selama-lamanya, jadi mengalihkan perbelanjaan ke arah organik apabila kedudukan tiba ialah aritmetik kelangsungan hidup. Perniagaan LTV tinggi mampu menanggung SEM tanpa had dan mungkin mengekalkan kedua-duanya pada kekuatan penuh. Tiada jawapan kalendar; ada jawapan ekonomi unit, dan ia berbeza bagi setiap perniagaan.',
 		'Where SEM data feeds SEO' =>
 			'Di mana data SEM menyuap SEO',
 		'The most underused benefit of running both: paid search tells you within weeks which queries actually convert, at real statistical volume, usually within the first month. That validated list is the best keyword research SEO can get, because it\'s built from purchases rather than search-volume estimates. We build organic content plans against paid conversion data whenever both channels run together, and the SEO vs SEM framing dissolves into one system with two inputs.' =>
-			'Faedah menjalankan kedua-duanya yang paling kurang digunakan: carian berbayar memberitahu anda dalam beberapa minggu pertanyaan mana yang sebenarnya menukar, pada volum statistik sebenar, biasanya dalam bulan pertama. Senarai yang telah disahkan itu ialah kajian kata kunci terbaik yang dapat diperoleh SEO, kerana ia dibina daripada pembelian dan bukannya anggaran volum carian. Kami membina pelan kandungan organik berdasarkan data penukaran berbayar apabila kedua-dua saluran berjalan bersama, dan pembingkaian SEO berbanding SEM melebur menjadi satu sistem dengan dua input.',
+			'Faedah menjalankan kedua-duanya yang paling kurang digunakan: carian berbayar memberitahu anda dalam beberapa minggu pertanyaan mana yang sebenarnya menukar, pada volum statistik sebenar, biasanya dalam bulan pertama. Senarai yang telah disahkan itu ialah kajian kata kunci terbaik yang dapat diperoleh SEO kerana ia dibina daripada pembelian dan bukannya anggaran volum carian. Kami membina pelan kandungan organik berdasarkan data penukaran berbayar apabila kedua-dua saluran berjalan bersama, dan pembingkaian SEO berbanding SEM melebur menjadi satu sistem dengan dua input.',
 		'What this means for your budget' =>
 			'Apa maksudnya untuk belanjawan anda',
 		'If you can only fund one channel this quarter, fund the one that matches your cash position: SEM if you need revenue now and your margins survive the click costs, SEO if you can wait out the ramp for a cheaper cost per visit later. If you can fund both, sequence them as above. The costs behind each half are published openly:' =>
@@ -1814,7 +1814,7 @@ return array(
 		'by month eight. Indexed keywords went from zero to ranking, with the first target keyword landing in month four.' =>
 			'menjelang bulan kelapan. Kata kunci yang diindeks daripada sifar kepada berkedudukan, dengan kata kunci sasaran pertama mendarat pada bulan keempat.',
 		'Month one against month two, as recorded.' =>
-			'Bulan pertama berbanding bulan kedua, seperti yang direkodkan.',
+			'Bulan pertama berbanding bulan kedua, seperti yang direkodkan',
 		'Metric' =>
 			'Metrik',
 		'Recorded' =>
@@ -1838,7 +1838,7 @@ return array(
 		'Month four' =>
 			'Bulan keempat',
 		'The engagement in numbers.' =>
-			'Projek dalam angka.',
+			'Projek dalam angka',
 		'The more useful result is what happened next. Four consecutive Google core updates landed during the engagement, August, September, October and November 2023, and the site held. During the August core update it improved in four of six tracked areas; through the September Helpful Content update, which cut visibility across the category, sessions and backlinks continued to climb even as traffic dipped.' =>
 			'Hasil yang lebih berguna ialah apa yang berlaku seterusnya. Empat kemas kini teras Google berturut-turut berlaku semasa projek, Ogos, September, Oktober dan November 2023, dan tapak itu bertahan. Semasa kemas kini teras Ogos, ia bertambah baik dalam empat daripada enam bidang yang dijejaki; melalui kemas kini Helpful Content September, yang mengurangkan keterlihatan merentasi kategori, sesi dan pautan balik terus meningkat walaupun trafik merosot.',
 		'The honest read' =>
@@ -1868,7 +1868,7 @@ return array(
 		'Want this running for you?' =>
 			'Mahu ini berjalan untuk anda?',
 		'Sports & Entertainment: 53k to 745k Addressable Audience' =>
-			'Sukan & Hiburan: Audiens yang Boleh Disasarkan 53k kepada 745k',
+			'Sukan & Hiburan: Audiens yang Boleh Disasarkan 53 ribu kepada 745 ribu',
 		'A national sports precinct grew its addressable audience fourteenfold using cookieless personas, with campaigns 20-30% better on CPA. Read the case.' =>
 			'Sebuah kompleks sukan kebangsaan mengembangkan audiens yang boleh disasarkannya empat belas kali ganda menggunakan persona tanpa kuki, dengan kempen 20-30% lebih baik pada CPA. Baca kajian kes.',
 		'Cookieless audience building sits inside our broader' =>
@@ -1908,27 +1908,27 @@ return array(
 		'The addressable audience grew from' =>
 			'Audiens yang boleh disasarkan berkembang daripada',
 		'53k to 745k' =>
-			'53k kepada 745k',
+			'53 ribu kepada 745 ribu',
 		'defined individuals. Ongoing campaigns against those segments run' =>
 			'individu yang ditakrifkan. Kempen berterusan terhadap segmen tersebut berjalan',
 		'better on CPA, with platform-reported ROAS above 400%.' =>
 			'lebih baik pada CPA, dengan ROAS yang dilaporkan platform melebihi 400%.',
 		'Addressable audience, defined individuals.' =>
-			'Audiens yang boleh disasarkan, individu yang ditakrifkan.',
+			'Audiens yang boleh disasarkan, individu yang ditakrifkan',
 		'Addressable audience' =>
 			'Audiens yang boleh disasarkan',
 		'53k to 745k defined individuals' =>
-			'53k kepada 745k individu yang ditakrifkan',
+			'53 ribu kepada 745 ribu individu yang ditakrifkan',
 		'CPA against prior campaigns' =>
 			'CPA berbanding kempen terdahulu',
 		'20–30% better' =>
-			'20–30% lebih baik',
+			'20—30% lebih baik',
 		'ROAS' =>
 			'ROAS',
 		'Above 400%, platform-reported' =>
 			'Melebihi 400%, dilaporkan platform',
 		'The programme in numbers.' =>
-			'Program dalam angka.',
+			'Program dalam angka',
 		'Platform-reported is said deliberately: ROAS a platform grades for itself flatters, and incrementality is the harder, better question, we will tell you when a number is which. The durable asset here is the audience itself, not any single campaign built on top of it. The media results follow from the cookieless audience building work, and the engagement is ongoing, so the figures describe a running programme rather than a closed one.' =>
 			'Dilaporkan platform disebut dengan sengaja: ROAS yang dinilai platform untuk dirinya sendiri membodek, dan inkrementaliti ialah soalan yang lebih sukar dan lebih baik, kami akan memberitahu anda yang mana satu apabila sesuatu angka itu. Aset yang tahan lama di sini ialah audiens itu sendiri, bukan mana-mana kempen tunggal yang dibina di atasnya. Hasil media datang daripada kerja pembinaan audiens tanpa kuki, dan projek ini berterusan, jadi angka menerangkan program yang sedang berjalan dan bukannya yang telah ditutup.',
 		'What this doesn\'t prove for every venue' =>
@@ -1960,7 +1960,7 @@ return array(
 		'Why branded-only visibility is a warning sign' =>
 			'Mengapa keterlihatan berjenama sahaja ialah tanda amaran',
 		'A retailer that only ranks for its own name is invisible to the much larger pool of shoppers who don\'t know the brand yet and are searching by category or product type instead. Ecommerce SEO for footwear specifically means competing on terms like shoe types, use cases and style descriptors, not just the brand name, since that\'s where new customer discovery actually happens rather than where existing customers confirm they\'ve found the right site.' =>
-			'Peruncit yang hanya mendapat kedudukan untuk namanya sendiri tidak kelihatan kepada kumpulan pembeli yang jauh lebih besar yang belum mengenali jenama itu dan mencari mengikut kategori atau jenis produk. SEO e-dagang untuk kasut secara khusus bermakna bersaing pada istilah seperti jenis kasut, kegunaan dan penerangan gaya, bukan sekadar nama jenama, kerana di situlah penemuan pelanggan baharu sebenarnya berlaku dan bukannya tempat pelanggan sedia ada mengesahkan mereka telah menemui tapak yang betul.',
+			'Peruncit yang hanya mendapat kedudukan untuk namanya sendiri tidak kelihatan kepada kumpulan pembeli yang jauh lebih besar yang belum mengenali jenama itu dan mencari mengikut kategori atau jenis produk. SEO e-dagang untuk kasut secara khusus bermakna bersaing pada istilah seperti jenis kasut, kegunaan dan penerangan gaya, bukan sekadar nama jenama kerana di situlah penemuan pelanggan baharu sebenarnya berlaku dan bukannya tempat pelanggan sedia ada mengesahkan mereka telah menemui tapak yang betul.',
 		'Site health improved to' =>
 			'Kesihatan tapak bertambah baik kepada',
 		', PageSpeed scored' =>
@@ -1976,7 +1976,7 @@ return array(
 		'2.4% CTR' =>
 			'CTR 2.4%',
 		', with the growth concentrated in the second half of the month, immediately following the optimisation work. Mid-tier non-branded keywords settled at positions 10–11, the band where CTR work pays next.' =>
-			', dengan pertumbuhan tertumpu pada separuh kedua bulan itu, sejurus selepas kerja pengoptimuman. Kata kunci bukan jenama peringkat pertengahan menetap pada kedudukan 10–11, jalur di mana kerja CTR membuahkan hasil seterusnya.',
+			', dengan pertumbuhan tertumpu pada separuh kedua bulan itu, sejurus selepas kerja pengoptimuman. Kata kunci bukan jenama peringkat pertengahan menetap pada kedudukan 10—11, jalur di mana kerja CTR membuahkan hasil seterusnya.',
 		'Site health' =>
 			'Kesihatan tapak',
 		'PageSpeed' =>
@@ -1990,7 +1990,7 @@ return array(
 		'Mid-tier non-branded keywords' =>
 			'Kata kunci bukan jenama peringkat pertengahan',
 		'Positions 10–11' =>
-			'Kedudukan 10–11',
+			'Kedudukan 10—11',
 		'Post-remediation, as measured.' =>
 			'Selepas pembaikan, seperti yang diukur.',
 		'Three months fixes a site and starts a trend; proving a compounding one takes longer. The honest description is a foundation laid, with momentum visible at the point of reporting. The absolute numbers are modest by design, this was a niche retailer, not a mass-market store, and the biggest constraint identified, backlink authority, was still outstanding when the reporting period closed. We said so in the report on this ecommerce SEO for footwear engagement, rather than waiting for a stakeholder to ask why the number wasn\'t bigger.' =>
@@ -2002,7 +2002,7 @@ return array(
 		'A six-month organic and paid programme for a Malaysian clinic, built on realistic targets. Read the case.' =>
 			'Program organik dan berbayar enam bulan untuk sebuah klinik Malaysia, dibina atas sasaran yang realistik. Baca kajian kes.',
 		'A single clinic competing in a defined local area has a hard ceiling on addressable search volume that a national or multi-location chain doesn\'t face, so healthcare SEO Malaysia work for a practice like this one is judged against a narrower, more honest range of possible outcomes from the start. Setting the 1–3% monthly target before the engagement began, rather than after seeing early results, is what let both sides judge performance against a number agreed in advance instead of one adjusted to match whatever happened.' =>
-			'Sebuah klinik tunggal yang bersaing dalam kawasan tempatan yang ditakrifkan mempunyai siling yang tegar pada volum carian yang boleh disasarkan yang tidak dihadapi oleh rangkaian kebangsaan atau berbilang lokasi, jadi kerja SEO penjagaan kesihatan Malaysia untuk praktis seperti ini dinilai berdasarkan julat hasil yang lebih sempit dan lebih jujur sejak awal. Menetapkan sasaran bulanan 1–3% sebelum projek bermula, dan bukannya selepas melihat hasil awal, itulah yang membolehkan kedua-dua pihak menilai prestasi berdasarkan angka yang dipersetujui lebih awal dan bukannya yang diselaraskan supaya sepadan dengan apa sahaja yang berlaku.',
+			'Sebuah klinik tunggal yang bersaing dalam kawasan tempatan yang ditakrifkan mempunyai siling yang tegar pada volum carian yang boleh disasarkan yang tidak dihadapi oleh rangkaian kebangsaan atau berbilang lokasi, jadi kerja SEO penjagaan kesihatan Malaysia untuk praktis seperti ini dinilai berdasarkan julat hasil yang lebih sempit dan lebih jujur sejak awal. Menetapkan sasaran bulanan 1—3% sebelum projek bermula, dan bukannya selepas melihat hasil awal, itulah yang membolehkan kedua-dua pihak menilai prestasi berdasarkan angka yang dipersetujui lebih awal dan bukannya yang diselaraskan supaya sepadan dengan apa sahaja yang berlaku.',
 		'This programme combined our' =>
 			'Program ini menggabungkan perkhidmatan',
 		'service with' =>
@@ -2024,7 +2024,7 @@ return array(
 		'Why organic and paid ran as one programme, not two' =>
 			'Mengapa organik dan berbayar dijalankan sebagai satu program, bukan dua',
 		'Splitting organic and paid search into separate vendors is common and usually wasteful, since the two channels are answering the same underlying question, which terms actually convert, from two different data sources. Healthcare SEO Malaysia work run alongside paid search let the paid data show, within weeks, which treatment terms had real commercial intent, well before the slower organic rankings could confirm the same thing months later, so the organic content plan was built against validated demand rather than a guess.' =>
-			'Memisahkan carian organik dan berbayar kepada pembekal berasingan adalah biasa dan lazimnya membazir, kerana kedua-dua saluran menjawab soalan asas yang sama, istilah mana yang sebenarnya menukar, daripada dua sumber data berbeza. Kerja SEO penjagaan kesihatan Malaysia yang dijalankan bersama carian berbayar membolehkan data berbayar menunjukkan, dalam beberapa minggu, istilah rawatan mana yang mempunyai niat komersial sebenar, jauh sebelum kedudukan organik yang lebih perlahan dapat mengesahkan perkara yang sama beberapa bulan kemudian, jadi pelan kandungan organik dibina berdasarkan permintaan yang disahkan dan bukannya tekaan.',
+			'Memisahkan carian organik dan berbayar kepada pembekal berasingan adalah biasa dan lazimnya membazir kerana kedua-dua saluran menjawab soalan asas yang sama, istilah mana yang sebenarnya menukar, daripada dua sumber data berbeza. Kerja SEO penjagaan kesihatan Malaysia yang dijalankan bersama carian berbayar membolehkan data berbayar menunjukkan, dalam beberapa minggu, istilah rawatan mana yang mempunyai niat komersial sebenar, jauh sebelum kedudukan organik yang lebih perlahan dapat mengesahkan perkara yang sama beberapa bulan kemudian, jadi pelan kandungan organik dibina berdasarkan permintaan yang disahkan dan bukannya tekaan.',
 		'A parallel Google Ads programme ran against the same intent set, and progress was reported fortnightly with position tracking.' =>
 			'Program Google Ads selari dijalankan terhadap set niat yang sama, dan kemajuan dilaporkan setiap dua minggu dengan penjejakan kedudukan.',
 		'Six months of sustained work, reported fortnightly, with keyword positions tracked against a defined target set and structured data lifting the clinic\'s presence in rich results. Organic and paid ran against the same intent map, so the paid data informed which organic terms were worth pursuing and the organic gains reduced dependence on paid over time.' =>
@@ -2032,9 +2032,9 @@ return array(
 		'The most instructive part of this engagement is the target we set:' =>
 			'Bahagian yang paling mendidik dalam projek ini ialah sasaran yang kami tetapkan:',
 		'1–3% organic traffic growth per month, and 5% over six months' =>
-			'pertumbuhan trafik organik 1–3% sebulan, dan 5% dalam enam bulan',
+			'pertumbuhan trafik organik 1—3% sebulan, dan 5% dalam enam bulan',
 		'. Modest, and deliberately so, because for a single-location clinical practice in a competitive medical category, that is what honest compounding looks like. Anyone promising a healthcare practice triple-digit growth is describing a different site or a different truth. We include this healthcare SEO Malaysia case precisely because it shows the discipline of realistic forecasting, which is the harder professional habit.' =>
-			'. Sederhana, dan sengaja begitu, kerana bagi praktis klinikal satu lokasi dalam kategori perubatan yang dipertandingkan, itulah rupa pertumbuhan terkumpul yang jujur. Sesiapa yang menjanjikan pertumbuhan tiga digit kepada praktis penjagaan kesihatan sedang menerangkan tapak lain atau kebenaran lain. Kami memasukkan kajian kes SEO penjagaan kesihatan Malaysia ini justeru kerana ia menunjukkan disiplin peramalan yang realistik, yang merupakan tabiat profesional yang lebih sukar.',
+			'. Sederhana, dan sengaja begitu kerana bagi praktis klinikal satu lokasi dalam kategori perubatan yang dipertandingkan, itulah rupa pertumbuhan terkumpul yang jujur. Sesiapa yang menjanjikan pertumbuhan tiga digit kepada praktis penjagaan kesihatan sedang menerangkan tapak lain atau kebenaran lain. Kami memasukkan kajian kes SEO penjagaan kesihatan Malaysia ini justeru kerana ia menunjukkan disiplin peramalan yang realistik, yang merupakan tabiat profesional yang lebih sukar.',
 		'Why a single-location clinic sets a different bar' =>
 			'Mengapa klinik satu lokasi menetapkan paras yang berbeza',
 		'Market Entry: A Southeast Asia Launch Built in 48-Hour Sprints' =>
@@ -2052,7 +2052,7 @@ return array(
 		'What makes a market ready for the sprint format' =>
 			'Apa yang menjadikan sesuatu pasaran bersedia untuk format sprint',
 		'The 48-hour sprint format works when the parent brand already has a clear global positioning and product to localise, since the sprint compresses adaptation time, not strategy invention time from zero. A Southeast Asia market entry for a genuinely new product category with no existing brand equity to draw on would need real discovery work before a sprint could compress anything meaningfully; compressing a process that hasn\'t happened yet just produces a fast, badly-informed launch instead of a fast, well-informed one.' =>
-			'Format sprint 48 jam berfungsi apabila jenama induk sudah mempunyai pemosisian global dan produk yang jelas untuk dilokalkan, kerana sprint memampatkan masa penyesuaian, bukan masa mencipta strategi dari kosong. Kemasukan pasaran Asia Tenggara untuk kategori produk yang benar-benar baharu tanpa ekuiti jenama sedia ada untuk dimanfaatkan memerlukan kerja penemuan sebenar sebelum sprint dapat memampatkan apa-apa dengan bermakna; memampatkan proses yang belum berlaku hanya menghasilkan pelancaran yang pantas dan kurang bermaklumat dan bukannya yang pantas dan bermaklumat.',
+			'Format sprint 48 jam berfungsi apabila jenama induk sudah mempunyai pemosisian global dan produk yang jelas untuk dilokalkan kerana sprint memampatkan masa penyesuaian, bukan masa mencipta strategi dari kosong. Kemasukan pasaran Asia Tenggara untuk kategori produk yang benar-benar baharu tanpa ekuiti jenama sedia ada untuk dimanfaatkan memerlukan kerja penemuan sebenar sebelum sprint dapat memampatkan apa-apa dengan bermakna; memampatkan proses yang belum berlaku hanya menghasilkan pelancaran yang pantas dan kurang bermaklumat dan bukannya yang pantas dan bermaklumat.',
 		'Regulatory considerations across the region' =>
 			'Pertimbangan kawal selia merentasi rantau ini',
 		'Trading and financial platforms face different licensing and advertising rules in each Southeast Asian market;' =>
@@ -2062,7 +2062,7 @@ return array(
 		'alone sets requirements that don\'t map directly onto neighbouring jurisdictions. Building local legal review into each 48-hour sprint, rather than treating it as a separate downstream step, is what let this Southeast Asia market entry move at the pace it did without compliance becoming a bottleneck later in the process.' =>
 			'sahaja menetapkan keperluan yang tidak sepadan terus dengan bidang kuasa jiran. Membina semakan undang-undang tempatan ke dalam setiap sprint 48 jam, dan bukannya melayannya sebagai langkah hiliran yang berasingan, itulah yang membolehkan kemasukan pasaran Asia Tenggara ini bergerak pada kadar yang dicapainya tanpa pematuhan menjadi halangan kemudian dalam proses.',
 		'Speed of delivery isn\'t the same as quality of outcome, and this case makes no claim about how the launches actually performed once media went live, since that outcome belongs entirely to the client\'s own activation and reporting, not to the sprint itself. A Southeast Asia market entry delivered fast but built on the wrong positioning would still fail regardless of how efficiently it shipped; speed only ever compounds a strategy that was already right to begin with.' =>
-			'Kelajuan penyampaian tidak sama dengan kualiti hasil, dan kajian kes ini tidak membuat tuntutan tentang bagaimana pelancaran sebenarnya berprestasi sebaik sahaja media disiarkan, kerana hasil itu sepenuhnya milik pengaktifan dan pelaporan pelanggan sendiri, bukan milik sprint itu sendiri. Kemasukan pasaran Asia Tenggara yang disampaikan dengan pantas tetapi dibina atas pemosisian yang salah tetap akan gagal tanpa mengira betapa cekap ia dihantar; kelajuan hanya menggandakan strategi yang sememangnya betul pada mulanya.',
+			'Kelajuan penyampaian tidak sama dengan kualiti hasil, dan kajian kes ini tidak membuat tuntutan tentang bagaimana pelancaran sebenarnya berprestasi sebaik sahaja media disiarkan kerana hasil itu sepenuhnya milik pengaktifan dan pelaporan pelanggan sendiri, bukan milik sprint itu sendiri. Kemasukan pasaran Asia Tenggara yang disampaikan dengan pantas, tetapi dibina atas pemosisian yang salah tetap akan gagal tanpa mengira betapa cekap ia dihantar; kelajuan hanya menggandakan strategi yang sememangnya betul pada mulanya.',
 		'This Southeast Asia market entry case covers a global trading platform needing a full go-to-market per country on a timetable that ruled out the usual months of strategy work.' =>
 			'Kajian kes kemasukan pasaran Asia Tenggara ini meliputi sebuah platform dagangan global yang memerlukan go-to-market penuh bagi setiap negara pada jadual yang menolak kerja strategi berbulan-bulan yang biasa.',
 		'How this Southeast Asia market entry was structured' =>
@@ -2072,7 +2072,7 @@ return array(
 		'Why sprints instead of a single regional strategy' =>
 			'Mengapa sprint dan bukannya satu strategi serantau',
 		'A single regional strategy document is faster to produce but treats Southeast Asia as one market, which it isn\'t: trading platform regulation, investor sophistication and preferred channels differ meaningfully between, say, Vietnam and Singapore. A Southeast Asia market entry built market by market with a local expert attached to each sprint costs more coordination up front but avoids the far more expensive mistake of launching a positioning that doesn\'t fit the local regulatory or cultural context.' =>
-			'Satu dokumen strategi serantau lebih pantas dihasilkan tetapi menganggap Asia Tenggara sebagai satu pasaran, yang bukan begitu: peraturan platform dagangan, kecanggihan pelabur dan saluran pilihan berbeza dengan bermakna antara, katakan, Vietnam dan Singapura. Kemasukan pasaran Asia Tenggara yang dibina pasaran demi pasaran dengan pakar tempatan dilampirkan pada setiap sprint memerlukan lebih banyak penyelarasan pada awalnya tetapi mengelakkan kesilapan yang jauh lebih mahal iaitu melancarkan pemosisian yang tidak sesuai dengan konteks kawal selia atau budaya tempatan.',
+			'Satu dokumen strategi serantau lebih pantas dihasilkan, tetapi menganggap Asia Tenggara sebagai satu pasaran, yang bukan begitu: peraturan platform dagangan, kecanggihan pelabur dan saluran pilihan berbeza dengan bermakna antara, katakan, Vietnam dan Singapura. Kemasukan pasaran Asia Tenggara yang dibina pasaran demi pasaran dengan pakar tempatan dilampirkan pada setiap sprint memerlukan lebih banyak penyelarasan pada awalnya, tetapi mengelakkan kesilapan yang jauh lebih mahal iaitu melancarkan pemosisian yang tidak sesuai dengan konteks kawal selia atau budaya tempatan.',
 		'Each market received its complete launch package, positioning, creative strategy, scripts and media plan, inside a' =>
 			'Setiap pasaran menerima pakej pelancaran lengkapnya, pemosisian, strategi kreatif, skrip dan pelan media, dalam sprint',
 		'48-hour' =>
@@ -2112,7 +2112,7 @@ return array(
 		'Customer-journey analysis across the three launch markets came before any spend was committed, and it rerouted the launch from the planned D2C site to Shopee and Lazada, where the category in those markets actually buys. Content was built for the marketplace environment rather than ported from the brand site, with weekly creative rotation letting the data pick winners.' =>
 			'Analisis perjalanan pelanggan merentasi tiga pasaran pelancaran mendahului sebarang perbelanjaan yang dikomitkan, dan ia mengalihkan pelancaran daripada tapak D2C yang dirancang kepada Shopee dan Lazada, tempat kategori itu di pasaran tersebut sebenarnya membeli. Kandungan dibina untuk persekitaran marketplace dan bukannya dipindahkan daripada tapak jenama, dengan putaran kreatif mingguan membolehkan data memilih pemenang.',
 		'A separate doctor-and-dermatologist B2B strategy ran in Singapore, because the buyer there differs from the consumer buyer everywhere else in the launch. Getting the channel right before spending on it is most of what a marketplace launch actually is; the media plan itself is the comparatively easy part once the underlying routing decision has already been made correctly.' =>
-			'Strategi B2B doktor dan pakar dermatologi yang berasingan dijalankan di Singapura, kerana pembeli di sana berbeza daripada pembeli pengguna di tempat lain dalam pelancaran ini. Mendapatkan saluran yang betul sebelum membelanjakan padanya ialah sebahagian besar daripada apa sebenarnya pelancaran marketplace; pelan media itu sendiri ialah bahagian yang agak mudah sebaik sahaja keputusan penghalaan asas telah dibuat dengan betul.',
+			'Strategi B2B doktor dan pakar dermatologi yang berasingan dijalankan di Singapura kerana pembeli di sana berbeza daripada pembeli pengguna di tempat lain dalam pelancaran ini. Mendapatkan saluran yang betul sebelum membelanjakan padanya ialah sebahagian besar daripada apa sebenarnya pelancaran marketplace; pelan media itu sendiri ialah bahagian yang agak mudah sebaik sahaja keputusan penghalaan asas telah dibuat dengan betul.',
 		'Why marketplaces over the brand\'s own site' =>
 			'Mengapa marketplace dan bukannya tapak milik jenama sendiri',
 		'The category decided this, not a template preference. In several Southeast Asian skincare markets, marketplaces like' =>
@@ -2158,7 +2158,7 @@ return array(
 		'. Brands weighing a similar skincare marketplace launch into Singapore, Malaysia or the wider region can start there before scoping a market-entry engagement of their own.' =>
 			'kami. Jenama yang mempertimbangkan pelancaran marketplace penjagaan kulit yang serupa ke Singapura, Malaysia atau rantau yang lebih luas boleh bermula di sana sebelum menskopkan projek kemasukan pasaran mereka sendiri.',
 		'Financial Services: +25–35% Conversion Rate Across 4 APAC Markets' =>
-			'Perkhidmatan Kewangan: Kadar Penukaran +25–35% Merentasi 4 Pasaran APAC',
+			'Perkhidmatan Kewangan: Kadar Penukaran +25—35% Merentasi 4 Pasaran APAC',
 		'Persona-led paid media for a global asset manager lifted conversion rates 25-35% in regulated markets with compliance built in. Read the case.' =>
 			'Media berbayar berasaskan persona untuk pengurus aset global meningkatkan kadar penukaran 25-35% di pasaran terkawal dengan pematuhan terbina dalam. Baca kajian kes.',
 		'service, with reporting built on the same honest-measurement principles covered on our' =>
@@ -2212,7 +2212,7 @@ return array(
 		'5.9% across 21.8M in-target impressions' =>
 			'5.9% merentasi 21.8 juta tera dalam sasaran',
 		'Across four APAC markets, as recorded.' =>
-			'Merentasi empat pasaran APAC, seperti yang direkodkan.',
+			'Merentasi empat pasaran APAC, seperti yang direkodkan',
 		'Several of those are engagement measures, chosen because regulated finance restricts what conversion data can travel. We would rather show the honest metric than dress one up, and in this category, financial services paid media that clears compliance and still performs is the actual achievement, not a footnote to apologise for.' =>
 			'Beberapa daripadanya ialah ukuran penglibatan, dipilih kerana kewangan terkawal menghadkan data penukaran yang boleh berpindah. Kami lebih rela menunjukkan metrik yang jujur daripada menghiasi satu, dan dalam kategori ini, media berbayar perkhidmatan kewangan yang melepasi pematuhan dan masih berprestasi ialah pencapaian sebenar, bukan nota kaki yang perlu dimaafkan.',
 		'What we couldn\'t measure, and why' =>
@@ -2228,7 +2228,7 @@ return array(
 		'What changed in the negative keyword list' =>
 			'Apa yang berubah dalam senarai kata kunci negatif',
 		'Before the restructure, the negative keyword list ran to a few dozen obvious exclusions, competitor brand names, unrelated product categories. After, it ran to several hundred, built by mining several months of search-term reports for queries that had spent money without ever converting. That expanded negative list did more to protect the budget than any single positive keyword addition, since it stopped continuous, quiet spend leakage on queries that looked plausible but never converted, month after month, without anyone noticing until the reports were actually mined properly.' =>
-			'Sebelum penstrukturan semula, senarai kata kunci negatif hanya terdiri daripada beberapa puluh pengecualian yang jelas, nama jenama pesaing, kategori produk yang tidak berkaitan. Selepas itu, ia mencecah beberapa ratus, dibina dengan melombong laporan istilah carian beberapa bulan untuk pertanyaan yang telah membelanjakan wang tanpa pernah menukar. Senarai negatif yang diperluas itu lebih banyak melindungi belanjawan berbanding mana-mana penambahan kata kunci positif, kerana ia menghentikan kebocoran perbelanjaan yang berterusan dan senyap pada pertanyaan yang kelihatan munasabah tetapi tidak pernah menukar, bulan demi bulan, tanpa disedari sesiapa sehingga laporan benar-benar dilombong dengan betul.',
+			'Sebelum penstrukturan semula, senarai kata kunci negatif hanya terdiri daripada beberapa puluh pengecualian yang jelas, nama jenama pesaing, kategori produk yang tidak berkaitan. Selepas itu, ia mencecah beberapa ratus, dibina dengan melombong laporan istilah carian beberapa bulan untuk pertanyaan yang telah membelanjakan wang tanpa pernah menukar. Senarai negatif yang diperluas itu lebih banyak melindungi belanjawan berbanding mana-mana penambahan kata kunci positif kerana ia menghentikan kebocoran perbelanjaan yang berterusan dan senyap pada pertanyaan yang kelihatan munasabah, tetapi tidak pernah menukar, bulan demi bulan, tanpa disedari sesiapa sehingga laporan benar-benar dilombong dengan betul.',
 		'Why the same restructure isn\'t always the answer' =>
 			'Mengapa penstrukturan semula yang sama tidak selalunya jawapannya',
 		'A paid search account restructure only unlocks a gain this size when the starting account genuinely has structural waste to remove. An account that\'s already well-negatived, properly segmented by intent and tracked against qualified leads rather than raw conversions won\'t see anything close to 150%, because there\'s no equivalent waste left to redirect. Asking for a proper diagnostic before signing any restructure engagement is really the only honest way to know for certain which of those two situations an account is actually in.' =>
@@ -2262,7 +2262,7 @@ return array(
 		'How to tell if your account needs the same fix' =>
 			'Cara mengetahui sama ada akaun anda memerlukan pembaikan yang sama',
 		'Automotive: 26.1M Completed Views at $0.0048 CPCV Across 7 Markets' =>
-			'Automotif: 26.1 Juta Tontonan Lengkap pada CPCV $0.0048 Merentasi 7 Pasaran',
+			'Automotif: 26.1 Juta Tontonan Lengkap pada CPCV US$0.0048 Merentasi 7 Pasaran',
 		'A global automotive marque launched its Asia brand film across seven markets with CPMs 85% under market rate. Read the case.' =>
 			'Sebuah jenama automotif global melancarkan filem jenama Asianya merentasi tujuh pasaran dengan CPM 85% di bawah kadar pasaran. Baca kajian kes.',
 		'A low CPCV on a global automotive brand film does not predict what a smaller, less recognisable brand would pay for similar inventory; auction dynamics favour brands with existing name recognition and creative assets that a platform\'s own quality signals have already learned to trust over time. Automotive programmatic advertising for a smaller challenger brand entering the same category cold would need its own independent benchmark, built carefully from its own test spend over several weeks, rather than simply assuming this particular campaign\'s favourable numbers as a realistic target from day one.' =>
@@ -2282,7 +2282,7 @@ return array(
 		'Planning automotive programmatic advertising across seven markets' =>
 			'Merancang pengiklanan programatik automotif merentasi tujuh pasaran',
 		'AI-driven programmatic planning and buying ran across all seven markets at once, optimised to completed views against CPCV rather than impressions. Lead capture was routed to market distributors alongside the brand objective, and the buy was benchmarked market by market against local CPM norms, since a single regional average would have hidden which markets were actually delivering efficient inventory and which were quietly dragging the blended number down.' =>
-			'Perancangan dan pembelian programatik didorong AI dijalankan merentasi kesemua tujuh pasaran serentak, dioptimumkan kepada tontonan lengkap berbanding CPCV dan bukannya tera. Penangkapan prospek dihalakan kepada pengedar pasaran bersama objektif jenama, dan pembelian ditanda aras pasaran demi pasaran berbanding norma CPM tempatan, kerana purata serantau tunggal akan menyembunyikan pasaran mana yang sebenarnya menyampaikan inventori yang cekap dan mana yang diam-diam menarik angka campuran ke bawah.',
+			'Perancangan dan pembelian programatik didorong AI dijalankan merentasi kesemua tujuh pasaran serentak, dioptimumkan kepada tontonan lengkap berbanding CPCV dan bukannya tera. Penangkapan prospek dihalakan kepada pengedar pasaran bersama objektif jenama, dan pembelian ditanda aras pasaran demi pasaran berbanding norma CPM tempatan kerana purata serantau tunggal akan menyembunyikan pasaran mana yang sebenarnya menyampaikan inventori yang cekap dan mana yang diam-diam menarik angka campuran ke bawah.',
 		'Why programmatic over direct buys here' =>
 			'Mengapa programatik dan bukannya pembelian langsung di sini',
 		'A brand film running in seven markets at once has seven different inventory markets, seven different audience behaviours, and seven different price floors to negotiate. Direct buys with individual publishers don\'t scale against that without a proportional increase in account management overhead. Automotive programmatic advertising bought through' =>
@@ -2316,7 +2316,7 @@ return array(
 		'Seven, simultaneously' =>
 			'Tujuh, serentak',
 		'Campaign delivery, as recorded.' =>
-			'Penyampaian kempen, seperti yang direkodkan.',
+			'Penyampaian kempen, seperti yang direkodkan',
 		'This was a brand campaign, so read those numbers as reach economics: completed views bought unusually cheaply at scale. View metrics do not translate directly into lead-gen unit costs, and the 32,298 leads were a secondary outcome of a film built for attention, not the primary objective the media plan was optimised against. Other automotive programmatic advertising campaigns built specifically for lead generation should be held to their own lead-gen benchmarks, not this one\'s CPCV.' =>
 			'Ini ialah kempen jenama, jadi bacalah angka itu sebagai ekonomi capaian: tontonan lengkap dibeli dengan murah luar biasa pada skala besar. Metrik tontonan tidak diterjemahkan terus kepada kos unit penjanaan prospek, dan 32,298 prospek itu ialah hasil sekunder sebuah filem yang dibina untuk perhatian, bukan objektif utama yang dioptimumkan oleh pelan media. Kempen pengiklanan programatik automotif lain yang dibina khusus untuk penjanaan prospek harus dinilai berdasarkan penanda aras penjanaan prospeknya sendiri, bukan CPCV yang ini.',
 		'What this case does not prove' =>
@@ -2364,7 +2364,7 @@ return array(
 		'by month three.' =>
 			'menjelang bulan ketiga.',
 		'Attributed pipeline revenue (a model, and reported as one).' =>
-			'Hasil saluran jualan yang dikaitkan (satu model, dan dilaporkan sebagai model).',
+			'Hasil saluran jualan yang dikaitkan (satu model, dan dilaporkan sebagai model)',
 		'Average positions gained' =>
 			'Kedudukan purata diperoleh',
 		'Clicks' =>
@@ -2376,7 +2376,7 @@ return array(
 		'+150% inside four weeks' =>
 			'+150% dalam empat minggu',
 		'Month one, as recorded.' =>
-			'Bulan pertama, seperti yang direkodkan.',
+			'Bulan pertama, seperti yang direkodkan',
 		'"Attributed" is doing honest work in that sentence. Pipeline attribution is a model, and models estimate, the leads and the rankings are counted directly, while the revenue figures inherit the assumptions of the attribution window behind them. We report both, labelled as what they are, and the same discipline applies to healthcare AI search visibility metrics: citation frequency is directionally useful, not a precise count anyone can audit externally.' =>
 			'"Dikaitkan" membuat kerja jujur dalam ayat itu. Atribusi saluran jualan ialah satu model, dan model menganggar; prospek dan kedudukan dikira secara langsung, manakala angka hasil jualan mewarisi andaian tetingkap atribusi di belakangnya. Kami melaporkan kedua-duanya, dilabelkan sebagai apa adanya, dan disiplin yang sama terpakai pada metrik keterlihatan carian AI penjagaan kesihatan: kekerapan petikan berguna secara berarah, bukan kiraan tepat yang boleh diaudit sesiapa dari luar.',
 		'What healthcare AI search visibility can\'t promise' =>
@@ -2406,7 +2406,7 @@ return array(
 		'Why every metric moving together matters more than any single number' =>
 			'Mengapa setiap metrik bergerak bersama lebih penting daripada mana-mana angka tunggal',
 		'A single strong metric is easy to produce in isolation, a backlink push spikes referring domains, a content sprint spikes indexed keywords, without either necessarily helping the business. B2B seo results where traffic, sessions, engagement, session duration, backlinks and indexed keywords all move together in the same month are much harder to produce by accident, because it means the technical foundation, the content, and the authority work were all reinforcing each other rather than one lever compensating for the others being neglected.' =>
-			'Satu metrik yang kuat mudah dihasilkan secara berasingan, tolakan pautan balik melonjakkan domain perujuk, pecutan kandungan melonjakkan kata kunci terindeks, tanpa mana-mana semestinya membantu perniagaan. Hasil SEO B2B di mana trafik, sesi, penglibatan, tempoh sesi, pautan balik dan kata kunci terindeks semuanya bergerak bersama pada bulan yang sama jauh lebih sukar dihasilkan secara kebetulan, kerana ia bermakna asas teknikal, kandungan dan kerja autoriti semuanya saling menguatkan dan bukannya satu tuil mengimbangi yang lain diabaikan.',
+			'Satu metrik yang kuat mudah dihasilkan secara berasingan, tolakan pautan balik melonjakkan domain perujuk, pecutan kandungan melonjakkan kata kunci terindeks, tanpa mana-mana semestinya membantu perniagaan. Hasil SEO B2B di mana trafik, sesi, penglibatan, tempoh sesi, pautan balik dan kata kunci terindeks semuanya bergerak bersama pada bulan yang sama jauh lebih sukar dihasilkan secara kebetulan kerana ia bermakna asas teknikal, kandungan dan kerja autoriti semuanya saling menguatkan dan bukannya satu tuil mengimbangi yang lain diabaikan.',
 		'Monthly reporting counted how many of six tracked areas improved, including the months where the answer was unflattering.' =>
 			'Pelaporan bulanan mengira berapa banyak daripada enam bidang yang dijejaki bertambah baik, termasuk bulan-bulan di mana jawapannya tidak menyenangkan.',
 		'Month four is the month worth showing: organic traffic' =>
@@ -2434,15 +2434,15 @@ return array(
 	),
 	'seo' => array(
 		'' => array(
-			'title'       => 'Remotive Media Asia – Pemasaran Prestasi, Media & SEO untuk Jenama Asia',
+			'title'       => 'Remotive Media Asia | Pemasaran Prestasi, Media & SEO untuk Jenama Asia',
 			'description' => 'Pasukan media bebas yang diterajui pakar kanan. Kami membaiki asas, memastikan anda ditemui dan dipetik dalam carian klasik dan AI, kemudian menskalakan dengan media berbayar di seluruh Asia.',
 		),
 		'team' => array(
-			'title'       => 'Kenali Pasukan Kami – Remotive Media Asia',
+			'title'       => 'Kenali Pasukan Kami | Remotive Media Asia',
 			'description' => 'Kenali pakar kanan di sebalik Remotive Media Asia: satu pasukan yang bertanggungjawab, tanpa serah tugas kepada staf junior.',
 		),
 		'contact' => array(
-			'title'       => 'Hubungi Kami – Remotive Media Asia',
+			'title'       => 'Hubungi Kami | Remotive Media Asia',
 			'description' => 'Beritahu kami apa yang tidak berfungsi atau apa yang anda mahu berfungsi dengan lebih baik. Kami membalas dalam tempoh tiga hari bekerja.',
 		),
 		'2026/09/facebook-advertising-malaysia' => array(
@@ -2490,7 +2490,7 @@ return array(
 			'description' => 'SEO industri B2B menggandakan tiga kali sesi dan bertahan melalui empat kemas kini teras Google. Baca kajian kes.',
 		),
 		'case-studies/cookieless-audience-sports' => array(
-			'title'       => 'Pembinaan Audiens Tanpa Kuki: 53k kepada 745k',
+			'title'       => 'Pembinaan Audiens Tanpa Kuki: 53 ribu kepada 745 ribu',
 			'description' => 'Pembinaan audiens tanpa kuki mengembangkan capaian empat belas kali ganda dan mengurangkan CPA 20-30% untuk sebuah tempat sukan. Baca kajian kes.',
 		),
 		'case-studies/ecommerce-seo-footwear' => array(

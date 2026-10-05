@@ -4,6 +4,28 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.107.0] — 2026-10-05
+
+### Changed
+
+The Malay (`ms-MY`) text, in the dictionary (`inc/i18n/ms.php`) and the landing pages, was checked against the Dewan Bahasa dan Pustaka's *Pedoman Umum Ejaan Bahasa Melayu* (the 65-page copy supplied) and brought into line. The loan-word spellings were already right (agensi, aktiviti, kualiti, teknikal, infrastruktur, automasi and so on follow the Pedoman's adaptation rules), as were prepositions, particles and affixes; what changed is below. About 100 strings were edited.
+
+- **Commas.** No comma before an anak ayat that follows its main clause (`…disambungkan, supaya…` → `…disambungkan supaya…`; the same for kerana, agar, sebelum, selepas; Pedoman, tanda koma, rule 4). A comma before tetapi and melainkan that join clauses (rule 2), and after a sentence-opening Jadi (rule 5).
+- **Headings and captions have no final full stop** (tanda titik, rule 11: titles, illustrations and tables): the home page hero and section headings, Kajian Kes, Wawasan, Soalan Lazim, the team and contact headings, the figure captions on the case studies, and the three landing page headlines and their confirmation heading.
+- **Dashes.** The tanda pisah is the unspaced em dash (`Baiki, Ditemui, Skala—terbukti`), including between numbers (`Jun—Oktober 2022`, `20—30%`); a spaced en dash as a title separator became ` | `, the separator the other titles use.
+- **Numbers and money.** US dollars are `US$` (it was `AS$` in some places and a bare `$` in others); `53k`, `745k` and `$723k` became `53 ribu`, `745 ribu` and `US$723 ribu`.
+- **Adapted two English words**: `social commerce` → `perdagangan sosial`, `treadmill` → `mesin lari`.
+- **Dates on Malay and Chinese pages** (the Insights list): `October 2, 2026` is now `2 Oktober 2026` in Malay (day, month with a capital, year, as in the Pedoman's `31 Ogos 1957`) and `2026年10月2日` in Chinese. `remotive_i18n_localise_date()`.
+
+### Added
+
+- **`tests/check-ejaan.php`, run in CI.** Fails if the Malay text brings back any of the mechanical mistakes: a comma before a following anak ayat, tetapi without a comma, AS$ or a bare $, a number with k, a spaced dash, an en dash between words or numbers, Indonesian spellings (karena, bahwa, situs, tautan, layanan, informasi and others), di/ke/dari joined to a word of place, ke pada or dari pada written apart, lah/kah/tah or nya/ku/mu written apart, ke before a number without a hyphen, `50an`, space before punctuation, English months, language names without a capital, an SEO title or landing page headline ending in a full stop, and pun written together outside the Pedoman's list. 1,359 strings pass.
+
+### Not done, and why
+
+- **Foreign words in italics.** The Pedoman writes foreign terms in italics (huruf condong) unless adapted. The language layer swaps text, not markup, so a term such as "retainer", "sprint", "white-label" or a quoted search phrase stays as written. Where an English word has an accepted adaptation it was adapted; the rest is a known limit.
+- **Wording.** This is orthography and punctuation. Whether a sentence reads naturally to a Malaysian reader still needs a native speaker.
+
 ## [1.106.1] — 2026-10-05
 
 ### Fixed

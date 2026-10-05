@@ -112,4 +112,13 @@ t_eq( remotive_i18n_render_switcher( true ), '', 'header switcher can be switche
 t_ok( '' !== remotive_i18n_render_switcher(), 'footer switcher stays when only the header is off' );
 $GLOBALS['t_front'] = false;
 
+// Dates are written the way the language writes them (Pedoman Umum Ejaan: "31 Ogos 1957").
+t_eq( remotive_i18n_localise_date( 'October 2, 2026', 'ms' ), '2 Oktober 2026', 'Malay date' );
+t_eq( remotive_i18n_localise_date( 'August 31, 1957', 'ms' ), '31 Ogos 1957', 'Malay August is Ogos' );
+t_eq( remotive_i18n_localise_date( 'March 9, 2027', 'ms' ), '9 Mac 2027', 'Malay March is Mac' );
+t_eq( remotive_i18n_localise_date( 'October 2, 2026', 'zh-hans' ), '2026年10月2日', 'Chinese date' );
+t_eq( remotive_i18n_localise_date( 'October 2, 2026', 'zh-hant' ), '2026年10月2日', 'Traditional Chinese date' );
+t_eq( remotive_i18n_localise_date( 'Services', 'ms' ), null, 'ordinary text is not a date' );
+t_eq( remotive_i18n_localise_date( 'October 2, 2026', 'en' ), null, 'English is left alone' );
+
 t_done( 'i18n' );
