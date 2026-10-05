@@ -543,6 +543,7 @@ not stored in the repository), and the 2010 edition (Dewan Bahasa dan Pustaka, B
 | Tanda pisah | The en dash with a space each side (2010 edition; it replaces the unspaced em dash of the first edition), also between numbers; titles are separated with ` \| `. |
 | Tanda petik | Curly double quotes “ ”, never straight. |
 | Tanda koma (senarai) | A comma before the final `dan` of a list of three or more items (2010 edition). |
+| Tatabahasa (from v1.109.2) | *Tatabahasa Dewan*, 3rd ed. (DBP, 2008): `adalah` is not used as a general copula (`ialah` before a noun, otherwise left out); never `paling` or `sekali` with `ter-`; `daripada ... kepada` for changes of state and `dari` for place or time of origin; `kepada` for people and abstract targets, `ke` for places; no doubled noun after `semua`, `para`, `beberapa`; `bahawa` kept before a reported clause; loan-word verbs keep their first letter (`menskalakan`, `mengklik`, `mengkomitkan`); compounds as the book writes them. Checked by `tests/check-ejaan.php` where a script can; the rest was read through by hand. |
 | Huruf besar | Months and weekdays, languages and peoples (bahasa Melayu, orang Inggeris), places and official names with a capital. |
 | Tarikh | Day, month name, year: `2 Oktober 2026`. |
 
