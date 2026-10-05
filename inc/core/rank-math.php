@@ -81,7 +81,12 @@ add_filter( 'rank_math/frontend/canonical', 'remotive_rank_math_canonical' );
  */
 function remotive_rank_math_sitemap_entry( $url, $type = '', $post = null ) {
 	if ( 'post' === $type && is_object( $post ) && in_array( (int) $post->ID, remotive_unlisted_page_ids(), true ) ) {
-		return false;
+		// A landing page switched to index in Rank Math's Advanced tab belongs in the sitemap; the confirmation pages never do.
+		$is_landing = in_array( (int) $post->ID, remotive_lp_page_ids(), true );
+
+		if ( ! $is_landing || remotive_lp_robots_policy( $post->ID )['noindex'] ) {
+			return false;
+		}
 	}
 
 	return $url;
