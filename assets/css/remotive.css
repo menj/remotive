@@ -3057,3 +3057,40 @@ body.rm-motion .rm-ticker-band{ overflow:hidden; }
 .rm-cs-card__link{
   padding-bottom:.5rem;
 }
+
+/* =================== LANGUAGE VERSIONS ===================
+   The language selector, and the few typographic adjustments a language other
+   than English needs. It lives in the footer's bottom bar, not the header: the
+   header has no spare room at most widths and gains a wrapped row if anything is
+   added to it. Nothing here changes how the English site looks above the
+   footer: every other rule is scoped to a non-English <html lang>. */
+.rm-lang{ margin:0; }
+.rm-lang__list{ display:flex; flex-wrap:wrap; align-items:center; gap:.2rem 0; margin:0; padding:0; list-style:none; }
+.rm-lang__list li{ margin:0; display:inline-flex; align-items:center; }
+/* A drawn dot, not a typed one: the type face sets its middle dot low. */
+.rm-lang__list li + li::before{ content:""; width:3px; height:3px; margin:0 .6rem; border-radius:50%; background:currentColor; opacity:.55; }
+.rm-lang__list a{
+  display:inline-flex; align-items:center; min-height:24px; color:inherit; text-decoration:none;
+  background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat; padding-bottom:1px;
+  transition:background-size .2s ease, color .2s ease;
+}
+.rm-lang__list a:hover, .rm-lang__list a:focus-visible{ color:var(--wp--preset--color--ink); background-size:100% 1px; }
+.rm-lang__list a[aria-current="true"]{ color:var(--wp--preset--color--ink); font-weight:700; background-size:100% 1px; }
+@media (prefers-reduced-motion:reduce){ .rm-lang__list a{ transition:none !important; } }
+
+/* Chinese: a font stack with CJK faces named, so the page does not depend on whichever
+   face the browser happens to pick; tracking off (the theme tracks small capitals, which
+   spaces ideographs apart); and the looser line height ideographs need. */
+:lang(zh-Hans){
+  --wp--preset--font-family--archivo:'Saira','Saira Fallback',system-ui,'PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif;
+  --wp--preset--font-family--newsreader:'Saira','Saira Fallback',system-ui,'PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif;
+}
+:lang(zh-Hant){
+  --wp--preset--font-family--archivo:'Saira','Saira Fallback',system-ui,'PingFang TC','Microsoft JhengHei','Noto Sans TC','Noto Sans CJK TC',sans-serif;
+  --wp--preset--font-family--newsreader:'Saira','Saira Fallback',system-ui,'PingFang TC','Microsoft JhengHei','Noto Sans TC','Noto Sans CJK TC',sans-serif;
+}
+html:lang(zh-Hans) body *, html:lang(zh-Hant) body *{ letter-spacing:normal; }
+html:lang(zh-Hans) :is(h1,h2,h3,h4), html:lang(zh-Hant) :is(h1,h2,h3,h4){ line-height:1.3; }
+html:lang(zh-Hans) p, html:lang(zh-Hant) p{ line-height:1.8; }
+/* Malay runs longer than English in a narrow tile or button; let a long word break rather than overflow. */
+html:lang(ms-MY) body{ overflow-wrap:break-word; }

@@ -135,8 +135,10 @@ EXTEND = {'jay'}
 # Close-ups that cannot be shrunk to the set's face size without the torso ending
 # in straight edges inside the tile: filled from the photograph instead (see
 # cover_tile()). Ally's is a close selfie; the standard framing left a small
-# bust floating mid-tile.
-COVER = {'ally'}
+# bust floating mid-tile. Elfie's is a tight chest-up shot whose sleeves are cut
+# by the photo's own edges: the standard framing kept the face at the set's size
+# but showed those cuts as straight vertical edges on both sides of the shirt.
+COVER = {'ally', 'elfie'}
 EXTEND_MAX_FRAC = 0.16   # never invent more than this fraction of the tile's height
 
 def load(name):

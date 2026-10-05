@@ -31,38 +31,44 @@ const REMOTIVE_LANDING_TEMPLATE = 'page-landing';
 const REMOTIVE_LP_THANKS_SLUG = 'audit-requested';
 
 /**
- * The languages: key => array( URL path prefix, BCP 47 tag, button code,
+ * The languages: key => array( URL path prefix, BCP 47 tag, button label,
  * accessible name ). English lives at the page's own URL; the others sit under
- * a language directory:
+ * a language directory, the same ones the rest of the site uses
+ * (inc/i18n/i18n.php, which removes the directory from the request before
+ * WordPress parses it, so these pages resolve as ordinary pages):
  *
  *   /seo-audit/            English
  *   /ms/seo-audit/         Bahasa Melayu
- *   /zh-cn/seo-audit/      Simplified Chinese
- *   /zh-tw/seo-audit/      Traditional Chinese
+ *   /zh-hans/seo-audit/    Simplified Chinese
+ *   /zh-hant/seo-audit/    Traditional Chinese
  *
- * The key is also the index of that language's text in each copy array.
+ * The key is also the index of that language's text in each copy array. The
+ * button label is what a visitor reads: the Chinese variants are written in
+ * their own characters, because a code such as ZH-CN means nothing to the
+ * person who needs it.
  *
  * @return array<string,array<int,string>>
  */
 function remotive_lp_languages() {
 	return array(
 		'en'  => array( '', 'en', 'EN', 'English' ),
-		'ms'  => array( 'ms', 'ms', 'MS', 'Bahasa Melayu' ),
-		'zh'  => array( 'zh-cn', 'zh-Hans', 'ZH-CN', '简体中文' ),
-		'zht' => array( 'zh-tw', 'zh-Hant', 'ZH-TW', '繁體中文' ),
+		'ms'  => array( 'ms', 'ms-MY', 'BM', 'Bahasa Melayu' ),
+		'zh'  => array( 'zh-hans', 'zh-Hans', '简体', '简体中文' ),
+		'zht' => array( 'zh-hant', 'zh-Hant', '繁體', '繁體中文' ),
 	);
 }
 
 /**
- * The language of the current request, from the URL's language directory.
+ * The language of the current request, from the URL's language directory,
+ * which inc/i18n/i18n.php has already read and removed.
  *
  * @return string One of the keys of remotive_lp_languages().
  */
 function remotive_lp_requested_lang() {
-	$prefix = (string) get_query_var( 'rm_lang' );
+	$prefix = function_exists( 'remotive_i18n_lang' ) ? remotive_i18n_lang() : 'en';
 
 	foreach ( remotive_lp_languages() as $key => $lang ) {
-		if ( '' !== $prefix && $lang[0] === $prefix ) {
+		if ( '' !== $lang[0] && $lang[0] === $prefix ) {
 			return $key;
 		}
 	}
@@ -98,55 +104,42 @@ function remotive_lp_url( $slug, $lang ) {
 	return user_trailingslashit( home_url( '/' . $prefix . '/' . $slug ) );
 }
 
-/* ---- Language URLs: /ms/<slug>/, /zh-cn/<slug>/, /zh-tw/<slug>/ ---- */
+/* ---- Language URLs ----
+ * Handled by inc/i18n/i18n.php: it reads the language directory, removes it
+ * from the request, and these pages then resolve like any other page. Earlier
+ * versions registered their own rewrite rules (/zh-cn/, /zh-tw/) and a query
+ * variable; those are gone, and the stored rules are flushed once to drop them. */
 
-function remotive_lp_query_vars( $vars ) {
-	$vars[] = 'rm_lang';
-
-	return $vars;
-}
-add_filter( 'query_vars', 'remotive_lp_query_vars' );
-
-function remotive_lp_rewrites() {
-	$prefixes = array();
-
-	foreach ( remotive_lp_languages() as $lang ) {
-		if ( '' !== $lang[0] ) {
-			$prefixes[] = preg_quote( $lang[0], '#' );
-		}
-	}
-
-	$slugs = array_map( 'preg_quote', array_merge( array_keys( remotive_landing_services() ), array( REMOTIVE_LP_THANKS_SLUG ) ) );
-
-	add_rewrite_rule(
-		'^(' . implode( '|', $prefixes ) . ')/(' . implode( '|', $slugs ) . ')/?$',
-		'index.php?pagename=$matches[2]&rm_lang=$matches[1]',
-		'top'
-	);
-}
-add_action( 'init', 'remotive_lp_rewrites' );
-
-/**
- * Rewrite rules are stored, so a new rule needs one flush. Tracked by a
- * version, so it runs once after an upgrade (and again if the rule set
- * changes) and never on an ordinary request.
- */
 function remotive_lp_maybe_flush_rewrites() {
-	if ( '2' !== get_option( 'remotive_lp_rewrite_v' ) ) {
+	if ( '3' !== get_option( 'remotive_lp_rewrite_v' ) ) {
 		flush_rewrite_rules( false );
-		update_option( 'remotive_lp_rewrite_v', '2', true );
+		update_option( 'remotive_lp_rewrite_v', '3', true );
 	}
 }
 add_action( 'wp_loaded', 'remotive_lp_maybe_flush_rewrites' );
 
 /**
- * Without this, WordPress "corrects" /ms/<slug>/ back to /<slug>/, because the
- * page's permalink has no language directory.
+ * The page-by-page translator in inc/i18n/i18n.php must leave these pages
+ * alone: their copy is already written for each language by this file, and a
+ * page with no dictionary entry would otherwise be redirected to English.
+ *
+ * @param bool $translate Whether the language layer handles this request.
+ * @return bool
  */
-function remotive_lp_keep_language_url( $redirect_url ) {
-	return '' !== (string) get_query_var( 'rm_lang' ) ? false : $redirect_url;
+function remotive_lp_skip_translator( $translate ) {
+	if ( ! remotive_is_landing_page() ) {
+		return $translate;
+	}
+
+	$slug = get_post_field( 'post_name', get_queried_object_id() );
+
+	if ( isset( remotive_landing_services()[ $slug ] ) || REMOTIVE_LP_THANKS_SLUG === $slug ) {
+		return false;
+	}
+
+	return $translate;
 }
-add_filter( 'redirect_canonical', 'remotive_lp_keep_language_url' );
+add_filter( 'remotive_i18n_translates_request', 'remotive_lp_skip_translator' );
 
 /** Each language URL is its own canonical. */
 function remotive_lp_canonical( $url, $post ) {

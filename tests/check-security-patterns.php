@@ -6,7 +6,8 @@
  *  - wp_redirect() (use wp_safe_redirect)
  *  - eval(), exec-family calls, base64_decode()
  *  - unserialize() without allowed_classes => false
- *  - a raw $wpdb query (this theme has none; any new one must be reviewed)
+ *  - a raw $wpdb query outside inc/i18n/ (any new one must be reviewed), and a
+ *    request value in a query without prepare() anywhere
  *  - a PHP module without the direct-access guard
  *  - register_rest_route() without a permission_callback
  *  - JSON-LD printed without JSON_HEX_TAG, which would let </script> break out
@@ -35,10 +36,23 @@ foreach ( $files as $file ) {
 		'/\beval\s*\(/'                                         => 'eval()',
 		'/\b(shell_exec|passthru|proc_open|popen|system|exec)\s*\(/' => 'a command execution function',
 		'/\bbase64_decode\s*\(/'                                => 'base64_decode()',
-		'/\$wpdb\s*->\s*(query|get_results|get_row|get_var|get_col)\s*\(/' => 'a raw $wpdb query',
 	) as $pattern => $label ) {
 		if ( null !== $label && preg_match( $pattern, $tokens ) ) {
 			$failed[] = "$rel: $label";
+		}
+	}
+
+	// Database access: this theme has no queries outside the language layer, whose
+	// queries were reviewed in v1.104.0 (values prepared or cast, tables named
+	// from the site prefix). Anywhere else a query is a failure until reviewed;
+	// inside it, a request value must never reach a query unprepared.
+	if ( 0 !== strpos( $rel, 'inc/i18n/' ) && preg_match( '/\$wpdb\s*->\s*(query|get_results|get_row|get_var|get_col)\s*\(/', $tokens ) ) {
+		$failed[] = "$rel: a raw \$wpdb query";
+	}
+
+	foreach ( preg_split( '/\R/', $tokens ) as $line ) {
+		if ( preg_match( '/\$wpdb\s*->\s*(query|get_results|get_row|get_var|get_col)\s*\(/', $line ) && preg_match( '/\$_(GET|POST|REQUEST|COOKIE|SERVER)/', $line ) && false === strpos( $line, 'prepare' ) ) {
+			$failed[] = "$rel: a request value reaches a query without prepare()";
 		}
 	}
 

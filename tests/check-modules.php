@@ -29,8 +29,21 @@ foreach ( $sources as $source ) {
 	}
 }
 
+// Translation dictionaries are loaded by name from inc/i18n/<language>.php, not by a require.
+$dictionaries = array( 'ms', 'zh-hans', 'zh-hant' );
+
+foreach ( $dictionaries as $code ) {
+	if ( ! is_file( $root . '/inc/i18n/' . $code . '.php' ) ) {
+		$missing[] = "inc/i18n/$code.php (dictionary)";
+	}
+}
+
 $orphans = array();
 foreach ( glob( $root . '/inc/*/*.php' ) as $file ) {
+	if ( 'i18n' === basename( dirname( $file ) ) && in_array( basename( $file, '.php' ), $dictionaries, true ) ) {
+		continue;
+	}
+
 	if ( empty( $loaded[ realpath( $file ) ] ) ) {
 		$orphans[] = str_replace( $root . '/', '', $file );
 	}

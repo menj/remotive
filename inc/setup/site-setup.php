@@ -1386,6 +1386,7 @@ function remotive_version_sync() {
 		'remotive_sync_option_defaults',
 		'remotive_sync_case_study_slugs',
 		'remotive_prune_retired_files',
+		'remotive_i18n_install_tables',
 	);
 
 	foreach ( $steps as $step ) {

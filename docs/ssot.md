@@ -511,6 +511,20 @@ Canonical facts for the paid and social landing pages. Code: `inc/landing/landin
 | `tests/check-parent.php` | Developers, CI | Fails if the parent theme's colour slugs stop following this theme, or a parent function is redefined |
 | `.github/workflows/ci.yml` | Developers | The checks every pull request runs |
 
+## The brief for the site (as of 2026-10-04)
+
+From Gordan, on the site: it is "a total mess"; to start, "1 simple, clean, well
+designed page that explains what we do, in English, Malay and Simplified
+Chinese, that we can point people in Asia to. Not lots of pages, not content all
+over the place"; other things can be built as it goes; turn the site off until a
+walkthrough has agreed the changes. Every change should be checked against this
+first. In practice: the one page is a landing page (they carry their own copy in
+every language); the site's ordinary pages, home included, have no translated
+version unless switched on (`remotive_i18n_default_live_pages()` is empty); the
+landing pages are noindex and for paid traffic; the site is switched off with
+Maintenance mode during review. Traditional Chinese is also supported because the language layer
+and landing pages provide it; it is not part of Gordan's list.
+
 ## PHP module layout (v1.100.0)
 
 `inc/` holds the theme's PHP, in six folders. `functions.php` requires each file
@@ -523,6 +537,7 @@ by path, error handler first.
 | `inc/setup/` | `site-setup`, `classic-menus`, `content-seed`, `content-seed-data` |
 | `inc/forms/` | `lead-form-handler`, `cta-form-handler`, `about-form-handler`, `contact-form-handler`, `leads`, `akismet`, `thank-you` |
 | `inc/landing/` | `landing-pages`, `landing-copy` |
+| `inc/i18n/` | `i18n`, `i18n-admin`, and the dictionaries `ms`, `zh-hans`, `zh-hant` (loaded by name) |
 | `inc/content/` | `schema-markup`, `webmcp`, `feature-grids`, `stats-band` |
 
 A new module goes in the folder that matches its job and gets one `require`

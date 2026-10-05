@@ -51,7 +51,10 @@
 			btn.setAttribute('aria-pressed', mode === 'light' ? 'true' : 'false');
 		}
 		if (label) {
-			label.textContent = mode === 'light' ? 'Light' : 'Dark';
+			// A language version supplies its own words (data-label-*); English has none and keeps these.
+			label.textContent = mode === 'light'
+				? ( btn && btn.getAttribute('data-label-light') ) || 'Light'
+				: ( btn && btn.getAttribute('data-label-dark') ) || 'Dark';
 		}
 	}
 

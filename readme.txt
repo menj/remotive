@@ -4,7 +4,7 @@ Tags: block-theme, full-site-editing, child-theme, one-page
 Requires at least: 6.7
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.103.2
+Stable tag: 1.104.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -286,6 +286,41 @@ detail without an admin session, then remove it once fixed:
 
     define( 'REMOTIVE_SHOW_ERRORS', true );
 
+= How do the Malay and Chinese versions work, and how do I manage the translations? =
+
+The site has Bahasa Melayu (`/ms/`), Simplified Chinese (`/zh-hans/`) and
+Traditional Chinese (`/zh-hant/`) beside English. There are no copies of your
+pages: `/ms/team/` is the same page as `/team/`, shown in Malay, so English
+content and URLs are never touched. The language links are in the footer's
+bottom bar. No plugin is involved.
+
+Translations are managed in **Tools > Translations** (administrators only):
+
+* **Overview** lists every page with, per language, how many of its strings are
+  translated and whether the page is live. **Scan the site** finds every
+  translatable string on every page; run it after changing English content.
+* **Edit** a page in a language: translate each string beside its English, set
+  the page's search title and description, and tick **Live** to publish it.
+  Unticking Live sends that address back to the English page. Leave a box empty
+  to fall back to the shipped translation.
+* **Save and make live** publishes straight away; **Save as draft** stores it
+  without publishing. **Maintenance > Approve all** turns drafts live.
+* **All strings** searches and filters every string by language and status.
+* **Import / export** moves a language to a translator and back as CSV (opens
+  correctly in Excel, Chinese included) or JSON. Imports arrive as drafts, and
+  only text the site really contains is accepted.
+
+Edits are saved in the database and laid over the translations shipped in
+`inc/i18n/`, so a theme update never overwrites them. If you change English
+wording that has been translated, that sentence shows in English until you
+rescan and translate the new wording; nothing breaks, and it appears under
+**Untranslated**. Names, addresses and emails are never translated.
+
+On a translated page the search title and description come from this screen,
+not from Rank Math, which would only know the English ones. The extra sitemap
+is `/sitemap-languages.xml`; it is listed in robots.txt and in Rank Math's
+sitemap index. Submit it once in Google Search Console.
+
 = Does the theme add security hardening? =
 
 Yes, within what a theme can reach. It rate-limits repeated failed logins per
@@ -301,9 +336,17 @@ floor, not a replacement.
 
 == Changelog ==
 
-See `docs/changelog.md` for full version history. Latest version: 1.103.2.
+See `docs/changelog.md` for full version history. Latest version: 1.104.0.
 
 == Upgrade Notice ==
+
+= 1.104.0 =
+Adds a language layer (Bahasa Melayu, Simplified and Traditional Chinese at
+/ms/, /zh-hans/ and /zh-hant/) with a switcher and hreflang. It is off until a
+page is switched on under Tools > Translations; no ordinary page is live in
+another language to begin with. The ad landing pages move
+to the same addresses (/zh-hans/, /zh-hant/); the old /zh-cn/ and /zh-tw/
+addresses redirect. See docs/upgrading.md.
 
 = 1.103.2 =
 The theme thumbnail on the Themes screen now shows the current design.
