@@ -127,6 +127,11 @@ function remotive_landing_services() {
 					array( 'Addressable audience grown from 53k to 745k with cookieless personas; campaigns run 20–30% better on CPA.', 'Audiens yang boleh disasarkan berkembang daripada 53 ribu kepada 745 ribu dengan persona tanpa kuki; kempen berjalan 20 – 30% lebih baik pada CPA.', '利用无 Cookie 用户画像，将可触达受众从 5.3 万扩大到 74.5 万；广告活动的 CPA 表现提升 20–30%。', '利用無 Cookie 使用者輪廓，將可觸及受眾從 5.3 萬擴大到 74.5 萬；廣告活動的 CPA 表現提升 20–30%。' ),
 					array( 'National sports precinct', 'Kompleks sukan kebangsaan', '国家体育综合体', '國家體育綜合體' ),
 				),
+				array(
+					array( '26.1M', '26.1 juta', '2,610万', '2,610萬' ),
+					array( 'Video beat direct YouTube and Meta buys: 26.1M completed views at $0.0048 each.', 'Video mengalahkan pembelian langsung YouTube dan Meta: 26.1 juta tontonan lengkap pada US$0.0048 setiap satu.', '视频投放胜过 YouTube 与 Meta 直接购买：2,610 万次完整播放，每次仅 $0.0048。', '影片投放勝過 YouTube 與 Meta 直接購買：2,610 萬次完整播放，每次僅 $0.0048。' ),
+					array( 'Global automotive marque · 7 Asian markets', 'Jenama automotif global · 7 pasaran Asia', '全球汽车品牌 · 7 个亚洲市场', '全球汽車品牌 · 7 個亞洲市場' ),
+				),
 			),
 		),
 	);
