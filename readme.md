@@ -942,10 +942,26 @@ language of the URL, with a self-referencing canonical, `<html lang>` and
   redirect to `/audit-requested/` (also per language). That page is the
   conversion URL; `inc/forms/thank-you.php` pushes `remotive_lead` with the form,
   service and language.
-- **Search engines:** `noindex, nofollow` by meta, `X-Robots-Tag` and Rank
-  Math, and excluded from site search and the core sitemap. Never block them in
-  `robots.txt`: crawlers must fetch the page to see the noindex, and Google Ads
-  must fetch it to review the ad.
+- **Search engines (from v1.110.0):** `noindex, nofollow` by default, and
+  controllable in Rank Math (the page's Advanced tab, `rank_math_robots`): the
+  tag, the `X-Robots-Tag` header and the sitemap all follow that choice, and the
+  theme fills the box once per page so it starts ticked. Excluded from site
+  search. Never block them in `robots.txt`: crawlers must fetch the page to see
+  the noindex, and Google Ads must fetch it to review the ad.
+- **Closed off from the main site (v1.110.0):** hidden from page lists, menus,
+  navigation blocks, the REST page listing, search and the sitemaps, and a click
+  from any page of this site is turned back to the home page
+  (`remotive_lp_guard_internal_entry()`, using `Referer` and `Sec-Fetch-Site`).
+  Ads, social, search, typed addresses and bookmarks get in; the language
+  buttons, a reload and the form's thank-you redirect work. Exclude the landing
+  slugs from any page cache.
+- **Results strip (v1.109.0):** "Results from the work", at least three cards
+  per service (figure, one-line result, client), from the case studies, in four
+  languages: the `proof` list of each service in `landing-copy.php`. The figures
+  use the licensed Kagnue display serif (`assets/fonts/kagnue/`, WOFF2 subset;
+  the plus sign and en dash fall back to Saira). On phones (v1.109.1) the page is
+  shorter: the form comes straight after the headline, the results swipe
+  sideways, steps and cities are compact.
 - **Assets:** `assets/css/landing.css`, `assets/js/landing.js` (campaign
   capture, funnel events, sticky CTA; no language logic) and
   `assets/images/landing/` (Pexels photography, credited in

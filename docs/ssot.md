@@ -316,7 +316,7 @@ Recorded as findings and fixes, so a later maintainer knows what was decided.
 | Maintenance mode could lock out the owner | It exempts users who can edit posts, wp-admin, cron, AJAX, feeds and REST, and never runs on `wp-login.php`; it returns 503 with `Retry-After` so search engines keep the indexed pages |
 | Pexels API key in the settings | Write-only: never printed back, blank keeps the saved key, a switch removes it; not exposed through REST; the front end does not use it. It was pasted into chat once, so rotating it is advisable |
 | Colours tab input | Hex only (`sanitize_hex_color`), stored as lowercase `#rrggbb`; anything else, including CSS injection attempts, falls back to the default |
-| Landing pages are public and cached | `noindex, nofollow` by meta, `X-Robots-Tag` and Rank Math; excluded from site search and the core sitemap; never blocked in `robots.txt` (crawlers must fetch the page to see the noindex, and Google Ads must fetch it to review the ad) |
+| Landing pages are public and cached | `noindex, nofollow` by default and controllable in Rank Math (`rank_math_robots`; tag, header and sitemap follow it, v1.110.0); excluded from site search, page lists, menus, the REST listing and the sitemaps, and a click from any page of this site is turned back to the home page (`Referer`, `Sec-Fetch-Site`); exclude the landing slugs from any page cache; never blocked in `robots.txt` (crawlers must fetch the page to see the noindex, and Google Ads must fetch it to review the ad) |
 
 ### Original code audit
 
