@@ -1109,6 +1109,40 @@ return array(
 			'留言已收到',
 		'Thank you.' =>
 			'谢谢您。',
+		'Archive' =>
+			'归档',
+		'Nothing matches yet. Try another term, or browse the latest insights.' =>
+			'暂时没有匹配的内容。请换个关键词，或浏览最新洞察。',
+		'Nothing published yet. Check back soon.' =>
+			'暂无已发布的内容，请稍后再来。',
+		'Your audit request is in. We will look at what you have and reply within three business days with what we would fix first.' =>
+			'我们已收到您的审计申请。我们会查看您的现状，并在三个工作日内回复，告诉您我们会先修复什么。',
+		'Your request is in. We will look at what you have and reply within three business days with what we would fix first.' =>
+			'我们已收到您的请求。我们会查看您的现状，并在三个工作日内回复，告诉您我们会先修复什么。',
+		'We have your message. A person reads it and replies within three business days, Singapore hours.' =>
+			'我们已收到您的留言。会有专人阅读，并在三个工作日内回复（新加坡时间）。',
+		'Before' =>
+			'之前',
+		'Now' =>
+			'现在',
+		'Qualified leads' =>
+			'合格线索',
+		'Start' =>
+			'起点',
+		'Month one' =>
+			'第一个月',
+		'Month three' =>
+			'第三个月',
+		'Organic traffic' =>
+			'自然流量',
+		'Sessions' =>
+			'会话',
+		'Referring backlinks' =>
+			'引荐反向链接',
+		'Engagement' =>
+			'互动',
+		'Session duration' =>
+			'会话时长',
 		'We have your message and will reply within three business days, Singapore hours.' =>
 			'我们已收到您的留言，并将在三个工作日内回复（新加坡时间）。',
 		'What happens next' =>

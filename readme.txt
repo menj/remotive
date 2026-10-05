@@ -4,7 +4,7 @@ Tags: block-theme, full-site-editing, child-theme, one-page
 Requires at least: 6.7
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.107.2
+Stable tag: 1.107.3
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -336,9 +336,12 @@ floor, not a replacement.
 
 == Changelog ==
 
-See `docs/changelog.md` for full version history. Latest version: 1.107.2.
+See `docs/changelog.md` for full version history. Latest version: 1.107.3.
 
 == Upgrade Notice ==
+
+= 1.107.3 =
+Fills gaps in the Malay and Chinese dictionaries: the archive and empty-state messages, the form thank-you messages and the case study chart labels were still English.
 
 = 1.107.2 =
 Fixes missing last-modified dates in the language sitemap for translated articles, and a saved page being unpublished when its language was switched off.
