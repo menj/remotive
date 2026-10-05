@@ -551,7 +551,7 @@ function remotive_i18n_view_edit() {
 	echo '<input type="hidden" name="action" value="rm_i18n_save" /><input type="hidden" name="lang" value="' . esc_attr( $lang ) . '" /><input type="hidden" name="p" value="' . esc_attr( remotive_i18n_path_param( $path ) ) . '" />';
 
 	if ( $is_page ) {
-		$published = remotive_i18n_available( $lang, $path );
+		$published = remotive_i18n_page_live( $lang, $path ); // The page's own setting, so a language that is off does not save it as unpublished.
 
 		echo '<h3>' . esc_html__( 'Search listing', 'remotive' ) . '</h3><table class="form-table" role="presentation"><tbody>';
 		echo '<tr><th>' . esc_html__( 'Title', 'remotive' ) . '</th><td><input type="text" class="large-text" name="seo_title" value="' . esc_attr( $seo['title'] ) . '" /><p class="description">' . esc_html__( 'English:', 'remotive' ) . ' ' . esc_html( $english['title'] ) . '</p></td></tr>';

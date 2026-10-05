@@ -4,6 +4,13 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.107.2] — 2026-10-05
+
+### Fixed
+
+- **Language sitemap lost `<lastmod>` for articles.** `remotive_i18n_lastmod()` used `get_page_by_path()`, which defaults to pages, so dated article paths (posts) returned nothing. It now looks up pages and posts. Found by the CodeAnt review of PR #18.
+- **Saving a page in a language that is switched off unpublished it.** The Live checkbox in Tools → Translations showed the language's master switch, so a page that was live by default showed unchecked, and saving wrote `published = 0`, which stayed in force when the language was turned back on. The checkbox now reads the page's own setting (`remotive_i18n_page_live()`).
+
 ## [1.107.1] — 2026-10-05
 
 ### Changed
