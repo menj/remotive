@@ -253,15 +253,14 @@ function remotive_i18n_data( $lang ) {
 }
 
 /**
- * The pages that have language versions without anyone switching them on: the
- * main pages of the site, the ones in the navigation and footer.
+ * The pages that have language versions without anyone switching them on: every
+ * page with a translated title in the dictionaries.
  *
- * Home, Services and its six service pages, Case Studies and the six listed
- * case studies, About, Team, Insights (the index, not the individual
- * articles), Contact, FAQ, Privacy and Terms. The eight case studies that are
- * live but unlisted and the individual articles are ready in the dictionaries
- * and off. Everything else is controlled page by page in Tools > Translations;
- * a page that is off redirects to its English address. The ad landing pages are
+ * Home, Services and its six service pages, Case Studies and all fourteen case
+ * studies, About, Team, Insights and the individual articles, Contact, FAQ,
+ * Privacy and Terms (from v1.108.0; before that the unlisted case studies and
+ * the articles were off). Each page can still be switched off in Tools >
+ * Translations; a page that is off redirects to its English address. The ad landing pages are
  * separate: they carry their own copy for every language (inc/landing/).
  * Filterable, for a site that wants more or fewer.
  *
@@ -277,6 +276,16 @@ function remotive_i18n_default_live_pages() {
 	// list the menu uses, so the two cannot drift apart.
 	if ( function_exists( 'remotive_listed_case_studies' ) ) {
 		$pages = array_merge( $pages, array_keys( remotive_listed_case_studies() ) );
+	}
+
+	// Every page that has a translated title in a dictionary: the unlisted case
+	// studies and the individual articles too, so no page is left English-only.
+	foreach ( array( 'ms', 'zh-hans', 'zh-hant' ) as $code ) {
+		foreach ( array_keys( remotive_i18n_data( $code )['seo'] ) as $key ) {
+			if ( 0 !== strpos( (string) $key, '__' ) ) {
+				$pages[] = (string) $key;
+			}
+		}
 	}
 
 	return array_values( array_unique( array_map( 'strval', (array) apply_filters( 'remotive_i18n_live_pages', $pages ) ) ) );

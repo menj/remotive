@@ -40,7 +40,7 @@ t_eq( remotive_i18n_url( 'ms', '' ), 'https://example.com/ms/', 'Malay home' );
 t_eq( remotive_i18n_url( 'zh-hans', 'team' ), 'https://example.com/zh-hans/team/', 'Simplified team page' );
 t_eq( remotive_i18n_url( 'en', 'team' ), 'https://example.com/team/', 'English keeps its address' );
 
-// The main pages are live in every language; the rest is off until switched on.
+// Every translated page is live in every language by default.
 $live = remotive_i18n_default_live_pages();
 foreach ( array( '', 'services', 'services/seo', 'case-studies', 'about', 'team', 'blog', 'contact', 'faq', 'privacy', 'terms' ) as $page ) {
 	t_ok( in_array( $page, $live, true ), "'$page' is a default live page" );
@@ -50,8 +50,9 @@ foreach ( array( 'ms', 'zh-hans', 'zh-hant' ) as $code ) {
 		t_ok( remotive_i18n_available( $code, $page ), "'$page' is live in $code" );
 	}
 	foreach ( array( '2026/09/seo-vs-sem', 'case-studies/ecommerce-seo-footwear' ) as $page ) {
-		t_ok( ! remotive_i18n_available( $code, $page ), "'$page' (an article, an unlisted case study) is off in $code until switched on" );
+		t_ok( remotive_i18n_available( $code, $page ), "'$page' (an article, an unlisted case study) is live in $code too" );
 	}
+	t_ok( ! remotive_i18n_available( $code, 'no-such-page' ), "a page with no translation is not live in $code" );
 	t_ok( ! remotive_i18n_available( $code, null ), "no page, not live in $code" );
 }
 t_ok( remotive_i18n_available( 'en', 'anything' ), 'English is always live' );
@@ -95,7 +96,7 @@ t_ok( false !== strpos( $nav, '>简体<' ) && false !== strpos( $nav, '>繁體<'
 $entries = remotive_i18n_sitemap_entries();
 t_ok( isset( $entries[''] ) && isset( $entries['services'] ), 'live pages are in the sitemap' );
 t_eq( array_keys( $entries[''] ), array( 'en', 'zh-hans', 'zh-hant' ), 'home entry: English plus the languages that are on' );
-t_ok( ! isset( $entries['2026/09/seo-vs-sem'] ), 'a page with no other language live is not in the sitemap' );
+t_ok( isset( $entries['2026/09/seo-vs-sem'] ) && ! isset( $entries['2026/09/seo-vs-sem']['ms'] ), 'an article is in the sitemap without the language that is off' );
 $xml = remotive_i18n_sitemap_xml();
 t_ok( false !== strpos( $xml, '<loc>https://example.com/</loc>' ), 'English URL is listed with its alternates' );
 t_ok( false !== strpos( $xml, 'hreflang="x-default"' ), 'x-default present' );

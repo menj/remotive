@@ -4,6 +4,13 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.108.0] — 2026-10-05
+
+### Changed
+
+- **All translated pages are live by default** in Bahasa Melayu, Simplified and Traditional Chinese: 37 per language (home, Services and six service pages, Case Studies and all fourteen case studies, About, Team, Insights and its seven articles, Contact, FAQ, Privacy, Terms). Previously the eight unlisted case studies and the seven articles stayed English-only until switched on. `remotive_i18n_default_live_pages()` now adds every page that has a translated title in a dictionary. They appear in the language switcher, hreflang and `/sitemap-languages.xml`. Each page can still be switched off in Tools → Translations (a saved setting wins), a whole language in Theme Options → Languages, and the list narrowed with the `remotive_i18n_live_pages` filter.
+- This goes further than Gordan's "not lots of pages" brief, at the site owner's direction; `docs/walkthrough.md` still asks which pages stay.
+
 ## [1.107.3] — 2026-10-05
 
 ### Fixed
