@@ -341,7 +341,7 @@ See `docs/changelog.md` for full version history. Latest version: 1.108.1.
 == Upgrade Notice ==
 
 = 1.108.1 =
-On phones and tablets the form on the ad landing pages now comes first, above the headline, so it is on the first screen. Desktop is unchanged.
+On phones and tablets the form on the ad landing pages now comes straight after the headline, ahead of the intro and bullets, so it is on the first screen. Desktop is unchanged.
 
 = 1.108.0 =
 Every translated page is now live in Malay and both Chinese versions by default: the eight unlisted case studies and the seven articles joined the main pages, 37 pages per language. Switch any off in Tools → Translations.

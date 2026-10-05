@@ -8,7 +8,7 @@ follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 
 ### Changed
 
-- **Landing pages: the form comes first on phones and tablets.** Below 56rem the lead form sits directly under the logo bar, above the eyebrow, headline, intro and bullets, full width, so it is on the first screen (before, a phone showed only the first field). From 56rem it stays in the right column beside the copy. CSS only (`assets/css/landing.css`); applies to the three services in all four languages. Checked at 390 and 820 px in dark and light, and in Malay and Simplified Chinese, with no horizontal scroll.
+- **Landing pages: the form comes straight after the headline on phones and tablets.** Below 56rem the order is logo bar, eyebrow, headline, the lead form (full width), then the intro and bullets, so the form is on the first screen (before, a phone showed only the first field). From 56rem it stays in the right column beside the copy. CSS only (`assets/css/landing.css`); applies to the three services in all four languages. Checked at 390 and 820 px in dark and light, and in Malay and Simplified Chinese, with no horizontal scroll.
 
 ## [1.108.0] — 2026-10-05
 
