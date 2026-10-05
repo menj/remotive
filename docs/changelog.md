@@ -4,6 +4,18 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.107.3] — 2026-10-05
+
+### Fixed
+
+Text in the theme files that had no Malay or Chinese translation, found by checking every template, part and front-end string against the dictionaries:
+
+- Archive page: `Archive`, and the empty-state messages `Nothing matches yet…` (archive and search) and `Nothing published yet…` (Insights and index).
+- Thank-you messages for the audit, landing page and contact/about forms.
+- Case study chart labels (inline SVG): Before, Now, Start, Month one, Month three, Qualified leads, Organic traffic, Sessions, Referring backlinks, Engagement, Session duration. In Malay the chart figures `$1.4m`, `$723k`, `53k` and `745k` are now `US$1.4 juta`, `US$723 ribu`, `53 ribu` and `745 ribu`, as in the text.
+
+Not translated on purpose: admin screens, notification emails, names, addresses. Edits made in WordPress to a page's text, pages that are not live and individual articles need their own translation (Tools → Translations).
+
 ## [1.107.2] — 2026-10-05
 
 ### Fixed

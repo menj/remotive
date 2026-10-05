@@ -1107,6 +1107,48 @@ return array(
 			'Mesej diterima',
 		'Thank you.' =>
 			'Terima kasih.',
+		'Archive' =>
+			'Arkib',
+		'Nothing matches yet. Try another term, or browse the latest insights.' =>
+			'Belum ada yang sepadan. Cuba istilah lain, atau layari wawasan terkini.',
+		'Nothing published yet. Check back soon.' =>
+			'Belum ada yang diterbitkan. Semak semula tidak lama lagi.',
+		'Your audit request is in. We will look at what you have and reply within three business days with what we would fix first.' =>
+			'Permintaan audit anda telah diterima. Kami akan menilai apa yang anda ada dan membalas dalam tempoh tiga hari bekerja dengan perkara yang akan kami baiki dahulu.',
+		'Your request is in. We will look at what you have and reply within three business days with what we would fix first.' =>
+			'Permintaan anda telah diterima. Kami akan menilai apa yang anda ada dan membalas dalam tempoh tiga hari bekerja dengan perkara yang akan kami baiki dahulu.',
+		'We have your message. A person reads it and replies within three business days, Singapore hours.' =>
+			'Kami telah menerima mesej anda. Seorang manusia membacanya dan membalas dalam tempoh tiga hari bekerja, waktu Singapura.',
+		'Before' =>
+			'Sebelum',
+		'Now' =>
+			'Kini',
+		'Qualified leads' =>
+			'Prospek berkelayakan',
+		'Start' =>
+			'Mula',
+		'Month one' =>
+			'Bulan pertama',
+		'Month three' =>
+			'Bulan ketiga',
+		'Organic traffic' =>
+			'Trafik organik',
+		'Sessions' =>
+			'Sesi',
+		'Referring backlinks' =>
+			'Pautan balik perujuk',
+		'Engagement' =>
+			'Penglibatan',
+		'Session duration' =>
+			'Tempoh sesi',
+		'$1.4m' =>
+			'US$1.4 juta',
+		'$723k' =>
+			'US$723 ribu',
+		'53k' =>
+			'53 ribu',
+		'745k' =>
+			'745 ribu',
 		'We have your message and will reply within three business days, Singapore hours.' =>
 			'Kami telah menerima mesej anda dan akan membalas dalam tempoh tiga hari bekerja, waktu Singapura.',
 		'What happens next' =>
