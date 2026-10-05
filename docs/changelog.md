@@ -4,6 +4,20 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.108.3] — 2026-10-05
+
+Found by reading the site's `debug.log` (31 August to 5 October).
+
+### Fixed
+
+- **PHP warning on Tools → Translations** (`Undefined array key "description"` in `i18n-admin.php`, then `htmlspecialchars(): Passing null`, 5 October). A page translated in the admin with only a title (or only a description) produced a search-listing entry with one key missing. `remotive_i18n_data()` now gives every entry both keys. `tests/test-i18n.php` checks it.
+
+### Found in the log, not theme code
+
+- **`ai-discovery-files` plugin, 3,273 of the log's 3,527 lines:** it loads its translations too early (`_load_textdomain_just_in_time`), on every request, to 5 October. Update it, replace it, or switch it off. With PHP errors displayed on screen this also caused "headers already sent" warnings on the login page (31 August). Set `WP_DEBUG_DISPLAY` to false on the live site and clear the log.
+- **Rank Math: `rank_math_analytics_objects` and `rank_math_analytics_gsc` tables missing** (31 August to 5 October, plus a null-property warning in its analytics summary). Re-create them under Rank Math → Status & Tools → Database Tools, or switch its Analytics module off.
+- **31 August: fatal on a missing `inc/error-handler.php`** (a partial upload of an older theme structure; not seen since). **1 September: WordPress could not save its cron list** once.
+
 ## [1.108.2] — 2026-10-05
 
 Found by reading the server access and FTP logs for September and October.

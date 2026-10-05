@@ -35,6 +35,16 @@ t_eq( array_column( $langs, 'prefix' ), array( '', 'ms', 'zh-hans', 'zh-hant' ),
 t_eq( array_column( $langs, 'hreflang' ), array( 'en', 'ms-MY', 'zh-Hans', 'zh-Hant' ), 'hreflang tags' );
 t_eq( array_column( $langs, 'native' ), array( 'English', 'Bahasa Melayu', '简体中文', '繁體中文' ), 'switcher names are written in the language' );
 
+// Every page's search listing has both a title and a description key, even when only one is set.
+foreach ( array( 'ms', 'zh-hans', 'zh-hant' ) as $code ) {
+	foreach ( remotive_i18n_data( $code )['seo'] as $path => $fields ) {
+		if ( ! array_key_exists( 'title', $fields ) || ! array_key_exists( 'description', $fields ) ) {
+			t_ok( false, "seo entry '$path' in $code has both title and description" );
+		}
+	}
+}
+t_ok( true, 'every seo entry has both title and description' );
+
 // URLs.
 t_eq( remotive_i18n_url( 'ms', '' ), 'https://example.com/ms/', 'Malay home' );
 t_eq( remotive_i18n_url( 'zh-hans', 'team' ), 'https://example.com/zh-hans/team/', 'Simplified team page' );
