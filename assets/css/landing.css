@@ -248,3 +248,11 @@ html:not([data-theme="light"]) .rm-lp__final{ background-color:#0d1117; } /* a s
 .rm-lp__city{ border-radius:var(--rm-r,16px); }
 .rm-lp__photo img{ border-radius:var(--rm-r-lg,24px); }
 .rm-lp__num{ border-radius:50%; }
+
+/* Phones and tablets: the form comes first, above the headline, so it is on
+   the first screen. From 56rem the form sits beside the copy, as before. */
+@media (max-width:55.99rem){
+  .rm-lp__hero:has(> .rm-lp__card){ display:flex; flex-direction:column; align-items:stretch; gap:0; }
+  .rm-lp__hero:has(> .rm-lp__card) > .rm-lp__copy{ display:contents; }
+  .rm-lp__hero > .rm-lp__card{ order:-1; width:auto; max-width:none; margin-bottom:2.25rem; }
+}

@@ -4,7 +4,7 @@ Tags: block-theme, full-site-editing, child-theme, one-page
 Requires at least: 6.7
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.108.0
+Stable tag: 1.108.1
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -336,9 +336,12 @@ floor, not a replacement.
 
 == Changelog ==
 
-See `docs/changelog.md` for full version history. Latest version: 1.108.0.
+See `docs/changelog.md` for full version history. Latest version: 1.108.1.
 
 == Upgrade Notice ==
+
+= 1.108.1 =
+On phones and tablets the form on the ad landing pages now comes first, above the headline, so it is on the first screen. Desktop is unchanged.
 
 = 1.108.0 =
 Every translated page is now live in Malay and both Chinese versions by default: the eight unlisted case studies and the seven articles joined the main pages, 37 pages per language. Switch any off in Tools → Translations.
