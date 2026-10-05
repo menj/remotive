@@ -4,6 +4,19 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.109.2] — 2026-10-06
+
+### Changed
+
+The Malay text was read against *Tatabahasa Dewan*, 3rd ed. (DBP, 2008), supplied as the `tatabahasa-dewan` skill, on top of the two spelling guides. All 1,408 Malay strings were scanned for the rules a script can check, and the hits were read by hand. What changed (about 15 strings):
+
+- **`adalah` removed** (TD 9.2.3.5, 17.9.2: restricted in baku): `audit adalah percuma` → `audit percuma`; `adalah jujur`, `adalah luas`, `adalah digital`, `adalah sama` lose it; `adalah kerja asas` and `adalah biasa` became `ialah …`; `adalah struktural` → `bersifat struktural`.
+- **`paling terkini` → `terkini`** (TD 8.4: `paling` is never combined with `ter-`).
+- **`dari` / `daripada` / `kepada`** (TD 9.2.3.6): `dari kosong` → `daripada kosong` (an abstract origin); `dipindahkan daripada tapak jenama` → `dari tapak jenama` (a place); `ke kedudukan 3` → `kepada kedudukan 3` (a change of state, five places).
+- Checked and left as correct: `menskalakan`, `mengklik`, `mengkomitkan`, `menskopkan` (loan words keep their first letter), `berbeza daripada Singapura` (comparison), `daripada … kepada` pairs, `akses kepada`, `sesetengah` (some), the doubled forms and compounds.
+
+`tests/check-ejaan.php` now also fails on `adalah`, `paling`/`sekali` with `ter-`, `demi untuk`, a quantifier plus a doubled noun, and `ke kedudukan` after a change verb. Rules about sentence structure and word order (the D-M rule, passive agents) are not machine-checkable and were reviewed by hand; a native speaker should still read the text.
+
 ## [1.109.1] — 2026-10-06
 
 ### Changed
