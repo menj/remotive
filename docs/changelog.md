@@ -4,6 +4,20 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.110.0] — 2026-10-06
+
+### Changed
+
+- **Landing pages: noindex and nofollow are controlled in Rank Math.** The theme used to force both on every landing page whatever Rank Math said, and always sent an `X-Robots-Tag: noindex, nofollow` header that Rank Math could not change. Now the page's own Rank Math choice (Advanced tab, saved in `rank_math_robots`) decides: index, noindex, follow and nofollow each work, the tag and the header agree, and a landing page set to index joins the Rank Math sitemap. The default is unchanged: with nothing chosen both are on, and the theme fills the Advanced tab with noindex and nofollow once for existing landing pages and for every new one, so the boxes are already ticked and can be unticked. A choice already saved is never overwritten. Without Rank Math the same meta is read, so the default still holds.
+
+### Added
+
+- **No way in from the main site.** The landing pages are for ads and social only:
+  - hidden from page lists (the page-list block, `wp_list_pages`, navigation fallbacks), classic menus and navigation blocks (a link added by hand renders nothing), the public REST listing of pages, site search, both sitemaps and the WebMCP tools;
+  - **a click from any page of this site is turned back to the home page** (302). The check uses the `Referer` and, where a link strips it, the browser's `Sec-Fetch-Site` header (`same-origin`, `same-site`). A visitor from an ad, a social post, a search result, a typed address, a bookmark or an app gets in; so do the language buttons between landing pages, a reload, and the form's redirect to the thank-you page (their `Referer` is a landing page). Logged-in editors who can edit pages are never turned back, so previews work.
+  - Tests in `tests/test-landing.php` cover each case.
+- Limits that remain: an address typed or pasted by someone who knows it works by design, as does a landing URL on a server-level cache that serves the page before WordPress runs (exclude the landing slugs from page caching), and a plugin that publishes its own list of pages (for example an AI-discovery or `llms.txt` plugin) needs the landing pages excluded in its own settings.
+
 ## [1.109.2] — 2026-10-06
 
 ### Changed

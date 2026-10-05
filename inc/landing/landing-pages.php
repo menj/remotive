@@ -647,37 +647,125 @@ function remotive_lp_html_lang( $output ) {
 }
 add_filter( 'language_attributes', 'remotive_lp_html_lang' );
 
-/* ---- Keep these pages away from search engines and site search ---- */
+/* ---- Search engines: noindex and nofollow by default, controllable from Rank Math ---- */
 
+/**
+ * The robots choices saved on a landing page in Rank Math's Advanced tab.
+ *
+ * Rank Math keeps them in the `rank_math_robots` post meta as a list such as
+ * array( 'index' ) or array( 'noindex', 'nofollow' ). The theme reads and writes
+ * the same meta, so the choice made in Rank Math (or, without the plugin, the
+ * default below) is the only source of truth. An empty list means "not chosen".
+ *
+ * @param int $post_id Page ID.
+ * @return string[]
+ */
+function remotive_lp_robots_choices( $post_id ) {
+	$meta = get_post_meta( (int) $post_id, 'rank_math_robots', true );
+
+	return is_array( $meta ) ? array_values( array_filter( array_map( 'strval', $meta ) ) ) : array();
+}
+
+/**
+ * Whether the landing page is noindex and/or nofollow.
+ *
+ * Landing pages are for paid traffic, so with nothing chosen both are on. Once
+ * someone picks index/noindex or follow/nofollow in Rank Math, that wins; ticking
+ * only "index" makes the page indexable and followable.
+ *
+ * @param int $post_id Page ID.
+ * @return array{noindex:bool,nofollow:bool}
+ */
+function remotive_lp_robots_policy( $post_id ) {
+	$choices = remotive_lp_robots_choices( $post_id );
+
+	if ( ! $choices ) {
+		return array( 'noindex' => true, 'nofollow' => true );
+	}
+
+	return array(
+		'noindex'  => in_array( 'noindex', $choices, true ),
+		'nofollow' => in_array( 'nofollow', $choices, true ),
+	);
+}
+
+/** WordPress's own robots tag (used when Rank Math is not active). */
 function remotive_lp_robots( $robots ) {
 	if ( remotive_is_landing_page() ) {
-		$robots = array(
-			'noindex'  => true,
-			'nofollow' => true,
-		);
+		$policy = remotive_lp_robots_policy( get_queried_object_id() );
+		unset( $robots['noindex'], $robots['nofollow'] );
+
+		if ( $policy['noindex'] ) {
+			$robots['noindex'] = true;
+		}
+
+		if ( $policy['nofollow'] ) {
+			$robots['nofollow'] = true;
+		}
 	}
 
 	return $robots;
 }
 add_filter( 'wp_robots', 'remotive_lp_robots', 99 );
 
-// Rank Math, if installed, prints its own robots tag; give it the same answer.
+// Rank Math prints its own tag from the same meta. Only fill in the default when nothing was chosen there.
 add_filter(
 	'rank_math/frontend/robots',
 	function ( $robots ) {
-		if ( remotive_is_landing_page() ) {
+		if ( remotive_is_landing_page() && ! remotive_lp_robots_choices( get_queried_object_id() ) ) {
 			$robots = array( 'index' => 'noindex', 'follow' => 'nofollow' );
 		}
 		return $robots;
 	}
 );
 
+/** The same answer as an HTTP header, so non-HTML fetches agree, but only while the page is noindex or nofollow. */
 function remotive_lp_robots_header() {
-	if ( ! is_admin() && remotive_is_landing_page() ) {
-		header( 'X-Robots-Tag: noindex, nofollow', true );
+	if ( is_admin() || ! remotive_is_landing_page() ) {
+		return;
+	}
+
+	$policy = remotive_lp_robots_policy( get_queried_object_id() );
+	$parts  = array_keys( array_filter( $policy ) );
+
+	if ( $parts ) {
+		header( 'X-Robots-Tag: ' . implode( ', ', $parts ), true );
 	}
 }
 add_action( 'template_redirect', 'remotive_lp_robots_header' );
+
+/**
+ * Put the default into Rank Math's Advanced tab, so the box is already ticked
+ * and can be unticked there. Only fills a page that has no choice yet.
+ *
+ * @param int $post_id Page ID.
+ */
+function remotive_lp_seed_robots( $post_id ) {
+	$post_id = (int) $post_id;
+
+	if ( ! $post_id || REMOTIVE_LANDING_TEMPLATE !== get_post_meta( $post_id, '_wp_page_template', true ) ) {
+		return;
+	}
+
+	if ( ! remotive_lp_robots_choices( $post_id ) ) {
+		update_post_meta( $post_id, 'rank_math_robots', array( 'noindex', 'nofollow' ) );
+	}
+}
+add_action( 'save_post_page', 'remotive_lp_seed_robots' );
+
+/** Once, for landing pages that already exist. */
+function remotive_lp_seed_existing_robots() {
+	if ( '1' === get_option( 'remotive_lp_robots_seeded' ) ) {
+		return;
+	}
+
+	foreach ( remotive_lp_page_ids() as $id ) {
+		remotive_lp_seed_robots( $id );
+	}
+
+	update_option( 'remotive_lp_robots_seeded', '1', false );
+}
+add_action( 'init', 'remotive_lp_seed_existing_robots', 20 );
 
 /**
  * IDs of pages using the landing template.
@@ -741,6 +829,112 @@ function remotive_lp_hide_from_sitemap( $args, $post_type ) {
 	return $args;
 }
 add_filter( 'wp_sitemaps_posts_query_args', 'remotive_lp_hide_from_sitemap', 10, 2 );
+
+/* ---- Keep the main site and the landing pages apart ----
+ *
+ * The landing pages are for paid and social traffic only. Nothing on the main
+ * site may link to them or lead a visitor to them: they are out of page lists,
+ * menus, search, the sitemaps and the REST listing, and any click that comes
+ * from a page of this site is turned back (below). A visitor arriving from an
+ * ad, a typed address or a bookmark is unaffected.
+ */
+
+/** Hide the landing pages from page lists (the page-list block, wp_list_pages, navigation fallbacks). */
+function remotive_lp_hide_from_page_lists( $pages ) {
+	if ( is_admin() || ! is_array( $pages ) ) {
+		return $pages;
+	}
+
+	$hide = remotive_lp_page_ids();
+
+	return $hide ? array_values( array_filter( $pages, function ( $page ) use ( $hide ) {
+		return ! is_object( $page ) || ! in_array( (int) $page->ID, $hide, true );
+	} ) ) : $pages;
+}
+add_filter( 'get_pages', 'remotive_lp_hide_from_page_lists' );
+
+/** Classic menus: a landing page added to a menu by hand is dropped on the front end. */
+function remotive_lp_hide_from_menus( $items ) {
+	$hide = remotive_lp_page_ids();
+
+	return $hide ? array_values( array_filter( (array) $items, function ( $item ) use ( $hide ) {
+		return ! is_object( $item ) || ! in_array( (int) $item->object_id, $hide, true );
+	} ) ) : $items;
+}
+add_filter( 'wp_nav_menu_objects', 'remotive_lp_hide_from_menus' );
+
+/** Navigation blocks: a navigation-link to a landing page renders nothing. */
+function remotive_lp_hide_nav_block( $content, $block ) {
+	if ( isset( $block['blockName'], $block['attrs']['id'] ) && 'core/navigation-link' === $block['blockName']
+		&& in_array( (int) $block['attrs']['id'], remotive_lp_page_ids(), true ) ) {
+		return '';
+	}
+
+	return $content;
+}
+add_filter( 'render_block', 'remotive_lp_hide_nav_block', 10, 2 );
+
+/** The public REST listing of pages leaves them out (editors still see everything). */
+function remotive_lp_hide_from_rest( $args ) {
+	if ( ! current_user_can( 'edit_pages' ) ) {
+		$args['post__not_in'] = array_merge( isset( $args['post__not_in'] ) ? (array) $args['post__not_in'] : array(), remotive_unlisted_page_ids() );
+	}
+
+	return $args;
+}
+add_filter( 'rest_page_query', 'remotive_lp_hide_from_rest' );
+
+/**
+ * Is this navigation a click from a page of the same site?
+ *
+ * True when the Referer is one of this site's pages (other than a landing page,
+ * so the language buttons and the form's thank-you redirect keep working), or
+ * when the browser says the request is from the same origin or site
+ * (Sec-Fetch-Site) and there is no landing-page Referer, which catches a link
+ * that strips the Referer. An ad, a typed address, a bookmark or an app is
+ * cross-site or direct ("none") and passes.
+ *
+ * @param array  $server Request headers as in $_SERVER.
+ * @param string $host   This site's host.
+ * @return bool
+ */
+function remotive_lp_is_internal_navigation( $server, $host ) {
+	$referer = isset( $server['HTTP_REFERER'] ) ? (string) $server['HTTP_REFERER'] : '';
+	$fetch   = isset( $server['HTTP_SEC_FETCH_SITE'] ) ? strtolower( (string) $server['HTTP_SEC_FETCH_SITE'] ) : '';
+	$from_lp = false;
+	$ref_own = false;
+
+	if ( '' !== $referer ) {
+		$parts   = wp_parse_url( $referer );
+		$ref_own = isset( $parts['host'] ) && 0 === strcasecmp( preg_replace( '/^www\./i', '', $parts['host'] ), preg_replace( '/^www\./i', '', $host ) );
+
+		if ( $ref_own ) {
+			$slugs   = array_merge( array_keys( remotive_landing_services() ), array( REMOTIVE_LP_THANKS_SLUG ) );
+			$from_lp = (bool) preg_match( '#^/(?:(?:ms|zh-hans|zh-hant)/)?(?:' . implode( '|', array_map( 'preg_quote', $slugs ) ) . ')/?$#', isset( $parts['path'] ) ? $parts['path'] : '' );
+		}
+	}
+
+	if ( $from_lp ) {
+		return false;
+	}
+
+	return $ref_own || in_array( $fetch, array( 'same-origin', 'same-site' ), true );
+}
+
+/** Turn back a click from the main site. Editors previewing a page are never turned back. */
+function remotive_lp_guard_internal_entry() {
+	if ( is_admin() || ! remotive_is_landing_page() || current_user_can( 'edit_pages' ) ) {
+		return;
+	}
+
+	$host = wp_parse_url( home_url(), PHP_URL_HOST );
+
+	if ( $host && remotive_lp_is_internal_navigation( $_SERVER, $host ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+		wp_safe_redirect( home_url( '/' ), 302 );
+		exit;
+	}
+}
+add_action( 'template_redirect', 'remotive_lp_guard_internal_entry', 1 );
 
 /* ---- Assets ---- */
 

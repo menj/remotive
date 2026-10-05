@@ -101,6 +101,9 @@ function is_page() { return true; }
 function is_page_template() { return $GLOBALS['T']['template'] ?? true; }
 function get_queried_object_id() { return 1; }
 function get_queried_object() { return (object) array( 'ID' => 1 ); }
+function current_user_can() { return $GLOBALS['T']['can_edit'] ?? false; }
+function get_post_meta( $id, $key = '', $single = false ) { return $GLOBALS['T']['meta'][ $id ][ $key ] ?? ''; }
+function update_post_meta( $id, $key, $value ) { $GLOBALS['T']['meta'][ $id ][ $key ] = $value; return true; }
 function get_posts() { return $GLOBALS['T']['landing_ids'] ?? array( 5, 6 ); }
 function get_post_field() { return $GLOBALS['T']['slug']; }
 function get_page_by_path( $s ) { return (object) array( 'ID' => 5, 'post_modified_gmt' => '2026-10-01 10:00:00' ); }
