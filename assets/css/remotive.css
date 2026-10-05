@@ -3071,8 +3071,14 @@ body.rm-motion .rm-ticker-band{ overflow:hidden; }
 .rm-lang--nav .rm-lang__list a{ font-size:.78rem; font-weight:700; letter-spacing:.04em; padding:.5rem .15rem; white-space:nowrap; }
 .rm-lang--nav .rm-lang__list li + li::before{ margin:0 .4rem; }
 @media (max-width:782px){
-  .rm-lang--nav{ order:3; flex-basis:100%; }
+  /* The header row never wraps on a phone (critical.css), which is right for
+     the logo, menu button and call to action. The colour toggle and the switcher
+     take the row beneath them (the switcher drops to a row of its own when the
+     screen is too narrow for both) instead of being squeezed off the edge. */
+  .rm-nav__row:has(.rm-lang--nav){ flex-wrap:wrap !important; row-gap:0 !important; }
+  .rm-lang--nav{ order:3; flex:1 1 auto; margin:0; }
   .rm-lang--nav .rm-lang__list{ justify-content:flex-end; }
+  .rm-lang--nav .rm-lang__list a{ padding:.65rem .35rem; font-size:.85rem; }
 }
 .rm-lang__list{ display:flex; flex-wrap:wrap; align-items:center; gap:.2rem 0; margin:0; padding:0; list-style:none; }
 .rm-lang__list li{ margin:0; display:inline-flex; align-items:center; }

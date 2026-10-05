@@ -4,6 +4,12 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.106.1] — 2026-10-05
+
+### Fixed
+
+- **Header language switcher on a phone.** The header row never wraps on a small screen (`critical.css`), so the switcher added in 1.105.0 was squeezed past the right edge ("EN • BM" visible, the Chinese buttons cut off). On screens up to 782 px the row now wraps only when it holds the switcher: the colour toggle and the switcher share the row beneath the logo, menu button and call to action, and the switcher takes a row of its own when the screen is too narrow for both (320 px). Checked at 320, 390 and 768 px in a real WordPress with no horizontal scroll; the desktop header is unchanged.
+
 ## [1.106.0] — 2026-10-05
 
 ### Added
