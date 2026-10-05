@@ -475,7 +475,7 @@ function remotive_lp_render() {
 	}
 
 	if ( '' !== $proof ) {
-		$proof = '<section class="rm-lp__section rm-lp__proof" aria-labelledby="rm-lp-proof"><p id="rm-lp-proof" class="rm-lp__proof-kicker">' . remotive_lp_t( array( 'Results from the work', 'Hasil daripada kerja kami', '我们的成果', '我們的成果' ) ) . '</p><ul class="rm-lp__proofs">' . $proof . '</ul></section>';
+		$proof = '<section class="rm-lp__section rm-lp__proof" aria-labelledby="rm-lp-proof"><p id="rm-lp-proof" class="rm-lp__proof-kicker">' . remotive_lp_t( array( 'Results from the work', 'Hasil daripada kerja kami', '我们的成果', '我們的成果' ) ) . '</p><ul class="rm-lp__proofs" tabindex="0" aria-labelledby="rm-lp-proof">' . $proof . '</ul></section>';
 	}
 
 	$steps = '';
