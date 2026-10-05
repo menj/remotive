@@ -42,6 +42,7 @@ require get_stylesheet_directory() . '/inc/core/security.php';
 require get_stylesheet_directory() . '/inc/options/maintenance-mode.php';
 require get_stylesheet_directory() . '/inc/landing/landing-pages.php';
 require get_stylesheet_directory() . '/inc/core/rank-math.php';
+require get_stylesheet_directory() . '/inc/core/ai-discovery-files.php';
 
 /**
  * Gate scroll motion on a body class.

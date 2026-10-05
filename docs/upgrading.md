@@ -54,6 +54,13 @@ WordPress site yet; this list is how to find out.
 - The first pull request that runs `.github/workflows/ci.yml` after a change to
   it should be watched, because the workflow itself is the thing under test.
 
+## v1.110.1: AI Discovery Files plugin
+
+- Open `/llms.txt` after deploying: it must not list the three landing pages or
+  the confirmation pages. Delete the default "Sample Page" if it is still there.
+- The plugin's early-translation notice in the debug log is the plugin's own;
+  update it or ask its author.
+
 ## v1.110.0: landing pages and Rank Math, closed off from the main site
 
 - Open a landing page in Rank Math → Advanced: noindex and nofollow are ticked.

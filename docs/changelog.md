@@ -4,6 +4,19 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.110.1] — 2026-10-06
+
+### Added
+
+- **AI Discovery Files plugin (2.2.2) compatibility** (`inc/core/ai-discovery-files.php`). The plugin lists every published page in `llms.txt`, `llms.html` and `ai.json` (from `get_pages()`) and caches the files. The theme hides the landing pages from `get_pages()` on the front end, but a file built from wp-admin saw them: tested with the plugin installed, a build from the admin listed five landing or confirmation pages; with the new `aidf_template_data` filter it lists none. The filter removes the landing and confirmation pages from the plugin's page list in every context, and the plugin's cache is cleared once so an earlier copy is rebuilt.
+- Checked with the plugin active: one `<title>` and the hreflang links on main, Malay, Chinese and landing pages; `robots.txt` carries both the plugin's block (priority 20) and the theme's sitemap line (99); the plugin's files, rewrite rules and `template_redirect` handler do not collide with the language layer or the landing-page entry guard.
+
+### Notes (not theme code)
+
+- The plugin lists pages in one English list. It knows WPML and Polylang only, so the theme's language versions are not in `llms.txt`; each page's translations are declared by hreflang and `/sitemap-languages.xml`.
+- The plugin loads its translations too early (`_load_textdomain_just_in_time` in the debug log). That is inside the plugin; update it or ask its author.
+- A fresh WordPress "Sample Page" (if it still exists) is listed in `llms.txt`; delete it.
+
 ## [1.110.0] — 2026-10-06
 
 ### Changed

@@ -87,9 +87,11 @@ remotive/
 │   │   │                   source when a companion file exists. (v1.45.0)
 │   │   ├── branded-login.php   Optional branded wp-login screen, off by
 │   │   │                   default. (v1.53.0)
-│   │   └── rank-math.php   Rank Math SEO 1.0.279 compatibility: robots,
-│   │                       canonical and sitemap rules the plugin would
-│   │                       otherwise discard. (v1.101.0)
+│   │   ├── rank-math.php   Rank Math SEO 1.0.279 compatibility: robots,
+│   │   │                   canonical and sitemap rules the plugin would
+│   │   │                   otherwise discard. (v1.101.0)
+│   │   └── ai-discovery-files.php  AI Discovery Files 2.2.2: keeps the
+│   │                       landing pages out of llms.txt. (v1.110.1)
 │   ├── options/            Settings the site owner changes.
 │   │   ├── theme-options.php   Appearance -> Theme Options admin page,
 │   │   │                   settings sanitisation, the render_block token
