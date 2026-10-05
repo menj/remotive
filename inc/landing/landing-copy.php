@@ -88,9 +88,9 @@ function remotive_landing_services() {
 					array( 'Global asset manager · 4 APAC markets', 'Pengurus aset global · 4 pasaran APAC', '全球资产管理公司 · 4 个亚太市场', '全球資產管理公司 · 4 個亞太市場' ),
 				),
 				array(
-					array( '85%', '85%', '85%', '85%' ),
-					array( 'CPM saving against market rate, with 26.1M completed views and 32,298 leads for distributors.', 'Penjimatan CPM berbanding kadar pasaran, dengan 26.1 juta tontonan lengkap dan 32,298 prospek untuk pengedar.', '相比市场价格节省 85% 的 CPM，并带来 2,610 万次完整播放与 32,298 条经销商线索。', '相較市場價格節省 85% 的 CPM，並帶來 2,610 萬次完整播放與 32,298 條經銷商潛在客戶。' ),
-					array( 'Global automotive marque · 7 Asian markets', 'Jenama automotif global · 7 pasaran Asia', '全球汽车品牌 · 7 个亚洲市场', '全球汽車品牌 · 7 個亞洲市場' ),
+					array( 'Weeks', 'Minggu', '数周', '數週' ),
+					array( 'Weeks, not months: paid search data showed which treatment terms had real commercial intent, well before organic rankings could confirm it.', 'Beberapa minggu, bukan bulan: data carian berbayar menunjukkan istilah rawatan mana yang mempunyai niat komersial sebenar, jauh sebelum kedudukan organik dapat mengesahkannya.', '数周而非数月：付费搜索数据让我们看出哪些治疗相关词真正具有商业意图，远早于自然排名能够验证。', '數週而非數月：付費搜尋資料讓我們看出哪些治療相關詞真正具有商業意圖，遠早於自然排名能夠驗證。' ),
+					array( 'Malaysian healthcare clinic · organic and paid together', 'Klinik penjagaan kesihatan Malaysia · organik dan berbayar bersama', '马来西亚医疗诊所 · 自然与付费搜索并行', '馬來西亞醫療診所 · 自然與付費搜尋並行' ),
 				),
 			),
 		),
