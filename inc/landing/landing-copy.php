@@ -28,7 +28,7 @@ function remotive_landing_services() {
 			'photo_alt' => array( 'A laptop showing search and analytics charts', 'Komputer riba yang memaparkan carta carian dan analitik', '显示搜索与分析图表的笔记本电脑', '顯示搜尋與分析圖表的筆記型電腦' ),
 			'label'   => array( 'SEO', 'SEO', 'SEO', 'SEO' ),
 			'eyebrow' => array( 'SEO for B2B and B2C brands in Asia', 'SEO untuk jenama B2B dan B2C di Asia', '面向亚洲 B2B 与 B2C 品牌的 SEO', '面向亞洲 B2B 與 B2C 品牌的 SEO' ),
-			'title'   => array( 'Be found by buyers already searching for you.', 'Dikenali oleh pembeli yang sedang mencari anda.', '让正在搜索您的买家找到您。', '讓正在搜尋您的買家找到您。' ),
+			'title'   => array( 'Be found by buyers already searching for you.', 'Dikenali oleh pembeli yang sedang mencari anda', '让正在搜索您的买家找到您。', '讓正在搜尋您的買家找到您。' ),
 			'lead'    => array(
 				'Your site may be losing enquiries to problems you can fix: pages that miss what buyers search for, technical faults, tracking that cannot show what works. Our free audit finds them, ranks them by impact and tells you what to fix first, in Google and in AI search.',
 				'Laman web anda mungkin kehilangan pertanyaan kerana masalah yang boleh dibaiki: halaman yang tidak menepati carian pembeli, kesilapan teknikal, dan penjejakan yang tidak dapat menunjukkan apa yang berkesan. Audit percuma kami mengenal pasti masalah tersebut, menyusunnya mengikut impak dan memberitahu apa yang perlu dibaiki dahulu, di Google dan dalam carian AI.',
@@ -46,10 +46,10 @@ function remotive_landing_services() {
 			'photo_alt' => array( 'A laptop on a desk showing search results', 'Komputer riba di atas meja yang memaparkan hasil carian', '桌上显示搜索结果的笔记本电脑', '桌上顯示搜尋結果的筆記型電腦' ),
 			'label'   => array( 'Google Ads', 'Google Ads', 'Google Ads', 'Google Ads' ),
 			'eyebrow' => array( 'Google Ads management for lead generation', 'Pengurusan Google Ads untuk penjanaan prospek', '以获取线索为目标的 Google Ads 管理', '以獲取線索為目標的 Google Ads 管理' ),
-			'title'   => array( 'Stop paying for clicks that never turn into leads.', 'Berhenti membayar untuk klik yang tidak menjadi prospek.', '别再为无法转化为线索的点击付费。', '別再為無法轉換為線索的點擊付費。' ),
+			'title'   => array( 'Stop paying for clicks that never turn into leads.', 'Berhenti membayar untuk klik yang tidak menjadi prospek', '别再为无法转化为线索的点击付费。', '別再為無法轉換為線索的點擊付費。' ),
 			'lead'    => array(
 				'We review your account and tracking first, then run search campaigns measured against qualified leads and pipeline, so your budget goes where it earns. The audit is free.',
-				'Kami menyemak akaun dan penjejakan anda dahulu, kemudian mengendalikan kempen carian yang diukur berdasarkan prospek berkualiti dan saluran jualan, supaya bajet anda digunakan di tempat yang menjana hasil. Audit ini percuma.',
+				'Kami menyemak akaun dan penjejakan anda dahulu, kemudian mengendalikan kempen carian yang diukur berdasarkan prospek berkualiti dan saluran jualan supaya bajet anda digunakan di tempat yang menjana hasil. Audit ini percuma.',
 				'我们先审查您的账户与追踪设置，再运营以合格线索和销售管道衡量成效的搜索广告，让预算花在真正带来回报的地方。审计免费。',
 				'我們先審查您的帳戶與追蹤設定，再營運以合格線索和銷售管道衡量成效的搜尋廣告，讓預算花在真正帶來回報的地方。審計免費。' ),
 			'points'  => array(
@@ -64,7 +64,7 @@ function remotive_landing_services() {
 			'photo_alt' => array( 'A phone showing a social media feed', 'Telefon yang memaparkan suapan media sosial', '显示社交媒体动态的手机', '顯示社群媒體動態的手機' ),
 			'label'   => array( 'Paid social', 'Iklan sosial berbayar', '社交媒体广告', '社群媒體廣告' ),
 			'eyebrow' => array( 'Paid social on Meta, LinkedIn and TikTok', 'Iklan sosial berbayar di Meta, LinkedIn dan TikTok', 'Meta、LinkedIn 与 TikTok 社交媒体广告', 'Meta、LinkedIn 與 TikTok 社群媒體廣告' ),
-			'title'   => array( 'Paid social that reaches the right buyers, and shows what worked.', 'Iklan sosial berbayar yang mencapai pembeli yang tepat, dan menunjukkan apa yang berkesan.', '精准触达目标买家，并清楚显示什么有效的社交媒体广告。', '精準觸及目標買家，並清楚顯示什麼有效的社群媒體廣告。' ),
+			'title'   => array( 'Paid social that reaches the right buyers, and shows what worked.', 'Iklan sosial berbayar yang mencapai pembeli yang tepat, dan menunjukkan apa yang berkesan', '精准触达目标买家，并清楚显示什么有效的社交媒体广告。', '精準觸及目標買家，並清楚顯示什麼有效的社群媒體廣告。' ),
 			'lead'    => array(
 				'We build campaigns around your audience and your offer, test creative quickly and scale what converts. It starts with a free audit.',
 				'Kami membina kempen berdasarkan audiens dan tawaran anda, menguji kreatif dengan pantas dan mengembangkan apa yang menukar. Ia bermula dengan audit percuma.',
@@ -72,7 +72,7 @@ function remotive_landing_services() {
 				'我們圍繞您的受眾與優惠搭建廣告，快速測試創意，並將有轉換的部分擴大投放。一切從免費審計開始。' ),
 			'points'  => array(
 				array( 'Audience and offer settled before any creative is made', 'Audiens dan tawaran dimuktamadkan sebelum sebarang kreatif dihasilkan', '在制作任何创意之前，先确定受众与优惠', '在製作任何創意之前，先確定受眾與優惠' ),
-				array( 'Structured creative tests, so you learn instead of guessing', 'Ujian kreatif berstruktur, supaya anda belajar dan bukan meneka', '有结构的创意测试，让您有依据而非靠猜', '有結構的創意測試，讓您有依據而非靠猜' ),
+				array( 'Structured creative tests, so you learn instead of guessing', 'Ujian kreatif berstruktur supaya anda belajar dan bukan meneka', '有结构的创意测试，让您有依据而非靠猜', '有結構的創意測試，讓您有依據而非靠猜' ),
 				array( 'Lead quality tracked past the form, into your pipeline', 'Kualiti prospek dijejak melepasi borang, sehingga ke saluran jualan anda', '线索质量的追踪不止于表单，直达您的销售管道', '線索品質的追蹤不止於表單，直達您的銷售管道' ),
 			),
 			'form_title' => array( 'Get your free paid social audit', 'Dapatkan audit iklan sosial berbayar percuma anda', '获取您的免费社交媒体广告审计', '獲取您的免費社群媒體廣告審計' ),

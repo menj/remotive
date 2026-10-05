@@ -519,11 +519,36 @@ Chinese, that we can point people in Asia to. Not lots of pages, not content all
 over the place"; other things can be built as it goes; turn the site off until a
 walkthrough has agreed the changes. Every change should be checked against this
 first. In practice: the one page is a landing page (they carry their own copy in
-every language); the site's ordinary pages, home included, have no translated
-version unless switched on (`remotive_i18n_default_live_pages()` is empty); the
-landing pages are noindex and for paid traffic; the site is switched off with
-Maintenance mode during review. Traditional Chinese is also supported because the language layer
+every language); since 1.105.0 the main pages are also live in all four
+languages with a header switcher, at the site owner's direction, which goes
+beyond one page, so the walkthrough decides what stays
+(`remotive_i18n_default_live_pages()`); the landing pages are noindex and for
+paid traffic; the site is switched off with Maintenance mode during review. Traditional Chinese is also supported because the language layer
 and landing pages provide it; it is not part of Gordan's list.
+
+## Malay spelling (ms-MY, from v1.107.0)
+
+The Malay text follows the Dewan Bahasa dan Pustaka's *Pedoman Umum Ejaan Bahasa
+Melayu* (Sistem Ejaan Rumi, the 65-page copy supplied by the site owner; it is
+not stored in the repository), and the 2010 edition (Dewan Bahasa dan Pustaka, Brunei), also supplied. Where the editions differ, the newer 2010 edition is used; Brunei-specific titles and `awda` are not applied. What is applied and checked by
+`tests/check-ejaan.php`:
+
+| Pedoman | Rule applied |
+|---|---|
+| Penulisan unsur serapan | Loan words are adapted by the Pedoman's table (-ity → -iti, -tion → -si, -ization → -isasi, c/q/x/ph/th/y changes, -ics → -ik, -cy → -si). Already followed throughout. |
+| Kata depan, partikel, kata ganti | di/ke/dari apart (kepada, daripada together); -lah/-kah/-tah and -nya/-ku/-mu attached; pun apart except the Pedoman's list; per apart. |
+| Angka | `ke-2`, `50-an` with a hyphen; amounts as `250 juta`, `745 ribu`, not 745k; `US$`, `RM`, `S$` for money; `%` or `peratus`; decimal point and comma thousands for quantities. |
+| Tanda koma | No comma before an anak ayat that follows its main clause; a comma before tetapi and melainkan; a comma after a sentence-opening connective. |
+| Tanda titik | No full stop at the end of a title, a figure caption or a table caption. |
+| Tanda pisah | The en dash with a space each side (2010 edition; it replaces the unspaced em dash of the first edition), also between numbers; titles are separated with ` \| `. |
+| Tanda petik | Curly double quotes “ ”, never straight. |
+| Tanda koma (senarai) | A comma before the final `dan` of a list of three or more items (2010 edition). |
+| Huruf besar | Months and weekdays, languages and peoples (bahasa Melayu, orang Inggeris), places and official names with a capital. |
+| Tarikh | Day, month name, year: `2 Oktober 2026`. |
+
+Not enforced: foreign terms in italics (the language layer swaps text, not
+markup, so quoted search phrases and terms such as retainer and sprint stay as
+written), and wording.
 
 ## PHP module layout (v1.100.0)
 
@@ -537,7 +562,7 @@ by path, error handler first.
 | `inc/setup/` | `site-setup`, `classic-menus`, `content-seed`, `content-seed-data` |
 | `inc/forms/` | `lead-form-handler`, `cta-form-handler`, `about-form-handler`, `contact-form-handler`, `leads`, `akismet`, `thank-you` |
 | `inc/landing/` | `landing-pages`, `landing-copy` |
-| `inc/i18n/` | `i18n`, `i18n-admin`, and the dictionaries `ms`, `zh-hans`, `zh-hant` (loaded by name) |
+| `inc/i18n/` | `i18n`, `i18n-admin`, and the dictionaries `ms`, `zh-hans`, `zh-hant` (loaded by name). On/off per language: Theme Options → Languages |
 | `inc/content/` | `schema-markup`, `webmcp`, `feature-grids`, `stats-band` |
 
 A new module goes in the folder that matches its job and gets one `require`

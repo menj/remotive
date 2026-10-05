@@ -72,7 +72,8 @@ function is_serialized( $s ) { return is_string( $s ) && preg_match( '/^[aOsibd]
 
 // Hooks: record, never run.
 function apply_filters( $h, $v ) { return $v; }
-function remove_action() {}
+function remove_action( $hook = '', $cb = '', $prio = 10 ) { $GLOBALS['t_actions'][] = $hook . '|' . $cb; }
+function has_action( $hook, $cb ) { return ! empty( $GLOBALS['t_has'][ $hook . '|' . $cb ] ); }
 function is_user_logged_in() { return $GLOBALS['T']['logged_in'] ?? false; }
 function is_wp_error( $x ) { return $x instanceof WP_Error; }
 class WP_Error {
@@ -102,7 +103,7 @@ function get_queried_object_id() { return 1; }
 function get_queried_object() { return (object) array( 'ID' => 1 ); }
 function get_posts() { return $GLOBALS['T']['landing_ids'] ?? array( 5, 6 ); }
 function get_post_field() { return $GLOBALS['T']['slug']; }
-function get_page_by_path( $s ) { return (object) array( 'ID' => 5 ); }
+function get_page_by_path( $s ) { return (object) array( 'ID' => 5, 'post_modified_gmt' => '2026-10-01 10:00:00' ); }
 function get_permalink() { return 'https://example.com/' . $GLOBALS['T']['slug'] . '/'; }
 function home_url( $p = '' ) { return 'https://example.com' . $p; }
 function admin_url( $p = '' ) { return 'https://example.com/wp-admin/' . $p; }

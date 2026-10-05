@@ -54,14 +54,56 @@ WordPress site yet; this list is how to find out.
 - The first pull request that runs `.github/workflows/ci.yml` after a change to
   it should be watched, because the workflow itself is the thing under test.
 
+## v1.107.1: Malay spelling, second edition
+
+- Nothing to run. Open `/ms/` and check the dashes (`–` with spaces) and quote
+  marks (curly). `php tests/check-ejaan.php` covers it.
+
+## v1.107.0: Malay spelling
+
+- Nothing to run. Open `/ms/` and one of the case studies and read the headings
+  (no full stop at the end), the money (`US$`) and the Insights dates
+  (`2 Oktober 2026`). The check is `php tests/check-ejaan.php`; it runs in CI.
+- Rule changes after this: edit `docs/ssot.md` ("Malay spelling") and
+  `tests/check-ejaan.php` together.
+
+## v1.106.0: Languages tab, language sitemap, Rank Math
+
+- Appearance → Theme Options → **Languages**: switch Bahasa Melayu, Simplified
+  and Traditional Chinese on or off, and the header and footer switchers. Test
+  by switching one off: its `/ms/…` addresses should redirect to English, and
+  the language disappears from the switchers and from `/sitemap-languages.xml`.
+- With Rank Math: open `/sitemap_index.xml`. It should list
+  `sitemap-languages.xml` with a date. Rank Math keeps its sitemap cached on
+  disk; the theme clears it when languages change, but if the index looks stale
+  clear it under Rank Math → Sitemap Settings.
+- View source on any page with Rank Math active: one `<title>`, one canonical,
+  and the hreflang links (each live language and `x-default`). Search Console:
+  submit `/sitemap-languages.xml` once if it is not picked up from the index.
+- Rollback: the new settings are stored only in the theme options; reverting the
+  theme leaves them unused and every language on.
+
+## v1.105.0: main pages in four languages, header switcher
+
+- After deploying, open `/ms/`, `/zh-hans/`, `/zh-hant/` and, in each, the
+  navigation links (Services, Case Studies, About, Team, Insights, Contact) and
+  the language buttons in the header. Each should stay in that language.
+- To take a page out of a language, or add the unlisted case studies and the
+  articles: Tools → Translations → the page → the "Live" box.
+- Search Console: submit `/sitemap-languages.xml` (the live pages are listed in
+  it with their alternates). Rank Math caches its sitemap; clear it if needed.
+- The Malay and Chinese text is a first draft: have a native speaker read it
+  before it is promoted. Gordan's brief was one simple page; this puts many
+  pages in four languages, so confirm at the walkthrough which stay.
+
 ## v1.104.0: language versions (the one-page brief)
 
 The brief for the site is **one simple, clean page** that explains what the
 company does, in English, Malay and Chinese, not many pages. That page is a
 landing page: the landing pages already carry their own copy in every language
 and now use the same addresses. This release adds the language layer for the
-rest of the site but leaves it **off**: no ordinary page, including the home
-page, has a Malay or Chinese version until someone switches it on.
+rest of the site; 1.104.0 left it off, and 1.105.0 (above) switched the main
+pages on.
 
 1. **Turn the site off first** (Gordan asked for it before the walkthrough):
    Appearance → Theme Options → Site behaviour → Maintenance mode → on. Visitors
@@ -69,8 +111,8 @@ page, has a Malay or Chinese version until someone switches it on.
    it off again after the walkthrough.
 2. Deploy, then open any admin page once (rewrite rules are flushed and the
    language tables are created on first use).
-3. Check that `/ms/` and `/ms/team/` redirect to `/` and `/team/` (nothing live
-   yet, and no language switcher in the footer), that `/ms/seo-audit/`,
+3. (As of 1.104.0; since 1.105.0 `/ms/` and `/ms/team/` are live pages.) Check
+   that `/ms/seo-audit/`,
    `/zh-hans/seo-audit/` and `/zh-hant/seo-audit/` show the landing page in each
    language, and that the old `/zh-cn/seo-audit/` redirects to `/zh-hans/seo-audit/`.
 4. To put an ordinary page live in a language: Tools → Translations → pick the

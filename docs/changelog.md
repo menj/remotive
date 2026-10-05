@@ -4,6 +4,76 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.107.1] — 2026-10-05
+
+### Changed
+
+The Malay (`ms-MY`) text was checked against a second Pedoman Umum Ejaan Rumi Bahasa Melayu, the 2010 edition (Dewan Bahasa dan Pustaka, Brunei), supplied in addition to the first. Where the two editions differ, the newer one wins. The 1.107.0 work stays except where the 2010 edition says otherwise:
+
+- **Dashes.** The tanda pisah is now the en dash with a space each side (`Baiki, Ditemui, Skala – terbukti`, `Jun – Oktober 2022`, `20 – 30%`), replacing the unspaced em dash of 1.107.0.
+- **Quotation marks.** Straight double quotes in Malay text are curly (“sistem automasi turnkey”).
+- **Serial comma.** A comma before the final `dan` in lists of three or more items (`Meta, TikTok, dan paparan programatik`). Lists were reviewed one by one; two-item phrases and clauses are untouched.
+- **Not applied:** the Brunei-specific titles and the `awda` form, which do not apply to a Malaysian and Singapore audience, and the four-digit number comma rule, which contradicts itself in the 2010 text.
+
+`tests/check-ejaan.php` now forbids the em dash, requires spaces around the en dash, forbids straight double quotes, and flags a missing serial comma.
+
+## [1.107.0] — 2026-10-05
+
+### Changed
+
+The Malay (`ms-MY`) text, in the dictionary (`inc/i18n/ms.php`) and the landing pages, was checked against the Dewan Bahasa dan Pustaka's *Pedoman Umum Ejaan Bahasa Melayu* (the 65-page copy supplied) and brought into line. The loan-word spellings were already right (agensi, aktiviti, kualiti, teknikal, infrastruktur, automasi and so on follow the Pedoman's adaptation rules), as were prepositions, particles and affixes; what changed is below. About 100 strings were edited.
+
+- **Commas.** No comma before an anak ayat that follows its main clause (`…disambungkan, supaya…` → `…disambungkan supaya…`; the same for kerana, agar, sebelum, selepas; Pedoman, tanda koma, rule 4). A comma before tetapi and melainkan that join clauses (rule 2), and after a sentence-opening Jadi (rule 5).
+- **Headings and captions have no final full stop** (tanda titik, rule 11: titles, illustrations and tables): the home page hero and section headings, Kajian Kes, Wawasan, Soalan Lazim, the team and contact headings, the figure captions on the case studies, and the three landing page headlines and their confirmation heading.
+- **Dashes.** The tanda pisah is the unspaced em dash (`Baiki, Ditemui, Skala—terbukti`), including between numbers (`Jun—Oktober 2022`, `20—30%`); a spaced en dash as a title separator became ` | `, the separator the other titles use.
+- **Numbers and money.** US dollars are `US$` (it was `AS$` in some places and a bare `$` in others); `53k`, `745k` and `$723k` became `53 ribu`, `745 ribu` and `US$723 ribu`.
+- **Adapted two English words**: `social commerce` → `perdagangan sosial`, `treadmill` → `mesin lari`.
+- **Dates on Malay and Chinese pages** (the Insights list): `October 2, 2026` is now `2 Oktober 2026` in Malay (day, month with a capital, year, as in the Pedoman's `31 Ogos 1957`) and `2026年10月2日` in Chinese. `remotive_i18n_localise_date()`.
+
+### Added
+
+- **`tests/check-ejaan.php`, run in CI.** Fails if the Malay text brings back any of the mechanical mistakes: a comma before a following anak ayat, tetapi without a comma, AS$ or a bare $, a number with k, a spaced dash, an en dash between words or numbers, Indonesian spellings (karena, bahwa, situs, tautan, layanan, informasi and others), di/ke/dari joined to a word of place, ke pada or dari pada written apart, lah/kah/tah or nya/ku/mu written apart, ke before a number without a hyphen, `50an`, space before punctuation, English months, language names without a capital, an SEO title or landing page headline ending in a full stop, and pun written together outside the Pedoman's list. 1,359 strings pass.
+
+### Not done, and why
+
+- **Foreign words in italics.** The Pedoman writes foreign terms in italics (huruf condong) unless adapted. The language layer swaps text, not markup, so a term such as "retainer", "sprint", "white-label" or a quoted search phrase stays as written. Where an English word has an accepted adaptation it was adapted; the rest is a known limit.
+- **Wording.** This is orthography and punctuation. Whether a sentence reads naturally to a Malaysian reader still needs a native speaker.
+
+## [1.106.1] — 2026-10-05
+
+### Fixed
+
+- **Header language switcher on a phone.** The header row never wraps on a small screen (`critical.css`), so the switcher added in 1.105.0 was squeezed past the right edge ("EN • BM" visible, the Chinese buttons cut off). On screens up to 782 px the row now wraps only when it holds the switcher: the colour toggle and the switcher share the row beneath the logo, menu button and call to action, and the switcher takes a row of its own when the screen is too narrow for both (320 px). Checked at 320, 390 and 768 px in a real WordPress with no horizontal scroll; the desktop header is unchanged.
+
+## [1.106.0] — 2026-10-05
+
+### Added
+
+- **Theme Options → Languages.** A switch for each of Bahasa Melayu, Simplified Chinese and Traditional Chinese (all on by default; English is always on), plus switches for the header and the footer language switcher. A language that is off disappears everywhere at once: its pages, the ad landing pages in that language included, redirect to the English address; the switcher and the hreflang tags drop it; it leaves the language sitemap. Which individual pages exist in a language is still set page by page under Tools → Translations. `remotive_i18n_language_enabled()` and `remotive_i18n_switcher_enabled()` read the settings.
+- **Language sitemap, complete and distinct.** `/sitemap-languages.xml` now lists every live page once per language, English included, and every entry carries the full, reciprocal set of `xhtml:link` alternates plus an `x-default` (before, it listed only the translated URLs). A page with no other language live is not listed. It stays separate from Rank Math's own sitemaps.
+- **Works with Rank Math.** Checked against the Rank Math SEO 1.0.279 source and in a real WordPress with the plugin active: the language sitemap is added to `sitemap_index.xml` the way Rank Math adds its own extra sitemaps, as a `<sitemap>` with a `<loc>` and a `<lastmod>` through the `rank_math/sitemap/index/entry` filter; Rank Math's on-disk sitemap cache is cleared (`Cache::invalidate_storage()`) when the language settings are saved or a page is switched on or off, so the index never lags; `robots.txt` lists both sitemaps; the landing and confirmation pages stay out of Rank Math's page sitemap. Hreflang stays a distinct set of `<link rel="alternate" hreflang>` tags printed per page, in head, for the page and each of its live languages plus `x-default`.
+
+### Fixed
+
+- **Two `<title>` tags on every page when Rank Math is active.** Rank Math moves WordPress's classic title tag into its own head output, but a block theme's template adds a second one that Rank Math does not know about. Present on the English pages too, since before the language layer. The extra tag is now removed, only when Rank Math has taken the title over (`remotive_rank_math_single_title()`). One title on `/`, `/services/` and `/ms/services/` with the plugin active.
+- The language layer's last-modified lookup no longer warns for a page without a modified date.
+
+### Tests
+
+- `tests/test-i18n.php` now covers the language switches (off, on, never saved), the switcher placements, the sitemap entries (English plus live languages, none for a language that is off, reciprocal set) and the Rank Math index entry; `tests/test-rank-math.php` covers the single title.
+
+## [1.105.0] — 2026-10-05
+
+### Changed
+
+- **The main pages are live in all four languages** (English, Bahasa Melayu, Simplified and Traditional Chinese), at `/`, `/ms/`, `/zh-hans/` and `/zh-hant/`: Home; Services and its six service pages; Case Studies and the six listed case studies; About; Team; Insights (the index); Contact; FAQ; Privacy; Terms. That is 22 pages in each language, all with a translation already written, and each checked in a real WordPress for a 200 response and the switcher. `remotive_i18n_default_live_pages()` holds the list (the case studies come from the same list the footer menu uses). The eight case studies that are live but unlisted and the seven individual articles are translated but stay off until switched on in Tools > Translations; a page that is off redirects to its English address. This reverses the 1.104.0 default of nothing live, at the site owner's request; Gordan's brief was one simple page, so the walkthrough sheet asks again which of these stay.
+- **Language switcher in the header**, beside the colour-mode toggle: EN, BM, 简体, 繁體 (the Chinese variants in characters, not codes), one line on desktop and a row of its own on a phone. It links to the same page in each language, or to that language's home page where the current page has no translation (an article, for example). The footer keeps the full names. `__REMOTIVE_LANG_NAV__` in `parts/header.html`; `remotive_i18n_render_switcher( true )`.
+
+### Notes
+
+- Checked for text left in English on the translated main pages: only names, the postal address, acronyms (ROAS, CPCV), chart figures and the blog date format remain, which are the same in every language. The blog index prints dates in English; localising them is not done.
+- The Malay and Chinese text is still a first draft that needs a native speaker.
+
 ## [1.104.0] — 2026-10-04
 
 Brings together two lines of work that both started from 1.89.6: this repository (landing pages, colours, folders, security, parent and Rank Math compatibility, up to 1.103.2) and a separate build that adds language versions of the site (numbered 1.89.7 to 1.92.1 there, listed below under "Language layer build"). One version number from here on.

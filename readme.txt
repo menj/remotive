@@ -4,7 +4,7 @@ Tags: block-theme, full-site-editing, child-theme, one-page
 Requires at least: 6.7
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.104.0
+Stable tag: 1.107.1
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -336,9 +336,41 @@ floor, not a replacement.
 
 == Changelog ==
 
-See `docs/changelog.md` for full version history. Latest version: 1.104.0.
+See `docs/changelog.md` for full version history. Latest version: 1.107.1.
 
 == Upgrade Notice ==
+
+= 1.107.1 =
+The Malay text now also follows the 2010 edition of the Pedoman Umum Ejaan
+(Brunei): spaced en dash, curly quotation marks and a comma before the last item
+of a list. Where the two editions differ, the newer one is used.
+
+= 1.107.0 =
+The Malay text now follows the Dewan Bahasa dan Pustaka's Pedoman Umum Ejaan
+Bahasa Melayu: punctuation, number and currency forms, headings without a final
+full stop, and dates written the Malay way. Dates on the Malay and Chinese
+pages (the Insights list) are no longer in English.
+
+= 1.106.1 =
+Fixes the header language switcher on phones: it was pushed off the right edge.
+It now sits beside the colour toggle on a row under the logo and menu button.
+
+= 1.106.0 =
+A Languages tab in Theme Options switches Bahasa Melayu, Simplified Chinese and
+Traditional Chinese on or off for the whole site, and the header and footer
+language switchers on or off. The language sitemap now lists English and every
+live language on each entry (a complete hreflang set), is added to Rank Math's
+sitemap index with a last-modified date, and Rank Math's sitemap cache is
+cleared when languages change. Fixes a doubled page title when Rank Math is
+active.
+
+= 1.105.0 =
+The main pages (home, services and the six service pages, case studies and the
+six listed ones, about, team, insights, contact, FAQ, privacy, terms) are now
+live in English, Bahasa Melayu, Simplified and Traditional Chinese, and a
+language switcher (EN, BM, 简体, 繁體) sits in the header beside the colour-mode
+toggle. Other translated pages stay off until switched on under Tools >
+Translations.
 
 = 1.104.0 =
 Adds a language layer (Bahasa Melayu, Simplified and Traditional Chinese at

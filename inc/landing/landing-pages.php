@@ -59,6 +59,23 @@ function remotive_lp_languages() {
 }
 
 /**
+ * The languages switched on in Theme Options > Languages (English always is).
+ *
+ * @return array<string,array<int,string>> Same shape as remotive_lp_languages().
+ */
+function remotive_lp_enabled_languages() {
+	$out = array();
+
+	foreach ( remotive_lp_languages() as $key => $lang ) {
+		if ( '' === $lang[0] || ! function_exists( 'remotive_i18n_language_enabled' ) || remotive_i18n_language_enabled( $lang[0] ) ) {
+			$out[ $key ] = $lang;
+		}
+	}
+
+	return $out;
+}
+
+/**
  * The language of the current request, from the URL's language directory,
  * which inc/i18n/i18n.php has already read and removed.
  *
@@ -358,7 +375,7 @@ function remotive_lp_lang_nav( $slug ) {
 	$btns    = '';
 	$current = remotive_lp_requested_lang();
 
-	foreach ( remotive_lp_languages() as $key => $lang ) {
+	foreach ( remotive_lp_enabled_languages() as $key => $lang ) {
 		$btns .= sprintf(
 			'<a class="rm-lp__lang" href="%1$s" hreflang="%2$s" lang="%2$s" aria-label="%3$s" title="%3$s"%4$s>%5$s</a>',
 			esc_url( remotive_lp_url( $slug, $key ) ),
@@ -396,7 +413,7 @@ function remotive_lp_render_thanks() {
 			sprintf( '謝謝。您的免費%s審計申請已收到。', $spaced ),
 		);
 	} else {
-		$titles = array( 'Thanks. Your request is in.', 'Terima kasih. Permintaan anda telah diterima.', '谢谢。您的申请已收到。', '謝謝。您的申請已收到。' );
+		$titles = array( 'Thanks. Your request is in.', 'Terima kasih. Permintaan anda telah diterima', '谢谢。您的申请已收到。', '謝謝。您的申請已收到。' );
 	}
 
 	$steps = '';
@@ -496,7 +513,7 @@ function remotive_lp_render() {
 		. '<ol class="rm-lp__steps">' . $steps . '</ol></section>'
 		. '<section class="rm-lp__section rm-lp__trust" aria-labelledby="rm-lp-where"><p id="rm-lp-where"><strong>' . remotive_lp_t( array( 'Senior-led and independent.', 'Diketuai pakar kanan dan bebas.', '资深团队领导，独立运营。', '資深團隊領導，獨立營運。' ) ) . '</strong> ' . remotive_lp_t( array( 'Working across six markets:', 'Beroperasi di enam pasaran:', '服务六大市场：', '服務六大市場：' ) ) . '</p>'
 		. '<ul class="rm-lp__cities">' . $cities . '</ul></section>'
-		. '<section class="rm-lp__section rm-lp__final" aria-labelledby="rm-lp-final"><div class="rm-lp__final-copy"><h2 id="rm-lp-final">' . remotive_lp_t( array( 'See what we would fix first. It\'s free.', 'Lihat apa yang akan kami baiki dahulu. Percuma.', '看看我们会优先解决什么。免费。', '看看我們會優先解決什麼。免費。' ) ) . '</h2>'
+		. '<section class="rm-lp__section rm-lp__final" aria-labelledby="rm-lp-final"><div class="rm-lp__final-copy"><h2 id="rm-lp-final">' . remotive_lp_t( array( 'See what we would fix first. It\'s free.', 'Lihat apa yang akan kami baiki dahulu. Percuma', '看看我们会优先解决什么。免费。', '看看我們會優先解決什麼。免費。' ) ) . '</h2>'
 		. remotive_lp_t( array( 'A free audit, a specific view within three business days, and no commitment either way.', 'Audit percuma, pandangan khusus dalam tiga hari bekerja, dan tiada komitmen.', '免费审计，三个工作日内给出具体意见，无需任何承诺。', '免費審計，三個工作日內提出具體意見，無需任何承諾。' ), 'p', 'rm-lp__lead' ) . '</div>'
 		. '<div class="rm-lp__card">' . remotive_lp_form( $slug, 'bottom' ) . '</div></section>'
 		. '<section class="rm-lp__section rm-lp__faq" aria-labelledby="rm-lp-faq"><h2 id="rm-lp-faq">' . remotive_lp_t( array( 'Frequently asked questions', 'Soalan lazim', '常见问题', '常見問題' ) ) . '</h2><div class="rm-lp__faqs">' . $faqs . '</div></section>'
@@ -590,7 +607,7 @@ function remotive_lp_hreflang() {
 		return;
 	}
 
-	foreach ( remotive_lp_languages() as $key => $lang ) {
+	foreach ( remotive_lp_enabled_languages() as $key => $lang ) {
 		printf(
 			'<link rel="alternate" hreflang="%1$s" href="%2$s">' . "\n",
 			esc_attr( $lang[1] ),

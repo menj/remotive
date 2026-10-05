@@ -81,6 +81,11 @@ function remotive_theme_option_base_defaults() {
 		'motion_effects'   => '1',
 		'graceful_errors'  => '1',
 		'maintenance_mode' => '0',
+		'lang_ms'          => '1',
+		'lang_zh_hans'     => '1',
+		'lang_zh_hant'     => '1',
+		'lang_nav'         => '1',
+		'lang_footer'      => '1',
 		'pexels_api_key'       => '',
 		'pexels_api_key_clear' => '0',
 		'legal_name'       => 'Remotive Media Asia',
@@ -495,6 +500,39 @@ function remotive_theme_options_base_tabs() {
 				),
 			),
 		),
+		'languages' => array(
+			'label'       => __( 'Languages', 'remotive' ),
+			'icon'        => 'dashicons-translation',
+			'description' => __( 'Which languages the site offers beside English, and where the language switcher appears. A language that is off disappears everywhere at once: its pages redirect to English, the switcher and hreflang tags drop it, and it leaves the language sitemap. Which individual pages exist in a language is set under Tools → Translations.', 'remotive' ),
+			'fields'      => array(
+				'lang_ms'      => array(
+					'label'        => __( 'Bahasa Melayu', 'remotive' ),
+					'type'         => 'toggle',
+					'toggle_label' => __( 'Offer the site in Bahasa Melayu (/ms/)', 'remotive' ),
+				),
+				'lang_zh_hans' => array(
+					'label'        => __( '简体中文 (Simplified Chinese)', 'remotive' ),
+					'type'         => 'toggle',
+					'toggle_label' => __( 'Offer the site in Simplified Chinese (/zh-hans/)', 'remotive' ),
+				),
+				'lang_zh_hant' => array(
+					'label'        => __( '繁體中文 (Traditional Chinese)', 'remotive' ),
+					'type'         => 'toggle',
+					'toggle_label' => __( 'Offer the site in Traditional Chinese (/zh-hant/)', 'remotive' ),
+				),
+				'lang_nav'     => array(
+					'label'        => __( 'Header switcher', 'remotive' ),
+					'type'         => 'toggle',
+					'toggle_label' => __( 'Show the language buttons (EN, BM, 简体, 繁體) in the header', 'remotive' ),
+				),
+				'lang_footer'  => array(
+					'label'        => __( 'Footer switcher', 'remotive' ),
+					'type'         => 'toggle',
+					'toggle_label' => __( 'Show the language names in the footer', 'remotive' ),
+					'helper'       => __( 'English is always on. The ad landing pages follow the same switches: a language that is off redirects there too.', 'remotive' ),
+				),
+			),
+		),
 		'integrations' => array(
 			'label'       => __( 'Integrations', 'remotive' ),
 			'icon'        => 'dashicons-admin-network',
@@ -877,6 +915,10 @@ function remotive_sanitize_theme_options( $input ) {
 	// An unchecked checkbox submits nothing, so absence means off.
 	$clean['branded_login']         = ( isset( $input['branded_login'] ) && '1' === (string) $input['branded_login'] ) ? '1' : '0';
 	$clean['motion_effects']        = ( isset( $input['motion_effects'] ) && '1' === (string) $input['motion_effects'] ) ? '1' : '0';
+	// Languages. A checkbox that is not ticked submits nothing, so absence means off.
+	foreach ( array( 'lang_ms', 'lang_zh_hans', 'lang_zh_hant', 'lang_nav', 'lang_footer' ) as $lang_key ) {
+		$clean[ $lang_key ] = ( isset( $input[ $lang_key ] ) && '1' === (string) $input[ $lang_key ] ) ? '1' : '0';
+	}
 	// Secret: blank keeps the saved key, a valid key replaces it, and the
 	// toggle removes it. Only letters and digits are accepted.
 	$key_in = isset( $input['pexels_api_key'] ) ? trim( sanitize_text_field( wp_unslash( $input['pexels_api_key'] ) ) ) : '';
@@ -1831,6 +1873,7 @@ function remotive_replace_theme_option_tokens( $block_content, $block ) {
 			'__REMOTIVE_CASE_COUNT__'       => remotive_number_word( remotive_case_study_count(), true ),
 			'__REMOTIVE_TEAM_COLS__'        => (string) remotive_team_columns( count( remotive_team_members() ) ),
 			'__REMOTIVE_LANG_SWITCHER__'    => function_exists( 'remotive_i18n_render_switcher' ) ? remotive_i18n_render_switcher() : '',
+			'__REMOTIVE_LANG_NAV__'         => function_exists( 'remotive_i18n_render_switcher' ) ? remotive_i18n_render_switcher( true ) : '',
 			'__REMOTIVE_CTA_NONCE_FIELD__'  => wp_nonce_field( 'remotive_cta_submit', 'remotive_cta_nonce', true, false ),
 			'__REMOTIVE_ABOUT_NONCE_FIELD__' => wp_nonce_field( 'remotive_about_submit', 'remotive_about_nonce', true, false ),
 			'__REMOTIVE_CONTACT_NONCE_FIELD__' => wp_nonce_field( 'remotive_contact_submit', 'remotive_contact_nonce', true, false ),
