@@ -4,7 +4,7 @@ Tags: block-theme, full-site-editing, child-theme, one-page
 Requires at least: 6.7
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.107.0
+Stable tag: 1.107.1
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -336,9 +336,14 @@ floor, not a replacement.
 
 == Changelog ==
 
-See `docs/changelog.md` for full version history. Latest version: 1.107.0.
+See `docs/changelog.md` for full version history. Latest version: 1.107.1.
 
 == Upgrade Notice ==
+
+= 1.107.1 =
+The Malay text now also follows the 2010 edition of the Pedoman Umum Ejaan
+(Brunei): spaced en dash, curly quotation marks and a comma before the last item
+of a list. Where the two editions differ, the newer one is used.
 
 = 1.107.0 =
 The Malay text now follows the Dewan Bahasa dan Pustaka's Pedoman Umum Ejaan

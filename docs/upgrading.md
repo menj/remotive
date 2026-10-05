@@ -54,6 +54,11 @@ WordPress site yet; this list is how to find out.
 - The first pull request that runs `.github/workflows/ci.yml` after a change to
   it should be watched, because the workflow itself is the thing under test.
 
+## v1.107.1: Malay spelling, second edition
+
+- Nothing to run. Open `/ms/` and check the dashes (`–` with spaces) and quote
+  marks (curly). `php tests/check-ejaan.php` covers it.
+
 ## v1.107.0: Malay spelling
 
 - Nothing to run. Open `/ms/` and one of the case studies and read the headings

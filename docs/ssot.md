@@ -530,7 +530,7 @@ and landing pages provide it; it is not part of Gordan's list.
 
 The Malay text follows the Dewan Bahasa dan Pustaka's *Pedoman Umum Ejaan Bahasa
 Melayu* (Sistem Ejaan Rumi, the 65-page copy supplied by the site owner; it is
-not stored in the repository). What is applied and checked by
+not stored in the repository), and the 2010 edition (Dewan Bahasa dan Pustaka, Brunei), also supplied. Where the editions differ, the newer 2010 edition is used; Brunei-specific titles and `awda` are not applied. What is applied and checked by
 `tests/check-ejaan.php`:
 
 | Pedoman | Rule applied |
@@ -540,7 +540,9 @@ not stored in the repository). What is applied and checked by
 | Angka | `ke-2`, `50-an` with a hyphen; amounts as `250 juta`, `745 ribu`, not 745k; `US$`, `RM`, `S$` for money; `%` or `peratus`; decimal point and comma thousands for quantities. |
 | Tanda koma | No comma before an anak ayat that follows its main clause; a comma before tetapi and melainkan; a comma after a sentence-opening connective. |
 | Tanda titik | No full stop at the end of a title, a figure caption or a table caption. |
-| Tanda pisah | The unspaced em dash, also between numbers; titles are separated with ` \| `. |
+| Tanda pisah | The en dash with a space each side (2010 edition; it replaces the unspaced em dash of the first edition), also between numbers; titles are separated with ` \| `. |
+| Tanda petik | Curly double quotes “ ”, never straight. |
+| Tanda koma (senarai) | A comma before the final `dan` of a list of three or more items (2010 edition). |
 | Huruf besar | Months and weekdays, languages and peoples (bahasa Melayu, orang Inggeris), places and official names with a capital. |
 | Tarikh | Day, month name, year: `2 Oktober 2026`. |
 

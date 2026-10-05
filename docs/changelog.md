@@ -4,6 +4,19 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.107.1] — 2026-10-05
+
+### Changed
+
+The Malay (`ms-MY`) text was checked against a second Pedoman Umum Ejaan Rumi Bahasa Melayu, the 2010 edition (Dewan Bahasa dan Pustaka, Brunei), supplied in addition to the first. Where the two editions differ, the newer one wins. The 1.107.0 work stays except where the 2010 edition says otherwise:
+
+- **Dashes.** The tanda pisah is now the en dash with a space each side (`Baiki, Ditemui, Skala – terbukti`, `Jun – Oktober 2022`, `20 – 30%`), replacing the unspaced em dash of 1.107.0.
+- **Quotation marks.** Straight double quotes in Malay text are curly (“sistem automasi turnkey”).
+- **Serial comma.** A comma before the final `dan` in lists of three or more items (`Meta, TikTok, dan paparan programatik`). Lists were reviewed one by one; two-item phrases and clauses are untouched.
+- **Not applied:** the Brunei-specific titles and the `awda` form, which do not apply to a Malaysian and Singapore audience, and the four-digit number comma rule, which contradicts itself in the 2010 text.
+
+`tests/check-ejaan.php` now forbids the em dash, requires spaces around the en dash, forbids straight double quotes, and flags a missing serial comma.
+
 ## [1.107.0] — 2026-10-05
 
 ### Changed
