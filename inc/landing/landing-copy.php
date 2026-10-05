@@ -48,11 +48,6 @@ function remotive_landing_services() {
 					array( 'B2B industrial supplier · 8-month engagement', 'Pembekal industri B2B · penglibatan 8 bulan', 'B2B 工业供应商 · 8 个月合作', 'B2B 工業供應商 · 8 個月合作' ),
 				),
 				array(
-					array( '+86%', '+86%', '+86%', '+86%' ),
-					array( 'Organic sessions up 86% in one month, and a target phrase taken from unranked to position 3.', 'Sesi organik naik 86% dalam sebulan, dan satu frasa sasaran naik daripada tiada kedudukan kepada kedudukan 3.', '一个月内自然会话增长 86%，一个目标词从无排名升至第 3 位。', '一個月內自然工作階段成長 86%，一個目標詞從無排名升至第 3 位。' ),
-					array( 'Industrial automation · technical and internal-link rebuild', 'Automasi industri · pembinaan semula teknikal dan pautan dalaman', '工业自动化 · 技术与内链重建', '工業自動化 · 技術與內部連結重建' ),
-				),
-				array(
 					array( '+94%', '+94%', '+94%', '+94%' ),
 					array( 'Every tracked SEO metric up in a single month: traffic, sessions and engagement.', 'Setiap metrik SEO yang dijejaki meningkat dalam satu bulan: trafik, sesi, dan penglibatan.', '一个月内，所有被追踪的 SEO 指标全部上升：流量、会话与互动。', '一個月內，所有被追蹤的 SEO 指標全部上升：流量、工作階段與互動。' ),
 					array( 'B2B services site', 'Tapak perkhidmatan B2B', 'B2B 服务网站', 'B2B 服務網站' ),
