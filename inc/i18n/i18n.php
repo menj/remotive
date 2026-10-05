@@ -59,6 +59,39 @@ function remotive_i18n_languages() {
 	);
 }
 
+/**
+ * Whether a language is switched on in Theme Options > Languages. English is
+ * always on. Reads the stored option directly, with every language on when
+ * nothing has been saved, so it works before the options screen has been
+ * visited and in tests.
+ *
+ * @param string $lang Language code.
+ * @return bool
+ */
+function remotive_i18n_language_enabled( $lang ) {
+	if ( 'en' === $lang ) {
+		return true;
+	}
+
+	$saved = get_option( 'remotive_theme_options', array() );
+	$key   = 'lang_' . str_replace( '-', '_', $lang );
+
+	return ! is_array( $saved ) || ! isset( $saved[ $key ] ) || '1' === (string) $saved[ $key ];
+}
+
+/**
+ * Whether a language switcher is shown: 'nav' (header) or 'footer'.
+ *
+ * @param string $where 'nav' or 'footer'.
+ * @return bool
+ */
+function remotive_i18n_switcher_enabled( $where ) {
+	$saved = get_option( 'remotive_theme_options', array() );
+	$key   = 'lang_' . $where;
+
+	return ! is_array( $saved ) || ! isset( $saved[ $key ] ) || '1' === (string) $saved[ $key ];
+}
+
 /** The language of this request: 'en', 'ms', 'zh-hans' or 'zh-hant'. */
 function remotive_i18n_lang() {
 	return isset( $GLOBALS['remotive_i18n_lang'] ) ? $GLOBALS['remotive_i18n_lang'] : 'en';
@@ -253,6 +286,10 @@ function remotive_i18n_default_live_pages() {
 function remotive_i18n_available( $lang, $key ) {
 	if ( 'en' === $lang ) {
 		return true;
+	}
+
+	if ( ! remotive_i18n_language_enabled( $lang ) ) {
+		return false; // Switched off in Theme Options > Languages.
 	}
 
 	if ( null === $key ) {
@@ -533,6 +570,10 @@ function remotive_i18n_english_url() {
  * the request was rewritten to.
  */
 function remotive_i18n_render_switcher( $compact = false ) {
+	if ( ! remotive_i18n_switcher_enabled( $compact ? 'nav' : 'footer' ) ) {
+		return '';
+	}
+
 	$langs   = remotive_i18n_languages();
 	$current = remotive_i18n_lang();
 	$key     = remotive_i18n_key();
@@ -1076,6 +1117,13 @@ function remotive_i18n_start() {
 		return;
 	}
 
+	// A language switched off in Theme Options > Languages has no pages at all,
+	// the ad landing pages included: send the visitor to the English address.
+	if ( ! remotive_i18n_language_enabled( $lang ) ) {
+		wp_safe_redirect( remotive_i18n_english_url(), 302 );
+		exit;
+	}
+
 	// Pages that carry their own copy for every language (the ad landing pages)
 	// opt out here, so they are neither translated nor redirected to English.
 	if ( ! apply_filters( 'remotive_i18n_translates_request', true ) ) {
@@ -1106,30 +1154,26 @@ add_action( 'template_redirect', 'remotive_i18n_start', 0 );
  * ======================================================================== */
 
 /**
- * Every translated URL, with its language alternates, as an XML sitemap.
+ * The pages that have at least one other language live, each with its full set
+ * of language alternates (English included).
  *
- * Kept separate from the existing sitemap on purpose: Rank Math owns that one
- * and it must not change. This one is advertised in robots.txt, which is how
- * a crawler finds it independently of any SEO plugin, and is offered to Rank
- * Math's sitemap index as well when that plugin exposes the hook.
+ * @return array<string, array<string,string>> English path => language code => URL.
  */
-function remotive_i18n_sitemap_xml() {
+function remotive_i18n_sitemap_entries() {
 	$langs = remotive_i18n_languages();
-	$pages = array();
+	$keys  = array();
 
 	foreach ( $langs as $code => $lang ) {
-		if ( 'en' === $code ) {
-			continue;
-		}
-
-		foreach ( array_keys( remotive_i18n_data( $code )['seo'] ) as $key ) {
-			$pages[ $key ] = true;
+		if ( 'en' !== $code && remotive_i18n_language_enabled( $code ) ) {
+			foreach ( array_keys( remotive_i18n_data( $code )['seo'] ) as $key ) {
+				$keys[ (string) $key ] = true;
+			}
 		}
 	}
 
-	$xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n" . '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">' . "\n";
+	$entries = array();
 
-	foreach ( array_keys( $pages ) as $key ) {
+	foreach ( array_keys( $keys ) as $key ) {
 		$alternates = array( 'en' => remotive_i18n_url( 'en', $key ) );
 
 		foreach ( $langs as $code => $lang ) {
@@ -1138,14 +1182,41 @@ function remotive_i18n_sitemap_xml() {
 			}
 		}
 
-		$post    = '' === $key ? get_post( (int) get_option( 'page_on_front' ) ) : get_page_by_path( $key );
-		$lastmod = $post ? gmdate( 'c', strtotime( $post->post_modified_gmt . ' UTC' ) ) : '';
+		// A page with no other language live has nothing to say here.
+		if ( count( $alternates ) > 1 ) {
+			$entries[ $key ] = $alternates;
+		}
+	}
 
-		foreach ( $alternates as $code => $url ) {
-			if ( 'en' === $code ) {
-				continue; // English is already in the existing sitemap.
-			}
+	return $entries;
+}
 
+/** Last modified time of a page's English source, as an ISO 8601 string, or ''. */
+function remotive_i18n_lastmod( $key ) {
+	$post = '' === $key ? get_post( (int) get_option( 'page_on_front' ) ) : get_page_by_path( $key );
+
+	return ( $post && ! empty( $post->post_modified_gmt ) ) ? gmdate( 'c', strtotime( $post->post_modified_gmt . ' UTC' ) ) : '';
+}
+
+/**
+ * Every language version, with its alternates, as an XML sitemap of its own.
+ *
+ * Kept separate from the existing sitemap on purpose: Rank Math owns that one
+ * and it must not change. This one lists each live page once per language,
+ * English included, and every entry carries the full set of alternates and an
+ * x-default, which is what a hreflang sitemap needs: the annotations have to be
+ * complete and reciprocal. It is advertised in robots.txt, so a crawler finds
+ * it independently of any SEO plugin, and added to Rank Math's sitemap index
+ * (remotive_i18n_rankmath_index() below).
+ */
+function remotive_i18n_sitemap_xml() {
+	$langs = remotive_i18n_languages();
+	$xml   = '<?xml version="1.0" encoding="UTF-8"?>' . "\n" . '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">' . "\n";
+
+	foreach ( remotive_i18n_sitemap_entries() as $key => $alternates ) {
+		$lastmod = remotive_i18n_lastmod( $key );
+
+		foreach ( $alternates as $url ) {
 			$xml .= '<url><loc>' . esc_url( $url ) . '</loc>' . ( $lastmod ? '<lastmod>' . $lastmod . '</lastmod>' : '' );
 
 			foreach ( $alternates as $alt_code => $alt_url ) {
@@ -1180,11 +1251,55 @@ function remotive_i18n_robots( $output ) {
 add_filter( 'robots_txt', 'remotive_i18n_robots', 99 );
 
 /**
- * Offer it to Rank Math's sitemap index too. Best effort: if that filter does
- * not exist in the installed version this never runs, and robots.txt (above)
- * plus a Search Console submission are what make it discoverable.
+ * Add the language sitemap to Rank Math's sitemap index, in the form Rank Math
+ * itself uses for its own extra sitemaps (the Local SEO one): a <sitemap> entry
+ * with a <loc> and a <lastmod>, passed through the same 'sitemap/index/entry'
+ * filter so another plugin can adjust it. Written against Rank Math SEO
+ * 1.0.279, where 'rank_math/sitemap/index' appends raw XML to the index.
  */
 function remotive_i18n_rankmath_index( $xml ) {
-	return $xml . '<sitemap><loc>' . esc_url( home_url( '/sitemap-languages.xml' ) ) . '</loc></sitemap>';
+	$entries = remotive_i18n_sitemap_entries();
+
+	if ( ! $entries ) {
+		return $xml;
+	}
+
+	$latest = '';
+
+	foreach ( array_keys( $entries ) as $key ) {
+		$mod = remotive_i18n_lastmod( $key );
+
+		if ( $mod > $latest ) {
+			$latest = $mod;
+		}
+	}
+
+	$item = apply_filters(
+		'rank_math/sitemap/index/entry',
+		array(
+			'loc'     => home_url( '/sitemap-languages.xml' ),
+			'lastmod' => $latest,
+		),
+		'languages'
+	);
+
+	if ( ! $item ) {
+		return $xml;
+	}
+
+	return $xml . '<sitemap><loc>' . esc_url( $item['loc'] ) . '</loc>' . ( empty( $item['lastmod'] ) ? '' : '<lastmod>' . esc_html( $item['lastmod'] ) . '</lastmod>' ) . '</sitemap>' . "\n";
 }
 add_filter( 'rank_math/sitemap/index', 'remotive_i18n_rankmath_index' );
+
+/**
+ * Rank Math caches its sitemap index on disk. Which languages and pages are
+ * live changes what the index should say, so clear that cache when it does:
+ * when the language switches in Theme Options are saved, and when a page is
+ * switched on or off in Tools > Translations. A no-op without Rank Math.
+ */
+function remotive_i18n_flush_sitemap_cache() {
+	if ( class_exists( '\RankMath\Sitemap\Cache' ) && is_callable( array( '\RankMath\Sitemap\Cache', 'invalidate_storage' ) ) ) {
+		\RankMath\Sitemap\Cache::invalidate_storage();
+	}
+}
+add_action( 'update_option_remotive_theme_options', 'remotive_i18n_flush_sitemap_cache' );

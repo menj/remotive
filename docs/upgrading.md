@@ -54,6 +54,22 @@ WordPress site yet; this list is how to find out.
 - The first pull request that runs `.github/workflows/ci.yml` after a change to
   it should be watched, because the workflow itself is the thing under test.
 
+## v1.106.0: Languages tab, language sitemap, Rank Math
+
+- Appearance → Theme Options → **Languages**: switch Bahasa Melayu, Simplified
+  and Traditional Chinese on or off, and the header and footer switchers. Test
+  by switching one off: its `/ms/…` addresses should redirect to English, and
+  the language disappears from the switchers and from `/sitemap-languages.xml`.
+- With Rank Math: open `/sitemap_index.xml`. It should list
+  `sitemap-languages.xml` with a date. Rank Math keeps its sitemap cached on
+  disk; the theme clears it when languages change, but if the index looks stale
+  clear it under Rank Math → Sitemap Settings.
+- View source on any page with Rank Math active: one `<title>`, one canonical,
+  and the hreflang links (each live language and `x-default`). Search Console:
+  submit `/sitemap-languages.xml` once if it is not picked up from the index.
+- Rollback: the new settings are stored only in the theme options; reverting the
+  theme leaves them unused and every language on.
+
 ## v1.105.0: main pages in four languages, header switcher
 
 - After deploying, open `/ms/`, `/zh-hans/`, `/zh-hant/` and, in each, the

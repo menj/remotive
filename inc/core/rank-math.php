@@ -87,3 +87,21 @@ function remotive_rank_math_sitemap_entry( $url, $type = '', $post = null ) {
 	return $url;
 }
 add_filter( 'rank_math/sitemap/entry', 'remotive_rank_math_sitemap_entry', 10, 3 );
+
+/**
+ * One <title>, not two.
+ *
+ * Rank Math moves WordPress's classic title tag into its own head output, but
+ * a block theme's templates add a second one (`_block_template_render_title_tag`)
+ * that Rank Math does not know about, so every page printed the title twice.
+ * Both read the same text, because Rank Math supplies it through
+ * `pre_get_document_title`; only the extra tag is removed, and only when Rank
+ * Math has really taken the title over. Runs before the tag is printed
+ * (wp_head priority 1). Without Rank Math nothing changes.
+ */
+function remotive_rank_math_single_title() {
+	if ( class_exists( 'RankMath' ) && has_action( 'rank_math/head', '_wp_render_title_tag' ) ) {
+		remove_action( 'wp_head', '_block_template_render_title_tag', 1 );
+	}
+}
+add_action( 'wp_head', 'remotive_rank_math_single_title', 0 );

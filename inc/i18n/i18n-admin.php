@@ -798,6 +798,8 @@ function remotive_i18n_view_maintenance() {
 
 /** Redirect back to the screen with a message. */
 function remotive_i18n_done( $message, $args = array(), $error = false ) {
+	remotive_i18n_flush_sitemap_cache();
+
 	$args['rm_msg'] = rawurlencode( $message );
 
 	if ( $error ) {

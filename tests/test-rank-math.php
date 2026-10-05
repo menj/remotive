@@ -19,6 +19,18 @@ foreach ( array( 'rank_math/frontend/robots', 'rank_math/frontend/canonical', 'r
 	t_ok( ! empty( $GLOBALS['filters'][ $hook ] ), "$hook is hooked" );
 }
 
+// One title tag: the block template's own is removed only once Rank Math has taken the title over.
+$GLOBALS['t_actions'] = array();
+t_ok( ! empty( $GLOBALS['filters']['wp_head'] ), 'the title rule is hooked to wp_head' );
+remotive_rank_math_single_title();
+t_eq( $GLOBALS['t_actions'], array(), 'nothing removed without Rank Math' );
+class RankMath {}
+remotive_rank_math_single_title();
+t_eq( $GLOBALS['t_actions'], array(), 'nothing removed while Rank Math has not taken the title' );
+$GLOBALS['t_has']['rank_math/head|_wp_render_title_tag'] = true;
+remotive_rank_math_single_title();
+t_eq( $GLOBALS['t_actions'], array( 'wp_head|_block_template_render_title_tag' ), 'the block template title is removed once Rank Math prints it' );
+
 // Landing language keeps its own canonical.
 t_reset();
 $GLOBALS['remotive_i18n_lang'] = 'ms';

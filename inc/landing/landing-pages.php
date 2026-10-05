@@ -59,6 +59,23 @@ function remotive_lp_languages() {
 }
 
 /**
+ * The languages switched on in Theme Options > Languages (English always is).
+ *
+ * @return array<string,array<int,string>> Same shape as remotive_lp_languages().
+ */
+function remotive_lp_enabled_languages() {
+	$out = array();
+
+	foreach ( remotive_lp_languages() as $key => $lang ) {
+		if ( '' === $lang[0] || ! function_exists( 'remotive_i18n_language_enabled' ) || remotive_i18n_language_enabled( $lang[0] ) ) {
+			$out[ $key ] = $lang;
+		}
+	}
+
+	return $out;
+}
+
+/**
  * The language of the current request, from the URL's language directory,
  * which inc/i18n/i18n.php has already read and removed.
  *
@@ -358,7 +375,7 @@ function remotive_lp_lang_nav( $slug ) {
 	$btns    = '';
 	$current = remotive_lp_requested_lang();
 
-	foreach ( remotive_lp_languages() as $key => $lang ) {
+	foreach ( remotive_lp_enabled_languages() as $key => $lang ) {
 		$btns .= sprintf(
 			'<a class="rm-lp__lang" href="%1$s" hreflang="%2$s" lang="%2$s" aria-label="%3$s" title="%3$s"%4$s>%5$s</a>',
 			esc_url( remotive_lp_url( $slug, $key ) ),
@@ -590,7 +607,7 @@ function remotive_lp_hreflang() {
 		return;
 	}
 
-	foreach ( remotive_lp_languages() as $key => $lang ) {
+	foreach ( remotive_lp_enabled_languages() as $key => $lang ) {
 		printf(
 			'<link rel="alternate" hreflang="%1$s" href="%2$s">' . "\n",
 			esc_attr( $lang[1] ),

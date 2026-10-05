@@ -4,7 +4,7 @@ Tags: block-theme, full-site-editing, child-theme, one-page
 Requires at least: 6.7
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.105.0
+Stable tag: 1.106.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -336,9 +336,18 @@ floor, not a replacement.
 
 == Changelog ==
 
-See `docs/changelog.md` for full version history. Latest version: 1.105.0.
+See `docs/changelog.md` for full version history. Latest version: 1.106.0.
 
 == Upgrade Notice ==
+
+= 1.106.0 =
+A Languages tab in Theme Options switches Bahasa Melayu, Simplified Chinese and
+Traditional Chinese on or off for the whole site, and the header and footer
+language switchers on or off. The language sitemap now lists English and every
+live language on each entry (a complete hreflang set), is added to Rank Math's
+sitemap index with a last-modified date, and Rank Math's sitemap cache is
+cleared when languages change. Fixes a doubled page title when Rank Math is
+active.
 
 = 1.105.0 =
 The main pages (home, services and the six service pages, case studies and the

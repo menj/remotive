@@ -741,7 +741,9 @@ dictionaries. Anything without an entry stays in English, visibly and without
 breaking the page. A page is live in a language only if switched on (Tools >
 Translations). The main pages (home, services, case studies, about, team,
 insights, contact, FAQ, privacy, terms) are live in all four languages from
-1.105.0, with a switcher in the header; the unlisted case studies and the
+1.105.0, with a switcher in the header (Theme Options → Languages switches each
+language and each switcher on or off; a language that is off redirects to English
+everywhere, landing pages included); the unlisted case studies and the
 articles are off. The brief's one page is a landing page (see `docs/ssot.md`). A page that is off redirects to its
 English address. The ad landing pages carry their own copy for each language and
 opt out of the translator with the `remotive_i18n_translates_request` filter.

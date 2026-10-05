@@ -20,6 +20,7 @@ function get_theme_file_path( $p ) { return dirname( __DIR__ ) . '/' . $p; }
 function wp_parse_url( $u, $c = -1 ) { return parse_url( $u, $c ); }
 function wp_strip_all_tags( $s ) { return strip_tags( $s ); }
 function get_current_user_id() { return 1; }
+function get_post() { return (object) array( 'post_modified_gmt' => '2026-10-01 10:00:00' ); }
 function is_front_page() { return $GLOBALS['t_front'] ?? false; }
 function is_home() { return false; }
 function is_paged() { return false; }
@@ -73,5 +74,42 @@ $GLOBALS['t_front'] = false;
 $fallback = remotive_i18n_render_switcher( true );
 t_ok( false !== strpos( $fallback, 'href="https://example.com/ms/"' ), 'pages without a translation link to the Malay home page' );
 t_ok( false !== strpos( $fallback, 'href="https://example.com/zh-hant/"' ), 'and to the Traditional Chinese home page' );
+
+// Theme Options > Languages: a language that is off disappears everywhere.
+t_reset();
+t_ok( remotive_i18n_language_enabled( 'ms' ), 'every language is on when nothing is saved' );
+$GLOBALS['T']['options']['remotive_theme_options'] = array( 'lang_ms' => '0', 'lang_zh_hans' => '1' );
+t_ok( ! remotive_i18n_language_enabled( 'ms' ), 'Malay switched off' );
+t_ok( remotive_i18n_language_enabled( 'zh-hans' ), 'Simplified still on' );
+t_ok( remotive_i18n_language_enabled( 'zh-hant' ), 'a language never saved stays on' );
+t_ok( remotive_i18n_language_enabled( 'en' ), 'English is always on' );
+t_ok( ! remotive_i18n_available( 'ms', '' ), 'no page is available in a language that is off' );
+t_ok( remotive_i18n_available( 'zh-hans', '' ), 'pages stay available in a language that is on' );
+
+$GLOBALS['t_front'] = true;
+$nav = remotive_i18n_render_switcher( true );
+t_ok( false === strpos( $nav, '>BM<' ), 'switcher drops the language that is off' );
+t_ok( false !== strpos( $nav, '>简体<' ) && false !== strpos( $nav, '>繁體<' ), 'switcher keeps the others' );
+
+// The sitemap: English and every live language on each entry, none for a language that is off.
+$entries = remotive_i18n_sitemap_entries();
+t_ok( isset( $entries[''] ) && isset( $entries['services'] ), 'live pages are in the sitemap' );
+t_eq( array_keys( $entries[''] ), array( 'en', 'zh-hans', 'zh-hant' ), 'home entry: English plus the languages that are on' );
+t_ok( ! isset( $entries['2026/09/seo-vs-sem'] ), 'a page with no other language live is not in the sitemap' );
+$xml = remotive_i18n_sitemap_xml();
+t_ok( false !== strpos( $xml, '<loc>https://example.com/</loc>' ), 'English URL is listed with its alternates' );
+t_ok( false !== strpos( $xml, 'hreflang="x-default"' ), 'x-default present' );
+t_ok( false === strpos( $xml, '/ms/' ), 'no Malay URL while Malay is off' );
+t_eq( substr_count( $xml, 'hreflang="zh-Hans" href="https://example.com/zh-hans/"' ), 3, 'each home entry carries the full alternate set (reciprocal)' );
+
+// The Rank Math index entry carries a location and a last-modified time.
+$idx = remotive_i18n_rankmath_index( '<sitemap><loc>x</loc></sitemap>' );
+t_ok( false !== strpos( $idx, '<loc>https://example.com/sitemap-languages.xml</loc><lastmod>2026-10-01' ), 'Rank Math index entry has loc and lastmod' );
+
+// Switcher placements.
+$GLOBALS['T']['options']['remotive_theme_options'] = array( 'lang_nav' => '0', 'lang_footer' => '1' );
+t_eq( remotive_i18n_render_switcher( true ), '', 'header switcher can be switched off' );
+t_ok( '' !== remotive_i18n_render_switcher(), 'footer switcher stays when only the header is off' );
+$GLOBALS['t_front'] = false;
 
 t_done( 'i18n' );

@@ -4,6 +4,23 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.106.0] — 2026-10-05
+
+### Added
+
+- **Theme Options → Languages.** A switch for each of Bahasa Melayu, Simplified Chinese and Traditional Chinese (all on by default; English is always on), plus switches for the header and the footer language switcher. A language that is off disappears everywhere at once: its pages, the ad landing pages in that language included, redirect to the English address; the switcher and the hreflang tags drop it; it leaves the language sitemap. Which individual pages exist in a language is still set page by page under Tools → Translations. `remotive_i18n_language_enabled()` and `remotive_i18n_switcher_enabled()` read the settings.
+- **Language sitemap, complete and distinct.** `/sitemap-languages.xml` now lists every live page once per language, English included, and every entry carries the full, reciprocal set of `xhtml:link` alternates plus an `x-default` (before, it listed only the translated URLs). A page with no other language live is not listed. It stays separate from Rank Math's own sitemaps.
+- **Works with Rank Math.** Checked against the Rank Math SEO 1.0.279 source and in a real WordPress with the plugin active: the language sitemap is added to `sitemap_index.xml` the way Rank Math adds its own extra sitemaps, as a `<sitemap>` with a `<loc>` and a `<lastmod>` through the `rank_math/sitemap/index/entry` filter; Rank Math's on-disk sitemap cache is cleared (`Cache::invalidate_storage()`) when the language settings are saved or a page is switched on or off, so the index never lags; `robots.txt` lists both sitemaps; the landing and confirmation pages stay out of Rank Math's page sitemap. Hreflang stays a distinct set of `<link rel="alternate" hreflang>` tags printed per page, in head, for the page and each of its live languages plus `x-default`.
+
+### Fixed
+
+- **Two `<title>` tags on every page when Rank Math is active.** Rank Math moves WordPress's classic title tag into its own head output, but a block theme's template adds a second one that Rank Math does not know about. Present on the English pages too, since before the language layer. The extra tag is now removed, only when Rank Math has taken the title over (`remotive_rank_math_single_title()`). One title on `/`, `/services/` and `/ms/services/` with the plugin active.
+- The language layer's last-modified lookup no longer warns for a page without a modified date.
+
+### Tests
+
+- `tests/test-i18n.php` now covers the language switches (off, on, never saved), the switcher placements, the sitemap entries (English plus live languages, none for a language that is off, reciprocal set) and the Rank Math index entry; `tests/test-rank-math.php` covers the single title.
+
 ## [1.105.0] — 2026-10-05
 
 ### Changed
