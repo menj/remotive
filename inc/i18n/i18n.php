@@ -54,8 +54,8 @@ function remotive_i18n_languages() {
 	return array(
 		'en'      => array( 'prefix' => '',        'hreflang' => 'en',      'html' => '',        'native' => 'English',       'short' => 'EN', 'og' => '' ),
 		'ms'      => array( 'prefix' => 'ms',      'hreflang' => 'ms-MY',   'html' => 'ms-MY',   'native' => 'Bahasa Melayu', 'short' => 'BM', 'og' => 'ms_MY' ),
-		'zh-hans' => array( 'prefix' => 'zh-hans', 'hreflang' => 'zh-Hans', 'html' => 'zh-Hans', 'native' => '简体中文',       'short' => '简',  'og' => 'zh_CN' ),
-		'zh-hant' => array( 'prefix' => 'zh-hant', 'hreflang' => 'zh-Hant', 'html' => 'zh-Hant', 'native' => '繁體中文',       'short' => '繁',  'og' => 'zh_TW' ),
+		'zh-hans' => array( 'prefix' => 'zh-hans', 'hreflang' => 'zh-Hans', 'html' => 'zh-Hans', 'native' => '简体中文',       'short' => '简体',  'og' => 'zh_CN' ),
+		'zh-hant' => array( 'prefix' => 'zh-hant', 'hreflang' => 'zh-Hant', 'html' => 'zh-Hant', 'native' => '繁體中文',       'short' => '繁體',  'og' => 'zh_TW' ),
 	);
 }
 
@@ -220,20 +220,33 @@ function remotive_i18n_data( $lang ) {
 }
 
 /**
- * The pages that have language versions without anyone switching them on: none.
+ * The pages that have language versions without anyone switching them on: the
+ * main pages of the site, the ones in the navigation and footer.
  *
- * The brief for the site is one simple, clean page that explains what the
- * company does, in English, Malay and Chinese, and that page is a landing page
- * (inc/landing/), which carries its own copy for every language. The site's
- * ordinary pages therefore start English-only: their translations are in the
- * dictionaries, ready, but each is off until Tools > Translations turns it on,
- * and a page that is off redirects to its English address. Filterable, for a
- * site that launches with particular pages translated.
+ * Home, Services and its six service pages, Case Studies and the six listed
+ * case studies, About, Team, Insights (the index, not the individual
+ * articles), Contact, FAQ, Privacy and Terms. The eight case studies that are
+ * live but unlisted and the individual articles are ready in the dictionaries
+ * and off. Everything else is controlled page by page in Tools > Translations;
+ * a page that is off redirects to its English address. The ad landing pages are
+ * separate: they carry their own copy for every language (inc/landing/).
+ * Filterable, for a site that wants more or fewer.
  *
  * @return string[] English paths; '' is the home page.
  */
 function remotive_i18n_default_live_pages() {
-	return array_map( 'strval', (array) apply_filters( 'remotive_i18n_live_pages', array() ) );
+	$pages = array(
+		'', 'services', 'services/seo', 'services/paid-media', 'services/social', 'services/content', 'services/email', 'services/analytics',
+		'case-studies', 'about', 'team', 'blog', 'contact', 'faq', 'privacy', 'terms',
+	);
+
+	// The case studies the site lists (footer, case-studies page), from the same
+	// list the menu uses, so the two cannot drift apart.
+	if ( function_exists( 'remotive_listed_case_studies' ) ) {
+		$pages = array_merge( $pages, array_keys( remotive_listed_case_studies() ) );
+	}
+
+	return array_values( array_unique( array_map( 'strval', (array) apply_filters( 'remotive_i18n_live_pages', $pages ) ) ) );
 }
 
 /** Does this page (an English path such as 'team', '' for home) exist in this language? */
@@ -519,7 +532,7 @@ function remotive_i18n_english_url() {
  * English link is always the current page's own English address, which is what
  * the request was rewritten to.
  */
-function remotive_i18n_render_switcher() {
+function remotive_i18n_render_switcher( $compact = false ) {
 	$langs   = remotive_i18n_languages();
 	$current = remotive_i18n_lang();
 	$key     = remotive_i18n_key();
@@ -544,7 +557,7 @@ function remotive_i18n_render_switcher() {
 			esc_url( $href ),
 			esc_attr( $lang['hreflang'] ),
 			$code === $current ? ' aria-current="true"' : '',
-			esc_html( $lang['native'] )
+			esc_html( $compact ? $lang['short'] : $lang['native'] )
 		);
 	}
 
@@ -557,7 +570,7 @@ function remotive_i18n_render_switcher() {
 	$strings = remotive_i18n_data( $current )['strings'];
 	$label   = isset( $strings['Language'] ) ? $strings['Language'] : 'Language';
 
-	return '<nav class="rm-lang" translate="no" aria-label="' . esc_attr( $label ) . '"><ul class="rm-lang__list">' . $items . '</ul></nav>';
+	return '<nav class="rm-lang' . ( $compact ? ' rm-lang--nav' : '' ) . '" translate="no" aria-label="' . esc_attr( $label ) . '"><ul class="rm-lang__list">' . $items . '</ul></nav>';
 }
 
 /* ==========================================================================

@@ -3065,6 +3065,15 @@ body.rm-motion .rm-ticker-band{ overflow:hidden; }
    added to it. Nothing here changes how the English site looks above the
    footer: every other rule is scoped to a non-English <html lang>. */
 .rm-lang{ margin:0; }
+/* In the header: the same switcher, shorter labels (EN, BM, 简体, 繁體), set
+   small beside the colour-mode toggle and kept on one line. */
+.rm-lang--nav .rm-lang__list{ flex-wrap:nowrap; gap:0; }
+.rm-lang--nav .rm-lang__list a{ font-size:.78rem; font-weight:700; letter-spacing:.04em; padding:.5rem .15rem; white-space:nowrap; }
+.rm-lang--nav .rm-lang__list li + li::before{ margin:0 .4rem; }
+@media (max-width:782px){
+  .rm-lang--nav{ order:3; flex-basis:100%; }
+  .rm-lang--nav .rm-lang__list{ justify-content:flex-end; }
+}
 .rm-lang__list{ display:flex; flex-wrap:wrap; align-items:center; gap:.2rem 0; margin:0; padding:0; list-style:none; }
 .rm-lang__list li{ margin:0; display:inline-flex; align-items:center; }
 /* A drawn dot, not a typed one: the type face sets its middle dot low. */

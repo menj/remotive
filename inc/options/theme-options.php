@@ -1831,6 +1831,7 @@ function remotive_replace_theme_option_tokens( $block_content, $block ) {
 			'__REMOTIVE_CASE_COUNT__'       => remotive_number_word( remotive_case_study_count(), true ),
 			'__REMOTIVE_TEAM_COLS__'        => (string) remotive_team_columns( count( remotive_team_members() ) ),
 			'__REMOTIVE_LANG_SWITCHER__'    => function_exists( 'remotive_i18n_render_switcher' ) ? remotive_i18n_render_switcher() : '',
+			'__REMOTIVE_LANG_NAV__'         => function_exists( 'remotive_i18n_render_switcher' ) ? remotive_i18n_render_switcher( true ) : '',
 			'__REMOTIVE_CTA_NONCE_FIELD__'  => wp_nonce_field( 'remotive_cta_submit', 'remotive_cta_nonce', true, false ),
 			'__REMOTIVE_ABOUT_NONCE_FIELD__' => wp_nonce_field( 'remotive_about_submit', 'remotive_about_nonce', true, false ),
 			'__REMOTIVE_CONTACT_NONCE_FIELD__' => wp_nonce_field( 'remotive_contact_submit', 'remotive_contact_nonce', true, false ),

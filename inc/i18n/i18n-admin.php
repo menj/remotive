@@ -556,7 +556,7 @@ function remotive_i18n_view_edit() {
 		echo '<h3>' . esc_html__( 'Search listing', 'remotive' ) . '</h3><table class="form-table" role="presentation"><tbody>';
 		echo '<tr><th>' . esc_html__( 'Title', 'remotive' ) . '</th><td><input type="text" class="large-text" name="seo_title" value="' . esc_attr( $seo['title'] ) . '" /><p class="description">' . esc_html__( 'English:', 'remotive' ) . ' ' . esc_html( $english['title'] ) . '</p></td></tr>';
 		echo '<tr><th>' . esc_html__( 'Description', 'remotive' ) . '</th><td><textarea class="large-text" rows="3" name="seo_desc">' . esc_textarea( $seo['description'] ) . '</textarea><p class="description">' . esc_html__( 'English:', 'remotive' ) . ' ' . esc_html( $english['description'] ) . '</p></td></tr>';
-		echo '<tr><th>' . esc_html__( 'Live', 'remotive' ) . '</th><td><label><input type="checkbox" name="published" value="1"' . checked( $published, true, false ) . ' /> ' . esc_html__( 'Show this page in this language (needs a title and description). When off, its address redirects to the English page. No page is live to begin with.', 'remotive' ) . '</label></td></tr>';
+		echo '<tr><th>' . esc_html__( 'Live', 'remotive' ) . '</th><td><label><input type="checkbox" name="published" value="1"' . checked( $published, true, false ) . ' /> ' . esc_html__( 'Show this page in this language (needs a title and description). When off, its address redirects to the English page. The main pages are live to begin with.', 'remotive' ) . '</label></td></tr>';
 		echo '</tbody></table>';
 	}
 

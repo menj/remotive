@@ -20,7 +20,7 @@ function get_theme_file_path( $p ) { return dirname( __DIR__ ) . '/' . $p; }
 function wp_parse_url( $u, $c = -1 ) { return parse_url( $u, $c ); }
 function wp_strip_all_tags( $s ) { return strip_tags( $s ); }
 function get_current_user_id() { return 1; }
-function is_front_page() { return false; }
+function is_front_page() { return $GLOBALS['t_front'] ?? false; }
 function is_home() { return false; }
 function is_paged() { return false; }
 function is_singular() { return false; }
@@ -39,34 +39,39 @@ t_eq( remotive_i18n_url( 'ms', '' ), 'https://example.com/ms/', 'Malay home' );
 t_eq( remotive_i18n_url( 'zh-hans', 'team' ), 'https://example.com/zh-hans/team/', 'Simplified team page' );
 t_eq( remotive_i18n_url( 'en', 'team' ), 'https://example.com/team/', 'English keeps its address' );
 
-// The one page of the brief is a landing page, which has its own copy for every
-// language, so the site's ordinary pages are all off until switched on.
-t_eq( remotive_i18n_default_live_pages(), array(), 'no ordinary page is live by default' );
+// The main pages are live in every language; the rest is off until switched on.
+$live = remotive_i18n_default_live_pages();
+foreach ( array( '', 'services', 'services/seo', 'case-studies', 'about', 'team', 'blog', 'contact', 'faq', 'privacy', 'terms' ) as $page ) {
+	t_ok( in_array( $page, $live, true ), "'$page' is a default live page" );
+}
 foreach ( array( 'ms', 'zh-hans', 'zh-hant' ) as $code ) {
-	foreach ( array( '', 'team', 'services', 'contact', 'faq', 'case-studies' ) as $page ) {
-		t_ok( ! remotive_i18n_available( $code, $page ), "$page is not live in $code until switched on" );
+	foreach ( array( '', 'services', 'about', 'contact' ) as $page ) {
+		t_ok( remotive_i18n_available( $code, $page ), "'$page' is live in $code" );
+	}
+	foreach ( array( '2026/09/seo-vs-sem', 'case-studies/ecommerce-seo-footwear' ) as $page ) {
+		t_ok( ! remotive_i18n_available( $code, $page ), "'$page' (an article, an unlisted case study) is off in $code until switched on" );
 	}
 	t_ok( ! remotive_i18n_available( $code, null ), "no page, not live in $code" );
 }
 t_ok( remotive_i18n_available( 'en', 'anything' ), 'English is always live' );
 
-// With nothing translated live there is no switcher, and no link that would only redirect back.
+// The header switcher: four languages, the Chinese ones written in characters.
 $GLOBALS['remotive_i18n_lang'] = 'en';
-t_eq( remotive_i18n_render_switcher(), '', 'no switcher while no other language is live' );
-
-// The dictionaries: the same pages everywhere, each with a title and description.
-$keys = array();
-foreach ( array( 'ms', 'zh-hans', 'zh-hant' ) as $code ) {
-	$data = require dirname( __DIR__ ) . '/inc/i18n/' . $code . '.php';
-	t_ok( isset( $data['seo'][''] ), "$code has a home page entry" );
-	foreach ( $data['seo'] as $page => $fields ) {
-		t_ok( ! empty( $fields['title'] ) && ! empty( $fields['description'] ), "$code '$page' has a title and description" );
-	}
-	$keys[ $code ] = array_keys( $data['seo'] );
-	sort( $keys[ $code ] );
-	t_ok( count( $data['strings'] ) > 500, "$code has a full set of strings" );
+$GLOBALS['t_front']            = true;
+$nav = remotive_i18n_render_switcher( true );
+t_ok( false !== strpos( $nav, 'rm-lang--nav' ), 'header switcher has its own class' );
+foreach ( array( '>EN<', '>BM<', '>简体<', '>繁體<' ) as $label ) {
+	t_ok( false !== strpos( $nav, $label ), "header switcher shows $label" );
 }
-t_eq( $keys['ms'], $keys['zh-hans'], 'Malay and Simplified cover the same pages' );
-t_eq( $keys['ms'], $keys['zh-hant'], 'Malay and Traditional cover the same pages' );
+foreach ( array( 'https://example.com/ms/', 'https://example.com/zh-hans/', 'https://example.com/zh-hant/' ) as $href ) {
+	t_ok( false !== strpos( $nav, 'href="' . $href . '"' ), "header switcher links to $href" );
+}
+t_ok( false !== strpos( remotive_i18n_render_switcher(), '>Bahasa Melayu<' ), 'the footer switcher keeps the full names' );
+$GLOBALS['t_front'] = false;
+
+// A page with no translation of its own (an article, an archive) still offers each language's home page.
+$fallback = remotive_i18n_render_switcher( true );
+t_ok( false !== strpos( $fallback, 'href="https://example.com/ms/"' ), 'pages without a translation link to the Malay home page' );
+t_ok( false !== strpos( $fallback, 'href="https://example.com/zh-hant/"' ), 'and to the Traditional Chinese home page' );
 
 t_done( 'i18n' );

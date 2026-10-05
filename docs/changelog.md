@@ -4,6 +4,18 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.105.0] — 2026-10-05
+
+### Changed
+
+- **The main pages are live in all four languages** (English, Bahasa Melayu, Simplified and Traditional Chinese), at `/`, `/ms/`, `/zh-hans/` and `/zh-hant/`: Home; Services and its six service pages; Case Studies and the six listed case studies; About; Team; Insights (the index); Contact; FAQ; Privacy; Terms. That is 22 pages in each language, all with a translation already written, and each checked in a real WordPress for a 200 response and the switcher. `remotive_i18n_default_live_pages()` holds the list (the case studies come from the same list the footer menu uses). The eight case studies that are live but unlisted and the seven individual articles are translated but stay off until switched on in Tools > Translations; a page that is off redirects to its English address. This reverses the 1.104.0 default of nothing live, at the site owner's request; Gordan's brief was one simple page, so the walkthrough sheet asks again which of these stay.
+- **Language switcher in the header**, beside the colour-mode toggle: EN, BM, 简体, 繁體 (the Chinese variants in characters, not codes), one line on desktop and a row of its own on a phone. It links to the same page in each language, or to that language's home page where the current page has no translation (an article, for example). The footer keeps the full names. `__REMOTIVE_LANG_NAV__` in `parts/header.html`; `remotive_i18n_render_switcher( true )`.
+
+### Notes
+
+- Checked for text left in English on the translated main pages: only names, the postal address, acronyms (ROAS, CPCV), chart figures and the blog date format remain, which are the same in every language. The blog index prints dates in English; localising them is not done.
+- The Malay and Chinese text is still a first draft that needs a native speaker.
+
 ## [1.104.0] — 2026-10-04
 
 Brings together two lines of work that both started from 1.89.6: this repository (landing pages, colours, folders, security, parent and Rank Math compatibility, up to 1.103.2) and a separate build that adds language versions of the site (numbered 1.89.7 to 1.92.1 there, listed below under "Language layer build"). One version number from here on.

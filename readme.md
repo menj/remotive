@@ -131,7 +131,7 @@ remotive/
 │   │   │                   from the request, translates the rendered page
 │   │   │                   from a dictionary, adds title, canonical, hreflang,
 │   │   │                   the footer switcher and /sitemap-languages.xml.
-│   │   │                   No page is live by default.
+│   │   │                   The main pages are live by default.
 │   │   ├── i18n-admin.php  Tools > Translations: edit, import and export
 │   │   │                   translations; switch pages on. Edits are kept in
 │   │   │                   the database.
@@ -739,8 +739,10 @@ request before WordPress parses it, so `/ms/team/` is the same page as
 `/team/`, and the rendered text is translated by text node from the
 dictionaries. Anything without an entry stays in English, visibly and without
 breaking the page. A page is live in a language only if switched on (Tools >
-Translations); none is live to begin with, because the brief's one page is a
-landing page (see `docs/ssot.md`). A page that is off redirects to its
+Translations). The main pages (home, services, case studies, about, team,
+insights, contact, FAQ, privacy, terms) are live in all four languages from
+1.105.0, with a switcher in the header; the unlisted case studies and the
+articles are off. The brief's one page is a landing page (see `docs/ssot.md`). A page that is off redirects to its
 English address. The ad landing pages carry their own copy for each language and
 opt out of the translator with the `remotive_i18n_translates_request` filter.
 Add a launch page with the `remotive_i18n_live_pages` filter. Hreflang uses
