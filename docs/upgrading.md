@@ -54,6 +54,36 @@ WordPress site yet; this list is how to find out.
 - The first pull request that runs `.github/workflows/ci.yml` after a change to
   it should be watched, because the workflow itself is the thing under test.
 
+## v1.110.0: landing pages and Rank Math, closed off from the main site
+
+- Open a landing page in Rank Math → Advanced: noindex and nofollow are ticked.
+  Untick them to make a page indexable; the page's tag, `X-Robots-Tag` header and
+  sitemap entry follow.
+- Click through the main site (menus, footer, language switcher): no link should
+  lead to a landing page; a click from any page of the site is sent to the home
+  page. Open a landing page from an ad link: it loads.
+- Exclude the three landing slugs from page caching, and from any plugin that
+  publishes its own page list (an AI-discovery or `llms.txt` plugin).
+
+## v1.109.x: results strip, Kagnue, mobile, Tatabahasa
+
+- Each landing page shows "Results from the work" (three cards). Nothing to run.
+  Keep the Kagnue font licence on file; the font is in `assets/fonts/kagnue/`.
+- Open a landing page on a phone: the form is under the headline, the results
+  swipe sideways.
+- The Malay text also follows *Tatabahasa Dewan* (`tests/check-ejaan.php`).
+- A native speaker should read the new Malay and Chinese lines.
+
+## v1.108.x: all translated pages live, scan fix, dev files
+
+- 37 translated pages per language are live by default (switch any off in
+  Tools → Translations).
+- Run Tools → Translations → Scan the site once; it now finishes all batches.
+- Delete any `.git`, `docs`, `tests` and `tools` folders from the live theme
+  folder (and the `.git` folder of other plugins); the theme's `.htaccess` returns
+  404 for them on Apache and LiteSpeed. Stop uploading them; deploy the theme in
+  one step.
+
 ## v1.107.1: Malay spelling, second edition
 
 - Nothing to run. Open `/ms/` and check the dashes (`–` with spaces) and quote
