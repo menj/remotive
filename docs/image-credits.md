@@ -18,6 +18,18 @@ resized and re-encoded (AVIF and JPEG); the originals are not stored here.
 | `svc-google-ads-management` | Google Ads page hero | Caio | https://www.pexels.com/photo/67112/ |
 | `svc-paid-social-advertising` | Paid social page hero | Szabó Viktor | https://www.pexels.com/photo/7662060/ |
 
+Case study card photography (`assets/images/case-studies/`, 16:9 crops at 640 and
+960 px, AVIF and JPEG), also from Pexels under the same licence:
+
+| File stem | Used for | Photographer | Pexels photo |
+|---|---|---|---|
+| `cs-sports-precinct` | Sports precinct case study | Caio Cezar | https://www.pexels.com/photo/34304359/ |
+| `cs-fmcg-nutrition` | FMCG nutrition case study | lee starry | https://www.pexels.com/photo/32418799/ |
+| `cs-financial-services` | Financial services case study | Héctor Berganza | https://www.pexels.com/photo/33279640/ |
+| `cs-automotive` | Automotive case study | Dextar Studio | https://www.pexels.com/photo/18108314/ |
+| `cs-industrial-supplier` | Industrial supplier case study | Pexels User | https://www.pexels.com/photo/33369529/ |
+| `cs-healthcare` | Healthcare case study | Ivan Babydov | https://www.pexels.com/photo/7789616/ |
+
 Do not use these photos in a way that implies the photographers endorse the
 business, and keep any identifiable people out of misleading contexts (Pexels
 License terms).

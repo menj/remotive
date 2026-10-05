@@ -4,6 +4,14 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.110.2] — 2026-10-06
+
+### Changed
+
+- **Case Studies page: photographs instead of gradient placeholders.** Each of the six cards now has a photo that matches its subject, from Pexels (free for commercial use): a stadium (sports precinct), supermarket shelves of Asian products (FMCG nutrition), city towers (financial services), a car showroom (automotive), an industrial site (industrial supplier) and a clean medical room (healthcare). No people are shown. Cropped to 16:9 at 640 and 960 px, AVIF with a JPEG fallback (`assets/images/case-studies/`, 5 to 160 KB each), lazy-loaded, with a descriptive `alt`, and a slow zoom on hover (off with reduced motion). Credits are in `docs/image-credits.md`.
+- New token `__REMOTIVE_THEME_URL__` (the active theme's address) for images in block templates, so the paths do not depend on the theme folder name.
+- Not changed: the individual case study pages' own featured images.
+
 ## [1.110.1] — 2026-10-06
 
 ### Added

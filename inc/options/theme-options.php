@@ -1837,6 +1837,7 @@ function remotive_replace_theme_option_tokens( $block_content, $block ) {
 			'__REMOTIVE_ADDRESS_LINE_2__'   => esc_html( remotive_get_theme_option( 'address_line_2' ) ),
 			'__REMOTIVE_ADDRESS_LINE_3__'   => esc_html( remotive_get_theme_option( 'address_line_3' ) ),
 			'__REMOTIVE_SOCIAL_LINKS__'    => remotive_render_social_links(),
+			'__REMOTIVE_THEME_URL__'        => esc_url( get_stylesheet_directory_uri() ),
 			'__REMOTIVE_CTA_FORM_ACTION__'  => esc_url( remotive_get_theme_option( 'cta_form_action' ) ),
 			// Not admin-configurable like the CTA's — see
 			// inc/forms/about-form-handler.php's docblock for why this one
