@@ -9,6 +9,7 @@ follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 ### Changed
 
 - **Landing pages on phones (under 40rem): 18% shorter** (4,169 px to 3,415 px at 390 px wide). The logo bar is smaller (the form starts about 35 px higher); the "Results from the work" cards are a swipe row with the next card peeking in (552 px to 239 px); the three steps are compact rows with the number beside the text (538 px to 359 px); the six cities sit in three columns, two rows (404 px to 175 px; two columns under 21rem). Tablet and desktop unchanged.
+- The swipe row is keyboard-focusable (`tabindex="0"`, labelled by its heading, visible focus ring), so keyboard users can scroll to every card in browsers that do not focus scrolling regions themselves.
 - Checked 3 services × 4 languages × 1440, 820, 390 and 320 px × dark and light: no horizontal page scroll, nothing clipped, at least three results cards everywhere.
 
 ## [1.109.0] — 2026-10-06

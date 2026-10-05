@@ -296,3 +296,5 @@ html:not([data-theme="light"]) .rm-lp__final{ background-color:#0d1117; } /* a s
   .rm-lp__city span{ font-size:.72rem; padding:.3rem .45rem; }
 }
 @media (max-width:21rem){ .rm-lp__cities{ grid-template-columns:repeat(2,1fr); } }
+
+.rm-lp__proofs:focus-visible{ outline:2px solid var(--wp--preset--color--cyan-dark); outline-offset:2px; } /* the row scrolls on phones, so keyboard users must be able to focus it */
