@@ -57,6 +57,21 @@ foreach ( remotive_landing_services() as $slug => $service ) {
 	if ( count( $faq ) < 3 ) {
 		$problems[] = "$slug: expected at least 3 FAQ items";
 	}
+	$proof = isset( $service['proof'] ) ? $service['proof'] : array();
+	if ( count( $proof ) < 3 ) {
+		$problems[] = "$slug: expected at least 3 results cards";
+	}
+	foreach ( $proof as $n => $card ) {
+		foreach ( $card as $part => $text ) {
+			if ( 0 === $part ) { // The figure: four non-empty versions, no Chinese needed (+198%).
+				if ( 4 !== count( array_filter( $text, 'strlen' ) ) ) {
+					$problems[] = "$slug.proof[$n] figure needs four languages";
+				}
+				continue;
+			}
+			$check_text( "$slug.proof[$n][$part]", $text );
+		}
+	}
 	foreach ( $faq as $n => $qa ) {
 		$check_text( "$slug.faq[$n].question", $qa[0] );
 		$check_text( "$slug.faq[$n].answer", $qa[1] );

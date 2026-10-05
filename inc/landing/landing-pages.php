@@ -468,6 +468,16 @@ function remotive_lp_render() {
 		$points .= '<li>' . remotive_lp_t( $p ) . '</li>';
 	}
 
+	// Results from the main case studies, so the visitor sees proof right after the ask.
+	$proof = '';
+	foreach ( isset( $s['proof'] ) ? $s['proof'] : array() as $item ) {
+		$proof .= '<li class="rm-lp__proofitem"><span class="rm-lp__metric">' . remotive_lp_t( $item[0] ) . '</span><span class="rm-lp__proofhead">' . remotive_lp_t( $item[1] ) . '</span><span class="rm-lp__proofwho">' . remotive_lp_t( $item[2] ) . '</span></li>';
+	}
+
+	if ( '' !== $proof ) {
+		$proof = '<section class="rm-lp__section rm-lp__proof" aria-labelledby="rm-lp-proof"><p id="rm-lp-proof" class="rm-lp__proof-kicker">' . remotive_lp_t( array( 'Results from the work', 'Hasil daripada kerja kami', '我们的成果', '我們的成果' ) ) . '</p><ul class="rm-lp__proofs">' . $proof . '</ul></section>';
+	}
+
 	$steps = '';
 	foreach ( array(
 		array( array( 'Tell us where to look', 'Beritahu kami di mana untuk meneliti', '告诉我们从哪里看起', '告訴我們從哪裡看起' ), array( 'Your name, email and website. It takes under a minute.', 'Nama, e-mel dan laman web anda. Ia mengambil masa kurang daripada seminit.', '您的姓名、邮箱和网站，用时不到一分钟。', '您的姓名、信箱和網站，用時不到一分鐘。' ) ),
@@ -509,6 +519,7 @@ function remotive_lp_render() {
 		. '<div class="rm-lp__photo">' . remotive_lp_picture( 'svc-' . $slug, array( 640 => 400, 1000 => 625 ), '(min-width: 56rem) 34rem, 0px', remotive_lp_t( $s['photo_alt'] ) ) . '</div></div>'
 		. '<div class="rm-lp__card" id="rm-lp-start"><h2>' . remotive_lp_t( $s['form_title'] ) . '</h2><p class="rm-lp__intro">' . remotive_lp_t( array( 'Tell us where to look. We reply within three business days.', 'Beritahu kami di mana untuk meneliti. Kami membalas dalam tiga hari bekerja.', '告诉我们从哪里开始看。我们会在三个工作日内回复。', '告訴我們從哪裡開始看。我們會在三個工作日內回覆。' ) ) . '</p>'
 		. remotive_lp_form( $slug, 'top' ) . '</div></section>'
+		. $proof
 		. '<section class="rm-lp__section" aria-labelledby="rm-lp-how"><h2 id="rm-lp-how">' . remotive_lp_t( array( 'How it works', 'Cara ia berfungsi', '合作流程', '合作流程' ) ) . '</h2>'
 		. '<ol class="rm-lp__steps">' . $steps . '</ol></section>'
 		. '<section class="rm-lp__section rm-lp__trust" aria-labelledby="rm-lp-where"><p id="rm-lp-where"><strong>' . remotive_lp_t( array( 'Senior-led and independent.', 'Diketuai pakar kanan dan bebas.', '资深团队领导，独立运营。', '資深團隊領導，獨立營運。' ) ) . '</strong> ' . remotive_lp_t( array( 'Working across six markets:', 'Beroperasi di enam pasaran:', '服务六大市场：', '服務六大市場：' ) ) . '</p>'

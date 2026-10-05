@@ -4,6 +4,18 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.109.0] — 2026-10-06
+
+### Added
+
+- **"Results from the work" strip on the ad landing pages**, directly under the hero (on phones, right after the form) and above "How it works". Each card has a big figure, the case study's own one-line result and a small client descriptor. Not linked, so ad traffic stays on the page. Matched to the service, drawn from both listed and unlisted case studies, in English, Malay, Simplified and Traditional Chinese:
+  - **SEO audit (3):** +198% organic traffic (industrial supplier), +94% across every tracked metric (B2B services), +34% search clicks and 150% more qualified leads (healthcare).
+  - **Google Ads management (3):** +150% qualified leads on the same budget (B2B gifting), +25–35% conversion rate with cost per conversion down 20–30% (asset manager), paid search data showing within weeks which treatment terms had commercial intent (healthcare clinic; the 85% CPM saving was dropped from this page because it came from programmatic video, not search).
+  - **Paid social (2):** +168% GMV (skincare marketplace launch), 745k addressable audience from 53k (sports precinct).
+  - Not used: the footwear, healthcare clinic, market-entry and Singapore portfolio case studies, which report method or recovery rather than a headline result.
+- **Kagnue display serif for the big figures.** The figures on these cards and on the Case Studies page cards (`+198%`, `745k`) use Kagnue Regular, a one-weight display serif: self-hosted as a 28 KB WOFF2 subset (Basic Latin, dashes, quotes, arrow) in `assets/fonts/kagnue/`, `font-display: swap`, with Georgia as the fallback. Used only at large sizes and nowhere else (body, navigation, forms and headlines keep Saira and Archivo); the plus sign and the en dash are left out of the font (`unicode-range`) so they fall back to Saira; it has no Chinese glyphs, but the figures are Latin digits. Used under the site owner's licence (the font's own licence file is not part of the repository).
+- The copy lives in each service's `proof` list in `inc/landing/landing-copy.php` (figure, result, client, each in four languages); `tests/check-landing-copy.php` and `tests/check-ejaan.php` cover it.
+
 ## [1.108.3] — 2026-10-05
 
 Found by reading the site's `debug.log` (31 August to 5 October).
