@@ -4,6 +4,13 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.109.1] — 2026-10-06
+
+### Changed
+
+- **Landing pages on phones (under 40rem): 18% shorter** (4,169 px to 3,415 px at 390 px wide). The logo bar is smaller (the form starts about 35 px higher); the "Results from the work" cards are a swipe row with the next card peeking in (552 px to 239 px); the three steps are compact rows with the number beside the text (538 px to 359 px); the six cities sit in three columns, two rows (404 px to 175 px; two columns under 21rem). Tablet and desktop unchanged.
+- Checked 3 services × 4 languages × 1440, 820, 390 and 320 px × dark and light: no horizontal page scroll, nothing clipped, at least three results cards everywhere.
+
 ## [1.109.0] — 2026-10-06
 
 ### Added

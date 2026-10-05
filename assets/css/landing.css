@@ -276,3 +276,23 @@ html:not([data-theme="light"]) .rm-lp__final{ background-color:#0d1117; } /* a s
 .rm-lp__metric{ font-family:'Kagnue','Saira',Georgia,serif; text-transform:none; font-size:clamp(2.6rem,6vw,3.6rem); font-weight:400; line-height:1; color:var(--wp--preset--color--ink); }
 .rm-lp__proofhead{ font-weight:600; line-height:1.35; }
 .rm-lp__proofwho{ margin-top:auto; font-size:.82rem; color:var(--rm-ink-55); }
+
+/* Phones: a shorter page, so the form and the proof stay close together.
+   Smaller logo bar, results as a swipeable row, compact steps, six cities in two rows. */
+@media (max-width:39.99rem){
+  .rm-lp__bar{ padding-top:.8rem; padding-bottom:.5rem; }
+  .rm-lp__logo img{ height:38px; }
+
+  .rm-lp__proofs{ display:flex; gap:.75rem; overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; margin-inline:calc(var(--lp-pad) * -1); padding:0 var(--lp-pad) .75rem; scroll-padding-inline:var(--lp-pad); }
+  .rm-lp__proofitem{ flex:0 0 min(82%,20rem); scroll-snap-align:start; padding:1rem 1rem .9rem; }
+  .rm-lp__metric{ font-size:2.4rem; }
+
+  .rm-lp__steps{ gap:.75rem; }
+  .rm-lp__step{ display:grid; grid-template-columns:auto 1fr; column-gap:.9rem; align-items:start; padding:1rem 1.1rem; }
+  .rm-lp__step .rm-lp__num{ grid-row:1 / span 2; margin-top:.15rem; }
+  .rm-lp__step h3{ margin:0 0 .25rem; }
+
+  .rm-lp__cities{ grid-template-columns:repeat(3,1fr); gap:.5rem; }
+  .rm-lp__city span{ font-size:.72rem; padding:.3rem .45rem; }
+}
+@media (max-width:21rem){ .rm-lp__cities{ grid-template-columns:repeat(2,1fr); } }

@@ -4,7 +4,7 @@ Tags: block-theme, full-site-editing, child-theme, one-page
 Requires at least: 6.7
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.109.0
+Stable tag: 1.109.1
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -336,9 +336,12 @@ floor, not a replacement.
 
 == Changelog ==
 
-See `docs/changelog.md` for full version history. Latest version: 1.109.0.
+See `docs/changelog.md` for full version history. Latest version: 1.109.1.
 
 == Upgrade Notice ==
+
+= 1.109.1 =
+The ad landing pages are shorter and quicker to use on a phone: smaller logo bar, results you swipe sideways, compact steps and cities.
 
 = 1.109.0 =
 The big figures on the cards use the licensed Kagnue display serif (self-hosted).
