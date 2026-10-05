@@ -840,7 +840,8 @@ function remotive_i18n_action_scan() {
 	}
 
 	if ( $offset < count( $targets ) ) {
-		wp_safe_redirect( wp_nonce_url( add_query_arg( array( 'action' => 'rm_i18n_scan', 'offset' => $offset, 'scan' => $scan_id, 'errs' => $errors ), admin_url( 'admin-post.php' ) ), 'rm_i18n_scan' ) );
+		// Not wp_nonce_url(): it HTML-escapes the URL (&amp;), which breaks every parameter after the first in a redirect.
+		wp_safe_redirect( add_query_arg( array( 'action' => 'rm_i18n_scan', 'offset' => $offset, 'scan' => $scan_id, 'errs' => $errors, '_wpnonce' => wp_create_nonce( 'rm_i18n_scan' ) ), admin_url( 'admin-post.php' ) ) );
 		exit;
 	}
 

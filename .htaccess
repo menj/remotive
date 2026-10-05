@@ -1,0 +1,18 @@
+# Keeps development files out of public view if they are uploaded with the
+# theme (a .git folder, docs, tests, scripts). WordPress and the visitor need
+# none of them. Apache and LiteSpeed read this file; nginx ignores it, so on
+# nginx block the same paths in the server config instead.
+
+RedirectMatch 404 /\.git
+RedirectMatch 404 /\.github/
+RedirectMatch 404 /themes/[^/]+/(docs|tests|tools|drop-ins)/
+
+<FilesMatch "\.(md|py|sh|bak|sql|log|dist)$">
+	<IfModule mod_authz_core.c>
+		Require all denied
+	</IfModule>
+	<IfModule !mod_authz_core.c>
+		Order allow,deny
+		Deny from all
+	</IfModule>
+</FilesMatch>
