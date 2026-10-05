@@ -747,7 +747,7 @@ everywhere, landing pages included); the unlisted case studies and the
 articles are off. The brief's one page is a landing page (see `docs/ssot.md`). A page that is off redirects to its
 English address. The ad landing pages carry their own copy for each language and
 opt out of the translator with the `remotive_i18n_translates_request` filter.
-Add a launch page with the `remotive_i18n_live_pages` filter. Hreflang uses
+Every translated page (37 per language: the main pages, all fourteen case studies and the individual articles) is live by default; switch one off in Tools → Translations, or narrow the list with the `remotive_i18n_live_pages` filter. Hreflang uses
 language plus script (`zh-Hans`, `zh-Hant`), `ms-MY` for Malay.
 
 ## Security
