@@ -33,6 +33,7 @@ foreach ( $files as $file ) {
 
 	foreach ( array(
 		'/\bwp_redirect\s*\(/'                                  => 'wp_redirect() (use wp_safe_redirect)',
+		'/wp_(safe_)?redirect\s*\(\s*wp_nonce_url\s*\(/'      => 'a redirect to wp_nonce_url() (it HTML-escapes the URL; add _wpnonce with add_query_arg)',
 		'/\beval\s*\(/'                                         => 'eval()',
 		'/\b(shell_exec|passthru|proc_open|popen|system|exec)\s*\(/' => 'a command execution function',
 		'/\bbase64_decode\s*\(/'                                => 'base64_decode()',

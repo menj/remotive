@@ -4,6 +4,25 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.108.2] — 2026-10-05
+
+Found by reading the server access and FTP logs for September and October.
+
+### Fixed
+
+- **The Tools → Translations "Scan the site" stalled with a 403.** The scan works in batches and redirects to itself. It built that redirect with `wp_nonce_url()`, which HTML-escapes the URL, so the address went out as `…&amp;offset=39&amp;…&amp;_wpnonce=…`; the server read `amp;_wpnonce`, found no nonce and refused (log: `GET /wp-admin/admin-post.php?action=rm_i18n_scan&amp;offset=39… 403`). The redirect now adds `_wpnonce` with `add_query_arg()`. `tests/check-security-patterns.php` fails if a redirect to `wp_nonce_url()` comes back.
+
+### Added
+
+- **`.htaccess` in the theme folder** returning 404 for `.git`, `.github`, `docs/`, `tests/`, `tools/`, `drop-ins/` and `*.md`, `*.py`, `*.sh`, `*.sql`, `*.log`, `*.bak` files. The FTP log shows the whole `.git` folder of the theme (and of another plugin) uploaded to the live site, with the docs, which include the security findings register. Apache and LiteSpeed honour it; on nginx the same paths need blocking in the server config.
+
+### Found in the logs, not fixable in the theme
+
+- Bots (OAI-SearchBot, GPTBot, ClaudeBot) get **400** on `/`, `/robots.txt` for some requests and **429** on `/sitemap.xml`, `/robots.txt` and static files: a server or firewall rule (rate limit, virtual host), not the theme.
+- `/?page_id=14` and `/case-studies/` returned **404** to real visitors and Googlebot on 1, 3 and 4 October: a link to a page that was not published at the time (WordPress writes `?page_id=N` for an unpublished page). Keep Case Studies published, and re-save the menu.
+- A one-off `/__REMOTIVE_CTA_FORM_ACTION__` request (bingbot, 3 October): a page was served once with the template placeholder unreplaced. Not reproducible; 12 URLs checked clean.
+- 404s on theme scripts, styles and fonts on 30 September during the upload window: files requested before they were uploaded.
+
 ## [1.108.1] — 2026-10-05
 
 ### Changed
