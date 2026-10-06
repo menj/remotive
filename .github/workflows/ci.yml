@@ -32,6 +32,9 @@ jobs:
       - name: Seed images
         run: php tests/check-seed-images.php
 
+      - name: Seeded articles pass the Rank Math content tests
+        run: php tests/check-article-seo.php
+
       - name: Malay spelling and punctuation (Pedoman Umum Ejaan)
         run: php tests/check-ejaan.php
 

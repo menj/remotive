@@ -144,6 +144,7 @@ remotive/
 │       ├── webmcp.php      Public read-only search endpoint and WebMCP.
 │       ├── feature-grids.php   Homepage "problem we solve" and "why Re:Motive" grids.
 │       ├── stats-band.php  Homepage three-figure results band.
+│       ├── article.php              Reading time and the related-posts query for the article page.
 │       └── post-image-fallback.php  A branded gradient for a card whose post
 │                           has no featured image. (v1.111.0)
 ├── templates/            (incl. page-service.html — reusable service
@@ -155,7 +156,7 @@ remotive/
 │   ├── index.html           Blog archive — sidebar layout, real core/query
 │   │                       loop. Also WordPress's mandatory fallback
 │   │                       template every block theme must have.
-│   ├── single.html          Individual post view, same sidebar.
+│   ├── single.html          Article page (v1.114.0): header, cover, contents rail, reading column, share row, related posts.
 │   ├── home.html            Blog posts index (the Posts page), kept
 │   │                       distinct from the index.html fallback.
 │   ├── archive.html         Category, tag, date and author archives —

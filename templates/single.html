@@ -1,52 +1,101 @@
 <!-- wp:template-part {"slug":"header","tagName":"header"} /-->
 
-<!-- wp:group {"tagName":"main","className":"rm-main rm-main--blog","layout":{"type":"constrained"}} -->
-<main id="main" class="wp-block-group rm-main rm-main--blog is-layout-constrained">
+<!-- wp:group {"tagName":"main","className":"rm-main rm-art","layout":{"type":"default"}} -->
+<main id="main" class="wp-block-group rm-main rm-art">
 
-	<!-- wp:columns {"className":"rm-blog-layout rm-measure-wide"} -->
-	<div class="wp-block-columns rm-blog-layout rm-measure-wide">
+	<div class="rm-art-progress" aria-hidden="true"><span></span></div>
 
-		<!-- wp:column {"width":"66%","className":"rm-blog-main"} -->
-		<div class="wp-block-column rm-blog-main" style="flex-basis:66%">
+	<!-- wp:group {"tagName":"header","className":"rm-art-hero","layout":{"type":"constrained"}} -->
+	<header class="wp-block-group rm-art-hero is-layout-constrained">
+		<!-- wp:post-terms {"term":"category","className":"rm-art-chip"} /-->
+		<!-- wp:post-title {"level":1,"className":"rm-art-title"} /-->
+		<!-- wp:group {"className":"rm-art-meta","layout":{"type":"flex","flexWrap":"wrap"}} -->
+		<div class="wp-block-group rm-art-meta is-layout-flex">
+			<!-- wp:site-logo {"width":38,"className":"rm-art-meta__logo"} /-->
+			<!-- wp:paragraph {"className":"rm-art-meta__by"} -->
+			<p class="rm-art-meta__by">Re:Motive Media</p>
+			<!-- /wp:paragraph -->
+			<!-- wp:post-date {"className":"rm-art-date"} /-->
+		</div>
+		<!-- /wp:group -->
+	</header>
+	<!-- /wp:group -->
 
-			<!-- wp:group {"tagName":"article","className":"rm-post","layout":{"type":"constrained"}} -->
-			<article class="wp-block-group rm-post is-layout-constrained">
+	<!-- wp:post-featured-image {"aspectRatio":"21/9","align":"wide","className":"rm-art-cover"} /-->
 
-				<!-- wp:group {"className":"rm-post__meta","layout":{"type":"flow"}} -->
-				<div class="wp-block-group rm-post__meta is-layout-flow">
-					<!-- wp:post-terms {"term":"category","className":"rm-eyebrow"} /-->
-					<!-- wp:post-title {"level":1,"fontSize":"h2","className":"rm-post__title"} /-->
-					<!-- wp:post-date {"className":"rm-post__date"} /-->
+	<!-- wp:group {"className":"rm-art-layout","layout":{"type":"default"}} -->
+	<div class="wp-block-group rm-art-layout">
+
+		<!-- wp:group {"tagName":"aside","className":"rm-art-rail","layout":{"type":"default"}} -->
+		<aside class="wp-block-group rm-art-rail">
+			<nav class="rm-art-toc" aria-label="In this article" hidden></nav>
+			<!-- wp:group {"className":"rm-art-audit","layout":{"type":"default"}} -->
+			<div class="wp-block-group rm-art-audit">
+				<!-- wp:paragraph {"className":"rm-art-audit__kicker"} -->
+				<p class="rm-art-audit__kicker">Free audit</p>
+				<!-- /wp:paragraph -->
+				<!-- wp:paragraph {"className":"rm-art-audit__text"} -->
+				<p class="rm-art-audit__text">See where your site is leaking leads. 30 minutes, no commitment.</p>
+				<!-- /wp:paragraph -->
+				<!-- wp:buttons -->
+				<div class="wp-block-buttons">
+					<!-- wp:button {"className":"is-style-fill"} -->
+					<div class="wp-block-button is-style-fill"><a class="wp-block-button__link wp-element-button" href="/contact/">Book it</a></div>
+					<!-- /wp:button -->
 				</div>
-				<!-- /wp:group -->
+				<!-- /wp:buttons -->
+			</div>
+			<!-- /wp:group -->
+		</aside>
+		<!-- /wp:group -->
 
-				<!-- wp:post-featured-image {"className":"rm-post__image"} /-->
+		<!-- wp:group {"tagName":"article","className":"rm-art-body rm-post","layout":{"type":"default"}} -->
+		<article class="wp-block-group rm-art-body rm-post">
+			<!-- wp:post-content {"className":"rm-post__content","layout":{"type":"default"}} /-->
 
-				<!-- wp:post-content {"className":"rm-post__content","layout":{"type":"constrained"}} /-->
-
-				<!-- wp:group {"className":"rm-post__footer","layout":{"type":"flex","justifyContent":"space-between"}} -->
-				<div class="wp-block-group rm-post__footer is-layout-flex">
-					<!-- wp:post-terms {"term":"post_tag","className":"rm-post__tags"} /-->
-					<!-- wp:paragraph {"className":"rm-section-link"} -->
-					<p class="rm-section-link"><a href="/blog/">All insights →</a></p>
-					<!-- /wp:paragraph -->
-				</div>
-				<!-- /wp:group -->
-
-			</article>
+			<!-- wp:group {"className":"rm-art-share","layout":{"type":"flex","flexWrap":"wrap"}} -->
+			<div class="wp-block-group rm-art-share is-layout-flex">
+				<!-- wp:html -->
+				<span class="rm-art-share__label">Share</span>
+				<a class="rm-art-share__btn" data-share="whatsapp" href="https://wa.me/" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+				<a class="rm-art-share__btn" data-share="linkedin" href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+				<a class="rm-art-share__btn" data-share="x" href="https://x.com/" target="_blank" rel="noopener noreferrer">X</a>
+				<button class="rm-art-share__btn" type="button" data-share="copy">Copy link</button>
+				<!-- /wp:html -->
+			</div>
 			<!-- /wp:group -->
 
-		</div>
-		<!-- /wp:column -->
-
-		<!-- wp:column {"width":"34%"} -->
-		<div class="wp-block-column" style="flex-basis:34%">
-			<!-- wp:template-part {"slug":"sidebar"} /-->
-		</div>
-		<!-- /wp:column -->
+			<!-- wp:post-terms {"term":"post_tag","className":"rm-post__tags"} /-->
+		</article>
+		<!-- /wp:group -->
 
 	</div>
-	<!-- /wp:columns -->
+	<!-- /wp:group -->
+
+	<!-- wp:group {"className":"rm-art-related","align":"wide","layout":{"type":"default"}} -->
+	<div class="wp-block-group alignwide rm-art-related">
+		<!-- wp:heading {"level":2,"className":"rm-art-related__title"} -->
+		<h2 class="rm-art-related__title">Keep reading</h2>
+		<!-- /wp:heading -->
+		<!-- wp:query {"queryId":2,"query":{"perPage":3,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","sticky":"","inherit":false},"className":"rm-post-grid rm-related"} -->
+		<div class="wp-block-query rm-post-grid rm-related">
+			<!-- wp:post-template -->
+				<!-- wp:group {"className":"rm-post-card","layout":{"type":"constrained"}} -->
+				<div class="wp-block-group rm-post-card is-layout-constrained">
+					<!-- wp:post-featured-image {"isLink":true,"className":"rm-post-card__image"} /-->
+					<!-- wp:group {"className":"rm-post-card__body","layout":{"type":"flow"}} -->
+					<div class="wp-block-group rm-post-card__body is-layout-flow">
+						<!-- wp:post-date {"className":"rm-post-card__date"} /-->
+						<!-- wp:post-title {"isLink":true,"level":3,"className":"rm-post-card__title"} /-->
+					</div>
+					<!-- /wp:group -->
+				</div>
+				<!-- /wp:group -->
+			<!-- /wp:post-template -->
+		</div>
+		<!-- /wp:query -->
+	</div>
+	<!-- /wp:group -->
 
 </main>
 <!-- /wp:group -->

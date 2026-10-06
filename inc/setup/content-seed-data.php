@@ -25,30 +25,67 @@ function remotive_seed_content() {
 			'tags'     => array( 'web design', 'technical seo', 'seo', 'geo', 'site architecture' ),
 			'image'    => 'seo-friendly-web-design.jpg',
 			'rm_title' => 'SEO Friendly Web Design: What Matters',
-			'rm_desc'  => 'What makes SEO friendly web design: speed, structure, crawlability and AI readability. Read the guide.',
+			'rm_desc'  => 'SEO friendly web design explained: the speed, structure, crawlability and AI readability a site needs to rank, with real results. Read the guide.',
 			'rm_kw'    => 'seo friendly web design',
-			'content'  => '<p>We say this to clients weekly: most of our work starts with a website someone else built, and the difference between a site designed with search in mind and one designed purely for looks shows up in every audit we run. This guide covers what SEO friendly web design actually means, so that whoever builds your next site builds it right.</p>
+			'content'  => '<!-- wp:paragraph -->
+<p>We say this to clients weekly: most of our work starts with a website someone else built, and the difference between a site designed with search in mind and one designed purely for looks shows up in every audit we run. This guide covers what SEO friendly web design actually means, so that whoever builds your next site builds it right.</p>
+<!-- /wp:paragraph -->
 
+<!-- wp:heading -->
 <h2>Design decisions are ranking decisions</h2>
-<p>Google doesn\'t rank designs. It ranks pages it can crawl, render, understand and trust. Every design choice either helps or hinders those four things. A beautiful site built as a single JavaScript bundle with no semantic structure can be invisible to search; a plain site with clean HTML, fast loads and a logical hierarchy can outrank it with half the budget.</p>
+<!-- /wp:heading -->
 
+<!-- wp:paragraph -->
+<p>Google doesn\'t rank designs. It ranks pages it can crawl, render, understand and trust. Every design choice either helps or hinders those four things. That is the whole case for SEO friendly web design: build the site so a crawler can read it. A beautiful site built as a single JavaScript bundle with no semantic structure can be invisible to search; a plain site with clean HTML, fast loads and a logical hierarchy can outrank it with half the budget.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
 <h2>The technical foundation of SEO friendly web design</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
 <p>Four things carry most of the weight. Page speed first: <a href="https://web.dev/articles/vitals" target="_blank" rel="noopener noreferrer">Core Web Vitals</a> are a confirmed ranking signal, one among many, and a modest one; fix them for users and for the tie-breaks, and expect no miracle from them alone. Slow templates still tax every page you\'ll ever publish. Semantic HTML second: one <code>h1</code> per page, headings in order, landmarks that mean what they say. Crawlability third: clean URLs, an XML sitemap, no orphan pages, internal links that a crawler can follow without executing scripts. Mobile layout fourth: Google indexes the mobile rendering of your site, so a desktop-first design that degrades on a phone degrades everywhere.</p>
+<!-- /wp:paragraph -->
 
+<!-- wp:heading -->
 <h2>Structure is strategy</h2>
-<p>Internal link architecture decides how authority flows through a site. When we rebuilt the technical foundation and internal linking for a B2B industrial automation client, no new backlinks, no paid support, organic sessions rose 86% in a month, search clicks rose 45%, and average position moved from 16.3 to 10.6 in three months. One target phrase, &ldquo;turnkey automation systems&rdquo;, went from unranked to position 3. That\'s what structure is worth when the content underneath deserves to rank, the fix released value that was already there. On a thin site the same rebuild would tidy things up and move very little.</p>
+<!-- /wp:heading -->
 
+<!-- wp:paragraph -->
+<p>Good SEO friendly web design is mostly structure. Internal link architecture decides how authority flows through a site. When we rebuilt the technical foundation and internal linking for a B2B industrial automation client, no new backlinks, no paid support, organic sessions rose 86% in a month, search clicks rose 45%, and average position moved from 16.3 to 10.6 in three months. One target phrase, &ldquo;turnkey automation systems&rdquo;, went from unranked to position 3. That\'s what structure is worth when the content underneath deserves to rank, the fix released value that was already there. On a thin site the same rebuild would tidy things up and move very little.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
 <h2>Design for AI search too</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
 <p>Search behaviour is shifting toward AI answers, ChatGPT, Perplexity, and Google\'s AI Overviews. AI engines favour pages with clear headings, direct answers near the top, structured data, and content organised so a machine can quote it accurately. We call this generative engine optimisation (GEO), and it\'s part of <a href="/services/">how we run search</a> for clients. An SEO friendly design in 2026 is an AI-readable design.</p>
+<!-- /wp:paragraph -->
 
+<!-- wp:heading -->
 <h2>What to require from your designer</h2>
-<p>Put these in the brief before work starts: server-rendered or static HTML for all core content; Core Web Vitals targets in the contract; a heading hierarchy per template; editable titles and meta descriptions on every page; image compression and descriptive alt text as workflow, and a crawl of the staging site before launch. None of this costs beauty. All of it costs a redesign to add later.</p>
+<!-- /wp:heading -->
 
+<!-- wp:paragraph -->
+<p>Put these in the brief for any SEO friendly web design project before work starts: server-rendered or static HTML for all core content; Core Web Vitals targets in the contract; a heading hierarchy per template; editable titles and meta descriptions on every page; image compression and descriptive alt text as workflow, and a crawl of the staging site before launch. None of this costs beauty. All of it costs a redesign to add later.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
 <h2>Who actually owns this at your company</h2>
-<p>The usual failure isn\'t bad intentions, it\'s an unclear handoff. Design ships a site, marketing inherits the traffic problem, and nobody owns the fix because nobody signed off on the brief above. Put one name against each of the four technical items before the project starts: someone accountable for page speed budgets, someone for the heading and markup structure, someone for crawlability, someone for mobile parity. A designer who knows they\'ll be measured against Core Web Vitals three months after launch designs differently than one judged on the pitch deck alone.</p>
+<!-- /wp:heading -->
 
+<!-- wp:paragraph -->
+<p>The usual failure isn\'t bad intentions, it\'s an unclear handoff. Design ships a site, marketing inherits the traffic problem, and nobody owns the fix because nobody signed off on the brief above. Put one name against each of the four technical items before the project starts: someone accountable for page speed budgets, someone for the heading and markup structure, someone for crawlability, someone for mobile parity. A designer who knows they\'ll be measured against Core Web Vitals three months after launch designs differently than one judged on the pitch deck alone.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
 <h2>Already have a site?</h2>
-<p>Then the question is diagnosis. Our post on <a href="/blog/seo-friendly-web-design/">whether your website is SEO friendly</a> walks through the checks we run first. And if you want the fixes handled, that\'s the technical half of our <a href="/services/seo/">SEO work</a> across Singapore and Malaysia.</p>',
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Then the question is diagnosis, and SEO friendly web design fixes start there. Our post on <a href="/blog/seo-friendly-web-design/">whether your website is SEO friendly</a> walks through the checks we run first. And if you want the fixes handled, that\'s the technical half of our <a href="/services/seo/">SEO work</a> across Singapore and Malaysia.</p>
+<!-- /wp:paragraph -->',
 		),
 		array(
 			'type'     => 'post',
@@ -58,28 +95,60 @@ function remotive_seed_content() {
 			'category' => array( 'Paid Media', 'paid-media' ),
 			'tags'     => array( 'sem', 'paid search', 'google ads', 'singapore', 'ppc' ),
 			'image'    => 'sem-services-singapore.jpg',
-			'rm_title' => 'Singapore SEM Services: Scope & Costs',
-			'rm_desc'  => 'What Singapore SEM services include, real CPC benchmarks and pricing. See how it works.',
-			'rm_kw'    => 'singapore sem services',
-			'content'  => '<p>SEM, search engine marketing, is paid placement on search results. In Singapore it\'s the fastest lever most businesses have, and also one of the easiest budgets to waste. Here\'s what proper Singapore SEM services include, what clicks actually cost here, and how management pricing works.</p>
+			'rm_title' => 'SEM Services in Singapore: Scope, CPCs & Costs',
+			'rm_desc'  => 'SEM services in Singapore: what is included, real CPC benchmarks by industry and how management pricing works, from a flat retainer. See the breakdown.',
+			'rm_kw'    => 'sem services',
+			'content'  => '<!-- wp:paragraph -->
+<p>SEM, search engine marketing, is paid placement on search results. In Singapore it\'s the fastest lever most businesses have, and also one of the easiest budgets to waste. Here\'s what proper Singapore SEM services include, what clicks actually cost here, and how management pricing works.</p>
+<!-- /wp:paragraph -->
 
+<!-- wp:heading -->
 <h2>What Singapore SEM services actually include</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
 <p>Running ads is the smallest part. A serious SEM service covers intent-led campaign structure across branded, generic, competitor and category keywords; ongoing search-term mining and negative keyword management, which is where wasted spend hides; smart bidding strategy and bid testing; ad copy and asset testing; audience layering and remarketing; and for e-commerce, Shopping and Performance Max. For app businesses, Apple Search Ads and Google App campaigns belong in scope too. If a proposal only mentions &ldquo;campaign setup and monthly reporting&rdquo;, that\'s not a service, that\'s a dashboard.</p>
+<!-- /wp:paragraph -->
 
+<!-- wp:heading -->
 <h2>What clicks cost in Singapore</h2>
-<p>Singapore is a small, affluent, intensely contested market, and CPCs reflect it. From the keyword data we work with daily: &ldquo;seo agency singapore&rdquo; runs around US$10 per click, &ldquo;digital marketing agency singapore&rdquo; over US$11, and &ldquo;sem agency singapore&rdquo; close to US$14. At the extreme end, financial services keywords in Singapore run roughly S$5&ndash;18 per click. At those rates, structure and negatives decide whether a budget produces pipeline or noise, and treat every figure here as an average with a wide spread: actual CPCs move with match types, quality scores, seasonality and who else decided to bid this quarter. <a href="https://support.google.com/google-ads/answer/2472725" target="_blank" rel="noopener noreferrer">Google\'s own Quality Score documentation</a> is worth reading before you argue with an account manager about why your CPC sits where it does.</p>
+<!-- /wp:heading -->
 
+<!-- wp:paragraph -->
+<p>Singapore is a small, affluent, intensely contested market, and the CPCs behind SEM services reflect it. From the keyword data we work with daily: &ldquo;seo agency singapore&rdquo; runs around US$10 per click, &ldquo;digital marketing agency singapore&rdquo; over US$11, and &ldquo;sem agency singapore&rdquo; close to US$14. At the extreme end, financial services keywords in Singapore run roughly S$5&ndash;18 per click. At those rates, structure and negatives decide whether a budget produces pipeline or noise, and treat every figure here as an average with a wide spread: actual CPCs move with match types, quality scores, seasonality and who else decided to bid this quarter. <a href="https://support.google.com/google-ads/answer/2472725" target="_blank" rel="noopener noreferrer">Google\'s own Quality Score documentation</a> is worth reading before you argue with an account manager about why your CPC sits where it does.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
 <h2>What a proposal should specify in writing</h2>
-<p>Ask for the account structure before signing, not after: campaign types, how negatives are reviewed and how often, who owns bid strategy changes, and what a month-one versus month-three report looks like. A vague answer here predicts a vague account later. The agencies worth hiring can show you a real, anonymised account structure from an existing client in the first call; the ones who can\'t are selling you the pitch, not the practice.</p>
+<!-- /wp:heading -->
 
+<!-- wp:paragraph -->
+<p>Before signing for any SEM services, ask for the account structure, not after: campaign types, how negatives are reviewed and how often, who owns bid strategy changes, and what a month-one versus month-three report looks like. A vague answer here predicts a vague account later. The agencies worth hiring can show you a real, anonymised account structure from an existing client in the first call; the ones who can\'t are selling you the pitch, not the practice.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
 <h2>How SEM management is priced</h2>
-<p>Three common models: percentage of ad spend (typically 10&ndash;20%), flat monthly retainer, or hybrid. Each has a failure mode, percentage models reward spending more, flat retainers can reward doing less, so the safeguard is transparency. We work on flat retainers, paid media management from SGD 2,200 a month, with media billed at net cost and 0% markup, platform invoices attached to every recharge. Whatever model you choose, insist on seeing platform billing directly. Media margin hidden inside &ldquo;management&rdquo; is the oldest trick in the industry.</p>
+<!-- /wp:heading -->
 
+<!-- wp:paragraph -->
+<p>SEM services are priced under three common models: percentage of ad spend (typically 10&ndash;20%), flat monthly retainer, or hybrid. Each has a failure mode, percentage models reward spending more, flat retainers can reward doing less, so the safeguard is transparency. We work on flat retainers, paid media management from SGD 2,200 a month, with media billed at net cost and 0% markup, platform invoices attached to every recharge. Whatever model you choose, insist on seeing platform billing directly. Media margin hidden inside &ldquo;management&rdquo; is the oldest trick in the industry.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
 <h2>SEM or SEO?</h2>
-<p>Wrong question, the real one is sequencing. SEM buys visibility today; SEO compounds it over quarters. Whether that sequencing suits you depends on unit economics: at S$10+ per click, thin margins can make SEM a treadmill, while high-LTV businesses can afford it indefinitely. Most Singapore businesses we work with run SEM immediately while SEO builds underneath, then rebalance as organic takes share, and the rebalancing point is a margin decision, not a calendar one. We\'ve written a full comparison in <a href="/blog/seo-vs-sem/">SEO vs SEM</a>, and the organic half of the picture is set out on our <a href="/services/seo/">SEO service</a> page.</p>
+<!-- /wp:heading -->
 
+<!-- wp:paragraph -->
+<p>Wrong question, the real one is sequencing. SEM buys visibility today; SEO compounds it over quarters. Whether that sequencing suits you depends on unit economics: at S$10+ per click, thin margins can make SEM a treadmill, while high-LTV businesses can afford it indefinitely. Most Singapore businesses we work with run SEM immediately while SEO builds underneath, then rebalance as organic takes share, and the rebalancing point is a margin decision, not a calendar one. We\'ve written a full comparison in <a href="/blog/seo-vs-sem/">SEO vs SEM</a>, and the organic half of the picture is set out on our <a href="/services/seo/">SEO service</a> page.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
 <h2>Measuring it honestly</h2>
-<p>Judge SEM on cost per qualified lead or acquisition and on revenue, never on impressions or clicks. When we restructured paid search for a premium B2B corporate-gifting brand, conversion rates rose 50% and qualified leads grew 150% with no extra budget: the money moved from wasted queries to buying ones. Gains that size are what fixing a poorly structured account looks like, a well-run account improves in single digits, and anyone promising 150% on top of good work is promising arithmetic that doesn\'t exist. The job is the same either way: move money from waste to buyers. If you want your account held to that standard, <a href="/services/">here\'s how we run paid search</a>.</p>',
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Judge SEM services on cost per qualified lead or acquisition and on revenue, never on impressions or clicks. When we restructured paid search for a premium B2B corporate-gifting brand, conversion rates rose 50% and qualified leads grew 150% with no extra budget: the money moved from wasted queries to buying ones. Gains that size are what fixing a poorly structured account looks like, a well-run account improves in single digits, and anyone promising 150% on top of good work is promising arithmetic that doesn\'t exist. The job is the same either way: move money from waste to buyers. If you want your account held to that standard, <a href="/services/">here\'s how we run paid search</a>.</p>
+<!-- /wp:paragraph -->',
 		),
 		array(
 			'type'     => 'post',
@@ -90,29 +159,63 @@ function remotive_seed_content() {
 			'tags'     => array( 'facebook ads', 'paid social', 'malaysia', 'media buying', 'creative testing' ),
 			'image'    => 'facebook-advertising-malaysia.jpg',
 			'rm_title' => 'Facebook Advertising Malaysia: Full Guide',
-			'rm_desc'  => 'Facebook advertising Malaysia: realistic costs, targeting that works and measurement. Read the guide.',
+			'rm_desc'  => 'Facebook advertising Malaysia explained: realistic costs in ringgit, targeting that works across languages, creative testing and measurement. Read the guide.',
 			'rm_kw'    => 'facebook advertising malaysia',
-			'content'  => '<p>Facebook advertising Malaysia campaigns are built on: it remains the widest-reach paid channel in the country, and one of the cheapest in the region, which is exactly why so much of the spend on it is casual, untested and unmeasured. This is the short, practical version of how we run it.</p>
+			'content'  => '<!-- wp:paragraph -->
+<p>Facebook advertising Malaysia campaigns are built on: it remains the widest-reach paid channel in the country, and one of the cheapest in the region, which is exactly why so much of the spend on it is casual, untested and unmeasured. This is the short, practical version of how we run it.</p>
+<!-- /wp:paragraph -->
 
+<!-- wp:heading -->
 <h2>Facebook advertising Malaysia: what it costs</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
 <p>Malaysian CPCs are low by regional standards, often under RM1 for broad consumer targeting, though verticals like finance and property pay multiples of that, and lead objectives price differently from traffic. Take any benchmark, including this one, as a starting assumption to replace with your own data inside a month. Cheap clicks flatter bad campaigns, though: the number that matters is cost per result you can bank, a lead, a purchase, a WhatsApp conversation. Set the budget around a testing plan, not a monthly figure someone feels comfortable with. Enough to get statistically useful results per variant, typically a few thousand ringgit a month at minimum, spent deliberately.</p>
+<!-- /wp:paragraph -->
 
+<!-- wp:heading -->
 <h2>Targeting that actually works here</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
 <p>Three layers, in order of value. First-party audiences first: customer lists, site visitors, engagers, and lookalikes built from them. Malaysia-specific structure second: language matters more than most advertisers act on, so run Bahasa Malaysia, English and Chinese creative as separate tests rather than one ad in one language for everyone. There\'s a real tension here: splitting audiences fragments the algorithm\'s learning, so at small budgets consolidate first and split only when spend can feed each variant properly, segmentation is a luxury that data volume buys. Geography third: KL, Penang, Johor and PJ behave differently on price sensitivity and offer framing; if your business is location-bound, structure campaigns so the data can show it.</p>
+<!-- /wp:paragraph -->
 
+<!-- wp:heading -->
 <h2>Creative decides the outcome</h2>
-<p>On Meta, targeting has become increasingly algorithmic; creative is where you still compete. Run multiple variants of hook, format and message from day one and let performance kill the losers weekly. When we built the creator pipeline and paid engine for a DTC skincare launch, letting the data pick winners weekly instead of monthly was the single biggest driver of its growth. Static-image-plus-caption, refreshed quarterly, is how accounts quietly die.</p>
+<!-- /wp:heading -->
 
+<!-- wp:paragraph -->
+<p>On Meta, and in Facebook advertising Malaysia accounts especially, targeting has become increasingly algorithmic; creative is where you still compete. Run multiple variants of hook, format and message from day one and let performance kill the losers weekly. When we built the creator pipeline and paid engine for a DTC skincare launch, letting the data pick winners weekly instead of monthly was the single biggest driver of its growth. Static-image-plus-caption, refreshed quarterly, is how accounts quietly die.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
 <h2>One honest caveat</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
 <p>Meta isn\'t always the answer, and Facebook advertising Malaysia campaigns are not exempt from that rule. On a regional automotive campaign we ran, programmatic video outperformed both YouTube and Meta direct buys badly enough to reshape the plan, AI-driven programmatic delivered CPMs 85% under market rate. Channel loyalty is a bias; run Facebook because the numbers earn it, and be willing to move budget when they don\'t.</p>
+<!-- /wp:paragraph -->
 
+<!-- wp:heading -->
 <h2>Measurement, or it didn\'t happen</h2>
-<p>Before scaling anything: pixel and Conversions API installed, events mapped to real outcomes, and reporting that ties spend to leads or revenue rather than reach. Even then, stay humble about the numbers: since iOS privacy changes, platform-reported conversions are partly modelled, and CAPI narrows the gap without closing it. Judge trends and increments, and treat any single figure as an estimate. If leads land in WhatsApp, as they do for a lot of Malaysian businesses, make sure those conversations are counted too.</p>
+<!-- /wp:heading -->
 
+<!-- wp:paragraph -->
+<p>Before scaling any Facebook advertising Malaysia campaign: pixel and Conversions API installed, events mapped to real outcomes, and reporting that ties spend to leads or revenue rather than reach. Even then, stay humble about the numbers: since iOS privacy changes, platform-reported conversions are partly modelled, and CAPI narrows the gap without closing it. Judge trends and increments, and treat any single figure as an estimate. If leads land in WhatsApp, as they do for a lot of Malaysian businesses, make sure those conversations are counted too.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
 <h2>When to bring in a specialist</h2>
-<p>Running Facebook advertising Malaysia campaigns in-house works fine below a certain spend and complexity threshold, usually while one person can hold the whole account structure and creative calendar in their head. Past that point, the coordination cost, testing several creative variants, tracking three languages, reconciling WhatsApp leads against ad spend, tends to eat more time than the media budget itself. That is the point at which a specialist earns their fee on hours saved alone, before the performance gains even enter the conversation. <a href="https://www.facebook.com/business/ads-guide" target="_blank" rel="noopener noreferrer">Meta\'s own ads guide</a> is a reasonable place to sanity-check any agency\'s recommendations against the platform\'s current rules.</p>
+<!-- /wp:heading -->
 
-<p>We run paid social as part of full-funnel work across Malaysia, KL, Penang, PJ and beyond. Start with our <a href="/services/paid-media/">paid media</a> work, or see the wider <a href="/services/">services line-up</a>.</p>',
+<!-- wp:paragraph -->
+<p>Running Facebook advertising Malaysia campaigns in-house works fine below a certain spend and complexity threshold, usually while one person can hold the whole account structure and creative calendar in their head. Past that point, the coordination cost, testing several creative variants, tracking three languages, reconciling WhatsApp leads against ad spend, tends to eat more time than the media budget itself. That is the point at which a specialist earns their fee on hours saved alone, before the performance gains even enter the conversation. <a href="https://www.facebook.com/business/ads-guide" target="_blank" rel="noopener noreferrer">Meta\'s own ads guide</a> is a reasonable place to sanity-check any agency\'s recommendations against the platform\'s current rules.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>We run paid social as part of full-funnel work across Malaysia, KL, Penang, PJ and beyond. Start with our <a href="/services/paid-media/">paid media</a> work, or see the wider <a href="/services/">services line-up</a>.</p>
+<!-- /wp:paragraph -->',
 		),
 		array(
 			'type'     => 'post',
@@ -122,31 +225,68 @@ function remotive_seed_content() {
 			'category' => array( 'Agency & Pricing Guides', 'agency-guides' ),
 			'tags'     => array( 'agency selection', 'seo', 'singapore', 'malaysia', 'reporting' ),
 			'image'    => 'how-to-choose-an-seo-agency.jpg',
-			'rm_title' => 'How to Choose an SEO Agency (SG & MY)',
-			'rm_desc'  => 'How to evaluate an SEO agency: audits, reporting, red flags and the questions to ask. Find out more.',
+			'rm_title' => 'SEO Agency: How to Choose One in SG & MY',
+			'rm_desc'  => 'How to choose an SEO agency in Singapore or Malaysia: the audit to demand, the reporting to inspect, red flags and the questions to ask. Read the checklist.',
 			'rm_kw'    => 'seo agency',
-			'content'  => '<p>Search for &ldquo;seo agency&rdquo; in Singapore or Malaysia and you\'ll get lists, ranked, sponsored, and mostly interchangeable. Lists don\'t tell you how an agency behaves in month three. These criteria do. We\'re an agency ourselves, so read this knowing where we stand; every test here is one we\'re prepared to be measured against.</p>
+			'content'  => '<!-- wp:paragraph -->
+<p>Search for &ldquo;seo agency&rdquo; in Singapore or Malaysia and you\'ll get lists, ranked, sponsored, and mostly interchangeable. Lists don\'t tell you how an agency behaves in month three. These criteria do. We\'re an agency ourselves, so read this knowing where we stand; every test here is one we\'re prepared to be measured against.</p>
+<!-- /wp:paragraph -->
 
+<!-- wp:heading -->
 <h2>Demand a real audit before you sign</h2>
-<p>Any agency worth engaging can show you specific problems on your actual site before a contract exists, crawl issues, structural problems, content gaps, with evidence. Be fair about depth: a pre-contract review is hours of work at most, so expect a sharp diagnosis of a few real issues rather than a full audit; the full version is rightly part of the engagement. A generic PDF with your logo on it is a mail merge. The audit is also your preview of how they think and communicate, which is most of what you\'re buying.</p>
+<!-- /wp:heading -->
 
+<!-- wp:paragraph -->
+<p>Any SEO agency worth engaging can show you specific problems on your actual site before a contract exists, crawl issues, structural problems, content gaps, with evidence. Be fair about depth: a pre-contract review is hours of work at most, so expect a sharp diagnosis of a few real issues rather than a full audit; the full version is rightly part of the engagement. A generic PDF with your logo on it is a mail merge. The audit is also your preview of how they think and communicate, which is most of what you\'re buying.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
 <h2>Interrogate the reporting</h2>
-<p>Ranking reports alone are theatre. Ask to see a real (anonymised) client report: does it connect organic performance to leads, revenue, or pipeline? Does it cover search alongside the other channels you run, so budget decisions get made across them rather than inside each silo? An agency that can\'t show attribution beyond positions is optimising for its own renewal.</p>
+<!-- /wp:heading -->
 
+<!-- wp:paragraph -->
+<p>Ranking reports alone are theatre. Ask to see a real (anonymised) client report: does it connect organic performance to leads, revenue, or pipeline? Does it cover search alongside the other channels you run, so budget decisions get made across them rather than inside each silo? An SEO agency that can\'t show attribution beyond positions is optimising for its own renewal.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
 <h2>Ask who at the SEO agency does the work</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
 <p>The people in the pitch and the people in your account are frequently different people. Ask directly: who runs this engagement, what\'s their seniority, and how many accounts do they carry? Thin answers here explain most agency disappointments in this region.</p>
+<!-- /wp:paragraph -->
 
+<!-- wp:heading -->
 <h2>Expect evidence with numbers</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
 <p>Case studies should name outcomes, not adjectives. The kind of specificity to expect: organic sessions up 86% in a month after a technical rebuild; a target keyword from unranked to position 3; clicks up 34% in a first month with 2,553 keywords ranking; qualified leads up 150% after a restructure. Those are results from our own client work, and here\'s the nuance every case-studies page, ours included, owes you: the results on the page are the best ones on file. Ask any agency what a median engagement looks like, and what a failed one looked like and why. The answer to the second question tells you more than any case study. The point of the numbers is their shape, whoever you\'re evaluating: dated, measured, attributable. <a href="https://developers.google.com/search/docs/fundamentals/seo-starter-guide" target="_blank" rel="noopener noreferrer">Google\'s own SEO starter guide</a> is worth skimming first, so you can tell whether an agency\'s pitch matches what the platform itself says matters.</p>
+<!-- /wp:paragraph -->
 
+<!-- wp:heading -->
 <h2>Red flags that end the meeting</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
 <p>Guaranteed rankings, nobody controls Google. Secret methods. Reporting only inside the agency\'s own tool. Refusal to itemise media or third-party costs. And be sceptical of both extremes on commitment: perpetual lock-ins are a trap, and &ldquo;cancel anytime&rdquo; is often a confession that nothing compounding is being built. We ask for a four-month minimum on SEO precisely because honest SEO needs that long to show its first real returns.</p>
+<!-- /wp:paragraph -->
 
+<!-- wp:heading -->
 <h2>What happens after the contract is signed</h2>
-<p>The evaluation doesn\'t stop at the pitch. Ask what the first thirty days look like in writing, not in a sales call: what gets audited first, when you\'ll see the first report, and who signs off on the priority list. An SEO agency that can\'t answer this before you\'ve paid anything will improvise it after you have, and improvisation is expensive when it\'s billed monthly. The best proxy for how an engagement will run is how precisely the agency can describe the first month before it starts.</p>
+<!-- /wp:heading -->
 
+<!-- wp:paragraph -->
+<p>The evaluation doesn\'t stop at the pitch. Ask what the first thirty days look like in writing, not in a sales call: what gets audited first, when you\'ll see the first report, and who signs off on the priority list. An SEO agency that can\'t answer this before you\'ve paid anything will improvise it after you have, and improvisation is expensive when it\'s billed monthly. The best proxy for how an engagement will run is how precisely the agency can describe the first month before it starts.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
 <h2>Then compare pricing knowing the market</h2>
-<p>Once an agency clears these bars, price it against reality: we\'ve published what SEO actually costs in <a href="/blog/seo-cost-singapore/">Singapore</a> and <a href="/blog/seo-services-pricing-malaysia/">Malaysia</a>. And if you\'d like to run these tests on us, <a href="/contact/">start a conversation</a>, the first one includes the audit.</p>',
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Once an SEO agency clears these bars, price it against reality: we\'ve published what SEO actually costs in <a href="/blog/seo-cost-singapore/">Singapore</a> and <a href="/blog/seo-services-pricing-malaysia/">Malaysia</a>. And if you\'d like to run these tests on us, <a href="/contact/">start a conversation</a>, the first one includes the audit.</p>
+<!-- /wp:paragraph -->',
 		),
 		array(
 			'type'     => 'post',
@@ -157,13 +297,16 @@ function remotive_seed_content() {
 			'category' => array( 'SEO & AI Search', 'seo-ai-search' ),
 			'tags'     => array( 'seo', 'sem', 'paid search', 'strategy', 'singapore' ),
 			'rm_title' => 'SEO vs SEM: Which One First, and When',
-			'rm_desc'  => 'SEO vs SEM compared on cost, speed and durability, with a sequencing rule you can actually use.',
+			'rm_desc'  => 'SEO vs SEM compared on cost, speed and durability, with the sequencing rule we use to decide which one carries the load first. Read the comparison.',
 			'rm_kw'    => 'seo vs sem',
-			'content'  => '<p>The SEO vs SEM question comes up in almost every first call we take, and it\'s usually asked as either-or. It isn\'t one. The two do different jobs on the same search results page, and the useful question is sequencing: which one carries the load now, and when does the balance shift.</p>
+			'content'  => '<!-- wp:paragraph -->
+<p>The SEO vs SEM question comes up in almost every first call we take, and it\'s usually asked as either-or. It isn\'t one. The two do different jobs on the same search results page, and the useful question is sequencing: which one carries the load now, and when does the balance shift.</p>
+<!-- /wp:paragraph -->
 
 <!-- wp:heading -->
 <h2>What each one actually is</h2>
 <!-- /wp:heading -->
+
 <!-- wp:paragraph -->
 <p>SEM, search engine marketing, is paid placement: you bid on queries and your ad appears the moment the campaign goes live. SEO is earned placement: you build content, structure and authority that rank organically, and the results arrive over months rather than hours. <a href="https://developers.google.com/search/docs/fundamentals/seo-starter-guide" target="_blank" rel="noopener noreferrer">Google\'s own SEO starter guide</a> is clear that organic ranking cannot be bought, which is exactly why the two channels behave so differently as investments.</p>
 <!-- /wp:paragraph -->
@@ -171,6 +314,7 @@ function remotive_seed_content() {
 <!-- wp:heading -->
 <h2>SEO vs SEM on cost</h2>
 <!-- /wp:heading -->
+
 <!-- wp:paragraph -->
 <p>SEM cost scales with clicks. Every visitor is paid for, and in competitive Singapore categories like finance, legal and B2B software, clicks commonly run past S$10. Stop paying and the traffic stops the same day. SEO cost is mostly labour: audits, content, technical work, links. It doesn\'t scale per visitor, which is what makes it cheap at high volume and expensive at low volume. A page that ranks keeps receiving traffic whether it gets ten visits a month or ten thousand, at roughly the same upkeep.</p>
 <!-- /wp:paragraph -->
@@ -178,6 +322,7 @@ function remotive_seed_content() {
 <!-- wp:heading -->
 <h2>SEO vs SEM on speed and durability</h2>
 <!-- /wp:heading -->
+
 <!-- wp:paragraph -->
 <p>SEM wins on speed without contest: campaigns produce data in days. SEO wins on durability the same way: rankings earned on real content and sound structure tend to persist, and they keep working while you sleep, while your SEM budget only works while it\'s being spent. The trade is speed against compounding, and neither channel offers both. One caveat worth naming in any honest SEO vs SEM comparison: durability is a tendency, never a guarantee, and an algorithm update can move rankings that took a year to earn. What the update cannot touch is the content and structure underneath, which is why well-built organic positions tend to recover where thinly-built ones don\'t.</p>
 <!-- /wp:paragraph -->
@@ -185,6 +330,7 @@ function remotive_seed_content() {
 <!-- wp:heading -->
 <h2>The sequencing rule we actually use</h2>
 <!-- /wp:heading -->
+
 <!-- wp:paragraph -->
 <p>Run SEM immediately while SEO builds underneath, then rebalance as organic takes share. The rebalancing point is a margin decision. At S$10+ per click, a thin-margin business is on a treadmill it can\'t afford forever, so shifting spend toward organic as rankings arrive is survival arithmetic. A high-LTV business can afford SEM indefinitely and may keep both at full strength. There is no calendar answer; there is a unit-economics answer, and it\'s different for every business.</p>
 <!-- /wp:paragraph -->
@@ -192,6 +338,7 @@ function remotive_seed_content() {
 <!-- wp:heading -->
 <h2>Where SEM data feeds SEO</h2>
 <!-- /wp:heading -->
+
 <!-- wp:paragraph -->
 <p>The most underused benefit of running both: paid search tells you within weeks which queries actually convert, at real statistical volume, usually within the first month. That validated list is the best keyword research SEO can get, because it\'s built from purchases rather than search-volume estimates. We build organic content plans against paid conversion data whenever both channels run together, and the SEO vs SEM framing dissolves into one system with two inputs.</p>
 <!-- /wp:paragraph -->
@@ -199,8 +346,9 @@ function remotive_seed_content() {
 <!-- wp:heading -->
 <h2>What this means for your budget</h2>
 <!-- /wp:heading -->
+
 <!-- wp:paragraph -->
-<p>If you can only fund one channel this quarter, fund the one that matches your cash position: SEM if you need revenue now and your margins survive the click costs, SEO if you can wait out the ramp for a cheaper cost per visit later. If you can fund both, sequence them as above. The costs behind each half are published openly: <a href="/blog/seo-cost-singapore/">what SEO costs in Singapore</a>, <a href="/blog/seo-services-pricing-malaysia/">SEO services pricing in Malaysia</a>, and <a href="/blog/sem-services-singapore/">what SEM services include and cost</a>. The organic half of the picture is set out on our <a href="/services/seo/">SEO service</a> page, and the first conversation includes an audit either way.</p>
+<p>If you can only fund one channel this quarter, fund the one that matches your cash position: SEM if you need revenue now and your margins survive the click costs, SEO if you can wait out the ramp for a cheaper cost per visit later. If you can fund both sides of the SEO vs SEM choice, sequence them as above. The costs behind each half are published openly: <a href="/blog/seo-cost-singapore/">what SEO costs in Singapore</a>, <a href="/blog/seo-services-pricing-malaysia/">SEO services pricing in Malaysia</a>, and <a href="/blog/sem-services-singapore/">what SEM services include and cost</a>. The organic half of the picture is set out on our <a href="/services/seo/">SEO service</a> page, and the first conversation includes an audit either way.</p>
 <!-- /wp:paragraph -->',
 		),
 		array(
@@ -212,13 +360,16 @@ function remotive_seed_content() {
 			'category' => array( 'Agency & Pricing Guides', 'agency-guides' ),
 			'tags'     => array( 'seo', 'pricing', 'singapore', 'agency' ),
 			'rm_title' => 'SEO Cost in Singapore: The Real Numbers',
-			'rm_desc'  => 'SEO cost in Singapore: monthly retainer ranges, what drives price, and what cheap SEO actually buys.',
-			'rm_kw'    => 'seo cost in singapore',
-			'content'  => '<p>Agencies mostly won\'t publish pricing, which is why every SEO cost in Singapore conversation starts with a range nobody will commit to. Here are the market\'s real numbers, what moves them, and how to tell whether a quote is scoped to your situation or copied from a rate card.</p>
+			'rm_desc'  => 'SEO cost in Singapore: monthly retainer ranges, what drives the price, what cheap SEO really buys and how to pressure-test any quote. See the numbers.',
+			'rm_kw'    => 'seo cost',
+			'content'  => '<!-- wp:paragraph -->
+<p>Agencies mostly won\'t publish pricing, which is why every SEO cost in Singapore conversation starts with a range nobody will commit to. Here are the market\'s real numbers, what moves them, and how to tell whether a quote is scoped to your situation or copied from a rate card.</p>
+<!-- /wp:paragraph -->
 
 <!-- wp:heading -->
 <h2>What SEO cost in Singapore actually looks like</h2>
 <!-- /wp:heading -->
+
 <!-- wp:paragraph -->
 <p>Monthly retainers for small and mid-sized businesses commonly run S$1,000 to S$3,000. Competitive categories and larger sites typically sit between S$3,000 and S$8,000 a month, and enterprise programmes with multiple markets or heavy technical scope run S$10,000 and up. One-off technical audits usually price between S$1,500 and S$5,000 depending on site size and how deep the crawl needs to go. These are market ranges, drawn from what businesses tell us they\'ve been quoted and what we see agencies advertise, and any individual quote can land outside them for reasons that are sometimes legitimate and sometimes not.</p>
 <!-- /wp:paragraph -->
@@ -226,20 +377,23 @@ function remotive_seed_content() {
 <!-- wp:heading -->
 <h2>What actually drives the price</h2>
 <!-- /wp:heading -->
+
 <!-- wp:paragraph -->
-<p>Keyword difficulty first: ranking a niche B2B supplier and ranking in finance, insurance or legal are different jobs, because the competition in the second group has been investing for a decade. Site size and technical state second: a 30-page site with clean structure needs far less monthly labour than a 5,000-SKU store carrying years of technical debt. Content requirements third, since categories where <a href="https://developers.google.com/search/docs/fundamentals/creating-helpful-content" target="_blank" rel="noopener noreferrer">Google\'s helpful-content standards</a> demand genuine expertise cost more to write for than categories where serviceable coverage ranks. Scope of markets and languages last: Singapore-only English is one price; add Malaysia, add Mandarin, and the scope multiplies.</p>
+<p>Four things move SEO cost. Keyword difficulty first: ranking a niche B2B supplier and ranking in finance, insurance or legal are different jobs, because the competition in the second group has been investing for a decade. Site size and technical state second: a 30-page site with clean structure needs far less monthly labour than a 5,000-SKU store carrying years of technical debt. Content requirements third, since categories where <a href="https://developers.google.com/search/docs/fundamentals/creating-helpful-content" target="_blank" rel="noopener noreferrer">Google\'s helpful-content standards</a> demand genuine expertise cost more to write for than categories where serviceable coverage ranks. Scope of markets and languages last: Singapore-only English is one price; add Malaysia, add Mandarin, and the scope multiplies.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
 <h2>What cheap SEO actually buys</h2>
 <!-- /wp:heading -->
+
 <!-- wp:paragraph -->
-<p>Below roughly S$800 a month, the economics only work through templated deliverables: auto-generated reports, thin syndicated content, directory links. None of it is free labour, so something is being skipped, and it\'s usually the parts that move rankings. That doesn\'t make every low quote a scam; a genuinely small local niche can be served cheaply. It does mean a low quote for a competitive category deserves the question: what specifically will be done each month, by whom, for this money? The other tell is contract length. Cheap SEO sold on a twelve-month lock-in is priced on the assumption you\'ll leave once you notice nothing is moving, and the lock-in exists so you can\'t. Month-to-month terms at a low price are rarer, because an agency doing real work at that price loses money and an agency doing no work gets cancelled.</p>
+<p>Below roughly S$800 a month, the economics only work through templated deliverables: auto-generated reports, thin syndicated content, directory links. None of it is free labour, so something is being skipped, and it\'s usually the parts that move rankings. That doesn\'t make every low quote a scam; a genuinely small local niche can be served cheaply. It does mean a low quote for a competitive category deserves the question: what specifically will be done each month, by whom, for this money? A low SEO cost only makes sense if the scope shrinks to match. The other tell is contract length. Cheap SEO sold on a twelve-month lock-in is priced on the assumption you\'ll leave once you notice nothing is moving, and the lock-in exists so you can\'t. Month-to-month terms at a low price are rarer, because an agency doing real work at that price loses money and an agency doing no work gets cancelled.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
 <h2>Retainer, project, or performance pricing</h2>
 <!-- /wp:heading -->
+
 <!-- wp:paragraph -->
 <p>Retainers suit ongoing programmes, which is what SEO mostly is. Fixed-price projects suit bounded work like an audit or a migration. Performance pricing, paying per ranking achieved, sounds aligned and usually isn\'t: it pushes the agency toward easy keywords nobody searches, because those pay the same as hard ones. The honest structure for a serious SEO cost in Singapore discussion is a retainer scoped against your actual keyword difficulty, with the monthly deliverables listed and the measurement defined before work starts.</p>
 <!-- /wp:paragraph -->
@@ -247,8 +401,9 @@ function remotive_seed_content() {
 <!-- wp:heading -->
 <h2>How to pressure-test any quote</h2>
 <!-- /wp:heading -->
+
 <!-- wp:paragraph -->
-<p>Ask what the first ninety days contain, item by item. Ask which of your keywords the price was scoped against, and what the agency believes ranking them will take. Ask how progress is reported and against which baseline. An agency that priced your situation can answer all three in specifics; an agency reading from a rate card can\'t. Our own guide to <a href="/blog/how-to-choose-an-seo-agency/">choosing an SEO agency</a> covers the fuller checklist, the Malaysian market\'s equivalent numbers are in <a href="/blog/seo-services-pricing-malaysia/">SEO services pricing in Malaysia</a>, and the scope behind our own quotes is on the <a href="/services/seo/">SEO service</a> page. The first conversation includes the audit, so you\'ll have your list of specifics before anyone talks price.</p>
+<p>Whatever the SEO cost, ask what the first ninety days contain, item by item. Ask which of your keywords the price was scoped against, and what the agency believes ranking them will take. Ask how progress is reported and against which baseline. An agency that priced your situation can answer all three in specifics; an agency reading from a rate card can\'t. Our own guide to <a href="/blog/how-to-choose-an-seo-agency/">choosing an SEO agency</a> covers the fuller checklist, the Malaysian market\'s equivalent numbers are in <a href="/blog/seo-services-pricing-malaysia/">SEO services pricing in Malaysia</a>, and the scope behind our own quotes is on the <a href="/services/seo/">SEO service</a> page. The first conversation includes the audit, so you\'ll have your list of specifics before anyone talks price.</p>
 <!-- /wp:paragraph -->',
 		),
 		array(
@@ -260,13 +415,16 @@ function remotive_seed_content() {
 			'category' => array( 'Agency & Pricing Guides', 'agency-guides' ),
 			'tags'     => array( 'seo', 'pricing', 'malaysia', 'agency' ),
 			'rm_title' => 'SEO Services Pricing in Malaysia, Explained',
-			'rm_desc'  => 'SEO services pricing in Malaysia: retainer ranges in RM, pricing models, and cost drivers. Real numbers.',
-			'rm_kw'    => 'seo services pricing in malaysia',
-			'content'  => '<p>Malaysian agencies publish prices even less often than Singaporean ones, so SEO services pricing in Malaysia mostly gets discovered one sales call at a time, with each call producing a number that\'s hard to compare against the last. Here are the market ranges in ringgit, the models behind them, and the questions that separate a scoped quote from a guessed one.</p>
+			'rm_desc'  => 'SEO services pricing in Malaysia: retainer ranges in ringgit, the pricing models on offer and the cost drivers behind them. Get the real numbers.',
+			'rm_kw'    => 'seo services pricing',
+			'content'  => '<!-- wp:paragraph -->
+<p>Malaysian agencies publish prices even less often than Singaporean ones, so SEO services pricing in Malaysia mostly gets discovered one sales call at a time, with each call producing a number that\'s hard to compare against the last. Here are the market ranges in ringgit, the models behind them, and the questions that separate a scoped quote from a guessed one.</p>
+<!-- /wp:paragraph -->
 
 <!-- wp:heading -->
 <h2>SEO services pricing in Malaysia: the ranges</h2>
 <!-- /wp:heading -->
+
 <!-- wp:paragraph -->
 <p>Monthly retainers for small local businesses commonly run RM1,500 to RM4,000. Competitive categories and larger sites typically sit between RM4,000 and RM10,000 a month, and multi-market or heavily technical programmes go beyond RM12,000. Standalone audits usually price from RM2,000 to RM8,000 by site size. These are market ranges rather than a rate card, assembled from what prospects tell us they\'ve been quoted and what agencies here advertise, and a quote outside them isn\'t automatically wrong; it\'s a prompt to ask what the difference pays for.</p>
 <!-- /wp:paragraph -->
@@ -274,27 +432,31 @@ function remotive_seed_content() {
 <!-- wp:heading -->
 <h2>Why Malaysia prices differ from Singapore</h2>
 <!-- /wp:heading -->
+
 <!-- wp:paragraph -->
-<p>Labour costs are lower, so the same deliverables price lower than across the Causeway, and the two markets\' numbers shouldn\'t be compared line for line. What doesn\'t change is the work itself: <a href="https://developers.google.com/search/docs/fundamentals/seo-starter-guide" target="_blank" rel="noopener noreferrer">Google\'s ranking fundamentals</a> are identical in both markets, so a Malaysian quote dramatically below the local range raises the same question a cheap Singapore quote does: which part of the work is being skipped? Singapore\'s equivalent numbers are in our companion piece on <a href="/blog/seo-cost-singapore/">SEO cost in Singapore</a>.</p>
+<p>Labour costs are lower, so SEO services pricing runs below Singapore\'s for the same deliverables, and the two markets\' numbers shouldn\'t be compared line for line. What doesn\'t change is the work itself: <a href="https://developers.google.com/search/docs/fundamentals/seo-starter-guide" target="_blank" rel="noopener noreferrer">Google\'s ranking fundamentals</a> are identical in both markets, so a Malaysian quote dramatically below the local range raises the same question a cheap Singapore quote does: which part of the work is being skipped? Singapore\'s equivalent numbers are in our companion piece on <a href="/blog/seo-cost-singapore/">SEO cost in Singapore</a>.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
 <h2>What moves the number here specifically</h2>
 <!-- /wp:heading -->
+
 <!-- wp:paragraph -->
-<p>Language scope is the big one. Malaysian search demand splits across English and Malay in most categories, with Mandarin mattering in several, and every language you cover means separate keyword research, separate content, separate on-page work. A single-language quote and a bilingual quote for the same site are different engagements at different prices. Location count is second: one PJ clinic and a chain across KL, Penang and JB carry different local-SEO workloads. Keyword difficulty and technical state drive the rest, exactly as they do everywhere. One more Malaysia-specific driver worth naming: platform mix. A meaningful share of Malaysian SMB sites still run on older page builders or heavily customised themes carrying years of accumulated technical debt, and remediating that before content work can pay off adds real hours to the early months of an engagement. An agency that quotes without having crawled your site hasn\'t priced that debt, because it can\'t have; it has priced an assumption.</p>
+<p>Language scope is the biggest driver of SEO services pricing here. Malaysian search demand splits across English and Malay in most categories, with Mandarin mattering in several, and every language you cover means separate keyword research, separate content, separate on-page work. A single-language quote and a bilingual quote for the same site are different engagements at different prices. Location count is second: one PJ clinic and a chain across KL, Penang and JB carry different local-SEO workloads. Keyword difficulty and technical state drive the rest, exactly as they do everywhere. One more Malaysia-specific driver worth naming: platform mix. A meaningful share of Malaysian SMB sites still run on older page builders or heavily customised themes carrying years of accumulated technical debt, and remediating that before content work can pay off adds real hours to the early months of an engagement. An agency that quotes without having crawled your site hasn\'t priced that debt, because it can\'t have; it has priced an assumption.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
 <h2>The models you\'ll be offered</h2>
 <!-- /wp:heading -->
+
 <!-- wp:paragraph -->
-<p>Retainers dominate, and for ongoing SEO they should. Project pricing fits bounded work: an audit, a migration, a one-time technical cleanup. Per-keyword and pay-on-ranking offers appear more often in the Malaysian market than they deserve to, and the incentive problem is structural: the agency gets paid the same for ranking an easy term nobody searches as for a hard term that drives revenue, so guess which ones end up in the report. Treat any pay-on-ranking pitch as a prompt to look closely at the keyword list.</p>
+<p>Retainers dominate Malaysian SEO services pricing, and for ongoing SEO they should. Project pricing fits bounded work: an audit, a migration, a one-time technical cleanup. Per-keyword and pay-on-ranking offers appear more often in the Malaysian market than they deserve to, and the incentive problem is structural: the agency gets paid the same for ranking an easy term nobody searches as for a hard term that drives revenue, so guess which ones end up in the report. Treat any pay-on-ranking pitch as a prompt to look closely at the keyword list.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
 <h2>Questions that expose a guessed quote</h2>
 <!-- /wp:heading -->
+
 <!-- wp:paragraph -->
 <p>Which of your keywords was this priced against, and in which languages? What does month one contain, item by item? Who does the work, in-house or outsourced, and where does the content come from? How is progress measured, against what baseline, and what happens to the price if scope changes? A quote built on your situation survives all five questions in specifics. Our fuller checklist is in <a href="/blog/how-to-choose-an-seo-agency/">how to choose an SEO agency</a>, and the scope behind our own quotes is on the <a href="/services/">services</a> pages. The first conversation includes an audit, so the specifics arrive before the price does.</p>
 <!-- /wp:paragraph -->',
