@@ -108,6 +108,9 @@ t_ok( ! $in( array() ), 'no headers at all (an app, curl) gets in' );
 t_ok( ! $in( array( 'HTTP_REFERER' => 'https://example.com/seo-audit/', 'HTTP_SEC_FETCH_SITE' => 'same-origin' ) ), 'a landing page to itself (reload) gets in' );
 t_ok( ! $in( array( 'HTTP_REFERER' => 'https://example.com/ms/google-ads-management/', 'HTTP_SEC_FETCH_SITE' => 'same-origin' ) ), 'language buttons between landing pages work' );
 t_ok( ! $in( array( 'HTTP_REFERER' => 'https://example.com/zh-hans/paid-social-advertising', 'HTTP_SEC_FETCH_SITE' => 'same-origin' ) ), 'the form redirect to the thank-you page works (referer is the landing page)' );
+$in_sub = function ( $server ) { return remotive_lp_is_internal_navigation( $server, 'example.com', '/site' ); };
+t_ok( ! $in_sub( array( 'HTTP_REFERER' => 'https://example.com/site/ms/seo-audit/', 'HTTP_SEC_FETCH_SITE' => 'same-origin' ) ), 'subdirectory install: a landing page under the folder still gets in from another landing page' );
+t_ok( $in_sub( array( 'HTTP_REFERER' => 'https://example.com/site/about/', 'HTTP_SEC_FETCH_SITE' => 'same-origin' ) ), 'subdirectory install: a main-site page is still turned back' );
 t_ok( $in( array( 'HTTP_REFERER' => 'https://example.com/seo-audit-guide/', 'HTTP_SEC_FETCH_SITE' => 'same-origin' ) ), 'a main-site page whose address merely starts like a landing page is turned back' );
 
 // The AI Discovery Files plugin: its page list never carries a landing or confirmation page, even when built from wp-admin.
