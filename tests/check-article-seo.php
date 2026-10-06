@@ -1,10 +1,11 @@
 <?php
 /**
  * The seeded articles pass Rank Math's own content tests.
- * Thresholds are read from Rank Math 1.0.279's analyzer: description 120 to 160
- * characters, keyword density at least 0.76%, content length at least 600
- * words, the keyword in the title, description, URL, first 10% of the text
- * and at least one subheading, plus an internal and an external link.
+ * Thresholds: description 120 to 160 characters, keyword density at least 0.76%
+ * (both from Rank Math 1.0.279's analyzer), 1,000 to 1,500 words (Rank Math's own
+ * minimum is 600; ours is longer), the keyword in the title, description, URL,
+ * first 10% of the text and a subheading, an internal and an external link,
+ * and block markup throughout.
  * Run: php tests/check-article-seo.php
  */
 require __DIR__ . '/bootstrap.php';
@@ -38,7 +39,7 @@ foreach ( remotive_seed_content() as $i ) {
 	a_ok( 0 === stripos( str_replace( '-', ' ', $i['rm_title'] ), $kw ), "$s: SEO title starts with the keyword" );
 	a_ok( false !== strpos( $s, str_replace( ' ', '-', $kw ) ), "$s: keyword in the URL" );
 	a_ok( false !== strpos( substr( $plain, 0, (int) ( strlen( $plain ) * 0.1 ) ), $kw ), "$s: keyword in the first 10% of the text" );
-	a_ok( $words >= 600, "$s: at least 600 words ($words)" );
+	a_ok( $words >= 1000 && $words <= 1500, "$s: between 1,000 and 1,500 words ($words)" );
 	a_ok( substr_count( $plain, $kw ) / $words * 100 >= 0.76, "$s: keyword density at least 0.76%" );
 
 	preg_match_all( '#<h2[^>]*>(.*?)</h2>#is', $c, $h );
@@ -53,7 +54,9 @@ foreach ( remotive_seed_content() as $i ) {
 	a_ok( $ext >= 1 && count( $l[1] ) - $ext >= 1, "$s: an internal and an external link" );
 
 	// Every top-level paragraph and heading is a block, so the editor opens real blocks, not one Classic block.
-	$stripped = preg_replace( '#<!-- wp:(paragraph|heading) -->\s*<(p|h2)>.*?</\2>\s*<!-- /wp:\1 -->#s', '', $c );
+	$stripped = preg_replace( '#<!-- wp:list -->\s*<ul class="wp-block-list">.*?</ul>\s*<!-- /wp:list -->#s', '', $c );
+	$stripped = preg_replace( '#<!-- wp:heading(?: \{"level":3\})? -->\s*<(h2|h3) class="wp-block-heading">.*?</\1>\s*<!-- /wp:heading -->#s', '', $stripped );
+	$stripped = preg_replace( '#<!-- wp:paragraph -->\s*<p>.*?</p>\s*<!-- /wp:paragraph -->#s', '', $stripped );
 	a_ok( '' === trim( $stripped ), "$s: all content is block markup" );
 }
 

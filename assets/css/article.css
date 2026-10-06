@@ -29,8 +29,8 @@
 
 /* ---- Header ---- */
 .rm-art-hero{
-  max-width:1120px !important; margin-inline:auto !important;
-  padding:clamp(2.5rem,7vw,5.5rem) clamp(1.25rem,4vw,2rem) clamp(1.5rem,3vw,2.25rem) !important;
+  width:min(1120px,calc(100% - 2*clamp(1.25rem,4vw,2rem))) !important; max-width:none !important; margin-inline:auto !important;
+  padding:clamp(2.5rem,7vw,5.5rem) 0 clamp(1.5rem,3vw,2.25rem) !important;
 }
 .rm-art-chip{ margin:0 0 1.3rem !important; }
 .rm-art-chip a{
@@ -52,7 +52,10 @@
   content:""; display:block; width:96px; height:6px; border-radius:6px; margin-top:1.4rem;
   background:linear-gradient(90deg,var(--art-cyan),var(--art-pink));
 }
-.rm-art-meta{ display:flex !important; flex-wrap:wrap; gap:.4rem .9rem !important; align-items:center !important; }
+/* The constrained layout centres children with auto margins; the header is left-aligned. */
+.rm-art-hero > *{ margin-inline:0 !important; max-width:none; }
+.rm-art-hero > .rm-art-title{ max-width:20ch; }
+.rm-art-meta{ display:flex !important; flex-wrap:wrap; justify-content:flex-start !important; gap:.4rem .9rem !important; align-items:center !important; margin:0 !important; }
 .rm-art-meta__logo img{ width:38px !important; height:38px !important; border-radius:50%; object-fit:contain; background:var(--wp--preset--color--card); padding:5px; border:1px solid var(--rm-line); }
 .rm-art-meta__by{ margin:0 !important; font-size:.9rem; font-weight:800; color:var(--art-ink); }
 .rm-art-date{ margin:0 !important; display:flex; align-items:center; flex-wrap:wrap; gap:.6rem; font-size:.82rem !important; color:var(--rm-ink-70) !important; text-transform:none !important; letter-spacing:.02em !important; }
@@ -60,7 +63,7 @@
 .rm-art-read{ display:inline-flex; align-items:center; gap:.4rem; padding:.2rem .65rem; border-radius:999px; font-weight:700; font-size:.76rem; background:color-mix(in srgb,var(--art-cyan) 16%,transparent); color:var(--art-ink); }
 
 /* ---- Cover image ---- */
-.rm-art-cover{ max-width:1120px; margin:0 auto clamp(2rem,5vw,3.5rem) !important; padding-inline:clamp(1.25rem,4vw,2rem); }
+.rm-art-cover{ width:min(1120px,calc(100% - 2*clamp(1.25rem,4vw,2rem))) !important; max-width:none !important; margin:0 auto clamp(2rem,5vw,3.5rem) !important; padding:0 !important; }
 .rm-art-cover img{
   display:block; width:100%; height:auto; aspect-ratio:21/9; object-fit:cover; border-radius:24px;
   box-shadow:0 40px 90px -40px color-mix(in srgb,var(--art-pink) 60%,transparent), 0 20px 40px -24px rgba(0,0,0,.45);
@@ -69,7 +72,7 @@
 /* ---- Layout: contents rail + reading column ---- */
 .rm-art-layout{
   display:grid !important; grid-template-columns:230px minmax(0,720px); gap:clamp(2rem,5vw,4.5rem);
-  justify-content:start; max-width:1120px; margin-inline:auto !important; padding-inline:clamp(1.25rem,4vw,2rem);
+  justify-content:start; width:min(1120px,calc(100% - 2*clamp(1.25rem,4vw,2rem))); margin-inline:auto !important; padding:0 !important;
   align-items:start;
 }
 .rm-art-layout > *{ margin:0 !important; max-width:none !important; }
@@ -167,7 +170,7 @@
 .rm-art-body .rm-post__tags a{ display:inline-block; margin:0 .3rem .4rem 0; padding:.3rem .8rem !important; min-height:0 !important; border-radius:999px; text-decoration:none; color:var(--rm-ink-70); background:color-mix(in srgb,var(--art-cyan) 12%,transparent); }
 
 /* ---- Related ---- */
-.rm-art-related{ max-width:1120px; margin:clamp(3rem,7vw,5.5rem) auto 0 !important; padding-inline:clamp(1.25rem,4vw,2rem); }
+.rm-art-related{ width:min(1120px,calc(100% - 2*clamp(1.25rem,4vw,2rem))) !important; max-width:none !important; margin:clamp(3rem,7vw,5.5rem) auto 0 !important; padding:0 !important; }
 .rm-art-related__title{
   margin:0 0 1.6rem !important; font-size:clamp(1.8rem,3vw + .8rem,2.6rem) !important; font-weight:800 !important; text-transform:none !important; letter-spacing:-.01em !important;
 }
@@ -190,7 +193,7 @@
 }
 @media (max-width:640px){
   .rm-art-cover img{ aspect-ratio:16/10; border-radius:16px; }
-  .rm-art-title{ max-width:none; }
+  .rm-art-hero > .rm-art-title{ max-width:none; }
   .rm-art-body .rm-post__content > p:first-of-type{ padding-left:1.1rem; }
 }
 @media (prefers-reduced-motion:reduce){

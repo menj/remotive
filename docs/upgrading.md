@@ -62,6 +62,10 @@ WordPress site yet; this list is how to find out.
 - If an older generation of the generic graphics is still on an article, set its
   featured image in the editor.
 
+## v1.115.0: longer articles
+
+- The seven seeded articles grow to 1,100 to 1,500 words on the first load after upload. Text you edited is kept; the new sections only replace text that still matches the earlier seed.
+
 ## v1.114.0: article page and Rank Math fields
 
 - Open an article: the new header, contents list, progress bar, share row and "Keep reading" cards. If you use a page cache or minifier, clear it so `assets/css/article.css` and `assets/js/article.js` load.

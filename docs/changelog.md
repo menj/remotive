@@ -4,6 +4,18 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.115.0] — 2026-10-07
+
+### Changed
+
+- **The seven seeded articles are now 1,100 to 1,470 words** (they were 607 to 671). Each keeps its original sections and gains new ones before the closing call to action: a pre-launch checklist and common mistakes (SEO friendly web design), a line-by-line proposal reading and landing-page section (SEM services), campaign structure, local creative and reporting (Facebook advertising Malaysia), a scorecard and reference calls (choosing an SEO agency), SEO vs SEM by business type and how to measure both, what an SEO cost should include and the costs outside the retainer, multilingual and local pricing (SEO services pricing in Malaysia), and a short FAQ in each. No new statistics were added; the new text is process, checklists and judgement, and the existing figures and case results are unchanged. The focus keyword density stays between 0.88% and 1.16%.
+- Headings are now canonical block markup (`<h2 class="wp-block-heading">`), lists are `core/list` blocks, and sub-questions are `h3` blocks, so the editor opens every article as valid blocks.
+- `tests/check-article-seo.php` (86 checks) now requires 1,000 to 1,500 words and accepts lists and h3 headings. The migration (`remotive_refresh_article_seo()`, schema 1.115.0) accepts the text of every earlier version, so a site on 1.113.0 or 1.114.0 is brought up in one step; edited text is never replaced.
+
+### Fixed
+
+- **Article header alignment.** WordPress's constrained layout centred the byline row, leaving a gap between the title and the "Re:Motive Media" line. The header is left-aligned, and the header, cover, body and related posts now share one width and left edge.
+
 ## [1.114.0] — 2026-10-07
 
 ### Changed

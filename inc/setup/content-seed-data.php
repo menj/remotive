@@ -32,7 +32,7 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>Design decisions are ranking decisions</h2>
+<h2 class="wp-block-heading">Design decisions are ranking decisions</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -40,7 +40,7 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>The technical foundation of SEO friendly web design</h2>
+<h2 class="wp-block-heading">The technical foundation of SEO friendly web design</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -48,7 +48,7 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>Structure is strategy</h2>
+<h2 class="wp-block-heading">Structure is strategy</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -56,7 +56,7 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>Design for AI search too</h2>
+<h2 class="wp-block-heading">Design for AI search too</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -64,7 +64,7 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>What to require from your designer</h2>
+<h2 class="wp-block-heading">What to require from your designer</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -72,7 +72,7 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>Who actually owns this at your company</h2>
+<h2 class="wp-block-heading">Who actually owns this at your company</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -80,7 +80,105 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>Already have a site?</h2>
+<h2 class="wp-block-heading">A pre-launch checklist for SEO friendly web design</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Most of the damage in a redesign happens in the last week, when everyone is tired and the launch date is fixed. Run this list on the staging site before it goes live, and treat any failure as a launch blocker rather than a to-do for next month. It is the shortest honest definition of SEO friendly web design we know.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li>Every page that should rank returns a 200 status and carries a self-referencing canonical tag.</li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li>Staging is blocked from search, and the block is removed on launch day. A forgotten noindex tag is the most expensive typo in web design.</li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li>Every old URL that earned traffic or links has a one-to-one 301 redirect to its new equivalent, tested in a crawl, not assumed.</li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li>One h1 per page, headings in order, and no heading used just to make text bigger.</li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li>Titles and meta descriptions are editable per page, and none of them is a template default.</li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li>Primary content is in the HTML the server sends, not assembled later by a script.</li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li>The XML sitemap lists only indexable pages, and robots.txt does not block CSS, JavaScript or images the pages need.</li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li>Images are compressed, sized for their slot, and carry descriptive alt text; the biggest image above the fold is not lazy-loaded.</li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li>Analytics and conversion tracking fire once on the new templates, so the before-and-after comparison is clean.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Common mistakes in SEO friendly web design</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The same handful of mistakes turn up on site after site, and almost none of them are visible to the people who approve the design. A page that looks identical in a browser can behave very differently for a crawler.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Content that only exists after a script runs is the big one. Google can render JavaScript, but rendering is queued and sometimes incomplete, and other search and AI crawlers may not run it at all. If the words that make your case are loaded late, you are betting your visibility on a second step that does not always happen. Infinite scroll without paginated URLs is a cousin of the same problem: the products or articles past the first screen have no address a crawler can reach.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Next come the self-inflicted wounds. Hero sliders that push the main image past the point where the page loads quickly. Pop-ups that cover the content the moment a visitor arrives. Menus built as images. Fonts that hide text until they download. Redirect chains left over from three redesigns ago, each hop costing speed and a little authority. None of these is exotic, and each one is cheaper to prevent in a brief than to remove from a live site.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>The last mistake is organisational rather than technical: treating SEO friendly web design as a final-week review instead of a requirement from the first wireframe. By the time a crawl finds the problems, the layout is signed off and every fix is a negotiation.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Page builders, themes and SEO friendly web design</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>People often ask whether a page builder can be search friendly. It can, but the default settings rarely are. A builder tends to wrap simple content in deep layers of markup and load its full script and style bundle on every page, which costs speed. A lightweight theme with a handful of well-built templates usually beats a heavy one with unlimited layout options. A custom build gives the most control and the most ways to get it wrong, because nothing is handled for you.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Whichever route you take, judge it on output, not on promises. Load a real page, view the source, and check that the headings, links and text are there without running anything. Run it through a speed test on a mid-range phone, not the designer\'s laptop. The platform matters far less than the discipline of the people configuring it.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Questions we hear about SEO friendly web design</h2>
+<!-- /wp:heading -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Does it cost more?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Done at the start, barely at all: the work is mostly decisions about structure, templates and what ships in the HTML. Added after launch it costs a lot more, because it means reworking things that were already approved and paid for.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">How long before it shows in rankings?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>After a launch or rebuild, expect weeks before search engines recrawl and settle, and months before the full effect is visible. Faster, cleaner pages help straight away for visitors; ranking changes follow more slowly and depend on the content and competition as well as the build.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Can we fix an existing site instead of rebuilding?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Often, yes. Retrofitting SEO friendly web design starts with a crawl and an audit, which will show whether the problems are in a handful of templates, which can be repaired, or in the foundation, which usually cannot. Many sites need a repair, not a rebuild.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Already have a site?</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -103,7 +201,7 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>What Singapore SEM services actually include</h2>
+<h2 class="wp-block-heading">What Singapore SEM services actually include</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -111,7 +209,7 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>What clicks cost in Singapore</h2>
+<h2 class="wp-block-heading">What clicks cost in Singapore</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -119,7 +217,7 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>What a proposal should specify in writing</h2>
+<h2 class="wp-block-heading">What a proposal should specify in writing</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -127,7 +225,7 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>How SEM management is priced</h2>
+<h2 class="wp-block-heading">How SEM management is priced</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -135,7 +233,7 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>SEM or SEO?</h2>
+<h2 class="wp-block-heading">SEM or SEO?</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -143,7 +241,81 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>Measuring it honestly</h2>
+<h2 class="wp-block-heading">How to read a proposal for SEM services line by line</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>A proposal for SEM services should read like a work plan, not a brochure. Take it apart line by line and ask what each item actually produces. &ldquo;Keyword research&rdquo; should name the themes and the intent you will target. &ldquo;Ad copy&rdquo; should say how many variants run and how often they are reviewed. &ldquo;Optimisation&rdquo; on its own means nothing; it needs a cadence and an owner.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li><strong>Conversion tracking.</strong> It should be set up and tested before any budget is spent, with the primary conversion defined as a lead or a sale, not a page view.</li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li><strong>Search term review.</strong> Ask how often queries are checked and who adds the negatives. This is where wasted spend is found.</li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li><strong>Reporting.</strong> It should show cost per qualified lead or acquisition, not just clicks and impressions, and it should be explained in plain words.</li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li><strong>Access.</strong> The ad account must be in your name, with the agency as a user. If they own the account, you cannot take your history with you.</li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li><strong>Fees and media.</strong> The management fee and the media budget should be separate lines, and the media should be billed at net cost.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">The landing page is half of any SEM services result</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>You can buy the best clicks in Singapore and still lose them on arrival. Paid traffic is unforgiving: every visitor was paid for, so a slow page, a confusing form or a message that does not match the ad turns budget into noise. A good set of SEM services therefore looks past the ad account and asks about the page the ad points to.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>The checks are practical. Does the headline repeat what the searcher typed? Is the next step obvious without scrolling on a phone? Does the form ask for only what you need to follow up? For many Singapore businesses, a click-to-call or WhatsApp button converts better than a long form, so test it. If an agency will not touch the landing page, or you cannot change it, tell them before the campaign starts, because that limit will cap the result.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Signs of a well-run account</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>You do not need to be a specialist to spot a healthy account in a screen-share. Branded and generic searches should sit in separate campaigns so you can see what each is really worth. The search term report should show negative keywords being added regularly. Conversions should be counted once, from a source you trust, and budget should follow the campaigns that produce them. If an agency running your SEM services cannot show these three things in the first call, the account is probably being run on defaults.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Questions about SEM services in Singapore</h2>
+<!-- /wp:heading -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Is SEM the same as Google Ads?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Google Ads is the main platform, so the two are often used as one word. SEM is the wider practice of buying search visibility, and it can include Microsoft Advertising and other search platforms, though Google carries most of the volume in Singapore.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">How long before we know it is working?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>You will see clicks and enquiries within days, but a fair judgement takes longer. Automated bidding needs a steady flow of conversions to learn, so give each change a few weeks before drawing conclusions, and judge by cost per qualified lead over that period rather than by any single day.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">How much should we spend?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Enough to buy a meaningful number of conversions each month at your real cost per click. If the budget only buys a handful of clicks, you will not learn anything useful. Work backwards from the number of leads you need and what a qualified lead is worth to you, and let that set the budget.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Measuring it honestly</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -166,7 +338,7 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>Facebook advertising Malaysia: what it costs</h2>
+<h2 class="wp-block-heading">Facebook advertising Malaysia: what it costs</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -174,7 +346,7 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>Targeting that actually works here</h2>
+<h2 class="wp-block-heading">Targeting that actually works here</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -182,7 +354,7 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>Creative decides the outcome</h2>
+<h2 class="wp-block-heading">Creative decides the outcome</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -190,7 +362,7 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>One honest caveat</h2>
+<h2 class="wp-block-heading">One honest caveat</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -198,7 +370,7 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>Measurement, or it didn\'t happen</h2>
+<h2 class="wp-block-heading">Measurement, or it didn\'t happen</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -206,7 +378,82 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>When to bring in a specialist</h2>
+<h2 class="wp-block-heading">Campaign structure for Facebook advertising Malaysia accounts</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Simple structures win, especially at modest budgets. Meta&rsquo;s delivery system learns from conversions, and every extra campaign and ad set divides that learning into smaller pieces. For most Malaysian advertisers, one prospecting campaign, one retargeting campaign and a small testing budget is plenty. Add structure only when spend and data volume justify it.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Pick the objective that matches the result you actually want. If the goal is leads or sales, optimise for leads or sales, even though clicks are cheaper. An account optimised for clicks collects cheap visitors who do not buy, and the reports look healthy while the business does not grow.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Offers and creative that fit Malaysia</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Facebook advertising Malaysia works best when the message sounds local. Show prices in ringgit, write in the language your buyer uses at home, and use images of people and places your audience recognises. Stock photography that could be anywhere reads as an advertisement, and people scroll past.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>The calendar matters too. Hari Raya, Chinese New Year, Deepavali, school holidays and the big sale days all change what people buy and how much they will pay for attention. Plan creative and budget around them well ahead, because competitors bid up the same audiences just before each one.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Finally, make the next step match how Malaysians actually buy. For many businesses that means a WhatsApp conversation, not a checkout. Use click-to-WhatsApp ads or a clear button, answer quickly, and track those chats as conversions, or you will undercount your results.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Rules, trust and what not to claim</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Meta reviews ads against its advertising policies, and health, finance and before-and-after claims attract the closest scrutiny. Certain categories, such as credit, housing and employment, face extra limits on targeting. Read the policies before you brief the creative; an ad rejected on launch day wastes the week you planned around. Claims that you cannot support also damage trust, and trust is what turns a cheap click into a customer.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">What good Facebook advertising Malaysia reporting looks like</h2>
+<!-- /wp:heading -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li>Cost per lead or purchase, tied to your own records, not just the figure the platform reports.</li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li>Results by creative, so you can see which hook and format earn their budget.</li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li>Frequency and audience size, so you know when an audience is worn out.</li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li>A short note each month on what was tested, what won and what happens next.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Questions about Facebook advertising Malaysia</h2>
+<!-- /wp:heading -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Should we advertise on Facebook or TikTok?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>It depends on who you sell to and what you can make. Start where your buyers already spend time, test a second platform with a small budget, and let your own cost per result decide. Do not move all your spend on a trend.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Do we need Instagram too?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Facebook advertising Malaysia campaigns run across Facebook and Instagram from the same Meta account, so you can test both placements without a second set-up. Check the results by placement and keep the ones that earn their place.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">When to bring in a specialist</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -233,7 +480,7 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>Demand a real audit before you sign</h2>
+<h2 class="wp-block-heading">Demand a real audit before you sign</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -241,7 +488,7 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>Interrogate the reporting</h2>
+<h2 class="wp-block-heading">Interrogate the reporting</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -249,7 +496,7 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>Ask who at the SEO agency does the work</h2>
+<h2 class="wp-block-heading">Ask who at the SEO agency does the work</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -257,7 +504,7 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>Expect evidence with numbers</h2>
+<h2 class="wp-block-heading">Expect evidence with numbers</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -265,7 +512,7 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>Red flags that end the meeting</h2>
+<h2 class="wp-block-heading">Red flags that end the meeting</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -273,7 +520,7 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>What happens after the contract is signed</h2>
+<h2 class="wp-block-heading">What happens after the contract is signed</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -281,7 +528,88 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>Then compare pricing knowing the market</h2>
+<h2 class="wp-block-heading">A simple scorecard for comparing each SEO agency</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>When you have two or three proposals side by side, memory and charm will decide for you unless you write the criteria down first. Score every SEO agency against the same short list, and weight the items by what matters to your business.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li><strong>Diagnosis.</strong> Did they find real problems on your site before you signed?</li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li><strong>Plan.</strong> Is the first ninety days specific, with named deliverables and owners?</li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li><strong>Reporting.</strong> Does it tie organic work to leads or revenue?</li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li><strong>People.</strong> Do you know who does the work, and how many accounts they carry?</li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li><strong>Evidence.</strong> Are the case studies dated, measured and honest about what was and was not typical?</li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li><strong>Terms.</strong> Is the contract clear on length, exit, ownership and costs?</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>A scorecard will not make the decision for you, but it stops the loudest pitch from winning by default.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Talk to the agency&rsquo;s past clients</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Any SEO agency can supply references, so ask for one that is similar to you in size and market, and one that has left. Ask what changed in the first six months, how the agency handled a bad month, and whether the reports were understandable. Ask what they would do differently. People are usually candid when the question is concrete, and the answers tell you more than the proposal does.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Keep ownership of your own accounts</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Whatever the agency does, the assets should stay yours: the website and its hosting, the analytics property, Search Console, the Google Business Profile and any content produced for you. Insist on being the owner and giving the agency access, not the reverse. If a relationship ends, you should be able to walk away with your data and your history intact.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">In-house or SEO agency?</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>A strong in-house marketer can handle content and basic on-page work. Technical audits, large migrations and link-building usually need a depth of experience that one hire cannot cover. A common middle path is to keep day-to-day content in-house and use an SEO agency for strategy, technical work and measurement.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Whichever way you lean, give the first quarter a clear brief and a simple review date. A good SEO agency welcomes a written plan and a scheduled check-in, because it makes the work easier to defend. One that avoids both is telling you something about how the rest of the engagement will go.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Questions about choosing an SEO agency</h2>
+<!-- /wp:heading -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">How long before SEO shows results?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Expect a few months before movement is clear, and longer in competitive categories. Anyone promising a fixed date for first-page rankings is guessing, or selling something other than honest SEO.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Is a cheaper local agency fine?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>It can be, if the scope fits and the work is real. The test is the same at any price: what is done each month, by whom, and how is it measured. Cheap is a risk only when it replaces those answers.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Then compare pricing knowing the market</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -304,7 +632,7 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>What each one actually is</h2>
+<h2 class="wp-block-heading">What each one actually is</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -312,7 +640,7 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>SEO vs SEM on cost</h2>
+<h2 class="wp-block-heading">SEO vs SEM on cost</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -320,7 +648,7 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>SEO vs SEM on speed and durability</h2>
+<h2 class="wp-block-heading">SEO vs SEM on speed and durability</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -328,7 +656,7 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>The sequencing rule we actually use</h2>
+<h2 class="wp-block-heading">The sequencing rule we actually use</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -336,7 +664,7 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>Where SEM data feeds SEO</h2>
+<h2 class="wp-block-heading">Where SEM data feeds SEO</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -344,7 +672,78 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>What this means for your budget</h2>
+<h2 class="wp-block-heading">SEO vs SEM by type of business</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The right balance in the SEO vs SEM decision changes with the business, so here is how we usually think about four common cases.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li><strong>A local service business</strong> with urgent, high-intent searches usually starts with SEM for fast leads, and builds local SEO and reviews underneath for the long term.</li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li><strong>An e-commerce store</strong> tends to run SEM on its best products and shopping feeds while SEO builds category and guide pages that compound.</li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li><strong>A B2B company with a long sales cycle</strong> often gets more from SEO content that earns trust over months, with SEM reserved for the few terms that clearly signal buying intent.</li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li><strong>A brand-new site</strong> has no authority yet, so SEM supplies traffic and data while SEO is laid down properly from day one.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Mistakes in the SEO vs SEM choice</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The first mistake is judging SEO on a timescale that suits SEM. Organic work takes months, and a campaign that is cancelled in the third month never gets to pay back. The second is the reverse: expecting SEM to keep delivering after the budget stops. Neither channel is at fault; the timing was wrong.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>A quieter mistake is paying for clicks you would have got anyway. If you already rank first organically for your brand name, bidding on it may add little, though it can still protect you from competitors who bid on your name. Test it rather than assuming either way. Equally, treating SEO vs SEM as a rivalry between two teams leads to duplicated work and missed insight, because each channel has something the other needs.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">How to measure SEO and SEM together</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Use one set of conversions for both channels, so a lead counts the same wherever it came from. Separate brand searches from non-brand searches, because brand traffic mostly reflects awareness you built elsewhere, while non-brand traffic shows how well you are winning new demand. Then compare cost per qualified lead across the two, and look at how they assist each other: paid clicks that later convert through organic search, and the reverse.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Review the figures monthly, but make decisions quarterly. In any honest SEO vs SEM comparison, a single month is noise, and reacting to it is how budgets get whipsawed.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>A practical way to settle the SEO vs SEM argument inside a company is to agree the numbers in advance: the cost per qualified lead you can accept, the date you will review it, and the point at which budget moves from one channel to the other. Decisions made against agreed numbers are calmer than decisions made in the heat of a bad month.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Questions about SEO vs SEM</h2>
+<!-- /wp:heading -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Which is better for a small budget?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>If you need customers this quarter and your margins can bear the click costs, SEM. If you can wait and your market is not dominated by large players, SEO gives a lower cost per visit later. Many small businesses do a modest amount of both.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Can we stop SEM once SEO ranks?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Sometimes, for some terms. Check what the paid campaign still contributes before switching it off, and reduce it gradually so you can see what the organic results really cover.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">What this means for your budget</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -367,7 +766,7 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>What SEO cost in Singapore actually looks like</h2>
+<h2 class="wp-block-heading">What SEO cost in Singapore actually looks like</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -375,7 +774,7 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>What actually drives the price</h2>
+<h2 class="wp-block-heading">What actually drives the price</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -383,7 +782,7 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>What cheap SEO actually buys</h2>
+<h2 class="wp-block-heading">What cheap SEO actually buys</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -391,7 +790,7 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>Retainer, project, or performance pricing</h2>
+<h2 class="wp-block-heading">Retainer, project, or performance pricing</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -399,7 +798,81 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>How to pressure-test any quote</h2>
+<h2 class="wp-block-heading">What your SEO cost should include each month</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>A retainer is only fair if you can say what it buys. Whatever the SEO cost, the monthly scope should be written down and should read like a work plan, not a promise. A typical programme covers some combination of the following.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li>Technical work: fixing crawl, speed and structure problems found in the audit.</li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li>Content: new pages and updates aimed at the keywords the price was scoped against.</li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li>On-page work: titles, headings, internal links and schema on the pages that matter.</li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li>Authority: earning links and mentions through real outreach and useful content.</li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li>Reporting: a plain-language summary of results, learnings and next steps.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>Ask which of these are included, which cost extra, and how the balance shifts from month to month. Early months are usually technical and planning heavy; later months lean toward content and authority.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Costs outside the retainer</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The headline SEO cost is rarely the whole bill. Budget for the things a retainer often leaves out: developer time to implement technical fixes, writers or subject experts for content that needs real expertise, design for pages that need to convert, and tools if you are asked to pay for them. None of these is a trick, but all of them should be on the table before you sign, not discovered in month three.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>One cost to refuse is buying links. Paying for links to influence rankings goes against Google&rsquo;s spam policies and can lead to penalties that cost far more to fix than the links were worth. Earned links and genuine outreach are different, and a good agency can explain exactly how theirs are earned.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Getting value from a smaller SEO cost</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>A small budget can still work if it is aimed well. Start with the pages closest to revenue: the services, products and locations people search for when they are ready to buy. Fix the technical basics, make those pages genuinely useful and well linked, and add content slowly after that. Spreading a small SEO cost thinly across a blog, a directory push and a dozen tactics usually produces little of each.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Finally, ask how the SEO cost is reviewed. A good agency will revisit scope every few months, shift effort to what is working, and tell you when a task is no longer worth paying for. A retainer that never changes, whatever the results, is a sign nobody is steering.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Questions about SEO cost in Singapore</h2>
+<!-- /wp:heading -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Why do quotes vary so much?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Because the scope behind them varies. Two quotes with the same number can describe very different work, and the same work can be priced differently depending on who does it and how much they carry. Compare scope first, price second.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Is a one-off project cheaper than a retainer?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>For bounded work like an audit or a migration, yes. For results that depend on steady effort, such as content and authority, a retainer is usually the more honest structure.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">How to pressure-test any quote</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -422,7 +895,7 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>SEO services pricing in Malaysia: the ranges</h2>
+<h2 class="wp-block-heading">SEO services pricing in Malaysia: the ranges</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -430,7 +903,7 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>Why Malaysia prices differ from Singapore</h2>
+<h2 class="wp-block-heading">Why Malaysia prices differ from Singapore</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -438,7 +911,7 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>What moves the number here specifically</h2>
+<h2 class="wp-block-heading">What moves the number here specifically</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -446,7 +919,7 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>The models you\'ll be offered</h2>
+<h2 class="wp-block-heading">The models you\'ll be offered</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -454,7 +927,82 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>Questions that expose a guessed quote</h2>
+<h2 class="wp-block-heading">Pricing multilingual SEO services in Malaysia</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Malaysia is a multilingual market, and SEO services pricing should reflect it. Targeting English, Bahasa Malaysia and Chinese searchers means separate keyword research for each, since people search differently in each language and the same idea is rarely a direct translation. It also means content written by someone fluent in the language, not run through a translation tool, and technical setup so each version points to the right audience.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Ask any agency how it handles this. A good answer names the languages, who writes in them, and how the pages are connected. A vague answer suggests the extra scope has been left out of the price, or will be added later.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Local SEO and SEO services pricing for multi-location businesses</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>If customers find you by searching near them, local work belongs in the plan: a complete and accurate Google Business Profile, consistent business details across the web, reviews you ask for and answer, and pages for each location with something useful on them. Each extra branch adds work, which is why SEO services pricing climbs with the number of locations. Ask whether a quote covers one location or all of them.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">What to budget beyond the retainer</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The retainer is usually only part of the spend. Plan for the cost of getting technical fixes built on your site, for content that needs expertise from your own team, and for design where a page has to persuade as well as rank. If your site sits on an older builder, remediation can take real hours at the start, so ask for an estimate once the site has been crawled.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">How to compare quotes fairly</h2>
+<!-- /wp:heading -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li>Put each quote into the same table: languages, locations, deliverables per month, reporting and contract length.</li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li>Mark anything one agency includes and another leaves out.</li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li>Ask each agency to price the same small set of target keywords.</li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li>Compare the cost of the first three months, not just the monthly headline.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>Done this way, SEO services pricing from different agencies becomes comparable, and the differences point at real choices rather than at presentation.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Contract terms deserve the same scrutiny as the monthly figure. Look for a clear minimum period, a sensible notice period, and a plain statement of who owns the content and the accounts at the end. Honest SEO services pricing tends to come with honest terms, because an agency confident in its work has no need to trap you in it.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Questions about SEO services pricing in Malaysia</h2>
+<!-- /wp:heading -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Is SEO in Malaysia cheaper than in Singapore?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Generally the ranges are lower, because labour costs are. The work is the same, though, so a quote far below the local range still deserves a question about what is being left out.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Should we pay per keyword?</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Usually not. Per-keyword pricing rewards easy terms that few people search for. Pricing against a scoped plan and measuring on leads and revenue lines up better with what you want.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Questions that expose a guessed quote</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->

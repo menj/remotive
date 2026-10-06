@@ -4,7 +4,7 @@ Tags: block-theme, full-site-editing, child-theme, one-page
 Requires at least: 6.7
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.114.0
+Stable tag: 1.115.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -336,9 +336,13 @@ floor, not a replacement.
 
 == Changelog ==
 
-See `docs/changelog.md` for full version history. Latest version: 1.114.0.
+See `docs/changelog.md` for full version history. Latest version: 1.115.0.
 
 == Upgrade Notice ==
+
+= 1.115.0 =
+* Changed: the seven seeded articles are now 1,100 to 1,500 words, with checklists, common mistakes, comparisons and an FAQ in each. Existing sites are updated once, and only text that still matches the earlier seed is replaced.
+* Fixed: the article header (byline row) was centred instead of left-aligned with the title, and the header, cover image and body now share one edge.
 
 = 1.114.0 =
 * Changed: the article page is redesigned for reading. A large header with a gradient accent, a lede paragraph, numbered section headings, a sticky contents list with a free-audit card, a reading-progress bar, share buttons and related posts.
