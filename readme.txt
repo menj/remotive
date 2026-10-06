@@ -4,7 +4,7 @@ Tags: block-theme, full-site-editing, child-theme, one-page
 Requires at least: 6.7
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.115.0
+Stable tag: 1.115.1
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -336,9 +336,12 @@ floor, not a replacement.
 
 == Changelog ==
 
-See `docs/changelog.md` for full version history. Latest version: 1.115.0.
+See `docs/changelog.md` for full version history. Latest version: 1.115.1.
 
 == Upgrade Notice ==
+
+= 1.115.1 =
+* Fixed: in Theme Options, the Team list was squeezed into the label column, leaving the Name and Role fields a few pixels wide. It now spans the full width, with Name, Role and Photo slug on one row.
 
 = 1.115.0 =
 * Changed: the seven seeded articles are now 1,100 to 1,500 words, with checklists, common mistakes, comparisons and an FAQ in each. Existing sites are updated once, and only text that still matches the earlier seed is replaced.

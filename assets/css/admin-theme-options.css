@@ -230,22 +230,31 @@
 .rm-setup-pill--missing{ background:#fde5e5; color:#8a1f1f; }
 
 
-/* ---- Team repeater ---- */
+/* ---- Team repeater ----
+   The repeater has no label, so it sits alone in a .rm-admin__row, whose grid
+   is a 260px label column plus the field. Left in the first track it was
+   squeezed into the label column and the Name and Role inputs collapsed to a
+   few pixels wide. It now spans the whole row. */
+.rm-admin__row > .rm-admin__team{ grid-column:1 / -1; min-width:0; }
 .rm-admin__team-row{
-  display:grid; grid-template-columns:1fr 1fr 160px auto; gap:12px 16px;
-  align-items:end; border:1px solid #e0e0e0; border-radius:6px;
-  padding:14px 16px; margin:0 0 12px; background:#fff;
+  display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px 18px; align-items:start;
+  min-width:0; margin:0 0 14px; padding:18px 20px;
+  border:1px solid var(--rm-admin-border,#e0e0e0); border-radius:10px; background:#fff;
 }
-.rm-admin__team-row label{ display:flex; flex-direction:column; gap:4px; font-weight:600; font-size:12px; }
-.rm-admin__team-row input,
-.rm-admin__team-row textarea{ width:100%; }
-.rm-admin__team-bio{ grid-column:1 / -2; }
-.rm-admin__team-lead{ grid-column:1 / -2; flex-direction:row !important; align-items:center; gap:8px !important; }
+.rm-admin__team-row label{ display:flex; flex-direction:column; gap:6px; min-width:0; font-weight:600; font-size:12px; color:var(--rm-admin-ink,#1e1e1e); }
+.rm-admin__team-row input[type="text"],
+.rm-admin__team-row textarea{ width:100%; max-width:none; }
+.rm-admin__team-bio{ grid-column:1 / -1; }
+.rm-admin__team-lead{ grid-column:1 / span 2; flex-direction:row !important; align-items:center; gap:8px !important; font-weight:500 !important; }
 .rm-admin__team-lead input{ width:auto !important; }
-.rm-admin__team-remove{ justify-self:end; align-self:center; grid-column:-2 / -1; grid-row:1 / span 2; }
+.rm-admin__team-remove{ grid-column:3; justify-self:end; align-self:center; }
+@media (max-width:1100px){
+  .rm-admin__team-row{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .rm-admin__team-lead{ grid-column:1 / -1; }
+  .rm-admin__team-remove{ grid-column:1 / -1; justify-self:start; }
+}
 @media (max-width:782px){
   .rm-admin__team-row{ grid-template-columns:1fr; }
-  .rm-admin__team-bio, .rm-admin__team-lead, .rm-admin__team-remove{ grid-column:auto; grid-row:auto; justify-self:start; }
 }
 
 /* ---- Shipped content list on small screens (v1.49.0) ----
