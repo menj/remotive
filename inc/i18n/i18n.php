@@ -287,16 +287,51 @@ function remotive_i18n_default_live_pages() {
 	// studies and the individual articles too, so no page is left English-only.
 	foreach ( array( 'ms', 'zh-hans', 'zh-hant' ) as $code ) {
 		foreach ( array_keys( remotive_i18n_data( $code )['seo'] ) as $key ) {
-			if ( 0 !== strpos( (string) $key, '__' ) ) {
+			if ( 0 !== strpos( (string) $key, '__' ) && ! remotive_i18n_is_english_only( (string) $key ) ) {
 				$pages[] = (string) $key;
 			}
 		}
 	}
 
+	$pages = array_filter( $pages, function ( $key ) {
+		return ! remotive_i18n_is_english_only( (string) $key ); // Insights stays English only.
+	} );
+
 	return array_values( array_unique( array_map( 'strval', (array) apply_filters( 'remotive_i18n_live_pages', $pages ) ) ) );
 }
 
 /** Does this page (an English path such as 'team', '' for home) exist in this language? */
+/**
+ * Is this page in the Insights section, which is English only?
+ *
+ * Insights (the posts page and every article) is not translated: no /ms/,
+ * /zh-hans/ or /zh-hant/ versions, no language links, no hreflang and no entry in
+ * the language sitemap. A translated address for it redirects to the English page.
+ * Matches the posts page (whatever its slug), anything under it, and the dated
+ * article addresses (2026/09/slug). Filterable, for a site that wants a different line.
+ *
+ * @param string|null $key English path of the page ('' is the home page).
+ * @return bool
+ */
+function remotive_i18n_is_english_only( $key ) {
+	$key = null === $key ? '' : trim( (string) $key, '/' );
+	$only = false;
+
+	if ( '' !== $key ) {
+		$posts_page = (int) get_option( 'page_for_posts' );
+		$base       = $posts_page ? trim( (string) wp_parse_url( (string) get_permalink( $posts_page ), PHP_URL_PATH ), '/' ) : 'blog';
+		$base       = '' === $base ? 'blog' : $base;
+		$only       = $key === $base || 0 === strpos( $key, $base . '/' ) || 1 === preg_match( '#^\d{4}/\d{2}/#', $key );
+	}
+
+	return (bool) apply_filters( 'remotive_i18n_english_only', $only, $key );
+}
+
+/** Is the request an Insights page (the posts page, an article, or a post archive)? */
+function remotive_i18n_is_insights_request() {
+	return ( is_home() && ! is_front_page() ) || is_singular( 'post' ) || is_category() || is_tag() || is_author() || is_date();
+}
+
 function remotive_i18n_available( $lang, $key ) {
 	if ( 'en' === $lang ) {
 		return true;
@@ -314,8 +349,8 @@ function remotive_i18n_available( $lang, $key ) {
  * language's master switch (the admin form edits this, not the switch).
  */
 function remotive_i18n_page_live( $lang, $key ) {
-	if ( null === $key ) {
-		return false;
+	if ( null === $key || remotive_i18n_is_english_only( $key ) ) {
+		return false; // No such page, or an Insights page: English only.
 	}
 
 	$data = remotive_i18n_data( $lang );
@@ -634,8 +669,8 @@ function remotive_i18n_english_url() {
  * the request was rewritten to.
  */
 function remotive_i18n_render_switcher( $compact = false ) {
-	if ( ! remotive_i18n_switcher_enabled( $compact ? 'nav' : 'footer' ) ) {
-		return '';
+	if ( ! remotive_i18n_switcher_enabled( $compact ? 'nav' : 'footer' ) || remotive_i18n_is_insights_request() ) {
+		return ''; // Insights is English only: no language links on it.
 	}
 
 	$langs   = remotive_i18n_languages();

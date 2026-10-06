@@ -95,12 +95,12 @@ function remotive_seed_attach_image( $post_id, $file, $alt ) {
 		return;
 	}
 
-	// Copy the AVIF companion alongside the PNG under the same basename.
+	// Copy the AVIF companion alongside the PNG or JPEG under the same basename.
 	// Nothing references it directly: inc/core/avif.php looks for exactly this
 	// sibling when it wraps an image tag, so the attachment stays an
 	// ordinary PNG for every plugin and export that reads it.
-	$source_avif = preg_replace( '/\.png$/i', '.avif', $source );
-	$target_avif = preg_replace( '/\.png$/i', '.avif', $target );
+	$source_avif = preg_replace( '/\.(png|jpe?g)$/i', '.avif', $source );
+	$target_avif = preg_replace( '/\.(png|jpe?g)$/i', '.avif', $target );
 
 	if ( $source_avif !== $source && is_readable( $source_avif ) ) {
 		copy( $source_avif, $target_avif );
@@ -108,7 +108,7 @@ function remotive_seed_attach_image( $post_id, $file, $alt ) {
 
 	$attachment_id = wp_insert_attachment(
 		array(
-			'post_mime_type' => 'image/png',
+			'post_mime_type' => preg_match( '/\.png$/i', $file ) ? 'image/png' : 'image/jpeg',
 			'post_title'     => sanitize_file_name( pathinfo( $file, PATHINFO_FILENAME ) ),
 			'post_status'    => 'inherit',
 		),

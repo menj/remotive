@@ -67,6 +67,13 @@ location ~* \.(css|js|woff2|avif|webp|png|jpe?g|svg|ico)$ {
 
 ## Notes
 
+- **Landing pages (from v1.110.0): keep them out of any page cache.** A click from
+  a page of the main site is turned back by PHP (`remotive_lp_guard_internal_entry()`),
+  and the noindex choice comes from Rank Math. A cache that serves
+  `/seo-audit/`, `/google-ads-management/`, `/paid-social-advertising/` (and the
+  `/ms/`, `/zh-hans/`, `/zh-hant/` versions and `/audit-requested/`) before WordPress
+  runs skips both. Static files (CSS, JS, fonts, images) cache as usual.
+
 - `immutable` tells the browser not to revalidate on reload. It is correct
   here only because every URL carries a version; do not apply it to files
   served without one.

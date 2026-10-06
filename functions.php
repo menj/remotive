@@ -37,6 +37,7 @@ require get_stylesheet_directory() . '/inc/setup/content-seed.php';
 require get_stylesheet_directory() . '/inc/content/feature-grids.php';
 require get_stylesheet_directory() . '/inc/forms/thank-you.php';
 require get_stylesheet_directory() . '/inc/content/stats-band.php';
+require get_stylesheet_directory() . '/inc/content/post-image-fallback.php';
 require get_stylesheet_directory() . '/inc/content/webmcp.php';
 require get_stylesheet_directory() . '/inc/core/security.php';
 require get_stylesheet_directory() . '/inc/options/maintenance-mode.php';

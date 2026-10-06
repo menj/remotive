@@ -30,6 +30,18 @@ Case study card photography (`assets/images/case-studies/`, 16:9 crops at 640 an
 | `cs-industrial-supplier` | Industrial supplier case study | Pexels User | https://www.pexels.com/photo/33369529/ |
 | `cs-healthcare` | Healthcare case study | Ivan Babydov | https://www.pexels.com/photo/7789616/ |
 
+Insights article photography (`assets/seed-images/`, 1200 × 675, JPEG and AVIF), also from Pexels under the same licence:
+
+| File stem | Used for | Photographer | Pexels photo |
+|---|---|---|---|
+| `seo-friendly-web-design` | SEO-friendly web design article | Tranmautritam | https://www.pexels.com/photo/69432/ |
+| `sem-services-singapore` | SEM services in Singapore article | Dylan Chan | https://www.pexels.com/photo/5097071/ |
+| `facebook-advertising-malaysia` | Facebook advertising in Malaysia article | Sanket  Mishra | https://www.pexels.com/photo/16229745/ |
+| `how-to-choose-an-seo-agency` | Choosing an SEO agency article | Jakub Zerdzicki | https://www.pexels.com/photo/37116245/ |
+| `seo-vs-sem` | SEO vs SEM article | weCare Media | https://www.pexels.com/photo/10020092/ |
+| `seo-cost-singapore` | SEO cost in Singapore article | Tara Winstead | https://www.pexels.com/photo/7111496/ |
+| `seo-services-pricing-malaysia` | SEO pricing in Malaysia article | Indra Gunawan | https://www.pexels.com/photo/9133095/ |
+
 Do not use these photos in a way that implies the photographers endorse the
 business, and keep any identifiable people out of misleading contexts (Pexels
 License terms).

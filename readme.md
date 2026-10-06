@@ -143,7 +143,9 @@ remotive/
 │       │                   SEO plugins — see "Structured data" below.
 │       ├── webmcp.php      Public read-only search endpoint and WebMCP.
 │       ├── feature-grids.php   Homepage "problem we solve" and "why Re:Motive" grids.
-│       └── stats-band.php  Homepage three-figure results band.
+│       ├── stats-band.php  Homepage three-figure results band.
+│       └── post-image-fallback.php  A branded gradient for a card whose post
+│                           has no featured image. (v1.111.0)
 ├── templates/            (incl. page-service.html — reusable service
 │                          detail template, v1.29.0: title hero + editable
 │                          content + CTA band; pages ship separately)
@@ -211,8 +213,12 @@ remotive/
     ├── css/admin-theme-options.css  Admin settings page UI (tabs, cards,
     │                       visual selector) — loaded only on that one page.
     ├── js/admin-theme-options.js    Admin tabs: ARIA Tabs pattern, keyboard nav.
-    ├── fonts/               Archivo, Newsreader, Saira, Space Grotesk — self-hosted woff2.
-    └── images/               Brand logo files (landscape mark, square lockup).
+    ├── fonts/               Archivo, Newsreader, Saira, Space Grotesk — self-hosted woff2;
+    │                       kagnue/ (licensed display serif, figures only, v1.109.0).
+    ├── images/               Brand logo files (landscape mark, square lockup);
+    │                       landing/ (ad landing photos) and case-studies/ (the
+    │                       six Case Studies card photos, v1.110.2), both Pexels.
+    └── seed-images/          Insights article photos (JPEG + AVIF, v1.111.0).
 ```
 
 ## WebMCP
@@ -749,7 +755,7 @@ everywhere, landing pages included); the unlisted case studies and the
 articles are off. The brief's one page is a landing page (see `docs/ssot.md`). A page that is off redirects to its
 English address. The ad landing pages carry their own copy for each language and
 opt out of the translator with the `remotive_i18n_translates_request` filter.
-Every translated page (37 per language: the main pages, all fourteen case studies and the individual articles) is live by default; switch one off in Tools → Translations, or narrow the list with the `remotive_i18n_live_pages` filter. Hreflang uses
+Every translated page (29 per language: the main pages and all fourteen case studies) is live by default. Insights (the posts page and the articles) is English only, with no language versions, links, hreflang or sitemap entries (`remotive_i18n_is_english_only()`, v1.112.0); switch one off in Tools → Translations, or narrow the list with the `remotive_i18n_live_pages` filter. Hreflang uses
 language plus script (`zh-Hans`, `zh-Hant`), `ms-MY` for Malay.
 
 ## Security
@@ -1221,7 +1227,7 @@ covers.
 
 ## Fonts
 
-Archivo, Newsreader, Saira, and Space Grotesk are self-hosted as `.woff2` files
+Archivo, Newsreader, Saira, and Space Grotesk are self-hosted as `.woff2` files (plus Kagnue, a licensed one-weight display serif used only for the big figures on the results cards and the Case Studies cards; its plus sign and en dash fall back to Saira through `unicode-range`)
 under
 `assets/fonts/`, declared via `theme.json`'s `fontFace` mechanism
 (`file:./assets/fonts/...` relative paths — WordPress core resolves these

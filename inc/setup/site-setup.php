@@ -353,7 +353,7 @@ const REMOTIVE_SETUP_FLAG = 'remotive_site_setup_done';
  * migrations. This is the value stored in remotive_site_setup_done after
  * all migrations for this release complete successfully.
  */
-const REMOTIVE_SETUP_SCHEMA = '1.103.1';
+const REMOTIVE_SETUP_SCHEMA = '1.111.0';
 
 /**
  * Migrations keyed by the schema version they introduce.
@@ -422,6 +422,12 @@ function remotive_migration_registry() {
 		'1.75.0' => function() {
 			remotive_backfill_seed_images();
 		},
+		// 1.111.0: the Insights articles get photographs instead of the old
+		// generic graphics (or nothing). Only an untouched bundled graphic or a
+		// missing image is replaced.
+		'1.111.0' => function() {
+			remotive_refresh_article_photos();
+		},
 		// 1.90.0: provisions the three ad landing pages (seo-audit,
 		// google-ads-management, paid-social-advertising). Registering them in
 		// remotive_required_pages() only reaches fresh installs; sites
@@ -484,7 +490,7 @@ function remotive_maybe_auto_setup() {
 	}
 
 	$migrations = remotive_migration_registry();
-	ksort( $migrations ); // Guarantee chronological order regardless of declaration order.
+	uksort( $migrations, 'version_compare' ); // Chronological order by version number (a plain ksort would put 1.111.0 before 1.66.0).
 
 	foreach ( $migrations as $version => $run ) {
 		// Skip migrations the stored schema already covers, but always run
@@ -649,6 +655,83 @@ function remotive_backfill_seed_images() {
 	}
 
 	return $attached;
+}
+
+/**
+ * MD5 of each bundled article graphic as it shipped before v1.111.0
+ * (assets/seed-images/<slug>.png). A thumbnail whose file is byte-for-byte one of
+ * these is the untouched bundled graphic; anything else was chosen by someone.
+ *
+ * @return array<string,string> Article slug => md5.
+ */
+function remotive_old_seed_graphic_hashes() {
+	return array(
+		'seo-friendly-web-design'       => '5b944cd9dfc2e2bfeaf4c7de697eee9e',
+		'sem-services-singapore'        => 'f6b24e679d5fcc564b21a72e4bda84bb',
+		'facebook-advertising-malaysia' => '60422c98b90e1ce50882e4c3a3f44472',
+		'how-to-choose-an-seo-agency'   => '9cc33faa32067f3a8cba84bed2d1a992',
+		'seo-vs-sem'                    => 'efb2bbdb3c783a701219b678021b2bde',
+		'seo-cost-singapore'            => 'd5810dcac3f1e9feb7343bb2b6a0e38d',
+		'seo-services-pricing-malaysia' => 'ff648261b28503a7d8c05f62581c29c1',
+	);
+}
+
+/**
+ * Swap the old generic article graphics for the photographs.
+ *
+ * Before v1.111.0 each Insights article carried a bundled gradient graphic with
+ * its title on it, or none at all. Now an article gets a Pexels photo
+ * (assets/seed-images/<slug>.jpg). This sets the photo only when the article has
+ * no thumbnail, or its thumbnail file is byte-for-byte the old bundled graphic
+ * (compared by content, not by name, so an image an owner uploaded is never
+ * taken for it). Nothing is deleted: the old graphic stays in the media library.
+ *
+ * @return int Number of articles whose image was set or replaced.
+ */
+function remotive_refresh_article_photos() {
+	if ( ! function_exists( 'remotive_seed_content' ) || ! function_exists( 'remotive_seed_attach_image' ) ) {
+		return 0;
+	}
+
+	$hashes  = remotive_old_seed_graphic_hashes();
+	$changed = 0;
+
+	foreach ( remotive_seed_content() as $item ) {
+		if ( 'post' !== ( $item['type'] ?? '' ) || empty( $item['image'] ) || empty( $item['slug'] ) ) {
+			continue;
+		}
+
+		$posts = get_posts( array(
+			'name'             => $item['slug'],
+			'post_type'        => 'post',
+			'post_status'      => 'publish',
+			'numberposts'      => 1,
+			'suppress_filters' => false,
+		) );
+
+		if ( ! $posts ) {
+			continue;
+		}
+
+		$post_id = (int) $posts[0]->ID;
+		$thumb   = (int) get_post_thumbnail_id( $post_id );
+
+		if ( $thumb ) {
+			$file = (string) get_attached_file( $thumb );
+
+			if ( ! isset( $hashes[ $item['slug'] ] ) || ! is_readable( $file ) || md5_file( $file ) !== $hashes[ $item['slug'] ] ) {
+				continue; // Not the untouched bundled graphic: it stays.
+			}
+		}
+
+		remotive_seed_attach_image( $post_id, $item['image'], $item['title'] ?? '' );
+
+		if ( (int) get_post_thumbnail_id( $post_id ) !== $thumb ) {
+			++$changed;
+		}
+	}
+
+	return $changed;
 }
 
 /**

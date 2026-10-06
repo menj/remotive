@@ -54,6 +54,21 @@ WordPress site yet; this list is how to find out.
 - The first pull request that runs `.github/workflows/ci.yml` after a change to
   it should be watched, because the workflow itself is the thing under test.
 
+## v1.111.0: Insights photos
+
+- Open `/blog/`: every article card has a photograph. The theme replaces an
+  article's image only when it has none or still has the old bundled graphic
+  (matched by file content); an image you chose is kept, and nothing is deleted.
+- If an older generation of the generic graphics is still on an article, set its
+  featured image in the editor.
+
+## v1.112.0: Insights is English only
+
+- Open `/blog/` and an article: no language switcher, no hreflang. `/ms/blog/`
+  and the other language versions redirect to the English page. The main pages
+  and case studies keep their languages (29 per language).
+- Its entries disappear from `/sitemap-languages.xml`; nothing to do.
+
 ## v1.110.1: AI Discovery Files plugin
 
 - Open `/llms.txt` after deploying: it must not list the three landing pages or
@@ -83,7 +98,7 @@ WordPress site yet; this list is how to find out.
 
 ## v1.108.x: all translated pages live, scan fix, dev files
 
-- 37 translated pages per language are live by default (switch any off in
+- 29 translated pages per language are live by default (37 before v1.112.0, which made Insights English only) (switch any off in
   Tools → Translations).
 - Run Tools → Translations → Scan the site once; it now finishes all batches.
 - Delete any `.git`, `docs`, `tests` and `tools` folders from the live theme
