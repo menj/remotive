@@ -4,7 +4,7 @@ Tags: block-theme, full-site-editing, child-theme, one-page
 Requires at least: 6.7
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.112.1
+Stable tag: 1.112.2
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -336,9 +336,12 @@ floor, not a replacement.
 
 == Changelog ==
 
-See `docs/changelog.md` for full version history. Latest version: 1.112.1.
+See `docs/changelog.md` for full version history. Latest version: 1.112.2.
 
 == Upgrade Notice ==
+
+= 1.112.2 =
+* Added: icons on the sidebar card headings, and hover and focus effects on the Recent posts rows and the button.
 
 = 1.112.1 =
 * Fixed: the blog sidebar's Recent posts list is now compact, with a square thumbnail, the date and a three-line title for each post. A site-wide link-padding rule had been stretching every title into a tall, empty row.

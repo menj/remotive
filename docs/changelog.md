@@ -4,6 +4,12 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.112.2] — 2026-10-06
+
+### Added
+
+- **Sidebar icons and rollovers.** The Recent posts and Get in touch headings get a list and an envelope icon (CSS masks, so they follow the accent colour). A Recent posts row now reacts to hover and keyboard focus: the thumbnail zooms slightly, the title turns magenta and an arrow slides in. The sidebar button lifts on hover. All motion is off under `prefers-reduced-motion`.
+
 ## [1.112.1] — 2026-10-06
 
 ### Fixed
