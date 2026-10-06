@@ -39,6 +39,8 @@
   overflow:hidden; display:flex !important; flex-direction:column;
 }
 .rm-post-card__image img{ display:block; width:100%; aspect-ratio:16/10; object-fit:cover; }
+.rm-post-card__image--empty{ display:block; width:100%; flex:none; aspect-ratio:16/10; background:linear-gradient(135deg,var(--wp--preset--color--cyan-dark,#0090c8),var(--wp--preset--color--magenta-dark,#c4006f)); }
+.rm-post-card__image--empty a{ display:block; width:100%; height:100%; }
 .rm-post-card__body{ padding:1.25rem 1.4rem 1.5rem !important; }
 .rm-post-card__date{ font-size:.75rem !important; color:var(--rm-ink-55) !important; text-transform:uppercase; letter-spacing:.06em; margin-bottom:.5rem !important; }
 .rm-post-card__title{ font-size:1.15rem !important; margin:0 0 .5rem !important; font-weight:700; text-transform:none; letter-spacing:normal; line-height:1.3; }

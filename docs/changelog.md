@@ -4,6 +4,30 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.112.0] — 2026-10-06
+
+### Changed
+
+- **Insights is English only and sits apart from the translation paths.** The posts page (`/blog/`, whatever its slug) and every article (`2026/09/slug`) no longer have `/ms/`, `/zh-hans/` or `/zh-hant/` versions: a translated address redirects to the English page (302); the header and footer language switchers are not shown on Insights pages (the posts page, articles, category, tag, author and date archives); Insights pages carry no hreflang; they are not in `/sitemap-languages.xml`; and they are not in the default live list (29 translated pages per language instead of 37). The Malay, Chinese and other main pages still link to the English `/blog/` for Insights. The dictionaries keep the old article entries, unused. `remotive_i18n_is_english_only()` decides it, and the `remotive_i18n_english_only` filter can change the line.
+- Tests in `tests/test-i18n.php` (90).
+
+## [1.111.0] — 2026-10-06
+
+### Fixed
+
+- **Three Insights articles had no featured image, and the other four had generic graphics.** The seed data for `seo-vs-sem`, `seo-cost-singapore` and `seo-services-pricing-malaysia` set `'image'` to the right file and then, a few lines later, to an empty string; the last key wins, so they were published without a picture, which is why the Insights grid showed bare text cards beside illustrated ones. The duplicate lines are removed.
+
+### Changed
+
+- **Photographs for all seven articles** (Pexels, free for commercial use; credits in `docs/image-credits.md`): a website workspace, the Singapore skyline, a phone with social apps, a checklist notebook, an analytics dashboard, a calculator and coins, and Kuala Lumpur at night. No people. 1200 × 675 JPEG with an AVIF companion (30 to 110 KB), replacing the old gradient-and-title graphics.
+- **Existing sites are updated by a one-time migration** (`remotive_refresh_article_photos()`, version 1.111.0): an article with no image, or whose image is still the untouched bundled graphic, gets the photo; the old graphic is deleted. An image an editor chose is never replaced.
+- Migrations now run in version order (`uksort` with `version_compare`; a plain `ksort` put 1.111.0 before 1.66.0).
+
+### Added
+
+- **A card with no featured image shows a branded gradient** of the same shape (`inc/content/post-image-fallback.php`), so a new article published without an image does not leave a gap in the grid.
+- `tests/check-seed-images.php`, run in CI: every seeded article names an image and its AVIF exists. It fails on the old data.
+
 ## [1.110.3] — 2026-10-06
 
 ### Fixed
