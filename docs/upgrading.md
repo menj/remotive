@@ -54,6 +54,14 @@ WordPress site yet; this list is how to find out.
 - The first pull request that runs `.github/workflows/ci.yml` after a change to
   it should be watched, because the workflow itself is the thing under test.
 
+## v1.111.0: Insights photos
+
+- Open `/blog/`: every article card has a photograph. The theme replaces an
+  article's image only when it has none or still has the old bundled graphic
+  (matched by file content); an image you chose is kept, and nothing is deleted.
+- If an older generation of the generic graphics is still on an article, set its
+  featured image in the editor.
+
 ## v1.112.0: Insights is English only
 
 - Open `/blog/` and an article: no language switcher, no hreflang. `/ms/blog/`

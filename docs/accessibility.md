@@ -28,6 +28,19 @@ fixed, what is deliberately exempt, and what still needs human judgement.
 | 4.1.2 | Current page not exposed in navigation | `aria-current="page"` added |
 | 2.2.2 | Ticker had no reduced-motion path | Animation stops under `prefers-reduced-motion` |
 
+## Added after this pass (v1.109 to v1.112)
+
+- **Landing results strip.** On phones the results cards are a swipe row; the row
+  is keyboard-focusable (`tabindex="0"`, labelled by its heading, visible focus
+  ring) so a keyboard user can scroll to every card (2.1.1).
+- **Photographs have descriptive `alt` text** (Case Studies cards and Insights
+  articles), translated for the Malay and Chinese pages (1.1.1, 3.1.2). The
+  decorative fallback gradient for an article with no image is `aria-hidden`.
+- **The big figures** use a display serif at 2.4 rem or larger only; body text,
+  forms and buttons keep the existing fonts and contrast.
+- **Insights has no language switcher** (English only), so no link points to a
+  page that would only redirect back.
+
 ## Already conformant before this pass
 
 Skip link; focus-visible styles on all interactive regions; the lightbox

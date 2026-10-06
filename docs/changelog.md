@@ -10,6 +10,7 @@ follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 
 - **Insights is English only and sits apart from the translation paths.** The posts page (`/blog/`, whatever its slug) and every article (`2026/09/slug`) no longer have `/ms/`, `/zh-hans/` or `/zh-hant/` versions: a translated address redirects to the English page (302); the header and footer language switchers are not shown on Insights pages (the posts page, articles, category, tag, author and date archives); Insights pages carry no hreflang; they are not in `/sitemap-languages.xml`; and they are not in the default live list (29 translated pages per language instead of 37). The Malay, Chinese and other main pages still link to the English `/blog/` for Insights. The dictionaries keep the old article entries, unused. `remotive_i18n_is_english_only()` decides it, and the `remotive_i18n_english_only` filter can change the line.
 - Tests in `tests/test-i18n.php` (90).
+- **Documentation brought up to date** for 1.107 to 1.112: `readme.md` (module and asset tree, Kagnue, Insights), `docs/ssot.md`, `docs/walkthrough.md`, `docs/upgrading.md` (steps for each release), `docs/resources.md` (Pexels photos and the licensed Kagnue font), `docs/image-credits.md`, `docs/accessibility.md` and `docs/cache-headers.md` (keep the landing pages out of page caches).
 
 ## [1.111.0] — 2026-10-06
 
@@ -20,7 +21,7 @@ follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 ### Changed
 
 - **Photographs for all seven articles** (Pexels, free for commercial use; credits in `docs/image-credits.md`): a website workspace, the Singapore skyline, a phone with social apps, a checklist notebook, an analytics dashboard, a calculator and coins, and Kuala Lumpur at night. No people. 1200 × 675 JPEG with an AVIF companion (30 to 110 KB), replacing the old gradient-and-title graphics.
-- **Existing sites are updated by a one-time migration** (`remotive_refresh_article_photos()`, version 1.111.0): an article with no image, or whose image is still the untouched bundled graphic, gets the photo; the old graphic is deleted. An image an editor chose is never replaced.
+- **Existing sites are updated by a one-time migration** (`remotive_refresh_article_photos()`, version 1.111.0; the setup schema was raised to 1.111.0 so sites already at 1.103.1 run it): an article with no image, or whose image file is byte-for-byte the old bundled graphic (compared by MD5, not by file name), gets the photo. Nothing is deleted, and an image an editor chose is never replaced, even one with the same file name. (Review findings from CodeAnt.)
 - Migrations now run in version order (`uksort` with `version_compare`; a plain `ksort` put 1.111.0 before 1.66.0).
 
 ### Added

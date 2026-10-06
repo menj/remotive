@@ -564,7 +564,7 @@ by path, error handler first.
 | `inc/forms/` | `lead-form-handler`, `cta-form-handler`, `about-form-handler`, `contact-form-handler`, `leads`, `akismet`, `thank-you` |
 | `inc/landing/` | `landing-pages`, `landing-copy` |
 | `inc/i18n/` | `i18n`, `i18n-admin`, and the dictionaries `ms`, `zh-hans`, `zh-hant` (loaded by name). On/off per language: Theme Options → Languages |
-| `inc/content/` | `schema-markup`, `webmcp`, `feature-grids`, `stats-band` |
+| `inc/content/` | `schema-markup`, `webmcp`, `feature-grids`, `stats-band`, `post-image-fallback` |
 
 A new module goes in the folder that matches its job and gets one `require`
 line in `functions.php`. Older entries in `docs/changelog.md` and the security
