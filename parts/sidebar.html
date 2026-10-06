@@ -1,19 +1,22 @@
 <!-- wp:group {"tagName":"aside","className":"rm-sidebar","layout":{"type":"constrained"}} -->
 <aside class="wp-block-group rm-sidebar is-layout-constrained">
 
-	<!-- wp:group {"className":"rm-sidebar__card","layout":{"type":"constrained"}} -->
-	<div class="wp-block-group rm-sidebar__card is-layout-constrained">
+	<!-- wp:group {"className":"rm-sidebar__card rm-sidebar__card--about","layout":{"type":"constrained"}} -->
+	<div class="wp-block-group rm-sidebar__card rm-sidebar__card--about is-layout-constrained">
 		<!-- wp:site-logo {"className":"rm-sidebar__logo","width":90} /-->
 		<!-- wp:paragraph {"className":"rm-sidebar__about"} -->
 		<p class="rm-sidebar__about">Full-funnel digital marketing for brands who'd rather be seen than shout. Notes on SEO, paid, and content from the team.</p>
 		<!-- /wp:paragraph -->
+		<!-- wp:paragraph {"className":"rm-sidebar__status"} -->
+		<p class="rm-sidebar__status">Taking on new projects</p>
+		<!-- /wp:paragraph -->
 	</div>
 	<!-- /wp:group -->
 
-	<!-- wp:group {"className":"rm-sidebar__card","layout":{"type":"constrained"}} -->
-	<div class="wp-block-group rm-sidebar__card is-layout-constrained">
-		<!-- wp:heading {"level":3,"className":"rm-sidebar__heading"} -->
-		<h3 class="rm-sidebar__heading">Recent posts</h3>
+	<!-- wp:group {"className":"rm-sidebar__card rm-sidebar__card--recent","layout":{"type":"constrained"}} -->
+	<div class="wp-block-group rm-sidebar__card rm-sidebar__card--recent is-layout-constrained">
+		<!-- wp:heading {"level":3,"className":"rm-sidebar__heading rm-sidebar__heading--recent"} -->
+		<h3 class="rm-sidebar__heading rm-sidebar__heading--recent">Recent posts</h3>
 		<!-- /wp:heading -->
 
 		<!-- wp:query {"queryId":1,"query":{"perPage":5,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","sticky":"","inherit":false},"className":"rm-sidebar__recent"} -->
@@ -21,11 +24,12 @@
 			<!-- wp:post-template -->
 				<!-- wp:group {"className":"rm-sidebar__recent-item","layout":{"type":"default"}} -->
 				<div class="wp-block-group rm-sidebar__recent-item">
-					<!-- wp:post-featured-image {"isLink":true,"aspectRatio":"1","width":"64px","height":"64px","className":"rm-sidebar__recent-thumb"} /-->
+					<!-- wp:post-featured-image {"isLink":true,"aspectRatio":"1","width":"72px","height":"72px","className":"rm-sidebar__recent-thumb"} /-->
 					<!-- wp:group {"className":"rm-sidebar__recent-text","layout":{"type":"default"}} -->
 					<div class="wp-block-group rm-sidebar__recent-text">
-						<!-- wp:post-date {"format":"j M Y","className":"rm-sidebar__recent-date"} /-->
+						<!-- wp:post-terms {"term":"category","className":"rm-sidebar__recent-cat"} /-->
 						<!-- wp:post-title {"level":4,"isLink":true,"className":"rm-sidebar__recent-title"} /-->
+						<!-- wp:post-date {"format":"j M Y","className":"rm-sidebar__recent-date"} /-->
 					</div>
 					<!-- /wp:group -->
 				</div>
@@ -33,22 +37,26 @@
 			<!-- /wp:post-template -->
 		</div>
 		<!-- /wp:query -->
+
+		<!-- wp:paragraph {"className":"rm-sidebar__all"} -->
+		<p class="rm-sidebar__all"><a href="/blog/">All insights</a></p>
+		<!-- /wp:paragraph -->
 	</div>
 	<!-- /wp:group -->
 
-	<!-- wp:group {"className":"rm-sidebar__card","layout":{"type":"constrained"}} -->
-	<div class="wp-block-group rm-sidebar__card is-layout-constrained">
-		<!-- wp:heading {"level":3,"className":"rm-sidebar__heading"} -->
-		<h3 class="rm-sidebar__heading">Get in touch</h3>
+	<!-- wp:group {"className":"rm-sidebar__card rm-sidebar__card--contact","layout":{"type":"constrained"}} -->
+	<div class="wp-block-group rm-sidebar__card rm-sidebar__card--contact is-layout-constrained">
+		<!-- wp:heading {"level":3,"className":"rm-sidebar__heading rm-sidebar__heading--contact"} -->
+		<h3 class="rm-sidebar__heading rm-sidebar__heading--contact">Get in touch</h3>
 		<!-- /wp:heading -->
 		<!-- wp:paragraph {"className":"rm-sidebar__note"} -->
 		<p class="rm-sidebar__note">We reply within three business days.</p>
 		<!-- /wp:paragraph -->
-		<!-- wp:paragraph {"className":"rm-sidebar__about"} -->
-		<p class="rm-sidebar__about"><a href="mailto:__REMOTIVE_CONTACT_EMAIL__">__REMOTIVE_CONTACT_EMAIL__</a></p>
+		<!-- wp:paragraph {"className":"rm-sidebar__about rm-sidebar__mail"} -->
+		<p class="rm-sidebar__about rm-sidebar__mail"><a href="mailto:__REMOTIVE_CONTACT_EMAIL__">__REMOTIVE_CONTACT_EMAIL__</a></p>
 		<!-- /wp:paragraph -->
-		<!-- wp:buttons -->
-		<div class="wp-block-buttons">
+		<!-- wp:buttons {"className":"rm-sidebar__cta"} -->
+		<div class="wp-block-buttons rm-sidebar__cta">
 			<!-- wp:button {"className":"is-style-fill"} -->
 			<div class="wp-block-button is-style-fill"><a class="wp-block-button__link wp-element-button" href="/#contact">Start a project</a></div>
 			<!-- /wp:button -->

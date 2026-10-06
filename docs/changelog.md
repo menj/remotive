@@ -4,6 +4,12 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.113.0] — 2026-10-06
+
+### Changed
+
+- **Sidebar redesign** (`parts/sidebar.html`, `assets/css/blog-and-about.css`). All three cards have rounded corners and a thin cyan-to-pink bar on the top edge. About: a "Taking on new projects" badge with a pulsing dot. Recent posts: an icon chip on the heading, then rows of a 72 px thumbnail with a Kagnue number (01 to 05) in the corner, a category label, the title and the date with a clock icon; on hover or keyboard focus the row tints, an accent bar grows in, the thumbnail zooms, the title turns pink and a round arrow button slides in; an "All insights" link follows. Contact: a gradient wash, the email as a bordered pill with a mail icon, and a full-width button with an arrow. The card is sticky on desktop and static below 900 px. Colours come from the theme palette (`cyan`, `magenta-dark`, `accent-3`), so light mode, dark mode and customised schemes all carry through; the category label uses `cyan-dark` to keep its contrast on white. Icons are CSS masks. Motion stops under `prefers-reduced-motion`. Replaces the 1.112.1 and 1.112.2 sidebar CSS.
+
 ## [1.112.2] — 2026-10-06
 
 ### Added
