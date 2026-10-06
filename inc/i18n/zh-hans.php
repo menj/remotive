@@ -1143,6 +1143,18 @@ return array(
 			'互动',
 		'Session duration' =>
 			'会话时长',
+		'Aerial view of a modern football stadium' =>
+			'现代化足球场的航拍图',
+		'Supermarket shelves stocked with packaged Asian foods' =>
+			'摆满亚洲包装食品的超市货架',
+		'Modern city skyscrapers reflecting a blue sky' =>
+			'映照蓝天的现代城市摩天大楼',
+		'Luxury cars in a modern automotive showroom' =>
+			'现代汽车展厅中的豪华轿车',
+		'Aerial view of an industrial facility with steel storage and warehouses' =>
+			'设有钢材堆场和仓库的工业设施航拍图',
+		'A clean, modern medical examination room' =>
+			'干净现代的医疗检查室',
 		'We have your message and will reply within three business days, Singapore hours.' =>
 			'我们已收到您的留言，并将在三个工作日内回复（新加坡时间）。',
 		'What happens next' =>

@@ -666,6 +666,11 @@ function remotive_lp_robots_choices( $post_id ) {
 	return is_array( $meta ) ? array_values( array_filter( array_map( 'strval', $meta ) ) ) : array();
 }
 
+/** The confirmation pages (they use the landing template but are not landing pages). */
+function remotive_lp_is_confirmation_page( $post_id ) {
+	return in_array( get_post_field( 'post_name', (int) $post_id ), array( 'thank-you', REMOTIVE_LP_THANKS_SLUG ), true );
+}
+
 /**
  * Whether the landing page is noindex and/or nofollow.
  *
@@ -677,6 +682,11 @@ function remotive_lp_robots_choices( $post_id ) {
  * @return array{noindex:bool,nofollow:bool}
  */
 function remotive_lp_robots_policy( $post_id ) {
+	// The confirmation pages are never indexable, whatever is ticked in Rank Math.
+	if ( remotive_lp_is_confirmation_page( $post_id ) ) {
+		return array( 'noindex' => true, 'nofollow' => true );
+	}
+
 	$choices = remotive_lp_robots_choices( $post_id );
 
 	if ( ! $choices ) {
@@ -894,11 +904,12 @@ add_filter( 'rest_page_query', 'remotive_lp_hide_from_rest' );
  * that strips the Referer. An ad, a typed address, a bookmark or an app is
  * cross-site or direct ("none") and passes.
  *
- * @param array  $server Request headers as in $_SERVER.
- * @param string $host   This site's host.
+ * @param array       $server Request headers as in $_SERVER.
+ * @param string      $host   This site's host.
+ * @param string|null $base   The site's folder when WordPress is installed in a subdirectory (default: from home_url()).
  * @return bool
  */
-function remotive_lp_is_internal_navigation( $server, $host ) {
+function remotive_lp_is_internal_navigation( $server, $host, $base = null ) {
 	$referer = isset( $server['HTTP_REFERER'] ) ? (string) $server['HTTP_REFERER'] : '';
 	$fetch   = isset( $server['HTTP_SEC_FETCH_SITE'] ) ? strtolower( (string) $server['HTTP_SEC_FETCH_SITE'] ) : '';
 	$from_lp = false;
@@ -909,8 +920,15 @@ function remotive_lp_is_internal_navigation( $server, $host ) {
 		$ref_own = isset( $parts['host'] ) && 0 === strcasecmp( preg_replace( '/^www\./i', '', $parts['host'] ), preg_replace( '/^www\./i', '', $host ) );
 
 		if ( $ref_own ) {
+			$base = null === $base ? rtrim( (string) wp_parse_url( home_url(), PHP_URL_PATH ), '/' ) : rtrim( (string) $base, '/' );
+			$path = isset( $parts['path'] ) ? (string) $parts['path'] : '';
+
+			if ( '' !== $base && 0 === strpos( $path, $base . '/' ) ) {
+				$path = substr( $path, strlen( $base ) ); // A subdirectory install: match the address after the folder.
+			}
+
 			$slugs   = array_merge( array_keys( remotive_landing_services() ), array( REMOTIVE_LP_THANKS_SLUG ) );
-			$from_lp = (bool) preg_match( '#^/(?:(?:ms|zh-hans|zh-hant)/)?(?:' . implode( '|', array_map( 'preg_quote', $slugs ) ) . ')/?$#', isset( $parts['path'] ) ? $parts['path'] : '' );
+			$from_lp = (bool) preg_match( '#^/(?:(?:ms|zh-hans|zh-hant)/)?(?:' . implode( '|', array_map( 'preg_quote', $slugs ) ) . ')/?$#', $path );
 		}
 	}
 

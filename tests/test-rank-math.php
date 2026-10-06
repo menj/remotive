@@ -62,6 +62,13 @@ $GLOBALS['T']['meta'][11]['rank_math_robots'] = array( 'index' );
 t_eq( remotive_rank_math_sitemap_entry( $entry, 'post', (object) array( 'ID' => 11 ) ), $entry, 'a landing page set to index in Rank Math is kept in the sitemap' );
 $GLOBALS['T']['meta'][11]['rank_math_robots'] = array( 'noindex', 'nofollow' );
 t_eq( remotive_rank_math_sitemap_entry( $entry, 'post', (object) array( 'ID' => 11 ) ), false, 'a landing page set to noindex stays out' );
+// The confirmation page uses the landing template too: never in the sitemap and never indexable, even with index ticked.
+$GLOBALS['T']['landing_ids'] = array( 11, 12, 13 );
+$GLOBALS['T']['slug']        = REMOTIVE_LP_THANKS_SLUG;
+$GLOBALS['T']['meta'][13]['rank_math_robots'] = array( 'index' );
+t_eq( remotive_rank_math_sitemap_entry( $entry, 'post', (object) array( 'ID' => 13 ) ), false, 'confirmation page stays out of the sitemap even with index ticked' );
+t_eq( remotive_lp_robots_policy( 13 ), array( 'noindex' => true, 'nofollow' => true ), 'confirmation page is always noindex, nofollow' );
+$GLOBALS['T']['slug'] = 'seo-audit';
 t_eq( remotive_rank_math_sitemap_entry( $entry, 'post', (object) array( 'ID' => 5 ) ), false, 'confirmation page dropped (stub page id 5)' );
 t_eq( remotive_rank_math_sitemap_entry( $entry, 'post', (object) array( 'ID' => 99 ) ), $entry, 'ordinary page kept' );
 t_eq( remotive_rank_math_sitemap_entry( $entry, 'term', null ), $entry, 'non-post entries kept' );

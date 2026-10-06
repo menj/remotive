@@ -4,6 +4,18 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.110.3] — 2026-10-06
+
+### Fixed
+
+Three findings from the CodeAnt review of PRs #29 and #32, all valid:
+
+- **The confirmation page could be indexed or listed in the sitemap.** `audit-requested` uses the landing template, so ticking "index" for it in Rank Math made it indexable and put it in the Rank Math sitemap. The confirmation pages (`thank-you`, `audit-requested`) are now always noindex and nofollow and always out of the sitemap, whatever Rank Math says (`remotive_lp_is_confirmation_page()`).
+- **The landing-page entry guard on a subfolder install.** With WordPress in a folder (`example.com/site/`), a landing-page referer carries the folder, so the language buttons and the thank-you redirect were sent to the home page. The folder is now stripped before matching (`remotive_lp_is_internal_navigation()` takes it from `home_url()`).
+- **Case Studies photo descriptions were English on translated pages.** The six `alt` texts now have Malay, Simplified and Traditional Chinese versions (checked on `/ms/`, `/zh-hans/`, `/zh-hant/case-studies/`).
+
+Tests added in `tests/test-landing.php` (52) and `tests/test-rank-math.php` (20).
+
 ## [1.110.2] — 2026-10-06
 
 ### Changed

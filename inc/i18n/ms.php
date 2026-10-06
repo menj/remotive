@@ -1149,6 +1149,18 @@ return array(
 			'53 ribu',
 		'745k' =>
 			'745 ribu',
+		'Aerial view of a modern football stadium' =>
+			'Pemandangan udara sebuah stadium bola sepak yang moden',
+		'Supermarket shelves stocked with packaged Asian foods' =>
+			'Rak pasar raya yang penuh dengan makanan Asia berbungkus',
+		'Modern city skyscrapers reflecting a blue sky' =>
+			'Pencakar langit moden di bandar yang memantulkan langit biru',
+		'Luxury cars in a modern automotive showroom' =>
+			'Kereta mewah di bilik pameran automotif yang moden',
+		'Aerial view of an industrial facility with steel storage and warehouses' =>
+			'Pemandangan udara sebuah kemudahan industri dengan penyimpanan keluli dan gudang',
+		'A clean, modern medical examination room' =>
+			'Sebuah bilik pemeriksaan perubatan yang bersih dan moden',
 		'We have your message and will reply within three business days, Singapore hours.' =>
 			'Kami telah menerima mesej anda dan akan membalas dalam tempoh tiga hari bekerja, waktu Singapura.',
 		'What happens next' =>
