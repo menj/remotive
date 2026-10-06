@@ -422,6 +422,12 @@ function remotive_migration_registry() {
 		'1.75.0' => function() {
 			remotive_backfill_seed_images();
 		},
+		// 1.111.0: the Insights articles get photographs instead of the old
+		// generic graphics (or nothing). Only an untouched bundled graphic or a
+		// missing image is replaced.
+		'1.111.0' => function() {
+			remotive_refresh_article_photos();
+		},
 		// 1.90.0: provisions the three ad landing pages (seo-audit,
 		// google-ads-management, paid-social-advertising). Registering them in
 		// remotive_required_pages() only reaches fresh installs; sites
@@ -484,7 +490,7 @@ function remotive_maybe_auto_setup() {
 	}
 
 	$migrations = remotive_migration_registry();
-	ksort( $migrations ); // Guarantee chronological order regardless of declaration order.
+	uksort( $migrations, 'version_compare' ); // Chronological order by version number (a plain ksort would put 1.111.0 before 1.66.0).
 
 	foreach ( $migrations as $version => $run ) {
 		// Skip migrations the stored schema already covers, but always run
@@ -649,6 +655,71 @@ function remotive_backfill_seed_images() {
 	}
 
 	return $attached;
+}
+
+/**
+ * Swap the old generic article graphics for the photographs.
+ *
+ * Before v1.111.0 each Insights article carried a bundled gradient graphic with
+ * its title on it (assets/seed-images/<slug>.png), or none at all. Now an article
+ * gets a Pexels photo (<slug>.jpg). This replaces the thumbnail only when it is
+ * missing or is still the untouched bundled graphic (an attachment named after the
+ * article's slug and ending in .png, attached to that article), so an image the
+ * owner chose is never replaced.
+ *
+ * @return int Number of articles whose image was set or replaced.
+ */
+function remotive_refresh_article_photos() {
+	if ( ! function_exists( 'remotive_seed_content' ) || ! function_exists( 'remotive_seed_attach_image' ) ) {
+		return 0;
+	}
+
+	$changed = 0;
+
+	foreach ( remotive_seed_content() as $item ) {
+		if ( 'post' !== ( $item['type'] ?? '' ) || empty( $item['image'] ) || empty( $item['slug'] ) ) {
+			continue;
+		}
+
+		$posts = get_posts( array(
+			'name'             => $item['slug'],
+			'post_type'        => 'post',
+			'post_status'      => 'publish',
+			'numberposts'      => 1,
+			'suppress_filters' => false,
+		) );
+
+		if ( ! $posts ) {
+			continue;
+		}
+
+		$post_id = (int) $posts[0]->ID;
+		$thumb   = (int) get_post_thumbnail_id( $post_id );
+		$old     = false;
+
+		if ( $thumb ) {
+			$file = (string) get_attached_file( $thumb );
+			$base = wp_basename( $file );
+			$old  = (int) wp_get_post_parent_id( $thumb ) === $post_id
+				&& 1 === preg_match( '/^' . preg_quote( $item['slug'], '/' ) . '(-\d+)?\.png$/i', $base );
+
+			if ( ! $old ) {
+				continue; // A hand-picked image stays.
+			}
+		}
+
+		remotive_seed_attach_image( $post_id, $item['image'], $item['title'] ?? '' );
+
+		if ( (int) get_post_thumbnail_id( $post_id ) !== $thumb ) {
+			++$changed;
+
+			if ( $old && function_exists( 'wp_delete_attachment' ) ) {
+				wp_delete_attachment( $thumb, true ); // The bundled graphic it replaced.
+			}
+		}
+	}
+
+	return $changed;
 }
 
 /**

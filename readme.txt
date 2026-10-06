@@ -4,7 +4,7 @@ Tags: block-theme, full-site-editing, child-theme, one-page
 Requires at least: 6.7
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.110.3
+Stable tag: 1.111.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -336,9 +336,12 @@ floor, not a replacement.
 
 == Changelog ==
 
-See `docs/changelog.md` for full version history. Latest version: 1.110.3.
+See `docs/changelog.md` for full version history. Latest version: 1.111.0.
 
 == Upgrade Notice ==
+
+= 1.111.0 =
+The Insights articles have photographs (Pexels) instead of generic graphics or nothing, and a card with no image shows a branded gradient instead of a gap.
 
 = 1.110.3 =
 Fixes from code review: translated alt text for the Case Studies photos, the confirmation page can never be indexed or listed in the sitemap, and the landing-page entry guard works when WordPress is installed in a subfolder.
