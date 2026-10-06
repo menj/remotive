@@ -4,6 +4,12 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.115.1] — 2026-10-07
+
+### Fixed
+
+- **Theme Options → Team: the Name and Role fields were a few pixels wide.** The team list has no label of its own, so it was emitted alone inside a `.rm-admin__row`, whose grid is a 260 px label column plus the field; it landed in the label column, and its own four-track grid left the Name and Role inputs almost nothing. The repeater now spans the whole row (`.rm-admin__row > .rm-admin__team`), each member is a card with Name, Role and Photo slug side by side, the bio full width, and the leadership checkbox and Remove button on the last line. Two columns below 1,100 px, one below 782 px. `assets/css/admin-theme-options.css` only; no markup or saved-data change.
+
 ## [1.115.0] — 2026-10-07
 
 ### Changed
