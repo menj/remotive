@@ -62,12 +62,26 @@
 .rm-sidebar__about{ font-size:.88rem !important; color:var(--rm-ink-70) !important; line-height:1.6; margin:0 !important; }
 .rm-sidebar__note{ font-size:.78rem !important; color:var(--rm-ink-70) !important; line-height:1.5; margin:0 0 .6rem !important; opacity:.75; }
 .rm-sidebar__heading{ font-size:.95rem !important; margin:0 0 1rem !important; }
-.rm-sidebar__recent .wp-block-post-template{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.75rem; }
-.rm-sidebar__recent-title{ font-size:.88rem !important; margin:0 !important; line-height:1.4; }
+.rm-sidebar__recent .wp-block-post-template{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:0; }
+.rm-sidebar__recent .wp-block-post-template > li{ margin:0 !important; padding:.85rem 0; border-top:1px solid var(--rm-line); }
+.rm-sidebar__recent .wp-block-post-template > li:first-child{ border-top:0; padding-top:0; }
+.rm-sidebar__recent .wp-block-post-template > li:last-child{ padding-bottom:0; }
+.rm-sidebar__recent-item{ display:grid !important; grid-template-columns:64px 1fr; gap:.85rem; align-items:center; }
+.rm-sidebar__recent-item > *{ margin:0 !important; }
+.rm-sidebar__recent-thumb{ width:64px; height:64px; overflow:hidden; border-radius:10px; background:var(--wp--preset--color--sand, #f4f1ea); }
+.rm-sidebar__recent-thumb img{ display:block; width:64px !important; height:64px !important; object-fit:cover; }
+.rm-sidebar__recent-text{ min-width:0; }
+.rm-sidebar__recent-text > *{ margin:0 !important; }
+.rm-sidebar__recent-date{ font-size:.7rem !important; color:var(--rm-ink-55) !important; text-transform:uppercase; letter-spacing:.06em; margin-bottom:.2rem !important; }
+.rm-sidebar__recent-title{ font-size:.86rem !important; margin:0 !important; line-height:1.35; }
 .rm-sidebar__recent-title a{
-  font-size:.88rem !important; font-weight:600; text-transform:none; letter-spacing:normal;
-  color:var(--wp--preset--color--ink); line-height:1.4; display:block;
+  font-size:.86rem !important; font-weight:600; text-transform:none; letter-spacing:normal;
+  color:var(--wp--preset--color--ink); line-height:1.35; display:-webkit-box;
+  -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;
 }
+.rm-sidebar__recent .rm-sidebar__recent-title a{ padding-block:0; min-height:0; display:-webkit-box; }
+.rm-sidebar__recent .rm-sidebar__recent-thumb a{ padding-block:0; min-height:0; }
+.rm-sidebar__recent .rm-sidebar__recent-thumb a{ display:block; }
 .rm-sidebar__recent-title a:hover{ color:var(--wp--preset--color--magenta-dark); }
 
 /* ---- Single post ---- */

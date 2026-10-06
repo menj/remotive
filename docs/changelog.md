@@ -4,6 +4,12 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.112.1] — 2026-10-06
+
+### Fixed
+
+- **The sidebar's Recent posts card was a sparse list of bold titles with large gaps.** The touch-target rule in `remotive.css` (`display:inline-block; padding-block:.5rem`) was applied to the title links, on top of the list gap, so each row grew tall. Each entry in `parts/sidebar.html` is now a row with a 64 px square featured image, the date and the title (clamped to three lines), separated by hairlines. The link padding is reset in `blog-and-about.css`; the whole row stays easy to hit, because the image and title are both links.
+
 ## [1.112.0] — 2026-10-06
 
 ### Changed

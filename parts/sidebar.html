@@ -19,7 +19,17 @@
 		<!-- wp:query {"queryId":1,"query":{"perPage":5,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","sticky":"","inherit":false},"className":"rm-sidebar__recent"} -->
 		<div class="wp-block-query rm-sidebar__recent">
 			<!-- wp:post-template -->
-				<!-- wp:post-title {"isLink":true,"className":"rm-sidebar__recent-title"} /-->
+				<!-- wp:group {"className":"rm-sidebar__recent-item","layout":{"type":"default"}} -->
+				<div class="wp-block-group rm-sidebar__recent-item">
+					<!-- wp:post-featured-image {"isLink":true,"aspectRatio":"1","width":"64px","height":"64px","className":"rm-sidebar__recent-thumb"} /-->
+					<!-- wp:group {"className":"rm-sidebar__recent-text","layout":{"type":"default"}} -->
+					<div class="wp-block-group rm-sidebar__recent-text">
+						<!-- wp:post-date {"format":"j M Y","className":"rm-sidebar__recent-date"} /-->
+						<!-- wp:post-title {"level":4,"isLink":true,"className":"rm-sidebar__recent-title"} /-->
+					</div>
+					<!-- /wp:group -->
+				</div>
+				<!-- /wp:group -->
 			<!-- /wp:post-template -->
 		</div>
 		<!-- /wp:query -->
