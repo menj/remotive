@@ -54,6 +54,14 @@ WordPress site yet; this list is how to find out.
 - The first pull request that runs `.github/workflows/ci.yml` after a change to
   it should be watched, because the workflow itself is the thing under test.
 
+## v1.112.0: Insights is English only
+
+- Open `/blog/` and an article: no language switcher, no hreflang. `/ms/blog/`
+  and the other language versions redirect to the English page. The main pages
+  and case studies keep their languages (29 per language).
+- If Insights was already submitted in the language sitemap, nothing to do: its
+  entries disappear from `/sitemap-languages.xml`.
+
 ## v1.110.1: AI Discovery Files plugin
 
 - Open `/llms.txt` after deploying: it must not list the three landing pages or

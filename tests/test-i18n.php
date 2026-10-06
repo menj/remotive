@@ -22,7 +22,11 @@ function wp_strip_all_tags( $s ) { return strip_tags( $s ); }
 function get_current_user_id() { return 1; }
 function get_post() { return (object) array( 'post_modified_gmt' => '2026-10-01 10:00:00' ); }
 function is_front_page() { return $GLOBALS['t_front'] ?? false; }
-function is_home() { return false; }
+function is_home() { return $GLOBALS['t_insights'] ?? false; }
+function is_category() { return false; }
+function is_tag() { return false; }
+function is_author() { return false; }
+function is_date() { return false; }
 function is_paged() { return false; }
 function is_singular() { return false; }
 
@@ -52,20 +56,26 @@ t_eq( remotive_i18n_url( 'en', 'team' ), 'https://example.com/team/', 'English k
 
 // Every translated page is live in every language by default.
 $live = remotive_i18n_default_live_pages();
-foreach ( array( '', 'services', 'services/seo', 'case-studies', 'about', 'team', 'blog', 'contact', 'faq', 'privacy', 'terms' ) as $page ) {
+foreach ( array( '', 'services', 'services/seo', 'case-studies', 'about', 'team', 'contact', 'faq', 'privacy', 'terms' ) as $page ) {
 	t_ok( in_array( $page, $live, true ), "'$page' is a default live page" );
 }
 foreach ( array( 'ms', 'zh-hans', 'zh-hant' ) as $code ) {
 	foreach ( array( '', 'services', 'about', 'contact' ) as $page ) {
 		t_ok( remotive_i18n_available( $code, $page ), "'$page' is live in $code" );
 	}
-	foreach ( array( '2026/09/seo-vs-sem', 'case-studies/ecommerce-seo-footwear' ) as $page ) {
-		t_ok( remotive_i18n_available( $code, $page ), "'$page' (an article, an unlisted case study) is live in $code too" );
+	t_ok( remotive_i18n_available( $code, 'case-studies/ecommerce-seo-footwear' ), "an unlisted case study is live in $code too" );
+	foreach ( array( '2026/09/seo-vs-sem', '2026/09/seo-cost-singapore', 'blog', 'blog/page/2' ) as $page ) {
+		t_ok( ! remotive_i18n_available( $code, $page ), "'$page' (Insights) is English only: not available in $code" );
 	}
 	t_ok( ! remotive_i18n_available( $code, 'no-such-page' ), "a page with no translation is not live in $code" );
 	t_ok( ! remotive_i18n_available( $code, null ), "no page, not live in $code" );
 }
 t_ok( remotive_i18n_available( 'en', 'anything' ), 'English is always live' );
+
+// Insights is English only: never a default-live page, whatever the dictionaries hold.
+t_ok( remotive_i18n_is_english_only( 'blog' ) && remotive_i18n_is_english_only( '2026/09/seo-vs-sem' ) && ! remotive_i18n_is_english_only( 'about' ) && ! remotive_i18n_is_english_only( '' ), 'english-only matches the posts page and dated articles, not other pages' );
+$bad = array_filter( remotive_i18n_default_live_pages(), 'remotive_i18n_is_english_only' );
+t_eq( array_values( $bad ), array(), 'no Insights page is in the default live list' );
 
 // The header switcher: four languages, the Chinese ones written in characters.
 $GLOBALS['remotive_i18n_lang'] = 'en';
@@ -106,7 +116,7 @@ t_ok( false !== strpos( $nav, '>简体<' ) && false !== strpos( $nav, '>繁體<'
 $entries = remotive_i18n_sitemap_entries();
 t_ok( isset( $entries[''] ) && isset( $entries['services'] ), 'live pages are in the sitemap' );
 t_eq( array_keys( $entries[''] ), array( 'en', 'zh-hans', 'zh-hant' ), 'home entry: English plus the languages that are on' );
-t_ok( isset( $entries['2026/09/seo-vs-sem'] ) && ! isset( $entries['2026/09/seo-vs-sem']['ms'] ), 'an article is in the sitemap without the language that is off' );
+t_ok( ! isset( $entries['2026/09/seo-vs-sem'] ) && ! isset( $entries['blog'] ), 'Insights (the posts page and the articles) is not in the language sitemap' );
 $xml = remotive_i18n_sitemap_xml();
 t_ok( false !== strpos( $xml, '<loc>https://example.com/</loc>' ), 'English URL is listed with its alternates' );
 t_ok( false !== strpos( $xml, 'hreflang="x-default"' ), 'x-default present' );
