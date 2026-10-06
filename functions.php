@@ -38,6 +38,7 @@ require get_stylesheet_directory() . '/inc/content/feature-grids.php';
 require get_stylesheet_directory() . '/inc/forms/thank-you.php';
 require get_stylesheet_directory() . '/inc/content/stats-band.php';
 require get_stylesheet_directory() . '/inc/content/post-image-fallback.php';
+require get_stylesheet_directory() . '/inc/content/article.php';
 require get_stylesheet_directory() . '/inc/content/webmcp.php';
 require get_stylesheet_directory() . '/inc/core/security.php';
 require get_stylesheet_directory() . '/inc/options/maintenance-mode.php';
@@ -504,6 +505,27 @@ function remotive_conditional_enqueue_assets() {
 
 	if ( ! $is_blog && ! $is_secondary_page ) {
 		return;
+	}
+
+	// The article page has its own stylesheet and script (reading progress,
+	// contents list, share buttons).
+	if ( is_singular( 'post' ) ) {
+		$art_css = get_stylesheet_directory() . '/assets/css/article.css';
+		$art_js  = get_stylesheet_directory() . '/assets/js/article.js';
+		wp_enqueue_style(
+			'remotive-article',
+			get_stylesheet_directory_uri() . '/assets/css/article.css',
+			array( 'remotive-style' ),
+			file_exists( $art_css ) ? filemtime( $art_css ) : '1.0.0'
+		);
+		wp_enqueue_script(
+			'remotive-article',
+			get_stylesheet_directory_uri() . '/assets/js/article.js',
+			array(),
+			file_exists( $art_js ) ? filemtime( $art_js ) : '1.0.0',
+			true
+		);
+		wp_script_add_data( 'remotive-article', 'strategy', 'defer' );
 	}
 
 	$css_path = get_stylesheet_directory() . '/assets/css/blog-and-about.css';

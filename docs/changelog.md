@@ -4,6 +4,33 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.114.0] — 2026-10-07
+
+### Changed
+
+- **The article page is rebuilt to be read** (`templates/single.html`, new `assets/css/article.css` and `assets/js/article.js`, loaded on single posts only; new `inc/content/article.php`). The old page was a column of grey, low-contrast text under huge all-caps grey headings, with a sidebar and no way in. Now: a colour-washed header with a category pill, a very large bold sentence-case title with a gradient bar, the byline with the reading time ("9 min read", 220 words a minute); a wide rounded cover with a coloured glow; the first paragraph set as a lede with a gradient rule; body text at full-strength ink, 1.1 to 1.2 rem on a 1.8 line height; each section heading gets a Kagnue number (01, 02, ...) and a bold line; links are underlined in the accent colour; styled lists, quotes and code. A sticky "In this article" list (built from the h2 headings, highlights the section being read; a swipeable row of chips below 980 px) sits beside a "Free audit" card. A thin cyan-to-pink progress bar follows the scroll. Below the article: share buttons (WhatsApp, LinkedIn, X, copy link, whose links the script fills from the canonical URL), tags, a "Keep reading" row of three other articles (the Query Loop class `rm-related` leaves out the current post), then the existing call-to-action band. The sidebar stays on the Insights index, archive and search pages. Light, dark and custom colour schemes carry through; motion stops under `prefers-reduced-motion`; print hides the extras.
+- **The seven seeded articles pass Rank Math's own content tests.** Read from the Rank Math 1.0.279 analyzer: a description is now 120 to 160 characters (they were 87 to 104); the focus keyword matches the URL (`sem services`, `seo agency`, `seo cost`, `seo services pricing`; four did not before) and starts the SEO title; keyword density is at least 0.76% (it was 0.30 to 0.62% in six of them, and under 0.5% fails); all are over 600 words; and every paragraph and heading is a real block (the intro of each article, and all of four of them, was loose HTML that opened as one Classic block). `tests/check-article-seo.php` (86 checks, in CI) keeps it that way.
+- **Existing sites are updated once** (`remotive_refresh_article_seo()`, schema 1.114.0). The title, description and focus keyword are replaced only when empty or still byte-for-byte the earlier seed value; the body only when it still matches the earlier seed text (MD5). Anything an editor has changed is left alone.
+- Rank Math's SEO score is worked out in the editor, so it is blank until each post is opened. To fill every score at once: Rank Math → Status & Tools → Database Tools → Update SEO Score.
+
+## [1.113.0] — 2026-10-06
+
+### Changed
+
+- **Sidebar redesign** (`parts/sidebar.html`, `assets/css/blog-and-about.css`). All three cards have rounded corners and a thin cyan-to-pink bar on the top edge. About: a "Taking on new projects" badge with a pulsing dot. Recent posts: an icon chip on the heading, then rows of a 72 px thumbnail with a Kagnue number (01 to 05) in the corner, a category label, the title and the date with a clock icon; on hover or keyboard focus the row tints, an accent bar grows in, the thumbnail zooms, the title turns pink and a round arrow button slides in; an "All insights" link follows. Contact: a gradient wash, the email as a bordered pill with a mail icon, and a full-width button with an arrow. The card is sticky on desktop and static below 900 px. Colours come from the theme palette (`cyan`, `magenta-dark`, `accent-3`), so light mode, dark mode and customised schemes all carry through; the category label uses `cyan-dark` to keep its contrast on white. Icons are CSS masks. Motion stops under `prefers-reduced-motion`. Replaces the 1.112.1 and 1.112.2 sidebar CSS.
+
+## [1.112.2] — 2026-10-06
+
+### Added
+
+- **Sidebar icons and rollovers.** The Recent posts and Get in touch headings get a list and an envelope icon (CSS masks, so they follow the accent colour). A Recent posts row now reacts to hover and keyboard focus: the thumbnail zooms slightly, the title turns magenta and an arrow slides in. The sidebar button lifts on hover. All motion is off under `prefers-reduced-motion`.
+
+## [1.112.1] — 2026-10-06
+
+### Fixed
+
+- **The sidebar's Recent posts card was a sparse list of bold titles with large gaps.** The touch-target rule in `remotive.css` (`display:inline-block; padding-block:.5rem`) was applied to the title links, on top of the list gap, so each row grew tall. Each entry in `parts/sidebar.html` is now a row with a 64 px square featured image, the date and the title (clamped to three lines), separated by hairlines. The link padding is reset in `blog-and-about.css`; the whole row stays easy to hit, because the image and title are both links.
+
 ## [1.112.0] — 2026-10-06
 
 ### Changed

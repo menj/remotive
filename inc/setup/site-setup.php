@@ -339,6 +339,125 @@ function remotive_run_site_setup() {
 }
 
 /**
+ * MD5 of the article text and Rank Math fields as seeded by 1.113.0 and earlier.
+ *
+ * remotive_refresh_article_seo() only replaces a value that still matches
+ * its hash, so anything an editor has changed stays as they left it.
+ *
+ * @return array[]
+ */
+function remotive_old_article_seo_hashes() {
+	return array(
+		'seo-friendly-web-design' => array(
+			'content' => '23559b7a46b685f1c17b6ad1f57e9df8',
+			'title'   => '07d6bc1f5688653d170af8c940d22f12',
+			'desc'    => '1074ed3a8a3a19e09f33ef03e831a895',
+			'kw'      => 'e95ddfa23d0081f56992ca2923a4d1bd',
+		),
+		'sem-services-singapore' => array(
+			'content' => 'b0143cdf0ef476dfb3ffcf707b00ccab',
+			'title'   => 'b6cfe5195f328d4dfb4414b16607838f',
+			'desc'    => '4d858f59eafd3fca38baeba11355a913',
+			'kw'      => '98dde1cf6bbd40875110fa4432f3b0d7',
+		),
+		'facebook-advertising-malaysia' => array(
+			'content' => '6c6c80277ff614523649967c189752a3',
+			'title'   => 'b6d491de25fd1341cb747a51e37a873d',
+			'desc'    => '7cfb228076e44ddcac8e5b48f8d41815',
+			'kw'      => 'e4535434e1039b46370e422ef9a864f6',
+		),
+		'how-to-choose-an-seo-agency' => array(
+			'content' => '9a0dc44c8c8f75df5ef6638482924521',
+			'title'   => '12ddf28236473f0e4d1faf304249aa78',
+			'desc'    => '65668e85d4e2e798ac26922c892b603c',
+			'kw'      => 'e10e04e38e72289b7bb74933f06f05cb',
+		),
+		'seo-vs-sem' => array(
+			'content' => '38d06a6e829754d6630d8a297eb71090',
+			'title'   => '980b52028aebfb5de26c70695401e0da',
+			'desc'    => '68dee08689f4580f93ab751fe798cebd',
+			'kw'      => '8d7d4382ab81dab0ff2724c990fbdba5',
+		),
+		'seo-cost-singapore' => array(
+			'content' => '8b568bf7f56ca9d837160f9d08541d77',
+			'title'   => '0dc638afbe34d215e9b935cac5293349',
+			'desc'    => '027bf5c95d20ad33054980097c973644',
+			'kw'      => '8696e7a29d9dd25b40d163a78f81e708',
+		),
+		'seo-services-pricing-malaysia' => array(
+			'content' => '6fd9009ceff2f4b7eada9d1266910cc7',
+			'title'   => '2d1e9557ea23efde6d519b65fb3150ce',
+			'desc'    => 'bef087e9c7c9e6d56c2a89c9867b178e',
+			'kw'      => '3fa1c2d2ad0371473e5367146b987dd2',
+		),
+	);
+}
+
+/**
+ * Brings the seeded articles up to the optimised Rank Math fields and text
+ * (focus keyword matching the URL, 120 to 160 character descriptions, keyword
+ * density above 0.76%, block markup throughout).
+ *
+ * A field is replaced only when it is empty or still byte-for-byte what the
+ * theme seeded earlier. An edited title, description, keyword or body is
+ * never touched.
+ *
+ * @return int Number of fields changed.
+ */
+function remotive_refresh_article_seo() {
+	if ( ! function_exists( 'remotive_seed_content' ) ) {
+		return 0;
+	}
+
+	$hashes  = remotive_old_article_seo_hashes();
+	$changed = 0;
+
+	foreach ( remotive_seed_content() as $item ) {
+		if ( 'post' !== ( $item['type'] ?? '' ) || empty( $item['slug'] ) || ! isset( $hashes[ $item['slug'] ] ) ) {
+			continue;
+		}
+
+		$posts = get_posts( array(
+			'name'             => $item['slug'],
+			'post_type'        => 'post',
+			'post_status'      => 'any',
+			'numberposts'      => 1,
+			'suppress_filters' => false,
+		) );
+
+		if ( ! $posts ) {
+			continue;
+		}
+
+		$post_id = (int) $posts[0]->ID;
+		$old     = $hashes[ $item['slug'] ];
+
+		$fields = array(
+			'rank_math_title'         => array( 'rm_title', 'title' ),
+			'rank_math_description'   => array( 'rm_desc', 'desc' ),
+			'rank_math_focus_keyword' => array( 'rm_kw', 'kw' ),
+		);
+
+		foreach ( $fields as $meta_key => $map ) {
+			$new = (string) ( $item[ $map[0] ] ?? '' );
+			$cur = (string) get_post_meta( $post_id, $meta_key, true );
+
+			if ( '' !== $new && $cur !== $new && ( '' === $cur || md5( $cur ) === $old[ $map[1] ] ) ) {
+				update_post_meta( $post_id, $meta_key, $new );
+				++$changed;
+			}
+		}
+
+		if ( ! empty( $item['content'] ) && md5( (string) $posts[0]->post_content ) === $old['content'] && $posts[0]->post_content !== $item['content'] ) {
+			wp_update_post( wp_slash( array( 'ID' => $post_id, 'post_content' => $item['content'] ) ) );
+			++$changed;
+		}
+	}
+
+	return $changed;
+}
+
+/**
  * Option flag recording that the automatic pass has already run. Its value is
  * the theme version that ran it, which makes the history readable later.
  */
@@ -353,7 +472,7 @@ const REMOTIVE_SETUP_FLAG = 'remotive_site_setup_done';
  * migrations. This is the value stored in remotive_site_setup_done after
  * all migrations for this release complete successfully.
  */
-const REMOTIVE_SETUP_SCHEMA = '1.111.0';
+const REMOTIVE_SETUP_SCHEMA = '1.114.0';
 
 /**
  * Migrations keyed by the schema version they introduce.
@@ -427,6 +546,11 @@ function remotive_migration_registry() {
 		// missing image is replaced.
 		'1.111.0' => function() {
 			remotive_refresh_article_photos();
+		},
+		// 1.114.0: the seeded articles get Rank Math fields that pass Rank Math's own
+		// checks. Only untouched seed values are replaced.
+		'1.114.0' => function() {
+			remotive_refresh_article_seo();
 		},
 		// 1.90.0: provisions the three ad landing pages (seo-audit,
 		// google-ads-management, paid-social-advertising). Registering them in

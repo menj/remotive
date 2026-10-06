@@ -4,7 +4,7 @@ Tags: block-theme, full-site-editing, child-theme, one-page
 Requires at least: 6.7
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.112.0
+Stable tag: 1.114.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -336,9 +336,22 @@ floor, not a replacement.
 
 == Changelog ==
 
-See `docs/changelog.md` for full version history. Latest version: 1.112.0.
+See `docs/changelog.md` for full version history. Latest version: 1.114.0.
 
 == Upgrade Notice ==
+
+= 1.114.0 =
+* Changed: the article page is redesigned for reading. A large header with a gradient accent, a lede paragraph, numbered section headings, a sticky contents list with a free-audit card, a reading-progress bar, share buttons and related posts.
+* Changed: the seven seeded articles now pass Rank Math's content tests (focus keyword matching the URL, 120 to 160 character descriptions, keyword density above 0.76%, block markup). Existing sites are updated once, and only values still matching the seed are replaced.
+
+= 1.113.0 =
+* Changed: the blog sidebar is redesigned. Gradient-edged cards, a numbered Recent posts list with thumbnails, category and date, an availability badge, an "All insights" link and a branded contact card. Hover and focus effects follow the colour scheme in light and dark mode.
+
+= 1.112.2 =
+* Added: icons on the sidebar card headings, and hover and focus effects on the Recent posts rows and the button.
+
+= 1.112.1 =
+* Fixed: the blog sidebar's Recent posts list is now compact, with a square thumbnail, the date and a three-line title for each post. A site-wide link-padding rule had been stretching every title into a tall, empty row.
 
 = 1.112.0 =
 Insights (the blog and its articles) is English only: no language versions, switcher, hreflang or language sitemap entries; translated addresses redirect to English.

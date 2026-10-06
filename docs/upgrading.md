@@ -62,6 +62,12 @@ WordPress site yet; this list is how to find out.
 - If an older generation of the generic graphics is still on an article, set its
   featured image in the editor.
 
+## v1.114.0: article page and Rank Math fields
+
+- Open an article: the new header, contents list, progress bar, share row and "Keep reading" cards. If you use a page cache or minifier, clear it so `assets/css/article.css` and `assets/js/article.js` load.
+- The seven seeded articles get Rank Math-ready titles, descriptions, focus keywords and text once, on the first load after upload. Anything you edited is kept. If an article's text differs from the seed, only its empty fields are filled.
+- Rank Math → Status & Tools → Database Tools → **Update SEO Score** fills every post's score in one go (the score is worked out in the browser).
+
 ## v1.112.0: Insights is English only
 
 - Open `/blog/` and an article: no language switcher, no hreflang. `/ms/blog/`
