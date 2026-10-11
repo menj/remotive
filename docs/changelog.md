@@ -4,6 +4,18 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.116.0] — 2026-10-11
+
+### Added
+
+- **A single-page agency layout, as a switch** (Theme Options → Agency layout; `inc/options/agency-layout.php`, `inc/landing/agency-page.php`, `assets/css/agency.css`). Requested by the client: one scrolling agency landing page in the format of the ad landing pages, with the existing theme kept and the new layout turned on and off from Theme Options. **Off by default; with the switch off nothing changes.**
+  - The home page becomes: the logo; the headline "Performance marketing, media & SEO / built to scale Asian brands, globally." and the introduction beside a contact form above the fold (under the headline on a phone, as on the ad pages); six service cards; the team with small portraits; and a closing band with the second contact form. No menu, no country ticker, no "Show me a growth plan" or "View our capabilities" buttons, no "30 minutes · no commitment · reply in one business day" line. Every word (headline, introduction, form title, intro, button, small print, the six services, section headings) is editable in the tab, and any card or section can be hidden. The team portraits are a selectable 48, 64 or 88 px.
+  - **Other pages.** A second switch, on by default once the layout is on, sends every other public page (About, Team, Services, Case Studies, Insights, Contact, FAQ, archives, search) to the home page with a temporary 302, so switching the layout off restores them, and takes them out of the Rank Math, WordPress and AI Discovery Files sitemaps and out of the language versions (a language version of the home page redirects to English). The ad landing pages, their thank-you pages and the legal pages stay reachable; editors can still preview any page; nothing is deleted.
+  - Both forms use the existing landing-page handler as the service `agency` (nonce, honeypot, rate limit, email, thank-you page and tracking all as before). `remotive_lp_service()` now looks a service up for the form and the handler; `remotive_lp_form()` takes its small print and website label from the service.
+  - New filter `remotive_i18n_available` (in `remotive_i18n_available()`) lets a layout switch a page off in every language.
+  - `tests/test-agency.php` (55 tests, in CI): defaults and the off-by-default switch, the brief's headline and paragraph, the removed phrases, sanitising, the redirect truth table, and the rendered page (two forms, six cards, no menu or ticker, escaping, team and size).
+  - Checked at 1,280, 1,024, 768 and 390 px, in light and dark.
+
 ## [1.115.2] — 2026-10-11
 
 Fixes for the CodeAnt review findings on PRs 35, 36 and 37, which were merged before the review was read. Each was checked against the code first; all were real.

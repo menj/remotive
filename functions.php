@@ -20,6 +20,7 @@ require get_stylesheet_directory() . '/inc/i18n/i18n.php';
 require get_stylesheet_directory() . '/inc/i18n/i18n-admin.php'; // Tools > Translations: the screen that manages them.
 
 require get_stylesheet_directory() . '/inc/options/colours.php';
+require get_stylesheet_directory() . '/inc/options/agency-layout.php';
 require get_stylesheet_directory() . '/inc/options/theme-options.php';
 require get_stylesheet_directory() . '/inc/setup/site-setup.php';
 require get_stylesheet_directory() . '/inc/forms/lead-form-handler.php';
@@ -43,6 +44,7 @@ require get_stylesheet_directory() . '/inc/content/webmcp.php';
 require get_stylesheet_directory() . '/inc/core/security.php';
 require get_stylesheet_directory() . '/inc/options/maintenance-mode.php';
 require get_stylesheet_directory() . '/inc/landing/landing-pages.php';
+require get_stylesheet_directory() . '/inc/landing/agency-page.php';
 require get_stylesheet_directory() . '/inc/core/rank-math.php';
 require get_stylesheet_directory() . '/inc/core/ai-discovery-files.php';
 

@@ -209,7 +209,8 @@ function remotive_lp_t( $t, $tag = '', $cls = '' ) {
  * @return string
  */
 function remotive_lp_form( $service, $pos ) {
-	$cta = remotive_landing_services()[ $service ]['cta'];
+	$svc = remotive_lp_service( $service );
+	$cta = $svc['cta'];
 	$id = 'rm-lp-' . $pos;
 
 	$field = function ( $name, $type, $label, $required, $autocomplete ) use ( $id ) {
@@ -248,9 +249,9 @@ function remotive_lp_form( $service, $pos ) {
 		. '<input type="text" id="' . esc_attr( $id ) . '-hp" name="remotive_lp_website" tabindex="-1" autocomplete="off"></div>'
 		. $field( 'name', 'text', array( 'Your name', 'Nama anda', '您的姓名', '您的姓名' ), true, 'name' )
 		. $field( 'email', 'email', array( 'Work email', 'E-mel kerja', '工作邮箱', '工作信箱' ), true, 'email' )
-		. $field( 'site', 'text', array( 'Website to review', 'Laman web untuk disemak', '待审查的网站', '待審查的網站' ), false, 'url' )
+		. $field( 'site', 'text', isset( $svc['site_label'] ) ? $svc['site_label'] : array( 'Website to review', 'Laman web untuk disemak', '待审查的网站', '待審查的網站' ), false, 'url' )
 		. '<button type="submit" class="rm-lp__submit">' . remotive_lp_t( $cta ) . '</button>'
-		. '<p class="rm-lp__fine">' . remotive_lp_t( array( 'Free. No commitment. No mailing list. We reply within three business days.', 'Percuma. Tiada komitmen. Tiada senarai mel. Kami membalas dalam tiga hari bekerja.', '免费，无需承诺，不加入邮件列表。我们会在三个工作日内回复。', '免費，無需承諾，不加入郵寄名單。我們會在三個工作日內回覆。' ) )
+		. '<p class="rm-lp__fine">' . remotive_lp_t( isset( $svc['fine'] ) ? $svc['fine'] : array( 'Free. No commitment. No mailing list. We reply within three business days.', 'Percuma. Tiada komitmen. Tiada senarai mel. Kami membalas dalam tiga hari bekerja.', '免费，无需承诺，不加入邮件列表。我们会在三个工作日内回复。', '免費，無需承諾，不加入郵寄名單。我們會在三個工作日內回覆。' ) )
 		. ' <a href="' . esc_url( home_url( '/privacy/' ) ) . '">' . remotive_lp_t( array( 'Privacy', 'Privasi', '隐私政策', '隱私權政策' ) ) . '</a></p>'
 		. '<div class="rm-lp__status" data-lead-status="remotive_lp" role="status" aria-live="polite" hidden>' . $msgs . '</div>'
 		. '</form>';
@@ -546,14 +547,14 @@ add_filter( 'remotive_theme_option_tokens', 'remotive_lp_token' );
  * produced it.
  */
 function remotive_handle_landing_submission() {
-	$services = remotive_landing_services();
-	$service  = isset( $_POST['service'] ) && is_scalar( $_POST['service'] ) ? sanitize_key( wp_unslash( $_POST['service'] ) ) : '';
-	$service  = isset( $services[ $service ] ) ? $service : '';
+	$service = isset( $_POST['service'] ) && is_scalar( $_POST['service'] ) ? sanitize_key( wp_unslash( $_POST['service'] ) ) : '';
+	$svc     = remotive_lp_service( $service );
+	$service = null !== $svc ? $service : '';
 
 	$extra = array();
 
 	if ( '' !== $service ) {
-		$extra[] = 'Service: ' . $services[ $service ]['label'][0];
+		$extra[] = 'Service: ' . $svc['label'][0];
 	}
 
 	$site = isset( $_POST['site'] ) && is_scalar( $_POST['site'] ) ? esc_url_raw( wp_unslash( $_POST['site'] ), array( 'http', 'https' ) ) : '';

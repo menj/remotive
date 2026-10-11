@@ -1,0 +1,124 @@
+<?php
+/**
+ * The single-page agency layout: defaults, sanitising, redirect rules and the page.
+ * Run: php tests/test-agency.php
+ */
+
+require __DIR__ . '/bootstrap.php';
+
+function remotive_i18n_lang() { return 'en'; }
+function sanitize_textarea_field( $s ) { return trim( strip_tags( (string) $s ) ); }
+function is_front_page() { return $GLOBALS['T']['front'] ?? true; }
+function is_paged() { return false; }
+function get_post_status( $p ) { return 'publish'; }
+function wp_parse_args( $a, $d = array() ) { return array_merge( $d, (array) $a ); }
+function wp_kses( $s ) { return $s; }
+function _n( $a, $b, $n ) { return 1 === $n ? $a : $b; }
+
+require dirname( __DIR__ ) . '/inc/options/colours.php';
+require dirname( __DIR__ ) . '/inc/options/agency-layout.php';
+require dirname( __DIR__ ) . '/inc/options/theme-options.php';
+require dirname( __DIR__ ) . '/inc/landing/landing-copy.php';
+require dirname( __DIR__ ) . '/inc/landing/landing-pages.php';
+require dirname( __DIR__ ) . '/inc/landing/agency-page.php';
+
+function t_options( array $o ) {
+	t_reset();
+	$GLOBALS['T']['options']['remotive_theme_options'] = $o;
+}
+
+// ---- Off by default ----
+t_reset();
+$d = remotive_agency_option_defaults();
+t_eq( $d['agency_mode'], '0', 'the agency layout is off by default' );
+t_eq( $d['agency_hide_pages'], '1', 'hiding the other pages is on by default (once the layout is on)' );
+t_ok( ! remotive_agency_mode(), 'mode reads as off on a fresh site' );
+t_ok( ! remotive_agency_front(), 'the home page is not the agency page while the switch is off' );
+t_eq( $d['agency_line_1'], 'Performance marketing, media & SEO', 'headline line 1 is the brief\'s' );
+t_eq( $d['agency_line_2'], 'built to scale Asian brands, globally.', 'headline line 2 is the brief\'s' );
+t_ok( 0 === strpos( $d['agency_lead'], 'We are a senior-led independent media team' ) && false !== strpos( $d['agency_lead'], 'across Asia and beyond.' ), 'the introduction is the brief\'s paragraph' );
+t_ok( isset( remotive_theme_option_defaults()['agency_mode'] ), 'the agency options are part of the theme defaults' );
+t_ok( isset( remotive_theme_options_tabs()['agency'] ), 'there is an Agency layout tab' );
+t_eq( array_keys( remotive_theme_options_tabs() )[1], 'agency', 'the tab sits straight after Homepage' );
+
+// ---- The words the brief asked to remove are not in the defaults ----
+$all = strtolower( json_encode( $d ) );
+foreach ( array( 'show me a growth plan', 'view our capabilities', '30 minutes', 'reply in one business day', 'ticker' ) as $banned ) {
+	t_ok( false === strpos( $all, $banned ), "no \"$banned\" in the agency copy" );
+}
+
+// ---- Sanitising ----
+$clean = array();
+remotive_sanitize_agency_options( array(), $clean );
+t_eq( $clean['agency_mode'], '0', 'an unticked switch saves as off' );
+t_eq( $clean['agency_hide_pages'], '0', 'an unticked "other pages" box saves as off' );
+t_eq( $clean['agency_line_1'], $d['agency_line_1'], 'a missing headline falls back to the default' );
+
+$clean = array();
+remotive_sanitize_agency_options( array( 'agency_mode' => '1', 'agency_line_1' => '  ', 'agency_eyebrow' => '', 'agency_team_size' => 'huge', 'agency_svc_2_title' => '', 'agency_lead' => '<b>Hello</b>' ), $clean );
+t_eq( $clean['agency_mode'], '1', 'a ticked switch saves as on' );
+t_eq( $clean['agency_line_1'], $d['agency_line_1'], 'a blank headline is replaced by the default, never left empty' );
+t_eq( $clean['agency_eyebrow'], '', 'the eyebrow may be blank' );
+t_eq( $clean['agency_team_size'], 'sm', 'an unknown portrait size falls back to small' );
+t_eq( $clean['agency_svc_2_title'], '', 'a service with no title is kept blank (it is hidden)' );
+t_eq( $clean['agency_lead'], 'Hello', 'markup is stripped from the introduction' );
+
+// ---- Which requests are sent to the home page ----
+$base = array( 'mode' => true, 'hide' => true, 'front' => false, 'content' => true, 'landing' => false, 'legal' => false, 'preview' => false );
+t_ok( remotive_agency_should_redirect( $base ), 'an ordinary page goes to the home page' );
+t_ok( ! remotive_agency_should_redirect( array_merge( $base, array( 'mode' => false ) ) ), 'nothing is redirected with the switch off' );
+t_ok( ! remotive_agency_should_redirect( array_merge( $base, array( 'hide' => false ) ) ), 'nothing is redirected if the other pages are left live' );
+t_ok( ! remotive_agency_should_redirect( array_merge( $base, array( 'front' => true ) ) ), 'the home page stays' );
+t_ok( ! remotive_agency_should_redirect( array_merge( $base, array( 'landing' => true ) ) ), 'the ad landing pages stay' );
+t_ok( ! remotive_agency_should_redirect( array_merge( $base, array( 'legal' => true ) ) ), 'the legal pages stay' );
+t_ok( ! remotive_agency_should_redirect( array_merge( $base, array( 'preview' => true ) ) ), 'an editor\'s preview is not redirected' );
+t_ok( ! remotive_agency_should_redirect( array_merge( $base, array( 'content' => false ) ) ), 'a request that is not content (a feed, a sitemap) is left alone' );
+
+// ---- The agency page as a landing "service" ----
+t_options( array() );
+t_ok( null !== remotive_lp_service( 'agency' ), 'the shared form knows the agency page' );
+t_ok( null !== remotive_lp_service( 'seo-audit' ), 'and still knows the ad landing pages' );
+t_ok( null === remotive_lp_service( 'nonsense' ), 'an unknown service is rejected' );
+
+// ---- The page ----
+t_options( array( 'agency_mode' => '1' ) );
+t_ok( remotive_agency_front(), 'the home page is the agency page when the switch is on' );
+$html = remotive_agency_render();
+t_eq( substr_count( $html, '<form ' ), 2, 'two contact forms: top and bottom' );
+t_ok( false !== strpos( $html, 'id="rm-lp-top-name"' ) && false !== strpos( $html, 'id="rm-lp-bottom-name"' ), 'the two forms have distinct field ids' );
+t_ok( false !== strpos( $html, 'name="service" value="agency"' ), 'the forms post as the agency service' );
+t_eq( substr_count( $html, '<h1>' ), 1, 'one h1' );
+t_ok( false !== strpos( $html, 'Performance marketing, media &amp; SEO<br> built to scale Asian brands, globally.' ), 'the headline is on the page' );
+t_eq( substr_count( $html, 'class="rm-ag__card"' ), 6, 'six service cards' );
+t_ok( false === strpos( $html, 'rm-ticker' ), 'no ticker' );
+t_ok( false === strpos( $html, 'rm-hero__actions' ) && false === stripos( $html, 'growth plan' ), 'no hero buttons' );
+t_ok( false === strpos( $html, '<nav' ), 'no menu' );
+t_ok( false !== strpos( $html, 'We reply within three business days. No mailing list.' ), 'the line under the form is the agency\'s own' );
+t_ok( false === strpos( $html, 'Free. No commitment' ), 'not the ad pages\' line' );
+
+// A form comes before the services, so it is above the first scroll.
+t_ok( strpos( $html, 'id="rm-lp-start"' ) < strpos( $html, 'rm-ag__services' ), 'the first form comes before the services' );
+
+// Switching parts off.
+t_options( array( 'agency_mode' => '1', 'agency_show_services' => '0', 'agency_show_team' => '0' ) );
+$html = remotive_agency_render();
+t_ok( false === strpos( $html, 'rm-ag__services' ) && false === strpos( $html, 'rm-ag__team' ), 'the services and team sections can be switched off' );
+t_eq( substr_count( $html, '<form ' ), 2, 'both forms remain' );
+
+// A service with no title is hidden; the rest renumber.
+t_options( array( 'agency_mode' => '1', 'agency_svc_2_title' => '' ) );
+$html = remotive_agency_render();
+t_eq( substr_count( $html, 'class="rm-ag__card"' ), 5, 'a blank title hides that card' );
+t_ok( false !== strpos( $html, '>05<' ) && false === strpos( $html, '>06<' ), 'the numbers run on without a gap' );
+
+// Escaping.
+t_options( array( 'agency_mode' => '1', 'agency_line_1' => '<script>alert(1)</script>' ) );
+t_ok( false === strpos( remotive_agency_render(), '<script>alert' ), 'copy is escaped' );
+
+// Team.
+t_options( array( 'agency_mode' => '1', 'agency_team_size' => 'xs', 'team' => array( array( 'name' => 'Ada Lovelace', 'role' => 'Engineer', 'slug' => 'ada', 'bio' => '', 'home' => '1' ) ) ) );
+$html = remotive_agency_render();
+t_ok( false !== strpos( $html, 'data-person="ada"' ) && false !== strpos( $html, '>AL<' ), 'a team member has a portrait slot with initials' );
+t_ok( false !== strpos( $html, '--ag-photo:48px' ), 'the portrait size follows the setting' );
+
+t_done( 'agency' );

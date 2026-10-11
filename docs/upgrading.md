@@ -62,6 +62,14 @@ WordPress site yet; this list is how to find out.
 - If an older generation of the generic graphics is still on an article, set its
   featured image in the editor.
 
+## v1.116.0: optional single-page agency layout
+
+- Nothing changes on upload. The layout is **off by default**.
+- To use it: Appearance → Theme Options → **Agency layout**, tick "Use the single-page agency layout for the home page", edit the words if you like, and Save. Visit the home page logged out (or in a private window) to see it.
+- "Send the other pages to the home page" is on by default. Untick it to keep About, Services, Case Studies and the rest live. Switching the whole layout off brings every page back; they were never deleted.
+- After switching it on or off, clear any page cache or CDN cache for the home page and the other pages, and let Rank Math's sitemap rebuild (Rank Math → Sitemap Settings → Save).
+- The two forms send to the same inbox as the ad landing pages, with "Service: Agency (home page)" in the email.
+
 ## v1.115.0: longer articles
 
 - The seven seeded articles grow to 1,100 to 1,500 words on the first admin page load after upload (the migration runs from `admin_init` or on activation, not from a visitor's page view). Text you edited is kept; the new sections only replace text that still matches the earlier seed.

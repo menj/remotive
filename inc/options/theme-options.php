@@ -139,7 +139,7 @@ function remotive_theme_option_base_defaults() {
  * Every default: the settings above plus the colour scheme (inc/options/colours.php).
  */
 function remotive_theme_option_defaults() {
-	return array_merge( remotive_theme_option_base_defaults(), remotive_colour_option_defaults() );
+	return array_merge( remotive_theme_option_base_defaults(), remotive_colour_option_defaults(), remotive_agency_option_defaults() );
 }
 
 /**
@@ -623,6 +623,11 @@ function remotive_theme_options_tabs() {
 			$tabs['colours'] = remotive_colours_tab();
 		}
 		$tabs[ $key ] = $tab;
+
+		// The agency layout switch sits straight after the Homepage tab.
+		if ( 'homepage' === $key ) {
+			$tabs['agency'] = remotive_agency_tab();
+		}
 	}
 
 	return $tabs;
@@ -977,6 +982,7 @@ function remotive_sanitize_theme_options( $input ) {
 		: 'left';
 
 	remotive_sanitize_colour_options( $input, $clean );
+	remotive_sanitize_agency_options( $input, $clean );
 
 	if ( empty( $clean['contact_email'] ) ) {
 		$clean['contact_email'] = $defaults['contact_email'];

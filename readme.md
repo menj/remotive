@@ -126,8 +126,11 @@ remotive/
 │   │   │                   languages on their own paths, with the
 │   │   │                   audit-requested page, hreflang, FAQPage schema and
 │   │   │                   noindex rules.
-│   │   └── landing-copy.php    The pages' words: services and FAQ, four
-│   │                       languages each.
+│   │   ├── landing-copy.php    The pages' words: services and FAQ, four
+│   │   │                   languages each.
+│   │   └── agency-page.php The optional single-page agency home page and the
+│   │                       redirects, sitemap and language rules that go with
+│   │                       the switch. (v1.116.0)
 │   ├── i18n/               Language versions of the site (v1.104.0).
 │   │   ├── i18n.php        /ms/, /zh-hans/, /zh-hant/: removes the prefix
 │   │   │                   from the request, translates the rendered page
@@ -927,6 +930,15 @@ the plain colour in light mode; in dark mode `cyan-dark` equals `cyan`).
   `theme.json`, the light overrides in `assets/css/remotive.css` and
   `assets/css/critical.css`, and the defaults in `remotive_colour_tokens()`.
 - The block editor's own palette (`theme.json`) is not changed by this tab.
+
+## Single-page agency layout (`inc/options/agency-layout.php`, `inc/landing/agency-page.php`)
+
+An optional alternative home page, switched on and off in **Appearance → Theme Options → Agency layout**. It is **off by default**; with it off nothing in the theme changes, and switching it off puts the site back exactly as it was. Nothing is deleted or restructured.
+
+- **On:** the home page renders one scrolling agency page in the format of the ad landing pages: the logo, the headline and introduction beside a contact form above the fold (the form sits straight under the headline on a phone), then the services (six cards), the team (small portraits, three sizes), and a closing band with the second contact form. No menu, no country ticker, no hero buttons, no reassurance line. The words (headline, introduction, form text, six services, headings) are all editable in the tab; English only.
+- **Other pages:** a second switch (on by default once the layout is on) sends About, Team, Services, Case Studies, Insights, Contact, FAQ and every other page to the home page with a temporary 302, and removes them from the Rank Math, WordPress and AI Discovery sitemaps and from the language versions. The ad landing pages, their thank-you pages and the legal pages (privacy, terms) stay. Editors can still preview any page. Turn the second switch off to keep the other pages live next to the new home page.
+- **Forms:** both forms post as the service `agency` through the existing landing-page handler (same nonce, honeypot, rate limit, email and thank-you page); the enquiry email says "Service: Agency (home page)".
+- **How it works:** `template_include` swaps the home page to the landing template while the switch is on; `remotive_agency_should_redirect()` decides the redirects (tested); the language layer reports no language versions through the new `remotive_i18n_available` filter; the page styles are `assets/css/agency.css` (after `landing.css`).
 
 ## Ad landing pages (`inc/landing/landing-pages.php`)
 

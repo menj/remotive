@@ -1,0 +1,48 @@
+/* ==========================================================================
+   Single-page agency layout (inc/landing/agency-page.php). Loaded only on the
+   home page while Theme Options -> Agency layout is on, after landing.css, which
+   supplies the hero, the form cards, the closing band and the footer. This file
+   adds the two sections that page has and the ad landing pages do not: the
+   services and the team.
+   ========================================================================== */
+
+/* A two-line headline that is longer than an ad page's, so a little smaller. */
+.rm-ag h1{ font-size:clamp(2rem,4.6vw,3.3rem); }
+
+/* The introduction is a paragraph or two, longer than an ad page's lead. */
+.rm-ag .rm-lp__hero .rm-lp__lead{ max-width:42rem; margin-bottom:1rem; }
+.rm-ag .rm-lp__hero .rm-lp__lead:last-child{ margin-bottom:0; }
+
+/* ---- Services: six cards ---- */
+.rm-ag__services > .rm-lp__lead{ max-width:44rem; margin:-.5rem 0 1.75rem; }
+.rm-ag__cards{ list-style:none; margin:0; padding:0; display:grid; gap:1rem; grid-template-columns:repeat(auto-fit,minmax(min(100%,17.5rem),1fr)); }
+.rm-ag__card{
+  position:relative; padding:1.5rem 1.4rem 1.4rem; background:var(--wp--preset--color--card);
+  border:1px solid var(--rm-line); border-top:6px solid var(--lp-c); border-radius:var(--rm-r-lg,24px);
+  transition:transform .25s ease, border-color .25s ease;
+}
+.rm-ag__card:nth-child(3n+2){ border-top-color:var(--lp-m); }
+.rm-ag__card:nth-child(3n+3){ border-top-color:var(--lp-y); }
+.rm-ag__card:hover{ transform:translateY(-4px); }
+.rm-ag__num{ display:block; margin-bottom:.6rem; font-family:'Kagnue','Saira',Georgia,serif; font-size:1.6rem; line-height:1; color:var(--wp--preset--color--magenta-dark); }
+.rm-ag__card h3{ margin:0 0 .5rem; font-size:1.15rem; line-height:1.25; text-transform:none; }
+.rm-ag__card p{ margin:0; color:var(--rm-ink-70); line-height:1.55; }
+
+/* ---- Team: small portraits, set in a tight row of names ---- */
+.rm-ag__team{ padding-bottom:var(--lp-gap); }
+.rm-ag__people{
+  --ag-photo:64px;
+  list-style:none; margin:0; padding:0; display:grid; gap:1.5rem 1rem;
+  grid-template-columns:repeat(auto-fill,minmax(max(8.5rem,calc(var(--ag-photo) + 3rem)),1fr));
+}
+.rm-ag__person{ display:flex; flex-direction:column; align-items:flex-start; gap:.15rem; margin:0; }
+.rm-ag__photo.rm-team__photo{
+  width:var(--ag-photo); height:var(--ag-photo); aspect-ratio:1; flex:none; margin-bottom:.55rem; padding:0;
+  border-radius:50%; align-items:center; justify-content:center;
+  font-size:calc(var(--ag-photo) * .3); letter-spacing:.04em; font-weight:700; color:var(--wp--preset--color--ink);
+  background-position:center top;
+}
+.rm-ag__name{ display:block; font-size:.95rem; line-height:1.25; }
+.rm-ag__role{ display:block; font-size:.8rem; line-height:1.3; color:var(--rm-ink-70); }
+
+@media (prefers-reduced-motion:reduce){ .rm-ag__card{ transition:none; } .rm-ag__card:hover{ transform:none; } }

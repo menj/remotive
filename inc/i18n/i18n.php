@@ -341,7 +341,16 @@ function remotive_i18n_available( $lang, $key ) {
 		return false; // Switched off in Theme Options > Languages.
 	}
 
-	return remotive_i18n_page_live( $lang, $key );
+	$live = remotive_i18n_page_live( $lang, $key );
+
+	/**
+	 * Lets a layout switch a page off in every language (the single-page agency layout does).
+	 *
+	 * @param bool   $live Whether the page exists in the language.
+	 * @param string $lang Language code.
+	 * @param string $key  English path of the page, '' for the home page.
+	 */
+	return (bool) apply_filters( 'remotive_i18n_available', $live, $lang, $key );
 }
 
 /**

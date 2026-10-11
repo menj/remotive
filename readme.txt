@@ -4,7 +4,7 @@ Tags: block-theme, full-site-editing, child-theme, one-page
 Requires at least: 6.7
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.115.2
+Stable tag: 1.116.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -336,9 +336,12 @@ floor, not a replacement.
 
 == Changelog ==
 
-See `docs/changelog.md` for full version history. Latest version: 1.115.2.
+See `docs/changelog.md` for full version history. Latest version: 1.116.0.
 
 == Upgrade Notice ==
+
+= 1.116.0 =
+* Added: an optional single-page agency layout, switched on and off in Theme Options > Agency layout. Off by default, so nothing changes until it is turned on. When on, the home page is one scrolling agency page in the format of the ad landing pages (a contact form at the top and at the bottom, no menu, no ticker), and the other pages can be sent to the home page. Switch it off and the site is exactly as before.
 
 = 1.115.2 =
 * Fixed (review findings): the article body padding was not removed; the one-time article update now matches text whose links were rewritten after seeding, never overwrites a save made while it runs, and retries if a write fails; links work on a subdirectory install; a Recent posts entry with no image no longer squeezes its text; Copy link falls back when the clipboard is unavailable; the Team template row stays hidden.
