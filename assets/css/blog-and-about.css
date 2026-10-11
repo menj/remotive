@@ -156,6 +156,9 @@
   font-family:'Kagnue','Saira',Georgia,serif; font-size:1.05rem; line-height:1.2; letter-spacing:.02em;
   color:#fff; background:var(--rm-sb-pink); pointer-events:none;
 }
+/* No featured image: the fallback square carries the brand gradient, so the text column keeps its width. */
+.rm-sidebar__recent-thumb--empty{ background:linear-gradient(135deg,var(--rm-sb-cyan),var(--rm-sb-pink)); opacity:.85; }
+.rm-sidebar__recent-thumb--empty a{ width:72px; height:72px; }
 .rm-sidebar__recent-text{ min-width:0; padding-right:1.6rem; display:flex; flex-direction:column; gap:.2rem; }
 .rm-sidebar__recent-text > *{ margin:0 !important; }
 .rm-sidebar__recent-cat{ font-size:.66rem !important; font-weight:800; letter-spacing:.1em; text-transform:uppercase; line-height:1.2; }

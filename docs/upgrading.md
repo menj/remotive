@@ -64,12 +64,12 @@ WordPress site yet; this list is how to find out.
 
 ## v1.115.0: longer articles
 
-- The seven seeded articles grow to 1,100 to 1,500 words on the first load after upload. Text you edited is kept; the new sections only replace text that still matches the earlier seed.
+- The seven seeded articles grow to 1,100 to 1,500 words on the first admin page load after upload (the migration runs from `admin_init` or on activation, not from a visitor's page view). Text you edited is kept; the new sections only replace text that still matches the earlier seed.
 
 ## v1.114.0: article page and Rank Math fields
 
 - Open an article: the new header, contents list, progress bar, share row and "Keep reading" cards. If you use a page cache or minifier, clear it so `assets/css/article.css` and `assets/js/article.js` load.
-- The seven seeded articles get Rank Math-ready titles, descriptions, focus keywords and text once, on the first load after upload. Anything you edited is kept. If an article's text differs from the seed, only its empty fields are filled.
+- The seven seeded articles get Rank Math-ready titles, descriptions, focus keywords and text once, on the first admin page load after upload (not a visitor's page view). Anything you edited is kept. If an article's text differs from the seed, only its empty fields are filled.
 - Rank Math → Status & Tools → Database Tools → **Update SEO Score** fills every post's score in one go (the score is worked out in the browser).
 
 ## v1.112.0: Insights is English only

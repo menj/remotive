@@ -30,4 +30,25 @@ t_ok( ! remotive_correct_contact_email(), 'no saved options, no change' );
 // The migration is registered at the schema version that ships it.
 t_ok( version_compare( REMOTIVE_SETUP_SCHEMA, '1.103.1', '>=' ), 'schema version covers the migration' );
 
+
+// ---- Seed link helpers (subdirectory installs, and stored text compared with a seed hash) ----
+require_once dirname( __DIR__ ) . '/inc/setup/content-seed.php';
+
+$seed = '<p><a href="/services/seo/">SEO</a> <a href="/blog/seo-vs-sem/">vs</a> <a href="https://example.org/x">ext</a> <a href="//cdn.example.org/y">proto</a></p>';
+
+t_ok( remotive_seed_content_to_site( $seed, '' ) === $seed, 'seed links: a site at the domain root is left as seeded' );
+
+$sub = remotive_seed_content_to_site( $seed, '/blog-site' );
+t_ok( false !== strpos( $sub, 'href="/blog-site/services/seo/"' ), 'seed links: a subdirectory site gets its base path' );
+t_ok( false !== strpos( $sub, 'href="https://example.org/x"' ) && false !== strpos( $sub, 'href="//cdn.example.org/y"' ), 'seed links: absolute and protocol-relative links are untouched' );
+
+// What a site stores after the resolver ran, put back to the seeded form.
+$perma  = array( 'seo-vs-sem' => 'https://example.com/2026/09/seo-vs-sem/' );
+$stored = str_replace( 'href="/blog/seo-vs-sem/"', 'href="https://example.com/2026/09/seo-vs-sem/"', $seed );
+t_ok( remotive_seed_content_from_site( $stored, '', $perma ) === $seed, 'seed links: a resolved permalink is turned back into /blog/slug/ for the hash check' );
+
+$stored_sub = remotive_seed_content_to_site( $stored, '/blog-site' );
+t_ok( remotive_seed_content_from_site( $stored_sub, '/blog-site', $perma ) === $seed, 'seed links: base path and permalink are both undone' );
+t_ok( md5( remotive_seed_content_from_site( $stored_sub, '/blog-site', $perma ) ) === md5( $seed ), 'seed links: the round trip hashes the same as the seed' );
+
 t_done( 'setup' );

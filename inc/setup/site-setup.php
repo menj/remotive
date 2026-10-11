@@ -405,12 +405,17 @@ function remotive_old_article_seo_hashes() {
  * @return int Number of fields changed.
  */
 function remotive_refresh_article_seo() {
-	if ( ! function_exists( 'remotive_seed_content' ) ) {
+	if ( ! function_exists( 'remotive_seed_content' ) || ! function_exists( 'remotive_seed_content_from_site' ) ) {
 		return 0;
 	}
 
-	$hashes  = remotive_old_article_seo_hashes();
-	$changed = 0;
+	global $wpdb;
+
+	$hashes     = remotive_old_article_seo_hashes();
+	$base       = remotive_seed_base_path();
+	$permalinks = remotive_seed_post_permalinks();
+	$changed    = 0;
+	$failed     = false;
 
 	foreach ( remotive_seed_content() as $item ) {
 		if ( 'post' !== ( $item['type'] ?? '' ) || empty( $item['slug'] ) || ! isset( $hashes[ $item['slug'] ] ) ) {
@@ -442,19 +447,65 @@ function remotive_refresh_article_seo() {
 			$new = (string) ( $item[ $map[0] ] ?? '' );
 			$cur = (string) get_post_meta( $post_id, $meta_key, true );
 
-			if ( '' !== $new && $cur !== $new && ( '' === $cur || md5( $cur ) === $old[ $map[1] ] ) ) {
-				update_post_meta( $post_id, $meta_key, $new );
-				++$changed;
+			if ( '' === $new || $cur === $new || ( '' !== $cur && md5( $cur ) !== $old[ $map[1] ] ) ) {
+				continue;
 			}
+
+			// Only a write that took counts. A failure leaves the schema version
+			// where it is, so the next admin load tries again.
+			if ( false === update_post_meta( $post_id, $meta_key, $new ) ) {
+				$failed = true;
+				continue;
+			}
+
+			++$changed;
 		}
 
-		if ( ! empty( $item['content'] ) && in_array( md5( (string) $posts[0]->post_content ), (array) $old['content'], true ) && $posts[0]->post_content !== $item['content'] ) {
-			wp_update_post( wp_slash( array( 'ID' => $post_id, 'post_content' => $item['content'] ) ) );
+		if ( empty( $item['content'] ) ) {
+			continue;
+		}
+
+		// The stored text has had its /blog/ links turned into permalinks (and a
+		// subdirectory site its base path), so it is put back into seeded form
+		// before it is compared with the earlier seed hashes.
+		$stored = (string) $posts[0]->post_content;
+
+		if ( ! in_array( md5( remotive_seed_content_from_site( $stored, $base, $permalinks ) ), (array) $old['content'], true ) ) {
+			continue;
+		}
+
+		$new_content = remotive_seed_content_to_site( $item['content'], $base );
+
+		if ( $new_content === $stored ) {
+			continue;
+		}
+
+		// Compare and swap: the WHERE clause holds the text that was just checked, so
+		// a row an editor has saved since then is not overwritten (zero rows match).
+		$rows = $wpdb->update(
+			$wpdb->posts,
+			array(
+				'post_content'      => $new_content,
+				'post_modified'     => current_time( 'mysql' ),
+				'post_modified_gmt' => current_time( 'mysql', true ),
+			),
+			array(
+				'ID'           => $post_id,
+				'post_content' => $stored,
+			)
+		);
+
+		if ( 1 === (int) $rows ) {
+			clean_post_cache( $post_id );
 			++$changed;
 		}
 	}
 
-	return $changed;
+	if ( $changed && function_exists( 'remotive_resolve_seed_post_links' ) ) {
+		remotive_resolve_seed_post_links(); // The new text carries /blog/ links; point them at the real permalinks again.
+	}
+
+	return $failed ? false : $changed;
 }
 
 /**
@@ -550,12 +601,12 @@ function remotive_migration_registry() {
 		// 1.114.0: the seeded articles get Rank Math fields that pass Rank Math's own
 		// checks. Only untouched seed values are replaced.
 		'1.114.0' => function() {
-			remotive_refresh_article_seo();
+			return remotive_refresh_article_seo();
 		},
 		// 1.115.0: the seeded articles are lengthened to 1,000 words and over.
 		// Same safe refresh: only text that still matches an earlier seed is replaced.
 		'1.115.0' => function() {
-			remotive_refresh_article_seo();
+			return remotive_refresh_article_seo();
 		},
 		// 1.90.0: provisions the three ad landing pages (seo-audit,
 		// google-ads-management, paid-social-advertising). Registering them in
@@ -629,7 +680,12 @@ function remotive_maybe_auto_setup() {
 			continue;
 		}
 
-		call_user_func( $run );
+		// A migration that returns false did not finish. Stop here and leave the
+		// stored version behind it, so the next admin load runs it again.
+		if ( false === call_user_func( $run ) ) {
+			return;
+		}
+
 		update_option( REMOTIVE_SETUP_FLAG, $version );
 		$stored = $version; // Next loop iteration builds on this.
 	}

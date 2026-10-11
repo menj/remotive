@@ -4,6 +4,23 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.115.2] — 2026-10-11
+
+Fixes for the CodeAnt review findings on PRs 35, 36 and 37, which were merged before the review was read. Each was checked against the code first; all were real.
+
+### Fixed
+
+- **The article update did not match existing sites** (PR 35, `inc/setup/site-setup.php`). After seeding, `remotive_resolve_seed_post_links()` rewrites `/blog/slug/` links to full permalinks, so the stored text never equalled the seed hash and the 1.114.0 and 1.115.0 text refresh skipped every site that had run it. The stored text is now put back into seeded form (`remotive_seed_content_from_site()`) before it is hashed, and the link resolver runs again after a refresh.
+- **A save could be overwritten while the update ran** (PR 36, critical). The write is now a compare and swap: ``$wpdb->update()` with `ID` and the checked `post_content` in the WHERE`, so a row an editor changed after the hash check is left alone.
+- **A failed write was counted as done** (PR 35). Only a write that succeeded counts; if one fails the migration returns `false`, the runner stops without advancing the stored schema version, and the next admin load tries again.
+- **Links on a subdirectory install** (PR 35). Seeded articles are stored with the site's base path (`remotive_seed_content_to_site()`; a no-op at the domain root), and the link resolver also maps the base-path form.
+- **Article body kept 3 to 5 rem of padding** (PR 35, `assets/css/article.css`). `.rm-post` in `blog-and-about.css` set padding with `!important` at the same specificity and loaded later. The reset now uses `.rm-art .rm-art-body.rm-post`, and `article.css` is enqueued after, and depends on, `blog-and-about.css`.
+- **A Recent posts entry with no featured image** (PR 35). The empty image block left the text column in the 72 px track. `remotive_post_image_fallback()` now also fills the sidebar thumbnail with the brand gradient square.
+- **Copy link did nothing when the Clipboard API was missing or refused** (PR 35). It falls back to a hidden field and `execCommand`, and shows "Press Ctrl+C to copy" with a prompt if that fails too.
+- **The hidden template row in Theme Options → Team showed as an empty card** (PR 37). `display:grid` overrode the `hidden` attribute; `.rm-admin__team-row[hidden]{display:none}` restores it.
+- **Documentation said "first load after upload"** (PR 36). The migration runs from `admin_init` or on activation, so the upgrade notes now say the first admin page load.
+- **The article test passed malformed lists** (PR 36). Each list must now contain only `wp:list-item` blocks. `tests/test-setup.php` gains six tests for the link helpers (16).
+
 ## [1.115.1] — 2026-10-07
 
 ### Fixed

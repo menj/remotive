@@ -20,13 +20,24 @@ defined( 'ABSPATH' ) || exit;
  * @return string
  */
 function remotive_post_image_fallback( $content, $block ) {
-	if ( '' !== trim( (string) $content ) || empty( $block['attrs']['className'] ) || false === strpos( (string) $block['attrs']['className'], 'rm-post-card__image' ) ) {
+	$class = isset( $block['attrs']['className'] ) ? (string) $block['attrs']['className'] : '';
+
+	if ( '' !== trim( (string) $content ) || '' === $class ) {
+		return $content;
+	}
+
+	// The card image, and the small square beside each Recent posts entry in the sidebar.
+	if ( false !== strpos( $class, 'rm-post-card__image' ) ) {
+		$out = 'wp-block-post-featured-image rm-post-card__image rm-post-card__image--empty';
+	} elseif ( false !== strpos( $class, 'rm-sidebar__recent-thumb' ) ) {
+		$out = 'wp-block-post-featured-image rm-sidebar__recent-thumb rm-sidebar__recent-thumb--empty';
+	} else {
 		return $content;
 	}
 
 	$link = get_permalink();
 
-	return '<div class="wp-block-post-featured-image rm-post-card__image rm-post-card__image--empty">'
+	return '<div class="' . esc_attr( $out ) . '">'
 		. ( $link ? '<a href="' . esc_url( $link ) . '" tabindex="-1" aria-hidden="true"></a>' : '' )
 		. '</div>';
 }
