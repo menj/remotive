@@ -750,6 +750,9 @@ function remotive_render_field_row( $key, $field ) {
 	echo '<div class="rm-admin__row">';
 
 	if ( $field['type'] === 'toggle' ) {
+		// The wrapper spans the whole row, so the helper reads under the switch. (The helper used to be
+		// dropped for every toggle, so the explanations written for them were never shown.)
+		echo '<div class="rm-admin__toggle-wrap">';
 		printf(
 			'<label class="rm-admin__toggle"><input type="checkbox" id="%1$s" name="remotive_theme_options[%2$s]" value="1" %3$s /><span class="rm-admin__toggle-track" aria-hidden="true"><span class="rm-admin__toggle-thumb"></span></span><span class="rm-admin__toggle-text">%4$s</span></label>',
 			esc_attr( $field_id ),
@@ -757,7 +760,12 @@ function remotive_render_field_row( $key, $field ) {
 			checked( '1', (string) remotive_get_theme_option( $key ), false ),
 			esc_html( $field['toggle_label'] ?? __( 'Enabled', 'remotive' ) )
 		);
-		echo '</div>';
+
+		if ( ! empty( $field['helper'] ) ) {
+			echo '<p class="rm-admin__row-helper">' . esc_html( $field['helper'] ) . '</p>';
+		}
+
+		echo '</div></div>';
 		return;
 	}
 

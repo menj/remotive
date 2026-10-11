@@ -125,7 +125,7 @@ function remotive_agency_tab() {
 						'label'        => __( 'Other pages', 'remotive' ),
 						'type'         => 'toggle',
 						'toggle_label' => __( 'Send the other pages to the home page while the layout is on', 'remotive' ),
-						'helper'       => __( 'On by default. About, Team, Services, Case Studies, Insights, Contact, FAQ and every other page redirect to the home page (a temporary 302, so switching the layout off restores them), and they leave the sitemaps and the language versions. The ad landing pages, their thank-you pages and the legal pages (privacy, terms) stay reachable. Nothing is deleted. Turn this off to keep the other pages live next to the agency home page.', 'remotive' ),
+						'helper'       => __( 'On by default. About, Team, Services, Case Studies, Insights, Contact, FAQ and every other page redirect to the home page (a temporary 302, so switching the layout off restores them), and they leave the sitemaps and the language versions (the legal pages keep theirs). The ad landing pages, their thank-you pages and the legal pages (privacy, terms) stay reachable. Nothing is deleted. Turn this off to keep the other pages live next to the agency home page.', 'remotive' ),
 					),
 				),
 			),

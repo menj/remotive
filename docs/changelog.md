@@ -4,6 +4,12 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.116.2] — 2026-10-12
+
+### Fixed
+
+- **Theme Options never showed the helper text under an on/off switch.** `remotive_render_field_row()` printed the switch and returned before the helper, so every explanation written for a toggle (Maintenance mode, Graceful errors, Branded login, Scroll motion, and the Agency layout switches) was invisible. The switch now sits in a full-width wrapper (`.rm-admin__toggle-wrap`) with its helper under it. Found while previewing the Agency layout tab.
+
 ## [1.116.1] — 2026-10-12
 
 ### Fixed

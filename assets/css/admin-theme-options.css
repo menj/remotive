@@ -92,6 +92,8 @@
 .rm-admin__row label.rm-admin__row-label{
   font-size:.88rem; font-weight:600; color:var(--rm-admin-ink); padding-top:.55rem;
 }
+.rm-admin__toggle-wrap{ grid-column:1 / -1; }
+.rm-admin__toggle-wrap .rm-admin__row-helper{ max-width:46rem; margin-top:.5rem; }
 .rm-admin__row-helper{ margin:.4rem 0 0; font-size:.8rem; color:var(--rm-admin-muted); }
 @media (max-width:782px){
   .rm-admin__row{ grid-template-columns:1fr; gap:.4rem; }

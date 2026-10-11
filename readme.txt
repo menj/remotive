@@ -4,7 +4,7 @@ Tags: block-theme, full-site-editing, child-theme, one-page
 Requires at least: 6.7
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.116.1
+Stable tag: 1.116.2
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -336,9 +336,12 @@ floor, not a replacement.
 
 == Changelog ==
 
-See `docs/changelog.md` for full version history. Latest version: 1.116.1.
+See `docs/changelog.md` for full version history. Latest version: 1.116.2.
 
 == Upgrade Notice ==
+
+= 1.116.2 =
+* Fixed: in Theme Options, the explanation written under an on/off switch was never shown. It is now (for example under Maintenance mode and the new Agency layout switches).
 
 = 1.116.1 =
 * Fixed: the single-page agency layout now keeps the translated versions. The home page is served in Bahasa Melayu and Simplified and Traditional Chinese (/ms/, /zh-hans/, /zh-hant/), with language links, hreflang and sitemap entries; the other pages' translations are hidden only when the other pages are, and the legal pages keep theirs.
