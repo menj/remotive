@@ -4,6 +4,20 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.116.1] — 2026-10-12
+
+### Fixed
+
+- **The agency layout dropped the translated versions.** 1.116.0 made the agency home page English only and redirected `/ms/`, `/zh-hans/` and `/zh-hant/` to English. It now keeps all four languages:
+  - The page goes through the same language layer as the rest of the site, so hreflang, the canonical address, the language sitemap and the Malay and Chinese `<title>` and description (the existing home page entries, which already describe the same offer) all apply. The translator is no longer switched off for this page.
+  - 16 new strings per language in `inc/i18n/ms.php`, `zh-hans.php` and `zh-hant.php`: the headline's second line, the introduction, the form text, the services heading and standfirst, the six service descriptions and the closing band. The headline's first line, the service titles, "The team", the team roles, and the legal link names reuse the translations the site already had (the default service titles are now the existing Title Case ones for that reason). The Malay text passes `tests/check-ejaan.php`; all of it is a first draft for a native-speaker check, like the rest of the dictionaries, and can be edited in Tools → Translations.
+  - The bar has the language links (EN, BM, 简体, 繁體) for the languages switched on in Theme Options → Languages; the form's labels and thank-you page follow the language, as on the ad pages.
+  - With "Send the other pages to the home page" on, the other pages' translations go with them, **except the legal pages, which keep theirs**; with it off, nothing about translations changes.
+  - If someone edits an English sentence in the Agency layout tab, that sentence shows in English in the other languages until its translation is updated in Tools → Translations (the tab says so).
+  - New filter use: `remotive_i18n_available` now keeps the home page in every language while the layout is on.
+- `tests/test-agency-i18n.php` (53 tests, in CI) renders the page through the real translator in all three languages and checks that nothing is left untranslated, the form and its language are intact, the language links and the current language are right, a language switched off drops out, and which pages keep a translation.
+- Checked at 1,280 (Malay), 768 (Simplified) and 390 px (Traditional).
+
 ## [1.116.0] — 2026-10-11
 
 ### Added

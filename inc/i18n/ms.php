@@ -17,6 +17,39 @@ defined( 'ABSPATH' ) || exit;
 
 return array(
 	'strings' => array(
+		// Single-page agency home page (v1.116.1). First draft: needs a native-speaker check.
+		'built to scale Asian brands, globally.' =>
+			'direka untuk mengembangkan jenama Asia ke peringkat global.',
+		'We are a senior-led independent media team for high-growth B2B and B2C brands. We provide a powerful modular, search, social, programmatic and SEO extension for brands and agencies without in-house media capabilities. We fix the foundations, get you found and cited, then scale with paid media, turning performance marketing into predictable pipeline growth across Asia and beyond.' =>
+			'Kami ialah pasukan media bebas yang diterajui pakar kanan untuk jenama B2B dan B2C yang berkembang pesat. Kami menyediakan lanjutan modular yang berkuasa bagi carian, sosial, programatik dan SEO untuk jenama dan agensi yang tidak mempunyai keupayaan media dalaman. Kami membaiki asas, memastikan anda ditemui dan dipetik, kemudian menskalakan dengan media berbayar, menjadikan pemasaran prestasi sebagai pertumbuhan saluran jualan yang boleh diramal di seluruh Asia dan seterusnya.',
+		'Talk to the team' =>
+			'Berbincang dengan pasukan kami',
+		'Tell us about your brand and what you want to grow. We reply within three business days.' =>
+			'Ceritakan kepada kami tentang jenama anda dan apa yang anda mahu kembangkan. Kami membalas dalam tempoh tiga hari bekerja.',
+		'Send message' =>
+			'Hantar mesej',
+		'We reply within three business days. No mailing list.' =>
+			'Kami membalas dalam tempoh tiga hari bekerja. Tiada senarai mel.',
+		'What we do' =>
+			'Apa yang kami lakukan',
+		'Fix the foundations, get found and cited, then scale with paid media.' =>
+			'Baiki asas, pastikan anda ditemui dan dipetik, kemudian skalakan dengan media berbayar.',
+		'Search engine optimisation plus generative, AI and answer engine visibility, one organic discipline.' =>
+			'Pengoptimuman enjin carian serta keterlihatan dalam enjin generatif, AI dan jawapan: satu disiplin organik.',
+		'Full-funnel paid media: Google, Meta, LinkedIn and programmatic at 0% media markup, judged on CPA and ROAS.' =>
+			'Media berbayar seluruh corong: Google, Meta, LinkedIn dan programatik pada 0% mark-up media, dinilai mengikut CPA dan ROAS.',
+		'Paid social, creators and content across Meta, TikTok and LinkedIn, measured on outcomes, never reach.' =>
+			'Sosial berbayar, pencipta kandungan dan kandungan merentasi Meta, TikTok dan LinkedIn, diukur berdasarkan hasil, bukan capaian.',
+		'Content strategy and performance creative: assets built to rank, get cited by AI engines, and convert.' =>
+			'Strategi kandungan dan kreatif prestasi: bahan yang dibina untuk meraih kedudukan, dipetik oleh enjin AI dan menghasilkan penukaran.',
+		'Enterprise marketing automation: email and WhatsApp lifecycle flows, AI assistants and CRM integration.' =>
+			'Automasi pemasaran perusahaan: aliran kitaran hayat pelanggan melalui e-mel dan WhatsApp, pembantu AI dan integrasi CRM.',
+		'Tracking, dashboards and attribution that connect ad spend to revenue: decisions from data, not gut feel.' =>
+			'Penjejakan, papan pemuka dan atribusi yang menghubungkan perbelanjaan iklan dengan hasil jualan: keputusan berdasarkan data, bukan agakan semata-mata.',
+		'Let\'s talk about your growth.' =>
+			'Mari berbincang tentang pertumbuhan anda.',
+		'Send us a few details and a senior member of the team will reply within three business days.' =>
+			'Hantarkan beberapa butiran kepada kami dan seorang ahli kanan pasukan akan membalas dalam tempoh tiga hari bekerja.',
 		// Home page case studies and the market ticker (v1.104.0). First draft: needs a native-speaker check.
 		'Automotive · Programmatic + video, 7 Asian markets' =>
 			'Automotif · Programatik + video, 7 pasaran Asia',

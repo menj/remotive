@@ -26,12 +26,12 @@ defined( 'ABSPATH' ) || exit;
  */
 function remotive_agency_default_services() {
 	return array(
-		array( 'SEO, GEO, AIO & AEO', 'Search engine optimisation plus generative, AI and answer engine visibility, one organic discipline.' ),
-		array( 'Paid media', 'Full-funnel paid media: Google, Meta, LinkedIn and programmatic at 0% media markup, judged on CPA and ROAS.' ),
-		array( 'Social media & influencer', 'Paid social, creators and content across Meta, TikTok and LinkedIn, measured on outcomes, never reach.' ),
-		array( 'Content & creative', 'Content strategy and performance creative: assets built to rank, get cited by AI engines, and convert.' ),
-		array( 'Email & lifecycle automation', 'Enterprise marketing automation: email and WhatsApp lifecycle flows, AI assistants and CRM integration.' ),
-		array( 'Analytics, data & attribution', 'Tracking, dashboards and attribution that connect ad spend to revenue: decisions from data, not gut feel.' ),
+		array( 'SEO & GEO / AIO / AEO', 'Search engine optimisation plus generative, AI and answer engine visibility, one organic discipline.' ),
+		array( 'Paid Media', 'Full-funnel paid media: Google, Meta, LinkedIn and programmatic at 0% media markup, judged on CPA and ROAS.' ),
+		array( 'Social Media & Influencer', 'Paid social, creators and content across Meta, TikTok and LinkedIn, measured on outcomes, never reach.' ),
+		array( 'Content & Creative', 'Content strategy and performance creative: assets built to rank, get cited by AI engines, and convert.' ),
+		array( 'Email & Lifecycle Automation', 'Enterprise marketing automation: email and WhatsApp lifecycle flows, AI assistants and CRM integration.' ),
+		array( 'Analytics, Data & Attribution', 'Tracking, dashboards and attribution that connect ad spend to revenue: decisions from data, not gut feel.' ),
 	);
 }
 
@@ -109,7 +109,7 @@ function remotive_agency_tab() {
 	return array(
 		'label'       => __( 'Agency layout', 'remotive' ),
 		'icon'        => 'dashicons-layout',
-		'description' => __( 'An alternative home page: one scrolling agency landing page in the format of the ad landing pages, with a contact form at the top and another at the bottom. It is off by default. Switching it on changes only the home page (and, if you choose, hides the other pages); every other page, template and setting is kept, so switching it off puts the site back exactly as it was. The words are written for English only.', 'remotive' ),
+		'description' => __( 'An alternative home page: one scrolling agency landing page in the format of the ad landing pages, with a contact form at the top and another at the bottom. It is off by default. Switching it on changes only the home page (and, if you choose, hides the other pages); every other page, template and setting is kept, so switching it off puts the site back exactly as it was. The wording is English; the Malay and Chinese versions of the page are translated through Tools → Translations, so after you change an English sentence, update its translation there (until then that sentence shows in English in those languages).', 'remotive' ),
 		'groups'      => array(
 			array(
 				'label'       => __( 'Switch', 'remotive' ),

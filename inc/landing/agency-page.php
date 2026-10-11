@@ -10,6 +10,10 @@
  *   scrolling agency page in the format of the ad landing pages: a contact form
  *   above the fold and another at the bottom, then the services and the team.
  *   There is no menu, no ticker and no reassurance line.
+ * - The page keeps its translated versions (/ms/, /zh-hans/, /zh-hant/): the words
+ *   go through the same language layer as the rest of the site, so hreflang,
+ *   canonical, the language sitemap and Tools → Translations all apply, and the
+ *   page has its own language links.
  * - If "Send the other pages to the home page" is also on, the rest of the
  *   public site redirects to the home page (a temporary 302), and drops out of
  *   the sitemaps and the language versions. The ad landing pages, their
@@ -67,7 +71,7 @@ function remotive_agency_service() {
 		'label'      => $four( 'Agency (home page)' ),
 		'cta'        => $four( (string) remotive_get_theme_option( 'agency_cta' ) ),
 		'fine'       => $four( (string) remotive_get_theme_option( 'agency_fine' ) ),
-		'site_label' => $four( 'Your website' ),
+		'site_label' => array( 'Your website', 'Laman web anda', '您的网站', '您的網站' ),
 	);
 }
 
@@ -177,20 +181,32 @@ function remotive_agency_token( $tokens ) {
 add_filter( 'remotive_theme_option_tokens', 'remotive_agency_token', 20 );
 
 /**
- * The language layer leaves the agency page alone: its words are English only,
- * and a language version of the home page redirects to English.
+ * English paths ('privacy', 'terms') of the pages that stay while the others are
+ * switched off, so their language versions stay too.
  *
- * @param bool $translate Whether the language layer handles this request.
- * @return bool
+ * @return string[]
  */
-function remotive_agency_skip_translator( $translate ) {
-	return remotive_agency_front() ? false : $translate;
+function remotive_agency_kept_keys() {
+	$base = rtrim( (string) wp_parse_url( home_url( '/' ), PHP_URL_PATH ), '/' );
+	$keys = array();
+
+	foreach ( remotive_agency_kept_page_ids() as $id ) {
+		$path = (string) wp_parse_url( (string) get_permalink( $id ), PHP_URL_PATH );
+
+		if ( '' !== $base && 0 === strpos( $path, $base ) ) {
+			$path = substr( $path, strlen( $base ) );
+		}
+
+		$keys[] = trim( $path, '/' );
+	}
+
+	return $keys;
 }
-add_filter( 'remotive_i18n_translates_request', 'remotive_agency_skip_translator', 20 );
 
 /**
- * No language versions of a page that is switched off, or of the home page
- * while the agency layout is on.
+ * Which pages have language versions while the agency layout is on. The home
+ * page keeps all of its languages. With the other pages switched off, they
+ * have none, except the pages that stay (the legal pages).
  *
  * @param bool   $available Whether the page exists in the language.
  * @param string $lang      Language code.
@@ -198,15 +214,11 @@ add_filter( 'remotive_i18n_translates_request', 'remotive_agency_skip_translator
  * @return bool
  */
 function remotive_agency_i18n_available( $available, $lang, $key ) {
-	if ( ! remotive_agency_mode() ) {
+	if ( ! remotive_agency_hides_pages() || '' === (string) $key ) {
 		return $available;
 	}
 
-	if ( '' === (string) $key || remotive_agency_hides_pages() ) {
-		return false;
-	}
-
-	return $available;
+	return $available && in_array( (string) $key, remotive_agency_kept_keys(), true );
 }
 add_filter( 'remotive_i18n_available', 'remotive_agency_i18n_available', 10, 3 );
 
@@ -454,6 +466,38 @@ function remotive_agency_team_html() {
 }
 
 /**
+ * The language links in the bar: one per language the site offers for the home
+ * page, each pointing at that language's own home page. The campaign
+ * parameters are added to them by assets/js/landing.js, as on the ad pages.
+ *
+ * @return string
+ */
+function remotive_agency_lang_nav() {
+	$links   = '';
+	$current = remotive_lp_requested_lang();
+	$count   = 0;
+
+	foreach ( remotive_lp_enabled_languages() as $key => $lang ) {
+		if ( '' !== $lang[0] && function_exists( 'remotive_i18n_available' ) && ! remotive_i18n_available( $lang[0], '' ) ) {
+			continue;
+		}
+
+		++$count;
+		$url    = '' === $lang[0] ? home_url( '/' ) : user_trailingslashit( home_url( '/' . $lang[0] ) );
+		$links .= sprintf(
+			'<a class="rm-lp__lang" href="%1$s" hreflang="%2$s" lang="%2$s" aria-label="%3$s" title="%3$s"%4$s>%5$s</a>',
+			esc_url( $url ),
+			esc_attr( $lang[1] ),
+			esc_attr( $lang[3] ),
+			$current === $key ? ' aria-current="true"' : '',
+			esc_html( $lang[2] )
+		);
+	}
+
+	return $count > 1 ? '<nav class="rm-lp__langs" aria-label="Language / Bahasa / 语言 / 語言">' . $links . '</nav>' : '';
+}
+
+/**
  * The agency page.
  *
  * @return string
@@ -467,7 +511,7 @@ function remotive_agency_render() {
 	$eyebrow = trim( $o( 'agency_eyebrow' ) );
 
 	$legal = '';
-	foreach ( array( 'privacy' => 'Privacy', 'terms' => 'Terms' ) as $path => $label ) {
+	foreach ( array( 'privacy' => 'Privacy Policy', 'terms' => 'Terms of Service' ) as $path => $label ) {
 		$page = get_page_by_path( $path, OBJECT, 'page' );
 
 		if ( $page && 'publish' === get_post_status( $page ) ) {
@@ -475,8 +519,8 @@ function remotive_agency_render() {
 		}
 	}
 
-	return '<div class="rm-lp rm-ag" data-lang="en" data-service="' . esc_attr( REMOTIVE_AGENCY_SLUG ) . '">'
-		. '<header class="rm-lp__bar">' . remotive_lp_logo() . '</header>'
+	return '<div class="rm-lp rm-ag" data-lang="' . esc_attr( remotive_lp_requested_lang() ) . '" data-service="' . esc_attr( REMOTIVE_AGENCY_SLUG ) . '">'
+		. '<header class="rm-lp__bar">' . remotive_lp_logo() . remotive_agency_lang_nav() . '</header>'
 		. '<main id="main" class="rm-lp__main">'
 		. '<section class="rm-lp__hero"><div class="rm-lp__copy">'
 		. ( '' !== $eyebrow ? '<p class="rm-lp__eyebrow">' . esc_html( $eyebrow ) . '</p>' : '' )

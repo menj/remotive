@@ -62,6 +62,10 @@ WordPress site yet; this list is how to find out.
 - If an older generation of the generic graphics is still on an article, set its
   featured image in the editor.
 
+## v1.116.1: the agency layout keeps its translations
+
+- With the layout on, `/ms/`, `/zh-hans/` and `/zh-hant/` show the agency page in that language (language links in the top bar). Nothing to set up. If you changed an English sentence in Theme Options → Agency layout, update its Malay and Chinese text in Tools → Translations.
+
 ## v1.116.0: optional single-page agency layout
 
 - Nothing changes on upload. The layout is **off by default**.

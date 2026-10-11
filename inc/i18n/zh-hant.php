@@ -17,6 +17,39 @@ defined( 'ABSPATH' ) || exit;
 
 return array(
 	'strings' => array(
+		// Single-page agency home page (v1.116.1). First draft: needs a native-speaker check.
+		'built to scale Asian brands, globally.' =>
+			'助力亞洲品牌規模化成長，邁向全球。',
+		'We are a senior-led independent media team for high-growth B2B and B2C brands. We provide a powerful modular, search, social, programmatic and SEO extension for brands and agencies without in-house media capabilities. We fix the foundations, get you found and cited, then scale with paid media, turning performance marketing into predictable pipeline growth across Asia and beyond.' =>
+			'我們是由資深專家領軍的獨立媒體團隊，服務高速成長的 B2B 與 B2C 品牌。我們為沒有內部媒體能力的品牌與代理商，提供可彈性調度的搜尋、社群、程式化與 SEO 延伸團隊。我們先打好基礎，讓您被看見、被引用，再以付費媒體擴大規模，把績效行銷轉化為遍及亞洲及更廣區域、可預測的銷售管道成長。',
+		'Talk to the team' =>
+			'與團隊聊聊',
+		'Tell us about your brand and what you want to grow. We reply within three business days.' =>
+			'請告訴我們您的品牌，以及您希望成長的面向。我們會在三個工作天內回覆。',
+		'Send message' =>
+			'傳送訊息',
+		'We reply within three business days. No mailing list.' =>
+			'我們會在三個工作天內回覆。不加入郵寄名單。',
+		'What we do' =>
+			'我們的服務',
+		'Fix the foundations, get found and cited, then scale with paid media.' =>
+			'打好基礎，被看見並被引用，再以付費媒體擴大規模。',
+		'Search engine optimisation plus generative, AI and answer engine visibility, one organic discipline.' =>
+			'搜尋引擎最佳化，加上在生成式引擎、AI 與答案引擎中的能見度，同屬一門自然流量學科。',
+		'Full-funnel paid media: Google, Meta, LinkedIn and programmatic at 0% media markup, judged on CPA and ROAS.' =>
+			'全漏斗付費媒體：Google、Meta、LinkedIn 與程式化投放，媒體費用零加價（0%），以 CPA 與 ROAS 衡量成效。',
+		'Paid social, creators and content across Meta, TikTok and LinkedIn, measured on outcomes, never reach.' =>
+			'涵蓋 Meta、TikTok 與 LinkedIn 的付費社群、創作者與內容，以成果而非觸及量衡量。',
+		'Content strategy and performance creative: assets built to rank, get cited by AI engines, and convert.' =>
+			'內容策略與績效創意：為取得排名、被 AI 引擎引用並促成轉換而打造的素材。',
+		'Enterprise marketing automation: email and WhatsApp lifecycle flows, AI assistants and CRM integration.' =>
+			'企業級行銷自動化：電子郵件與 WhatsApp 生命週期流程、AI 助理及 CRM 整合。',
+		'Tracking, dashboards and attribution that connect ad spend to revenue: decisions from data, not gut feel.' =>
+			'把廣告支出與營收連結起來的追蹤、儀表板與歸因：用數據而非直覺做決策。',
+		'Let\'s talk about your growth.' =>
+			'來聊聊您的成長。',
+		'Send us a few details and a senior member of the team will reply within three business days.' =>
+			'請傳送一些基本資料，團隊的一位資深成員會在三個工作天內回覆。',
 		// Home page case studies and the market ticker (v1.104.0). First draft: needs a native-speaker check.
 		'Automotive · Programmatic + video, 7 Asian markets' =>
 			'汽車 · 程式化廣告 + 影片，7 個亞洲市場',

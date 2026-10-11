@@ -92,7 +92,7 @@ t_ok( false !== strpos( $html, 'Performance marketing, media &amp; SEO<br> built
 t_eq( substr_count( $html, 'class="rm-ag__card"' ), 6, 'six service cards' );
 t_ok( false === strpos( $html, 'rm-ticker' ), 'no ticker' );
 t_ok( false === strpos( $html, 'rm-hero__actions' ) && false === stripos( $html, 'growth plan' ), 'no hero buttons' );
-t_ok( false === strpos( $html, '<nav' ), 'no menu' );
+t_ok( false === strpos( $html, 'wp-block-navigation' ) && substr_count( $html, '<nav' ) <= 1, 'no menu (the only nav is the language links)' );
 t_ok( false !== strpos( $html, 'We reply within three business days. No mailing list.' ), 'the line under the form is the agency\'s own' );
 t_ok( false === strpos( $html, 'Free. No commitment' ), 'not the ad pages\' line' );
 

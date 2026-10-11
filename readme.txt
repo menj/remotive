@@ -4,7 +4,7 @@ Tags: block-theme, full-site-editing, child-theme, one-page
 Requires at least: 6.7
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.116.0
+Stable tag: 1.116.1
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -336,9 +336,12 @@ floor, not a replacement.
 
 == Changelog ==
 
-See `docs/changelog.md` for full version history. Latest version: 1.116.0.
+See `docs/changelog.md` for full version history. Latest version: 1.116.1.
 
 == Upgrade Notice ==
+
+= 1.116.1 =
+* Fixed: the single-page agency layout now keeps the translated versions. The home page is served in Bahasa Melayu and Simplified and Traditional Chinese (/ms/, /zh-hans/, /zh-hant/), with language links, hreflang and sitemap entries; the other pages' translations are hidden only when the other pages are, and the legal pages keep theirs.
 
 = 1.116.0 =
 * Added: an optional single-page agency layout, switched on and off in Theme Options > Agency layout. Off by default, so nothing changes until it is turned on. When on, the home page is one scrolling agency page in the format of the ad landing pages (a contact form at the top and at the bottom, no menu, no ticker), and the other pages can be sent to the home page. Switch it off and the site is exactly as before.

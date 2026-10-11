@@ -17,6 +17,39 @@ defined( 'ABSPATH' ) || exit;
 
 return array(
 	'strings' => array(
+		// Single-page agency home page (v1.116.1). First draft: needs a native-speaker check.
+		'built to scale Asian brands, globally.' =>
+			'助力亚洲品牌规模化增长，走向全球。',
+		'We are a senior-led independent media team for high-growth B2B and B2C brands. We provide a powerful modular, search, social, programmatic and SEO extension for brands and agencies without in-house media capabilities. We fix the foundations, get you found and cited, then scale with paid media, turning performance marketing into predictable pipeline growth across Asia and beyond.' =>
+			'我们是由资深专家领导的独立媒体团队，服务于高速增长的 B2B 与 B2C 品牌。我们为没有内部媒体能力的品牌和代理商，提供可灵活调用的搜索、社交、程序化与 SEO 扩展团队。我们先夯实基础，让您被发现、被引用，再以付费媒体扩大规模，把绩效营销转化为覆盖亚洲及更广区域、可预测的销售管道增长。',
+		'Talk to the team' =>
+			'与团队聊聊',
+		'Tell us about your brand and what you want to grow. We reply within three business days.' =>
+			'请告诉我们您的品牌，以及您希望增长的方面。我们会在三个工作日内回复。',
+		'Send message' =>
+			'发送信息',
+		'We reply within three business days. No mailing list.' =>
+			'我们会在三个工作日内回复。不加入邮件列表。',
+		'What we do' =>
+			'我们的服务',
+		'Fix the foundations, get found and cited, then scale with paid media.' =>
+			'夯实基础，被发现并被引用，然后用付费媒体扩大规模。',
+		'Search engine optimisation plus generative, AI and answer engine visibility, one organic discipline.' =>
+			'搜索引擎优化，加上在生成式引擎、AI 与答案引擎中的可见度，同属一门自然流量学科。',
+		'Full-funnel paid media: Google, Meta, LinkedIn and programmatic at 0% media markup, judged on CPA and ROAS.' =>
+			'全漏斗付费媒体：Google、Meta、LinkedIn 与程序化投放，媒体费用零加价（0%），以 CPA 和 ROAS 衡量成效。',
+		'Paid social, creators and content across Meta, TikTok and LinkedIn, measured on outcomes, never reach.' =>
+			'覆盖 Meta、TikTok 与 LinkedIn 的付费社交、创作者与内容，以成果而非触达量衡量。',
+		'Content strategy and performance creative: assets built to rank, get cited by AI engines, and convert.' =>
+			'内容策略与绩效创意：为获得排名、被 AI 引擎引用并促成转化而打造的素材。',
+		'Enterprise marketing automation: email and WhatsApp lifecycle flows, AI assistants and CRM integration.' =>
+			'企业级营销自动化：电子邮件与 WhatsApp 生命周期流程、AI 助手及 CRM 集成。',
+		'Tracking, dashboards and attribution that connect ad spend to revenue: decisions from data, not gut feel.' =>
+			'把广告支出与收入联系起来的追踪、仪表板与归因：用数据而非直觉做决策。',
+		'Let\'s talk about your growth.' =>
+			'来聊聊您的增长。',
+		'Send us a few details and a senior member of the team will reply within three business days.' =>
+			'请发送一些基本信息，团队的一位资深成员会在三个工作日内回复。',
 		// Home page case studies and the market ticker (v1.104.0). First draft: needs a native-speaker check.
 		'Automotive · Programmatic + video, 7 Asian markets' =>
 			'汽车 · 程序化广告 + 视频，7 个亚洲市场',
