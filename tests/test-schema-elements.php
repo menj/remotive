@@ -80,13 +80,13 @@ t_eq( $signs[0]['numberOfItems'], 6, 'the checklist is an ItemList of six' );
 t_eq( $signs[0]['itemListElement'][0]['name'], 'Traffic is flat or falling, and nobody can say why.', 'a checklist entry carries its text' );
 
 $sel = t_selectors( $nodes );
-foreach ( array( '.rm-lp__bar', '.rm-lp__hero', '#services', '#process', '#signs', '#team', '#questions', '.rm-lp__final', '.rm-ag__foot' ) as $s ) {
+foreach ( array( '.rm-lp__bar', '.rm-lp__hero', '#ag-services', '#ag-process', '#ag-signs', '#ag-team', '#ag-questions', '.rm-lp__final', '.rm-ag__foot' ) as $s ) {
 	t_ok( in_array( $s, $sel, true ), "the section $s is marked as an element" );
 }
 
 // Every selector points at something the page prints.
 $html = remotive_agency_render();
-foreach ( array( '.rm-lp__bar' => 'class="rm-lp__bar"', '.rm-lp__hero' => 'class="rm-lp__hero"', '#services' => 'id="services"', '#process' => 'id="process"', '#signs' => 'id="signs"', '#team' => 'id="team"', '#questions' => 'id="questions"', '.rm-lp__final' => 'rm-lp__final', '.rm-ag__foot' => 'class="rm-ag__foot"' ) as $selector => $needle ) {
+foreach ( array( '.rm-lp__bar' => 'class="rm-lp__bar"', '.rm-lp__hero' => 'class="rm-lp__hero"', '#ag-services' => 'id="ag-services"', '#ag-process' => 'id="ag-process"', '#ag-signs' => 'id="ag-signs"', '#ag-team' => 'id="ag-team"', '#ag-questions' => 'id="ag-questions"', '.rm-lp__final' => 'rm-lp__final', '.rm-ag__foot' => 'class="rm-ag__foot"' ) as $selector => $needle ) {
 	t_ok( false !== strpos( $html, $needle ), "the page prints the element that $selector finds" );
 }
 
@@ -95,7 +95,7 @@ $GLOBALS['T']['options']['remotive_theme_options'] = array( 'agency_mode' => '1'
 $nodes = remotive_schema_agency_nodes( 'https://example.com/' );
 t_eq( count( t_nodes( $nodes, 'HowTo' ) ), 0, 'with the steps hidden there is no HowTo' );
 t_eq( count( t_nodes( $nodes, 'Service' ) ), 0, 'with the services hidden there are no Service nodes' );
-t_ok( ! in_array( '#signs', t_selectors( $nodes ), true ), 'with the checklist hidden its element is gone' );
+t_ok( ! in_array( '#ag-signs', t_selectors( $nodes ), true ), 'with the checklist hidden its element is gone' );
 
 // A blank step is skipped, as it is on the page.
 $GLOBALS['T']['options']['remotive_theme_options'] = array( 'agency_mode' => '1', 'agency_proc_2_title' => '' );

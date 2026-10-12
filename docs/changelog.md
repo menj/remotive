@@ -4,6 +4,14 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.119.2] (2026-10-12)
+
+### Fixed
+
+The "What we do" section on the one-page layout sat narrower and further right than the sections around it. Its `id="services"` matched a rule in `remotive.css` that widens and centres the full version's home page section (`#services`), and that rule squeezed the card grid as well. The one-page sections now use their own ids (`ag-services`, `ag-process`, `ag-signs`, `ag-team`, `ag-questions`). The structured data selectors follow. A new test fails if the page ever uses an id that `remotive.css` styles for the full version (`services`, `work`, `problem`, `why`, `about`, `contact`).
+
+If you linked to `#services`, `#team` or `#questions` on the one-page home page, use the new ids.
+
 ## [1.119.1] (2026-10-12)
 
 ### Fixed

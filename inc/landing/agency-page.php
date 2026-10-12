@@ -487,7 +487,7 @@ function remotive_agency_faq_html() {
 		$out .= '<details class="rm-lp__q"><summary>' . esc_html( $qa[0] ) . '</summary><p>' . esc_html( $qa[1] ) . '</p></details>';
 	}
 
-	return '<section class="rm-lp__section rm-lp__faq rm-ag__faq" id="questions" aria-labelledby="rm-ag-faq">'
+	return '<section class="rm-lp__section rm-lp__faq rm-ag__faq" id="ag-questions" aria-labelledby="rm-ag-faq">'
 		. '<h2 id="rm-ag-faq">' . esc_html( (string) remotive_get_theme_option( 'agency_faq_heading' ) ) . '</h2>'
 		. '<div class="rm-lp__faqs">' . $out . '</div></section>';
 }
@@ -562,7 +562,7 @@ function remotive_agency_services_html() {
 
 	$lead = trim( (string) remotive_get_theme_option( 'agency_services_lead' ) );
 
-	return '<section class="rm-lp__section rm-ag__services" id="services" aria-labelledby="rm-ag-services">'
+	return '<section class="rm-lp__section rm-ag__services" id="ag-services" aria-labelledby="rm-ag-services">'
 		. '<h2 id="rm-ag-services">' . esc_html( (string) remotive_get_theme_option( 'agency_services_heading' ) ) . '</h2>'
 		. ( '' !== $lead ? '<p class="rm-lp__lead">' . esc_html( $lead ) . '</p>' : '' )
 		. '<ul class="rm-ag__cards">' . $cards . '</ul></section>';
@@ -609,7 +609,7 @@ function remotive_agency_process_html() {
 
 	$lead = trim( (string) remotive_get_theme_option( 'agency_process_lead' ) );
 
-	return '<section class="rm-lp__section rm-ag__process" id="process" aria-labelledby="rm-ag-process">'
+	return '<section class="rm-lp__section rm-ag__process" id="ag-process" aria-labelledby="rm-ag-process">'
 		. '<h2 id="rm-ag-process">' . esc_html( (string) remotive_get_theme_option( 'agency_process_heading' ) ) . '</h2>'
 		. ( '' !== $lead ? '<p class="rm-lp__lead">' . esc_html( $lead ) . '</p>' : '' )
 		. '<ol class="rm-ag__steps">' . $out . '</ol></section>';
@@ -654,7 +654,7 @@ function remotive_agency_signs_html() {
 
 	$lead = trim( (string) remotive_get_theme_option( 'agency_signs_lead' ) );
 
-	return '<section class="rm-lp__section rm-ag__signs" id="signs" aria-labelledby="rm-ag-signs">'
+	return '<section class="rm-lp__section rm-ag__signs" id="ag-signs" aria-labelledby="rm-ag-signs">'
 		. '<h2 id="rm-ag-signs">' . esc_html( (string) remotive_get_theme_option( 'agency_signs_heading' ) ) . '</h2>'
 		. ( '' !== $lead ? '<p class="rm-lp__lead">' . esc_html( $lead ) . '</p>' : '' )
 		. '<ul class="rm-ag__checks">' . $out . '</ul></section>';
@@ -691,7 +691,7 @@ function remotive_agency_team_html() {
 			. '</li>';
 	}
 
-	return '<section class="rm-lp__section rm-ag__team" id="team" aria-labelledby="rm-ag-team">'
+	return '<section class="rm-lp__section rm-ag__team" id="ag-team" aria-labelledby="rm-ag-team">'
 		. '<h2 id="rm-ag-team">' . esc_html( (string) remotive_get_theme_option( 'agency_team_heading' ) ) . '</h2>'
 		. '<ul class="rm-ag__people" style="--ag-photo:' . (int) $px . 'px">' . $people . '</ul></section>';
 }

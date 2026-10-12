@@ -149,7 +149,7 @@ function remotive_schema_agency_nodes( $url ) {
 
 		if ( $services ) {
 			$nodes = array_merge( $nodes, $services );
-			$nodes[] = remotive_schema_element( 'WebPageElement', 'section-services', (string) remotive_get_theme_option( 'agency_services_heading' ), '#services', $url );
+			$nodes[] = remotive_schema_element( 'WebPageElement', 'section-services', (string) remotive_get_theme_option( 'agency_services_heading' ), '#ag-services', $url );
 		}
 	}
 
@@ -174,7 +174,7 @@ function remotive_schema_agency_nodes( $url ) {
 			'name'  => (string) remotive_get_theme_option( 'agency_process_heading' ),
 			'step'  => $how,
 		);
-		$nodes[] = remotive_schema_element( 'WebPageElement', 'section-process', (string) remotive_get_theme_option( 'agency_process_heading' ), '#process', $url );
+		$nodes[] = remotive_schema_element( 'WebPageElement', 'section-process', (string) remotive_get_theme_option( 'agency_process_heading' ), '#ag-process', $url );
 	}
 
 	$signs = $on( 'agency_show_signs' ) ? remotive_agency_sign_items() : array();
@@ -193,7 +193,7 @@ function remotive_schema_agency_nodes( $url ) {
 			'numberOfItems'   => count( $items ),
 			'itemListElement' => $items,
 		);
-		$nodes[] = remotive_schema_element( 'WebPageElement', 'section-signs', (string) remotive_get_theme_option( 'agency_signs_heading' ), '#signs', $url );
+		$nodes[] = remotive_schema_element( 'WebPageElement', 'section-signs', (string) remotive_get_theme_option( 'agency_signs_heading' ), '#ag-signs', $url );
 	}
 
 	if ( $on( 'agency_show_team' ) && function_exists( 'remotive_team_members' ) && remotive_team_members() ) {
@@ -214,11 +214,11 @@ function remotive_schema_agency_nodes( $url ) {
 			'numberOfItems'   => count( $people ),
 			'itemListElement' => $people,
 		);
-		$nodes[] = remotive_schema_element( 'WebPageElement', 'section-team', (string) remotive_get_theme_option( 'agency_team_heading' ), '#team', $url );
+		$nodes[] = remotive_schema_element( 'WebPageElement', 'section-team', (string) remotive_get_theme_option( 'agency_team_heading' ), '#ag-team', $url );
 	}
 
 	if ( $on( 'agency_show_faq' ) && remotive_agency_faq_items() ) {
-		$nodes[] = remotive_schema_element( 'WebPageElement', 'section-questions', (string) remotive_get_theme_option( 'agency_faq_heading' ), '#questions', $url );
+		$nodes[] = remotive_schema_element( 'WebPageElement', 'section-questions', (string) remotive_get_theme_option( 'agency_faq_heading' ), '#ag-questions', $url );
 	}
 
 	$nodes[] = remotive_schema_element( 'WebPageElement', 'section-contact', (string) remotive_get_theme_option( 'agency_final_heading' ), '.rm-lp__final', $url );

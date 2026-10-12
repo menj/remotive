@@ -157,15 +157,22 @@ t_ok( remotive_lp_is_internal_navigation( $srv( 'https://example.com/about/' ), 
 t_options( array() );
 t_ok( remotive_lp_is_internal_navigation( $srv( 'https://example.com/' ), 'example.com', '' ), 'with the switch off, the home page is turned back too, as before' );
 
+// ---- Section ids must not match the ids that remotive.css styles for the full version's home page ----
+t_options( array( 'agency_mode' => '1' ) );
+$html = remotive_agency_render();
+foreach ( array( 'services', 'work', 'problem', 'why', 'about', 'contact' ) as $taken ) {
+	t_ok( false === strpos( $html, 'id="' . $taken . '"' ), "the agency page has no id=\"$taken\" (remotive.css widens and centres it)" );
+}
+
 // ---- How we work and Signs ----
 t_options( array( 'agency_mode' => '1' ) );
 $html = remotive_agency_render();
-t_ok( false !== strpos( $html, 'id="process"' ) && 4 === substr_count( $html, 'class="rm-ag__step"' ), 'the page shows four numbered steps' );
-t_ok( false !== strpos( $html, 'id="signs"' ) && 6 === substr_count( $html, '<li>Traffic' ) + substr_count( $html, '<li>Ad spend' ) + substr_count( $html, '<li>Lead volume' ) + substr_count( $html, '<li>Reports show' ) + substr_count( $html, '<li>Competitors' ) + substr_count( $html, '<li>Search, paid' ), 'the page shows the six signs' );
-t_ok( strpos( $html, 'id="services"' ) < strpos( $html, 'id="process"' ) && strpos( $html, 'id="process"' ) < strpos( $html, 'id="signs"' ) && strpos( $html, 'id="signs"' ) < strpos( $html, 'id="team"' ), 'the order is services, steps, signs, team' );
+t_ok( false !== strpos( $html, 'id="ag-process"' ) && 4 === substr_count( $html, 'class="rm-ag__step"' ), 'the page shows four numbered steps' );
+t_ok( false !== strpos( $html, 'id="ag-signs"' ) && 6 === substr_count( $html, '<li>Traffic' ) + substr_count( $html, '<li>Ad spend' ) + substr_count( $html, '<li>Lead volume' ) + substr_count( $html, '<li>Reports show' ) + substr_count( $html, '<li>Competitors' ) + substr_count( $html, '<li>Search, paid' ), 'the page shows the six signs' );
+t_ok( strpos( $html, 'id="ag-services"' ) < strpos( $html, 'id="ag-process"' ) && strpos( $html, 'id="ag-process"' ) < strpos( $html, 'id="ag-signs"' ) && strpos( $html, 'id="ag-signs"' ) < strpos( $html, 'id="ag-team"' ), 'the order is services, steps, signs, team' );
 t_options( array( 'agency_mode' => '1', 'agency_show_process' => '0', 'agency_show_signs' => '0' ) );
 $html = remotive_agency_render();
-t_ok( false === strpos( $html, 'id="process"' ) && false === strpos( $html, 'id="signs"' ), 'the two sections switch off' );
+t_ok( false === strpos( $html, 'id="ag-process"' ) && false === strpos( $html, 'id="ag-signs"' ), 'the two sections switch off' );
 t_options( array( 'agency_mode' => '1', 'agency_proc_2_title' => '', 'agency_sign_1' => '' ) );
 $html = remotive_agency_render();
 t_eq( substr_count( $html, 'class="rm-ag__step"' ), 3, 'a step with no title is hidden' );
