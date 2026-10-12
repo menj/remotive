@@ -10,7 +10,7 @@ follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 
 The seven seeded articles now follow the anti-AI writing style guide. Contractions are written out, negation followed by a correction is rewritten as a plain statement, bold lead-ins inside list items are removed, and titles use sentence case. The articles keep their length of 1,100 to 1,470 words and their Rank Math fields.
 
-Sites that already hold the seeded articles receive the new text through migration 1.117.0. It replaces a title, a Rank Math field or the body only when the stored value still matches the earlier seed, so any article an editor changed is left alone. If a write fails, the migration stays pending and runs again on the next load.
+Sites that already hold the seeded articles receive the new text through migration 1.117.0. It replaces a title, a Rank Math field or the body only when the stored value still matches the earlier seed, so any article an editor changed is left alone. The Rank Math fields use the same compare and swap write, and any database error, not only a failed meta write, keeps the migration pending so it runs again on the next load.
 
 The blog sidebar description, the footer description and the documentation now follow the same guide. Older release notes keep their original wording as a historical record.
 

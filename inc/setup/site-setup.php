@@ -458,14 +458,20 @@ function remotive_refresh_article_seo() {
 				continue;
 			}
 
-			// Only a write that took counts. A failure leaves the schema version
-			// where it is, so the next admin load tries again.
-			if ( false === update_post_meta( $post_id, $meta_key, $new ) ) {
-				$failed = true;
-				continue;
+			// Compare and swap, so a value an editor saves after it was read is kept. Only a write that
+			// took counts; a database error leaves the schema version where it is and the next admin load tries again.
+			if ( '' === $cur ) {
+				$rows = add_post_meta( $post_id, $meta_key, $new, true ) ? 1 : 0;
+			} else {
+				$rows = $wpdb->update( $wpdb->postmeta, array( 'meta_value' => $new ), array( 'post_id' => $post_id, 'meta_key' => $meta_key, 'meta_value' => $cur ) ); // phpcs:ignore WordPress.DB.SlowDBQuery
+				wp_cache_delete( $post_id, 'post_meta' );
 			}
 
-			++$changed;
+			if ( false === $rows ) {
+				$failed = true;
+			} elseif ( 1 === (int) $rows ) {
+				++$changed;
+			}
 		}
 
 		// The post title, in sentence case since 1.117.0. Only a title that is still exactly what an earlier
@@ -475,7 +481,9 @@ function remotive_refresh_article_seo() {
 		if ( ! empty( $item['title'] ) && $title_now !== $item['title'] && in_array( md5( $title_now ), (array) $old['ptitle'], true ) ) {
 			$rows = $wpdb->update( $wpdb->posts, array( 'post_title' => $item['title'] ), array( 'ID' => $post_id, 'post_title' => $title_now ) );
 
-			if ( 1 === (int) $rows ) {
+			if ( false === $rows ) {
+				$failed = true;
+			} elseif ( 1 === (int) $rows ) {
 				clean_post_cache( $post_id );
 				++$changed;
 			}
@@ -515,7 +523,9 @@ function remotive_refresh_article_seo() {
 			)
 		);
 
-		if ( 1 === (int) $rows ) {
+		if ( false === $rows ) {
+			$failed = true;
+		} elseif ( 1 === (int) $rows ) {
 			clean_post_cache( $post_id );
 			++$changed;
 		}
