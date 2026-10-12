@@ -1,8 +1,8 @@
-# SSOT — Remotive Media theme
+# SSOT, Remotive Media theme
 
 This is the canonical reference for facts about this theme, the brand it
 implements, and the legal entity behind it. If any other document (readme.txt,
-readme.md, a slide deck, a client-facing brief) ever conflicts with what's
+readme.md, a slide deck, a client-facing brief) ever conflicts with what is
 written here, **this file is correct and the other document is out of date.**
 
 Last verified: theme v1.79.1.
@@ -21,7 +21,7 @@ Sourced from ACRA business profile (Singapore), dated 01 Aug 2024.
 | Registered office | 11 North Buona Vista Drive, #08-09, The Metropolis, Singapore 138589 |
 
 This is the address used in the site footer. Do not revert it to any
-previously-used placeholder city — Kuala Lumpur was used in early drafts
+previously-used placeholder city, Kuala Lumpur was used in early drafts
 of this theme and is **not** the registered address.
 
 ## Domains
@@ -39,63 +39,62 @@ If these domains diverge further in the future (e.g. the contact address moves),
 ## Design tokens
 
 Two modes, both defined in `theme.json` (dark, the baseline) and
-`assets/css/remotive.css` (light, an override — see `readme.md` for the
+`assets/css/remotive.css` (light, an override, see `readme.md` for the
 mechanism). Source of truth for each hex value:
 
-### Dark mode — "Registration" (CMYK direction, default)
+### Dark mode, "Registration" (CMYK direction, default)
 
 Aligned to `remotive-reporting` (the skill governing every client-facing
 deck/report) as of v1.9.0, per explicit request. Was previously its own
 separate palette sampled from an early concept deck, not the actual
-reporting brand — see `docs/changelog.md` v1.9.0 for the full before/after.
+reporting brand, see `docs/changelog.md` v1.9.0 for the full before/after.
 
 | Token | Value | Source |
 |---|---|---|
 | `paper` | `#1a1a2e` | `remotive-reporting` §1.1, "Background (primary dark)" |
 | `paper-2` | `#0d1117` | `remotive-reporting` §1.1, "Background (deep navy alt)" |
-| `card` | `#252542` | Derived — lifted navy; the reporting skill doesn't define a "card" surface |
-| `ink` | `#ffffff` | `remotive-reporting` §1.1, "Text on dark" — was cream before; the skill bans cream/beige backgrounds and specifies pure white for dark-bg text |
+| `card` | `#252542` | Derived, lifted navy; the reporting skill does not define a "card" surface |
+| `ink` | `#ffffff` | `remotive-reporting` §1.1, "Text on dark", was cream before; the skill bans cream/beige backgrounds and specifies pure white for dark-bg text |
 | `cyan` | `#00aeef` | `remotive-reporting` §1.1, Accent 2 |
-| `cyan-dark` | `#00aeef` | Same as base — already clears 4.5:1 on navy, no lightening needed |
+| `cyan-dark` | `#00aeef` | Same as base, already clears 4.5:1 on navy, no lightening needed |
 | `magenta` | `#ec008c` | `remotive-reporting` §1.1, Accent 1 |
-| `magenta-dark` | `#ff0198` | Lightened variant for small text-on-navy use — base is 4.02:1 on navy (under the 4.5:1 minimum), lightened clears 4.64:1 |
-| `accent-3` | `#39b54a` | `remotive-reporting` §1.1, Accent 3 (green). **Not** named "yellow" or "green" — see note below. |
-| `accent-3-dark` | `#39b54a` | Same as base — already clears 4.5:1 on navy |
-| `contrast-bg` | `#1a1a2e` | Fixed navy — **not** overridden in light mode. Used by the CTA band and every solid button, so those stay visually consistent regardless of site-wide mode. |
-| `contrast-text` | `#ffffff` | Fixed white — the text pairing for `contrast-bg`. |
-| Display font | Archivo | **Diverges from the skill's Arial Black** — Arial Black is largely absent on non-Windows systems by default; Archivo (self-hosted, renders identically everywhere) is the close cousin used instead. Documented divergence. |
-| Pull-quote serif | Newsreader | **Also diverges** — the skill specifies no serif anywhere. Scoped to pull-quotes/drop-caps only, never a title, which is technically compliant with the skill's specific title rule even if not its zero-serif spirit. Kept deliberately. |
+| `magenta-dark` | `#ff0198` | Lightened variant for small text-on-navy use, base is 4.02:1 on navy (under the 4.5:1 minimum), lightened clears 4.64:1 |
+| `accent-3` | `#39b54a` | `remotive-reporting` §1.1, Accent 3 (green). **Not** named "yellow" or "green", see note below. |
+| `accent-3-dark` | `#39b54a` | Same as base, already clears 4.5:1 on navy |
+| `contrast-bg` | `#1a1a2e` | Fixed navy, **not** overridden in light mode. Used by the CTA band and every solid button, so those stay visually consistent regardless of site-wide mode. |
+| `contrast-text` | `#ffffff` | Fixed white, the text pairing for `contrast-bg`. |
+| Display font | Archivo | **Diverges from the skill's Arial Black**, Arial Black is largely absent on non-Windows systems by default; Archivo (self-hosted, renders identically everywhere) is the close cousin used instead. Documented divergence. |
+| Pull-quote serif | Newsreader | **Also diverges**, the skill specifies no serif anywhere. Scoped to pull-quotes/drop-caps only, never a title, which is technically compliant with the skill's specific title rule even if not its zero-serif spirit. Kept deliberately. |
 
-**Why `accent-3`, not `green`:** light mode's third accent is genuinely
-yellow (`#f2f216`, from the *different* brand source — `remotive_brand_5.json`),
-while dark mode's is genuinely green (`#39b54a`, from `remotive-reporting`).
+**Why `accent-3`, not `green`:** light mode's third accent is
+yellow (`#f2f216`, from the *different* brand source, `remotive_brand_5.json`),
+while dark mode's is green (`#39b54a`, from `remotive-reporting`).
 Since both modes share one CSS variable name, naming it `green` would mean
-light mode stores a yellow color inside a variable literally called green
-— the same class of bug that broke the CTA section during the v1.2.0
+light mode stores a yellow color inside a variable literally called green, the same class of bug that broke the CTA section during the v1.2.0
 `ink`/`paper` rework (see that gotcha further down this file).
 
-### Light mode — Remotive Media Asia brand system
+### Light mode, Remotive Media Asia brand system
 
 Source: `remotive_brand_5.json`, the brand's official PPTX/document design
 spec (colours, fonts, logo usage rules for slide decks and documents).
 
 | Token | Value | Brand JSON field |
 |---|---|---|
-| `paper` | `#f7f4ec` | Cream, **not** the brand JSON's literal `primary: #ffffff` — overridden per explicit request to keep the site's cream ground in light mode too |
-| `card` | `#ffffff` | — |
+| `paper` | `#f7f4ec` | Cream, **not** the brand JSON's literal `primary: #ffffff`, overridden per explicit request to keep the site's cream ground in light mode too |
+| `card` | `#ffffff` |, |
 | `paper-2` | `#f0f8ff` | brand JSON `tables.row_alt_background` |
 | `ink` | `#1e1e1e` | brand JSON `colors.secondary` / `text` |
 | `cyan` | `#00a2ff` | brand JSON `colors.accent_1` |
 | `cyan-dark` | `#00308f` | brand JSON `colors.accent_2` |
 | `magenta` | `#ff449f` | brand JSON `colors.accent_5` |
-| `magenta-dark` | `#cd360b` | Darkened from brand JSON `colors.accent_6` (`#f2410f`) — the literal brand value failed WCAG 1.4.3 as text (3.45:1 against the cream background, needs 4.5:1). Same hue, darkened until it cleared 4.5:1. See `docs/changelog.md` v1.7.0. |
+| `magenta-dark` | `#cd360b` | Darkened from brand JSON `colors.accent_6` (`#f2410f`), the literal brand value failed WCAG 1.4.3 as text (3.45:1 against the cream background, needs 4.5:1). Same hue, darkened until it cleared 4.5:1. See `docs/changelog.md` v1.7.0. |
 | `accent-3` (yellow in this mode) | `#f2f216` | brand JSON `colors.accent_3` |
-| `accent-3-dark` (green in this mode) | `#008110` | Darkened from brand JSON `colors.accent_4` (`#00aa15`) — the literal brand value failed even the 3:1 large-text minimum (2.83:1). Same hue, darkened until it cleared 4.5:1. |
-| Font (all roles) | Saira | brand JSON `fonts.heading/subheading/body/caption` — brand spec uses one typeface throughout, no serif accent. **Scoped exception, v1.66.5:** footer column headings (`.rm-footer__heading` in `remotive.css`) use Space Grotesk as a small accent; everything else on the site stays Saira, matching the brand JSON. (v1.66.4 briefly swapped the whole site to Space Grotesk; reverted the same session once it became clear only the footer headings were meant to change.) |
+| `accent-3-dark` (green in this mode) | `#008110` | Darkened from brand JSON `colors.accent_4` (`#00aa15`), the literal brand value failed even the 3:1 large-text minimum (2.83:1). Same hue, darkened until it cleared 4.5:1. |
+| Font (all roles) | Saira | brand JSON `fonts.heading/subheading/body/caption`, brand spec uses one typeface throughout, no serif accent. **Scoped exception, v1.66.5:** footer column headings (`.rm-footer__heading` in `remotive.css`) use Space Grotesk as a small accent; everything else on the site stays Saira, matching the brand JSON. (v1.66.4 briefly swapped the whole site to Space Grotesk; reverted the same session once it became clear only the footer headings were meant to change.) |
 
-**If the brand JSON (`remotive_brand_5.json`) is ever updated** — new accent
-colours, a font change — light mode's tokens above must be updated to match,
-and this table updated in the same commit/session so it doesn't drift.
+**If the brand JSON (`remotive_brand_5.json`) is ever updated**, new accent
+colours, a font change, light mode's tokens above must be updated to match,
+and this table updated in the same commit/session so it does not drift.
 
 
 **Corner radii (v1.93.0).** The design is rounded, not square: `--rm-r-sm`
@@ -121,7 +120,7 @@ Contact email, the three footer address lines, the seven social URLs, the
 CTA form's submission URL, the default colour mode, enquiry retention
 period, branded login, the twelve country-ticker settings (countries,
 visibility, colours, size, weight, tracking, padding, speed, direction),
-scroll motion, graceful error handling, maintenance mode and the Pexels API key (a write-only secret, never printed back) are **no longer hardcoded** — they're stored
+scroll motion, graceful error handling, maintenance mode and the Pexels API key (a write-only secret, never printed back) are **no longer hardcoded**, they are stored
 in the `remotive_theme_options` WordPress option, editable at
 Appearance → Theme Options, with defaults matching the values in this
 document.
@@ -137,7 +136,7 @@ Kong, China); a site that has saved its own ticker list keeps it.
 within it), **Business details**, **Country ticker**, and **Site
 behaviour**. Before v1.79.1 there were seven; four of them all edited the
 homepage, so changing one page meant moving between four tabs. Two were
-also renamed to match their contents — Display became Site behaviour
+also renamed to match their contents, Display became Site behaviour
 (it holds lead retention, branded login and error handling), and Contact &
 Socials became Business details (it also holds the legal name and UEN).
 The field set was 57 at v1.79.1 and is 94 stored settings as of v1.96.0: the
@@ -148,7 +147,7 @@ secret: stored in the options table, never printed back into a page, never
 exposed through REST, and not used by the front end.
 
 **Ticker colour defaults are mode-specific.** `ticker_bg` (`#1a1a2e`) and
-`ticker_color` (`#f7f4ec`) describe the light-mode band — navy on cream.
+`ticker_color` (`#f7f4ec`) describe the light-mode band, navy on cream.
 They are emitted as inline CSS only when changed from these defaults,
 because emitting them always overrode the stylesheet's mode-aware rule and
 made the ticker invisible in dark mode. An untouched install inherits the
@@ -156,7 +155,7 @@ inverting rule; a deliberate choice is honoured in both modes.
 
 That means **this file describes the shipped defaults, not
 necessarily the live values** once someone edits them in wp-admin. If the
-two ever disagree, wp-admin is correct for what's actually live; this file
+two ever disagree, wp-admin is correct for what is actually live; this file
 stays correct for what the entity's real legal/contact facts are. Update
 both when the underlying fact changes (e.g. the registered address).
 
@@ -187,7 +186,7 @@ back to the spec.
 | Markets named on the landing pages | `areaServed` in structured data is Singapore and Malaysia | Six: Singapore, Malaysia, Thailand, Vietnam, Hong Kong, China (v1.91.0) | The landing pages and the country ticker default name six markets; the schema `areaServed` has not been widened. Decide whether it should be |
 
 **Palette values that have caught people out.** `--magenta-dark` is
-`#cd360b` — an orange-red, not a darker magenta. `--accent-3` is `#f2f216`
+`#cd360b`, an orange-red, not a darker magenta. `--accent-3` is `#f2f216`
 (yellow) while `--accent-3-dark` is `#008110` (green). Neither pair is a
 tint of the other. Always read the resolved values from
 `assets/css/critical.css` before calculating contrast; do not assume from
@@ -203,7 +202,7 @@ the token name.
   and mirrored in `docs/changelog.md`.
 - Release zip naming convention: `[theme-name]-[version].zip`, all
   lowercase, theme name matching the `Theme Name:` header with spaces
-  replaced by hyphens — e.g. `remotive-media-1.2.0.zip`.
+  replaced by hyphens, e.g. `remotive-media-1.2.0.zip`.
 - Two other numbers move independently of the theme version: the migration
   schema, `REMOTIVE_SETUP_SCHEMA` in `inc/setup/site-setup.php` (1.92.0 as of
   v1.96.0), which only changes when an already-set-up site needs a migration,
@@ -223,7 +222,7 @@ Aug 2026 rather than by a code review. What the logs actually showed:
 
 | Observation | Volume | Response |
 |---|---|---|
-| `wp-login.php` brute force from `103.138.189.98` | 271 hits | Login rate limit in `inc/core/security.php`; **IP block still required at firewall — a theme cannot do this** |
+| `wp-login.php` brute force from `103.138.189.98` | 271 hits | Login rate limit in `inc/core/security.php`; **IP block still required at firewall, a theme cannot do this** |
 | 500s on `/wp-admin/install.php` from one Cloudflare IPv6 | 91 | Endpoint redirected to home on `admin_init` |
 | `setup-config.php` returning 200 to external IPs | 2 IPs | Same redirect |
 | `xmlrpc.php` probes | 7 hits, 5 IPs | XML-RPC disabled entirely; server-level deny also recommended |
@@ -325,7 +324,7 @@ Recorded as findings and fixes, so a later maintainer knows what was decided.
 | Current version | 1.8.0 |
 | Previous version | 1.7.0 |
 | Audit date | 2026-08-26 |
-| Release type | Minor (new settings/defaults — the CTA form's default handler and `cta_form_action`'s default value both changed; see `docs/changelog.md`) |
+| Release type | Minor (new settings/defaults, the CTA form's default handler and `cta_form_action`'s default value both changed; see `docs/changelog.md`) |
 | Scope reviewed | `functions.php`, `inc/options/theme-options.php`, `inc/forms/cta-form-handler.php`, and every enqueued JS file. No `$wpdb`/SQL, file uploads, REST routes, or custom authentication exist anywhere in this theme, so those categories had no surface to review. |
 
 **Security summary**
@@ -345,7 +344,7 @@ Recorded as findings and fixes, so a later maintainer knows what was decided.
    (`esc_url_raw`/`sanitize_email`/`sanitize_text_field`) but injected
    the stored value directly into rendered HTML via `strtr()` with no
    re-escaping. Fixed: `esc_url()` added for URL fields, `esc_html()`
-   for text fields, at the point of output — independent of whatever the
+   for text fields, at the point of output, independent of whatever the
    save-time sanitizer does. No live exploit confirmed (the affected
    fields all require `edit_theme_options` capability to set); fixed as
    defense-in-depth regardless, per "sanitize on input, escape on
@@ -353,13 +352,13 @@ Recorded as findings and fixes, so a later maintainer knows what was decided.
 2. **No CRLF header-injection guard on the CTA form's `Reply-To`
    header.** `sanitize_email()`/`is_email()` should already prevent this
    (neither permits control characters in a valid address), but the code
-   didn't make that guarantee explicit or independent of their internal
+   did not make that guarantee explicit or independent of their internal
    behavior. Fixed: an explicit `\r`/`\n` rejection added before the
    value reaches `wp_mail()`.
 3. **No rate limiting on the CTA form's public POST endpoint.** Fixed:
    a transient-based throttle (3 submissions per IP per 10 minutes).
-   Documented as a real but imperfect mitigation — `REMOTE_ADDR` can be
-   spoofed or shared behind a proxy — not a guarantee.
+   Documented as a real but imperfect mitigation, `REMOTE_ADDR` can be
+   spoofed or shared behind a proxy, not a guarantee.
 
 **Proposed, not implemented**
 
@@ -372,8 +371,8 @@ Recorded as findings and fixes, so a later maintainer knows what was decided.
 
 1. A scripted client that loads the real page first (for a valid nonce)
    can still submit the CTA form repeatedly, just throttled to the rate
-   limit. Only a CAPTCHA closes this fully — see "Proposed" above.
-2. `register_setting()` doesn't specify an explicit capability, so the
+   limit. Only a CAPTCHA closes this fully, see "Proposed" above.
+2. `register_setting()` does not specify an explicit capability, so the
    Settings API's save-path check (`options.php`, core) defaults to
    `manage_options` while this theme's own page-access check uses
    `edit_theme_options`. Identical in a stock install; would only
@@ -381,10 +380,9 @@ Recorded as findings and fixes, so a later maintainer knows what was decided.
    without a live WordPress install to verify the correct mechanism
    against.
 
-**Test status:** every fix verified against actual computed output —
-PHP brace/paren balance checked for every changed file, block-template
+**Test status:** every fix verified against actual computed output, PHP brace/paren balance checked for every changed file, block-template
 tag balance re-verified, the honeypot's invisibility confirmed via
-`getBoundingClientRect()` (not just visual inspection), the ticker
+`getBoundingClientRect()` (checked by measurement as well as by eye), the ticker
 pause/resume behavior confirmed via a real scroll-triggered
 `IntersectionObserver` test, the `.pot` file's syntax verified
 line-by-line after a bug in the first extraction attempt produced
@@ -395,7 +393,7 @@ garbled comments (caught before packaging, not after).
 line, and this file) · changelog updated · upgrade notice added ·
 readme.md and readme.txt updated · no sensitive exploit details in any
 public-facing doc · package contains no VCS artifacts, backups, or debug
-files (re-verified this pass, not just carried over from the last check).
+files (re-verified this pass instead of carried over from the last check).
 
 ## Structured data (v1.26.0)
 
@@ -407,8 +405,8 @@ per the SEO content strategy section. If the legal entity facts change,
 update this file, the Theme Options defaults, and the `legalName`
 constant in `inc/content/schema-markup.php` together. As of v1.27.0 the schema
 also publishes the ACRA incorporation date (2024-01-31) as
-`foundingDate` and the UEN (202404376G) as an `identifier` — both from
-the Legal entity table above — and types the organization
+`foundingDate` and the UEN (202404376G) as an `identifier`, both from
+the Legal entity table above, and types the organization
 ProfessionalService over the registered office. The full
 Google-feature coverage matrix lives in readme.md.
 
@@ -502,7 +500,7 @@ Canonical facts for the paid and social landing pages. Code: `inc/landing/landin
 |---|---|---|
 | `readme.txt` | General / WP admin users | Plain-language description, install steps, FAQ |
 | `readme.md` | Developers, hosting, sysadmins | Architecture, file map, implementation gotchas |
-| `docs/ssot.md` | Anyone maintaining brand/entity accuracy | This file — canonical facts |
+| `docs/ssot.md` | Anyone maintaining brand/entity accuracy | This file, canonical facts |
 | `docs/upgrading.md` | Future maintainers, MENJ | Roadmap, planned work, not-yet-built ideas |
 | `docs/changelog.md` | Everyone | Version history |
 | `docs/resources.md` | Legal, anyone redistributing/auditing the theme | Consolidated license/copyright for the theme and every bundled font/image |
@@ -573,7 +571,7 @@ record name the files by their earlier flat paths.
 ## SEO content strategy (v1.12.0)
 
 Built against `remotivemedia-keyword-selection.xlsx` (90 keywords: 30
-Singapore, 30 Malaysia, 30 generic — provided by the client, competitor-
+Singapore, 30 Malaysia, 30 generic, provided by the client, competitor-
 validated keyword research, not third-party content requiring
 attribution). Selection rule per the file's own "Read me" sheet:
 commercial/transactional keywords throughout, informational keywords
@@ -584,15 +582,14 @@ removed.** `page-seo-singapore.html` and `page-digital-marketing-malaysia.html`
 each covered their market's full commercial keyword cluster on one page.
 Both templates, their auto-creation entries, their schema and the fifteen
 internal links pointing at them are gone. The reasoning that produced them
-still holds for anything built later — one consolidated page per market
+still holds for anything built later, one consolidated page per market
 rather than one page per keyword, since near-duplicate pages targeting the
-same intent cannibalise each other and amount to a doorway-page pattern —
-but the market pages themselves are no longer part of the shipped content.
+same intent cannibalise each other and amount to a doorway-page pattern, but the market pages themselves are no longer part of the shipped content.
 Market context now lives in the service pages and the blog posts.
 
-**Decision: genuinely informational clusters became blog posts, not
+**Decision: informational clusters became blog posts, not
 pages.** Four posts (delivered separately as `remotive-blog-seed-content.xml`,
-not bundled in the theme zip — content and theme code are kept
+not bundled in the theme zip, content and theme code are kept
 separate): SEO cost in Singapore, SEO pricing in Malaysia, "is your
 website SEO-friendly," and SEO vs SEM. See that file's own README for
 the full keyword-to-post mapping and volumes.
@@ -600,8 +597,8 @@ the full keyword-to-post mapping and volumes.
 **Documented, not silently ignored: the web-design keyword gap.** Six
 Malaysia keywords (`web design malaysia`, `website design malaysia`,
 `ecommerce website design malaysia`, `web design kl`, `web design company
-malaysia`, `website design company kuala lumpur` — combined volume over
-9,000) are untargeted anywhere. Remotive doesn't offer web design as a
+malaysia`, `website design company kuala lumpur`, combined volume over
+9,000) are untargeted anywhere. Remotive does not offer web design as a
 service; the Malaysia landing page says so explicitly in its own FAQ.
-Revisit only if that service offering changes — tracked in
+Revisit only if that service offering changes, tracked in
 `docs/upgrading.md`.

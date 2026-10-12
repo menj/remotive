@@ -56,7 +56,49 @@ foreach ( remotive_agency_option_defaults() as $key => $value ) {
 }
 
 $agency['footer: Follow us'] = 'Follow us';
+$agency['footer: description'] = 'Full-funnel digital marketing for brands who would rather be seen than shout. Registered in Singapore, working across APAC.';
+$scopes['site description (footer, sidebar)'] = array(
+	'parts/footer.html'  => (string) preg_replace( '/<!--.*?-->/s', '', (string) file_get_contents( $root . '/parts/footer.html' ) ),
+	'parts/sidebar.html' => (string) preg_replace( '/<!--.*?-->/s', '', (string) file_get_contents( $root . '/parts/sidebar.html' ) ),
+);
 $scopes['agency page (defaults)'] = $agency;
+
+// The seven articles: English only, so no translation keys depend on their wording.
+require_once $root . '/inc/setup/content-seed-data.php';
+$articles = array();
+
+foreach ( remotive_seed_content() as $item ) {
+	if ( 'post' === $item['type'] ) {
+		$articles[ $item['slug'] ] = preg_replace( '/<!--.*?-->/s', '', $item['content'] );
+		$articles[ $item['slug'] . ' (excerpt and search listing)' ] = $item['excerpt'] . "\n" . $item['rm_title'] . "\n" . $item['rm_desc'] . "\n" . $item['title'];
+	}
+}
+
+$scopes['articles (7 posts)'] = $articles;
+$pending = array();
+
+// The documentation prose: the changelog, the readmes and the docs folder (the legal texts are page content, so they are out of scope).
+$docs = array();
+
+foreach ( array_merge( array( 'readme.md', 'readme.txt' ), array_map( function ( $f ) { return 'docs/' . basename( $f ); }, glob( $root . '/docs/*.md' ) ) ) as $rel ) {
+	if ( 0 === strpos( basename( $rel ), 'legal-' ) ) {
+		continue;
+	}
+
+	$text = (string) file_get_contents( $root . '/' . $rel );
+	$text = preg_replace( '/```.*?```/s', '', $text );
+
+	// Older release notes are a historical record, so only the current series is held to the guide.
+	if ( in_array( $rel, array( 'docs/changelog.md', 'docs/upgrading.md' ), true ) && preg_match( '/^## \[(?!1\.11[67]\.)\d/m', $text, $mm, PREG_OFFSET_CAPTURE ) ) {
+		$text = substr( $text, 0, $mm[0][1] );
+	} elseif ( 'readme.txt' === $rel && false !== ( $pos = strpos( $text, '== Changelog ==' ) ) ) {
+		$text = substr( $text, 0, $pos ) . substr( $text, $pos, 4000 );
+	}
+
+	$docs[ $rel ] = $text;
+}
+
+$scopes['documentation'] = $docs;
 
 $fail  = 0;
 $debt  = in_array( '--debt', $argv ?? array(), true );
@@ -81,14 +123,20 @@ function style_hits( $text, $banned, $phrases, $parallel ) {
 		$hits[] = 'emoji';
 	}
 
+	// Words inside quotation marks are someone else's wording (a client's keyword, say), so they are exempt.
+	$unquoted = preg_replace( '/["\x{201C}][^"\x{201D}]*["\x{201D}]/u', '', $t );
+
+	// Technical nouns the guide catches only in their figurative sense (a test harness, a customer journey, the underscore character).
+	$unquoted = preg_replace( '/\b(?:test |audit |render |browser |CSS |layout-CSS |rendered |hoverless |standalone |hand-built |same |mechanical )?harness\b|\b(?:customer[- ]|email )journeys?\b|\bunderscore\b/i', '', $unquoted );
+
 	foreach ( $banned as $b ) {
-		if ( preg_match( '/\b' . preg_quote( $b, '/' ) . '\b/i', $t ) ) {
+		if ( preg_match( '/\b' . preg_quote( $b, '/' ) . '\b/i', $unquoted ) ) {
 			$hits[] = "banned word: $b";
 		}
 	}
 
 	foreach ( $phrases as $p ) {
-		if ( false !== stripos( $t, $p ) ) {
+		if ( false !== stripos( $unquoted, $p ) ) {
 			$hits[] = "dead phrase: $p";
 		}
 	}
@@ -110,6 +158,18 @@ foreach ( $scopes as $scope => $items ) {
 		if ( $hits ) {
 			++$fail;
 			echo "FAIL: $scope / $label: " . implode( '; ', array_unique( $hits ) ) . "\n";
+		}
+	}
+}
+
+if ( $debt ) {
+	foreach ( $pending as $scope => $items ) {
+		foreach ( $items as $label => $text ) {
+			$hits = style_hits( $text, $banned, $phrases, $parallel );
+
+			if ( $hits ) {
+				echo "DEBT: $scope / $label: " . implode( '; ', array_unique( $hits ) ) . "\n";
+			}
 		}
 	}
 }

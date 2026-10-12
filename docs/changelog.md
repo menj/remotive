@@ -4,6 +4,20 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.117.0] (2026-10-12)
+
+### Changed
+
+The seven seeded articles now follow the anti-AI writing style guide. Contractions are written out, negation followed by a correction is rewritten as a plain statement, bold lead-ins inside list items are removed, and titles use sentence case. The articles keep their length of 1,100 to 1,470 words and their Rank Math fields.
+
+Sites that already hold the seeded articles receive the new text through migration 1.117.0. It replaces a title, a Rank Math field or the body only when the stored value still matches the earlier seed, so any article an editor changed is left alone. If a write fails, the migration stays pending and runs again on the next load.
+
+The blog sidebar description, the footer description and the documentation now follow the same guide. Older release notes keep their original wording as a historical record.
+
+### Added
+
+`tests/check-writing-style.php` now covers the articles, the site description and the documentation for the current series, in addition to the agency page. CI runs it on every pull request.
+
 ## [1.116.3] (2026-10-12)
 
 ### Added
@@ -24,13 +38,13 @@ The landing pages turned back every click from the main site. They now let one s
 
 The closing heading is now "Let us talk about your growth." (it was a contraction). Its translations moved with it.
 
-## [1.116.2] — 2026-10-12
+## [1.116.2] (2026-10-12)
 
 ### Fixed
 
 - **Theme Options never showed the helper text under an on/off switch.** `remotive_render_field_row()` printed the switch and returned before the helper, so every explanation written for a toggle (Maintenance mode, Graceful errors, Branded login, Scroll motion, and the Agency layout switches) was invisible. The switch now sits in a full-width wrapper (`.rm-admin__toggle-wrap`) with its helper under it. Found while previewing the Agency layout tab.
 
-## [1.116.1] — 2026-10-12
+## [1.116.1] (2026-10-12)
 
 ### Fixed
 
@@ -44,7 +58,7 @@ The closing heading is now "Let us talk about your growth." (it was a contractio
 - `tests/test-agency-i18n.php` (53 tests, in CI) renders the page through the real translator in all three languages and checks that nothing is left untranslated, the form and its language are intact, the language links and the current language are right, a language switched off drops out, and which pages keep a translation.
 - Checked at 1,280 (Malay), 768 (Simplified) and 390 px (Traditional).
 
-## [1.116.0] — 2026-10-11
+## [1.116.0] (2026-10-11)
 
 ### Added
 
@@ -56,7 +70,7 @@ The closing heading is now "Let us talk about your growth." (it was a contractio
   - `tests/test-agency.php` (55 tests, in CI): defaults and the off-by-default switch, the brief's headline and paragraph, the removed phrases, sanitising, the redirect truth table, and the rendered page (two forms, six cards, no menu or ticker, escaping, team and size).
   - Checked at 1,280, 1,024, 768 and 390 px, in light and dark.
 
-## [1.115.2] — 2026-10-11
+## [1.115.2] (2026-10-11)
 
 Fixes for the CodeAnt review findings on PRs 35, 36 and 37, which were merged before the review was read. Each was checked against the code first; all were real.
 
@@ -73,13 +87,13 @@ Fixes for the CodeAnt review findings on PRs 35, 36 and 37, which were merged be
 - **Documentation said "first load after upload"** (PR 36). The migration runs from `admin_init` or on activation, so the upgrade notes now say the first admin page load.
 - **The article test passed malformed lists** (PR 36). Each list must now contain only `wp:list-item` blocks. `tests/test-setup.php` gains six tests for the link helpers (16).
 
-## [1.115.1] — 2026-10-07
+## [1.115.1] (2026-10-07)
 
 ### Fixed
 
 - **Theme Options → Team: the Name and Role fields were a few pixels wide.** The team list has no label of its own, so it was emitted alone inside a `.rm-admin__row`, whose grid is a 260 px label column plus the field; it landed in the label column, and its own four-track grid left the Name and Role inputs almost nothing. The repeater now spans the whole row (`.rm-admin__row > .rm-admin__team`), each member is a card with Name, Role and Photo slug side by side, the bio full width, and the leadership checkbox and Remove button on the last line. Two columns below 1,100 px, one below 782 px. `assets/css/admin-theme-options.css` only; no markup or saved-data change.
 
-## [1.115.0] — 2026-10-07
+## [1.115.0] (2026-10-07)
 
 ### Changed
 
@@ -91,7 +105,7 @@ Fixes for the CodeAnt review findings on PRs 35, 36 and 37, which were merged be
 
 - **Article header alignment.** WordPress's constrained layout centred the byline row, leaving a gap between the title and the "Re:Motive Media" line. The header is left-aligned, and the header, cover, body and related posts now share one width and left edge.
 
-## [1.114.0] — 2026-10-07
+## [1.114.0] (2026-10-07)
 
 ### Changed
 
@@ -100,25 +114,25 @@ Fixes for the CodeAnt review findings on PRs 35, 36 and 37, which were merged be
 - **Existing sites are updated once** (`remotive_refresh_article_seo()`, schema 1.114.0). The title, description and focus keyword are replaced only when empty or still byte-for-byte the earlier seed value; the body only when it still matches the earlier seed text (MD5). Anything an editor has changed is left alone.
 - Rank Math's SEO score is worked out in the editor, so it is blank until each post is opened. To fill every score at once: Rank Math → Status & Tools → Database Tools → Update SEO Score.
 
-## [1.113.0] — 2026-10-06
+## [1.113.0] (2026-10-06)
 
 ### Changed
 
 - **Sidebar redesign** (`parts/sidebar.html`, `assets/css/blog-and-about.css`). All three cards have rounded corners and a thin cyan-to-pink bar on the top edge. About: a "Taking on new projects" badge with a pulsing dot. Recent posts: an icon chip on the heading, then rows of a 72 px thumbnail with a Kagnue number (01 to 05) in the corner, a category label, the title and the date with a clock icon; on hover or keyboard focus the row tints, an accent bar grows in, the thumbnail zooms, the title turns pink and a round arrow button slides in; an "All insights" link follows. Contact: a gradient wash, the email as a bordered pill with a mail icon, and a full-width button with an arrow. The card is sticky on desktop and static below 900 px. Colours come from the theme palette (`cyan`, `magenta-dark`, `accent-3`), so light mode, dark mode and customised schemes all carry through; the category label uses `cyan-dark` to keep its contrast on white. Icons are CSS masks. Motion stops under `prefers-reduced-motion`. Replaces the 1.112.1 and 1.112.2 sidebar CSS.
 
-## [1.112.2] — 2026-10-06
+## [1.112.2] (2026-10-06)
 
 ### Added
 
 - **Sidebar icons and rollovers.** The Recent posts and Get in touch headings get a list and an envelope icon (CSS masks, so they follow the accent colour). A Recent posts row now reacts to hover and keyboard focus: the thumbnail zooms slightly, the title turns magenta and an arrow slides in. The sidebar button lifts on hover. All motion is off under `prefers-reduced-motion`.
 
-## [1.112.1] — 2026-10-06
+## [1.112.1] (2026-10-06)
 
 ### Fixed
 
 - **The sidebar's Recent posts card was a sparse list of bold titles with large gaps.** The touch-target rule in `remotive.css` (`display:inline-block; padding-block:.5rem`) was applied to the title links, on top of the list gap, so each row grew tall. Each entry in `parts/sidebar.html` is now a row with a 64 px square featured image, the date and the title (clamped to three lines), separated by hairlines. The link padding is reset in `blog-and-about.css`; the whole row stays easy to hit, because the image and title are both links.
 
-## [1.112.0] — 2026-10-06
+## [1.112.0] (2026-10-06)
 
 ### Changed
 
@@ -126,7 +140,7 @@ Fixes for the CodeAnt review findings on PRs 35, 36 and 37, which were merged be
 - Tests in `tests/test-i18n.php` (90).
 - **Documentation brought up to date** for 1.107 to 1.112: `readme.md` (module and asset tree, Kagnue, Insights), `docs/ssot.md`, `docs/walkthrough.md`, `docs/upgrading.md` (steps for each release), `docs/resources.md` (Pexels photos and the licensed Kagnue font), `docs/image-credits.md`, `docs/accessibility.md` and `docs/cache-headers.md` (keep the landing pages out of page caches).
 
-## [1.111.0] — 2026-10-06
+## [1.111.0] (2026-10-06)
 
 ### Fixed
 
@@ -143,7 +157,7 @@ Fixes for the CodeAnt review findings on PRs 35, 36 and 37, which were merged be
 - **A card with no featured image shows a branded gradient** of the same shape (`inc/content/post-image-fallback.php`), so a new article published without an image does not leave a gap in the grid.
 - `tests/check-seed-images.php`, run in CI: every seeded article names an image and its AVIF exists. It fails on the old data.
 
-## [1.110.3] — 2026-10-06
+## [1.110.3] (2026-10-06)
 
 ### Fixed
 
@@ -155,7 +169,7 @@ Three findings from the CodeAnt review of PRs #29 and #32, all valid:
 
 Tests added in `tests/test-landing.php` (52) and `tests/test-rank-math.php` (20).
 
-## [1.110.2] — 2026-10-06
+## [1.110.2] (2026-10-06)
 
 ### Changed
 
@@ -163,7 +177,7 @@ Tests added in `tests/test-landing.php` (52) and `tests/test-rank-math.php` (20)
 - New token `__REMOTIVE_THEME_URL__` (the active theme's address) for images in block templates, so the paths do not depend on the theme folder name.
 - Not changed: the individual case study pages' own featured images.
 
-## [1.110.1] — 2026-10-06
+## [1.110.1] (2026-10-06)
 
 ### Added
 
@@ -176,7 +190,7 @@ Tests added in `tests/test-landing.php` (52) and `tests/test-rank-math.php` (20)
 - The plugin loads its translations too early (`_load_textdomain_just_in_time` in the debug log). That is inside the plugin; update it or ask its author.
 - A fresh WordPress "Sample Page" (if it still exists) is listed in `llms.txt`; delete it.
 
-## [1.110.0] — 2026-10-06
+## [1.110.0] (2026-10-06)
 
 ### Changed
 
@@ -190,7 +204,7 @@ Tests added in `tests/test-landing.php` (52) and `tests/test-rank-math.php` (20)
   - Tests in `tests/test-landing.php` cover each case.
 - Limits that remain: an address typed or pasted by someone who knows it works by design, as does a landing URL on a server-level cache that serves the page before WordPress runs (exclude the landing slugs from page caching), and a plugin that publishes its own list of pages (for example an AI-discovery or `llms.txt` plugin) needs the landing pages excluded in its own settings.
 
-## [1.109.2] — 2026-10-06
+## [1.109.2] (2026-10-06)
 
 ### Changed
 
@@ -203,7 +217,7 @@ The Malay text was read against *Tatabahasa Dewan*, 3rd ed. (DBP, 2008), supplie
 
 `tests/check-ejaan.php` now also fails on `adalah`, `paling`/`sekali` with `ter-`, `demi untuk`, a quantifier plus a doubled noun, and `ke kedudukan` after a change verb. Rules about sentence structure and word order (the D-M rule, passive agents) are not machine-checkable and were reviewed by hand; a native speaker should still read the text.
 
-## [1.109.1] — 2026-10-06
+## [1.109.1] (2026-10-06)
 
 ### Changed
 
@@ -211,7 +225,7 @@ The Malay text was read against *Tatabahasa Dewan*, 3rd ed. (DBP, 2008), supplie
 - The swipe row is keyboard-focusable (`tabindex="0"`, labelled by its heading, visible focus ring), so keyboard users can scroll to every card in browsers that do not focus scrolling regions themselves.
 - Checked 3 services × 4 languages × 1440, 820, 390 and 320 px × dark and light: no horizontal page scroll, nothing clipped, at least three results cards everywhere.
 
-## [1.109.0] — 2026-10-06
+## [1.109.0] (2026-10-06)
 
 ### Added
 
@@ -223,7 +237,7 @@ The Malay text was read against *Tatabahasa Dewan*, 3rd ed. (DBP, 2008), supplie
 - **Kagnue display serif for the big figures.** The figures on these cards and on the Case Studies page cards (`+198%`, `745k`) use Kagnue Regular, a one-weight display serif: self-hosted as a 28 KB WOFF2 subset (Basic Latin, dashes, quotes, arrow) in `assets/fonts/kagnue/`, `font-display: swap`, with Georgia as the fallback. Used only at large sizes and nowhere else (body, navigation, forms and headlines keep Saira and Archivo); the plus sign and the en dash are left out of the font (`unicode-range`) so they fall back to Saira; it has no Chinese glyphs, but the figures are Latin digits. Used under the site owner's licence (the font's own licence file is not part of the repository).
 - The copy lives in each service's `proof` list in `inc/landing/landing-copy.php` (figure, result, client, each in four languages); `tests/check-landing-copy.php` and `tests/check-ejaan.php` cover it.
 
-## [1.108.3] — 2026-10-05
+## [1.108.3] (2026-10-05)
 
 Found by reading the site's `debug.log` (31 August to 5 October).
 
@@ -237,7 +251,7 @@ Found by reading the site's `debug.log` (31 August to 5 October).
 - **Rank Math: `rank_math_analytics_objects` and `rank_math_analytics_gsc` tables missing** (31 August to 5 October, plus a null-property warning in its analytics summary). Re-create them under Rank Math → Status & Tools → Database Tools, or switch its Analytics module off.
 - **31 August: fatal on a missing `inc/error-handler.php`** (a partial upload of an older theme structure; not seen since). **1 September: WordPress could not save its cron list** once.
 
-## [1.108.2] — 2026-10-05
+## [1.108.2] (2026-10-05)
 
 Found by reading the server access and FTP logs for September and October.
 
@@ -256,20 +270,20 @@ Found by reading the server access and FTP logs for September and October.
 - A one-off `/__REMOTIVE_CTA_FORM_ACTION__` request (bingbot, 3 October): a page was served once with the template placeholder unreplaced. Not reproducible; 12 URLs checked clean.
 - 404s on theme scripts, styles and fonts on 30 September during the upload window: files requested before they were uploaded.
 
-## [1.108.1] — 2026-10-05
+## [1.108.1] (2026-10-05)
 
 ### Changed
 
 - **Landing pages: the form comes straight after the headline on phones and tablets.** Below 56rem the order is logo bar, eyebrow, headline, the lead form (full width), then the intro and bullets, so the form is on the first screen (before, a phone showed only the first field). From 56rem it stays in the right column beside the copy. CSS only (`assets/css/landing.css`); applies to the three services in all four languages. Checked at 390 and 820 px in dark and light, and in Malay and Simplified Chinese, with no horizontal scroll.
 
-## [1.108.0] — 2026-10-05
+## [1.108.0] (2026-10-05)
 
 ### Changed
 
 - **All translated pages are live by default** in Bahasa Melayu, Simplified and Traditional Chinese: 37 per language (home, Services and six service pages, Case Studies and all fourteen case studies, About, Team, Insights and its seven articles, Contact, FAQ, Privacy, Terms). Previously the eight unlisted case studies and the seven articles stayed English-only until switched on. `remotive_i18n_default_live_pages()` now adds every page that has a translated title in a dictionary. They appear in the language switcher, hreflang and `/sitemap-languages.xml`. Each page can still be switched off in Tools → Translations (a saved setting wins), a whole language in Theme Options → Languages, and the list narrowed with the `remotive_i18n_live_pages` filter.
 - This goes further than Gordan's "not lots of pages" brief, at the site owner's direction; `docs/walkthrough.md` still asks which pages stay.
 
-## [1.107.3] — 2026-10-05
+## [1.107.3] (2026-10-05)
 
 ### Fixed
 
@@ -281,14 +295,14 @@ Text in the theme files that had no Malay or Chinese translation, found by check
 
 Not translated on purpose: admin screens, notification emails, names, addresses. Edits made in WordPress to a page's text, pages that are not live and individual articles need their own translation (Tools → Translations).
 
-## [1.107.2] — 2026-10-05
+## [1.107.2] (2026-10-05)
 
 ### Fixed
 
 - **Language sitemap lost `<lastmod>` for articles.** `remotive_i18n_lastmod()` used `get_page_by_path()`, which defaults to pages, so dated article paths (posts) returned nothing. It now looks up pages and posts. Found by the CodeAnt review of PR #18.
 - **Saving a page in a language that is switched off unpublished it.** The Live checkbox in Tools → Translations showed the language's master switch, so a page that was live by default showed unchecked, and saving wrote `published = 0`, which stayed in force when the language was turned back on. The checkbox now reads the page's own setting (`remotive_i18n_page_live()`).
 
-## [1.107.1] — 2026-10-05
+## [1.107.1] (2026-10-05)
 
 ### Changed
 
@@ -301,7 +315,7 @@ The Malay (`ms-MY`) text was checked against a second Pedoman Umum Ejaan Rumi Ba
 
 `tests/check-ejaan.php` now forbids the em dash, requires spaces around the en dash, forbids straight double quotes, and flags a missing serial comma.
 
-## [1.107.0] — 2026-10-05
+## [1.107.0] (2026-10-05)
 
 ### Changed
 
@@ -323,13 +337,13 @@ The Malay (`ms-MY`) text, in the dictionary (`inc/i18n/ms.php`) and the landing 
 - **Foreign words in italics.** The Pedoman writes foreign terms in italics (huruf condong) unless adapted. The language layer swaps text, not markup, so a term such as "retainer", "sprint", "white-label" or a quoted search phrase stays as written. Where an English word has an accepted adaptation it was adapted; the rest is a known limit.
 - **Wording.** This is orthography and punctuation. Whether a sentence reads naturally to a Malaysian reader still needs a native speaker.
 
-## [1.106.1] — 2026-10-05
+## [1.106.1] (2026-10-05)
 
 ### Fixed
 
 - **Header language switcher on a phone.** The header row never wraps on a small screen (`critical.css`), so the switcher added in 1.105.0 was squeezed past the right edge ("EN • BM" visible, the Chinese buttons cut off). On screens up to 782 px the row now wraps only when it holds the switcher: the colour toggle and the switcher share the row beneath the logo, menu button and call to action, and the switcher takes a row of its own when the screen is too narrow for both (320 px). Checked at 320, 390 and 768 px in a real WordPress with no horizontal scroll; the desktop header is unchanged.
 
-## [1.106.0] — 2026-10-05
+## [1.106.0] (2026-10-05)
 
 ### Added
 
@@ -346,7 +360,7 @@ The Malay (`ms-MY`) text, in the dictionary (`inc/i18n/ms.php`) and the landing 
 
 - `tests/test-i18n.php` now covers the language switches (off, on, never saved), the switcher placements, the sitemap entries (English plus live languages, none for a language that is off, reciprocal set) and the Rank Math index entry; `tests/test-rank-math.php` covers the single title.
 
-## [1.105.0] — 2026-10-05
+## [1.105.0] (2026-10-05)
 
 ### Changed
 
@@ -358,7 +372,7 @@ The Malay (`ms-MY`) text, in the dictionary (`inc/i18n/ms.php`) and the landing 
 - Checked for text left in English on the translated main pages: only names, the postal address, acronyms (ROAS, CPCV), chart figures and the blog date format remain, which are the same in every language. The blog index prints dates in English; localising them is not done.
 - The Malay and Chinese text is still a first draft that needs a native speaker.
 
-## [1.104.0] — 2026-10-04
+## [1.104.0] (2026-10-04)
 
 Brings together two lines of work that both started from 1.89.6: this repository (landing pages, colours, folders, security, parent and Rank Math compatibility, up to 1.103.2) and a separate build that adds language versions of the site (numbered 1.89.7 to 1.92.1 there, listed below under "Language layer build"). One version number from here on.
 
@@ -382,19 +396,19 @@ Brings together two lines of work that both started from 1.89.6: this repository
 
 - The language layer was read against the v1.103.0 audit questions. Every action on its admin screen checks `manage_options` and a nonce; every query takes request values through `prepare()` or a cast; its redirects stay on the site. `tests/check-security-patterns.php` now allows database queries only inside `inc/i18n/` and fails if a request value reaches a query unprepared anywhere.
 
-## [1.103.2] — 2026-10-02
+## [1.103.2] (2026-10-02)
 
 ### Changed
 
 - **Theme screenshot** (`screenshot.png`, 1200 × 900) replaced. The old one showed the pre-1.93 design (square buttons, the old navigation and headline). The new one is the live front page as rendered by WordPress 7.1.2 with the theme activated on a fresh install: dark mode, rounded buttons, current navigation and headline, and the six-market ticker. No code changed.
 
-## [1.103.1] — 2026-10-02
+## [1.103.1] (2026-10-02)
 
 ### Fixed
 
 - **Contact address is `hello@remotivemedia.asia`.** The shipped default already was, but a site that had saved the older `hello@remotivemedia.com` in Theme Options kept receiving enquiries there, because a saved option outranks the default. Migration 1.103.1 (`remotive_correct_contact_email()`) replaces that one value, once, on the next admin page load; any other address an administrator chose is left alone. `docs/ssot.md` no longer lists the `.com` domain as the contact address. `tests/test-setup.php` covers the migration.
 
-## [1.103.0] — 2026-10-02
+## [1.103.0] (2026-10-02)
 
 Security audit of the whole theme (details and the finding register in `docs/ssot.md`). Minor version because it adds two filters, changes two defaults and adds a size limit.
 
@@ -416,7 +430,7 @@ Security audit of the whole theme (details and the finding register in `docs/sso
 - The core users sitemap (`/wp-sitemap-users-1.xml`) no longer exists.
 - Enquiries over the length limits are cut rather than rejected.
 
-## [1.102.0] — 2026-10-02
+## [1.102.0] (2026-10-02)
 
 ### Fixed
 
@@ -438,7 +452,7 @@ Checked against Twenty Twenty-Five 1.5. A child theme's palette merges with the 
 
 - `tests/check-parent.php`, run in CI: fails if `style.css` stops naming the parent, `theme.json` stops declaring the four slugs, `remotive.css` stops aliasing them, or any PHP file redefines a `twentytwentyfive_` function.
 
-## [1.101.0] — 2026-10-02
+## [1.101.0] (2026-10-02)
 
 ### Fixed
 
@@ -452,7 +466,7 @@ Checked against the Rank Math SEO 1.0.279 source. The plugin replaces three thin
 
 - `inc/core/rank-math.php` holds the three rules; `tests/test-rank-math.php` (12 checks) covers them. All are inert without the plugin. The schema-markup comment now cites 1.0.279.
 
-## [1.100.0] — 2026-10-02
+## [1.100.0] (2026-10-02)
 
 ### Changed
 
@@ -461,7 +475,7 @@ Checked against the Rank Math SEO 1.0.279 source. The plugin replaces three thin
 - `Theme URI` in `style.css` now points at the repository, `https://github.com/menj/remotive`, instead of the site.
 - No behaviour change: the two files that load a sibling (`landing-pages.php` → `landing-copy.php`, `content-seed.php` → `content-seed-data.php`) moved together, so their `__DIR__` requires still resolve.
 
-## [1.99.0] — 2026-10-02
+## [1.99.0] (2026-10-02)
 
 ### Changed
 
@@ -472,7 +486,7 @@ Checked against the Rank Math SEO 1.0.279 source. The plugin replaces three thin
 
 - **Unit tests** that run without WordPress: `tests/test-colours.php` (37 checks: overrides, contrast maths, validation, CSS output) and `tests/test-landing.php` (25 checks: language from URL, path-based URLs, hreflang, `<html lang>`, robots), with WordPress stubs in `tests/bootstrap.php`. CI runs every `tests/test-*.php`. Run locally with `php tests/test-landing.php`.
 
-## [1.98.0] — 2026-10-02
+## [1.98.0] (2026-10-02)
 
 ### Changed
 
@@ -480,9 +494,9 @@ Checked against the Rank Math SEO 1.0.279 source. The plugin replaces three thin
 - **The other eight case-study pages stay published but unlisted:** nothing on the site links to them, their URLs still work, and they are not removed from the database. Delete them later in Pages if wanted.
 - **Home page** features the automotive case as the spread, and the industrial-supplier and healthcare cases as the two rows (the third row is gone).
 - **Footer** lists the six with short labels plus "All case studies →". The curated list lives once in `remotive_listed_case_studies()` (`inc/classic-menus.php`) and feeds both the default menu and the migration.
-- **Migration 1.98.0** (`remotive_refresh_case_study_menu()`) updates the saved Footer — Case Studies menu on the next admin load: removes the four old default items, adds any of the six that are missing, renames the "All N case studies" link. Items an administrator added by hand are left alone.
+- **Migration 1.98.0** (`remotive_refresh_case_study_menu()`) updates the saved Footer, Case Studies menu on the next admin load: removes the four old default items, adds any of the six that are missing, renames the "All N case studies" link. Items an administrator added by hand are left alone.
 
-## [1.97.0] — 2026-10-02
+## [1.97.0] (2026-10-02)
 
 ### Changed
 
@@ -490,7 +504,7 @@ Checked against the Rank Math SEO 1.0.279 source. The plugin replaces three thin
 - **Version check in CI** (`tests/check-versions.php`): fails a pull request if `style.css`, `readme.txt` (Stable tag and Latest version) and the newest changelog entry disagree. `readme.txt` had been left at 1.94.0 while the theme moved to 1.97.0; it now matches.
 - **Documentation brought current.** `docs/ssot.md` (the landing pages as a section of canonical facts; a security record for the lead-form and landing-page changes; light-mode token names; the colour scheme being configurable; the CTA-band text deviation for dark mode; the new rounded, no-underline, photography and six-market deviations; versioning rules including CI; the document map) and `docs/upgrading.md` (a full deploy checklist for v1.90.0 – v1.97.0, what shipped, and what is still open from the codebase review and the walkthrough feedback).
 
-## [1.96.0] — 2026-10-02
+## [1.96.0] (2026-10-02)
 
 ### Changed
 
@@ -501,7 +515,7 @@ Checked against the Rank Math SEO 1.0.279 source. The plugin replaces three thin
 
 - Reviewed and deliberately left: the remaining inline styles (WordPress block markup that must match the block comments, plus the runtime `--rm-team-cols`), the Archivo and Newsreader files (the no-JavaScript fallback; browsers only fetch fonts a page uses), the 315 `!important` rules (they beat WordPress's own block styles and can only be pruned safely against a real WordPress page) and the 143 KB (about 40 KB gzipped) `remotive.css`. The reasoning is in `readme.md` under Known limitations.
 
-## [1.95.0] — 2026-10-02
+## [1.95.0] (2026-10-02)
 
 ### Added
 
@@ -512,7 +526,7 @@ Checked against the Rank Math SEO 1.0.279 source. The plugin replaces three thin
 - Palette names in `theme.json` now say what each role is for ("Text", "Page background", "Magenta, strong (text and buttons)") instead of "Ink", "Paper" and "Magenta Plate Dark". Slugs are unchanged, so nothing that uses them breaks. The reason for the confusion is documented in `readme.md`: the slugs are roles, and in dark mode the `-dark` variants are not darker.
 - `languages/remotive.pot` refreshed.
 
-## [1.94.0] — 2026-10-02
+## [1.94.0] (2026-10-02)
 
 ### Fixed
 
@@ -530,14 +544,14 @@ Checked against the Rank Math SEO 1.0.279 source. The plugin replaces three thin
 - **Landing page copy moved to `inc/landing-copy.php`**, apart from the rendering and routing in `inc/landing-pages.php`.
 - **`languages/remotive.pot` regenerated** (49 strings that had never been extracted, 367 entries in all). `readme.txt` brought up to date (stable tag, upgrade notice).
 
-## [1.93.0] — 2026-10-02
+## [1.93.0] (2026-10-02)
 
 ### Changed
 
 - **Rounded-corner design.** One radius scale for the whole site (`--rm-r-sm` 10px, `--rm-r` 16px, `--rm-r-lg` 24px, `--rm-r-pill` 999px): pill buttons and filter chips, 16px cards and images, 10px form fields, a pill email field on the CTA form. The block theme's default button radius is now pill too (`theme.json`), so the editor matches. Full-bleed bands (navigation, CTA bands, stats band, footer) stay edge to edge. The landing pages use the same scale: rounded form cards, step cards, FAQ items, photo tiles and hero photo.
 - **No underlines on CTAs.** Buttons never carry an underline in any state (resting, hover, focus, active), including buttons inside post content. The animated underline under the text-link CTAs ("View case study", section and row links) is removed; they keep the arrow, uppercase bold type and the hover colour change. Body-copy links keep their underline.
 
-## [1.92.0] — 2026-10-02
+## [1.92.0] (2026-10-02)
 
 ### Added
 
@@ -553,19 +567,19 @@ Checked against the Rank Math SEO 1.0.279 source. The plugin replaces three thin
 - The country ticker's default list now includes Vietnam (a site that has saved its own list keeps it).
 - Docs brought up to date: `readme.md` (file map, landing pages, maintenance mode), `ssot.md` (admin settings), `resources.md` (Pexels image rights) and `upgrading.md` (deploy checklist).
 
-## [1.91.2] — 2026-10-02
+## [1.91.2] (2026-10-02)
 
 ### Changed
 
 - **Landing page copy rewritten for conversion** in all four languages. Outcome-led headlines and a "who it is for" eyebrow per service; leads that name the problem, the mechanism and the free audit; deliverables written as benefits. A service-specific form title and button ("Get my free Google Ads audit"), a one-line promise under the form title, and risk-reversal microcopy ("Free. No commitment. No mailing list."). The first step no longer says "Book a call", which the form does not do: it now reads "Tell us where to look". The closing heading reads "See what we would fix first. It's free." No statistics, client names or invented urgency were added; real client results would be the next strongest lever once approved for use.
 
-## [1.91.1] — 2026-10-02
+## [1.91.1] (2026-10-02)
 
 ### Changed
 
 - Landing page hero photos now match their services: the Google Ads page shows a laptop with search results, and the paid social page shows a phone with a social profile, replacing images that showed a "Social Media Strategy" booklet and a third-party brand name. Credits updated in `docs/image-credits.md`.
 
-## [1.91.0] — 2026-10-02
+## [1.91.0] (2026-10-02)
 
 ### Added
 
@@ -573,7 +587,7 @@ Checked against the Rank Math SEO 1.0.279 source. The plugin replaces three thin
 - **Responsive pass** on the landing pages, checked from 320 px to 1920 px (no sideways scroll at any width): steps in three columns and the six photo tiles in two, three and six columns on phone, tablet and desktop, the closing band and FAQ in two columns from tablet width, and a narrower sticky CTA on tablets.
 - **Theme Options → Integrations → Pexels API key.** A write-only field: the saved key is never printed back into the page, a blank box keeps the saved key, and a toggle removes it. The front end of the site does not call Pexels.
 
-## [1.90.0] — 2026-10-02
+## [1.90.0] (2026-10-02)
 
 ### Added
 
@@ -582,7 +596,7 @@ Checked against the Rank Math SEO 1.0.279 source. The plugin replaces three thin
 - The landing pages show the Re:Motive logo (the theme's own AVIF/PNG files) on a white plate, so the dark ":MOTIVE" wordmark stays readable in dark mode.
 - **Migration 1.90.0** (`REMOTIVE_SETUP_SCHEMA`) creates the three landing pages on sites that are already set up. Campaign fields are saved per landing page and replaced by any new campaign click, so an earlier ad click is never attributed to a later lead.
 
-## [1.89.6] — 2026-09-30
+## [1.89.6] (2026-09-30)
 
 ### Changed
 
@@ -598,7 +612,7 @@ Checked against the Rank Math SEO 1.0.279 source. The plugin replaces three thin
   sits on one line in its tile at 1101, 1150 and 1440px (161px of text in a
   190px tile at the narrowest).
 
-## [1.89.5] — 2026-09-30
+## [1.89.5] (2026-09-30)
 
 ### Changed
 
@@ -617,7 +631,7 @@ Checked against the Rank Math SEO 1.0.279 source. The plugin replaces three thin
 - With this, every tile with a photograph reaches the bottom edge. The only
   tile still without one is Adam's (initials fallback).
 
-## [1.89.4] — 2026-09-30
+## [1.89.4] (2026-09-30)
 
 ### Changed
 
@@ -649,7 +663,7 @@ Checked against the Rank Math SEO 1.0.279 source. The plugin replaces three thin
   the photograph, crown placed 10% from the top. Opt-in, and the trade-off
   (a larger face than the rest of the set) is stated in the function.
 
-## [1.89.3] — 2026-09-30
+## [1.89.3] (2026-09-30)
 
 ### Changed
 
@@ -672,7 +686,7 @@ Checked against the Rank Math SEO 1.0.279 source. The plugin replaces three thin
   unchanged: her source is a chest-cropped selfie with skin and backpack
   straps at the cut, where this would be wrong.
 
-## [1.89.2] — 2026-09-30
+## [1.89.2] (2026-09-30)
 
 ### Changed
 
@@ -689,7 +703,7 @@ Checked against the Rank Math SEO 1.0.279 source. The plugin replaces three thin
   supersedes the stylesheet's earlier "four per row everywhere" note, which
   pre-dated a roster of ten. The homepage leadership row is unchanged.
 
-## [1.89.1] — 2026-09-30
+## [1.89.1] (2026-09-30)
 
 ### Changed
 
@@ -702,7 +716,7 @@ Checked against the Rank Math SEO 1.0.279 source. The plugin replaces three thin
   and records it, so a later manual arrangement is never fought. A member
   who has been removed on purpose is skipped rather than re-added.
 
-## [1.89.0] — 2026-09-30
+## [1.89.0] (2026-09-30)
 
 ### Changed
 
@@ -721,7 +735,7 @@ Checked against the Rank Math SEO 1.0.279 source. The plugin replaces three thin
 - **A short leadership row fills itself.** Two portraits in a four-column
   grid left the right half empty. With fewer than four leaders the row now
   ends in a tile spanning the free columns ("+8 more specialists, each
-  running their own discipline — Meet the whole team →"), full width where
+  running their own discipline, Meet the whole team →"), full width where
   the grid has fewer columns, so it cannot overflow a tablet or phone. With
   four or more leaders the row is full and a line under it says the same
   thing instead. Never both.
@@ -734,10 +748,10 @@ Checked against the Rank Math SEO 1.0.279 source. The plugin replaces three thin
 
 - **A closing call to action on the Team page**, matching the page's role as
   "Our Team / Partner With Us" in the original brief: "Work with the people
-  who'd run it." with a Start a project button. The page previously ended
+  who would run it." with a Start a project button. The page previously ended
   on its gallery.
 
-## [1.88.0] — 2026-09-30
+## [1.88.0] (2026-09-30)
 
 ### Removed
 
@@ -802,7 +816,7 @@ Checked against the Rank Math SEO 1.0.279 source. The plugin replaces three thin
   team members are added to its `PEOPLE` table so a full rebuild includes
   them.
 
-## [1.87.0] — 2026-09-30
+## [1.87.0] (2026-09-30)
 
 ### Fixed
 
@@ -812,8 +826,8 @@ Checked against the Rank Math SEO 1.0.279 source. The plugin replaces three thin
   frozen for every field the first time the settings screen is saved), the
   team roster, the drop-ins in `wp-content/`, and page slugs. A single
   `remotive_version_sync()` (`inc/site-setup.php`) now runs once per theme
-  *version* — on activation and on the first request after any upload,
-  including FTP and deploy scripts that fire no WordPress hook — and each
+  *version*, on activation and on the first request after any upload,
+  including FTP and deploy scripts that fire no WordPress hook, and each
   step is isolated so one failure cannot skip the others or repeat on every
   page load.
   - **Options.** A saved value that still equals the default the theme last
@@ -836,8 +850,7 @@ Checked against the Rank Math SEO 1.0.279 source. The plugin replaces three thin
   had different ones after the duplicate cleanup, so those links 404ed. The
   sync now matches live pages by title under `/case-studies/`, moves them to
   the theme's slug, tops up the theme's page template and SEO fields where
-  empty (never overwriting), and remembers the old path to 301 on a 404 —
-  WordPress records no old-slug redirect for hierarchical types like pages.
+  empty (never overwriting), and remembers the old path to 301 on a 404, WordPress records no old-slug redirect for hierarchical types like pages.
 - **Case Studies filter counts were wrong.** The chips said "All · 14" and
   "Search & organic · 6" but the page had 13 cards (5 in that group), and the
   Singapore B2B case study was not linked from the page at all. Added its card
@@ -866,7 +879,7 @@ Checked against the Rank Math SEO 1.0.279 source. The plugin replaces three thin
   (a plugin or mu-plugin). Header comment and `drop-ins/README.md` rewritten
   to say so.
 
-## [1.86.2] — 2026-09-30
+## [1.86.2] (2026-09-30)
 
 ### Changed
 
@@ -879,28 +892,28 @@ Checked against the Rank Math SEO 1.0.279 source. The plugin replaces three thin
   across Asia and beyond," so the story opens on the same three
   stages it later explains, proves and staffs.
 
-## [1.86.1] — 2026-09-30
+## [1.86.1] (2026-09-30)
 
 ### Changed
 
 - **About section now closes the homepage story.** Continuing the
   1.86.0 narrative pass: `about_sub` ("20+ senior professionals...")
-  didn't reference the Fix/Found/Scale model at all, so the section
+  did not reference the Fix/Found/Scale model at all, so the section
   meant to answer "who actually runs this" read as a generic team
   blurb rather than the story's resolution (Problem → Model → Proof →
   **the people who deliver it** → CTA). Now opens with "20+ senior
   professionals who run Fix, Found and Scale end to end, not handed
   off between departments." Left `work_sub` (the Proof section)
-  unchanged — it already works well without namedropping the model,
+  unchanged, it already works well without namedropping the model,
   and forcing every section to reference it by name started to feel
   repetitive rather than like a natural story.
 
-## [1.86.0] — 2026-09-30
+## [1.86.0] (2026-09-30)
 
 ### Fixed
 
-- **Team roster wasn't reaching existing sites.** `team` lives in the
-  saved `remotive_theme_options` option, not in code — once WordPress
+- **Team roster was not reaching existing sites.** `team` lives in the
+  saved `remotive_theme_options` option, not in code, once WordPress
   has a saved value, it never falls back to a new code default for
   that key. Ally, Jay, Louie and Freya (added to the defaults back in
   1.80.1) therefore never appeared on a site that already had a saved
@@ -911,8 +924,8 @@ Checked against the Rank Math SEO 1.0.279 source. The plugin replaces three thin
   slug, without touching or reordering anyone already there.
 - **Homepage story now connects section to section.** The stats band
   meant to "prove" the Fix/Found/Scale model still used its pre-rename
-  labels (`Demand creation` / `Demand capture` / `Conversion & data`
-  — stale since the 1.81.0 Fix/Found/Scale rename), so it didn't read
+  labels (`Demand creation` / `Demand capture` / `Conversion & data`,
+  stale since the 1.81.0 Fix/Found/Scale rename), so it did not read
   as proof of the model shown two sections earlier. Relabelled to
   `01 · Fix` / `02 · Found` / `03 · Scale`, matching the model section
   exactly. The stats band's eyebrow ("The three blocks, proved" →
@@ -923,17 +936,17 @@ Checked against the Rank Math SEO 1.0.279 source. The plugin replaces three thin
   actually work...") now explicitly bridges from the model section
   above it instead of reading as an unrelated trust pitch.
 
-## [1.85.0] — 2026-09-30
+## [1.85.0] (2026-09-30)
 
 ### Added
 
 - **Portraits for the three remaining new team members**: `jay.avif`,
-  `louie.avif`, `freya.avif` — background removed, cropped to the
+  `louie.avif`, `freya.avif`, background removed, cropped to the
   standard 800×1000 team-photo frame. All three were genuine headshots
   (unlike Ally's casual selfie in 1.80.2), so no acceptability check
   was needed. Freya's needed two extra passes: the first crop centered
   on the full-body bounding box, which skewed right because her hair
-  extends well past her shoulder — refit using the head-region
+  extends well past her shoulder, refit using the head-region
   centroid instead; the initial matte also left a faint shadow-ghost
   behind the flyaway hair (the pink-brick backdrop's own drop shadow,
   partially kept as semi-transparent alpha), cleaned up with alpha
@@ -942,13 +955,13 @@ Checked against the Rank Math SEO 1.0.279 source. The plugin replaces three thin
   `jay`, `louie`, `freya`) now have real portraits; none fall back to
   initials any longer.
 
-## [1.84.0] — 2026-09-30
+## [1.84.0] (2026-09-30)
 
 ### Fixed
 
 - **Drop-ins now actually fire.** Bundling `db-error.php`,
   `maintenance.php` and `php-error.php` inside the theme package
-  (1.82.0) didn't make WordPress load them — all three only ever load
+  (1.82.0) did not make WordPress load them, all three only ever load
   from `wp-content/` root. `remotive_install_error_dropins()` now
   copies them there automatically on `after_switch_theme` and on
   every `upgrader_process_complete` (theme update), so no manual copy
@@ -957,12 +970,12 @@ Checked against the Rank Math SEO 1.0.279 source. The plugin replaces three thin
   line), so it never clobbers something else.
 - **Corrected a wrong claim in `php-error.php`'s own header comment**:
   it previously said this needed manual `.htaccess`/server wiring.
-  It doesn't — `WP_Fatal_Error_Handler` has auto-included
+  It does not, `WP_Fatal_Error_Handler` has auto-included
   `wp-content/php-error.php` on uncaught fatals since WP 5.2, the
   same mechanism as `db-error.php`. Comment corrected; `drop-ins/README.md`
   updated to match.
 
-## [1.83.0] — 2026-09-30
+## [1.83.0] (2026-09-30)
 
 ### Added
 
@@ -980,22 +993,22 @@ Checked against the Rank Math SEO 1.0.279 source. The plugin replaces three thin
   (`--rm-line`, `--rm-ink-70`, the cyan/paper/ink palette) rather than
   introducing new ones.
 
-## [1.82.0] — 2026-09-30
+## [1.82.0] (2026-09-30)
 
 ### Added
 
 - **`drop-ins/` folder bundled into the theme package**: `db-error.php`,
-  `maintenance.php`, `php-error.php` — brand-matched 503/500 pages
+  `maintenance.php`, `php-error.php`, brand-matched 503/500 pages
   (dark navy `#1a1a2e`, white ink, cyan/magenta CMYK-plate accent,
   Archivo) for a DB-connection failure, a scheduled core/plugin
   update, and a generic PHP fatal respectively. Bundled for
   distribution alongside the theme, but WordPress does not load them
-  from inside a theme folder — `db-error.php` and `maintenance.php`
+  from inside a theme folder, `db-error.php` and `maintenance.php`
   still have to be copied to `wp-content/` directly (see
   `drop-ins/README.md`); `php-error.php` needs manual wiring since no
   such WP core hook exists.
 
-## [1.81.0] — 2026-09-30
+## [1.81.0] (2026-09-30)
 
 ### Changed
 
@@ -1005,32 +1018,32 @@ Checked against the Rank Math SEO 1.0.279 source. The plugin replaces three thin
   `templates/front-page.html` now read 01 · Fix (technical SEO,
   tracking/attribution, conversion paths), 02 · Found (topic authority,
   AI visibility/entity work, distribution), 03 · Scale (paid media,
-  full-funnel attribution, lifecycle amplification) — each item still
+  full-funnel attribution, lifecycle amplification), each item still
   links to its real `/services/` page. `services_heading` and
   `services_sub` defaults updated to match; the hardcoded section
   eyebrow above the blocks changed from "Modular, on-demand
-  capabilities" to "Our model." Hero copy was left unchanged — this
+  capabilities" to "Our model." Hero copy was left unchanged, this
   was scoped to the framework section only.
 
-## [1.80.2] — 2026-09-30
+## [1.80.2] (2026-09-30)
 
 ### Added
 
-- **Ally Foo's portrait** (`assets/team/ally.avif`) — background removed
+- **Ally Foo's portrait** (`assets/team/ally.avif`), background removed
   and cropped to the standard 800×1000 team-photo frame. Source was a
   casual outdoor selfie rather than a studio headshot (confirmed
   acceptable to use as-is for now); no `-alt.avif` variant exists
   since only one source photo was available. Jay, Louie and Freya
   still have no portrait files and show the initials fallback.
 
-## [1.80.1] — 2026-09-09
+## [1.80.1] (2026-09-09)
 
 ### Added
 
 - **Four new team members**, per Gordan's confirmation: Ally Foo
   (Account Director), Jay Spicer (Performance Director), Louie See
   (Media Manager), Freya Angel (Media Manager). Added as roster
-  entries with slugs `ally`, `jay`, `louie`, `freya` — headshots can
+  entries with slugs `ally`, `jay`, `louie`, `freya`, headshots can
   be dropped into `assets/team/{slug}.avif` (and optionally
   `{slug}-alt.avif`) with no further code change once received; until
   then each shows branded initials per the existing fallback.
@@ -1045,7 +1058,7 @@ Checked against the Rank Math SEO 1.0.279 source. The plugin replaces three thin
   (grow Asian brands globally, market knowledge + execution
   expertise across markets).
 
-## [1.80.0] — 2026-09-09
+## [1.80.0] (2026-09-09)
 
 ### Added
 
@@ -1060,23 +1073,23 @@ Checked against the Rank Math SEO 1.0.279 source. The plugin replaces three thin
 ### Changed
 
 - **Problem grid leads with the brand/agency split.** The two people
-  actually being sold to — brands needing an on-demand senior team,
-  and agencies needing a modular capability extension — are now the
+  actually being sold to, brands needing an on-demand senior team,
+  and agencies needing a modular capability extension, are now the
   first two cards in the problem section, ahead of the five existing
   pain-point cards (which keep their internal links to SEO/SEM blog
   posts).
 - **Shipped defaults for hero, services, and about copy updated** to
   match the new homepage brief (see docs/homepage-v1.80-brief for the
   source draft). Sites with existing saved `remotive_theme_options`
-  values are unaffected until someone edits those fields in the admin
-  — this only changes what a fresh install or a reset ships with.
+  values are unaffected until someone edits those fields in the admin,
+  this only changes what a fresh install or a reset ships with.
 
-## [1.79.5] — 2026-09-01
+## [1.79.5] (2026-09-01)
 
 ### Fixed
 
 - **The gap between the hero's reassurance line and the ticker was far
-  too large** — measured at roughly 460px on a 980px-tall window.
+  too large**, measured at roughly 460px on a 980px-tall window.
 
   The cause was the hero being pinned to exactly the fold
   (`100svh` minus the nav and the ticker). That guaranteed the ticker was
@@ -1090,19 +1103,18 @@ Checked against the Rank Math SEO 1.0.279 source. The plugin replaces three thin
 
   `min-height` is now `min(calc(100svh - 84px - 19px - 2px), 540px)`:
   fill to the fold on short windows, where that value is the smaller and
-  the ticker genuinely needs the room, but stop growing at 540px on tall
+  the ticker needs the room, but stop growing at 540px on tall
   ones. Measured at six window heights from 620 to 1100px, the gap now
   holds between 90px and 127px and the ticker is fully visible at every
-  one — where before it was 460px and growing with the window.
+  one, where before it was 460px and growing with the window.
 
-## [1.79.4] — 2026-09-01
+## [1.79.4] (2026-09-01)
 
 ### Changed
 
 - **Theme Options now uses the available window width.** The panel was
   capped at 920px, which left roughly 480px of empty gutter on a normal
-  desktop while the fields themselves stayed cramped. Raised to 1400px —
-  still a cap rather than a full stretch, because each row is a
+  desktop while the fields themselves stayed cramped. Raised to 1400px, still a cap rather than a full stretch, because each row is a
   label/input grid and past about that width the gap between a label and
   its own field grows far enough that the two stop reading as a pair.
 
@@ -1117,7 +1129,7 @@ Checked against the Rank Math SEO 1.0.279 source. The plugin replaces three thin
 - **The section-description textareas had no styling at all.** No rule
   matched them, so they fell back to WordPress defaults and sat visibly
   apart from the text inputs beside them: different border, radius and
-  width, and — because browsers default `<textarea>` to monospace — a
+  width, and, because browsers default `<textarea>` to monospace, a
   different typeface for the same kind of content. They now match the
   inputs, with `font-family:inherit` and a wider 820px cap since they
   hold sentences rather than single values, and they drop to full width
@@ -1127,7 +1139,7 @@ Checked against the Rank Math SEO 1.0.279 source. The plugin replaces three thin
   20px gutter, inputs hold 640px, and the textarea shrinks gracefully
   from 820px once the window no longer affords it.
 
-## [1.79.3] — 2026-09-01
+## [1.79.3] (2026-09-01)
 
 ### Removed
 
@@ -1145,10 +1157,10 @@ Checked against the Rank Math SEO 1.0.279 source. The plugin replaces three thin
     passages across the seeded blog posts and case studies referenced
     these pages mid-sentence; deleting the anchors alone would have left
     broken grammar, and deleting the pages alone would have 404ed every
-    one of them — the exact failure v1.65.7 was added to fix. Each
+    one of them, the exact failure v1.65.7 was added to fix. Each
     sentence was rewritten so it still reads naturally, pointing at the
     relevant service page or at `/contact/` where a destination was
-    genuinely needed, and at nothing where the link was decorative.
+    needed, and at nothing where the link was decorative.
 
   Verified afterwards that no reference to either page remains in any
   PHP, HTML, JSON, JS or CSS file, and that all fifteen link targets now
@@ -1160,23 +1172,23 @@ Checked against the Rank Math SEO 1.0.279 source. The plugin replaces three thin
   one page per keyword is kept as guidance for anything built later, but
   now records that the pages themselves were removed.
 
-## [1.79.2] — 2026-09-01
+## [1.79.2] (2026-09-01)
 
 ### Fixed
 
 - **Shipped content, Menus, Site pages and Enquiries appeared on every
-  tab.** They were not duplicated — the site-setup card and the enquiries
+  tab.** They were not duplicated, the site-setup card and the enquiries
   card were rendered after the settings form, below the whole tabbed area,
   so they stayed on screen whichever tab was selected and read as though
   they repeated in each one. Consolidating seven tabs into four in 1.79.1
   made it more obvious, but the cards had been sitting outside the tab
   system all along.
 
-  Both cards contain their own `<form>` elements, so they genuinely cannot
+  Both cards contain their own `<form>` elements, so they cannot
   be nested inside the settings form. They are now proper tabs instead:
   buttons appended to the tablist, panels using the standard
   `rm-admin__panel` / `remotive_panel_*` markup. No change to the tab
-  script was needed — it resolves panels via `getElementById()` from
+  script was needed, it resolves panels via `getElementById()` from
   `aria-controls`, which does not care where the panel sits in the DOM,
   and gathers buttons with a `[role="tab"]` query, so keyboard navigation,
   ARIA state and the remembered-tab restore all cover the new tabs
@@ -1190,7 +1202,7 @@ Checked against the Rank Math SEO 1.0.279 source. The plugin replaces three thin
   Theme Options is now six tabs: Homepage, Business details, Country
   ticker, Site behaviour, Site setup, Enquiries.
 
-## [1.79.1] — 2026-09-01
+## [1.79.1] (2026-09-01)
 
 Built on 1.79.0. None of the 1.80.x changes are included: the cursor-plate
 effect is not here, and neither is the ticker-band change from 1.80.1,
@@ -1204,7 +1216,7 @@ fall below the fold, not less.
   CSS: `remotive_ticker_inline_css()` emitted
   `background:#1a1a2e; color:#f7f4ec` on every request from the
   `ticker_bg` / `ticker_color` option defaults. Those literals are the
-  correct *light-mode* band — a navy strip on cream — and emitting them
+  correct *light-mode* band, a navy strip on cream, and emitting them
   unconditionally overrode the stylesheet's `.rm-ticker` rule, which is
   built on `ink`/`paper` and is supposed to invert. The theme's own
   comment on the CTA band says the ticker should be "a white band on
@@ -1219,14 +1231,14 @@ fall below the fold, not less.
 
 - **`.rm-ticker` now carries fallback values** (`var(--…--ink, #ffffff)`).
   `ink` and `paper` are the one pair in the palette that swap between
-  modes, and the theme defines them for light mode only — dark relies
+  modes, and the theme defines them for light mode only, dark relies
   entirely on the `:root` block WordPress generates from `theme.json`. If
   a performance plugin strips or defers that stylesheet, both vars are
   undefined, the background falls back to transparent, and the page shows
   through. Verified the band still renders white-on-navy with global
   styles entirely absent.
 
-- **The item divider was a hardcoded `rgba(255,255,255,.18)`** — white,
+- **The item divider was a hardcoded `rgba(255,255,255,.18)`**: white,
   and so invisible on the white band dark mode is meant to show. It only
   ever looked right because the band was rendering wrong. Now derived
   from `currentColor`, so it follows the text on either surface.
@@ -1269,17 +1281,17 @@ fall below the fold, not less.
 
   Verified after the restructure that all 57 declared fields are still
   present, still defaulted, and still covered by
-  `remotive_sanitize_theme_options()` — including the ones handled via its
+  `remotive_sanitize_theme_options()`, including the ones handled via its
   `$text_keys` loop rather than by individual assignment.
 
 
-## [1.79.0] — 2026-09-01
+## [1.79.0] (2026-09-01)
 
 ### Changed
 
 - **The jump paragraphs on six pages now say something, instead of
   announcing a table of contents.** They opened with "This page covers",
-  "Answers are grouped by", "What we run for", "Jump to" — sentences
+  "Answers are grouped by", "What we run for", "Jump to", sentences
   whose only content was the fact that other sections exist. The links
   did the work and the prose around them was filler.
 
@@ -1300,7 +1312,7 @@ fall below the fold, not less.
   inherit the paragraph's colour and carry a hairline underline that
   thickens and darkens to full ink on hover. Underlined text inside body
   copy is unambiguously a link, so the affordance survives without the
-  line shouting — and contrast rises on hover rather than falling, the
+  line shouting, and contrast rises on hover rather than falling, the
   same principle as the `.rm-cta__note` fix in 1.77.1.
 
   All 22 anchors across the six pages re-checked against the `id`
@@ -1309,13 +1321,13 @@ fall below the fold, not less.
   caught an em dash in the FAQ paragraph that the rest of the site
   avoids.
 
-## [1.78.0] — 2026-09-01
+## [1.78.0] (2026-09-01)
 
 ### Changed
 
 - **The About page's values grid is now carded, matching every other
-  page.** `.rm-value` was a bare grid item — no surface, border, padding
-  or accent — while the homepage's `.rm-block`, Services'
+  page.** `.rm-value` was a bare grid item, no surface, border, padding
+  or accent, while the homepage's `.rm-block`, Services'
   `.rm-service-detail`, Case Studies' `.rm-cs-card` and Insights'
   `.rm-post-card` were all cards. It was the last grid of comparable
   items on the site still rendering as loose text columns. Under a
@@ -1329,40 +1341,39 @@ fall below the fold, not less.
   element that absorbs the slack. The three statements are markedly
   different lengths, so without those the middle card would sit visibly
   taller than the ones beside it. Verified equal within each row at
-  1280, 1024, 700 and 600px — per row rather than across the grid, since
+  1280, 1024, 700 and 600px, per row rather than across the grid, since
   three cards in a two-column layout legitimately wrap.
 
 ### Fixed
 
-- **The values grid was clamped to 740px inside a 1216px section** —
-  exactly the bug `.rm-service-grid` had in 1.76.0. The parent section is
+- **The values grid was clamped to 740px inside a 1216px section**, exactly the bug `.rm-service-grid` had in 1.76.0. The parent section is
   `is-layout-constrained`, so WordPress caps every direct child at
   `contentSize` unless it opts out, squeezing three cards into a third of
   the available width. Same explicit wide-measure override applied.
 
 - **About page headings sat hard against their body copy.**
-  `.rm-about__lead` and `.rm-section-lead` do the same job — the
-  standfirst under a section heading — but carried `margin:0 0 .5rem`
+  `.rm-about__lead` and `.rm-section-lead` do the same job, the
+  standfirst under a section heading, but carried `margin:0 0 .5rem`
   against `.rm-section-lead`'s `.15rem 0 2rem`. A quarter of the gap
   below meant every section on the About page was visibly tighter than
   the same construction everywhere else, which is the main reason the
   page read as a different template rather than a different page.
   Aligned to the shared value.
 
-## [1.77.1] — 2026-09-01
+## [1.77.1] (2026-09-01)
 
 ### Fixed
 
 - **The privacy-policy link in the CTA band was effectively unreadable.**
   `.rm-cta__note` set its own text colour but never set one for the link
   inside it, so the `<a>` fell through to the global `elements.link`
-  value from `theme.json` — a colour chosen against the page surface,
+  value from `theme.json`, a colour chosen against the page surface,
   not against the inverted navy band the note actually sits on. In light
   mode that resolved to `magenta-dark` (#cd360b) on #1a1a2e.
 
   Measured: **3.35:1**. That fails the 4.5:1 minimum for body text
   outright, and it is *lower* than the surrounding note text's own
-  5.31:1 — which is why the link read as damaged rather than as
+  5.31:1, which is why the link read as damaged rather than as
   emphasis. A link should never be harder to read than the sentence
   containing it.
 
@@ -1370,7 +1381,7 @@ fall below the fold, not less.
   situation: the link inherits its parent's colour, which is already
   contrast-checked against the band, and carries its affordance on an
   underline instead of on hue. Hover lifts to full white (17.06:1), so
-  the interaction cue is a contrast *increase* — never a decrease, which
+  the interaction cue is a contrast *increase*, never a decrease, which
   is what the old hover state did.
 
 - **`.rm-steps__note` had the same gap**, on the thank-you page's
@@ -1383,21 +1394,21 @@ fall below the fold, not less.
   identical to its surrounding note text and that the underline is
   present in each.
 
-## [1.77.0] — 2026-09-01
+## [1.77.0] (2026-09-01)
 
 ### Changed
 
 - **The stronger parallax layer now runs on every page, not just the
-  homepage.** It already existed as a complete system (v1.73.1) — hero
+  homepage.** It already existed as a complete system (v1.73.1), hero
   mark drift with scale, headline lift, trailing sub and buttons, cards
   arriving from further away, the spread panel panning, the ticker band
-  shifting, the CTA headline closing on movement — but all 27 of its
+  shifting, the CTA headline closing on movement, but all 27 of its
   selectors were gated behind `body.home`.
 
   The original reasoning for that gate was that interior pages are read
   rather than scrolled, so movement would compete with the text. That
   reasoning still holds; it just never applied to what this layer
-  targets. Every selector in it is structural — hero elements, section
+  targets. Every selector in it is structural, hero elements, section
   heads, cards, the spread panel, the ticker band, the CTA headline.
   None of it is body copy. Paragraphs, lists, post content and the
   long-form `.rm-legal` / `.rm-page` prose are deliberately still
@@ -1413,7 +1424,7 @@ fall below the fold, not less.
 - **Interior-page card types joined the strong layer:**
   `.rm-service-grid .rm-service-detail`, `.rm-cs-card`, `.rm-post-card`
   and `.rm-sidebar__card`. These only exist off the homepage, so they
-  were never in a homepage-scoped list — without adding them, the
+  were never in a homepage-scoped list, without adding them, the
   Services, Case Studies and Insights grids would have kept the base
   motion while everything around them moved on the stronger one. That is
   the same class of inconsistency that made the Services cards look
@@ -1437,28 +1448,28 @@ fall below the fold, not less.
   without `animation-timeline: view()`, needed no change: it was already
   keyed on `.rm-motion` alone and never homepage-scoped.
 
-## [1.76.2] — 2026-09-01
+## [1.76.2] (2026-09-01)
 
 ### Fixed
 
 - **Services cards could render at unequal heights.** 1.76.1 attributed
   this to the missing scroll reveal, which was wrong: adding the reveal
   was a real fix for a real gap, but it was not this. The card CSS
-  itself never actually guaranteed equal heights — it only happened to
+  itself never actually guaranteed equal heights, it only happened to
   produce them in the cases tested.
 
   The homepage's `.rm-block` gets equal heights from
   `.rm-block__list{flex:1 1 auto}`, which lets the list absorb whatever
   space is left after the card is stretched to its row. The Services
   card used `margin-top:auto` on its list instead, which pushes the list
-  down but never tells the card to fill its row — so a card whose
+  down but never tells the card to fill its row, so a card whose
   content was shorter than its neighbour's had nothing forcing it to
   match.
 
   Fixed by adopting the homepage's mechanism and stating every step
   explicitly rather than relying on defaults holding:
 
-  - `.rm-service-grid{align-items:stretch}` — already the initial value,
+  - `.rm-service-grid{align-items:stretch}`: already the initial value,
     declared anyway because each card is a `wp-block-group` and
     WordPress layout CSS sets `align-self` on block children in several
     contexts, any of which would silently opt one card out of
@@ -1468,18 +1479,18 @@ fall below the fold, not less.
     card fill the row it is stretched into rather than only its own
     content, and stops a flex child's automatic minimum size from
     fighting that.
-  - `.rm-service-detail__list{flex:1 1 auto}` — replaces
+  - `.rm-service-detail__list{flex:1 1 auto}`: replaces
     `margin-top:auto`, so the leftover space lands inside the card and
     its bottom border sits on the row edge instead of the content
     floating with a gap beneath it.
 
-  Verified against a deliberately worst-case pair — a two-short-item
-  card beside a four-wrapping-item card — at 1440, 1200 and 1024px:
+  Verified against a deliberately worst-case pair, a two-short-item
+  card beside a four-wrapping-item card, at 1440, 1200 and 1024px:
   identical heights and identical top offsets in every combination,
   where the previous CSS was only equal because the real content
   happened to balance.
 
-## [1.76.1] — 2026-09-01
+## [1.76.1] (2026-09-01)
 
 ### Fixed
 
@@ -1488,12 +1499,12 @@ fall below the fold, not less.
   in a settled state, every card in a grid returns an identical height
   and an identical top offset (236px each in the three-card block, 214px
   each in the two-card block). What the screenshots caught was the
-  scroll reveal — or rather its absence.
+  scroll reveal, or rather its absence.
 
   The reveal system animates each card on its own visibility, which
   deliberately produces a stagger as a row scrolls in. Its selector list
   covers `.rm-plate`, `.rm-block`, `.rm-post-card`, `.rm-feature`,
-  `.rm-row`, `.rm-team__member` and `.rm-sidebar__card` — every card
+  `.rm-row`, `.rm-team__member` and `.rm-sidebar__card`, every card
   type on the site except `.rm-service-detail`, which only became a card
   in 1.76.0 and was never added. So while the rest of the page rose into
   place, the Services cards sat static, and a screenshot taken mid-scroll
@@ -1510,14 +1521,14 @@ fall below the fold, not less.
   `rm-rise-sm` keyframes touch only `opacity` and `transform`, never
   layout.
 
-## [1.76.0] — 2026-09-01
+## [1.76.0] (2026-09-01)
 
 ### Changed
 
 - **The Services page now presents its items as a card grid, matching
   every other page on the site.** It was the only page stacking a set of
-  comparable things as full-width bordered rows — one item per screen
-  width with a hairline between — while the homepage uses `.rm-block`
+  comparable things as full-width bordered rows, one item per screen
+  width with a hairline between, while the homepage uses `.rm-block`
   cards, Case Studies uses `.rm-cs-card`, and Insights uses
   `.rm-post-card`. That is why it read as a different site rather than a
   different page.
@@ -1532,7 +1543,7 @@ fall below the fold, not less.
 
   1. **The grid was being clamped to 740px.** Its parent block is
      `is-layout-constrained`, so WordPress caps every direct child at
-     `contentSize` unless it opts out — the block measured 1216px wide
+     `contentSize` unless it opts out, the block measured 1216px wide
      while the grid inside it sat at 740px, which would have forced a
      three-card row into two columns regardless of available space.
      Fixed with the same explicit wide-measure override the hero
@@ -1541,26 +1552,26 @@ fall below the fold, not less.
      homepage can use bare `auto-fit` because it always holds exactly
      three items; the Services blocks hold 3, 2 and 2, so a wide
      viewport stretched two cards across four tracks and left a visible
-     empty slot. Capped at three columns above 1000px — the homepage's
-     own column count — with `auto-fit` still collapsing below that.
+     empty slot. Capped at three columns above 1000px, the homepage's
+     own column count, with `auto-fit` still collapsing below that.
   3. **Card contents were inset from the card's own left edge.** Every
      child of a detail item is itself inside a constrained group, so
      WordPress gave each auto side margins to centre against
-     `contentSize` — invisible in the old full-width rows, but inside a
+     `contentSize`, invisible in the old full-width rows, but inside a
      ~360px card it pushed the heading 40.8px off the card edge. Reset
      so every line starts on the card's padding box.
 
   The swatch is now hidden inside cards: the block accent is already
   carried by the card's `border-top`, exactly as on the homepage, so a
   second copy of the same colour was redundant. The per-item colour
-  modifiers removed in 1.75.1 stay removed — the accent still comes from
+  modifiers removed in 1.75.1 stay removed, the accent still comes from
   the parent block's single `--rm-svc-accent`.
 
   Verified at 1440/1280/1024/800/600px: three columns down to 1024,
   two at 800, one at 600, no horizontal overflow at any width, and the
   three jump-link anchors still resolve after the restructure.
 
-## [1.75.1] — 2026-09-01
+## [1.75.1] (2026-09-01)
 
 ### Fixed
 
@@ -1575,7 +1586,7 @@ fall below the fold, not less.
      was renamed to `accent-3` in v1.9.0 precisely because "green" was a
      naming trap (light mode's third accent is yellow), and the CSS
      defines `--yellow`, not `--green`. Every swatch in the Conversion &
-     Data block was therefore an empty bordered box — visible in the
+     Data block was therefore an empty bordered box, visible in the
      screenshots as the only block with no colour.
   2. **The two that did resolve used the full-strength hue** while the
      eyebrow directly above them used the `-dark` ramp, so a single
@@ -1599,12 +1610,12 @@ fall below the fold, not less.
   said "Three connected blocks: create demand, capture it, then convert
   and measure it. Activate one block or all three, with no retainer
   bloat", and the jump-links paragraph immediately below opened with
-  "Three connected blocks, and you can take one or all of them" — the
+  "Three connected blocks, and you can take one or all of them", the
   same two claims restated in consecutive paragraphs. The jump paragraph
   now opens with "Jump to", which is what it is actually for. All three
   anchor targets confirmed still present after the edit.
 
-## [1.75.0] — 2026-09-01
+## [1.75.0] (2026-09-01)
 
 ### Fixed
 
@@ -1616,7 +1627,7 @@ fall below the fold, not less.
   ran.
 
   `remotive_backfill_seed_images()` already exists and already does the
-  right thing — it was added at schema 1.66.0 for this exact class of
+  right thing, it was added at schema 1.66.0 for this exact class of
   problem. But four of the seed images (`seo-cost-singapore`,
   `seo-services-pricing-malaysia`, `seo-vs-sem`, and a regenerated
   `how-to-choose-an-seo-agency`) were added to the theme on 31 Aug,
@@ -1630,7 +1641,7 @@ fall below the fold, not less.
 
   Fixed by registering a new `1.75.0` migration that calls the same
   backfill again, and advancing `REMOTIVE_SETUP_SCHEMA` to match. No
-  change to the backfill function itself — it was already correct.
+  change to the backfill function itself, it was already correct.
 
   Safe by construction, not by luck: the backfill skips any post that
   already has a thumbnail, so it cannot overwrite an image the owner
@@ -1649,8 +1660,8 @@ fall below the fold, not less.
   services, case studies or team pages.** Four of its six links pointed
   at `/team/`, `/services/analytics/`, `/services/seo/` and
   `/services/email/`. That grid sits *above* the Services and Proof
-  sections, both of which exist to send visitors to exactly those pages
-  — so those links pre-empted the sections doing that job, and because
+  sections, both of which exist to send visitors to exactly those pages,
+  so those links pre-empted the sections doing that job, and because
   search engines generally credit only the first anchor text pointing at
   a given URL from a page, they also spent each service page's
   first-link priority on a problem card's wording rather than on the
@@ -1669,8 +1680,8 @@ fall below the fold, not less.
   | Invisible to AI search | `seo-friendly-web-design` |
   | Lists left idle | `facebook-advertising-malaysia` |
 
-  Three cards — "Siloed data and CRM", "Weak attribution" and
-  "Dashboards nobody acts on" — are now unlinked. There is no post that
+  Three cards, "Siloed data and CRM", "Weak attribution" and
+  "Dashboards nobody acts on", are now unlinked. There is no post that
   honestly answers those three, and pointing them at a loosely-related
   article to avoid an empty slot would be worse than leaving them as
   statements; `remotive_render_feature_grid()` already renders unlinked
@@ -1688,7 +1699,7 @@ fall below the fold, not less.
   either was opened in the Site Editor, and could drop the paragraph on
   save. Five other sections on the same template already had the correct
   structure (lead in its own `wp:paragraph` block); these two now match
-  it. Renders identically either way — this is about surviving an edit
+  it. Renders identically either way, this is about surviving an edit
   in the editor, not about current appearance.
 
   Found while verifying a separate question about whether that section's
@@ -1701,19 +1712,19 @@ fall below the fold, not less.
   `.rm-feature__cue`, `.rm-step__num`, `.rm-stat__block`,
   `.rm-stat__cue`).
 
-## [1.74.4] — 2026-08-31
+## [1.74.4] (2026-08-31)
 
 ### Fixed
 
 - **Oversized gap between the nav and the headline.** 1.74.1 used
   `justify-content:center` to distribute the hero's slack, which splits
-  it evenly above and below the content — on a tall viewport that put
+  it evenly above and below the content, on a tall viewport that put
   ~289px of dead space above a content block only ~308px tall, nearly as
   much empty space as content. Changed to `flex-start`, so the content
   begins where the section's own `padding-block` says it should (104px
   under the nav) and the remaining space falls below it, ahead of the
   ticker. The `min-height` is untouched, so the ticker stays exactly at
-  the fold — this changes only how the leftover space is distributed,
+  the fold, this changes only how the leftover space is distributed,
   not how much there is. Verified: gap now measures exactly 104px at
   1920×980, 1440×750 and 1832×912, with the ticker still fully visible
   and all hero children still sharing one left edge at each size.
@@ -1736,7 +1747,7 @@ fall below the fold, not less.
   whether or not `background-image` resolved to anything, so a non-zero
   default would tint the hero with no image present.
 
-  **Verified genuinely inert by full-page image diff** — rendered the
+  **Verified inert by full-page image diff**, rendered the
   homepage with these rules and with them removed, and compared the two
   screenshots pixel by pixel: no bounding box of difference at all. Two
   false alarms along the way, both worth recording: a 1-value colour
@@ -1746,27 +1757,26 @@ fall below the fold, not less.
   comparison file being cut mid-rule by a crude text strip, not of the
   code under test. The clean diff above is the one that counts.
 
-## [1.74.3] — 2026-08-31
+## [1.74.3] (2026-08-31)
 
 ### Fixed
 
-- **Ticker was invisible above the fold even with 1.74.1/1.74.2 deployed —
-  not a caching or deployment problem, a math one.** 1.74.1's fix
+- **Ticker was invisible above the fold even with 1.74.1/1.74.2 deployed, not a caching or deployment problem, a math one.** 1.74.1's fix
   (`min-height:calc(100svh - 84px)`) closed the gap between the hero and
   the ticker to exactly 0px, which reads like the right target but
-  isn't: a 0px gap means the ticker's top edge lands exactly on the
+  is not: a 0px gap means the ticker's top edge lands exactly on the
   fold boundary, so none of its height is actually within the visible
-  viewport — indistinguishable from the ticker not existing, without
+  viewport, indistinguishable from the ticker not existing, without
   scrolling. Confirmed by measurement before changing anything:
   `tickerTop: 981` against a 980px-tall viewport, i.e. the ticker
   started 1px *below* the visible area.
 
-  Fixed by subtracting the ticker's own height too — 19px, measured
+  Fixed by subtracting the ticker's own height too, 19px, measured
   directly rather than estimated, and confirmed stable across every
   `@media` block in the file since `.rm-ticker__item`'s padding and
-  font-size are fixed rem values that don't change at any breakpoint.
+  font-size are fixed rem values that do not change at any breakpoint.
   `min-height` is now `calc(100svh - 84px - 19px - 2px)`, hero plus
-  ticker together filling exactly what's left below the nav — the extra
+  ticker together filling exactly what is left below the nav, the extra
   2px is a rounding buffer, added after the first attempt at just
   `84px + 19px` left the ticker's bottom edge 1px past the fold on
   measurement, not assumed necessary in advance.
@@ -1775,31 +1785,31 @@ fall below the fold, not less.
   at four viewport sizes (1920×980, 1440×750, 1832×912, 1024×900), not
   just the one size the bug was reported at.
 
-## [1.74.2] — 2026-08-31
+## [1.74.2] (2026-08-31)
 
 ### Fixed
 
-- **Homepage hero content no longer shares a left edge — regression
+- **Homepage hero content no longer shares a left edge, regression
   from 1.74.1.** Giving `.rm-hero` `display:flex;flex-direction:column`
   to vertically centre its content within the fold changed how the
   headline, button row and reassurance line each positioned themselves,
   because each relied on a different mechanism that happened to produce
-  the same result under normal block flow but doesn't under flex:
+  the same result under normal block flow but does not under flex:
 
   - `.rm-hero__display{margin:0 0 1.6rem}` sets `margin-left:0` via the
-    3-value shorthand's left-takes-right-value rule — under block flow
+    3-value shorthand's left-takes-right-value rule, under block flow
     this element also stretched to fill the container, so `0` and the
     wide-measure inset were the same number by coincidence. Under flex,
-    they aren't.
+    they are not.
   - `.rm-hero__actions` and `.rm-hero__reassure` had no explicit
-    `margin-left` at all, falling through to `.rm-hero > *{margin-left:auto}`
-    — auto-margin centring of a flex item's cross-axis size doesn't
+    `margin-left` at all, falling through to `.rm-hero > *{margin-left:auto}`,
+    auto-margin centring of a flex item's cross-axis size does not
     reliably reproduce block-flow auto-margin centring once the item's
     effective width is governed by flex's own stretch/sizing algorithm.
 
   Only `.rm-hero__sub` was already safe, because it was fixed the same
   way back in v1.16.2 for an unrelated reason (its own narrower 56ch
-  max-width, not flex) — it already used an explicit computed
+  max-width, not flex), it already used an explicit computed
   `margin-left` instead of `auto`.
 
   **Fix:** extended that same explicit formula
@@ -1813,56 +1823,55 @@ fall below the fold, not less.
   **Also corrected a stale, factually wrong comment** on this rule,
   written when it only covered the subhead: it claimed the About page
   avoids this rule by using a separate `.rm-about-hero` class. Checked
-  directly — no such class exists anywhere in the templates; the About
+  directly, no such class exists anywhere in the templates; the About
   page uses the identical `.rm-hero` container. Confirmed this rule
-  applies there too, and that it's harmless: the About hero isn't flex,
+  applies there too, and that it is harmless: the About hero is not flex,
   where `margin:auto` and this explicit formula already produced
   identical results for any full-width-capped child, verified by
   rendering the About hero's markup directly (eyebrow, headline and sub
   all measured at the same left edge, including the eyebrow paragraph,
-  which the rule doesn't even target — it was already correct there and
+  which the rule does not even target, it was already correct there and
   stays that way).
 
-## [1.74.1] — 2026-08-31
+## [1.74.1] (2026-08-31)
 
 ### Changed
 
 - **Homepage hero fills the space above the fold instead of leaving it
   content-driven.** On any viewport taller than roughly 700px, the
   hero's height was just its own padding plus a three-line headline and
-  a short subhead — visibly less than the available above-the-fold
+  a short subhead, visibly less than the available above-the-fold
   space, leaving an empty gap between the reassurance line and the
   ticker band below.
 
   `body.home .rm-hero` now gets `min-height:calc(100svh - 84px)` (84px
   matching `.rm-nav__row`'s own `min-height`, so the hero fills exactly
-  what's left below the sticky nav) plus `display:flex;flex-direction:column;justify-content:center`,
-  so the content block sits vertically centered within that space —
-  min-height, not a fixed height, so a longer headline from a future
+  what is left below the sticky nav) plus `display:flex;flex-direction:column;justify-content:center`,
+  so the content block sits vertically centered within that space, min-height, not a fixed height, so a longer headline from a future
   copy change still grows the section rather than being clipped.
 
   **Scoped deliberately narrow.** Desktop-only (`min-width:782px`,
-  the breakpoint already used throughout this file) — a mobile hero's
+  the breakpoint already used throughout this file), a mobile hero's
   narrower column already wraps the same headline across more lines,
   filling a much larger share of its own viewport without help; the
   dead-space problem this fixes is wide-viewport-specific. Homepage-only
   (`body.home`, the same scoping pattern already used for the stronger
-  parallax in 1.73.1) rather than every `.rm-hero` — the class is reused
+  parallax in 1.73.1) rather than every `.rm-hero`, the class is reused
   on Contact/About/Services, whose shorter content and different
-  surrounding sections weren't part of this and haven't been checked
+  surrounding sections were not part of this and have not been checked
   against a full-height treatment.
 
   Verified, not assumed: rendered the real markup at 1920×980 and
-  measured directly rather than trusting a screenshot — hero ends
+  measured directly rather than trusting a screenshot, hero ends
   exactly where the ticker begins (0px gap), content sits centered
   within the available space (rounding aside, the small remaining
   top/bottom difference is the pre-existing asymmetric padding, not a
   centering error), a shorter 1440×750 viewport produces a
   proportionally shorter hero with no forced overflow, and mobile
-  measures `min-height:0` / `display:block` — completely unaffected, as
+  measures `min-height:0` / `display:block`, completely unaffected, as
   intended.
 
-## [1.74.0] — 2026-08-31
+## [1.74.0] (2026-08-31)
 
 ### Added
 
@@ -1872,13 +1881,13 @@ fall below the fold, not less.
 
   **Opening section only, never repeated.** Each page carries exactly one such block, placed immediately after the hero. Verified: no fragment target is linked more than once on any page, so the links keep their weight and the body text stays free of repeated internal links.
 
-  **Excluded deliberately.** The homepage, because its sections are already reachable from the main navigation and its hero is a conversion element a row of links would clutter. The Team page, which has only two sections — not enough to be worth jumping between. Post-driven and short templates for the same reasons as the anchors themselves.
+  **Excluded deliberately.** The homepage, because its sections are already reachable from the main navigation and its hero is a conversion element a row of links would clutter. The Team page, which has only two sections, not enough to be worth jumping between. Post-driven and short templates for the same reasons as the anchors themselves.
 
 ### Fixed
 
 - **Heading hierarchy violations.**
   - **Contact page skipped h1 → h3.** The three sidebar cards (Email, Office, Elsewhere) were `h3` directly under the page `h1` with no `h2` between them. They are top-level sections of that page, so they are now `h2`, each with an anchor.
-  - **Proof rows carried two sibling `h3`s per row**, one of which was a bare figure — "85%" and "Global automotive marque" were marked up as headings of equal rank. The client name is the heading; the metric is a value. Metrics demoted to paragraphs, leaving one heading per row.
+  - **Proof rows carried two sibling `h3`s per row**, one of which was a bare figure, "85%" and "Global automotive marque" were marked up as headings of equal rank. The client name is the heading; the metric is a value. Metrics demoted to paragraphs, leaving one heading per row.
 
   Every template now runs h1 → h2 → h3 with no skipped level, exactly one `h1`, and the `h1` first. Audited across all 19 templates including the levels emitted by the PHP renderers in `inc/feature-grids.php` and `inc/stats-band.php`.
 
@@ -1887,13 +1896,13 @@ fall below the fold, not less.
 - 32 heading anchors, all lowercase and hyphenated.
 - Every `href="#…"` on every template resolves to an ID that exists on the same page.
 - No duplicate IDs within any template.
-- Form field IDs and the lightbox's JavaScript hooks keep their existing names — renaming those would break `for`/`id` label pairing and the script. The lowercase-hyphenated convention applies to anchor targets.
+- Form field IDs and the lightbox's JavaScript hooks keep their existing names, renaming those would break `for`/`id` label pairing and the script. The lowercase-hyphenated convention applies to anchor targets.
 
-## [1.73.1] — 2026-08-31
+## [1.73.1] (2026-08-31)
 
 ### Changed
 
-- **Stronger parallax on the homepage.** The motion added in 1.69.1 is deliberately restrained because it runs on every page, including long reading pages where movement competes with the text. The homepage is a different job — it is scrolled rather than read — so it now carries a considerably heavier layer of its own.
+- **Stronger parallax on the homepage.** The motion added in 1.69.1 is deliberately restrained because it runs on every page, including long reading pages where movement competes with the text. The homepage is a different job, it is scrolled rather than read, so it now carries a considerably heavier layer of its own.
 
   | Element | Before | Now |
   |---|---|---|
@@ -1907,7 +1916,7 @@ fall below the fold, not less.
 
   Depth comes from elements moving at different rates against each other rather than simply moving further: the mark travels down while the headline lifts, and the sub-copy trails at half the headline's rate, so the three read as separate planes instead of one block.
 
-  **Scoped to `body.home`**, which WordPress adds on the front page, so every interior page keeps the subtle version. Verified by specificity rather than source order — each homepage rule outweighs its base counterpart, so the override cannot be broken by later edits reordering the file.
+  **Scoped to `body.home`**, which WordPress adds on the front page, so every interior page keeps the subtle version. Verified by specificity rather than source order, each homepage rule outweighs its base counterpart, so the override cannot be broken by later edits reordering the file.
 
   **Still transform and opacity only**, so it stays on the compositor and none of it can cause layout shift. The Theme Options "Scroll motion" toggle and `prefers-reduced-motion` both switch it off, and the reduced-motion block lists every new selector explicitly.
 
@@ -1915,11 +1924,11 @@ fall below the fold, not less.
 
   Browsers without CSS scroll-driven animations keep the one-shot reveal fallback. Scroll-linked parallax is not reproducible there without a scroll listener, which the motion system avoids by design.
 
-## [1.73.0] — 2026-08-31
+## [1.73.0] (2026-08-31)
 
 ### Added
 
-- **Anchor IDs on section headings.** 29 headings across seven pages now carry stable IDs, so a section can be linked to directly — `/faq/#how-we-report-what-numbers-mean`, `/services/#capture-existing-intent`, `/about/#three-things-will-not-trade`. Useful for citing a section in a reply, and it lets search engines offer jump-to-section results.
+- **Anchor IDs on section headings.** 29 headings across seven pages now carry stable IDs, so a section can be linked to directly, `/faq/#how-we-report-what-numbers-mean`, `/services/#capture-existing-intent`, `/about/#three-things-will-not-trade`. Useful for citing a section in a reply, and it lets search engines offer jump-to-section results.
 
   IDs are written both as the block's `anchor` attribute and as the element's `id`. WordPress's heading block stores anchors in the block JSON; an `id` on the element alone would be dropped the next time the block was saved in the editor.
 
@@ -1936,37 +1945,37 @@ fall below the fold, not less.
   **What was deliberately left alone**, since an ID on everything would be noise rather than navigation:
 
   - **The homepage.** Its section wrappers already carry `#problem`, `#services`, `#why`, `#work`, `#about` and `#contact`. A heading ID would be a second competing anchor for the same section.
-  - **Card and metric headings** — `rm-cs-card__metric`, `rm-row__metric`, `rm-block__name`. Values like "85%" appear more than once on the same page, so the IDs would collide or mean nothing.
+  - **Card and metric headings**: `rm-cs-card__metric`, `rm-row__metric`, `rm-block__name`. Values like "85%" appear more than once on the same page, so the IDs would collide or mean nothing.
   - **CTA titles.** A call to action is not a destination.
   - **Hero h1s.** One per page; the page URL is already the anchor for it.
-  - **Post-driven templates** — `single`, `archive`, `home`, `index`, `search`, `page`, `page-legal`, `page-service`. Their headings come from post data, so a static ID would be wrong on every post but one.
+  - **Post-driven templates**: `single`, `archive`, `home`, `index`, `search`, `page`, `page-legal`, `page-service`. Their headings come from post data, so a static ID would be wrong on every post but one.
   - **404 and Thank You**, both short, and the latter `noindex`.
 
-  Slugs drop leading filler words so they stay readable and stable, and are deduplicated per page. Verified: no template contains a duplicate ID. No CSS was needed — `:where([id])` already carries `scroll-margin-top:100px` for the sticky header, added for WCAG 2.4.11, so every new anchor clears it automatically.
+  Slugs drop leading filler words so they stay readable and stable, and are deduplicated per page. Verified: no template contains a duplicate ID. No CSS was needed, `:where([id])` already carries `scroll-margin-top:100px` for the sticky header, added for WCAG 2.4.11, so every new anchor clears it automatically.
 
-## [1.72.4] — 2026-08-31
+## [1.72.4] (2026-08-31)
 
 ### Changed
 
-- **Duplicate "All case studies" link removed from the results section.** The proof section immediately above already closes with that exact link to that exact URL, so adding another to the results section head introduced a second identical anchor to the same destination on the same page — the first-link-priority dilution corrected in the feature grids in 1.70.1, reintroduced two releases later in 1.72.0.
+- **Duplicate "All case studies" link removed from the results section.** The proof section immediately above already closes with that exact link to that exact URL, so adding another to the results section head introduced a second identical anchor to the same destination on the same page, the first-link-priority dilution corrected in the feature grids in 1.70.1, reintroduced two releases later in 1.72.0.
 
   The section does not need it: every card in the band already links to a specific case study, which is a better destination than the index for a reader who has just seen the figure.
 
   The two remaining links to `/case-studies/` are kept deliberately. The hero's secondary button and the proof section's closing link have different anchor text, different intent and sit far apart on the page; the removed one repeated the text and the destination of a link a few hundred pixels above it.
 
-## [1.72.3] — 2026-08-31
+## [1.72.3] (2026-08-31)
 
 ### Fixed
 
 - **The retired figures were still displaying, and 1.72.0 made them worse.** Correcting the defaults in 1.72.0 fixed new installs only: Theme Options values already saved to the database override a default, so "3.2× average ROAS", "+140% organic traffic, year one" and "98% client retention" stayed on the live homepage.
 
-  In the old bare band they were unsourced claims. In the new band they are labelled with a service block and carry a "Read the case →" link — so "3.2× average ROAS" pointed at a case study containing no such number, "+140%" at the case whose actual year-on-year figure is +43.5%, and "98% client retention" at a case with no retention data at all. An unsourced claim had become a checkable false attribution that any visitor who clicked would discover immediately.
+  In the old bare band they were unsourced claims. In the new band they are labelled with a service block and carry a "Read the case →" link, so "3.2× average ROAS" pointed at a case study containing no such number, "+140%" at the case whose actual year-on-year figure is +43.5%, and "98% client retention" at a case with no retention data at all. An unsourced claim had become a checkable false attribution that any visitor who clicked would discover immediately.
 
   New `remotive_retire_unsourced_stats()` runs as migration `1.66.1` and resets those three stat groups to the documented defaults. **Deliberately narrow**, because Theme Options are the owner's data and a theme has no business overwriting them: a stat is only reset when its label matches one of the three retired claims exactly *and* its value contains the matching number. A coincidental "98%" against a different label, an owner-written ROAS line, or any other value is left untouched and the option is not written at all. Verified against nine cases including near-misses.
 
 - **Results section head wrapped with a large gap.** The section was given `layout: constrained` but not `rm-measure-wide`, so it fell back to the 740px content measure instead of the 1320px wide measure every other section head uses. The "All case studies" link had no room beside the heading and wrapped onto its own line below the lead. Added the missing class.
 
-## [1.72.2] — 2026-08-31
+## [1.72.2] (2026-08-31)
 
 ### Changed
 
@@ -1974,31 +1983,31 @@ fall below the fold, not less.
 
   Scoped to `.rm-team--full`, a class only `templates/page-team.html` carries, so `templates/front-page.html` is untouched and keeps the swap.
 
-  **The generated CSS is left alone.** `remotive_team_portrait_css()` puts the base portrait on the tile's own `background` and only the alternate crop on `::after`, so suppressing the pseudo-element on this page removes the second pose and leaves the main portrait fully intact. Nothing about that function, the homepage, or the touch `:active` fallback changes — one scoped rule, no branching in PHP. The cursor is also reset to default on the team page, since a tile that no longer swaps should not imply that it does.
+  **The generated CSS is left alone.** `remotive_team_portrait_css()` puts the base portrait on the tile's own `background` and only the alternate crop on `::after`, so suppressing the pseudo-element on this page removes the second pose and leaves the main portrait fully intact. Nothing about that function, the homepage, or the touch `:active` fallback changes, one scoped rule, no branching in PHP. The cursor is also reset to default on the team page, since a tile that no longer swaps should not imply that it does.
 
-## [1.72.1] — 2026-08-31
+## [1.72.1] (2026-08-31)
 
 ### Fixed
 
 - **Three Insights articles had no featured image.** `seo-vs-sem`, `seo-cost-singapore` and `seo-services-pricing-malaysia` were added to the seed data without an `'image'` key, while the original four articles each declared one. They published with no thumbnail, leaving blank cards in the Insights grid and no image for social sharing or search results.
 
-  Three images created to match the four that already ship — 1200×675, diagonal brand gradient, "RE:MOTIVE · INSIGHTS" eyebrow, uppercase two-line title. Rendered in the theme's own Saira 700 and 900, converted from the bundled woff2 files, so the typeface matches the existing set rather than approximating it. Gradient pairs and the layout were sampled from the shipped PNGs rather than guessed, and pairs were chosen so no two adjacent cards in the archive grid repeat a combination. Each has an AVIF companion (~5KB against ~32KB), matching the existing convention that `inc/avif.php` relies on.
+  Three images created to match the four that already ship, 1200×675, diagonal brand gradient, "RE:MOTIVE · INSIGHTS" eyebrow, uppercase two-line title. Rendered in the theme's own Saira 700 and 900, converted from the bundled woff2 files, so the typeface matches the existing set rather than approximating it. Gradient pairs and the layout were sampled from the shipped PNGs rather than guessed, and pairs were chosen so no two adjacent cards in the archive grid repeat a combination. Each has an AVIF companion (~5KB against ~32KB), matching the existing convention that `inc/avif.php` relies on.
 
   **Backfill migration for existing sites.** Correcting the seed data alone would fix new installs and leave every existing site with three blank cards, because seeding touches each item exactly once and never returns to it. New `remotive_backfill_seed_images()` runs as migration `1.66.0`: it walks the seed content, and for any item whose post exists but has no thumbnail, attaches the bundled image. A post that already has a thumbnail is skipped, so an image chosen by hand is never overwritten by the bundled one.
 
-## [1.72.0] — 2026-08-31
+## [1.72.0] (2026-08-31)
 
 ### Fixed
 
-- **Results band: unsubstantiated figures replaced, section given context.** The band carried three numbers — "3.2× average ROAS", "+140% organic traffic, year one", "98% client retention" — with no eyebrow, heading, basis or link. It was the only section on the homepage without a head, which is why it read as orphaned, and none of the three survived a check against the thirteen case studies the theme ships:
+- **Results band: unsubstantiated figures replaced, section given context.** The band carried three numbers, "3.2× average ROAS", "+140% organic traffic, year one", "98% client retention", with no eyebrow, heading, basis or link. It was the only section on the homepage without a head, which is why it read as orphaned, and none of the three survived a check against the thirteen case studies the theme ships:
 
   | Claim | What the case studies show |
   |---|---|
   | 3.2× average ROAS | Exactly one engagement reports ROAS, "above 400%", and that case's own honest-read section states platform-reported ROAS flatters. One figure is not an average, and 3.2× appears nowhere. |
-  | +140% organic, year one | The only genuine year-on-year organic figure in the body of work is **+43.5%**. The larger percentages (+198%, +94%) are month-two and month-four movements, and their own cases flag them as large percentages on small absolute numbers — "17 visitors to 33". The claim is contradicted, not merely unsupported. |
+  | +140% organic, year one | The only genuine year-on-year organic figure in the body of work is **+43.5%**. The larger percentages (+198%, +94%) are month-two and month-four movements, and their own cases flag them as large percentages on small absolute numbers, "17 visitors to 33". The claim is contradicted, not merely unsupported. |
   | 98% client retention | Retention is not mentioned in any case study. Not derivable from anything in the theme. |
 
-  Unsourced aggregates sitting directly beneath case studies that state their own measurement limits was the single inconsistency most damaging to the rest of the page — the site's whole argument is honest measurement.
+  Unsourced aggregates sitting directly beneath case studies that state their own measurement limits was the single inconsistency most damaging to the rest of the page, the site's whole argument is honest measurement.
 
   **Replaced with one documented figure per service block**, each from a single named engagement and each linking to the case study where its limits are set out:
 
@@ -2012,13 +2021,13 @@ fall below the fold, not less.
 
   None of the three duplicates an engagement already shown in the proof rows or featured spread above, so the band adds evidence rather than repeating it.
 
-  **Structural changes.** New `inc/stats-band.php` renders the band through a `__REMOTIVE_STATS__` token. Four Theme Options keys per stat (`block`, `value`, `label`, `case`) replace the previous two, all sanitised. Case studies are resolved with `get_page_by_path( 'case-studies/{slug}' )` rather than a built URL — a hardcoded path assumes a permalink structure, which is what had seeded content 404ing before 1.66.6. A stat whose case study is missing or unpublished renders without a link rather than emitting one that 404s, and the hover state is scoped to linked cards only.
+  **Structural changes.** New `inc/stats-band.php` renders the band through a `__REMOTIVE_STATS__` token. Four Theme Options keys per stat (`block`, `value`, `label`, `case`) replace the previous two, all sanitised. Case studies are resolved with `get_page_by_path( 'case-studies/{slug}' )` rather than a built URL, a hardcoded path assumes a permalink structure, which is what had seeded content 404ing before 1.66.6. A stat whose case study is missing or unpublished renders without a link rather than emitting one that 404s, and the hover state is scoped to linked cards only.
 
-## [1.71.1] — 2026-08-31
+## [1.71.1] (2026-08-31)
 
 ### Changed
 
-- **Reply-time promise changed from one business day to three.** Twelve instances across nine files, so the commitment is consistent wherever a visitor meets it — there is no worse version of this than promising one day in one place and three in another.
+- **Reply-time promise changed from one business day to three.** Twelve instances across nine files, so the commitment is consistent wherever a visitor meets it, there is no worse version of this than promising one day in one place and three in another.
 
   | File | Where it appears |
   |---|---|
@@ -2034,21 +2043,21 @@ fall below the fold, not less.
 
   Note that `hero_reassure` is a Theme Options field: the default is updated here, but a site that has saved a value keeps it. Check Appearance → Theme Options → Homepage hero if the homepage still shows the old wording.
 
-  Translation template regenerated — three of the changed strings are translatable.
+  Translation template regenerated, three of the changed strings are translatable.
 
-## [1.71.0] — 2026-08-31
+## [1.71.0] (2026-08-31)
 
 ### Added
 
 - **Thank-you page.** All three native forms now redirect to a real `/thank-you/` page on success instead of returning to the form with a query parameter.
 
-  **Why this was worth doing.** The previous confirmation was `?remotive_cta=success` on the page the visitor was already on, read by `assets/js/lead-form-status.js` and then stripped with `history.replaceState()`. That is not a conversion destination: GA4, Google Ads and Meta all key on a URL, and whether a tag saw the parameter at all was a race with script order. For an agency whose own pitch is honest measurement, its highest-value action was the one thing on the site that could not be reliably measured. It was also thin as an experience — a button promising a free audit returned one line of text.
+  **Why this was worth doing.** The previous confirmation was `?remotive_cta=success` on the page the visitor was already on, read by `assets/js/lead-form-status.js` and then stripped with `history.replaceState()`. That is not a conversion destination: GA4, Google Ads and Meta all key on a URL, and whether a tag saw the parameter at all was a race with script order. For an agency whose own pitch is honest measurement, its highest-value action was the one thing on the site that could not be reliably measured. It was also thin as an experience, a button promising a free audit returned one line of text.
 
   **The page.** A confirmation heading, three numbered steps answering "what happens now" (who reads it, when the reply comes, what the audit involves), a note that nothing was added to a mailing list, and three recent articles so the page continues rather than dead-ends.
 
   **Source-aware copy.** The form key travels as `?from=`, so one page serves all three forms and varies its opening line. The homepage CTA collects only an email address, so promising a reply to "what you sent" would be wrong there; it says what will actually arrive instead.
 
-  **Conversion signal, no vendor lock-in.** A `remotive_lead` event is pushed to `dataLayer` with the originating form, plus a matching `remotive:lead` `CustomEvent` for anything listening without a tag manager. `dataLayer` is created if absent — the documented GTM pattern, costing nothing when no container is installed. No third-party script is loaded and no identifier is sent. Fires only when a known `from` value is present, so a direct visit or refresh does not report a conversion.
+  **Conversion signal, no vendor lock-in.** A `remotive_lead` event is pushed to `dataLayer` with the originating form, plus a matching `remotive:lead` `CustomEvent` for anything listening without a tag manager. `dataLayer` is created if absent, the documented GTM pattern, costing nothing when no container is installed. No third-party script is loaded and no identifier is sent. Fires only when a known `from` value is present, so a direct visit or refresh does not report a conversion.
 
   **`noindex, follow`.** The page is thin by design and only meaningful right after a submission; indexed, it could be landed on cold where "thank you" makes no sense. `noindex` via `wp_robots` rather than a robots.txt block, so it stays crawlable for ad platforms verifying the conversion URL resolves. `follow` is kept so its outbound links still pass value.
 
@@ -2056,7 +2065,7 @@ fall below the fold, not less.
 
   Provisioned by migration `1.65.9`, so existing sites get the page on their next admin load rather than needing a manual step.
 
-## [1.70.6] — 2026-08-31
+## [1.70.6] (2026-08-31)
 
 ### Changed
 
@@ -2064,13 +2073,13 @@ fall below the fold, not less.
 
   The conditional that appends the UEN also owns the space before it, so an empty field leaves no stray whitespace before the full stop.
 
-## [1.70.5] — 2026-08-31
+## [1.70.5] (2026-08-31)
 
 ### Fixed
 
 - **Footer copyright line was inadequate on three counts.** It read `© 2026 Re:Motive Media. All rights reserved.` as literal text in `parts/footer.html`.
 
-  - **The year was hardcoded.** It would have gone stale on 1 January and stayed wrong until somebody noticed. Now generated with `date_i18n( 'Y' )` — the locale-aware variant, since not every locale renders the year the same way.
+  - **The year was hardcoded.** It would have gone stale on 1 January and stayed wrong until somebody noticed. Now generated with `date_i18n( 'Y' )`, the locale-aware variant, since not every locale renders the year the same way.
   - **The registered name and UEN were absent.** Singapore's Companies Act section 144 requires a company's registered name and registration number on its business communications and publications, and a website footer is conventionally where that is satisfied. The line carried the brand mark instead. Two new Theme Options fields under Contact: **Registered company name** (default `Remotive Media Asia`) and **Company registration number (UEN)** (default `202404376G`). Clearing the UEN omits it entirely, since the requirement does not apply to every entity that might run this theme.
   - **Privacy and Terms were not in the bottom bar.** They appear in the footer's Company column, but the bottom bar is where visitors and regulators look, and under the PDPA a privacy policy has to be readily accessible. Now rendered there from the real pages via `get_page_by_path()`, so a renamed, unpublished or missing page drops its link rather than producing a 404.
 
@@ -2078,45 +2087,45 @@ fall below the fold, not less.
 
   The legal name is deliberately distinct from the brand: `Re:Motive Media` remains correct everywhere else on the site, and the copyright line is the one place the registered entity belongs.
 
-## [1.70.4] — 2026-08-31
+## [1.70.4] (2026-08-31)
 
 ### Changed
 
-- **The whole featured spread is now the click target.** 1.70.3 gave the spread a link, but only the small "Read the full case →" text at the bottom was clickable — the gradient panel, the +168% figure and the "Premium skincare" label were all inert on a card whose entire purpose is to open one case study. The Case Studies page already treats each card as a single `<a>`; the homepage spread now behaves the same way.
+- **The whole featured spread is now the click target.** 1.70.3 gave the spread a link, but only the small "Read the full case →" text at the bottom was clickable, the gradient panel, the +168% figure and the "Premium skincare" label were all inert on a card whose entire purpose is to open one case study. The Case Studies page already treats each card as a single `<a>`; the homepage spread now behaves the same way.
 
   **Implemented as a stretched link rather than an anchor wrapper.** The spread is a `wp:columns` block, so wrapping it in an `<a>` would break block nesting and the editor would fight it on every save. Instead the existing link's pseudo-element is absolutely positioned across the whole card. The document still contains exactly one anchor with one accessible name, so nothing changes for screen readers or for link-signal purposes.
 
-  **Pseudo-element collision avoided.** `.rm-spread__link` also carries `.rm-section-link`, whose `::after` is the animated underline added in 1.69.5. The overlay therefore uses `::before` — reusing `::after` would have silently replaced the underline with an invisible overlay and stripped the link's affordance while appearing to work.
+  **Pseudo-element collision avoided.** `.rm-spread__link` also carries `.rm-section-link`, whose `::after` is the animated underline added in 1.69.5. The overlay therefore uses `::before`, reusing `::after` would have silently replaced the underline with an invisible overlay and stripped the link's affordance while appearing to work.
 
   **Feedback comes from the image side too.** The gradient scales gently on hover so the card responds wherever the cursor lands, with the label layered above the scaling element. `:focus-within` gives keyboard users the same card state a mouse user sees, and the scale is disabled under `prefers-reduced-motion`.
 
-  **Trade-off, stated rather than glossed:** a stretched link makes the body paragraph unselectable, since the overlay sits above it. Accepted here because the card exists to be opened and the same paragraph appears on the case study page itself, where it selects normally. This is also why the pattern is not extended to the three proof rows below — they carry no prose worth selecting and are already fully served by their own links.
+  **Trade-off, stated rather than glossed:** a stretched link makes the body paragraph unselectable, since the overlay sits above it. Accepted here because the card exists to be opened and the same paragraph appears on the case study page itself, where it selects normally. This is also why the pattern is not extended to the three proof rows below, they carry no prose worth selecting and are already fully served by their own links.
 
-## [1.70.3] — 2026-08-31
+## [1.70.3] (2026-08-31)
 
 ### Fixed
 
-- **Homepage proof rows pointed at the index, not the case.** All three "View case study" links went to `/case-studies/` rather than the case whose figure they quote. The link text promises a specific case and delivered a list the visitor then had to search — with thirteen case studies published, that is real friction on the section that exists to prove the claims. Each now points at its own page, matched on the metric it cites:
+- **Homepage proof rows pointed at the index, not the case.** All three "View case study" links went to `/case-studies/` rather than the case whose figure they quote. The link text promises a specific case and delivered a list the visitor then had to search, with thirteen case studies published, that is real friction on the section that exists to prove the claims. Each now points at its own page, matched on the metric it cites:
 
   | Row | Destination |
   |---|---|
-  | 85% — Global automotive marque | `programmatic-advertising-automotive` |
-  | +150% — B2B corporate gifting | `paid-search-b2b-gifting` |
-  | +86% — Industrial automation B2B | `technical-seo-industrial-automation` |
+  | 85%, Global automotive marque | `programmatic-advertising-automotive` |
+  | +150%, B2B corporate gifting | `paid-search-b2b-gifting` |
+  | +86%, Industrial automation B2B | `technical-seo-industrial-automation` |
 
-- **The featured spread had no link at all.** The +168% skincare launch is the largest and most prominent case study on the homepage, and it was a dead end — the three smaller rows beneath it were clickable while the headline piece was not. Added a "Read the full case →" link to `marketplace-launch-skincare`, using the shared action-link treatment.
+- **The featured spread had no link at all.** The +168% skincare launch is the largest and most prominent case study on the homepage, and it was a dead end, the three smaller rows beneath it were clickable while the headline piece was not. Added a "Read the full case →" link to `marketplace-launch-skincare`, using the shared action-link treatment.
 
   All four slugs verified against the seeded case-study pages, so none can 404. Swept the remaining templates for other generic `/case-studies/` links presented as specific ones; none remain.
 
-## [1.70.2] — 2026-08-31
+## [1.70.2] (2026-08-31)
 
 ### Fixed
 
-- **Ten invisible links in the "What we do" section.** Every capability name — "Performance Media", "Paid Search", "Analytics Infrastructure" and seven others — was an `<a>`, but `.rm-block__list strong` set them to ink and no rule ever styled the link. Ten links on the page's main capability section were indistinguishable from the plain bold text beside them. Same class of fault as the unstyled `.rm-cs-card__link` fixed in 1.69.5. Linked names now carry the block's accent colour, an underline that draws on hover, and a small arrow so the link is identifiable before hover rather than relying on colour alone (WCAG 1.4.1). The underline is a background gradient rather than a pseudo-element because these sit inside flowing text where an absolutely positioned rule would not follow a wrapped line.
+- **Ten invisible links in the "What we do" section.** Every capability name, "Performance Media", "Paid Search", "Analytics Infrastructure" and seven others, was an `<a>`, but `.rm-block__list strong` set them to ink and no rule ever styled the link. Ten links on the page's main capability section were indistinguishable from the plain bold text beside them. Same class of fault as the unstyled `.rm-cs-card__link` fixed in 1.69.5. Linked names now carry the block's accent colour, an underline that draws on hover, and a small arrow so the link is identifiable before hover rather than relying on colour alone (WCAG 1.4.1). The underline is a background gradient rather than a pseudo-element because these sit inside flowing text where an absolutely positioned rule would not follow a wrapped line.
 
-- **Top rule and heading were different hues.** `.rm-block--create` drew its rule in `--magenta` (`#ff449f`, pink) while its heading used `--magenta-dark` (`#cd360b`, orange-red) — not a tint pair. Same mismatch on the capture block (`#00a2ff` against `#00308f`). Only the data block matched, because it happened to use the same token for both. Introduced a per-block `--rm-block-accent` custom property; the rule, icon and outcome line all read from it. The heading's value wins because it is the one constrained by contrast, and the reasoning for those `-dark` choices is already documented above them.
+- **Top rule and heading were different hues.** `.rm-block--create` drew its rule in `--magenta` (`#ff449f`, pink) while its heading used `--magenta-dark` (`#cd360b`, orange-red), not a tint pair. Same mismatch on the capture block (`#00a2ff` against `#00308f`). Only the data block matched, because it happened to use the same token for both. Introduced a per-block `--rm-block-accent` custom property; the rule, icon and outcome line all read from it. The heading's value wins because it is the one constrained by contrast, and the reasoning for those `-dark` choices is already documented above them.
 
-- **Ten links across six destinations.** Paid Media appeared three times, SEO and Email twice each — the same first-link-priority dilution corrected in the feature grids in 1.70.1. Reduced to six links, one per service page, keeping the strongest anchor for each: "SEO & GEO / AIO / AEO" over "Category Strategy", "Lifecycle & Engagement" over "CRM Integration". The four repeats stay as plain text, so nothing looks clickable that is not.
+- **Ten links across six destinations.** Paid Media appeared three times, SEO and Email twice each, the same first-link-priority dilution corrected in the feature grids in 1.70.1. Reduced to six links, one per service page, keeping the strongest anchor for each: "SEO & GEO / AIO / AEO" over "Category Strategy", "Lifecycle & Engagement" over "CRM Integration". The four repeats stay as plain text, so nothing looks clickable that is not.
 
 - **Keyword-stuffed description rewritten.** "Own performance marketing, digital marketing and SEO across Singapore and Malaysia" read as a keyword list rather than a description, and its length was what made the middle card ragged. Now "Owning the categories buyers search in Singapore and Malaysia."
 
@@ -2126,82 +2135,82 @@ fall below the fold, not less.
 
 - **Outcome line promoted** from a small bold footnote to a Space Grotesk uppercase label in the block's accent colour.
 
-- **Cards lift on hover.** The card itself is deliberately *not* a link — each holds several distinct destinations, so a card-level target would compete with the links inside it. The lift is affordance for those links, not a target of its own. This is the reason the feature grids can be fully clickable and these cannot.
+- **Cards lift on hover.** The card itself is deliberately *not* a link, each holds several distinct destinations, so a card-level target would compete with the links inside it. The lift is affordance for those links, not a target of its own. This is the reason the feature grids can be fully clickable and these cannot.
 
-## [1.70.1] — 2026-08-31
+## [1.70.1] (2026-08-31)
 
 ### Changed
 
-- **Feature grid links reduced from 16 to 7.** The 1.70.0 grids linked every point, which produced 16 links across only 8 destinations — `/services/analytics/` alone appeared four times.
+- **Feature grid links reduced from 16 to 7.** The 1.70.0 grids linked every point, which produced 16 links across only 8 destinations, `/services/analytics/` alone appeared four times.
 
   **Why that was worse than untidy.** Search engines generally apply first-link priority: where a page links the same URL more than once, only the first anchor text is credited. Three of those four Analytics links therefore passed no additional signal while still diluting the page's link profile. For a reader, clicking two different cards and landing on the same page twice reads as padding.
 
-  **The split is now by intent.** A problem statement raises a question a link can answer — "Invisible to AI search" wants "so what do you do about it". A reassurance statement does not; nobody reads "Commercial accountability" and needs somewhere to click. So the Problem grid keeps 6 links across 8 points, and the Why grid keeps 1 ("Proof before promises" → Case Studies) across its 8. Every destination is now unique.
+  **The split is now by intent.** A problem statement raises a question a link can answer, "Invisible to AI search" wants "so what do you do about it". A reassurance statement does not; nobody reads "Commercial accountability" and needs somewhere to click. So the Problem grid keeps 6 links across 8 points, and the Why grid keeps 1 ("Proof before promises" → Case Studies) across its 8. Every destination is now unique.
 
   **Two now point at articles rather than service pages**, where the article is the better answer: "Rising acquisition costs" → *SEO vs SEM: Which One First, and When*, and "Agency sprawl" → *How to Choose an SEO Agency in Singapore or Malaysia*.
 
-  Posts are referenced by slug and resolved through `get_permalink()` at render time, not by a hardcoded `/blog/{slug}/` path — that assumption is what had seeded content 404ing before v1.66.6, and it breaks under any other permalink structure or a subdirectory install. A slug that resolves to nothing drops the link rather than emitting one that 404s.
+  Posts are referenced by slug and resolved through `get_permalink()` at render time, not by a hardcoded `/blog/{slug}/` path, that assumption is what had seeded content 404ing before v1.66.6, and it breaks under any other permalink structure or a subdirectory install. A slug that resolves to nothing drops the link rather than emitting one that 404s.
 
   **Unlinked cards no longer look clickable.** They render as `<div>` rather than `<a>`, with no cue, no hover lift, no shadow, a default cursor, and the accent rule fixed at its resting width. Hover and focus affordances are scoped to `.rm-feature--linked`.
 
-## [1.70.0] — 2026-08-31
+## [1.70.0] (2026-08-31)
 
 ### Changed
 
-- **Homepage feature grids rebuilt.** "The problem we solve" and "Why Re:Motive" were sixteen bare `<div>`s of heading-plus-paragraph inside a `wp:html` block — no icons, no links, no colour, and type set smaller than the case-study copy beside them. Every point was also a dead end: a visitor reading "Invisible to AI search" and wanting to know what is done about it had nowhere to go.
+- **Homepage feature grids rebuilt.** "The problem we solve" and "Why Re:Motive" were sixteen bare `<div>`s of heading-plus-paragraph inside a `wp:html` block, no icons, no links, no colour, and type set smaller than the case-study copy beside them. Every point was also a dead end: a visitor reading "Invisible to AI search" and wanting to know what is done about it had nowhere to go.
 
   - **Each point now links to the page that answers it**, not to a generic index. "Lists left idle" goes to Email, "Rising acquisition costs" to Paid Media, "Weak attribution" to Analytics, "In-house teams stretched thin" to the team page. The whole card is the target rather than a small link inside it, so the hit area matches what the hover state implies.
-  - **Sixteen inline SVG icons**, simple geometric strokes on a 24-unit grid rather than a generic icon set. Inline rather than a font or sprite: no extra request, and `currentColor` means one path serves every accent colour instead of needing a copy per colour. `aria-hidden` and `focusable="false"` — the icon repeats the heading beside it, and without the latter some assistive tech adds sixteen empty tab stops to the homepage.
+  - **Sixteen inline SVG icons**, simple geometric strokes on a 24-unit grid rather than a generic icon set. Inline rather than a font or sprite: no extra request, and `currentColor` means one path serves every accent colour instead of needing a copy per colour. `aria-hidden` and `focusable="false"`, the icon repeats the heading beside it, and without the latter some assistive tech adds sixteen empty tab stops to the homepage.
   - **Type up.** Headings 1.05rem → 1.15rem, body 0.9rem → 0.98rem at line-height 1.6.
   - **Accent colour rotates** through the four plate colours, driven by a `--rm-feature-i` custom property set inline by PHP rather than sixteen hand-written `nth-child` rules. Colour lands on the icon and the top rule only; headings stay ink, so legibility never depends on the accent.
-  - **Idle pulse.** A slow low-amplitude breath on each icon, staggered off the same index so the grid never pulses in unison — that reads as a loading spinner. 7s cycle with most of it at rest. Transform and opacity only, so it stays on the compositor. Pauses on hover, because competing motion under the cursor is noise. Gated on the `rm-motion` body class and disabled entirely under `prefers-reduced-motion`.
+  - **Idle pulse.** A slow low-amplitude breath on each icon, staggered off the same index so the grid never pulses in unison, that reads as a loading spinner. 7s cycle with most of it at rest. Transform and opacity only, so it stays on the compositor. Pauses on hover, because competing motion under the cursor is noise. Gated on the `rm-motion` body class and disabled entirely under `prefers-reduced-motion`.
 
-  **Architecture.** Moved out of the template into `inc/feature-grids.php` and rendered through `__REMOTIVE_PROBLEMS__` / `__REMOTIVE_WHYS__` tokens, the same pattern the ticker and social icons use — sixteen inline SVGs pasted into a block template cannot be maintained, and each point's destination is a maintenance concern rather than editorial content. This required making the token map filterable: new `remotive_theme_option_tokens` filter in `remotive_replace_theme_option_tokens()`. Values added through it are spliced into rendered output as-is, so a filter that adds one owns its escaping — documented at the filter.
+  **Architecture.** Moved out of the template into `inc/feature-grids.php` and rendered through `__REMOTIVE_PROBLEMS__` / `__REMOTIVE_WHYS__` tokens, the same pattern the ticker and social icons use, sixteen inline SVGs pasted into a block template cannot be maintained, and each point's destination is a maintenance concern rather than editorial content. This required making the token map filterable: new `remotive_theme_option_tokens` filter in `remotive_replace_theme_option_tokens()`. Values added through it are spliced into rendered output as-is, so a filter that adds one owns its escaping, documented at the filter.
 
   The old `.rm-problem` / `.rm-why` selectors in the scroll-motion CSS and the JS reveal fallback are updated to `.rm-feature`.
 
-## [1.69.5] — 2026-08-31
+## [1.69.5] (2026-08-31)
 
 ### Changed
 
-- **Action links given a distinct treatment.** "See how we fix this", "All services", "More about us", "Meet the team" and "View case study" read as plain bold body text — nothing marked them as clickable until the cursor was already on them.
+- **Action links given a distinct treatment.** "See how we fix this", "All services", "More about us", "Meet the team" and "View case study" read as plain bold body text, nothing marked them as clickable until the cursor was already on them.
 
   Three inconsistent treatments existed. `.rm-section-link` changed colour and tracking on hover; `.rm-row__link` only changed colour when its parent row was hovered; `.rm-cs-card__link` had **no styling at all** beyond a touch-target padding rule, which is why "View case study" rendered as ordinary text. All three are unified.
 
   - **Space Grotesk instead of Saira.** The face is already self-hosted for the footer column headings, so this adds no request. Its wider apertures and squarer terminals separate an action from the surrounding Saira body copy at a glance, which is the entire job.
-  - **`magenta-dark` (`#cd360b`) at rest**, not only on hover. Measured 4.63:1 on the cream page background and 5.09:1 on white cards — clears WCAG AA on both surfaces these links appear against.
+  - **`magenta-dark` (`#cd360b`) at rest**, not only on hover. Measured 4.63:1 on the cream page background and 5.09:1 on white cards, clears WCAG AA on both surfaces these links appear against.
   - **A real underline**, drawn as a pseudo-element rather than `text-decoration` so it can animate and so the arrow stays clear of it. Sits at 40% width at rest, fills to 100% on hover via `transform: scaleX()`, which keeps it on the compositor.
   - **The arrow moves independently.** It was previously part of the text node and could not be animated separately. New `remotive_split_link_arrow()` filter on `render_block` wraps a trailing → in `<span class="rm-link-arrow" aria-hidden="true">`, so it slides right on hover. Marked `aria-hidden` because the link text already states the destination and a screen reader announcing "right arrow" after each one is noise; the accessible name is unchanged. The filter is idempotent, skips blocks without one of the three classes after a single `strpos`, and leaves arrows in unrelated content alone.
 
-  Colour is not the only signal — weight, typeface and the underline all carry it (WCAG 1.4.1). `:focus-visible` gets the same treatment as hover, since the focus ring alone did not communicate the affordance. Links inside coloured CTA bands inherit the band's text colour instead of the accent, which would otherwise collide with the background. Transitions are disabled under `prefers-reduced-motion`.
+  Colour is not the only signal, weight, typeface and the underline all carry it (WCAG 1.4.1). `:focus-visible` gets the same treatment as hover, since the focus ring alone did not communicate the affordance. Links inside coloured CTA bands inherit the band's text colour instead of the accent, which would otherwise collide with the background. Transitions are disabled under `prefers-reduced-motion`.
 
-## [1.69.4] — 2026-08-31
+## [1.69.4] (2026-08-31)
 
 ### Fixed
 
-- **Internal production note removed from the Case Studies page.** The closing note read "Card artwork is placeholder gradient pending photography" — an internal to-do visible to every visitor, telling prospective clients the site was unfinished. Same class of leak as the "Placeholder tiles" note removed from the team page in 1.66.6 (RM-018). Removed that sentence only; the two preceding sentences stay, since the anonymisation disclosure and the pointer to each case's measurement limits are proper visitor-facing content on a case studies page. Swept the templates for other internal notes — none remain, the only other `placeholder` matches being legitimate search-input attributes on `404.html` and `search.html`.
+- **Internal production note removed from the Case Studies page.** The closing note read "Card artwork is placeholder gradient pending photography", an internal to-do visible to every visitor, telling prospective clients the site was unfinished. Same class of leak as the "Placeholder tiles" note removed from the team page in 1.66.6 (RM-018). Removed that sentence only; the two preceding sentences stay, since the anonymisation disclosure and the pointer to each case's measurement limits are proper visitor-facing content on a case studies page. Swept the templates for other internal notes, none remain, the only other `placeholder` matches being legitimate search-input attributes on `404.html` and `search.html`.
 
-## [1.69.3] — 2026-08-31
+## [1.69.3] (2026-08-31)
 
 ### Changed
 
-- **Documentation brought current.** `readme.md`, `readme.txt`, `ssot.md`, `upgrading.md` and the translation template had drifted roughly three days behind the code — none of the ticker, CTA, contact form, security, error handling or scroll motion work from v1.66.6 onward appeared in any of them. No code changes in this release.
+- **Documentation brought current.** `readme.md`, `readme.txt`, `ssot.md`, `upgrading.md` and the translation template had drifted roughly three days behind the code, none of the ticker, CTA, contact form, security, error handling or scroll motion work from v1.66.6 onward appeared in any of them. No code changes in this release.
 
-  - **`readme.md`** — file map gains `inc/security.php` and `inc/error-handler.php`, and records that the latter is required first in `functions.php` so it is registered before any other include can fail. New Security subsections covering the hardening module (with the observation that prompted each measure) and the error handler. Two implementation traps documented explicitly because they cost real time: `is_admin()` returns true on `wp-login.php`, and the `authenticate` filter runs on every page load rather than only on login submissions — returning a `WP_Error` there unconditionally fatals the site. Theme Options section now covers the Country ticker tab and the two Display toggles.
+  - **`readme.md`**: file map gains `inc/security.php` and `inc/error-handler.php`, and records that the latter is required first in `functions.php` so it is registered before any other include can fail. New Security subsections covering the hardening module (with the observation that prompted each measure) and the error handler. Two implementation traps documented explicitly because they cost real time: `is_admin()` returns true on `wp-login.php`, and the `authenticate` filter runs on every page load rather than only on login submissions, returning a `WP_Error` there unconditionally fatals the site. Theme Options section now covers the Country ticker tab and the two Display toggles.
 
-  - **`readme.txt`** — description rewritten to mention the ticker, motion, error handling and hardening. Four new FAQ entries: editing the country list, turning off scroll motion, what happens on a PHP error (including why a printed notice breaks redirects, and the `REMOTIVE_SHOW_ERRORS` escape hatch), and what the hardening does and does not cover. Upgrade notices added for every release from 1.66.8.
+  - **`readme.txt`**: description rewritten to mention the ticker, motion, error handling and hardening. Four new FAQ entries: editing the country list, turning off scroll motion, what happens on a PHP error (including why a printed notice breaks redirects, and the `REMOTIVE_SHOW_ERRORS` escape hatch), and what the hardening does and does not cover. Upgrade notices added for every release from 1.66.8.
 
-  - **`ssot.md`** — configurable-values list updated from the v1.3.0 state to v1.69.2. New "Deviations from this document" section recording the Space Grotesk footer scoping, the CTA colour variants, and the ink-not-white text on coloured bands, each with its reason — so a future maintainer does not revert a deliberate choice. Palette values that mislead are called out: `--magenta-dark` is `#cd360b`, an orange-red, and `--accent-3` / `--accent-3-dark` are yellow and green rather than a tint pair. Security audit record gains the log-driven pass with observed volumes and the server-level actions no theme release can perform.
+  - **`ssot.md`**: configurable-values list updated from the v1.3.0 state to v1.69.2. New "Deviations from this document" section recording the Space Grotesk footer scoping, the CTA colour variants, and the ink-not-white text on coloured bands, each with its reason, so a future maintainer does not revert a deliberate choice. Palette values that mislead are called out: `--magenta-dark` is `#cd360b`, an orange-red, and `--accent-3` / `--accent-3-dark` are yellow and green rather than a tint pair. Security audit record gains the log-driven pass with observed volumes and the server-level actions no theme release can perform.
 
-  - **`upgrading.md`** — shipped items moved off the roadmap with their reasoning retained; outstanding server-level actions from the log review listed in one place.
+  - **`upgrading.md`**: shipped items moved off the roadmap with their reasoning retained; outstanding server-level actions from the log review listed in one place.
 
-  - **`languages/remotive.pot`** — regenerated from source: **265 strings, up from 35**, each with real `file:line` references. The previous hand-maintained file was missing roughly seven eighths of the theme's translatable strings, well predating this session. `languages/README.txt` now says to regenerate rather than hand-edit, and how.
+  - **`languages/remotive.pot`**: regenerated from source: **265 strings, up from 35**, each with real `file:line` references. The previous hand-maintained file was missing roughly seven eighths of the theme's translatable strings, well predating this session. `languages/README.txt` now says to regenerate rather than hand-edit, and how.
 
-## [1.69.2] — 2026-08-31
+## [1.69.2] (2026-08-31)
 
 ### Added
 
-- **Non-fatal PHP diagnostics kept off the page.** 1.69.0 handled fatals; this handles everything that does not stop execution — notices, warnings, deprecation messages. A `set_error_handler()` claims them before PHP can print them, so they never reach the page for anyone.
+- **Non-fatal PHP diagnostics kept off the page.** 1.69.0 handled fatals; this handles everything that does not stop execution, notices, warnings, deprecation messages. A `set_error_handler()` claims them before PHP can print them, so they never reach the page for anyone.
 
   **Why this is more than cosmetic.** A printed notice is output. Once any output has been sent, no `header()` call can succeed for the remainder of the request, so every subsequent cookie, redirect and cache header fails with "Cannot modify header information". A single early notice from one plugin therefore cascades into a page of warnings and can break redirects and logins outright. Intercepting the notice removes the cascade at its source instead of suppressing the symptoms one at a time.
 
@@ -2209,92 +2218,92 @@ fall below the fold, not less.
 
   **What administrators see.** A dismissible summary in the admin notice area, and a collapsed panel in the footer on the front end, listing type, message, file relative to the WordPress root, line and occurrence count. Visitors see nothing.
 
-  **Deduplication and caps.** Entries are keyed on file, line and message, so a notice inside a loop firing two hundred times is recorded once with a count. Capped at 50 distinct entries per request — beyond that suppression continues but recording stops, so a pathologically noisy plugin cannot exhaust memory through the mechanism meant to contain it.
+  **Deduplication and caps.** Entries are keyed on file, line and message, so a notice inside a loop firing two hundred times is recorded once with a count. Capped at 50 distinct entries per request, beyond that suppression continues but recording stops, so a pathologically noisy plugin cannot exhaust memory through the mechanism meant to contain it.
 
-  **Respects existing tooling.** The previously registered error handler is captured and still called, so Query Monitor and similar debugging plugins — which install their handlers during plugin load, before a theme's `functions.php` runs — continue to collect normally. Guarded against recursion, and a previous handler that throws cannot take the page down.
+  **Respects existing tooling.** The previously registered error handler is captured and still called, so Query Monitor and similar debugging plugins, which install their handlers during plugin load, before a theme's `functions.php` runs, continue to collect normally. Guarded against recursion, and a previous handler that throws cannot take the page down.
 
   **Respects `@` and `error_reporting()`.** Suppressed expressions and anything outside the current error-reporting mask are handed straight back to PHP untouched.
 
   **Controls.** New "Graceful error handling" toggle under Theme Options → Display, on by default. The option is read directly from the option row rather than through `remotive_get_theme_option()`, because `inc/error-handler.php` is required before every other include so that it is already active when they load.
 
-  **Limit worth stating plainly.** Errors raised before the theme loads at all — during WordPress core or plugin bootstrap — happen before any theme code exists and are outside the reach of this or any other theme. Those still require `WP_DEBUG_DISPLAY` false and `display_errors` off in `wp-config.php`.
+  **Limit worth stating plainly.** Errors raised before the theme loads at all, during WordPress core or plugin bootstrap, happen before any theme code exists and are outside the reach of this or any other theme. Those still require `WP_DEBUG_DISPLAY` false and `display_errors` off in `wp-config.php`.
 
-## [1.69.1] — 2026-08-31
+## [1.69.1] (2026-08-31)
 
 ### Added
 
-- **Subtle scroll motion across the theme.** Section headings, cards, stats and CTA titles fade and lift into place as they scroll into view; the hero mark drifts and rotates slightly behind the content; the case-study colour panel pans against its own frame. Distances are small (14–22px) and ranges short — the page should feel alive when scrolled rather than the motion being noticed.
+- **Subtle scroll motion across the theme.** Section headings, cards, stats and CTA titles fade and lift into place as they scroll into view; the hero mark drifts and rotates slightly behind the content; the case-study colour panel pans against its own frame. Distances are small (14–22px) and ranges short, the page should feel alive when scrolled rather than the motion being noticed.
 
-  **Two implementations, one behaviour.** Where the browser supports CSS scroll-driven animations (`animation-timeline`, Chromium 115+, Safari 26+) the effects are pure CSS and run entirely on the compositor thread — no scroll listener exists, so the number of animated elements cannot cause scroll jank. Where it does not, an `IntersectionObserver` adds a class once per element and a CSS transition finishes the job; each element is unobserved after revealing, so work is bounded by element count rather than scroll length. Modern browsers exit the JavaScript block immediately and pay nothing for it.
+  **Two implementations, one behaviour.** Where the browser supports CSS scroll-driven animations (`animation-timeline`, Chromium 115+, Safari 26+) the effects are pure CSS and run entirely on the compositor thread, no scroll listener exists, so the number of animated elements cannot cause scroll jank. Where it does not, an `IntersectionObserver` adds a class once per element and a CSS transition finishes the job; each element is unobserved after revealing, so work is bounded by element count rather than scroll length. Modern browsers exit the JavaScript block immediately and pay nothing for it.
 
-  **No layout impact.** Only `opacity` and `transform` are animated. Both are compositor properties — neither triggers layout or paint, and a transform does not move anything else on the page, so none of this can contribute to CLS. The performance work from earlier releases is unaffected.
+  **No layout impact.** Only `opacity` and `transform` are animated. Both are compositor properties, neither triggers layout or paint, and a transform does not move anything else on the page, so none of this can contribute to CLS. The performance work from earlier releases is unaffected.
 
-  **Cannot hide content.** The `.rm-reveal` class that hides an element before it animates is added by JavaScript, never by a template. If the script fails or JavaScript is disabled, nothing is ever hidden — the page simply renders without motion.
+  **Cannot hide content.** The `.rm-reveal` class that hides an element before it animates is added by JavaScript, never by a template. If the script fails or JavaScript is disabled, nothing is ever hidden, the page simply renders without motion.
 
   **Controls.** New "Scroll motion" toggle under Theme Options → Display, on by default. Everything is scoped to an `rm-motion` body class added only when the toggle is on, so switching it off means no rule matches and no observer is created rather than the effects being overridden. Visitors with `prefers-reduced-motion: reduce` set at OS level get no motion in either implementation regardless of the setting, and the JavaScript path checks the media query before doing any work at all. The class is not added in the admin, so block editor previews are unaffected.
 
-## [1.69.0] — 2026-08-31
+## [1.69.0] (2026-08-31)
 
 ### Added
 
-- **`inc/error-handler.php` — branded error page with administrator-only detail.** Replaces WordPress's generic "There has been a critical error on this website" with a branded page that shows the actual fault to people entitled to see it.
+- **`inc/error-handler.php`, branded error page with administrator-only detail.** Replaces WordPress's generic "There has been a critical error on this website" with a branded page that shows the actual fault to people entitled to see it.
 
   **Who sees what.** Administrators (`manage_options`) get the exception class, message, file path relative to the WordPress root, line number, and full stack trace where one is available. Everyone else gets a branded apology with no technical content. This split is deliberate: a stack trace names absolute server paths, function names and plugin files, and showing that publicly would undo the version fingerprinting removal added in 1.68.1.
 
   **Reference IDs.** Every error gets a short stable hash of its file, line and message. It appears on both the public and admin views and is written to the PHP error log alongside the full detail, so a visitor can quote it in an email and you can find the exact log entry without them ever seeing the internals. The same fault always produces the same ID, so repeat reports are recognisably one problem.
 
-  **Two handlers, different coverage.** `set_exception_handler()` catches uncaught exceptions and yields a real stack trace. `register_shutdown_function()` catches fatals that are not exceptions — `E_ERROR`, `E_PARSE`, undefined function calls, memory exhaustion — where only file, line and message exist. Warnings and notices are deliberately not intercepted: they do not halt execution, and replacing a working page with an error screen over a notice would be worse than the notice.
+  **Two handlers, different coverage.** `set_exception_handler()` catches uncaught exceptions and yields a real stack trace. `register_shutdown_function()` catches fatals that are not exceptions, `E_ERROR`, `E_PARSE`, undefined function calls, memory exhaustion, where only file, line and message exist. Warnings and notices are deliberately not intercepted: they do not halt execution, and replacing a working page with an error screen over a notice would be worse than the notice.
 
-  **Safe inside a broken site.** The handler is required first in `functions.php`, before any other include, so it is already registered if a later `require` fatals. Every WordPress function it calls is guarded with `function_exists()` and falls back to a PHP equivalent — `esc_html()` → `htmlspecialchars()`, `esc_url()` → `filter_var()`, `status_header()` → raw `header()`. A fatal occurring before `wp-includes/formatting.php` loads therefore still renders the page rather than producing a blank screen. Page CSS is inlined and brand colours hardcoded, because linking the theme stylesheet would risk a second fatal if the theme is what failed. Output buffers are flushed before rendering so the error page never appends to a half-built document.
+  **Safe inside a broken site.** The handler is required first in `functions.php`, before any other include, so it is already registered if a later `require` fatals. Every WordPress function it calls is guarded with `function_exists()` and falls back to a PHP equivalent, `esc_html()` → `htmlspecialchars()`, `esc_url()` → `filter_var()`, `status_header()` → raw `header()`. A fatal occurring before `wp-includes/formatting.php` loads therefore still renders the page rather than producing a blank screen. Page CSS is inlined and brand colours hardcoded, because linking the theme stylesheet would risk a second fatal if the theme is what failed. Output buffers are flushed before rendering so the error page never appends to a half-built document.
 
-  **Contexts left alone.** AJAX, REST, cron, XML-RPC and WP-CLI requests pass through untouched — a JSON client receiving an HTML error page gets a parse error instead of a diagnosable failure.
+  **Contexts left alone.** AJAX, REST, cron, XML-RPC and WP-CLI requests pass through untouched, a JSON client receiving an HTML error page gets a parse error instead of a diagnosable failure.
 
   **Trade-off.** Taking over from `WP_Fatal_Error_Handler` also disables WordPress recovery mode emails. Hand control back with `add_filter( 'remotive_use_custom_error_page', '__return_false' );`.
 
   **Locked-out access.** If the error prevents you logging in, define `REMOTIVE_SHOW_ERRORS` as `true` in `wp-config.php` to see full detail without an admin session. Remove it once fixed.
 
-## [1.68.5] — 2026-08-31
+## [1.68.5] (2026-08-31)
 
 ### Fixed
 
-- **Fatal error on admin load: `Call to undefined function remotive_seed_data()`.** The real cause of the critical error, introduced in 1.66.6 and misdiagnosed across 1.68.2–1.68.4 as a security-module problem. `remotive_resolve_seed_post_links()` (added for RM-012/013) called `remotive_seed_data()`, which does not exist — the seed provider is named `remotive_seed_content()`, used correctly in the three other places that call it. The fatal fired via `admin_init` → `remotive_auto_setup_on_admin()` → `remotive_maybe_auto_setup()` → `remotive_seed_run()` → `remotive_resolve_seed_post_links()`, so it hit on every admin page load including the dashboard immediately after login. Corrected to `remotive_seed_content()`.
+- **Fatal error on admin load: `Call to undefined function remotive_seed_data()`.** The real cause of the critical error, introduced in 1.66.6 and misdiagnosed across 1.68.2–1.68.4 as a security-module problem. `remotive_resolve_seed_post_links()` (added for RM-012/013) called `remotive_seed_data()`, which does not exist, the seed provider is named `remotive_seed_content()`, used correctly in the three other places that call it. The fatal fired via `admin_init` → `remotive_auto_setup_on_admin()` → `remotive_maybe_auto_setup()` → `remotive_seed_run()` → `remotive_resolve_seed_post_links()`, so it hit on every admin page load including the dashboard immediately after login. Corrected to `remotive_seed_content()`.
 
 - **`inc/security.php` re-enabled.** It was never the cause. The module was disabled in 1.68.4 as a diagnostic step; with the actual fatal fixed it is active again, including the guards added in 1.68.2 and 1.68.3 (which remain correct hardening regardless).
 
 ### Notes
 
 - The three prior version bumps chasing this (1.68.2, 1.68.3, 1.68.4) changed `security.php` and then disabled it, none of which addressed the real fault. Those hardening guards are kept because they are correct on their own merits, but they were not what was breaking login.
-- Once the site loads normally, remove the duplicate `define( 'WP_DEBUG', ... )` from `wp-config.php` line 94 — it was emitting a PHP warning on every request.
+- Once the site loads normally, remove the duplicate `define( 'WP_DEBUG', ... )` from `wp-config.php` line 94, it was emitting a PHP warning on every request.
 
-## [1.68.4] — 2026-08-31
+## [1.68.4] (2026-08-31)
 
 ### Changed
 
 - **`inc/security.php` disabled pending diagnosis.** Two attempted fixes (1.68.2, 1.68.3) did not resolve the critical error on login. Rather than continue guessing at the cause, the module is commented out in `functions.php` so the site is usable. The file remains in the theme unchanged; re-enabling is a one-line edit once the actual fatal is identified from the PHP error log. All other 1.68.x changes (the `/work/` → `/case-studies/` slug migration, CTA layout, pagination) are unaffected and remain active.
 
-## [1.68.3] — 2026-08-31
+## [1.68.3] (2026-08-31)
 
 ### Fixed
 
-- **Critical error on login — second fix.** v1.68.2 fixed the `authenticate` filter but two other hooks in `security.php` were also unsafe during the login flow:
+- **Critical error on login, second fix.** v1.68.2 fixed the `authenticate` filter but two other hooks in `security.php` were also unsafe during the login flow:
 
-  - `remotive_block_install_endpoints()` on `admin_init` was matching against `SCRIPT_NAME` and calling `wp_safe_redirect()` + `exit`. `is_admin()` returns true on `wp-login.php`, so the function was executing on every login page load. The `SCRIPT_NAME` check was intended to match `install.php` and `setup-config.php` only, but string matching on `basename()` is fragile. Switched to matching `SCRIPT_FILENAME` (the real filesystem path) against exact basenames `'install.php'` and `'setup-config.php'` — `wp-login.php` is a different basename and is never matched.
+  - `remotive_block_install_endpoints()` on `admin_init` was matching against `SCRIPT_NAME` and calling `wp_safe_redirect()` + `exit`. `is_admin()` returns true on `wp-login.php`, so the function was executing on every login page load. The `SCRIPT_NAME` check was intended to match `install.php` and `setup-config.php` only, but string matching on `basename()` is fragile. Switched to matching `SCRIPT_FILENAME` (the real filesystem path) against exact basenames `'install.php'` and `'setup-config.php'`, `wp-login.php` is a different basename and is never matched.
 
   - `remotive_block_user_enumeration_rest()` was calling `is_user_logged_in()` without first checking whether the result parameter was already set by a prior filter. This can cause issues during early REST bootstrap. Added a `null !== $result` early-return to respect previous filter results.
 
-  - The whole `security.php` was also temporarily commented out in `functions.php` during diagnosis in v1.68.2 — it is re-enabled in this release with all three hooks properly guarded.
+  - The whole `security.php` was also temporarily commented out in `functions.php` during diagnosis in v1.68.2, it is re-enabled in this release with all three hooks properly guarded.
 
-## [1.68.2] — 2026-08-31
+## [1.68.2] (2026-08-31)
 
 ### Fixed
 
-- **Critical error on login caused by `remotive_block_locked_login`.** The `authenticate` filter runs on every page load where WordPress validates a logged-in cookie (via `determine_current_user`), not only on actual login form submissions. The previous implementation checked the failure counter and potentially returned `WP_Error` during cookie validation on normal page requests — any user who had previously triggered the rate limit from their IP would get a fatal error on every page, not just the login page. Fixed by adding two guards: the function now returns early if either `$username` or `$password` is empty (cookie auth passes empty strings for both), and returns early if the request method is not POST. This limits the rate-limit check strictly to explicit credential submissions.
+- **Critical error on login caused by `remotive_block_locked_login`.** The `authenticate` filter runs on every page load where WordPress validates a logged-in cookie (via `determine_current_user`), not only on actual login form submissions. The previous implementation checked the failure counter and potentially returned `WP_Error` during cookie validation on normal page requests, any user who had previously triggered the rate limit from their IP would get a fatal error on every page, not just the login page. Fixed by adding two guards: the function now returns early if either `$username` or `$password` is empty (cookie auth passes empty strings for both), and returns early if the request method is not POST. This limits the rate-limit check strictly to explicit credential submissions.
 
-## [1.68.1] — 2026-08-31
+## [1.68.1] (2026-08-31)
 
 ### Added
 
-- **`inc/security.php` — dedicated security hardening module.** Six measures drawn directly from patterns in the site's first-week server logs. Each is a named function with its own hook so any of them can be removed individually without editing the file.
+- **`inc/security.php`, dedicated security hardening module.** Six measures drawn directly from patterns in the site's first-week server logs. Each is a named function with its own hook so any of them can be removed individually without editing the file.
 
   **1. Login rate limiting** (`wp_login_failed` / `authenticate` / `wp_login`). After 5 failed login attempts from the same IP within 10 minutes, further attempts from that IP return a generic error without reaching the database. Resets on successful login. Mirrors the contact-form rate-limit pattern already in `inc/lead-form-handler.php`. The log showed 271 wp-login.php hits from a single IP (`103.138.189.98`) within the observation window.
 
@@ -2304,58 +2313,58 @@ fall below the fold, not less.
 
   **4. Version fingerprinting removed** (`wp_head` generator removed; `the_generator` filter; `style_loader_src` / `script_loader_src` filters strip `?ver=` query strings from non-timestamp version parameters). Raises the cost of targeted CVE scanning. Timestamp-based version strings (filemtime cache-busting) are preserved; only WordPress-version strings are stripped.
 
-  **5. REST API user enumeration blocked** (`rest_authentication_errors`). Unauthenticated requests to `/wp-json/wp/v2/users` return 401. Author archive pages and `?author=N` URLs redirect to home to close the same gap via the URL layer. The rest of the REST API remains open — the WebMCP integration (`inc/webmcp.php`) needs it.
+  **5. REST API user enumeration blocked** (`rest_authentication_errors`). Unauthenticated requests to `/wp-json/wp/v2/users` return 401. Author archive pages and `?author=N` URLs redirect to home to close the same gap via the URL layer. The rest of the REST API remains open, the WebMCP integration (`inc/webmcp.php`) needs it.
 
-  **6. Security headers** (`wp_headers` filter). Added to all front-end responses: `X-Content-Type-Options: nosniff`, `X-Frame-Options: SAMEORIGIN`, `Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy` disabling camera/microphone/geolocation/payment. Content-Security-Policy intentionally omitted — requires site-specific tuning and will break the block editor if set incorrectly.
+  **6. Security headers** (`wp_headers` filter). Added to all front-end responses: `X-Content-Type-Options: nosniff`, `X-Frame-Options: SAMEORIGIN`, `Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy` disabling camera/microphone/geolocation/payment. Content-Security-Policy intentionally omitted, requires site-specific tuning and will break the block editor if set incorrectly.
 
   **What the theme cannot do** (requires server/firewall/plugin): block specific IPs, rate-limit at TCP level, protect `wp-login.php` at the server layer. `103.138.189.98` (active brute-force) should be blocked at the firewall or `.htaccess` level directly.
 
-## [1.68.0] — 2026-08-31
+## [1.68.0] (2026-08-31)
 
 ### Fixed
 
-- **Case Studies page slug migration: `/work/` → `/case-studies/`.** The required-pages registry has used the `case-studies` slug throughout, but the theme's setup routine only creates pages, never renames them. Any site activated before the slug was standardised had the page in the database at `/work/` — all internal links and footer menus pointing at `/case-studies/` were quietly 404ing. Added `remotive_migrate_work_slug()` as a versioned migration (schema `1.65.8`) that runs once on the next admin page load: if a page exists at `/work/` and no page exists at `/case-studies/`, it renames the slug via `wp_update_post()` and flushes rewrite rules. Child pages (individual case study entries parented to the renamed page) update automatically since their parent ID is unchanged. Does nothing on fresh installs or sites already at the correct slug.
+- **Case Studies page slug migration: `/work/` → `/case-studies/`.** The required-pages registry has used the `case-studies` slug throughout, but the theme's setup routine only creates pages, never renames them. Any site activated before the slug was standardised had the page in the database at `/work/`, all internal links and footer menus pointing at `/case-studies/` were quietly 404ing. Added `remotive_migrate_work_slug()` as a versioned migration (schema `1.65.8`) that runs once on the next admin page load: if a page exists at `/work/` and no page exists at `/case-studies/`, it renames the slug via `wp_update_post()` and flushes rewrite rules. Child pages (individual case study entries parented to the renamed page) update automatically since their parent ID is unchanged. Does nothing on fresh installs or sites already at the correct slug.
 
-## [1.67.9] — 2026-08-31
+## [1.67.9] (2026-08-31)
 
 ### Fixed
 
-- **Empty pagination block leaving a visible gap below the post grid.** `wp:query-pagination` renders its container element even when all posts fit on a single page — previous/next/numbers slots are empty but the block itself still occupies height and shows two faint divider lines. Added `display:none` on `.rm-pagination:not(:has(a))` and `.wp-block-query-pagination:not(:has(a))` so the block collapses when it contains no navigable links. `:has()` progressive enhancement — older browsers see the empty block.
+- **Empty pagination block leaving a visible gap below the post grid.** `wp:query-pagination` renders its container element even when all posts fit on a single page, previous/next/numbers slots are empty but the block itself still occupies height and shows two faint divider lines. Added `display:none` on `.rm-pagination:not(:has(a))` and `.wp-block-query-pagination:not(:has(a))` so the block collapses when it contains no navigable links. `:has()` progressive enhancement, older browsers see the empty block.
 
-## [1.67.8] — 2026-08-31
+## [1.67.8] (2026-08-31)
 
 ### Fixed
 
 - **Centred CTA layout not applying; outline button invisible on cyan band.** The `.rm-cta--centred` rules used single-class selectors (`.rm-cta--centred`) which have the same specificity as `.rm-cta`. The base grid rules on `.rm-cta` were winning the cascade over the centred overrides, leaving all button-only bands still using the two-column form-grid layout. Rewrote all centred rules with doubled selectors (`.rm-cta.rm-cta--centred`) which outweigh the single-class base rules. Also fixed the outline button on the cyan band: `color:inherit` resolved to the ink token but the inherited text colour from the band was ink-dark, which is near-invisible on cyan; changed to explicit `#fff` on the navy band and `rgba(30,30,30,.55)` on coloured bands where ink text is appropriate.
 
-## [1.67.7] — 2026-08-31
+## [1.67.7] (2026-08-31)
 
 ### Fixed
 
-- **Section head links floating at inconsistent vertical positions.** `.rm-section-head` used `align-items:flex-end` — the link aligned to the bottom of the flex row, which meant it landed at the baseline of whatever text was in the left column. A two-line description pushed it down further than a one-line description. Every section looked different because each had a different amount of text. Changed to `align-items:flex-start` so the link consistently aligns with the top of the section (level with the eyebrow), predictable across every section regardless of how long the description runs. Also removed the `border-bottom:2px solid magenta` underline styling on the link (replaced with a colour-change and letter-spacing nudge on hover instead), which read as a decorative element competing with the content rather than a navigation signal.
+- **Section head links floating at inconsistent vertical positions.** `.rm-section-head` used `align-items:flex-end`, the link aligned to the bottom of the flex row, which meant it landed at the baseline of whatever text was in the left column. A two-line description pushed it down further than a one-line description. Every section looked different because each had a different amount of text. Changed to `align-items:flex-start` so the link consistently aligns with the top of the section (level with the eyebrow), predictable across every section regardless of how long the description runs. Also removed the `border-bottom:2px solid magenta` underline styling on the link (replaced with a colour-change and letter-spacing nudge on hover instead), which read as a decorative element competing with the content rather than a navigation signal.
 
-## [1.67.6] — 2026-08-31
+## [1.67.6] (2026-08-31)
 
 ### Changed
 
-- **CTA band button-only layout redesigned.** The base `.rm-cta` grid was built around the homepage email-capture form: headline hard-left in one column, form stacked in a fixed right column. Button-only bands (service pages, case studies, market pages, blog index, single post, archive) were using the same two-column grid with no form filling the right side — leaving a hard-left headline and an isolated button marooned in the corner. Added `.rm-cta--centred` modifier to all button-only bands: single centred column, headline at full width with a larger size cap (`clamp(2.4rem,5.5vw,4.4rem)`, up from `3.4rem` max), reassure line and buttons centred below it. Fill button on the standard navy band now uses magenta (matching the primary action colour site-wide) rather than the ivory paper colour that blended into the band. Outline button gets a white semi-transparent border. Both buttons styled consistently at `.9rem`, `700` weight, uppercase, `0.06em` tracking. Colour variants (magenta, cyan bands) override the fill button to ink-on-band-colour as before. Homepage band is unchanged — it uses the two-column grid with the email form and gets no `rm-cta--centred` class.
+- **CTA band button-only layout redesigned.** The base `.rm-cta` grid was built around the homepage email-capture form: headline hard-left in one column, form stacked in a fixed right column. Button-only bands (service pages, case studies, market pages, blog index, single post, archive) were using the same two-column grid with no form filling the right side, leaving a hard-left headline and an isolated button marooned in the corner. Added `.rm-cta--centred` modifier to all button-only bands: single centred column, headline at full width with a larger size cap (`clamp(2.4rem,5.5vw,4.4rem)`, up from `3.4rem` max), reassure line and buttons centred below it. Fill button on the standard navy band now uses magenta (matching the primary action colour site-wide) rather than the ivory paper colour that blended into the band. Outline button gets a white semi-transparent border. Both buttons styled consistently at `.9rem`, `700` weight, uppercase, `0.06em` tracking. Colour variants (magenta, cyan bands) override the fill button to ink-on-band-colour as before. Homepage band is unchanged, it uses the two-column grid with the email form and gets no `rm-cta--centred` class.
 
-## [1.67.5] — 2026-08-31
-
-### Fixed
-
-- **Service page hero subtitle too wide.** On pages using `wp:post-excerpt` (the six service pages), WordPress wraps the excerpt in `<div class="wp-block-post-excerpt"><p>…</p></div>`. The `rm-hero__sub` class landed on the outer div, but the `max-width:44ch` rule only targeted that element directly — the inner `<p>` was unconstrained and stretched to the full container width, making the subtitle run much wider than on static-content pages where the class sits directly on a `<p>`. Added `.rm-hero__sub p` to both the base rule (`44ch`) and the homepage wide-layout override (`56ch`) so the constraint applies in both cases.
-
-## [1.67.4] — 2026-08-31
+## [1.67.5] (2026-08-31)
 
 ### Fixed
 
-- **CTA band colour variants failed contrast.** The 1.67.3 CSS was written against an assumed token value (`#00aeef` for cyan, `#ec008c` for magenta) rather than the actual resolved values in this theme's palette (`#00a2ff` cyan, `#ff449f` magenta). The actual values are significantly lighter, making white text on both colours fail WCAG 4.5:1 (white on `#00a2ff` = 2.76:1; white on `#ff449f` = 3.19:1). The fill button used `var(--paper)` (ivory `#f7f4ec`) as background on cyan — `paper on cyan` = 2.51:1, which is exactly what made the button label invisible. Fixed by measuring all combinations against the real hex values before writing any CSS:
+- **Service page hero subtitle too wide.** On pages using `wp:post-excerpt` (the six service pages), WordPress wraps the excerpt in `<div class="wp-block-post-excerpt"><p>…</p></div>`. The `rm-hero__sub` class landed on the outer div, but the `max-width:44ch` rule only targeted that element directly, the inner `<p>` was unconstrained and stretched to the full container width, making the subtitle run much wider than on static-content pages where the class sits directly on a `<p>`. Added `.rm-hero__sub p` to both the base rule (`44ch`) and the homepage wide-layout override (`56ch`) so the constraint applies in both cases.
+
+## [1.67.4] (2026-08-31)
+
+### Fixed
+
+- **CTA band colour variants failed contrast.** The 1.67.3 CSS was written against an assumed token value (`#00aeef` for cyan, `#ec008c` for magenta) rather than the actual resolved values in this theme's palette (`#00a2ff` cyan, `#ff449f` magenta). The actual values are significantly lighter, making white text on both colours fail WCAG 4.5:1 (white on `#00a2ff` = 2.76:1; white on `#ff449f` = 3.19:1). The fill button used `var(--paper)` (ivory `#f7f4ec`) as background on cyan, `paper on cyan` = 2.51:1, which is exactly what made the button label invisible. Fixed by measuring all combinations against the real hex values before writing any CSS:
   - **Cyan band (`#00a2ff`)**: switched to ink text (`#1e1e1e`) at 6.04:1 ✓, ink fill button with white label (16.67:1 ✓), ink outline button border. Dark mode uses `cyan-dark` (`#00308f`) with white text at 11.54:1 ✓.
   - **Magenta band (`#ff449f`)**: switched to ink text at 5.22:1 ✓, same ink fill button pattern. Dark mode uses `magenta-dark` (`#cd360b`, orange-red) with white text at 5.09:1 ✓.
-  - **Reassure line on coloured bands**: was `rgba(30,30,30,.65)` which blends to ~`#757570` and lands at ~1.45–1.68:1 on the band colours — invisible. Changed to `var(--wp--preset--color--ink)` directly (full opacity ink) for full 6.04:1 / 5.22:1 contrast.
+  - **Reassure line on coloured bands**: was `rgba(30,30,30,.65)` which blends to ~`#757570` and lands at ~1.45–1.68:1 on the band colours, invisible. Changed to `var(--wp--preset--color--ink)` directly (full opacity ink) for full 6.04:1 / 5.22:1 contrast.
 
-## [1.67.3] — 2026-08-31
+## [1.67.3] (2026-08-31)
 
 ### Changed
 
@@ -2363,10 +2372,10 @@ fall below the fold, not less.
 
   | Page | Variant | Reasoning |
   |---|---|---|
-  | Services index | Magenta | "Not sure where to start?" — invitation tone, magenta matches the energy |
+  | Services index | Magenta | "Not sure where to start?", invitation tone, magenta matches the energy |
   | SEO Singapore | Magenta | Market landing page, needs urgency |
   | Digital Marketing Malaysia | Magenta | Parallel to Singapore, consistent treatment |
-  | Case Studies index | Cyan | "Want to be the next one?" — aspirational, distinct from services |
+  | Case Studies index | Cyan | "Want to be the next one?", aspirational, distinct from services |
   | Insights index | Cyan | Cooler tone suits a content audience |
   | Archive pages | Cyan | Identical context to Insights index |
   | Homepage email-capture band | Navy (unchanged) | Form/button contrast is carefully tuned, changing risks breaking it |
@@ -2374,55 +2383,55 @@ fall below the fold, not less.
   | Single post | Navy (unchanged) | Natural continuation after reading, not a gear change |
   | FAQ | Navy (unchanged) | Cautious-researcher audience, no need to shout |
 
-  Contrast ratios verified before shipping: magenta band — white text 4.61:1 ✓, navy fill button 5.29:1 ✓; cyan band — navy text 4.87:1 ✓, navy fill button 4.87:1 ✓. Dark mode: both variants stay on their own colour (magenta-dark / cyan-dark) rather than inverting, since both read equally well against the dark page surface and inverting a coloured band would undermine the variance.
+  Contrast ratios verified before shipping: magenta band, white text 4.61:1 ✓, navy fill button 5.29:1 ✓; cyan band, navy text 4.87:1 ✓, navy fill button 4.87:1 ✓. Dark mode: both variants stay on their own colour (magenta-dark / cyan-dark) rather than inverting, since both read equally well against the dark page surface and inverting a coloured band would undermine the variance.
 
-## [1.67.2] — 2026-08-31
+## [1.67.2] (2026-08-31)
 
 ### Fixed
 
-- **CF7 submissions not Akismet-checked at capture time.** The `remotive_capture_cf7_submission()` function called `remotive_store_lead()` without passing `is_spam`, so every Contact Form 7 submission was stored with `post_status = 'publish'` regardless of spam verdict — they would never appear in the spam folder and the manual spam/ham actions on the leads card had no cause to act on them. Added `remotive_akismet_is_spam()` call in the CF7 capture path before `remotive_store_lead()`, passing the extracted name, email and message. CF7 runs its own Akismet check before firing `wpcf7_mail_sent` (its built-in integration), so a submission reaching this hook has already passed CF7's filter; our check runs independently so the `is_spam` flag is set correctly in the stored record.
+- **CF7 submissions not Akismet-checked at capture time.** The `remotive_capture_cf7_submission()` function called `remotive_store_lead()` without passing `is_spam`, so every Contact Form 7 submission was stored with `post_status = 'publish'` regardless of spam verdict, they would never appear in the spam folder and the manual spam/ham actions on the leads card had no cause to act on them. Added `remotive_akismet_is_spam()` call in the CF7 capture path before `remotive_store_lead()`, passing the extracted name, email and message. CF7 runs its own Akismet check before firing `wpcf7_mail_sent` (its built-in integration), so a submission reaching this hook has already passed CF7's filter; our check runs independently so the `is_spam` flag is set correctly in the stored record.
 
 ### Changed
 
-- **Akismet check payload enriched with IP, user agent and HTTP referrer.** The initial `comment_check` call was sending name, email, message and permalink, but not the submitting IP address, browser string, or HTTP referrer. These are standard Akismet fields (`user_ip`, `user_agent`, `referrer`) that the service uses heavily for reputation scoring. Adding them improves detection accuracy across all three native forms, and matters most for the homepage CTA form which only collects an email address — with no name or message to score against, IP and user agent carry proportionally more weight.
+- **Akismet check payload enriched with IP, user agent and HTTP referrer.** The initial `comment_check` call was sending name, email, message and permalink, but not the submitting IP address, browser string, or HTTP referrer. These are standard Akismet fields (`user_ip`, `user_agent`, `referrer`) that the service uses heavily for reputation scoring. Adding them improves detection accuracy across all three native forms, and matters most for the homepage CTA form which only collects an email address, with no name or message to score against, IP and user agent carry proportionally more weight.
 
-## [1.67.1] — 2026-08-31
+## [1.67.1] (2026-08-31)
 
 ### Changed
 
-- **About page form brought up to the same visual standard as the Contact page form.** The backend tracking was already fully independent — separate `action` value (`remotive_about_submit`), separate nonce (`remotive_about_nonce`), separate honeypot field name (`remotive_about_website`), separate rate-limit bucket (`remotive_rl_about_*`), and separate `source` stored against the lead record (`about form` vs `contact form`). The `data-lead-status="remotive_about"` attribute on the status div means the success/error message only fires when `?remotive_about=success/error` is in the URL — it can't be triggered by a Contact page submission and vice versa. None of that changed. What changed: the form's HTML class updated from `rm-about-form` (no CSS styling whatsoever) to `rm-contact-form` (full styled treatment added in 1.66.9), so both forms now share one CSS definition and render identically — labelled fields, bordered inputs, styled submit button, privacy line inline with the button, honeypot gap fixed. The `action`, nonce token, honeypot field names, and `data-lead-status` are all unchanged, so every tracking and security mechanism remains exactly as it was.
+- **About page form brought up to the same visual standard as the Contact page form.** The backend tracking was already fully independent, separate `action` value (`remotive_about_submit`), separate nonce (`remotive_about_nonce`), separate honeypot field name (`remotive_about_website`), separate rate-limit bucket (`remotive_rl_about_*`), and separate `source` stored against the lead record (`about form` vs `contact form`). The `data-lead-status="remotive_about"` attribute on the status div means the success/error message only fires when `?remotive_about=success/error` is in the URL, it cannot be triggered by a Contact page submission and vice versa. None of that changed. What changed: the form's HTML class updated from `rm-about-form` (no CSS styling whatsoever) to `rm-contact-form` (full styled treatment added in 1.66.9), so both forms now share one CSS definition and render identically, labelled fields, bordered inputs, styled submit button, privacy line inline with the button, honeypot gap fixed. The `action`, nonce token, honeypot field names, and `data-lead-status` are all unchanged, so every tracking and security mechanism remains exactly as it was.
 
-## [1.67.0] — 2026-08-31
+## [1.67.0] (2026-08-31)
 
 ### Added
 
-- **CTA band on Insights index (`home.html`).** The blog listing page had no bottom-of-page CTA — visitors who scrolled through all the articles hit the footer with no prompt. Added the standard `rm-cta` band with headline "Read enough. Let's talk.", the standard audit reassurance line, a filled primary button ("Start a project →") and an outline secondary button ("See what we do" → `/services/`). The secondary button gives readers who aren't ready to contact a useful next step rather than a dead end.
+- **CTA band on Insights index (`home.html`).** The blog listing page had no bottom-of-page CTA, visitors who scrolled through all the articles hit the footer with no prompt. Added the standard `rm-cta` band with headline "Read enough. Let's talk.", the standard audit reassurance line, a filled primary button ("Start a project →") and an outline secondary button ("See what we do" → `/services/`). The secondary button gives readers who are not ready to contact a useful next step rather than a dead end.
 
-- **CTA band on single post (`single.html`).** Individual article pages had no CTA at all — the post ended with the tag list and "All insights →" back-link, then straight to footer. Added the `rm-cta` band with headline "Want this working for your brand?", the standard audit reassurance line, a filled primary ("Start a project →") and an outline secondary ("See our work" → `/case-studies/`). The secondary button is intentionally different from the index — a reader who just finished an article is a more qualified lead, so pointing at case studies is a more contextually appropriate next step than the generic services overview.
+- **CTA band on single post (`single.html`).** Individual article pages had no CTA at all, the post ended with the tag list and "All insights →" back-link, then straight to footer. Added the `rm-cta` band with headline "Want this working for your brand?", the standard audit reassurance line, a filled primary ("Start a project →") and an outline secondary ("See our work" → `/case-studies/`). The secondary button is intentionally different from the index, a reader who just finished an article is a more qualified lead, so pointing at case studies is a more contextually appropriate next step than the generic services overview.
 
-- **CTA band on archive pages (`archive.html`).** Category and tag archive pages (e.g. `/category/seo/`) were also missing a CTA. Added the same band as the Insights index — "Read enough. Let's talk." — since the context is identical: a reader browsing a filtered article list.
+- **CTA band on archive pages (`archive.html`).** Category and tag archive pages (e.g. `/category/seo/`) were also missing a CTA. Added the same band as the Insights index, "Read enough. Let's talk.", since the context is identical: a reader browsing a filtered article list.
 
 ### Fixed
 
 - **FAQ primary button missing `is-style-fill`.** The "Get in touch →" button in the FAQ's closing section used the default (unstyled) button class, rendering as a plain browser button while every other primary button on the site uses the filled ink-background style. Added `is-style-fill` to match.
 
-## [1.66.9] — 2026-08-31
+## [1.66.9] (2026-08-31)
 
 ### Changed
 
 - **Contact page layout and form restyle.** Complete overhaul of `templates/page-contact.html` and the associated CSS, fixing gaps and adding proper field styling:
   - **Hero tightened.** Contact page now uses `.rm-hero--contact` with `padding-block: clamp(2rem,4vw,3.5rem)` instead of the full homepage hero padding, so the form appears above the fold without scrolling on most screens.
-  - **Column split widened.** Changed from 60/40 to 65/35 — form gets more room, sidebar sits comfortably without feeling squeezed.
+  - **Column split widened.** Changed from 60/40 to 65/35, form gets more room, sidebar sits comfortably without feeling squeezed.
   - **Honeypot gap fixed.** `.rm-cta__honeypot` was occupying visible space on both the Contact and About forms. Added `display:none !important` scoped to both form classes so the div is invisible and takes no space.
-  - **Form renamed.** Contact page form class changed from `rm-about-form` (shared with the About page) to `rm-contact-form` for independent CSS control. The handler is unchanged — it keys on the hidden `action` POST field, not the form class. About page form and its handler are untouched.
+  - **Form renamed.** Contact page form class changed from `rm-about-form` (shared with the About page) to `rm-contact-form` for independent CSS control. The handler is unchanged, it keys on the hidden `action` POST field, not the form class. About page form and its handler are untouched.
   - **Labels.** Now styled to the site's eyebrow convention: `0.75rem`, `700` weight, uppercase, `0.07em` letter-spacing, muted ink colour. Required field marked with a magenta asterisk (`aria-hidden`).
   - **Inputs and textarea.** Properly styled: `1.5px` border using the `--rm-line` token, `6px` border-radius, `0.75rem 1rem` padding, smooth `:focus` ring (`box-shadow` using ink at 12% opacity) that avoids the browser default outline. Textarea locked to `resize:vertical` only. Dark mode inverts the background and adjusts the border and focus ring.
   - **Submit button.** Replaces the browser-default button with a styled control matching the site's filled button: ink background, paper text, magenta on hover, uppercase, `0.06em` tracking. Mobile: full-width, 44px min-height touch target.
-  - **Form footer.** Button and privacy line sit side by side on wide screens (`flex-wrap`), stack on narrow. Privacy line is now visually subordinate — `0.78rem`, muted colour, no top margin competing with the button.
+  - **Form footer.** Button and privacy line sit side by side on wide screens (`flex-wrap`), stack on narrow. Privacy line is now visually subordinate, `0.78rem`, muted colour, no top margin competing with the button.
   - **Sidebar cards.** Now have `1px border`, `8px border-radius`, and `1.25rem 1.4rem` padding. Gap between cards tightened to `1rem`. Headings (`EMAIL`, `OFFICE`, `ELSEWHERE`) styled as small eyebrows (`0.72rem`, uppercase, muted) rather than unstyled h3s.
-  - **Empty Elsewhere card hidden.** When no social profiles are configured, `__REMOTIVE_SOCIAL_LINKS__` renders nothing and the card showed a blank white box. Added a `:has()` rule on `.rm-sidebar__card--social` that hides the card when its social container is empty. Progressive enhancement — the card shows on browsers without `:has()` support.
+  - **Empty Elsewhere card hidden.** When no social profiles are configured, `__REMOTIVE_SOCIAL_LINKS__` renders nothing and the card showed a blank white box. Added a `:has()` rule on `.rm-sidebar__card--social` that hides the card when its social container is empty. Progressive enhancement, the card shows on browsers without `:has()` support.
 
-## [1.66.8] — 2026-08-31
+## [1.66.8] (2026-08-31)
 
 ### Added
 
@@ -2430,28 +2439,28 @@ fall below the fold, not less.
 
   | Setting | Type | Range / accepted values |
   |---|---|---|
-  | Show ticker | Toggle | On/Off — hides the entire band (`.rm-ticker-band { display:none }`) |
+  | Show ticker | Toggle | On/Off, hides the entire band (`.rm-ticker-band { display:none }`) |
   | Countries | Text | Comma-separated, ≥2 for scroll to loop |
-  | Background colour | Colour picker | Hex — default: `#1a1a2e` (Charcoal) |
-  | Text colour | Colour picker | Hex — default: `#f7f4ec` (Ivory) |
-  | Separator colour | Text | Hex or `rgba()` — default: `rgba(255,255,255,0.18)` |
-  | Font size (rem) | Text | 0.5–2.5 — default: `0.85` |
-  | Font weight | Select | 400/500/600/700/800/900 — default: `700` |
-  | Letter spacing (em) | Text | 0.00–0.50 — default: `0.10` |
-  | Vertical padding (rem) | Text | 0.2–4.0 — default: `0.85` |
-  | Horizontal padding (rem) | Text | 0.5–8.0 — default: `2.4` |
-  | Scroll speed (seconds) | Text | 4–120 — default: `26` |
-  | Scroll direction | Select | Left / Right — default: Left |
+  | Background colour | Colour picker | Hex, default: `#1a1a2e` (Charcoal) |
+  | Text colour | Colour picker | Hex, default: `#f7f4ec` (Ivory) |
+  | Separator colour | Text | Hex or `rgba()`, default: `rgba(255,255,255,0.18)` |
+  | Font size (rem) | Text | 0.5–2.5, default: `0.85` |
+  | Font weight | Select | 400/500/600/700/800/900, default: `700` |
+  | Letter spacing (em) | Text | 0.00–0.50, default: `0.10` |
+  | Vertical padding (rem) | Text | 0.2–4.0, default: `0.85` |
+  | Horizontal padding (rem) | Text | 0.5–8.0, default: `2.4` |
+  | Scroll speed (seconds) | Text | 4–120, default: `26` |
+  | Scroll direction | Select | Left / Right, default: Left |
 
   The animation duration scales proportionally with the country count so perceived speed stays consistent when items are added or removed (reference: 26s at 5 countries). Direction reverses by swapping the keyframe `translateX` target and the flex direction on `.rm-ticker__track`, leaving the IntersectionObserver pause logic untouched. The `ticker_countries` field and its `remotive_render_ticker()` token (`__REMOTIVE_TICKER__`) are moved from the Homepage hero tab into this new tab. No template changes required; `front-page.html` still uses the same token.
 
-## [1.66.7] — 2026-08-31
+## [1.66.7] (2026-08-31)
 
 ### Added
 
-- **Country ticker editable from Theme Options.** The scrolling markets strip under the hero was hardcoded in `templates/front-page.html` (5 countries, duplicated 4× for the seamless loop). It is now a `ticker_countries` option under the Homepage hero tab — a comma-separated plain-text field. Add a country, remove one, rename one, reorder them: save, and the ticker rebuilds immediately on the next request. The four-repetition duplication required by the CSS scroll animation is handled by `remotive_render_ticker()` automatically, so the field just takes a clean comma-separated list with no manual duplication. Minimum two entries required for the loop; fewer than two hides the band rather than rendering a broken half-loop. Shipping default: `Singapore, Malaysia, Thailand, Hong Kong, China` — matches what was hardcoded before.
+- **Country ticker editable from Theme Options.** The scrolling markets strip under the hero was hardcoded in `templates/front-page.html` (5 countries, duplicated 4× for the continuous loop). It is now a `ticker_countries` option under the Homepage hero tab, a comma-separated plain-text field. Add a country, remove one, rename one, reorder them: save, and the ticker rebuilds immediately on the next request. The four-repetition duplication required by the CSS scroll animation is handled by `remotive_render_ticker()` automatically, so the field just takes a clean comma-separated list with no manual duplication. Minimum two entries required for the loop; fewer than two hides the band rather than rendering a broken half-loop. Shipping default: `Singapore, Malaysia, Thailand, Hong Kong, China`, matches what was hardcoded before.
 
-## [1.66.6] — 2026-08-31
+## [1.66.6] (2026-08-31)
 
 ### Security
 
@@ -2460,24 +2469,24 @@ fall below the fold, not less.
 
 ### Fixed
 
-- **RM-002: Privacy draft corrected to match actual data processing.** The draft stated "a submission is emailed to us and is not stored in this website's database" — factually wrong. The theme stores name, email address, message, page source, IP address, user agent, mail delivery status, spam status, and submission date. The "What happens to a form submission" section now accurately describes all stored fields, the scheduled retention purge, Akismet processing, and CF7 capture. The "What we collect" section updated to reference this. Privacy notice links added to the homepage CTA and Contact page forms (the About page already had one). A notice on any form now says submissions are stored, not email-only.
+- **RM-002: Privacy draft corrected to match actual data processing.** The draft stated "a submission is emailed to us and is not stored in this website's database", factually wrong. The theme stores name, email address, message, page source, IP address, user agent, mail delivery status, spam status, and submission date. The "What happens to a form submission" section now accurately describes all stored fields, the scheduled retention purge, Akismet processing, and CF7 capture. The "What we collect" section updated to reference this. Privacy notice links added to the homepage CTA and Contact page forms (the About page already had one). A notice on any form now says submissions are stored, not email-only.
 - **RM-004: Retention schedule self-healing.** The daily purge was scheduled only on `after_switch_theme`, so a site upgraded while the theme stayed active never got a purge event. Added an `admin_init` defensive re-check using the existing `wp_next_scheduled()` guard (no duplicate events possible).
-- **RM-006: Footer navigation — three real registered locations.** The footer's three navigation columns (Services, Case Studies, Company) now each have their own registered menu location (`footer_services`, `footer_cases`, `footer_company`). The old `footer_sitemap` location is retired; `remotive_migrate_footer_sitemap_location()` on `admin_init` copies any existing assignment to `footer_company` once, then removes the orphaned key. `remotive_nav_location_for_class()` rewired to match by explicit class (`rm-footer__links`, `rm-footer__links--cases`, `rm-footer__links--company`), not by render-order counter. Case Studies now gets its own real menu an administrator can edit; previously it was permanently excluded from menu management.
+- **RM-006: Footer navigation, three real registered locations.** The footer's three navigation columns (Services, Case Studies, Company) now each have their own registered menu location (`footer_services`, `footer_cases`, `footer_company`). The old `footer_sitemap` location is retired; `remotive_migrate_footer_sitemap_location()` on `admin_init` copies any existing assignment to `footer_company` once, then removes the orphaned key. `remotive_nav_location_for_class()` rewired to match by explicit class (`rm-footer__links`, `rm-footer__links--cases`, `rm-footer__links--company`), not by render-order counter. Case Studies now gets its own real menu an administrator can edit; previously it was permanently excluded from menu management.
 - **RM-007: Theme Options description fields now render.** Five description fields (`problem_sub`, `services_sub`, `why_sub`, `work_sub`, `about_sub`) were incorrectly nested inside their sibling heading field's array definition due to a brace-alignment error introduced when the fields were first added. They appeared in the defaults and in the token map, but never in the admin UI. Restructured as proper top-level siblings of the heading fields. Also fixed the field renderer: `type: 'textarea'` silently fell through to a single-line `<input type="text">` because `remotive_render_text_field()` had no textarea branch. Added the correct `<textarea rows="3">` path with `esc_textarea()`.
 - **RM-008: Default colour mode option now actually reaches the front end.** `wp_add_inline_script()` was attached to `'remotive-theme-toggle'`, a handle that does not exist (a leftover from before the front-end scripts were consolidated into `'remotive-front'`). The inline script never printed, so `window.remotiveThemeOptions` was undefined and `remotive.js` always fell back to `'dark'` regardless of the Theme Options setting. Fixed by attaching to the real handle.
-- **RM-009: Contact settings genuinely global.** Three hardcoded instances of the email address and postal address remained: the blog sidebar (`parts/sidebar.html`), the Contact page email link, and the Contact page address block (`templates/page-contact.html`). All three replaced with `__REMOTIVE_CONTACT_EMAIL__` and `__REMOTIVE_ADDRESS_LINE_*__` tokens. The sidebar email is now also wrapped in a `mailto:` link, matching the footer. Footer and schema markup were already using tokens.
-- **RM-010: Unconfigured social profiles hidden.** All seven social icons were previously rendered unconditionally with `#` as the href when no URL was configured — directly contradicting the Theme Options UI which says "blank hides the icon". Replaced 14 static anchor blocks (7 in `parts/footer.html`, 7 in `templates/page-contact.html`) with a single `__REMOTIVE_SOCIAL_LINKS__` token each. New `remotive_render_social_links()` helper applies the same empty/`#`/invalid-URL skip logic already in `remotive_schema_same_as()`. Schema output was already correct.
+- **RM-009: Contact settings global.** Three hardcoded instances of the email address and postal address remained: the blog sidebar (`parts/sidebar.html`), the Contact page email link, and the Contact page address block (`templates/page-contact.html`). All three replaced with `__REMOTIVE_CONTACT_EMAIL__` and `__REMOTIVE_ADDRESS_LINE_*__` tokens. The sidebar email is now also wrapped in a `mailto:` link, matching the footer. Footer and schema markup were already using tokens.
+- **RM-010: Unconfigured social profiles hidden.** All seven social icons were previously rendered unconditionally with `#` as the href when no URL was configured, directly contradicting the Theme Options UI which says "blank hides the icon". Replaced 14 static anchor blocks (7 in `parts/footer.html`, 7 in `templates/page-contact.html`) with a single `__REMOTIVE_SOCIAL_LINKS__` token each. New `remotive_render_social_links()` helper applies the same empty/`#`/invalid-URL skip logic already in `remotive_schema_same_as()`. Schema output was already correct.
 - **RM-015: Setup no longer overwrites Reading settings unconditionally.** `remotive_run_site_setup()` previously called `update_option('show_on_front',...)` on every run, including via the manual repair action. A site that had deliberately configured a different static homepage would have it silently overwritten. Now only sets Reading options when `show_on_front` is `'posts'` or `page_on_front` is `0` (fresh-install defaults). An explicitly configured static front page is left alone.
 - **RM-016: Undefined `$org_ref` in `remotive_schema_faq_page()`.** A Service block copied from `remotive_schema_services()` into `remotive_schema_faq_page()` referenced `$org_ref` and `$services`, neither of which was in scope. This produced PHP warnings on every page using the FAQ, SEO-Singapore, or Malaysia templates. The orphaned block removed; Service generation remains only in `remotive_schema_services()` where the variables are defined. (Source of the `$org_ref` warnings flooding the production error log.)
-- **RM-017: Accept-header logo variation now uses `<picture>` markup.** The header logo previously selected AVIF or PNG server-side from the request's `Accept` header and baked the chosen URL into the HTML, varying the document by Accept. `Vary: Accept` was only added on the front page, leaving every other page (all of which also carry the header logo) unprotected in shared caches. Replaced with a `<picture>` element — `<source type="image/avif">` + `<img src="…png">` fallback — so format selection is handled entirely by the browser. The document is now identical across Accept values. `Vary: Accept` on the front page retained only for the hero mark CSS background (a genuine server-side negotiation that hasn't moved to `<picture>` yet).
+- **RM-017: Accept-header logo variation now uses `<picture>` markup.** The header logo previously selected AVIF or PNG server-side from the request's `Accept` header and baked the chosen URL into the HTML, varying the document by Accept. `Vary: Accept` was only added on the front page, leaving every other page (all of which also carry the header logo) unprotected in shared caches. Replaced with a `<picture>` element, `<source type="image/avif">` + `<img src="…png">` fallback, so format selection is handled entirely by the browser. The document is now identical across Accept values. `Vary: Accept` on the front page retained only for the hero mark CSS background (a genuine server-side negotiation that has not moved to `<picture>` yet).
 - **RM-018: Public "Placeholder tiles" note removed from Team page.** The note was visible to all visitors. Removed. Team members without a portrait pair now show branded initials on the gradient background (computed from `name` in the team options) rather than the literal word "Photo". Neither placeholder text nor fabricated photography is shown.
 
 ### Changed
 
-- **RM-012/RM-013: Internal cross-links resolved from real permalinks.** New `remotive_resolve_seed_post_links()` runs after the seed loop. It builds a map of every seeded blog post slug → `get_permalink()` result, then rewrites any `/blog/{slug}/` occurrence in seeded post content to the actual permalink. Works with any WordPress permalink structure and subdirectory installs. Hardcoded paths remain in templates where they can't be token-resolved at runtime; those will be documented as a known limitation until a runtime token approach replaces them.
+- **RM-012/RM-013: Internal cross-links resolved from real permalinks.** New `remotive_resolve_seed_post_links()` runs after the seed loop. It builds a map of every seeded blog post slug → `get_permalink()` result, then rewrites any `/blog/{slug}/` occurrence in seeded post content to the actual permalink. Works with any WordPress permalink structure and subdirectory installs. Hardcoded paths remain in templates where they cannot be token-resolved at runtime; those will be documented as a known limitation until a runtime token approach replaces them.
 - **RM-014: Versioned, idempotent migrations.** `remotive_site_setup_done` now stores a migration schema version string (`REMOTIVE_SETUP_SCHEMA = '1.65.7'`) rather than just the theme version. `remotive_maybe_auto_setup()` uses `version_compare()` to decide which entries in `remotive_migration_registry()` still need to run, advances the stored version after each one, and is a no-op on sites already at the current schema. Existing sites whose stored value is a truthy non-version string (e.g. an old theme version) get the full 1.65.7 migration on their next admin load.
 
-## [1.66.5] — 2026-08-30
+## [1.66.5] (2026-08-30)
 
 ### Changed
 
@@ -2507,22 +2516,22 @@ fall below the fold, not less.
     (`font-family:'Space Grotesk','Saira','Saira Fallback',system-ui,sans-serif`),
     rather than inheriting whatever the page-wide variable resolves
     to. This is the only element on the site set to Space Grotesk.
-    Given it's four short one-line labels below the fold, no separate
-    metric-matched fallback was built for it — the layout-shift risk
+    Given it is four short one-line labels below the fold, no separate
+    metric-matched fallback was built for it, the layout-shift risk
     Saira's system exists to prevent is negligible at this scale.
   - `readme.txt`, `readme.md`, `resources.md`, `ssot.md` updated to
     describe Saira as the site typeface again, Space Grotesk as a
     named, scoped footer accent. `ssot.md`'s brand-facts table keeps
     a note that 1.66.4 briefly deviated further than intended, so the
-    record isn't silently rewritten as if it never happened.
+    record is not silently rewritten as if it never happened.
 
-## [1.66.4] — 2026-08-30
+## [1.66.4] (2026-08-30)
 
 ### Changed
 
 - **Footer column heading font-size increased** from `.78rem` to
   `.92rem` (`.rm-footer__heading`), with letter-spacing eased slightly
-  (`.12em` to `.1em`) so the wider glyphs at the larger size don't
+  (`.12em` to `.1em`) so the wider glyphs at the larger size do not
   read as over-tracked.
 - **Brand typeface changed from Saira to Space Grotesk** across both
   light and dark modes, requested for a bolder, more distinctive,
@@ -2554,20 +2563,20 @@ fall below the fold, not less.
     entry removed, rather than left bundled and unused.
   - `login.css`'s font-family reference updated too, though the login
     screen was never actually enqueuing the webfont there in the
-    first place — it was already falling through to `system-ui`
+    first place, it was already falling through to `system-ui`
     regardless of which name was written first in the stack.
 - **Documented, not silently overwritten: this deviates from the
   client's own brand-guideline JSON** (`remotive_brand_5.json`), which
   still specifies Saira as the single typeface across all roles.
   `ssot.md`'s brand facts table now notes the deviation explicitly
-  rather than just updating the value, so a future reader doesn't
+  rather than just updating the value, so a future reader does not
   mistake this for a revision to the client's actual brand guidelines.
   `readme.txt`'s FAQ and feature descriptions updated to describe
   Space Grotesk as current state while keeping the historical record
   of Saira's role intact where it was already discussing history
   (e.g. the 1.41.2 dark/light font-parity fix).
 
-## [1.66.3] — 2026-08-30
+## [1.66.3] (2026-08-30)
 
 ### Fixed
 
@@ -2595,8 +2604,7 @@ fall below the fold, not less.
     `footer_services`. Added the `--company` class to the Company
     column in `parts/footer.html` to make this possible; Case Studies
     already carried `--cases`.
-  - Updated `remotive_build_classic_menus()`'s auto-created "Footer —
-    Sitemap" menu to match what the Company column actually contains
+  - Updated `remotive_build_classic_menus()`'s auto-created "Footer, Sitemap" menu to match what the Company column actually contains
     (About, Team, Insights, FAQ, Contact, Privacy, Terms) instead of
     a list that included Services and Case Studies items redundant
     with the other two columns.
@@ -2607,7 +2615,7 @@ fall below the fold, not less.
   Fixed in the footer and in the About page's contact-form privacy
   note, the only other place either URL appeared.
 
-## [1.66.2] — 2026-08-30
+## [1.66.2] (2026-08-30)
 
 ### Changed
 
@@ -2620,7 +2628,7 @@ fall below the fold, not less.
   link. None of the 23 items passed all of that before this pass.
   - **13 case studies had generic, non-searchable focus keywords**
     like "marketplace launch case study" and "paid search case
-    study" — internal labels, not phrases anyone would search, and
+    study", internal labels, not phrases anyone would search, and
     none appeared anywhere in the actual content. Each was replaced
     with a real, specific keyword (`skincare marketplace launch`,
     `automotive programmatic advertising`, `cookieless audience
@@ -2638,7 +2646,7 @@ fall below the fold, not less.
   - **Word count was the largest gap.** Several case studies ran
     174–379 words against Rank Math's 600-word floor; the 6 service
     pages and analytics page ran 198–546. Every short item gained one
-    to three new sections: what the case doesn't prove, why a
+    to three new sections: what the case does not prove, why a
     specific decision was made, how budget or timeline was
     structured, what a prospective client should ask or check. These
     are substantive additions, not padding: each states a fact,
@@ -2654,7 +2662,7 @@ fall below the fold, not less.
   - **A hyphen mismatch cost two items their title/description
     keyword match**: "SEO-Friendly" vs the keyword "seo friendly",
     and "E-commerce" vs "ecommerce". Rank Math's exact-phrase check
-    doesn't treat a hyphen as equivalent to a space; both were
+    does not treat a hyphen as equivalent to a space; both were
     corrected to match the keyword literally.
   - Full-file PHP syntax verified after every single item throughout
     this pass (23 checks total), using `phply` with `??` substituted
@@ -2682,7 +2690,7 @@ fall below the fold, not less.
   needs a call from the person maintaining the site, not a default
   taken here.
 
-## [1.66.1] — 2026-08-30
+## [1.66.1] (2026-08-30)
 
 ### Added
 
@@ -2720,7 +2728,7 @@ fall below the fold, not less.
   particularly for the Threads glyph, which is the most complex path
   of the four.
 
-## [1.66.0] — 2026-08-30
+## [1.66.0] (2026-08-30)
 
 ### Fixed
 
@@ -2775,7 +2783,7 @@ fall below the fold, not less.
     connected system. See how." (101 chars), focus keyword "digital
     marketing agency malaysia".
 
-## [1.65.9] — 2026-08-30
+## [1.65.9] (2026-08-30)
 
 ### Changed
 
@@ -2783,10 +2791,10 @@ fall below the fold, not less.
   every template, `inc/content-seed-data.php` (blog posts, case
   studies, service pages), FAQ answers and theme-option defaults.
   Four fixes:
-  - Front page CTA note read "No newsletter, no spam, just what we'd
+  - Front page CTA note read "No newsletter, no spam, just what we would
     fix first," an exact match of the banned "No X, no Y, just Z"
     negative-parallelism pattern. Rewritten as "We reply with what
-    we'd fix first. No mailing list."
+    we would fix first. No mailing list."
   - Digital Marketing Malaysia page read "built to support SEO
     rankings, not just fill a content calendar," a negative-
     parallelism tail. Rewritten as a direct positive claim.
@@ -2806,7 +2814,7 @@ fall below the fold, not less.
     history, not visitor-facing content, and well outside the scope
     of this pass. Flagged for a separate pass if wanted.
 
-## [1.65.8] — 2026-08-30
+## [1.65.8] (2026-08-30)
 
 ### Added
 
@@ -2827,7 +2835,7 @@ fall below the fold, not less.
   deliverables with no physical production. No sourcing, offset, or
   vendor-policy claims are made, since none were supplied to verify.
 
-## [1.65.7] — 2026-08-30
+## [1.65.7] (2026-08-30)
 
 ### Changed
 
@@ -2842,7 +2850,7 @@ fall below the fold, not less.
   the same markup as Problem/Why/Services/Work/Team: link beside the
   heading block, not after the content it introduces.
 
-## [1.65.6] — 2026-08-30
+## [1.65.6] (2026-08-30)
 
 ### Changed
 
@@ -2851,7 +2859,7 @@ fall below the fold, not less.
   sections that sit directly above and below them. Both sections
   previously used a flat `wp:html` block with no `rm-section-head`
   wrapper, so unlike every other major homepage section they had
-  nothing on the right — an inconsistency the other three sections'
+  nothing on the right, an inconsistency the other three sections'
   pattern made obvious by contrast. Restructured both into the same
   `rm-section-head` flex markup as Services/Work/Team: eyebrow,
   heading and lead on the left, link on the right. Problem now links
@@ -2864,7 +2872,7 @@ fall below the fold, not less.
   unaffected and still apply, since that section keeps its original
   flat structure.
 
-## [1.65.5] — 2026-08-30
+## [1.65.5] (2026-08-30)
 
 ### Changed
 
@@ -2877,14 +2885,14 @@ fall below the fold, not less.
   existing `.rm-sidebar__about` text, so it reads as a qualifier
   rather than a duplicate of the about copy.
 
-## [1.65.4] — 2026-08-30
+## [1.65.4] (2026-08-30)
 
 ### Fixed
 
 - **Studio gallery on the Team page now holds four tiles per row at
   every width.** `.rm-gallery` used `grid-template-columns:repeat(auto-fit,
   minmax(min(240px,100%),1fr))`, which packed as many 240px tracks as
-  the wide measure allowed — five at full desktop width — and stranded
+  the wide measure allowed, five at full desktop width, and stranded
   the sixth tile ("The team") alone on a second row next to empty
   space. The comment above the rule claimed this resolved to three
   columns; it did not, because `rm-measure-wide` is wider than the
@@ -2893,7 +2901,7 @@ fall below the fold, not less.
   480px, so the row count is predictable regardless of container
   width and the six tiles land as two even rows of four and two.
 
-## [1.65.3] — 2026-08-30
+## [1.65.3] (2026-08-30)
 
 ### Documentation
 
@@ -2924,7 +2932,7 @@ fall below the fold, not less.
   bundle and the portrait script are the theme's own work under its
   own licence, with no third-party library bundled.
 
-## [1.65.2] — 2026-08-30
+## [1.65.2] (2026-08-30)
 
 ### Changed
 
@@ -2945,7 +2953,7 @@ fall below the fold, not less.
     without limit while real enquiries expired.
   - The CSV export covers both folders and marks which is which.
 
-## [1.65.1] — 2026-08-30
+## [1.65.1] (2026-08-30)
 
 ### Changed
 
@@ -2987,7 +2995,7 @@ fall below the fold, not less.
   publication date and whether the company must register under the
   Act.
 
-## [1.65.0] — 2026-08-30
+## [1.65.0] (2026-08-30)
 
 ### Changed
 
@@ -3020,7 +3028,7 @@ fall below the fold, not less.
   alternative was a column of three-line links, so the shortening
   won. The full titles remain the page titles and the H1s.
 
-## [1.64.0] — 2026-08-30
+## [1.64.0] (2026-08-30)
 
 ### Added
 
@@ -3060,7 +3068,7 @@ fall below the fold, not less.
   appear in the server logs the privacy policy draft describes, and
   the retention period deletes them with the rest of the record.
 
-## [1.63.0] — 2026-08-30
+## [1.63.0] (2026-08-30)
 
 ### Added
 
@@ -3101,7 +3109,7 @@ fall below the fold, not less.
 - Contact Form 7 remains optional. Nothing in the theme requires it,
   and the built-in forms work whether it is installed or not.
 
-## [1.62.0] — 2026-08-30
+## [1.62.0] (2026-08-30)
 
 ### Added
 
@@ -3135,7 +3143,7 @@ fall below the fold, not less.
   invites confusion about which document governs. The draft says so
   explicitly and the file explains the choice.
 
-## [1.61.0] — 2026-08-30
+## [1.61.0] (2026-08-30)
 
 ### Added
 
@@ -3164,7 +3172,7 @@ fall below the fold, not less.
   answer about results avoids a timeline promise and points at the
   case studies, where the starting position is stated on each one.
 
-## [1.60.0] — 2026-08-30
+## [1.60.0] (2026-08-30)
 
 ### Changed
 
@@ -3194,7 +3202,7 @@ fall below the fold, not less.
   stayed left. Both are fixed by matching that specificity rather
   than escalating against it.
 
-## [1.59.0] — 2026-08-30
+## [1.59.0] (2026-08-30)
 
 ### Changed
 
@@ -3223,7 +3231,7 @@ fall below the fold, not less.
   resubmitted and any advertising links pointed at the new address
   directly rather than relying on a redirect.
 
-## [1.58.1] — 2026-08-30
+## [1.58.1] (2026-08-30)
 
 ### Fixed
 
@@ -3243,7 +3251,7 @@ fall below the fold, not less.
   auto margins, its side margins are zeroed so it pins to the shared
   left edge rather than floating in the middle of the section.
 
-## [1.58.0] — 2026-08-30
+## [1.58.0] (2026-08-30)
 
 ### Changed
 
@@ -3277,7 +3285,7 @@ fall below the fold, not less.
   1.56.0, so the gallery had no viewer while About loaded a script it
   had no use for. It now follows the gallery.
 
-## [1.57.4] — 2026-08-30
+## [1.57.4] (2026-08-30)
 
 ### Fixed
 
@@ -3294,7 +3302,7 @@ fall below the fold, not less.
   it as part of the subject. That is now recorded in the script
   beside his entry, since it has caught three of these frames.
 
-## [1.57.3] — 2026-08-30
+## [1.57.3] (2026-08-30)
 
 ### Added
 
@@ -3312,7 +3320,7 @@ fall below the fold, not less.
   works for the other nine intact, rather than loosening it for
   everybody to accommodate one photograph.
 
-## [1.57.2] — 2026-08-30
+## [1.57.2] (2026-08-30)
 
 ### Fixed
 
@@ -3337,7 +3345,7 @@ fall below the fold, not less.
   than broken. Restore it when a fuller photograph exists: the
   script keeps his entry commented in place for that.
 
-## [1.57.1] — 2026-08-30
+## [1.57.1] (2026-08-30)
 
 ### Fixed
 
@@ -3367,7 +3375,7 @@ fall below the fold, not less.
   Worth keeping in mind for Adam's photographs, where sunglasses and
   a raised chin are the two things to avoid in at least one frame.
 
-## [1.57.0] — 2026-08-30
+## [1.57.0] (2026-08-30)
 
 ### Fixed
 
@@ -3405,7 +3413,7 @@ fall below the fold, not less.
   below to show, so no framing rule can fill it; a fuller photograph
   is the only fix.
 
-## [1.56.1] — 2026-08-30
+## [1.56.1] (2026-08-30)
 
 ### Added
 
@@ -3425,7 +3433,7 @@ fall below the fold, not less.
   knowing for the last set: a plain background beside the subject is
   worth more than a good pose next to signage.
 
-## [1.56.0] — 2026-08-30
+## [1.56.0] (2026-08-30)
 
 ### Changed
 
@@ -3460,7 +3468,7 @@ fall below the fold, not less.
   the form is placed. That was written that way in advance and it
   paid off here.
 
-## [1.55.0] — 2026-08-30
+## [1.55.0] (2026-08-30)
 
 ### Fixed
 
@@ -3491,7 +3499,7 @@ fall below the fold, not less.
   window, because a taller one pulls in the shop sign beside him,
   which the cut-out then mistakes for the subject.
 
-## [1.54.2] — 2026-08-30
+## [1.54.2] (2026-08-30)
 
 ### Added
 
@@ -3504,7 +3512,7 @@ fall below the fold, not less.
   generated rules and structured data pick it up with no code
   change.
 
-## [1.54.1] — 2026-08-30
+## [1.54.1] (2026-08-30)
 
 ### Added
 
@@ -3519,7 +3527,7 @@ fall below the fold, not less.
   correctly still resolves to the placeholder tile, and that his
   Person entry in the structured data has gained its image property.
 
-## [1.54.0] — 2026-08-30
+## [1.54.0] (2026-08-30)
 
 ### Performance
 
@@ -3555,7 +3563,7 @@ fall below the fold, not less.
   there are; only the server or CDN config can stop them being
   uncached.
 
-## [1.53.6] — 2026-08-30
+## [1.53.6] (2026-08-30)
 
 ### Fixed
 
@@ -3576,7 +3584,7 @@ fall below the fold, not less.
   what hid this from earlier passes: the rows measured contiguous
   there while the real page had the margin.
 
-## [1.53.5] — 2026-08-30
+## [1.53.5] (2026-08-30)
 
 ### Fixed
 
@@ -3597,7 +3605,7 @@ fall below the fold, not less.
   and footer, and the same halving is applied where a section hands
   over to the call-to-action band. Verified at 1440, 768 and 390px.
 
-## [1.53.4] — 2026-08-30
+## [1.53.4] (2026-08-30)
 
 ### Changed
 
@@ -3612,7 +3620,7 @@ fall below the fold, not less.
   56px. Verified at 1740, 1280 and 390px, with an unrelated section
   confirmed still at full padding.
 
-## [1.53.3] — 2026-08-30
+## [1.53.3] (2026-08-30)
 
 ### Changed
 
@@ -3630,7 +3638,7 @@ fall below the fold, not less.
   Verified at 1280, 1440, 1740 and 1920px, with the single-column
   stack below 900px unchanged.
 
-## [1.53.2] — 2026-08-30
+## [1.53.2] (2026-08-30)
 
 ### Fixed
 
@@ -3651,7 +3659,7 @@ fall below the fold, not less.
   screen, at 390 and 1027px: no overflow, 16px fields, 44px submit,
   and the reveal button correctly inside the password field.
 
-## [1.53.1] — 2026-08-30
+## [1.53.1] (2026-08-30)
 
 ### Removed
 
@@ -3667,7 +3675,7 @@ fall below the fold, not less.
   and no rule referencing the Google button remaining in the
   stylesheet.
 
-## [1.53.0] — 2026-08-30
+## [1.53.0] (2026-08-30)
 
 ### Added
 
@@ -3704,7 +3712,7 @@ fall below the fold, not less.
   horizontal overflow, and with Site Kit's Sign in with Google button
   left intact.
 
-## [1.52.6] — 2026-08-30
+## [1.52.6] (2026-08-30)
 
 ### Performance
 
@@ -3732,7 +3740,7 @@ fall below the fold, not less.
   removing it from the front page is a plugin decision recorded in
   upgrading.md.
 
-## [1.52.5] — 2026-08-30
+## [1.52.5] (2026-08-30)
 
 ### Fixed
 
@@ -3752,7 +3760,7 @@ fall below the fold, not less.
   full-width panel with full-width rows and no horizontal overflow
   at any width.
 
-## [1.52.4] — 2026-08-30
+## [1.52.4] (2026-08-30)
 
 ### Fixed
 
@@ -3770,7 +3778,7 @@ fall below the fold, not less.
   styling matching the affected install: a solid 390px panel with
   five full-width rows, anchored under the header.
 
-## [1.52.3] — 2026-08-30
+## [1.52.3] (2026-08-30)
 
 ### Fixed
 
@@ -3789,7 +3797,7 @@ fall below the fold, not less.
   desktop, the links and CTA are untouched, and the phone still gets
   the fallback menu button.
 
-## [1.52.2] — 2026-08-30
+## [1.52.2] (2026-08-30)
 
 ### Changed
 
@@ -3799,7 +3807,7 @@ fall below the fold, not less.
   the gap between the text and the bar is unchanged. Applied in both
   the critical and component stylesheets so the two cannot disagree.
 
-## [1.52.1] — 2026-08-30
+## [1.52.1] (2026-08-30)
 
 ### Fixed
 
@@ -3818,7 +3826,7 @@ fall below the fold, not less.
   1280px: no stray boxes, links visible on desktop, hamburger on
   phones, and the CTA and mode toggle intact throughout.
 
-## [1.52.0] — 2026-08-30
+## [1.52.0] (2026-08-30)
 
 ### Fixed
 
@@ -3854,7 +3862,7 @@ fall below the fold, not less.
   768px, with and without custom properties: no horizontal overflow
   anywhere.
 
-## [1.51.0] — 2026-08-30
+## [1.51.0] (2026-08-30)
 
 ### Fixed
 
@@ -3867,7 +3875,7 @@ fall below the fold, not less.
   the visitor had neither. That is worse than the overlapping menu it
   replaced, and the fault is mine.
   - The inline list is now hidden only while core's overlay is
-    genuinely in charge.
+    in charge.
   - A new assets/js/nav-fallback.js checks for a rendered overlay
     button and, only when there is none, builds an equivalent: a
     44px labelled toggle that opens the existing list as a panel
@@ -3883,7 +3891,7 @@ fall below the fold, not less.
   opens on tap with aria-expanded following, and desktop still shows
   the inline links.
 
-## [1.50.0] — 2026-08-30
+## [1.50.0] (2026-08-30)
 
 ### Changed
 
@@ -3900,7 +3908,7 @@ fall below the fold, not less.
   - **annotations.** The spec defines a read-only hint and an
     untrusted-content hint, and both matter here. Site search and the
     navigation lookup are marked read-only; site search is
-    additionally marked as returning untrusted content, since it
+    also marked as returning untrusted content, since it
     returns page copy that an agent must not treat as instructions.
     The two form-preparation tools and the page-open tool are marked
     not read-only, because they write to the page or navigate.
@@ -3924,7 +3932,7 @@ fall below the fold, not less.
   library, so nothing from it is bundled: the theme's licensing
   position is unchanged and no third-party code was added.
 
-## [1.49.0] — 2026-08-30
+## [1.49.0] (2026-08-30)
 
 ### Changed
 
@@ -3962,7 +3970,7 @@ fall below the fold, not less.
   kind. Colour choice is a named mode rather than a free value, which
   the system's own visual-selector pattern covers.
 
-## [1.48.0] — 2026-08-30
+## [1.48.0] (2026-08-30)
 
 ### Documentation
 
@@ -4007,7 +4015,7 @@ fall below the fold, not less.
   URLs, prefixing, and release hygiene were already compliant and
   needed no change.
 
-## [1.47.0] — 2026-08-30
+## [1.47.0] (2026-08-30)
 
 ### Fixed
 
@@ -4031,7 +4039,7 @@ fall below the fold, not less.
   - **Resize text (1.4.4).** At 200 percent text zoom between 601 and
     782px the navigation overflowed the viewport, because an earlier
     fix pinned it against shrinking. It may now wrap when the links
-    genuinely do not fit; verified unchanged on one line at default
+    do not fit; verified unchanged on one line at default
     size from 601 to 1280px.
   - **Heading structure (1.3.1, 2.4.6).** The footer used h6 after
     h2, and post cards used h3 directly under h1. Levels corrected;
@@ -4072,7 +4080,7 @@ fall below the fold, not less.
   the harness before any conclusion was drawn, which is also why the
   harness is now a more trustworthy stand-in for a real install.
 
-## [1.46.0] — 2026-08-30
+## [1.46.0] (2026-08-30)
 
 ### Fixed
 
@@ -4132,7 +4140,7 @@ fall below the fold, not less.
   unsubstituted token strings, which are single unbreakable words far
   wider than any real heading line.
 
-## [1.45.1] — 2026-08-30
+## [1.45.1] (2026-08-30)
 
 ### Fixed
 
@@ -4156,7 +4164,7 @@ fall below the fold, not less.
   open. Verified at 393, 600, 700 and 1024px, with the overlay's own
   open state confirmed to still reveal the links.
 
-## [1.45.0] — 2026-08-30
+## [1.45.0] (2026-08-30)
 
 ### Added
 
@@ -4197,7 +4205,7 @@ fall below the fold, not less.
   a browser render confirming the AVIF background is chosen and the
   page still reports zero horizontal overflow.
 
-## [1.44.6] — 2026-08-30
+## [1.44.6] (2026-08-30)
 
 ### Performance
 
@@ -4215,7 +4223,7 @@ fall below the fold, not less.
   render, a 2x display the 12KB 112px one, against 22KB before, and
   both format paths resolve correctly.
 
-## [1.44.5] — 2026-08-30
+## [1.44.5] (2026-08-30)
 
 ### Performance
 
@@ -4245,7 +4253,7 @@ fall below the fold, not less.
   carries its file's modification time, a one-year immutable policy
   is safe: a changed file always arrives under a new URL.
 
-## [1.44.4] — 2026-08-30
+## [1.44.4] (2026-08-30)
 
 ### Performance
 
@@ -4276,7 +4284,7 @@ fall below the fold, not less.
   connection setup; removing it from the front page entirely is a
   plugin-side decision recorded in upgrading.md.
 
-## [1.44.3] — 2026-08-30
+## [1.44.3] (2026-08-30)
 
 ### Performance
 
@@ -4299,7 +4307,7 @@ fall below the fold, not less.
   heading, the problem section and every section below hold position
   to 0.0px, where the previous stack moved a display heading by 48px.
 
-## [1.44.2] — 2026-08-30
+## [1.44.2] (2026-08-30)
 
 ### Changed
 
@@ -4313,13 +4321,13 @@ fall below the fold, not less.
   slug whose AVIF actually ships, base rule and label-hiding always,
   the hover layer only when the -alt file exists too. The hardcoded
   elfie and gordan blocks leave remotive.css; the generic transition
-  and touch-guard rules stay. Adding a member is now genuinely a
+  and touch-guard rules stay. Adding a member is now a
   roster row plus two image files. Stub-verified (two members with
   photography emit rules, the photo-less four emit nothing) and
   harness-verified (portraits render, placeholder tiles keep their
   label).
 
-## [1.44.1] — 2026-08-30
+## [1.44.1] (2026-08-30)
 
 ### Fixed
 
@@ -4361,7 +4369,7 @@ fall below the fold, not less.
   production follow-up needed for versioned theme files, uploads and third-party
   assets.
 
-## [1.44.0] — 2026-08-30
+## [1.44.0] (2026-08-30)
 
 ### Added
 
@@ -4389,7 +4397,7 @@ fall below the fold, not less.
   integration, its browser-support limits, REST security boundary, human-review
   rule, deployment checks, and absence of third-party WebMCP code.
 
-## [1.43.5] — 2026-08-30
+## [1.43.5] (2026-08-30)
 
 ### Fixed
 
@@ -4401,7 +4409,7 @@ fall below the fold, not less.
   filling the tile with shoulders bleeding off the bottom, is the
   standard the remaining members' portraits will be cut to.
 
-## [1.43.4] — 2026-08-30
+## [1.43.4] (2026-08-30)
 
 ### Fixed
 
@@ -4415,7 +4423,7 @@ fall below the fold, not less.
   its edge. Hover frames keep the natural head tilt of a laugh; the
   consistency rule applies to the resting grid.
 
-## [1.43.3] — 2026-08-30
+## [1.43.3] (2026-08-30)
 
 ### Added
 
@@ -4426,7 +4434,7 @@ fall below the fold, not less.
   the tile gradient constant behind both. Verified in the harness:
   base and alternate resolve and the placeholder label hides.
 
-## [1.43.2] — 2026-08-30
+## [1.43.2] (2026-08-30)
 
 ### Changed
 
@@ -4442,7 +4450,7 @@ fall below the fold, not less.
   member with slug, bio and portrait gets every property, the bare
   member gets only name, anchor and affiliation.
 
-## [1.43.1] — 2026-08-30
+## [1.43.1] (2026-08-30)
 
 ### Added
 
@@ -4464,7 +4472,7 @@ fall below the fold, not less.
   empty roster; the harness confirms the dynamic teaser lays four
   per row with Elfie's portrait wired.
 
-## [1.43.0] — 2026-08-30
+## [1.43.0] (2026-08-30)
 
 ### Added
 
@@ -4480,28 +4488,28 @@ fall below the fold, not less.
   templates, and the dual Organization/ProfessionalService typing is
   unchanged.
 
-## [1.42.10] — 2026-08-30
+## [1.42.10] (2026-08-30)
 
 ### Changed
 
 - **Gordan Domlija is retitled Managing Partner** in both team
   grids, replacing Owner.
 
-## [1.42.9] — 2026-08-30
+## [1.42.9] (2026-08-30)
 
 ### Changed
 
 - **Jazlan Zakirin is retitled Performance Director** in both team
   grids, replacing Head of Marketing.
 
-## [1.42.8] — 2026-08-30
+## [1.42.8] (2026-08-30)
 
 ### Changed
 
 - **Nabil Takiyuddin is retitled Data Analyst** in both team grids,
   replacing Analytics.
 
-## [1.42.7] — 2026-08-30
+## [1.42.7] (2026-08-30)
 
 ### Changed
 
@@ -4510,7 +4518,7 @@ fall below the fold, not less.
   is Paid Social Specialist; Owner, Head of Marketing and Analytics
   stand.
 
-## [1.42.6] — 2026-08-30
+## [1.42.6] (2026-08-30)
 
 ### Changed
 
@@ -4518,7 +4526,7 @@ fall below the fold, not less.
   Elfie Nieshaem, Adam Azman, Alif Aziz and Nabil Takiyuddin, in
   both team grids, homepage teaser and About page. Roles unchanged.
 
-## [1.42.5] — 2026-08-30
+## [1.42.5] (2026-08-30)
 
 ### Fixed
 
@@ -4530,7 +4538,7 @@ fall below the fold, not less.
   shoulder, cut out and re-encoded to AVIF. Verified with both
   frames captured at tile size side by side.
 
-## [1.42.4] — 2026-08-30
+## [1.42.4] (2026-08-30)
 
 ### Fixed
 
@@ -4541,7 +4549,7 @@ fall below the fold, not less.
   on desktop, 2 on tablets, 1 on phones, with the About grid keeping
   only its larger gap. Verified on both templates at three widths.
 
-## [1.42.3] — 2026-08-30
+## [1.42.3] (2026-08-30)
 
 ### Changed
 
@@ -4556,7 +4564,7 @@ fall below the fold, not less.
   behaviourally in the hoverless harness profile, where the hover no
   longer fires.
 
-## [1.42.2] — 2026-08-30
+## [1.42.2] (2026-08-30)
 
 ### Changed
 
@@ -4566,7 +4574,7 @@ fall below the fold, not less.
   pointing at the .avif files. Verified rendering and hover in the
   harness.
 
-## [1.42.1] — 2026-08-30
+## [1.42.1] (2026-08-30)
 
 ### Changed
 
@@ -4588,7 +4596,7 @@ fall below the fold, not less.
   with the palette loaded, dark-mode rendering in the harness is
   trustworthy again.
 
-## [1.42.0] — 2026-08-30
+## [1.42.0] (2026-08-30)
 
 ### Added
 
@@ -4607,7 +4615,7 @@ fall below the fold, not less.
   image at rest, alternate at full opacity on hover, label hidden.
   Print is unaffected, as team photos already collapse on paper.
 
-## [1.41.7] — 2026-08-30
+## [1.41.7] (2026-08-30)
 
 ### Fixed
 
@@ -4625,7 +4633,7 @@ fall below the fold, not less.
   template: the card fills its column, pagination sits below it, and
   the recent-post titles sit tight.
 
-## [1.41.6] — 2026-08-30
+## [1.41.6] (2026-08-30)
 
 ### Changed
 
@@ -4636,7 +4644,7 @@ fall below the fold, not less.
   proportions as the homepage's four-across team section. Verified at
   four widths.
 
-## [1.41.5] — 2026-08-30
+## [1.41.5] (2026-08-30)
 
 ### Fixed
 
@@ -4652,8 +4660,8 @@ fall below the fold, not less.
 - **The style audit now covers every shipped word, not just the case
   studies.** The four Insights articles and six service pages lose
   their 65 em dashes and three negative parallelisms (including the
-  opener "we don't build websites" and "the question isn't design,
-  it's diagnosis"), and a duplicated-phrase typo in the SEO service
+  opener "we don't build websites" and "the question is not design,
+  it is diagnosis"), and a duplicated-phrase typo in the SEO service
   copy is fixed. The two landing page templates get the same
   treatment: every em dash replaced, and the "not a vanity-metrics
   deck" / "not three disconnected budgets" / "not just impressions"
@@ -4662,7 +4670,7 @@ fall below the fold, not less.
   remaining template copy are swept too; the only em dashes left in
   the theme are in code comments and the Footer menu location names.
 
-## [1.41.4] — 2026-08-30
+## [1.41.4] (2026-08-30)
 
 ### Fixed
 
@@ -4685,7 +4693,7 @@ fall below the fold, not less.
   columns, pagination below the cards, 12px gaps between recent
   titles.
 
-## [1.41.3] — 2026-08-30
+## [1.41.3] (2026-08-30)
 
 ### Removed
 
@@ -4698,7 +4706,7 @@ fall below the fold, not less.
   old slugs, delete those pages and run setup, or use Restore, which
   recreates each item under its current slug.
 
-## [1.41.2] — 2026-08-30
+## [1.41.2] (2026-08-30)
 
 ### Fixed
 
@@ -4715,7 +4723,7 @@ fall below the fold, not less.
   Verified in the harness with WP's inline variables simulated after
   the stylesheet: both modes resolve Saira.
 
-## [1.41.1] — 2026-08-30
+## [1.41.1] (2026-08-30)
 
 ### Fixed
 
@@ -4738,7 +4746,7 @@ fall below the fold, not less.
   harness: 16px links, no text decoration in any state including
   hover, and the label present at every width.
 
-## [1.41.0] — 2026-08-29
+## [1.41.0] (2026-08-29)
 
 ### Changed
 
@@ -4767,7 +4775,7 @@ fall below the fold, not less.
   firing only on a 404 so a real page is never hijacked. Stub tests
   cover the seed-skip, the restore-rename and the redirect map.
 
-## [1.40.1] — 2026-08-29
+## [1.40.1] (2026-08-29)
 
 ### Removed
 
@@ -4780,7 +4788,7 @@ fall below the fold, not less.
   seeded, delete it from Pages and the seeder will leave it deleted,
   as always.
 
-## [1.40.0] — 2026-08-29
+## [1.40.0] (2026-08-29)
 
 ### Changed
 
@@ -4798,7 +4806,7 @@ fall below the fold, not less.
   Verified at six widths with both grids at the expected counts and
   no overflow attributable to the theme.
 
-## [1.39.0] — 2026-08-29
+## [1.39.0] (2026-08-29)
 
 ### Added
 
@@ -4820,7 +4828,7 @@ fall below the fold, not less.
   stub test across the three paths: unknown key refused, existing
   item updated in place, deleted item recreated.
 
-## [1.38.1] — 2026-08-29
+## [1.38.1] (2026-08-29)
 
 ### Fixed
 
@@ -4840,12 +4848,12 @@ fall below the fold, not less.
   parallelisms rewritten (the routing-decision line, the gifting
   budget line, the attribution-model line, the clinic card's
   honest-targets line, among others), and banned vocabulary removed
-  (enhanced, tailored, integrated). Mechanical sweeps for anaphora,
+  ("enhanced", "tailored", "integrated"). Mechanical sweeps for anaphora,
   coordinated triads and clause tricolons came back clean.
   Customer-journey analysis stays, as the literal name of the
   discipline.
 
-## [1.38.0] — 2026-08-29
+## [1.38.0] (2026-08-29)
 
 ### Changed
 
@@ -4853,7 +4861,7 @@ fall below the fold, not less.
   the method told in paragraphs.** Every one of the fourteen case
   pages replaced its "What we did" bullet list with prose, and the
   enumerable data moved into a "The numbers" table and, where a real
-  before-and-after exists, a static SVG bar chart — eleven tables and
+  before-and-after exists, a static SVG bar chart, eleven tables and
   seven charts in all. Every figure is verbatim from the copy already
   shipped; the two cases that state their outcome data is not ours to
   publish (the clinic group and the Singapore portfolio) stay prose
@@ -4870,7 +4878,7 @@ fall below the fold, not less.
   running keep their existing case pages untouched, as the seeder
   never rewrites content.
 
-## [1.37.1] — 2026-08-29
+## [1.37.1] (2026-08-29)
 
 ### Fixed
 
@@ -4882,10 +4890,10 @@ fall below the fold, not less.
   `add_theme_page()` duplicated core's own entry. The shim now runs
   after core's menu registration and checks the Appearance submenu
   for an existing `nav-menus.php` entry first, adding its own only
-  when core has not — verified by a stub test covering both core
+  when core has not, verified by a stub test covering both core
   behaviours (present: adds nothing; absent: adds exactly one).
 
-## [1.37.0] — 2026-08-29
+## [1.37.0] (2026-08-29)
 
 ### Changed
 
@@ -4898,12 +4906,12 @@ fall below the fold, not less.
   and "Invisible to AI search" (the pain the SEO & GEO / AIO / AEO
   service exists to solve). With six items the old 230px grid minimum
   let auto-fit cut five tracks and wrap the sixth item alone, so the
-  minimum rises to 340px — three even columns on the wide measure,
+  minimum rises to 340px, three even columns on the wide measure,
   two across from 900px down (via a 300px tablet tier), one on
   phones. Verified at 1440, 1200, 1024, 900, 768, 600 and 390px with
   zero horizontal overflow attributable to the theme.
 
-## [1.36.2] — 2026-08-29
+## [1.36.2] (2026-08-29)
 
 ### Fixed
 
@@ -4920,7 +4928,7 @@ fall below the fold, not less.
 
   - `.rm-eyebrow` was `inline-flex`, and auto margins do nothing on
     inline-level boxes, so every interior hero's eyebrow sat pinned to
-    the container's padding edge — 12px left of its siblings on wide
+    the container's padding edge, 12px left of its siblings on wide
     pages, 300px on About. Now a flex block, so its box centres like
     its siblings with the crosshair and text flush left.
   - `.rm-plates__note` (including the Work page's new section intros)
@@ -4938,7 +4946,7 @@ fall below the fold, not less.
   measure plus known structural insets (card padding, stat dividers,
   details borders), in both screen and print modes.
 
-## [1.36.1] — 2026-08-29
+## [1.36.1] (2026-08-29)
 
 ### Fixed
 
@@ -4956,13 +4964,12 @@ fall below the fold, not less.
   About, Contact, Services and single-post templates to PDF and
   inspecting each.
 
-## [1.36.0] — 2026-08-29
+## [1.36.0] (2026-08-29)
 
 ### Changed
 
 - **Every case study on the Work page now sits under a category
-  heading.** The first eight cards — the deck-sourced engagements —
-  had no grouping while the prior-roles block below them did, so the
+  heading.** The first eight cards, the deck-sourced engagements, had no grouping while the prior-roles block below them did, so the
   page read as two different documents. The cards are now organised
   into three sections with short intros (Strategy & market entry,
   Paid media & audience, Search & AI visibility) ahead of the
@@ -4978,8 +4985,8 @@ fall below the fold, not less.
   following the structure of the six existing case pages: the
   situation, what we did, what happened, and an honest read of what
   the numbers do and do not show. Every figure is verbatim from the
-  deck-sourced copy already shipped in the theme — nothing new is
-  claimed — and the anonymisation rule holds throughout: clients
+  deck-sourced copy already shipped in the theme, nothing new is
+  claimed, and the anonymisation rule holds throughout: clients
   described, never named, data unchanged. The Work page's closing
   note and the Theme Options "Shipped content" card now describe
   fourteen case studies, and the seeded total rises from 16 to 24
@@ -4987,7 +4994,7 @@ fall below the fold, not less.
   1440px screen pass and a print-to-PDF pass; all fourteen cards
   resolve to their `/work/` destinations.
 
-## [1.35.0] — 2026-08-29
+## [1.35.0] (2026-08-29)
 
 ### Added
 
@@ -5006,7 +5013,7 @@ fall below the fold, not less.
   Verified by printing the case-studies template to PDF in headless
   Chromium and inspecting every page in both starting modes.
 
-## [1.34.0] — 2026-08-29
+## [1.34.0] (2026-08-29)
 
 ### Added
 
@@ -5016,7 +5023,7 @@ fall below the fold, not less.
   site half-built until someone remembered to run the importer. They are
   now compiled into `inc/content-seed-data.php` and created by
   `inc/content-seed.php` as part of the same setup pass that creates the
-  core pages — published, on the right templates, parented under
+  core pages, published, on the right templates, parented under
   Services and Work so URLs resolve, with categories, tags, Rank Math
   metadata and featured images (bundled in `assets/seed-images/`)
   already attached. The classic menus are then built from the resulting
@@ -5027,7 +5034,7 @@ fall below the fold, not less.
   first, so nothing overwrites an existing page, even a draft. The theme
   records what it created, so anything later deleted stays deleted
   rather than reappearing at the next setup run. And every write is
-  additive — no seed item is ever updated after creation, so edits made
+  additive, no seed item is ever updated after creation, so edits made
   in wp-admin always survive.
 
   Twelve assertions cover the behaviour against WordPress stubs:
@@ -5044,15 +5051,14 @@ fall below the fold, not less.
   directory would fatal during setup rather than simply skipping the
   image. Preconditions are now checked first. Caught by the new tests.
 
-## [1.33.0] — 2026-08-29
+## [1.33.0] (2026-08-29)
 
 ### Changed
 
 - **Menus are now managed in Appearance → Menus, not the Site Editor.**
   WordPress hides the classic Menus screen whenever a block theme is
   active; new `inc/classic-menus.php` puts it back and makes it the real
-  control. Three locations are registered — Main menu (header), Footer —
-  Sitemap column, and Footer — Services column — and a `render_block`
+  control. Three locations are registered, Main menu (header), Footer, Sitemap column, and Footer, Services column, and a `render_block`
   filter swaps each template's navigation block for the assigned classic
   menu at render time.
 
@@ -5078,7 +5084,7 @@ fall below the fold, not less.
   unassigned-location fallback, non-navigation blocks untouched) plus
   the full 120-check dual-mode layout run.
 
-## [1.32.1] — 2026-08-29
+## [1.32.1] (2026-08-29)
 
 ### Fixed
 
@@ -5094,8 +5100,7 @@ Consistency audit across every page template.
   pairs its hero title with an `.rm-hero__sub` paragraph; service pages
   jumped straight from the display title to the body. The template now
   renders the page excerpt as the hero sub, which also means the lead
-  text is the same string Rank Math uses for the meta description —
-  one source, two places.
+  text is the same string Rank Math uses for the meta description, one source, two places.
 
 ### Added
 
@@ -5113,7 +5118,7 @@ Consistency audit across every page template.
   updated date, content, no hero band or CTA) remain deliberate
   exceptions, as recorded in readme.md.
 
-## [1.32.0] — 2026-08-29
+## [1.32.0] (2026-08-29)
 
 ### Added
 
@@ -5131,31 +5136,31 @@ Consistency audit across every page template.
   roles, so each page and the section note say so explicitly, clients
   are described by sector rather than named, and every figure is
   reported as recorded. Each case carries an "honest read" section
-  covering base effects, attribution limits, or — for the Singapore
-  portfolio — the fact that only method can be shown, not outcomes.
+  covering base effects, attribution limits, or, for the Singapore
+  portfolio, the fact that only method can be shown, not outcomes.
 
   The page now runs 14 cards in two labelled grids; verified at eight
   widths in both modes with no overflow.
 
-## [1.31.2] — 2026-08-29
+## [1.31.2] (2026-08-29)
 
 ### Changed
 
 - **The homepage shows one featured case and three rows.** v1.31.1 had
   taken it to five; the requested shape is four. The three rows kept
   are the automotive CPM saving, the B2B gifting lead growth and the
-  industrial automation organic rebuild — one paid, one paid-search,
+  industrial automation organic rebuild, one paid, one paid-search,
   one organic, so the strip spans the disciplines rather than
   repeating one. The sports precinct and healthcare cases remain on
   the Case Studies page, which still carries all eight.
 
-## [1.31.1] — 2026-08-29
+## [1.31.1] (2026-08-29)
 
 ### Changed
 
 - **The homepage now shows five case studies and the Case Studies page
   eight.** The homepage carried one featured spread plus two result
-  rows — a v1 layout choice made when no real case material existed,
+  rows, a v1 layout choice made when no real case material existed,
   and never revisited when v1.31.0 replaced the placeholders. Three
   more deck-sourced rows are added (industrial automation B2B, +86%
   organic sessions with average position 16.3 → 10.6; the national
@@ -5169,10 +5174,10 @@ Consistency audit across every page template.
   the global trading platform's 48-hour market-entry sprint. That is
   every case in the source decks that can be told anonymously with a
   headline figure. The grid's 4 → 2 → 1 steps mean eight cards fill
-  two even rows at every breakpoint — verified at eight widths in both
+  two even rows at every breakpoint, verified at eight widths in both
   modes with no overflow.
 
-## [1.31.0] — 2026-08-29
+## [1.31.0] (2026-08-29)
 
 ### Changed
 
@@ -5195,7 +5200,7 @@ Consistency audit across every page template.
     leads and +50% conversion rate.
   - Cards: the above plus the national sports precinct's 53k → 745k
     addressable audience and its 20–30% CPA improvement.
-  - Stat band: +168% GMV, 85% CPM saving, +150% lead growth — the
+  - Stat band: +168% GMV, 85% CPM saving, +150% lead growth, the
     client's own headline figures from the deck's summary slide.
 
 - **The fabricated client testimonial is removed.** The homepage
@@ -5210,29 +5215,27 @@ Consistency audit across every page template.
   rather than named, and scopes the remaining placeholder to the card
   artwork.
 
-## [1.30.1] — 2026-08-29
+## [1.30.1] (2026-08-29)
 
 ### Fixed
 
-- **The Case Studies page named a client.** The card label "DD Bricks —
-  traffic recovery" now reads "B2B corporate gifting — lead growth",
+- **The Case Studies page named a client.** The card label "DD Bricks, traffic recovery" now reads "B2B corporate gifting, lead growth",
   matching the anonymisation rule applied across the content packs:
   clients are described, never named, and every number stays exactly as
   sourced. The accompanying deck-traceability audit (in the service
   pages pack) maps every element of both capability decks to its
-  destination on the site or records why it is deliberately unused —
-  including the exclusion of all client-specific pitch material. The
+  destination on the site or records why it is deliberately unused, including the exclusion of all client-specific pitch material. The
   homepage's placeholder-branded featured case is flagged there for a
   future content revision; authored pages no longer borrow its number.
 
-## [1.30.0] — 2026-08-29
+## [1.30.0] (2026-08-29)
 
 ### Changed
 
 - **The service-page set is now the footer's canonical six, and the
   footer nav links them.** The v1.29.0 pack shipped the capability
   deck's eight modules as pages; the site's own information
-  architecture — the footer Services nav — names six: SEO, Paid Media,
+  architecture, the footer Services nav, names six: SEO, Paid Media,
   Social, Content, Email, Analytics. The pack is rebuilt to those six
   (paid search and performance media fold into Paid Media; creative
   folds into Content; automation becomes Email & Lifecycle), the
@@ -5243,22 +5246,22 @@ Consistency audit across every page template.
   standalone strategy page exists.
 
 - **The SEO service is renamed "SEO & GEO / AIO / AEO" consistently
-  across the theme** — the homepage plate label and the Services page
-  heading — and the service page's opening prose spells out all four
+  across the theme**, the homepage plate label and the Services page
+  heading, and the service page's opening prose spells out all four
   in full (search engine optimisation, generative engine optimisation,
   artificial intelligence optimisation, answer engine optimisation) as
   part of the argument rather than a glossary. Rendered verification
   confirms the longer label holds at all widths in both modes; the
   42-assertion schema suite passes unchanged.
 
-## [1.29.0] — 2026-08-29
+## [1.29.0] (2026-08-29)
 
 ### Added
 
 - **A reusable "Service detail" template and dedicated service pages.**
   New `templates/page-service.html` (registered in theme.json): hero
   built from the page's own title on the standard rm-hero, the page
-  content on the wide measure, and the closing CTA band — so service
+  content on the wide measure, and the closing CTA band, so service
   pages are ordinary editable WordPress pages, keeping content out of
   theme code per ssot.md. Eight deck-derived pages (SEO & AI search,
   paid search, social & influencer, performance media, analytics,
@@ -5279,7 +5282,7 @@ Consistency audit across every page template.
   keyword from the list are recorded as supporting pages, not SEO
   targets.
 
-## [1.28.0] — 2026-08-29
+## [1.28.0] (2026-08-29)
 
 ### Added
 
@@ -5290,8 +5293,7 @@ Consistency audit across every page template.
   ssot.md). The Singapore FAQ now links the SEO-cost post (previously
   an unlinked mention), the SEO-vs-SEM post plus the new SEM-services
   guide, and the new agency-selection guide; the Malaysia FAQ links
-  the pricing post and — from its "we don't build websites" answer —
-  the new SEO-friendly web design guide, which captures the
+  the pricing post and, from its "we don't build websites" answer, the new SEO-friendly web design guide, which captures the
   informational fraction of the documented web-design keyword gap
   without creating a doorway service page. Content changes only; the
   120-check dual-mode browser harness and the 41-assertion schema
@@ -5307,22 +5309,22 @@ Consistency audit across every page template.
   the full 90-keyword mapping with every consolidation and exclusion
   recorded.
 
-## [1.27.1] — 2026-08-29
+## [1.27.1] (2026-08-29)
 
 ### Changed
 
 - **Rank Math coexistence verified against the plugin's actual source
   (v1.0.277) and made two behaviours smarter.** First, Rank Math's
   entire schema output lives behind its toggleable "rich-snippet"
-  module — every snippet class (WebSite, WebPage, Article,
-  BreadcrumbList, Person, publisher) loads only when it's active — so
+  module, every snippet class (WebSite, WebPage, Article,
+  BreadcrumbList, Person, publisher) loads only when it is active, so
   the theme now checks `RankMath\Helper::is_module_active(
   'rich-snippet' )` and treats the plugin as managing nothing when the
   module is off, keeping the site's markup intact instead of yielding
   to output that never comes. Second, schemas a user attaches through
   Rank Math's Schema Generator are stored as `rank_math_schema_*` post
   meta carrying the `@type`; the theme now reads those on singular
-  pages and yields exactly the attached types on exactly that page — a
+  pages and yields exactly the attached types on exactly that page, a
   Service schema attached to a landing page silences the theme's
   Service node there while its FAQPage continues, and both return the
   moment the meta is removed. The theme's other surfaces (no meta
@@ -5331,7 +5333,7 @@ Consistency audit across every page template.
   assertions cover the module gate on/off and the per-page meta yield
   (41 total, all passing).
 
-## [1.27.0] — 2026-08-29
+## [1.27.0] (2026-08-29)
 
 ### Added
 
@@ -5350,7 +5352,7 @@ Consistency audit across every page template.
   enrichment (author URL, wordCount, articleSection, inLanguage); and
   a content-gated VideoObject that emits only when a post contains a
   self-hosted video and its required properties can be stated
-  truthfully. Features whose content doesn't exist on the site (Recipe,
+  truthfully. Features whose content does not exist on the site (Recipe,
   Event, Product, Review snippet, Job posting, and the rest of the
   excluded rows) are deliberately not fabricated: Google's spam
   policies treat markup for content not visible on the page as abuse,
@@ -5367,14 +5369,14 @@ Consistency audit across every page template.
   any of its types is plugin-managed. The 36-assertion stub suite
   covers the family logic, the new nodes, and the video gating.
 
-## [1.26.0] — 2026-08-29
+## [1.26.0] (2026-08-29)
 
 ### Added
 
 - **Structured data (schema.org JSON-LD) for the site's existing
   content.** New `inc/schema-markup.php` emits one `@graph` in `<head>`:
   Organization (legal name and registered address per `ssot.md`; email,
-  address lines and social profiles read from Theme Options — the same
+  address lines and social profiles read from Theme Options, the same
   admin-editable source the rendered footer uses), WebSite with a
   SearchAction, a typed WebPage per template (AboutPage, ContactPage,
   CollectionPage, SearchResultsPage), BlogPosting on single posts,
@@ -5384,12 +5386,12 @@ Consistency audit across every page template.
   and FAQPage on both landing pages with the question/answer pairs
   parsed at runtime from the templates' own `core/details` blocks, so
   the schema always states exactly what the page renders. The markup is
-  identical in light and dark mode by construction — it describes
+  identical in light and dark mode by construction, it describes
   content, and the mode toggle only flips CSS custom properties.
 
 - **Per-type acquiescence to SEO plugins.** When an active SEO plugin
   (Yoast, Rank Math, AIOSEO, SEOPress, The SEO Framework, Slim SEO)
-  takes control of a schema type, the theme yields that type — and only
+  takes control of a schema type, the theme yields that type, and only
   that type. Types no plugin manages automatically (the Service and
   FAQPage nodes) stay theme-native and take precedence. A page using a
   plugin's own FAQ block yields the theme's FAQPage on that page alone.
@@ -5402,12 +5404,11 @@ Consistency audit across every page template.
   matching the actual template files, address parsing, social-URL
   filtering, and JSON validity of the printed output.
 
-## [1.25.3] — 2026-08-29
+## [1.25.3] (2026-08-29)
 
 ### Fixed
 
-The rendered verification now runs everything in both colour modes —
-120 checks (six pages, ten widths, light and dark) — with both real
+The rendered verification now runs everything in both colour modes, 120 checks (six pages, ten widths, light and dark), with both real
 typefaces loaded, since light mode is deliberately its own brand system
 set in Saira while dark sets Archivo, and the harness had previously
 pinned light mode and let Saira fall back to a system font. Geometry
@@ -5416,7 +5417,7 @@ body's .25s background transition, which had been feeding them
 mid-transition values.
 
 - **The CTA band was invisible in dark mode.** Its background is
-  contrast-bg, which in dark equals the navy paper — measured ratio
+  contrast-bg, which in dark equals the navy paper, measured ratio
   1.00, the same mechanism that once made fill buttons vanish. The band
   now inverts with the mode like the ticker: white-on-navy in dark,
   mirroring the navy-on-cream light band. The whites hardcoded inside
@@ -5425,32 +5426,32 @@ mid-transition values.
 - **The fill button on the subpage closing bands had no visible shape
   in either mode.** Measured on the band, the fill's ink background is
   near-identical to the light band's navy (1.02) and identical to the
-  dark band's inverted white (1.00) — the label floated with no button
+  dark band's inverted white (1.00), the label floated with no button
   behind it. On the band, fills now take paper-on-ink in both modes: a
   cream button on the navy light band, a navy button on the white dark
   band. The light-mode half of this predates the dark work; it was only
   caught once the probes compared the button against the surface it
   actually sits on.
 
-## [1.25.2] — 2026-08-29
+## [1.25.2] (2026-08-29)
 
 ### Fixed
 
 Three footer defects reported from the live site, all invisible to the
 v1.25.1 harness because its shim zeroed the vertical navigation gap that
-real WordPress emits — the shim is corrected, and the full sixty-check
+real WordPress emits, the shim is corrected, and the full sixty-check
 verification passes against the corrected model.
 
 - **~40px of dead space between footer nav links.** WordPress emits its
   24px block gap between the vertical navigation's items, and stacked on
   the links' own .5rem block padding each column spread to ~72px per
   item. The gap is zeroed on both possible carriers (the nav element and
-  its list container — the same dual-target lesson as the header nav);
+  its list container, the same dual-target lesson as the header nav);
   the padding alone now gives a 1rem rhythm and keeps the tap targets.
 
-- **The column headings didn't read as headings.** SITEMAP, SERVICES and
+- **The column headings did not read as headings.** SITEMAP, SERVICES and
   CONTACT rendered at .72rem in 55%-strength ink under .9rem full-ink
-  links — an inverted hierarchy. The headings now take full ink, the
+  links, an inverted hierarchy. The headings now take full ink, the
   heaviest weight and .78rem, staying in the small-caps eyebrow register
   while clearly labelling their lists.
 
@@ -5462,15 +5463,15 @@ verification passes against the corrected model.
   footer's right edge lands on the wide measure and mirrors the logo's
   left inset.
 
-## [1.25.1] — 2026-08-28
+## [1.25.1] (2026-08-28)
 
 ### Fixed
 
 Three defects found by rendering the theme in headless Chromium (real
 templates, real stylesheets, the theme's own font files, a WordPress
 layout-CSS harness) at ten widths from 320px to 1900px across six pages.
-After these fixes all sixty checks — page overflow, nav-row fit,
-left-edge alignment, grid column counts — pass.
+After these fixes all sixty checks, page overflow, nav-row fit,
+left-edge alignment, grid column counts, pass.
 
 - **The footer's fourth column collapsed to ~8px between 782px and
   900px, painting its content past the viewport.** The wrap band's
@@ -5478,7 +5479,7 @@ left-edge alignment, grid column counts — pass.
   `:last-child` rule even though it comes later, so `flex-basis:0`
   survived into the band and two 44% siblings crushed the last column
   to the leftover space. The band now repeats the `:last-child`
-  selector. This one was invisible to static analysis — both rules read
+  selector. This one was invisible to static analysis, both rules read
   as if the later block wins.
 
 - **The header CTA never actually fit between 783px and 980px.**
@@ -5496,7 +5497,7 @@ left-edge alignment, grid column counts — pass.
   link padding to .25rem; the measured row comes to ~530px at the 601px
   floor.
 
-## [1.25.0] — 2026-08-28
+## [1.25.0] (2026-08-28)
 
 ### Changed
 
@@ -5505,18 +5506,18 @@ left-edge alignment, grid column counts — pass.
   never received the measure-alignment pass the homepage got across
   v1.16.2–1.24.0: their heroes sat on the 1320px wide measure (the
   global `.rm-hero > *` rule) while every body section fell back to the
-  740px centred content measure — at 1440px the hero headline's left
+  740px centred content measure, at 1440px the hero headline's left
   edge sat ~290px left of the content's. Their section wrappers now
   carry the previously unused `.rm-measure-wide` utility, which gains a
   second job: redefining `--wp--style--global--content-size` to the wide
   value on the wrapper, so core's constrained-layout clamp resolves to
-  the wide measure for every descendant, however deeply nested — no
+  the wide measure for every descendant, however deeply nested, no
   per-child overrides, and elements with their own caps (60ch lists,
   54ch leads, the 520px form) keep them, pinned to the shared left edge.
 
   Kept at the reading measure, as documented exceptions: single posts,
   legal pages and the default page template (the prose is the page), and
-  the About page wholesale — a wider deviation than the audit note's
+  the About page wholesale, a wider deviation than the audit note's
   "gallery only", because every component on it (gallery at 740px
   three-across, team grid with bios measured at 220px, 520px form) was
   designed for that measure, and widening the team grid strands a sixth
@@ -5529,17 +5530,17 @@ left-edge alignment, grid column counts — pass.
 - **The case-study grid steps 4 → 2 → 1 instead of auto-fitting.** On
   the wide measure, auto-fit with four items strands the fourth card
   alone under a row of three across ~1075–1400px, and no intrinsic
-  minimum can forbid the three-column state. Explicit steps — the same
-  trade `.rm-plates` already makes — keep the rows even at every width.
+  minimum can forbid the three-column state. Explicit steps, the same
+  trade `.rm-plates` already makes, keep the rows even at every width.
 
 ### Fixed
 
 - **The Case Studies placeholder note drifted toward the centre.** Its
   60ch box, a constrained child with only a top margin set, was centred
-  by core's layout rule — ~165px right of the grid's left edge even
+  by core's layout rule, ~165px right of the grid's left edge even
   before this release. Its side margins are now zeroed.
 
-## [1.24.4] — 2026-08-28
+## [1.24.4] (2026-08-28)
 
 ### Documentation
 
@@ -5552,14 +5553,14 @@ left-edge alignment, grid column counts — pass.
   font metrics and CSS analysis rather than rendered screenshots. No
   code changes.
 
-## [1.24.3] — 2026-08-28
+## [1.24.3] (2026-08-28)
 
 ### Fixed
 
 - **The hero sub-heading floated toward the centre, opening a dead gap
   under the headline's left edge.** Every hero child is centred on the
   wide measure with auto side margins, and the sub-heading is the one
-  child narrower than that measure (capped at 56ch) — so the auto
+  child narrower than that measure (capped at 56ch), so the auto
   margins centred its smaller box, detaching its left edge from the
   headline's by hundreds of pixels on wide desktops. The same failure
   v1.16.2 fixed for the then-current markup had returned for any
@@ -5570,7 +5571,7 @@ left-edge alignment, grid column counts — pass.
   `.rm-hero`; the About page's `.rm-about-hero`, where no sibling sits
   on the wide measure, keeps its current arrangement.
 
-## [1.24.2] — 2026-08-28
+## [1.24.2] (2026-08-28)
 
 ### Fixed
 
@@ -5584,7 +5585,7 @@ left-edge alignment, grid column counts — pass.
 - **The nav row could overflow the viewport between 601px and ~720px.**
   Above 600px the navigation block's overlay menu hands back to inline
   links, and the links block is deliberately held at its intrinsic width
-  so it cannot wrap to two lines — but in that band the row's fixed
+  so it cannot wrap to two lines, but in that band the row's fixed
   items (logo, five links, labelled theme toggle, gaps) can need
   ~560–600px against ~540–575px of available space, measured with the
   theme's own Archivo font files. The overage became horizontal page
@@ -5604,20 +5605,19 @@ left-edge alignment, grid column counts — pass.
 - **Ordinary pages on the default template rendered partly unstyled.**
   `page.html` styles its title and content with `.rm-page` classes that
   live in `blog-and-about.css`, but the conditional enqueue only loaded
-  that file for blog views and the seven named custom templates — a
+  that file for blog views and the seven named custom templates, a
   page using the default template got none of it. The condition is now
   "any page except the front page", which also stops the template list
   needing maintenance.
 
 - **The footer carried a second `id="about"`.** The footer's brand
   column had `id="about"` left over from an earlier anchor scheme,
-  colliding with the homepage section of the same id — invalid HTML on
+  colliding with the homepage section of the same id, invalid HTML on
   the front page, and the `#about` wide-measure CSS silently applied to
   that footer column. Nothing links to the footer id; it is removed.
 
 - **The blog page's empty state spoke search language.** `home.html`
-  showed "Nothing matches yet. Try another term…" when no posts exist —
-  wording that belongs to search and archive results (which keep it).
+  showed "Nothing matches yet. Try another term…" when no posts exist, wording that belongs to search and archive results (which keep it).
   The blog page now uses the same "Nothing published yet" copy as the
   index fallback.
 
@@ -5626,7 +5626,7 @@ left-edge alignment, grid column counts — pass.
   and fills `.rm-cta__status` is `lead-form-status.js`; the comment now
   says so.
 
-## [1.24.1] — 2026-08-28
+## [1.24.1] (2026-08-28)
 
 ### Fixed
 
@@ -5636,7 +5636,7 @@ left-edge alignment, grid column counts — pass.
   of an `.rm-section-head` flex row, uppercase with the magenta
   underline. The About section instead dropped its link at the
   bottom-left of the team grid as a plain `.rm-blocks__note` paragraph
-  in sentence case — a third link treatment on a page that had
+  in sentence case, a third link treatment on a page that had
   established one.
 
   The About header now uses the same `.rm-section-head` structure: the
@@ -5649,7 +5649,7 @@ left-edge alignment, grid column counts — pass.
   both classes already existed, and `.rm-blocks__note` remains in use
   by the services footnote.
 
-## [1.24.0] — 2026-08-28
+## [1.24.0] (2026-08-28)
 
 ### Fixed
 
@@ -5696,7 +5696,7 @@ left-edge alignment, grid column counts — pass.
 - Verified across six templates at 28 widths each, 168 checks: no
   horizontal overflow anywhere.
 
-## [1.23.0] — 2026-08-28
+## [1.23.0] (2026-08-28)
 
 ### Changed
 
@@ -5723,7 +5723,7 @@ left-edge alignment, grid column counts — pass.
   overflow anywhere, and both grids confirmed to keep their original column
   counts at full width.
 
-## [1.22.1] — 2026-08-28
+## [1.22.1] (2026-08-28)
 
 Documentation only. No code behaviour changes.
 
@@ -5743,7 +5743,7 @@ Documentation only. No code behaviour changes.
   from Twenty Twenty-Five, verified against the parent rather than assumed.
   The corrections worth knowing:
   - The parent ships only 8 templates and this theme overrides 7. The one
-    template genuinely inherited is `page-no-title.html`. The parent has no
+    template inherited is `page-no-title.html`. The parent has no
     author, category, tag or date template, so those fall through to
     `archive.html` and `index.html`, both of which this theme provides.
   - Four parent template parts are inherited and available as alternates:
@@ -5758,7 +5758,7 @@ Documentation only. No code behaviour changes.
   - The parent enqueues its own `style.min.css`, so a child-side
     `wp_enqueue_style( 'parent-style' )` would duplicate it.
 
-## [1.22.0] — 2026-08-28
+## [1.22.0] (2026-08-28)
 
 ### Changed
 
@@ -5795,7 +5795,7 @@ Documentation only. No code behaviour changes.
   card widths stay within a sane band at every width (capability cards 290px
   to 440px, problem cards 233px to 468px, portraits 130px to 203px).
 
-## [1.21.0] — 2026-08-28
+## [1.21.0] (2026-08-28)
 
 ### Added
 
@@ -5833,7 +5833,7 @@ Documentation only. No code behaviour changes.
   but the page is registered as `remotive-theme-options`, so the success
   notice landed on a blank screen.
 
-## [1.20.0] — 2026-08-28
+## [1.20.0] (2026-08-28)
 
 ### Changed
 
@@ -5858,7 +5858,7 @@ Documentation only. No code behaviour changes.
 - The button in Appearance -> Remotive Options stays, for re-checking the
   list or rebuilding a page that was deleted later.
 
-## [1.19.0] — 2026-08-28
+## [1.19.0] (2026-08-28)
 
 ### Added
 
@@ -5899,7 +5899,7 @@ Documentation only. No code behaviour changes.
   in `upgrading.md`, and inventing destinations for them would be worse than
   leaving them visible as unfinished.
 
-## [1.18.1] — 2026-08-28
+## [1.18.1] (2026-08-28)
 
 ### Fixed
 
@@ -5916,7 +5916,7 @@ Documentation only. No code behaviour changes.
   was painted. Verified at 6x device pixel ratio: 4px on all four sides in
   both states.
 
-## [1.18.0] — 2026-08-28
+## [1.18.0] (2026-08-28)
 
 ### Added
 
@@ -5941,7 +5941,7 @@ Documentation only. No code behaviour changes.
 - `.rm-about__photos` and its breakpoints are retired, replaced by
   `.rm-team`.
 
-## [1.17.0] — 2026-08-28
+## [1.17.0] (2026-08-28)
 
 A responsive layout pass covering desktop, tablet and mobile, driven by
 measurements at 26 viewport widths from 1900px down to 320px.
@@ -5997,7 +5997,7 @@ measurements at 26 viewport widths from 1900px down to 320px.
   with no `overflow-x` rule anywhere in the theme.
 - Header holds a single 84px row from 1900px to 480px.
 
-## [1.16.3] — 2026-08-28
+## [1.16.3] (2026-08-28)
 
 ### Removed
 
@@ -6013,7 +6013,7 @@ measurements at 26 viewport widths from 1900px down to 320px.
   Only the LinkedIn icon comes from Font Awesome; the Instagram and TikTok
   marks use a different 24x24 icon set and never needed the credit.
 
-## [1.16.2] — 2026-08-28
+## [1.16.2] (2026-08-28)
 
 Two desktop layout bugs in the new homepage, both showing only above
 1320px, where the earlier passes did not catch them.
@@ -6032,7 +6032,7 @@ Two desktop layout bugs in the new homepage, both showing only above
   and CTA bands, with a body-level overflow rule so the full-bleed width
   adds no horizontal scrollbar.
 
-## [1.16.1] — 2026-08-28
+## [1.16.1] (2026-08-28)
 
 A copy pass across the new homepage and Services sections, against the
 house English voice.
@@ -6048,7 +6048,7 @@ house English voice.
   the rest of the site does.
 - Ran the same pass over the changelog and readme prose from this session.
 
-## [1.16.0] — 2026-08-28
+## [1.16.0] (2026-08-28)
 
 Reworked the Services page onto the three-block capability model, so it
 matches the homepage and the agreed positioning.
@@ -6069,7 +6069,7 @@ matches the homepage and the agreed positioning.
 - Added the `.rm-service-block` header styles and a
   `.rm-service-detail--green` swatch to `blog-and-about.css`.
 
-## [1.15.1] — 2026-08-28
+## [1.15.1] (2026-08-28)
 
 ### Added
 
@@ -6077,7 +6077,7 @@ matches the homepage and the agreed positioning.
   sitemap, so all five core pages (home, about, services, contact, blog)
   are reachable from the site chrome, not only through the blog templates.
 
-## [1.15.0] — 2026-08-28
+## [1.15.0] (2026-08-28)
 
 Completed the template hierarchy so every standard page type has its own
 template, not only a fallback.
@@ -6102,7 +6102,7 @@ template, not only a fallback.
 - Added 404 layout styles to `remotive.css`. Confirmed the 404 renders in
   both light and dark mode.
 
-## [1.14.0] — 2026-08-28
+## [1.14.0] (2026-08-28)
 
 Homepage restructured to the agreed site frame, so the layout matches the
 performance-marketing and SEO positioning before content is finalised.
@@ -6144,7 +6144,7 @@ performance-marketing and SEO positioning before content is finalised.
   their background, which equals the dark paper, so they disappeared into
   the page. They now use ink and paper and invert with the mode.
 
-## [1.13.2] — 2026-08-28
+## [1.13.2] (2026-08-28)
 
 A second desktop-layout pass, closing the issues that remained after
 v1.13.1. Every fix below was reproduced from live screenshots, traced to
@@ -6191,7 +6191,7 @@ its actual cause, and confirmed on a re-render.
   overrides WordPress core's mobile column stacking. Confirmed on
   rendered screenshots at 1320px and 600px.
 
-## [1.13.1] — 2026-08-27
+## [1.13.1] (2026-08-27)
 
 Two real desktop-layout bugs, reported with live screenshots and traced
 to their actual cause rather than patched by symptom.
@@ -6201,23 +6201,23 @@ to their actual cause rather than patched by symptom.
 - **Footer never got the wide-measure fix from v1.9.1.** That earlier
   fix widened `.rm-hero`, `#services`, and `#work`'s direct children
   from the theme's own 740px content measure to its 1320px
-  wide measure — but `.rm-footer` was never added to that selector,
+  wide measure, but `.rm-footer` was never added to that selector,
   since the original bug report was about the homepage's hero/services
-  sections specifically and the footer wasn't re-checked at the time.
+  sections specifically and the footer was not re-checked at the time.
   Net effect: the footer's 4-column grid has been stuck at 740px ever
-  since, giving the Contact column roughly 168px to work with — not
+  since, giving the Contact column roughly 168px to work with, not
   enough for `hello@remotivemedia.asia` to fit on one line, so the
   `overflow-wrap:break-word` added during the WCAG pass (v1.7.0) did
   exactly what it was told and broke the domain mid-word
   (`hello@remotivem` / `edia.asia`) rather than overflow. The
-  `overflow-wrap` rule was never the bug — the column was just never
+  `overflow-wrap` rule was never the bug, the column was just never
   wide enough for it to matter. Fixed by adding `.rm-footer > *` to the
   existing wide-measure selector in `remotive.css`. Confirmed via a
   rendered screenshot with the real footer content, not assumed fixed
   from the CSS change alone.
 - **Uneven column widths in the six-plate services grid**
-  (`.rm-plates`). `grid-template-columns:repeat(3,1fr)` doesn't
-  guarantee equal thirds on its own — a bare `fr` track still respects
+  (`.rm-plates`). `grid-template-columns:repeat(3,1fr)` does not
+  guarantee equal thirds on its own, a bare `fr` track still respects
   its cell's min-content width by default (the implicit minimum is
   `auto`, not `0`), so a track whose content happens to be wider than
   an even third can force that whole column wider than its siblings
@@ -6225,64 +6225,64 @@ to their actual cause rather than patched by symptom.
   hardening for this exact symptom: `repeat(3,minmax(0,1fr))`, which
   removes the implicit minimum and guarantees true equal columns
   regardless of content. Confirmed via `getBoundingClientRect()` on all
-  three plates in one row — 235px each, not eyeballed from a
+  three plates in one row, 235px each, not eyeballed from a
   screenshot.
 
-## [1.13.0] — 2026-08-27
+## [1.13.0] (2026-08-27)
 
 Real icons for the footer/Contact page social links, which previously
 were plain text ("Instagram," "LinkedIn," "TikTok"). Built from an
-uploaded icon pack — reviewed for licensing per-icon before use, not
+uploaded icon pack, reviewed for licensing per-icon before use, not
 assumed blanket-safe just because it was labeled "minimalist icons."
 
 ### Added
 
 - **Instagram, LinkedIn, and TikTok icons**, inlined as `<svg>` markup
   (`fill="currentColor"`) in `parts/footer.html` and
-  `templates/page-contact.html` — replaces the old text-only
+  `templates/page-contact.html`, replaces the old text-only
   `core/navigation-link` entries. Source files kept at
   `assets/icons/*.svg` for reference; not loaded at runtime.
 - **`.rm-social-link` styling** (`assets/css/remotive.css`): each icon's
-  clickable area is exactly 44×44px — confirmed via
-  `getBoundingClientRect()`, not estimated from padding values — clearing
+  clickable area is exactly 44×44px, confirmed via
+  `getBoundingClientRect()`, not estimated from padding values, clearing
   WCAG 2.5.8's target-size minimum with real margin, not just barely.
 - **Font Awesome attribution** (`.rm-footer__credit`, next to the
   copyright line in both templates). The LinkedIn icon is CC BY 4.0
   (Font Awesome Free), which requires a credit visible to actual site
-  visitors — internal documentation in `resources.md` alone wouldn't
+  visitors, internal documentation in `resources.md` alone would not
   satisfy that. Instagram and TikTok are CC0 (Simple Icons), no
   attribution required for either.
 
 ### Fixed
 
 - `templates/page-contact.html`'s social links previously used hardcoded
-  `"url":"#"` placeholders, never wired to Theme Options at all — an
+  `"url":"#"` placeholders, never wired to Theme Options at all, an
   inconsistency with the footer's already-tokenized links. Now uses the
   same `__REMOTIVE_SOCIAL_*__` tokens as the footer, so both places stay
   in sync with whatever's set in Appearance → Remotive Options.
 
-## [1.12.0] — 2026-08-26
+## [1.12.0] (2026-08-26)
 
 Two market-specific landing pages and an FAQ accordion pattern, built
 against real keyword research (`remotivemedia-keyword-selection.xlsx`,
 90 keywords across Singapore, Malaysia, and generic clusters). A
 companion content package (four blog posts, delivered separately as a
-WordPress WXR file) targets the genuinely informational keyword
-clusters this pass didn't turn into landing pages.
+WordPress WXR file) targets the informational keyword
+clusters this pass did not turn into landing pages.
 
 ### Added
 
 - **`templates/page-seo-singapore.html`** and
-  **`templates/page-digital-marketing-malaysia.html`** — new custom
+  **`templates/page-digital-marketing-malaysia.html`**, new custom
   templates, registered in `theme.json`. Each consolidates its entire
   market's commercial-intent keyword cluster (SEO agency, digital
-  marketing agency, SEM, social media marketing — 20+ related terms per
+  marketing agency, SEM, social media marketing, 20+ related terms per
   market) into one comprehensive page, deliberately **not** one thin page
   per keyword. That would be a doorway-page pattern and would have
-  actively hurt rankings through cannibalization — the wrong call for an
+  actively hurt rankings through cannibalization, the wrong call for an
   SEO agency to make on its own site.
 - **FAQ accordion styling** for WordPress's native `core/details` block
-  (`.wp-block-details` in `assets/css/blog-and-about.css`) — used on both
+  (`.wp-block-details` in `assets/css/blog-and-about.css`), used on both
   new landing pages to address informational sub-queries (SEO cost,
   SEO vs SEM, "do you build websites") inline, without needing separate
   pages for each. Verified interactively (open/close toggle, both
@@ -6293,51 +6293,51 @@ clusters this pass didn't turn into landing pages.
 ### Verified, not assumed
 
 - `core/details`' exact markup (`<!-- wp:details {"summary":...} --><details class="wp-block-details"><summary>...</summary>...</details><!-- /wp:details -->`)
-  confirmed against the official Block Editor Handbook before use — the
-  `summary` attribute doesn't need to appear in the block comment JSON
-  since it's RichText-sourced from the actual `<summary>` HTML at parse
+  confirmed against the official Block Editor Handbook before use, the
+  `summary` attribute does not need to appear in the block comment JSON
+  since it is RichText-sourced from the actual `<summary>` HTML at parse
   time, same as how this theme's headings/paragraphs already work.
 
 ### Documented, not silently decided
 
 - **Six Malaysia keywords in the research are web-design terms** (`web
   design malaysia`, `website design malaysia`, etc., combined volume
-  9,000+). None are targeted anywhere in this pass — Remotive doesn't
+  9,000+). None are targeted anywhere in this pass, Remotive does not
   offer web design as a service, and `page-digital-marketing-malaysia.html`
   says so explicitly in its own FAQ rather than quietly implying
   otherwise to chase search volume. See the companion content package's
   own README for the full reasoning.
 
-## [1.11.0] — 2026-08-26
+## [1.11.0] (2026-08-26)
 
 Four more custom page templates: Services, Case Studies, a generic Legal
-page (Privacy Policy/Terms), and Contact — plus a generic `page.html`
-fallback that didn't exist before this, so any new WordPress Page
+page (Privacy Policy/Terms), and Contact, plus a generic `page.html`
+fallback that did not exist before this, so any new WordPress Page
 without a selected template now gets this theme's own styling instead of
 silently falling back to the parent theme's unstyled default.
 
 ### Added
 
-- **`templates/page-services.html`** — expanded version of the
+- **`templates/page-services.html`**: expanded version of the
   homepage's six-plate summary, one detailed section per service
   (description + "what's included" list), ending in a CTA.
-- **`templates/page-case-studies.html`** — four case-study cards
+- **`templates/page-case-studies.html`**: four case-study cards
   (placeholder metrics/content, same pattern as the homepage's Skinlab
-  spread — real client work goes here once written up; see
+  spread, real client work goes here once written up; see
   `upgrading.md`).
-- **`templates/page-legal.html`** — for Privacy Policy, Terms, or similar.
+- **`templates/page-legal.html`**: for Privacy Policy, Terms, or similar.
   Deliberately minimal: page title, a "Last updated" date (pulled live
   from the page's own post date via `core/post-date`, not hardcoded),
   and readable body typography for whatever the admin actually writes in
-  the editor. No fabricated legal text — that's not something to
+  the editor. No fabricated legal text, that is not something to
   generate here.
-- **`templates/page-contact.html`** — a form (name/email/message) plus
+- **`templates/page-contact.html`**: a form (name/email/message) plus
   a details sidebar (email, office address, social links).
-- **`templates/page.html`** — generic fallback for any Page that doesn't
+- **`templates/page.html`**: generic fallback for any Page that does not
   select one of the above. Previously nonexistent, meaning any new page
   fell through to Twenty Twenty-Five's own default page template,
   outside this theme's design system entirely.
-- **`inc/contact-form-handler.php`** — third thin wrapper around the
+- **`inc/contact-form-handler.php`**: third thin wrapper around the
   shared `remotive_handle_lead_form_submission()` (see v1.10.0), its own
   nonce action and honeypot field so its rate-limit state never collides
   with the About page's form even if both are open in different tabs.
@@ -6351,8 +6351,8 @@ silently falling back to the parent theme's unstyled default.
 - **Caught before shipping, not after:** the Legal page template
   originally tried to nest a `<!-- wp:post-date /-->` block comment
   inside a `core/paragraph` block's own text content
-  (`<p>Last updated: <!-- wp:post-date /--></p>`). Block comments can't
-  nest inside another static block's inner content that way — it would
+  (`<p>Last updated: <!-- wp:post-date /--></p>`). Block comments cannot
+  nest inside another static block's inner content that way, it would
   have rendered as an inert HTML comment, and the date would never have
   appeared. Restructured into a small flex group with the label and the
   post-date block as siblings instead.
@@ -6361,35 +6361,33 @@ silently falling back to the parent theme's unstyled default.
 
 - `remotive_conditional_enqueue_assets()` (`functions.php`) now checks
   an array of five secondary templates via `is_page_template()`'s native
-  array support, rather than one hardcoded slug — confirmed via
+  array support, rather than one hardcoded slug, confirmed via
   documentation that `is_page_template()` has accepted an array since
   WordPress 4.7, rather than assumed.
 - `theme.json`'s `customTemplates` now lists six selectable templates
   (was two).
 
-## [1.10.0] — 2026-08-26
+## [1.10.0] (2026-08-26)
 
 Three new templates added: a blog archive, single post view, and an
 About page with a lightbox gallery and contact form. Built after
-reviewing three uploaded reference templates for their UX patterns —
-see `resources.md` for why none of their actual code was used.
+reviewing three uploaded reference templates for their UX patterns, see `resources.md` for why none of their actual code was used.
 
 ### Added
 
-- **`templates/index.html`** — blog archive, sidebar layout. Uses a real
+- **`templates/index.html`**: blog archive, sidebar layout. Uses a real
   `core/query` loop (no hardcoded fake posts) with pagination and an
   empty-state message. Previously the theme had no fallback `index.html`
-  at all, which every WordPress block theme is required to have —
-  without it, WordPress silently fell back to the parent theme's own
+  at all, which every WordPress block theme is required to have, without it, WordPress silently fell back to the parent theme's own
   unstyled version.
-- **`templates/single.html`** — individual post view, same sidebar.
-- **`templates/page-about.html`** — new custom template (selectable per-
+- **`templates/single.html`**: individual post view, same sidebar.
+- **`templates/page-about.html`**: new custom template (selectable per-
   page via the editor's Template dropdown, registered in `theme.json`):
   a parallax hero, a 6-tile gallery wired to a lightbox, and a contact
   form (name/email/message).
-- **`parts/sidebar.html`** — About blurb, a real dynamic recent-posts
+- **`parts/sidebar.html`**: About blurb, a real dynamic recent-posts
   query, and a contact CTA. Shared by both blog templates.
-- **`assets/js/lightbox.js`** — built from scratch, not adapted from any
+- **`assets/js/lightbox.js`**: built from scratch, not adapted from any
   reference template (most off-the-shelf gallery lightboxes, including
   the ones reviewed for this feature, are mouse-only). Verified via
   automated test, not just code review: opening a tile moves focus into
@@ -6397,12 +6395,12 @@ see `resources.md` for why none of their actual code was used.
   three controls (a real focus trap), arrow keys navigate between
   images, and Escape closes and returns focus to the exact gallery
   button that opened it.
-- **`assets/js/parallax.js`** — subtle scroll-tied transform on the About
+- **`assets/js/parallax.js`**: subtle scroll-tied transform on the About
   hero's decorative gradient layer, `requestAnimationFrame`-based,
   fully skipped for `prefers-reduced-motion` (same guard pattern already
   used for the hero misregistration hover and the theme-toggle
   transition).
-- **`assets/css/blog-and-about.css`** — conditionally enqueued (only on
+- **`assets/css/blog-and-about.css`**: conditionally enqueued (only on
   the blog templates and the About page, via `is_home()`/
   `is_singular('post')`/`is_page_template('page-about')`), not loaded
   site-wide.
@@ -6416,31 +6414,31 @@ see `resources.md` for why none of their actual code was used.
   nonce action/honeypot field/redirect target to one reviewed code path.
   The shared function now also accepts optional `name`/`message` fields
   (the About form uses them; the CTA form still only sends email).
-- **`assets/js/cta-form.js` generalized into `assets/js/lead-form-status.js`**
-  — reads a `data-lead-status="remotive_<form_key>"` attribute instead of
+- **`assets/js/cta-form.js` generalized into `assets/js/lead-form-status.js`**,
+  reads a `data-lead-status="remotive_<form_key>"` attribute instead of
   a hardcoded element ID, so both the CTA and About forms share one
   status-message script instead of each needing their own.
 - Post/article title styling (`.rm-post-card__title`, `.rm-post__title`,
-  `.rm-sidebar__recent-title`) explicitly set to normal case, 700 weight
-  — the site's default heading style (900 weight, uppercase, from
+  `.rm-sidebar__recent-title`) explicitly set to normal case, 700 weight,
+  the site's default heading style (900 weight, uppercase, from
   `theme.json`) suits short marketing headlines but reads as shouting on
   natural-language article titles. Caught during visual QA, not code
-  review — the first render showed it clearly.
+  review, the first render showed it clearly.
 
 ### Verified, not changed
 
-- Confirmed the About hero's parallax gradient layer is genuinely full-
+- Confirmed the About hero's parallax gradient layer is full-
   viewport-width (`getBoundingClientRect()` check), not visually
-  constrained — it only *looks* narrower in a screenshot because the
+  constrained, it only *looks* narrower in a screenshot because the
   radial gradient's own falloff fades out before reaching the edges.
 - `is_page_template('page-about')` confirmed correct for block-theme
   custom templates (the stored `_wp_page_template` value matches
-  `theme.json`'s `customTemplates` "name" field exactly — no file path,
+  `theme.json`'s `customTemplates` "name" field exactly, no file path,
   no extension), rather than assumed.
 
-## [1.9.1] — 2026-08-26
+## [1.9.1] (2026-08-26)
 
-Fixed a real, previously undetected desktop layout bug — content wasn't
+Fixed a real, previously undetected desktop layout bug, content was not
 actually centered/width-constrained on a real WordPress install, despite
 looking correct in every prior QA screenshot. Root cause and fix below.
 
@@ -6448,17 +6446,17 @@ looking correct in every prior QA screenshot. Root cause and fix below.
 
 - **Missing `is-layout-*` classes throughout `templates/front-page.html`,
   `parts/header.html`, and `parts/footer.html`.** `core/group` and
-  `core/columns` are static blocks — WordPress outputs their saved HTML
+  `core/columns` are static blocks, WordPress outputs their saved HTML
   exactly as written, with no server-side reconciliation against the
   block's declared attributes. Every block comment in this theme
   correctly declared `"layout":{"type":"constrained"}` (or `"flex"`/
-  `"default"`), which matters for the Site Editor's own behavior — but
+  `"default"`), which matters for the Site Editor's own behavior, but
   the actual rendered `<div class="...">` never carried the matching
   `is-layout-constrained`/`is-layout-flex`/`is-layout-flow` class, which
   is what WordPress core's *own* generated CSS actually selects on to
   apply the centering/max-width rules from `theme.json`'s
   `settings.layout.contentSize`/`wideSize`. Net effect: on a real
-  WordPress install, none of that centering ever applied — content
+  WordPress install, none of that centering ever applied, content
   would have rendered pinned to the left edge with the rest of the
   viewport empty on any screen wider than ~740px, exactly matching this
   report's "doesn't meet desktop display standards." Fixed by adding
@@ -6466,24 +6464,24 @@ looking correct in every prior QA screenshot. Root cause and fix below.
   all three files, individually verified against the mapped layout
   type, not a blanket find-replace).
 - **`<main>` (`templates/front-page.html`) had no `layout` declared at
-  all**, relying on implicit default behavior this fix doesn't gamble
-  on being correct — now explicitly `"layout":{"type":"constrained"}`
+  all**, relying on implicit default behavior this fix does not gamble
+  on being correct, now explicitly `"layout":{"type":"constrained"}`
   with the matching class, removing any ambiguity.
 - **The hero headline and the services/proof sections were still too
-  narrow even after the above fix** — WordPress's own `contentSize`
+  narrow even after the above fix**, WordPress's own `contentSize`
   (740px, appropriate for reading-width prose) is too narrow for this
   homepage's bold marketing layout; a headline at the hero's display
   size wrapped "MAKE NOISE" onto two lines when confined to it. Added
   an explicit override widening `.rm-hero`'s, `#services`'s, and
   `#work`'s direct children to the theme's `wideSize` (1320px)
-  uniformly — not selectively per-element, since this design is
+  uniformly, not selectively per-element, since this design is
   left-aligned rather than centered, and two different centered widths
   side by side would misalign their left edges against each other. Not
   reliant on WordPress's `alignwide` class cascade, for the same
   "be explicit, don't depend on cascade subtlety" reasoning documented
   elsewhere in this file (see the `ink`/`paper` and `--rm-blend`
   gotchas in `readme.md`). The CTA section was deliberately left at the
-  narrower default — a compact, centered form reads better narrow than
+  narrower default, a compact, centered form reads better narrow than
   stretched to 1320px.
 
 ### How this was caught
@@ -6491,19 +6489,18 @@ looking correct in every prior QA screenshot. Root cause and fix below.
 Every previous round of visual QA in this project used a hand-built test
 harness that never included WordPress core's own auto-generated layout
 CSS (the `.is-layout-constrained > *` rules, and `core/columns`'s
-`display:flex`) — a real WordPress site loads that automatically; the
-standalone harness didn't, so every earlier screenshot looked correct by
+`display:flex`), a real WordPress site loads that automatically; the
+standalone harness did not, so every earlier screenshot looked correct by
 accident, for the wrong reason. Rebuilt the harness to include an
 accurate approximation of that core CSS (kept in a separate file so
-future re-copies of the theme's own CSS can't silently wipe it out again
-— exactly what happened once during this same debugging session, caught
+future re-copies of the theme's own CSS cannot silently wipe it out again, exactly what happened once during this same debugging session, caught
 before it produced a false result) before re-verifying. Re-tested at
 1280/1440/1920px, zero horizontal overflow at any width.
 
-## [1.9.0] — 2026-08-26
+## [1.9.0] (2026-08-26)
 
-Dark mode realigned to `remotive-reporting` — the skill governing every
-client-facing deck/report — per explicit request, after confirming the
+Dark mode realigned to `remotive-reporting`, the skill governing every
+client-facing deck/report, per explicit request, after confirming the
 exact mismatch against the skill's own spec rather than assuming.
 
 ### Changed
@@ -6512,12 +6509,12 @@ exact mismatch against the skill's own spec rather than assuming.
   concept deck) → `#1a1a2e` (navy, `remotive-reporting` §1.1's primary
   dark background).
 - **Dark mode text color:** `#f7f4ec` (cream) → `#ffffff` (pure white,
-  matching the skill's "Text on dark" spec — the skill also explicitly
+  matching the skill's "Text on dark" spec, the skill also explicitly
   bans cream/beige backgrounds).
 - **Accent 1 (magenta):** `#f0208f` → `#ec008c` (skill's Accent 1).
 - **Accent 2 (cyan):** `#00b8e6` → `#00aeef` (skill's Accent 2).
-- **Accent 3:** `#f2c200` (yellow) → `#39b54a` (green, skill's Accent 3)
-  — a genuine hue change, not a shade adjustment. The `contrast-bg`/
+- **Accent 3:** `#f2c200` (yellow) → `#39b54a` (green, skill's Accent 3),
+  a genuine hue change, not a shade adjustment. The `contrast-bg`/
   `contrast-text` pair (CTA band, buttons) updated to match: `#131118`/
   `#f7f4ec` → `#1a1a2e`/`#ffffff`.
 - All hardcoded cream `rgba(247,244,236,…)` values used in the
@@ -6530,11 +6527,11 @@ exact mismatch against the skill's own spec rather than assuming.
   (`theme.json`, `remotive.css`, and the two class modifiers
   `.rm-plate--yellow`/`.rm-stat--yellow` → `.rm-plate--accent-3`/
   `.rm-stat--accent-3` in `templates/front-page.html`). Not named
-  `green`: light mode's third accent is genuinely yellow (`#f2f216`,
+  `green`: light mode's third accent is yellow (`#f2f216`,
   from the *separate* `remotive_brand_5.json` brand source), while dark
-  mode's is genuinely green. Since both modes share one CSS variable
+  mode's is green. Since both modes share one CSS variable
   name, `green` would mean light mode stores a yellow value inside a
-  variable literally called green — the same class of bug that broke the
+  variable literally called green, the same class of bug that broke the
   CTA section during the v1.2.0 `ink`/`paper` rework. `accent-3` is
   hue-neutral and accurate in both modes.
 
@@ -6548,16 +6545,16 @@ exact mismatch against the skill's own spec rather than assuming.
   instead. Documented divergence, not an oversight.
 - **Newsreader (serif) kept for case-study pull-quotes.** The skill
   specifies no serif anywhere, but its specific rule is "never substitute
-  a serif for a title" — Newsreader's use here is scoped to pull-quotes/
-  drop-caps only, never a title, so it's technically compliant even if
+  a serif for a title", Newsreader's use here is scoped to pull-quotes/
+  drop-caps only, never a title, so it is technically compliant even if
   not in the skill's full zero-serif spirit. Kept as a deliberate,
   narrow exception rather than stripped for strict alignment.
 - **Both the WordPress theme and the standalone static preview file**
-  (`remotive-definitive-homepage.html`) updated together — verified via
+  (`remotive-definitive-homepage.html`) updated together, verified via
   a rendered screenshot against the actual `remotive-reporting` color
   values, not just assumed correct from the hex swap.
 
-## [1.8.0] — 2026-08-26
+## [1.8.0] (2026-08-26)
 
 Two passes landed together in this release: four items pulled off the
 `upgrading.md` roadmap, and a security audit of everything new. Grouped
@@ -6570,37 +6567,37 @@ files the roadmap work just added.
   rendered HTML.** `remotive_replace_theme_option_tokens()` (`inc/theme-options.php`)
   previously relied solely on `esc_url_raw()`/`sanitize_email()`/`sanitize_text_field()`
   applied once, at save time, then spliced the stored value directly into
-  already-rendered block output via `strtr()`. That's "sanitize on input"
-  without "escape on output" — the second half of the standard WordPress
+  already-rendered block output via `strtr()`. That is "sanitize on input"
+  without "escape on output", the second half of the standard WordPress
   pattern this project's own security policy names explicitly. Every
   token is now also escaped at the point of output: `esc_url()` for the
   four URL fields (social links, CTA form action), `esc_html()` for the
-  contact-detail text fields. No live exploit was confirmed — these
+  contact-detail text fields. No live exploit was confirmed, these
   fields require `edit_theme_options` capability to set in the first
-  place — but the fix removes any dependency on exactly how the
+  place, but the fix removes any dependency on exactly how the
   storage-time sanitizer behaves internally, now or in a future
   WordPress version, which is the point of doing both steps
   independently rather than trusting one to cover the other.
 - **CRLF header-injection guard added to the CTA form's `Reply-To`
   header** (`inc/cta-form-handler.php`). `sanitize_email()` and
-  `is_email()` should already make this impossible — neither permits raw
-  control characters in a valid address — but the fix doesn't rely on
+  `is_email()` should already make this impossible, neither permits raw
+  control characters in a valid address, but the fix does not rely on
   that being true; it explicitly rejects any submitted email containing
   `\r` or `\n` before it ever reaches `wp_mail()`, independent of the
   sanitizer's internal implementation.
-- **Rate limiting added to the CTA form endpoint.** It's a public,
-  unauthenticated POST target (correctly so — anonymous visitors must be
+- **Rate limiting added to the CTA form endpoint.** It is a public,
+  unauthenticated POST target (correctly so, anonymous visitors must be
   able to submit a lead form), which previously had no limit on
   submission frequency beyond the nonce and honeypot. Added a
   transient-based throttle: three submissions per IP per ten minutes.
   Documented as a real but imperfect mitigation (`REMOTE_ADDR` can be
-  spoofed or shared behind a proxy) rather than a guarantee — a
+  spoofed or shared behind a proxy) rather than a guarantee, a
   CAPTCHA or WAF-level rate limit would be stronger, but choosing a
   vendor for that is a product decision, not something to pick
   unilaterally here. Proposed, not implemented.
 - **`realpath()` containment added to `remotive_import_theme_image()`**
-  (`functions.php`). Not currently exploitable — both call sites pass
-  hardcoded literal paths, never user input — but the fix guarantees the
+  (`functions.php`). Not currently exploitable, both call sites pass
+  hardcoded literal paths, never user input, but the fix guarantees the
   resolved file path can never leave the theme directory even if this
   function is ever called differently later, rather than relying on
   "nothing calls it unsafely today" as the only protection.
@@ -6613,10 +6610,10 @@ files the roadmap work just added.
   URL construction (`home_url()`/`admin_url()`/`get_stylesheet_directory_uri()`
   used throughout instead); no debug output, hardcoded credentials, or
   backup/dev artifacts anywhere in the package. One item flagged as
-  informational rather than fixed: `register_setting()` doesn't specify
+  informational rather than fixed: `register_setting()` does not specify
   an explicit capability override, so the Settings API's own save-path
   check defaults to `manage_options` while the admin page's own access
-  check uses `edit_theme_options` — identical in a stock install (both
+  check uses `edit_theme_options`, identical in a stock install (both
   admin-only), so no practical gap today, but noted for any site that
   customizes role capabilities. Not speculatively "fixed" without being
   able to verify the correct mechanism against a live WordPress install.
@@ -6624,30 +6621,29 @@ files the roadmap work just added.
 ### Added
 
 - **CTA form now has a real, working default handler** (`inc/cta-form-handler.php`)
-  using WordPress's standard `admin-post.php` pattern — nonce-protected,
-  honeypot-guarded (verified genuinely invisible via computed CSS, not
-  just visual inspection — `getBoundingClientRect()` confirmed 1×1px),
+  using WordPress's standard `admin-post.php` pattern, nonce-protected,
+  honeypot-guarded (verified invisible via computed CSS, not
+  just visual inspection, `getBoundingClientRect()` confirmed 1×1px),
   rate-limited, emails submissions via `wp_mail()` to whatever's set in
   Theme Options, shows an accessible success/error status
   (`role="status"`, WCAG 4.1.3) after redirect. No third-party account
   needed by default; `cta_form_action` in Theme Options can still be
   pointed at Formspree/a CRM/a form plugin instead. Default value for
-  `cta_form_action` changed from `#` to `admin_url('admin-post.php')` —
-  see Upgrade Notice below.
+  `cta_form_action` changed from `#` to `admin_url('admin-post.php')`, see Upgrade Notice below.
 - **Ticker pauses when scrolled off-screen** (`assets/js/ticker.js`,
   `IntersectionObserver`-based). Small, real performance saving on longer
   sessions; degrades safely (keeps animating continuously) if
-  `IntersectionObserver` isn't available.
-- **`languages/remotive.pot`** — 30 translatable strings extracted from
+  `IntersectionObserver` is not available.
+- **`languages/remotive.pot`**: 30 translatable strings extracted from
   `inc/theme-options.php` and `inc/cta-form-handler.php`. Hand-extracted
   rather than generated via `wp i18n make-pot`, since no WP-CLI/PHP is
-  available in this build environment — verified line-by-line against
+  available in this build environment, verified line-by-line against
   strict `.pot` syntax rules afterward (every line is a comment, `msgid`,
   `msgstr`, or string continuation; no stray content) rather than just
   assumed correct. Scope limitation, not a defect: this only covers
   PHP-generated admin-page strings. The homepage's actual copy
   (headlines, service descriptions) lives in static block markup, which
-  gettext doesn't reach — real content translation for that would need a
+  gettext does not reach, real content translation for that would need a
   multilingual plugin (WPML/Polylang) working at the content layer
   instead. Documented in `languages/README.txt`.
 
@@ -6661,7 +6657,7 @@ files the roadmap work just added.
   it corrected. Fixed with a small inline `<script>` in `wp_head`
   (`remotive_prevent_theme_flash()`, priority 1) that reads the same
   `localStorage` key and applies `data-theme` before first paint. Kept
-  deliberately tiny — a handful of statements, no dependencies — so the
+  deliberately tiny, a handful of statements, no dependencies, so the
   render-blocking cost stays negligible.
 
 ### Changed
@@ -6677,33 +6673,32 @@ pair currently in use; two confirmed failures found and fixed. Frontend
 and admin UI both covered.
 
 ### Fixed
-- **1.4.3 Contrast (Minimum) — two real failures in light mode**, both
+- **1.4.3 Contrast (Minimum), two real failures in light mode**, both
   traced to the client's brand JSON values used as-is for text:
   - `yellow-dark` (`#00aa15`, brand `accent_4`) on the cream background
-    measured **2.83:1** — failed even the 3:1 large-text minimum, let
+    measured **2.83:1**, failed even the 3:1 large-text minimum, let
     alone 4.5:1 for normal text. Used for a stat value (large text) but
     still failed at that size.
-  - `magenta-dark` (`#f2410f`, brand `accent_6`) measured **3.45:1** —
-    passed for large text (stat/spread numbers) but failed 4.5:1 where
-    it's also used for smaller text (`.rm-row__link:hover`).
+  - `magenta-dark` (`#f2410f`, brand `accent_6`) measured **3.45:1**, passed for large text (stat/spread numbers) but failed 4.5:1 where
+    it is also used for smaller text (`.rm-row__link:hover`).
   - Both replaced with darkened, same-hue variants (`#008110`, `#cd360b`)
     that clear 4.5:1, computed via the actual WCAG relative-luminance
     formula, not eyeballed. Dark mode's equivalents were already
     compliant (6.69:1 and 13.60:1) and are unchanged. See `ssot.md` for
     the exact before/after values and reasoning.
   - Also fixed: the CTA email input's border was `rgba(cream, .3)` against
-    the always-dark CTA background — computed at 2.54:1, below the 3:1
+    the always-dark CTA background, computed at 2.54:1, below the 3:1
     required for non-text UI components (1.4.11). Raised to `.5` alpha
     (4.92:1).
-- **2.4.11 Focus Not Obscured (Minimum) — the existing fix only covered
+- **2.4.11 Focus Not Obscured (Minimum), the existing fix only covered
   anchor-link jumps.** `:where([id]){ scroll-margin-top:100px }` (added
   in the mobile-first pass) only helps elements *with an id*, and only
   when reached via `#fragment` navigation. Plain Tab-key focus moving to
-  any other element near the top of the viewport — most nav links,
-  buttons, and footer links don't have ids — wasn't covered. Added
+  any other element near the top of the viewport, most nav links,
+  buttons, and footer links do not have ids, was not covered. Added
   `html{ scroll-padding-top:100px }`, which WCAG-correctly covers *any*
   focus-triggered scroll-into-view, id or not.
-- **2.5.8 Target Size (Minimum) — several small text links were under
+- **2.5.8 Target Size (Minimum), several small text links were under
   24×24px, at every viewport width, not just the ones already fixed for
   mobile in the earlier pass.** `.rm-footer__links` and
   `.rm-footer__socials` had no padding at all outside the mobile
@@ -6711,22 +6706,22 @@ and admin UI both covered.
   ("View case study →") had no padding on the actual anchor at any width.
   All four now have adequate padding on the `<a>` itself, applied
   unconditionally rather than only under `max-width:900px`. The
-  mobile-specific override for `.rm-nav__links` that's now redundant with
+  mobile-specific override for `.rm-nav__links` that is now redundant with
   the corrected base rule was simplified rather than left duplicated.
 - The (currently unused) admin toggle-switch component's track was 22px
-  tall, under the 24px minimum. Bumped to 24px pre-emptively since it's
-  documented as "ready for the first boolean setting" — no reason to ship
+  tall, under the 24px minimum. Bumped to 24px pre-emptively since it is
+  documented as "ready for the first boolean setting", no reason to ship
   it already non-compliant.
 
 ### Added
-- **2.4.7 Focus Visible — a global "sandwich" focus ring** (`.rm-nav
+- **2.4.7 Focus Visible, a global "sandwich" focus ring** (`.rm-nav
   :focus-visible`, `.rm-hero :focus-visible`, etc. in `remotive.css`):
   a white outline plus a black box-shadow ring around it. This design has
   interactive surfaces spanning near-black, cream, cyan, magenta, and
-  yellow — no single fixed outline colour can guarantee 3:1 contrast
+  yellow, no single fixed outline colour can guarantee 3:1 contrast
   against all of them, but a light+dark pair guarantees at least one ring
-  is always visible regardless of what's underneath. Scoped to the
-  theme's own content regions so it can't affect wp-admin chrome or other
+  is always visible regardless of what is underneath. Scoped to the
+  theme's own content regions so it cannot affect wp-admin chrome or other
   plugins' UI.
 
 ### Verified, not changed
@@ -6736,10 +6731,10 @@ three stat colours); light mode's body text and cyan-dark (15.17:1,
 10.50:1); the CTA section's fixed `contrast-bg`/`contrast-text` pairing in
 both modes (17.04:1); the header/hero landmark structure (a `<header>`
 nested inside `<main>` correctly does *not* get an implicit ARIA `banner`
-role per the HTML-AAM spec, so there's no duplicate-landmark issue despite
+role per the HTML-AAM spec, so there is no duplicate-landmark issue despite
 two `<header>` elements existing on the page); the CTA email input's
 `aria-label` (already present, not relying on the placeholder as a sole
-label — one of this policy's explicitly named common failures, already
+label, one of this policy's explicitly named common failures, already
 avoided); no drag-only interactions, data tables, media, or authentication
 flows exist in this theme, so several whole sections of the policy
 (2.5.7, tables, multimedia, 3.3.8) are not applicable.
@@ -6749,7 +6744,7 @@ flows exist in this theme, so several whole sections of the policy
 Rebuilt the Theme Options admin page's UI against a card-based/tabbed
 design system spec. Data layer (option storage, defaults, sanitization,
 the token-substitution mechanism that gets values onto the front end) is
-completely unchanged — this release is presentation-layer only.
+completely unchanged, this release is presentation-layer only.
 
 ### Changed
 - Settings page no longer uses WordPress's default `do_settings_sections()`
@@ -6759,7 +6754,7 @@ completely unchanged — this release is presentation-layer only.
   (they only fed the old renderer); field/tab data now lives in
   `remotive_theme_options_tabs()`, a single array the new renderer reads
   from. `remotive_sanitize_theme_options()` is intentionally still
-  independent of that array — see `readme.md`.
+  independent of that array, see `readme.md`.
 - "Default colour mode" is now a visual-selector (three clickable cards
   with a colour-swatch preview) instead of a plain radio button list.
 
@@ -6771,16 +6766,16 @@ completely unchanged — this release is presentation-layer only.
   roving `tabindex`, arrow-key/Home/End keyboard navigation. Verified with
   an automated keyboard-navigation test, not just assumed from the markup.
 - Active tab persists via `sessionStorage` across the save-triggered page
-  reload, so saving doesn't bounce the admin back to the first tab.
-- A toggle-switch CSS component, ready for the first genuinely boolean
-  setting this theme adds — none exists yet, so nothing currently uses it
+  reload, so saving does not bounce the admin back to the first tab.
+- A toggle-switch CSS component, ready for the first boolean
+  setting this theme adds, none exists yet, so nothing currently uses it
   (see `readme.md`; noted rather than silently omitted, since the design
   spec this was built against assumed at least one boolean option).
 
 ### Fixed
 - Caught during visual QA, not just code review: the visual-selector
   cards' colour swatches, titles, and descriptions are `<span>` elements,
-  which are inline by default and silently ignore `width`/`height` — the
+  which are inline by default and silently ignore `width`/`height`, the
   swatches were rendering as invisible slivers instead of 28×28px colour
   squares. Fixed with explicit `display:block` on each.
 
@@ -6788,24 +6783,24 @@ completely unchanged — this release is presentation-layer only.
 
 WordPress modern-standards compliance pass, conducted against a structured
 rules brief (security, stability, compatibility, performance,
-accessibility, maintainability — in that priority order). Not a
+accessibility, maintainability, in that priority order). Not a
 WordPress.org directory-submission pass; this theme is site-specific and
 not distributed there (see `ssot.md`).
 
 ### Fixed
 - **Settings API validation errors were silently discarded.** `inc/theme-options.php`
   called `add_settings_error()` on invalid input, but `remotive_render_theme_options_page()`
-  never called `settings_errors()` to actually display it — the error was
+  never called `settings_errors()` to actually display it, the error was
   stored and then lost. Now shown correctly.
 - **`style.css` had no `License`/`License URI` header.** Present in
-  `readme.txt` already, but the theme's own required header block didn't
-  have it — now does (`GPL-2.0-or-later`, matching the parent theme).
+  `readme.txt` already, but the theme's own required header block did not
+  have it, now does (`GPL-2.0-or-later`, matching the parent theme).
 
 ### Added
 - **Skip link + `<main>` landmark.** Neither existed before this pass. A
   skip link (`parts/header.html`, first focusable element on the page) now
   jumps to a `<main id="main">` landmark wrapping all of
-  `templates/front-page.html`'s content — required for keyboard/screen-reader
+  `templates/front-page.html`'s content, required for keyboard/screen-reader
   users to bypass the nav, and the expected semantic structure regardless.
 - **Underlined links within body/comment content.** `theme.json` sets a
   global "no underline" style for links, correct for this theme's nav/button/component
@@ -6813,27 +6808,26 @@ not distributed there (see `ssot.md`).
   also suppressed underlines in any future blog post or comment content,
   where WCAG 1.4.1 wants links distinguishable by more than colour alone.
   Added a scoped override for `.entry-content a`, `.wp-block-post-content a`,
-  `.comment-content a` — affects nothing on the current homepage, correct
+  `.comment-content a`, affects nothing on the current homepage, correct
   by default the moment real content appears.
 - **Explicit `add_theme_support('title-tag')` and `add_theme_support('automatic-feed-links')`**
   in `functions.php`. Twenty Twenty-Five already declares both and this was
   never a live bug, but declaring them in the child theme too means neither
   is silently lost if the parent theme is ever swapped.
-- **`load_theme_textdomain()`** call + a `languages/` folder placeholder —
-  no `.pot` file exists yet (tracked in `upgrading.md`), but the loading
+- **`load_theme_textdomain()`** call + a `languages/` folder placeholder, no `.pot` file exists yet (tracked in `upgrading.md`), but the loading
   mechanism is now in place for when one is generated.
 - **Full gettext wrapping in `inc/theme-options.php`.** Every user-facing
   string on the Theme Options admin page (section headings, field labels,
   descriptions, the error message) now goes through `__()`/`esc_html__()`
   with the `remotive` text domain. Previously none of them did, despite
   the text domain being declared in `style.css`.
-- **`resources.md`** — consolidated license/copyright record: the theme's
+- **`resources.md`**: consolidated license/copyright record: the theme's
   own GPL license, each bundled font's SIL OFL license and upstream
   source, and an explicit note that the two logo image files are
   proprietary (Remotive Media Asia's own brand assets, not GPL, and not
   required to be).
 - **Privacy and Upgrade Notice sections in `readme.txt`.** Documents what
-  the theme does and doesn't collect (nothing collected by the theme
+  the theme does and does not collect (nothing collected by the theme
   itself; `localStorage` for the toggle stays client-side; the CTA form
   sends data wherever the admin points it, which is disclosed as
   configurable, not fixed).
@@ -6845,7 +6839,7 @@ nothing needed to change: nonce/capability checks on the settings page
 usage, no admin-bar suppression, no stray VCS artifacts, consistent LF
 line endings throughout, cache-busted asset versioning via `filemtime()`,
 scripts enqueued non-render-blocking (footer placement), and the existing
-`rm-*` CSS class prefix — which is outside this ruleset's namespacing
+`rm-*` CSS class prefix, which is outside this ruleset's namespacing
 requirement, since that rule's scope is explicitly PHP functions/constants/option
 keys/script handles, not arbitrary CSS class names.
 
@@ -6860,14 +6854,13 @@ response; summarized here.
   scope).** The v1.2.0 dark-mode rework swapped what the `ink`/`paper`
   palette slugs mean (ink became the light/cream value, paper became
   near-black), but the CTA band's `backgroundColor:"ink"` /
-  `textColor:"paper"` block attributes were never updated to match —
-  producing a light cream CTA band in the middle of an otherwise-black
+  `textColor:"paper"` block attributes were never updated to match, producing a light cream CTA band in the middle of an otherwise-black
   page in dark mode, the site's default. Same root cause made the CTA
   email input's typed text color effectively invisible against the CTA
   background. Fixed by adding two new palette entries, `contrast-bg`
   (`#131118`) and `contrast-text` (`#f7f4ec`), deliberately **not**
   overridden by the light-mode CSS block, so they stay constant across
-  both modes — matching the original intent of an always-dark CTA band.
+  both modes, matching the original intent of an always-dark CTA band.
 - **Global button style had the identical bug.** `theme.json`'s
   `styles.elements.button` used the same swappable `ink`/`paper` vars,
   meaning every solid button site-wide (nav CTA, hero CTAs) rendered as a
@@ -6884,46 +6877,42 @@ response; summarized here.
 - Theme-toggle button's clickable area was only as tall as its content
   (~24px), below usable tap-target size. Added padding + min-height.
 - Nav link tap targets (mobile overlay + footer) had ~23px effective
-  height. Increased padding-block within mobile breakpoints only —
-  desktop's tighter spacing is untouched.
+  height. Increased padding-block within mobile breakpoints only, desktop's tighter spacing is untouched.
 - `.rm-row` and `.rm-spread` had `grid-template-columns` overrides on
-  `display:flex` elements (dead CSS — Columns blocks are flex, not grid).
+  `display:flex` elements (dead CSS, Columns blocks are flex, not grid).
   For `.rm-spread`/`.rm-stats` this left a real, if narrow, 782–899px gap
   where the intended stacking never fired; for `.rm-row` it was inert
   since core's own stacking already covered its target range. Replaced
   with the flex equivalent (`flex-direction:column`).
-- Footer's "About" nav link pointed to `#about`, which didn't exist
+- Footer's "About" nav link pointed to `#about`, which did not exist
   anywhere on the page. Added the anchor to the footer's brand column.
 
 ### Added
-- `aria-label` on the theme-toggle button — previously its accessible
+- `aria-label` on the theme-toggle button, previously its accessible
   name was just "Dark"/"Light" (current state), ambiguous about what
   clicking it does.
 - `overflow-wrap:break-word` on footer contact text as a defensive
   measure against future longer content (current content already fit at
   every tested width).
-- Two new theme.json palette entries: `contrast-bg`, `contrast-text` —
-  see "Fixed" above.
+- Two new theme.json palette entries: `contrast-bg`, `contrast-text`, see "Fixed" above.
 
 ### Changed
 - Hero display font-size floor lowered from a constant 48px (for every
-  viewport under 600px) to a fluid `clamp(2.25rem, 8vw, 6.75rem)` —
-  previously the headline stopped shrinking at 600px and stayed flat all
+  viewport under 600px) to a fluid `clamp(2.25rem, 8vw, 6.75rem)`, previously the headline stopped shrinking at 600px and stayed flat all
   the way down to 320px; now it continues scaling to a lower floor (36px)
   specifically for narrow phones. Desktop sizing (the `6.75rem` max, and
   everything above 600px) is byte-for-byte unchanged.
 
-### Not changed (flagged, not fixed — see audit response for reasoning)
+### Not changed (flagged, not fixed, see audit response for reasoning)
 - CSS cascade architecture remains desktop-first (base rules +
   `max-width` overrides) rather than a `min-width`-based mobile-first
   structure. Converting it would touch nearly every rule in
   `remotive.css` for no change in rendered outcome (which was already
-  mobile-safe) — judged not worth the risk for this pass. Revisit only
-  if there's a specific reason to.
+  mobile-safe), judged not worth the risk for this pass. Revisit only
+  if there is a specific reason to.
 - Case-study proof rows (`.rm-row`) still fully stack to 3 lines on
   mobile (core WordPress default behavior) rather than staying a compact
-  horizontal row further down. This is a design decision, not a bug —
-  flagged for manual/design review rather than unilaterally building
+  horizontal row further down. This is a design decision, not a bug, flagged for manual/design review rather than unilaterally building
   custom mobile-specific layout logic for it.
 
 ## [1.3.0]
@@ -6934,10 +6923,10 @@ response; summarized here.
   submission URL, and a default colour-mode setting (dark / light / match
   the visitor's device). New file: `inc/theme-options.php`.
 - `render_block` filter that substitutes `__REMOTIVE_*__` tokens in
-  rendered block output with live option values — the mechanism that gets
+  rendered block output with live option values, the mechanism that gets
   admin-entered values into the otherwise-static block templates. See
   `readme.md` for why this exists instead of the official Block Bindings
-  API (Navigation Link and Custom HTML blocks aren't bindable as of this
+  API (Navigation Link and Custom HTML blocks are not bindable as of this
   writing).
 - `assets/js/theme-toggle.js` now reads `window.remotiveThemeOptions.defaultTheme`
   (set via `wp_add_inline_script`) instead of always defaulting to dark,
@@ -6972,8 +6961,8 @@ response; summarized here.
 
 ### Changed
 - Light mode's background changed from pure white (`#ffffff`, the brand
-  JSON's literal `primary` colour) to cream `#f7f4ec`, per explicit request
-  — the only token overridden from the brand spec's literal values.
+  JSON's literal `primary` colour) to cream `#f7f4ec`, per explicit request,
+  the only token overridden from the brand spec's literal values.
 
 ### Removed
 - The "Plate 01 — Cyan" / "Plate 02 — Magenta" / etc. labels on each service
@@ -6981,7 +6970,7 @@ response; summarized here.
   confusing print-jargon text label.
 
 ### Added
-- `screenshot.png` (1200×900) — was missing entirely; WordPress's theme
+- `screenshot.png` (1200×900), was missing entirely; WordPress's theme
   picker had nothing to show.
 - This documentation set (`readme.txt`, `readme.md`, `ssot.md`,
   `upgrading.md`, `changelog.md`), replacing the single `README.md` from
@@ -6997,10 +6986,10 @@ response; summarized here.
 ### Added
 - Light/dark mode toggle in the site header. Dark (default) is the CMYK
   "Registration" direction; light is Remotive Media Asia's official brand
-  system (`remotive_brand_5.json`) — Saira typeface, brand accent colours.
+  system (`remotive_brand_5.json`), Saira typeface, brand accent colours.
 - Saira self-hosted as `.woff2` (matching the existing GDPR-conscious
   approach already used for Archivo/Newsreader).
-- `assets/js/theme-toggle.js` — persists the visitor's choice via
+- `assets/js/theme-toggle.js`: persists the visitor's choice via
   `localStorage`; first-time visitors default to dark.
 - Six brand accent colours mapped onto the same six service "plates" dark
   mode already uses, so the printing-plate metaphor holds in both modes.
@@ -7018,13 +7007,13 @@ response; summarized here.
 - Almost entirely real, editable core blocks (Group, Columns, Heading,
   Paragraph, Navigation, Quote, Site Logo); three intentional Custom HTML
   blocks for the hero headline's hover effect, the ticker marquee, and the
-  CTA form — documented in `readme.md`.
+  CTA form, documented in `readme.md`.
 
 ## Language layer build (separate line of work, entries as written there)
 
 Numbered 1.89.7 to 1.92.1 in that build; the numbers do not match this repository's 1.90.0 to 1.92.0. All of it is included in 1.104.0.
 
-## [1.92.1] — 2026-10-04
+## [1.92.1] (2026-10-04)
 
 ### Fixed
 
@@ -7057,7 +7046,7 @@ Numbered 1.89.7 to 1.92.1 in that build; the numbers do not match this repositor
 - English: 41 of 42 pages are byte-identical to 1.92.0; `/faq/` differs in
   exactly the two answers and its structured data.
 
-## [1.92.0] — 2026-10-01
+## [1.92.0] (2026-10-01)
 
 ### Added
 
@@ -7118,7 +7107,7 @@ Numbered 1.89.7 to 1.92.1 in that build; the numbers do not match this repositor
 - Written natively but not reviewed by a native speaker; a review before the
   texts are published is recommended.
 
-## [1.90.0] — 2026-10-01
+## [1.90.0] (2026-10-01)
 
 ### Added
 
@@ -7194,7 +7183,7 @@ Numbered 1.89.7 to 1.92.1 in that build; the numbers do not match this repositor
 - Written and checked here; a native speaker should review the Malay and both
   Chinese texts before they are published.
 
-## [1.89.7] — 2026-09-30
+## [1.89.7] (2026-09-30)
 
 ### Fixed
 

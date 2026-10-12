@@ -145,6 +145,8 @@ return array(
 			'案例研究',
 		'Full-funnel digital marketing for brands who\'d rather be seen than shout. Registered in Singapore, working across APAC.' =>
 			'為寧可被看見、也不願喧嘩的品牌，提供全漏斗數位行銷。公司註冊於新加坡，業務遍及亞太地區。',
+		'Full-funnel digital marketing for brands who would rather be seen than shout. Registered in Singapore, working across APAC.' =>
+			'為寧可被看見、也不願喧嘩的品牌，提供全漏斗數位行銷。公司註冊於新加坡，業務遍及亞太地區。',
 		'SEO & GEO / AIO / AEO' =>
 			'SEO & GEO / AIO / AEO',
 		'Paid Media' =>
@@ -1598,6 +1600,8 @@ return array(
 		'All insights' =>
 			'全部洞察',
 		'Full-funnel digital marketing for brands who\'d rather be seen than shout. Notes on SEO, paid, and content from the team.' =>
+			'為寧可被看見、也不願喧嘩的品牌提供全漏斗數位行銷。來自團隊的 SEO、付費與內容筆記。',
+		'Full-funnel digital marketing for brands who would rather be seen than shout. Notes on SEO, paid, and content from the team.' =>
 			'為寧可被看見、也不願喧嘩的品牌提供全漏斗數位行銷。來自團隊的 SEO、付費與內容筆記。',
 		'Recent posts' =>
 			'近期文章',

@@ -1,10 +1,10 @@
-# Upgrading — roadmap & future plans
+# Upgrading, roadmap & future plans
 
 This is **not** a version-upgrade guide (there are no breaking changes to
-migrate yet — see `docs/changelog.md` for what actually shipped). This is a
+migrate yet, see `docs/changelog.md` for what actually shipped). This is a
 running list of planned work, ideas, and known gaps, roughly ordered by
 what would matter most to fix or build next. Nothing here is scheduled or
-committed; it's a backlog for whoever picks this theme up next.
+committed; it is a backlog for whoever picks this theme up next.
 
 ## Deploying v1.90.0 – v1.97.0 (landing pages, colours, form tokens)
 
@@ -61,6 +61,10 @@ WordPress site yet; this list is how to find out.
   (matched by file content); an image you chose is kept, and nothing is deleted.
 - If an older generation of the generic graphics is still on an article, set its
   featured image in the editor.
+
+## v1.117.0: article text refresh
+
+- Nothing to set up. Articles that still hold the seeded text update on the first page load after the upload. An article you edited keeps your version. To refresh one by hand, copy its new text from `inc/setup/content-seed-data.php`.
 
 ## v1.116.1: the agency layout keeps its translations
 
@@ -264,8 +268,8 @@ pages on.
 
 - Nothing to run by hand: the footer menu refreshes once on the next admin page
   load (migration 1.98.0). If the site uses a hand-built footer menu, edit it in
-  Appearance → Menus; the migration only touches the "Footer — Case Studies"
-  menu.
+  Appearance → Menus; the migration only touches the footer menu that
+  lists case studies.
 - The saved Navigation block (block themes) is not touched by template changes;
   if the footer on the live site still shows the old links, edit it under
   Appearance → Editor → Patterns/Navigation.
@@ -337,16 +341,16 @@ Details are in `docs/changelog.md`.
 
 Moved here from the roadmap rather than deleted, so the reasoning survives.
 
-- **Country ticker made configurable** (v1.66.7, v1.66.8) — twelve options
+- **Country ticker made configurable** (v1.66.7, v1.66.8), twelve options
   under its own Theme Options tab.
-- **CTA coverage and consistency** (v1.67.0, v1.67.3–v1.67.8) — bands added
+- **CTA coverage and consistency** (v1.67.0, v1.67.3–v1.67.8), bands added
   to the Insights index, single posts and archives, which previously ended
   with no prompt; colour variants and a centred layout for button-only bands.
-- **`/work/` → `/case-studies/` slug migration** (v1.68.0) — runs once on the
+- **`/work/` → `/case-studies/` slug migration** (v1.68.0), runs once on the
   next admin load; child pages follow.
-- **Security hardening module** (v1.68.1) — see `readme.md` → Security.
-- **Branded error handling** (v1.69.0, v1.69.2) — fatals and non-fatals.
-- **Scroll motion** (v1.69.1) — CSS scroll-driven animations with an
+- **Security hardening module** (v1.68.1), see `readme.md` → Security.
+- **Branded error handling** (v1.69.0, v1.69.2), fatals and non-fatals.
+- **Scroll motion** (v1.69.1), CSS scroll-driven animations with an
   observer fallback.
 
 ### Still outstanding from the log review
@@ -364,7 +368,7 @@ Server-level, unchanged by any theme release:
 ### Documentation debt cleared
 
 `readme.md`, `readme.txt` and `docs/ssot.md` had drifted roughly three days
-behind the code by v1.69.2 — none of the ticker, CTA, security, error
+behind the code by v1.69.2, none of the ticker, CTA, security, error
 handling or motion work appeared in any of them. Brought current in the
 same release. Worth a standing check: **if a release adds a Theme Options
 field or an `inc/` file, it is not finished until `readme.md`'s file map,
@@ -462,57 +466,57 @@ field or an `inc/` file, it is not finished until `readme.md`'s file map,
   hand-written block markup, maintained by hand in three separate places.
   The theme's classic-PHP predecessor (`remotive` v1.0.0/v1.1.0,
   pre-block-theme) had `remotive_service` and `remotive_case_study`
-  custom post types for exactly this — worth reintroducing here once
-  there's enough real content that hand-editing three templates in
+  custom post types for exactly this, worth reintroducing here once
+  there is enough real content that hand-editing three templates in
   parallel stops being convenient. This would also make individual
   case-study detail pages possible (currently the Case Studies page's
-  "View case study →" links go nowhere — `href="#"` — since there's no
+  "View case study →" links go nowhere, `href="#"`, since there is no
   per-case-study page to link to yet). Deliberately not built
   speculatively ahead of that need.
 - **Stronger form bot resistance.** `inc/forms/lead-form-handler.php` (shared
   by the CTA, About, and Contact forms) has a nonce, a honeypot, an
-  Akismet check (v1.67.2) and a per-IP rate limit (3/10min) — and since
-  v1.68.1 `inc/core/security.php` applies a comparable limit to login attempts
-  — but none of that stops a scripted client
+  Akismet check (v1.67.2) and a per-IP rate limit (3/10min), and since
+  v1.68.1 `inc/core/security.php` applies a comparable limit to login attempts,
+  but none of that stops a scripted client
   that first loads the real page for a valid nonce, then submits
   repeatedly at a slower rate. A CAPTCHA (hCaptcha/Turnstile) or a
-  WAF/security-plugin rate limit would close that gap — deliberately not
+  WAF/security-plugin rate limit would close that gap, deliberately not
   picked here, since choosing a CAPTCHA vendor is a product/UX decision
   (added friction to the funnel), not something to decide unilaterally
   in theme code.
 - **Verify the `edit_theme_options` vs `manage_options` capability
-  mismatch against a live install.** `register_setting()` doesn't specify
+  mismatch against a live install.** `register_setting()` does not specify
   an explicit capability, so WordPress core's own `options.php` save-path
   check defaults to `manage_options`, while this theme's own page-access
   check uses `edit_theme_options`. Identical in a stock install (both
-  admin-only) — no known live install to test this against yet. Worth a
+  admin-only), no known live install to test this against yet. Worth a
   quick check on a site that customizes role capabilities, and aligning
-  both if there's a supported way to do so.
+  both if there is a supported way to do so.
 
 ## Content & structure
 
 - **A "Posts page" needs configuring in Settings → Reading** for the
-  blog archive (`templates/index.html`) to show at a real URL — the
-  template is ready, this is a one-time admin action the theme can't do
+  blog archive (`templates/index.html`) to show at a real URL, the
+  template is ready, this is a one-time admin action the theme cannot do
   for itself.
 - **Actual pages need creating and assigning their templates.** Eight
   custom templates now exist (`page-about`, `page-services`,
   `page-case-studies`, `page-legal`, `page-contact`) and are selectable in
   the editor's
   Template dropdown, but no actual WordPress Pages have been created and
-  assigned to them yet — that's a content/admin step, not a code one.
+  assigned to them yet, that is a content/admin step, not a code one.
   **When creating them, use plain titles matching the four blog posts'
-  internal links** ("Services", "Contact", etc.) — see the content
+  internal links** ("Services", "Contact", etc.), see the content
   package's own README for why that matters.
 - **Import the blog seed content** (`remotive-blog-seed-content.xml`,
-  delivered alongside the theme zip, not inside it — content and theme
+  delivered alongside the theme zip, not inside it, content and theme
   code are kept separate) via Tools → Import → WordPress. Four posts,
   written against real keyword research, ready to populate the blog
   archive the moment a Posts page exists.
 - **Web design as a service, if that ever changes.** Six Malaysia
   keywords in the research (~9,000 combined volume) are web-design
-  terms — deliberately untargeted since Remotive doesn't offer that
-  service. If it's added later, this is the first keyword cluster worth
+  terms, deliberately untargeted since Remotive does not offer that
+  service. If it is added later, this is the first keyword cluster worth
   building a landing page or content around.
 
 ## Design system extensions
@@ -520,14 +524,14 @@ field or an `inc/` file, it is not finished until `readme.md`'s file map,
 - **Swiss Grid and Editorial Studio as additional style variations.** The
   original concept deck explored three directions (Overprint Bold, Swiss
   Grid, Editorial Studio); this theme ships only the merged "Registration"
-  direction plus the brand-system light mode. If there's ever a reason to
+  direction plus the brand-system light mode. If there is ever a reason to
   offer more visual variety (seasonal campaigns, A/B testing a calmer look),
   WordPress's native style variations (`styles/*.json` files, switchable in
-  the Site Editor) would be the right mechanism — distinct from the
+  the Site Editor) would be the right mechanism, distinct from the
   visitor-facing dark/light toggle, which is a different, runtime-only
   system.
 - **A third `--rm-blend`-aware theme, if ever added, needs its blend mode
-  set explicitly** (see `readme.md`) — flagging here so it's not forgotten
+  set explicitly** (see `readme.md`), flagging here so it is not forgotten
   mid-build.
 - **Any future palette change should grep for `"ink"` and `"paper"` usage
   across every template/theme.json before shipping.** The v1.2.0 dark-mode
@@ -540,21 +544,21 @@ field or an `inc/` file, it is not finished until `readme.md`'s file map,
   Bindings API widens its allow-list.** `inc/options/theme-options.php` currently
   uses a theme-specific token convention (see `readme.md`) instead of the
   official Block Bindings API because Navigation Link and Custom HTML
-  blocks aren't bindable as of this writing. If core adds support for
+  blocks are not bindable as of this writing. If core adds support for
   those block types, migrating to the standard mechanism would be more
-  maintainable than the current `strtr()` filter — worth checking on
+  maintainable than the current `strtr()` filter, worth checking on
   future WordPress releases.
 
 ## Performance & accessibility
 
-- **Custom post types for services/case studies would also unlock
+- **Custom post types for services/case studies would also open up
   per-item alt text and structured image handling** once real photography
   (see above) replaces the placeholder gradient.
 
 ## Explicitly out of scope for now
 
 - General-purpose reusability. This theme is intentionally single-site
-  (see `docs/ssot.md`) — no plans to genericize it into a distributable product.
+  (see `docs/ssot.md`), no plans to genericize it into a distributable product.
 - Automated testing. Given the theme's small, single-purpose surface area,
   manual QA has been judged sufficient so far; revisit if the codebase grows
   past a single homepage template.

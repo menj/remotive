@@ -594,7 +594,7 @@ function remotive_agency_team_html() {
  */
 function remotive_agency_footer_html() {
 	$brand = '<div class="rm-ag__foot-brand">' . remotive_lp_logo()
-		. '<p>' . esc_html__( 'Full-funnel digital marketing for brands who\'d rather be seen than shout. Registered in Singapore, working across APAC.', 'remotive' ) . '</p></div>';
+		. '<p>' . esc_html__( 'Full-funnel digital marketing for brands who would rather be seen than shout. Registered in Singapore, working across APAC.', 'remotive' ) . '</p></div>';
 
 	$email = trim( (string) remotive_get_theme_option( 'contact_email' ) );
 	$lines = array();

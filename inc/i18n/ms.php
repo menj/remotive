@@ -143,6 +143,8 @@ return array(
 			'Kajian kes',
 		'Full-funnel digital marketing for brands who\'d rather be seen than shout. Registered in Singapore, working across APAC.' =>
 			'Pemasaran digital merentasi seluruh corong jualan untuk jenama yang lebih suka dilihat daripada menjerit. Berdaftar di Singapura, beroperasi di seluruh APAC.',
+		'Full-funnel digital marketing for brands who would rather be seen than shout. Registered in Singapore, working across APAC.' =>
+			'Pemasaran digital merentasi seluruh corong jualan untuk jenama yang lebih suka dilihat daripada menjerit. Berdaftar di Singapura, beroperasi di seluruh APAC.',
 		'SEO & GEO / AIO / AEO' =>
 			'SEO & GEO / AIO / AEO',
 		'Paid Media' =>
@@ -1604,6 +1606,8 @@ return array(
 		'All insights' =>
 			'Semua wawasan',
 		'Full-funnel digital marketing for brands who\'d rather be seen than shout. Notes on SEO, paid, and content from the team.' =>
+			'Pemasaran digital seluruh corong untuk jenama yang lebih suka dilihat daripada menjerit. Nota tentang SEO, media berbayar, dan kandungan daripada pasukan.',
+		'Full-funnel digital marketing for brands who would rather be seen than shout. Notes on SEO, paid, and content from the team.' =>
 			'Pemasaran digital seluruh corong untuk jenama yang lebih suka dilihat daripada menjerit. Nota tentang SEO, media berbayar, dan kandungan daripada pasukan.',
 		'Recent posts' =>
 			'Catatan terkini',

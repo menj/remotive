@@ -339,7 +339,7 @@ function remotive_run_site_setup() {
 }
 
 /**
- * MD5 of the article text (every earlier version) and Rank Math fields as seeded before 1.114.0.
+ * MD5 of the post title, article text and Rank Math fields as every earlier release seeded them.
  *
  * remotive_refresh_article_seo() only replaces a value that still matches
  * its hash, so anything an editor has changed stays as they left it.
@@ -349,46 +349,53 @@ function remotive_run_site_setup() {
 function remotive_old_article_seo_hashes() {
 	return array(
 		'seo-friendly-web-design' => array(
-			'content' => array( '23559b7a46b685f1c17b6ad1f57e9df8', 'bb602c61d590b5d0830c9d2af2a34d9d' ),
-			'title'   => '07d6bc1f5688653d170af8c940d22f12',
-			'desc'    => '1074ed3a8a3a19e09f33ef03e831a895',
-			'kw'      => 'e95ddfa23d0081f56992ca2923a4d1bd',
+			'content' => array( '23559b7a46b685f1c17b6ad1f57e9df8', 'bb602c61d590b5d0830c9d2af2a34d9d', '513bae76e395032cdb7b5e5f8d788c87' ),
+			'ptitle'  => array( '9b2bd2870473e386678169c10c673af8' ),
+			'title'   => array( '07d6bc1f5688653d170af8c940d22f12' ),
+			'desc'    => array( '1074ed3a8a3a19e09f33ef03e831a895', '487352f80c7fe13248871c2ed75fee9d' ),
+			'kw'      => array( 'e95ddfa23d0081f56992ca2923a4d1bd' ),
 		),
 		'sem-services-singapore' => array(
-			'content' => array( 'b0143cdf0ef476dfb3ffcf707b00ccab', 'b736b1a3e41f406e9905d71a325bc438' ),
-			'title'   => 'b6cfe5195f328d4dfb4414b16607838f',
-			'desc'    => '4d858f59eafd3fca38baeba11355a913',
-			'kw'      => '98dde1cf6bbd40875110fa4432f3b0d7',
+			'content' => array( 'b0143cdf0ef476dfb3ffcf707b00ccab', 'b736b1a3e41f406e9905d71a325bc438', '11b64fb6804b9d6f5a56db9e9076a5dc' ),
+			'ptitle'  => array( '8bcbf04f44f0e7408ba9d83c5d8d3086' ),
+			'title'   => array( 'b6cfe5195f328d4dfb4414b16607838f', '8078f27d69818acec52a40c53572eaef' ),
+			'desc'    => array( '4d858f59eafd3fca38baeba11355a913', '0a14bd396a4dfc041cf69de5ee43ad77' ),
+			'kw'      => array( '98dde1cf6bbd40875110fa4432f3b0d7', '4bdcb363ffb6a794fb0676987a6d1763' ),
 		),
 		'facebook-advertising-malaysia' => array(
-			'content' => array( '6c6c80277ff614523649967c189752a3', 'f216ead1a145408457f48401a9bff45f' ),
-			'title'   => 'b6d491de25fd1341cb747a51e37a873d',
-			'desc'    => '7cfb228076e44ddcac8e5b48f8d41815',
-			'kw'      => 'e4535434e1039b46370e422ef9a864f6',
+			'content' => array( '6c6c80277ff614523649967c189752a3', 'f216ead1a145408457f48401a9bff45f', '4d65ad89a6f2da592a1d053ae75586db' ),
+			'ptitle'  => array( 'cf5096d011671d20ad52b89c2ebaf29a' ),
+			'title'   => array( 'b6d491de25fd1341cb747a51e37a873d' ),
+			'desc'    => array( '7cfb228076e44ddcac8e5b48f8d41815', '34b004c7cd7169444b33a29398375ee4' ),
+			'kw'      => array( 'e4535434e1039b46370e422ef9a864f6' ),
 		),
 		'how-to-choose-an-seo-agency' => array(
-			'content' => array( '9a0dc44c8c8f75df5ef6638482924521', 'b841fad50b2edb30ed67d154e2b64a5a' ),
-			'title'   => '12ddf28236473f0e4d1faf304249aa78',
-			'desc'    => '65668e85d4e2e798ac26922c892b603c',
-			'kw'      => 'e10e04e38e72289b7bb74933f06f05cb',
+			'content' => array( '9a0dc44c8c8f75df5ef6638482924521', 'b841fad50b2edb30ed67d154e2b64a5a', 'fb83c8c72e78ded8c8470580944d890c' ),
+			'ptitle'  => array( '1b7cbfd6c41312aec1dd2010599f657a' ),
+			'title'   => array( '12ddf28236473f0e4d1faf304249aa78', '35a4207c5565e897a8b63ffdfc66d369' ),
+			'desc'    => array( '65668e85d4e2e798ac26922c892b603c', 'd693139db7e1ede33becfba67a3d0e03' ),
+			'kw'      => array( 'e10e04e38e72289b7bb74933f06f05cb' ),
 		),
 		'seo-vs-sem' => array(
-			'content' => array( '38d06a6e829754d6630d8a297eb71090', 'a99e6294e4586452238023f46465fb74' ),
-			'title'   => '980b52028aebfb5de26c70695401e0da',
-			'desc'    => '68dee08689f4580f93ab751fe798cebd',
-			'kw'      => '8d7d4382ab81dab0ff2724c990fbdba5',
+			'content' => array( '38d06a6e829754d6630d8a297eb71090', 'a99e6294e4586452238023f46465fb74', 'bb76247d523243dc8ec15055cbe9f6b0' ),
+			'ptitle'  => array( '980b52028aebfb5de26c70695401e0da' ),
+			'title'   => array( '980b52028aebfb5de26c70695401e0da' ),
+			'desc'    => array( '68dee08689f4580f93ab751fe798cebd', 'dedf1e91115025462d6c475e0c1637d4' ),
+			'kw'      => array( '8d7d4382ab81dab0ff2724c990fbdba5' ),
 		),
 		'seo-cost-singapore' => array(
-			'content' => array( '8b568bf7f56ca9d837160f9d08541d77', '76eff59351865d12360c2bdab6b0488f' ),
-			'title'   => '0dc638afbe34d215e9b935cac5293349',
-			'desc'    => '027bf5c95d20ad33054980097c973644',
-			'kw'      => '8696e7a29d9dd25b40d163a78f81e708',
+			'content' => array( '8b568bf7f56ca9d837160f9d08541d77', '76eff59351865d12360c2bdab6b0488f', 'f2713be5c149a913e0e60099b76f5db1' ),
+			'ptitle'  => array( '0dc638afbe34d215e9b935cac5293349' ),
+			'title'   => array( '0dc638afbe34d215e9b935cac5293349' ),
+			'desc'    => array( '027bf5c95d20ad33054980097c973644', '139322be304f5cc6d5f8d8ab79924439' ),
+			'kw'      => array( '8696e7a29d9dd25b40d163a78f81e708', 'e326a57b6d297d96ead8c0f4c8c36b59' ),
 		),
 		'seo-services-pricing-malaysia' => array(
-			'content' => array( '6fd9009ceff2f4b7eada9d1266910cc7', '5f392a6cc18269defa3b440ffaae39f5' ),
-			'title'   => '2d1e9557ea23efde6d519b65fb3150ce',
-			'desc'    => 'bef087e9c7c9e6d56c2a89c9867b178e',
-			'kw'      => '3fa1c2d2ad0371473e5367146b987dd2',
+			'content' => array( '6fd9009ceff2f4b7eada9d1266910cc7', '5f392a6cc18269defa3b440ffaae39f5', 'b64be0b0f9709fd0afcc4b5d6d470c4b' ),
+			'ptitle'  => array( '2d1e9557ea23efde6d519b65fb3150ce' ),
+			'title'   => array( '2d1e9557ea23efde6d519b65fb3150ce' ),
+			'desc'    => array( 'bef087e9c7c9e6d56c2a89c9867b178e', 'a9ce5036432a8aec46ececbc044e4341' ),
+			'kw'      => array( '3fa1c2d2ad0371473e5367146b987dd2', 'b1797e3937cbc5cdd865caee765d0493' ),
 		),
 	);
 }
@@ -447,7 +454,7 @@ function remotive_refresh_article_seo() {
 			$new = (string) ( $item[ $map[0] ] ?? '' );
 			$cur = (string) get_post_meta( $post_id, $meta_key, true );
 
-			if ( '' === $new || $cur === $new || ( '' !== $cur && md5( $cur ) !== $old[ $map[1] ] ) ) {
+			if ( '' === $new || $cur === $new || ( '' !== $cur && ! in_array( md5( $cur ), (array) $old[ $map[1] ], true ) ) ) {
 				continue;
 			}
 
@@ -459,6 +466,19 @@ function remotive_refresh_article_seo() {
 			}
 
 			++$changed;
+		}
+
+		// The post title, in sentence case since 1.117.0. Only a title that is still exactly what an earlier
+		// release seeded is replaced; the row is matched on that title, so a title saved meanwhile is kept.
+		$title_now = (string) $posts[0]->post_title;
+
+		if ( ! empty( $item['title'] ) && $title_now !== $item['title'] && in_array( md5( $title_now ), (array) $old['ptitle'], true ) ) {
+			$rows = $wpdb->update( $wpdb->posts, array( 'post_title' => $item['title'] ), array( 'ID' => $post_id, 'post_title' => $title_now ) );
+
+			if ( 1 === (int) $rows ) {
+				clean_post_cache( $post_id );
+				++$changed;
+			}
 		}
 
 		if ( empty( $item['content'] ) ) {
@@ -523,7 +543,7 @@ const REMOTIVE_SETUP_FLAG = 'remotive_site_setup_done';
  * migrations. This is the value stored in remotive_site_setup_done after
  * all migrations for this release complete successfully.
  */
-const REMOTIVE_SETUP_SCHEMA = '1.115.0';
+const REMOTIVE_SETUP_SCHEMA = '1.117.0';
 
 /**
  * Migrations keyed by the schema version they introduce.
@@ -606,6 +626,11 @@ function remotive_migration_registry() {
 		// 1.115.0: the seeded articles are lengthened to 1,000 words and over.
 		// Same safe refresh: only text that still matches an earlier seed is replaced.
 		'1.115.0' => function() {
+			return remotive_refresh_article_seo();
+		},
+		// 1.117.0: the seeded articles are rewritten to the house writing style (no contractions, sentence-case
+		// titles). Same safe refresh: only text that still matches an earlier seed is replaced.
+		'1.117.0' => function() {
 			return remotive_refresh_article_seo();
 		},
 		// 1.90.0: provisions the three ad landing pages (seo-audit,
