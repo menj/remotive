@@ -4,7 +4,7 @@ Tags: block-theme, full-site-editing, child-theme, one-page
 Requires at least: 6.7
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.119.3
+Stable tag: 1.119.4
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -335,9 +335,12 @@ floor, not a replacement.
 
 == Changelog ==
 
-See `docs/changelog.md` for full version history. Latest version: 1.119.3.
+See `docs/changelog.md` for full version history. Latest version: 1.119.4.
 
 == Upgrade Notice ==
+
+= 1.119.4 =
+* Fixed: switching language on the thank-you page after an ad landing page form no longer loses the service-specific heading.
 
 = 1.119.3 =
 * Fixed: the EN link in the language bar of the one-page layout and the ad landing pages pointed at the page you were already on when that page was in Malay or Chinese.

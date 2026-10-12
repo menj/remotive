@@ -4,6 +4,12 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.119.4] (2026-10-12)
+
+### Fixed
+
+On the confirmation page that follows an ad landing page form, the language links dropped the `service` argument, so switching language lost the service-specific heading ("Your free SEO audit request is in") and showed the generic text. The links now carry it when the service is a known one. Found by CodeAnt on the previous pull request.
+
 ## [1.119.3] (2026-10-12)
 
 ### Fixed
