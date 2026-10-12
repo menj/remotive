@@ -51,4 +51,25 @@ $stored_sub = remotive_seed_content_to_site( $stored, '/blog-site' );
 t_ok( remotive_seed_content_from_site( $stored_sub, '/blog-site', $perma ) === $seed, 'seed links: base path and permalink are both undone' );
 t_ok( md5( remotive_seed_content_from_site( $stored_sub, '/blog-site', $perma ) ) === md5( $seed ), 'seed links: the round trip hashes the same as the seed' );
 
+
+// ---- The seeded pages are refreshed like the articles ----
+require_once dirname( __DIR__ ) . '/inc/setup/content-seed-data.php';
+$page_hashes = remotive_old_page_copy_hashes();
+$page_slugs  = array();
+
+foreach ( remotive_seed_content() as $item ) {
+	if ( 'page' === $item['type'] ) {
+		$page_slugs[] = $item['slug'];
+		t_ok( isset( $page_hashes[ $item['slug'] ] ), 'page ' . $item['slug'] . ' has earlier-release hashes' );
+	}
+}
+
+t_eq( count( $page_hashes ), count( $page_slugs ), 'there is one hash entry per seeded page' );
+foreach ( $page_hashes as $slug => $fields ) {
+	foreach ( $fields as $name => $list ) {
+		t_ok( $list && ! array_diff( array_map( function ( $h ) { return preg_match( '/^[a-f0-9]{32}$/', $h ) ? 1 : 0; }, $list ), array( 1 ) ), "$slug / $name: every hash is an md5" );
+	}
+}
+t_ok( '1.119.0' === REMOTIVE_SETUP_SCHEMA, 'the migration schema is 1.119.0' );
+
 t_done( 'setup' );

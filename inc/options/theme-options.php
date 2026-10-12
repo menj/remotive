@@ -201,15 +201,15 @@ function remotive_theme_options_base_tabs() {
 					'type'  => 'text',
 				),
 				'hero_line_1'      => array(
-					'label' => __( 'Headline — line 1', 'remotive' ),
+					'label' => __( 'Headline: line 1', 'remotive' ),
 					'type'  => 'text',
 				),
 				'hero_line_2'      => array(
-					'label' => __( 'Headline — line 2', 'remotive' ),
+					'label' => __( 'Headline: line 2', 'remotive' ),
 					'type'  => 'text',
 				),
 				'hero_highlight'   => array(
-					'label' => __( 'Headline — highlighted words', 'remotive' ),
+					'label' => __( 'Headline: highlighted words', 'remotive' ),
 					'type'  => 'text',
 				),
 				'hero_sub'         => array(
@@ -307,27 +307,27 @@ function remotive_theme_options_base_tabs() {
 					'fields'      => array(
 
 				'stat_1_value' => array(
-					'label' => __( 'Figure 1 — value', 'remotive' ),
+					'label' => __( 'Figure 1: value', 'remotive' ),
 					'type'  => 'text',
 				),
 				'stat_1_label' => array(
-					'label' => __( 'Figure 1 — label', 'remotive' ),
+					'label' => __( 'Figure 1: label', 'remotive' ),
 					'type'  => 'text',
 				),
 				'stat_2_value' => array(
-					'label' => __( 'Figure 2 — value', 'remotive' ),
+					'label' => __( 'Figure 2: value', 'remotive' ),
 					'type'  => 'text',
 				),
 				'stat_2_label' => array(
-					'label' => __( 'Figure 2 — label', 'remotive' ),
+					'label' => __( 'Figure 2: label', 'remotive' ),
 					'type'  => 'text',
 				),
 				'stat_3_value' => array(
-					'label' => __( 'Figure 3 — value', 'remotive' ),
+					'label' => __( 'Figure 3: value', 'remotive' ),
 					'type'  => 'text',
 				),
 				'stat_3_label' => array(
-					'label' => __( 'Figure 3 — label', 'remotive' ),
+					'label' => __( 'Figure 3: label', 'remotive' ),
 					'type'  => 'text',
 				),
 					),
@@ -355,15 +355,15 @@ function remotive_theme_options_base_tabs() {
 					'type'  => 'email',
 				),
 				'address_line_1'   => array(
-					'label' => __( 'Address — line 1', 'remotive' ),
+					'label' => __( 'Address: line 1', 'remotive' ),
 					'type'  => 'text',
 				),
 				'address_line_2'   => array(
-					'label' => __( 'Address — line 2', 'remotive' ),
+					'label' => __( 'Address: line 2', 'remotive' ),
 					'type'  => 'text',
 				),
 				'address_line_3'   => array(
-					'label' => __( 'Address — line 3', 'remotive' ),
+					'label' => __( 'Address: line 3', 'remotive' ),
 					'type'  => 'text',
 				),
 				'legal_name'       => array(
@@ -411,7 +411,7 @@ function remotive_theme_options_base_tabs() {
 			'icon'        => 'dashicons-megaphone',
 			/* translators: %s: the contact email address the form emails to */
 			'description' => sprintf(
-				__( 'Where the homepage email-capture form submits to. By default, submissions email %s directly (the theme\'s built-in handler — no third-party account needed). Change this to a form plugin endpoint, a Formspree-style URL, or a CRM webhook if you\'d rather use one of those instead.', 'remotive' ),
+				__( 'Where the homepage email-capture form submits to. By default, submissions email %s directly (the theme\'s built-in handler, so no third-party account is needed). Change this to a form plugin endpoint, a Formspree-style URL, or a CRM webhook if you would rather use one of those instead.', 'remotive' ),
 				'<code>' . esc_html( remotive_get_theme_option( 'contact_email' ) ) . '</code>'
 			),
 			'fields'      => array(
@@ -462,12 +462,12 @@ function remotive_theme_options_base_tabs() {
 					'label'   => __( 'Font weight', 'remotive' ),
 					'type'    => 'select',
 					'options' => array(
-						'400' => __( '400 — Regular', 'remotive' ),
-						'500' => __( '500 — Medium', 'remotive' ),
-						'600' => __( '600 — Semibold', 'remotive' ),
-						'700' => __( '700 — Bold', 'remotive' ),
-						'800' => __( '800 — Extrabold', 'remotive' ),
-						'900' => __( '900 — Black', 'remotive' ),
+						'400' => __( '400 Regular', 'remotive' ),
+						'500' => __( '500 Medium', 'remotive' ),
+						'600' => __( '600 Semibold', 'remotive' ),
+						'700' => __( '700 Bold', 'remotive' ),
+						'800' => __( '800 Extrabold', 'remotive' ),
+						'900' => __( '900 Black', 'remotive' ),
 					),
 				),
 				'ticker_letter_spacing' => array(
@@ -553,7 +553,7 @@ function remotive_theme_options_base_tabs() {
 		'display' => array(
 			'label'       => __( 'Site behaviour', 'remotive' ),
 			'icon'        => 'dashicons-admin-appearance',
-			'description' => __( "Which colour mode first-time visitors see. Returning visitors who've used the toggle always see their own saved choice regardless of this setting.", 'remotive' ),
+			'description' => __( "Which colour mode first-time visitors see. Returning visitors who have used the toggle always see their own saved choice regardless of this setting.", 'remotive' ),
 			'fields'      => array(
 				'lead_retention_months' => array(
 					'label'  => __( 'Keep enquiries for', 'remotive' ),
@@ -994,7 +994,7 @@ function remotive_sanitize_theme_options( $input ) {
 
 	if ( empty( $clean['contact_email'] ) ) {
 		$clean['contact_email'] = $defaults['contact_email'];
-		add_settings_error( 'remotive_theme_options', 'invalid_email', __( 'Contact email looked invalid — kept the previous value.', 'remotive' ) );
+		add_settings_error( 'remotive_theme_options', 'invalid_email', __( 'Contact email looked invalid. The previous value was kept.', 'remotive' ) );
 	}
 
 	return $clean;

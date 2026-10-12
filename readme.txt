@@ -4,7 +4,7 @@ Tags: block-theme, full-site-editing, child-theme, one-page
 Requires at least: 6.7
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.118.0
+Stable tag: 1.119.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -335,9 +335,13 @@ floor, not a replacement.
 
 == Changelog ==
 
-See `docs/changelog.md` for full version history. Latest version: 1.118.0.
+See `docs/changelog.md` for full version history. Latest version: 1.119.0.
 
 == Upgrade Notice ==
+
+= 1.119.0 =
+* Added: an optional "How did you hear about us?" field on the one-page layout and ad landing page forms. The answer is recorded in the enquiry email.
+* Changed: the older copy (templates, seeded pages, labels and messages) now follows the house writing style. Pages you have not edited update on their own.
 
 = 1.118.0 =
 * Added: How we work and Signs it is time to talk sections on the one-page layout, each with its own switch.

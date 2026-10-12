@@ -37,7 +37,7 @@ function remotive_landing_services() {
 			'points'  => array(
 				array( 'A ranked fix list: what to do first, and why', 'Senarai pembaikan mengikut keutamaan: apa yang perlu dibuat dahulu, dan sebabnya', '按优先级排序的修复清单：先做什么，为什么', '按優先順序排列的修復清單：先做什麼，為什麼' ),
 				array( 'Pages mapped to what your buyers actually search for', 'Halaman dipadankan dengan apa yang sebenarnya dicari pembeli anda', '页面对准买家的真实搜索需求', '頁面對準買家的真實搜尋需求' ),
-				array( 'A view of how you appear in AI answers, not only the blue links', 'Gambaran bagaimana anda muncul dalam jawapan AI, bukan sekadar pautan biru', '了解您在 AI 回答中的呈现，而不只是搜索结果链接', '了解您在 AI 回答中的呈現，而不只是搜尋結果連結' ),
+				array( 'A view of how you appear in AI answers, beyond the blue links', 'Gambaran bagaimana anda muncul dalam jawapan AI, selain pautan biru', '除了搜索结果链接，也了解您在 AI 回答中的呈现', '除了搜尋結果連結，也了解您在 AI 回答中的呈現' ),
 			),
 			'form_title' => array( 'Get your free SEO audit', 'Dapatkan audit SEO percuma anda', '获取您的免费 SEO 审计', '獲取您的免費 SEO 審計' ),
 			'cta'     => array( 'Get my free SEO audit', 'Dapatkan audit SEO percuma saya', '获取我的免费 SEO 审计', '獲取我的免費 SEO 審計' ),

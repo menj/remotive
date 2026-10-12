@@ -62,6 +62,12 @@ WordPress site yet; this list is how to find out.
 - If an older generation of the generic graphics is still on an article, set its
   featured image in the editor.
 
+## v1.119.0: copy in the house style and a new form field
+
+- Nothing to set up. Seeded pages that still hold the earlier text update on the first admin page load after the upload. A page you edited keeps your version, and the new text is in `inc/setup/content-seed-data.php` if you want to copy it across.
+- The contact form now asks how the visitor heard about you. The answer appears in the enquiry email as "Heard about us via".
+- A template you customised in the Site Editor keeps its own wording. Use Reset in the Site Editor to take the new text.
+
 ## v1.118.0: server error pages and structured data
 
 - Copy the lines in `error-pages/htaccess-errors.txt` into the site root `.htaccess`, above the WordPress block. Without them the theme still works, but a failure before WordPress starts shows a blank page.

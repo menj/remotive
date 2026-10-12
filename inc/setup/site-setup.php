@@ -96,7 +96,7 @@ function remotive_required_pages() {
 			'in_menu'  => true,
 			'note'     => __( 'Self-contained template, including the contact form.', 'remotive' ),
 			'rm_title' => __( 'Contact Re:Motive Media Asia', 'remotive' ),
-			'rm_desc'  => __( "Tell us what's not working. We reply within three business days with a view, not a brochure. Get in touch.", 'remotive' ),
+			'rm_desc'  => __( "Tell us what is not working. We reply within three business days with a view. Get in touch.", 'remotive' ),
 			'rm_kw'    => __( 'contact digital marketing agency', 'remotive' ),
 		),
 		'blog'     => array(
@@ -106,7 +106,7 @@ function remotive_required_pages() {
 			'in_menu'  => true,
 			'note'     => __( 'Posts page. Rendered by templates/home.html, so editor content is ignored.', 'remotive' ),
 			'rm_title' => __( 'Insights | Re:Motive Media Blog', 'remotive' ),
-			'rm_desc'  => __( "What we're seeing in search, paid media and measurement across Singapore, Malaysia and the wider region.", 'remotive' ),
+			'rm_desc'  => __( "What we are seeing in search, paid media and measurement across Singapore, Malaysia and the wider region.", 'remotive' ),
 			'rm_kw'    => __( 'digital marketing insights', 'remotive' ),
 		),
 		'faq'      => array(
@@ -116,7 +116,7 @@ function remotive_required_pages() {
 			'in_menu'  => false,
 			'note'     => __( 'Self-contained template. Questions live in the template, and the FAQPage structured data is parsed from them, so the two cannot drift apart.', 'remotive' ),
 			'rm_title' => __( 'FAQ | Re:Motive Media', 'remotive' ),
-			'rm_desc'  => __( "Answers to what we're usually asked before a first call: scope, results, markets, and measurement.", 'remotive' ),
+			'rm_desc'  => __( "Answers to what we are usually asked before a first call: scope, results, markets, and measurement.", 'remotive' ),
 			'rm_kw'    => __( 'digital marketing agency faq', 'remotive' ),
 		),
 		'privacy'  => array(
@@ -339,6 +339,158 @@ function remotive_run_site_setup() {
 }
 
 /**
+ * MD5 of the title, page text and Rank Math fields of the seeded service and case-study pages, as every earlier
+ * release seeded them. The same rule as the articles: remotive_refresh_article_seo() replaces a value only while it
+ * still matches one of these, so a page an editor changed keeps their words.
+ *
+ * @return array[]
+ */
+function remotive_old_page_copy_hashes() {
+	return array(
+		'analytics' => array(
+			'content' => array( '7e6ceb232ab3148a4c4dd54923631e2c' ),
+			'ptitle'  => array( '84e17a3e0220b5ad7e63f343fce20840' ),
+			'title'   => array( '1be699eca05fdb3f6d0300b32a218838' ),
+			'desc'    => array( '19bb9900367554ec78bea3ffd036340e' ),
+			'kw'      => array( '10e0cd432d25914801b5cc355d459427' ),
+		),
+		'b2b-seo-industrial-supplier' => array(
+			'content' => array( 'a9d453cce3cf0a84aff7bba0966858b3' ),
+			'ptitle'  => array( '40d71d996a2fadde71742232c0ba29e1' ),
+			'title'   => array( 'b0e59adcbff9f0e2640d5b7db141d012' ),
+			'desc'    => array( '1d41f3a45f69d8d6e7a7eb28c7eda159' ),
+			'kw'      => array( 'fda2e2f9ebc07ef3e006bec25d83dc21' ),
+		),
+		'content' => array(
+			'content' => array( 'b1cb1003066d0c9dc9c559233f497b09' ),
+			'ptitle'  => array( '0265f0462a72d43783e8c37771ce66af' ),
+			'title'   => array( 'f6d09a9405598cd7ad53692f4c8f0895' ),
+			'desc'    => array( 'e03c5007ce32236764bfa0cf94a54e6e' ),
+			'kw'      => array( 'a731b7e8c9504e996553fc23940d5df6' ),
+		),
+		'cookieless-audience-sports' => array(
+			'content' => array( '3e45b74b955e628c6a47e18fb198598e' ),
+			'ptitle'  => array( '85c9ab0d5d0325eb97d3297488d9aaab' ),
+			'title'   => array( '42c1bb7da8ad94809f39d87f6ccaf7cf' ),
+			'desc'    => array( '9670bf58f707d28163b5179f897acfe8' ),
+			'kw'      => array( '521142505e4227041f2041965a938ade' ),
+		),
+		'ecommerce-seo-footwear' => array(
+			'content' => array( '69f9acbe23c448d7ce9ee2fea7f8db81' ),
+			'ptitle'  => array( 'e2d1903f955b2c5835879a3784eeeffd' ),
+			'title'   => array( '7269b624abb9e078ca2de7034d71acac' ),
+			'desc'    => array( 'bca405259a2b4162b24af71d826d2df7' ),
+			'kw'      => array( '27a24982534f1d26ab147e8632d9391f' ),
+		),
+		'email' => array(
+			'content' => array( 'ef955b22e59f2163ee9bc73dbb7afdc5' ),
+			'ptitle'  => array( '4e485374bc55d84c6a30bcd28722a589' ),
+			'title'   => array( '00d1b9b3d28f05798d047a187b3f14c2' ),
+			'desc'    => array( 'd9dcd977956cb1bea2b1d889381bf4e2' ),
+			'kw'      => array( 'df882947c6d64eac2c2dab470256b06f' ),
+		),
+		'healthcare-seo-malaysia' => array(
+			'content' => array( '8b5b1828990779764f33924cb5167e98' ),
+			'ptitle'  => array( 'c6304b7f29e156658894a631806341f9' ),
+			'title'   => array( '4b3d35bd9de3b2e902d1689492957517' ),
+			'desc'    => array( '05cf4786a4532a7947c95e6057683db0' ),
+			'kw'      => array( 'b6f119e4be3cd378c034aaacc8ead7f1' ),
+		),
+		'market-entry-trading-platform' => array(
+			'content' => array( '0db2bb4f5a947fb2568e14aa4450af04' ),
+			'ptitle'  => array( '96e7c2649f300fd7dfe330366626952b' ),
+			'title'   => array( 'b2122c911545d817e903fac0d4f414bc' ),
+			'desc'    => array( 'f47fa34114f96d94382bec6393dc7de2' ),
+			'kw'      => array( 'c89cac1b3b4e61870ba01874a66aa1d3' ),
+		),
+		'marketplace-launch-skincare' => array(
+			'content' => array( 'a1db87ca1b642c376f0724c95aff313c' ),
+			'ptitle'  => array( '930397ac5c46b9f21e57fa692668ebce' ),
+			'title'   => array( 'd0f99ceb3a0320f792df2168ef835e96' ),
+			'desc'    => array( '9827f86188ca6f9c2d9271863c8ab11b' ),
+			'kw'      => array( '488c465e0204a2d54970ca006ff9028f' ),
+		),
+		'paid-media' => array(
+			'content' => array( 'df90fc13971226b72029af62459a6bff' ),
+			'ptitle'  => array( '0dd442dd603b3c23812b7b40b314ef35' ),
+			'title'   => array( '219f4d75838570f211ee8b72748f8cde' ),
+			'desc'    => array( 'e586300cb68e4d1b1b1c9c384a2df628' ),
+			'kw'      => array( 'c28e5883923c7a0374d13b185db66eaf' ),
+		),
+		'paid-media-financial-services' => array(
+			'content' => array( '0465702330cf85bf9a840ad68df048e8' ),
+			'ptitle'  => array( 'ac6e60d26e1e4220787d2c7a4f59840a' ),
+			'title'   => array( '5b1b176d7cb8f60287e007ac8052e0f4' ),
+			'desc'    => array( '7e19a0ac48effcf24586dbf0e461b1a8' ),
+			'kw'      => array( 'cb2c285c25310a735f801ee1ee87d093' ),
+		),
+		'paid-search-b2b-gifting' => array(
+			'content' => array( '7e60b0d9ca152a8c2af6c06c65e847cd' ),
+			'ptitle'  => array( 'c3f208ccc0d7ad871c3d88425c9bd076' ),
+			'title'   => array( '618416fc047fb3fbf84327f02d2f599c' ),
+			'desc'    => array( 'fb9662566ecb51e53560249e09cc8e75' ),
+			'kw'      => array( 'fc3294cbca47f0b3aa64e07f4fa6a83f' ),
+		),
+		'programmatic-advertising-automotive' => array(
+			'content' => array( '839121d51295dc615c638c6a47521cc0' ),
+			'ptitle'  => array( '5bb13de9d6c52c702112897499d3c20c' ),
+			'title'   => array( '3f8b560005ed4d1e10148ceef319fa25' ),
+			'desc'    => array( '3eef3ce3397eb93fd17e0c9ef36bdfac' ),
+			'kw'      => array( 'f04ae1c04126d5a9b735d09d1b6d2c50' ),
+		),
+		'seo' => array(
+			'content' => array( 'f73265deb960402e5213425f6e4ad486' ),
+			'ptitle'  => array( '7c23a086e49f71ce8ae526514543215e' ),
+			'title'   => array( '3a973bc293df681b7ad92b692e6dece6' ),
+			'desc'    => array( '7ff7930690c92a55b3ecfbc793e694dc' ),
+			'kw'      => array( '8324a318bff49e1d7c41a8cc9c0ced85' ),
+		),
+		'seo-ai-visibility-healthcare' => array(
+			'content' => array( '7160ac2222df9b2955cca74b00c3f63e' ),
+			'ptitle'  => array( '91e4d16ad819867db289cc1db5bc7809' ),
+			'title'   => array( '1060743fc77e439648a1a775bd2eba95' ),
+			'desc'    => array( '1a8b697943a07278846ec616b52a4358' ),
+			'kw'      => array( '0a588468703884a655f1f686cf5f9122' ),
+		),
+		'seo-b2b-services' => array(
+			'content' => array( '377d43000e9e4f2c734da763897f625f' ),
+			'ptitle'  => array( '2806bca9b6ff1de7d864048f3d7d0a7f' ),
+			'title'   => array( '3cecccdf56acdb27c4b4c4c81f922d9f' ),
+			'desc'    => array( 'edacda9f0d55bc9e44a265b927fb2140' ),
+			'kw'      => array( 'edb86960b874bca2aa51e05dec526feb' ),
+		),
+		'seo-fmcg-malaysia-singapore' => array(
+			'content' => array( '0ab5af0fe56359aa52f2b2faa4c890bd' ),
+			'ptitle'  => array( '86a35fa312664c32d1ee425e2c94671f' ),
+			'title'   => array( 'd02c4d945fc5104b5c7d350ec882aaab' ),
+			'desc'    => array( '58d415e9c6898801a2eaa39e71bbd8c5' ),
+			'kw'      => array( '6ac0ae2f77a4b0be7b44122ba7044dc8' ),
+		),
+		'singapore-b2b-portfolio' => array(
+			'content' => array( 'f4f2f7748276bc8592d1408718a5894f' ),
+			'ptitle'  => array( '964c835c5362ddbb9ec42f16adcf4eed' ),
+			'title'   => array( '68c1321c18815666e4fc8d4522b85495' ),
+			'desc'    => array( 'b978764d7da36fd623228253fc36cc52' ),
+			'kw'      => array( '331b6d778d80a1bac1e928af5173335b' ),
+		),
+		'social' => array(
+			'content' => array( 'f24afaa80f1c493c108b3eb1333cf218' ),
+			'ptitle'  => array( '31645cf591ac9b48ac0cd26ef5861f5b' ),
+			'title'   => array( '9a7347d5fdcd533922de727c0126f990' ),
+			'desc'    => array( 'f737eccb66974c64851f8cf2d2779881' ),
+			'kw'      => array( '85daf3f495ba6b453d2a57e056662ed9' ),
+		),
+		'technical-seo-industrial-automation' => array(
+			'content' => array( '6a3a97bd0795ffef61c21b508cb4b1a4' ),
+			'ptitle'  => array( 'e10ff0c64da7cdbf5b22f1a17e47d4be' ),
+			'title'   => array( '9255491baaf4e268c72164636eb2fcbf' ),
+			'desc'    => array( 'ae1b594ca8a39334d404ba2611f5f145' ),
+			'kw'      => array( '30d0d8c9222cb326e94f3a6a8a4e0838' ),
+		),
+	);
+}
+
+/**
  * MD5 of the post title, article text and Rank Math fields as every earlier release seeded them.
  *
  * remotive_refresh_article_seo() only replaces a value that still matches
@@ -418,24 +570,19 @@ function remotive_refresh_article_seo() {
 
 	global $wpdb;
 
-	$hashes     = remotive_old_article_seo_hashes();
+	$hashes     = array_merge( remotive_old_article_seo_hashes(), remotive_old_page_copy_hashes() );
 	$base       = remotive_seed_base_path();
 	$permalinks = remotive_seed_post_permalinks();
 	$changed    = 0;
 	$failed     = false;
 
 	foreach ( remotive_seed_content() as $item ) {
-		if ( 'post' !== ( $item['type'] ?? '' ) || empty( $item['slug'] ) || ! isset( $hashes[ $item['slug'] ] ) ) {
+		if ( ! in_array( $item['type'] ?? '', array( 'post', 'page' ), true ) || empty( $item['slug'] ) || ! isset( $hashes[ $item['slug'] ] ) ) {
 			continue;
 		}
 
-		$posts = get_posts( array(
-			'name'             => $item['slug'],
-			'post_type'        => 'post',
-			'post_status'      => 'any',
-			'numberposts'      => 1,
-			'suppress_filters' => false,
-		) );
+		$found = remotive_seed_find( $item['slug'], $item['type'] );
+		$posts = $found ? array( $found ) : array();
 
 		if ( ! $posts ) {
 			continue;
@@ -553,7 +700,7 @@ const REMOTIVE_SETUP_FLAG = 'remotive_site_setup_done';
  * migrations. This is the value stored in remotive_site_setup_done after
  * all migrations for this release complete successfully.
  */
-const REMOTIVE_SETUP_SCHEMA = '1.117.0';
+const REMOTIVE_SETUP_SCHEMA = '1.119.0';
 
 /**
  * Migrations keyed by the schema version they introduce.
@@ -641,6 +788,11 @@ function remotive_migration_registry() {
 		// 1.117.0: the seeded articles are rewritten to the house writing style (no contractions, sentence-case
 		// titles). Same safe refresh: only text that still matches an earlier seed is replaced.
 		'1.117.0' => function() {
+			return remotive_refresh_article_seo();
+		},
+		// 1.119.0: the seeded service and case-study pages follow the house writing style too (no contractions,
+		// no banned words). The same safe refresh, now for pages as well as articles.
+		'1.119.0' => function() {
 			return remotive_refresh_article_seo();
 		},
 		// 1.90.0: provisions the three ad landing pages (seo-audit,
@@ -1283,7 +1435,7 @@ function remotive_render_site_setup_card() {
 	<div class="rm-admin__card rm-admin__card--setup">
 		<h2><?php esc_html_e( 'Menus', 'remotive' ); ?></h2>
 		<p class="rm-admin__card-desc">
-			<?php esc_html_e( 'Menus are managed the classic way, in Appearance → Menus. The theme registers three locations: Main menu (header), Footer — Sitemap column, and Footer — Services column. Edit a menu there and the site updates immediately; no Site Editor needed. If a location has no menu assigned, the header or footer falls back to its built-in list of links, so the site never renders an empty menu.', 'remotive' ); ?>
+			<?php esc_html_e( 'Menus are managed the classic way, in Appearance → Menus. The theme registers three locations: Main menu (header), Footer: Sitemap column, and Footer: Services column. Edit a menu there and the site updates immediately; no Site Editor needed. If a location has no menu assigned, the header or footer falls back to its built-in list of links, so the site never renders an empty menu.', 'remotive' ); ?>
 		</p>
 		<p>
 			<a class="button button-secondary" href="<?php echo esc_url( admin_url( 'nav-menus.php' ) ); ?>">

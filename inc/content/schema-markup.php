@@ -303,9 +303,9 @@ function remotive_schema_services() {
 	$services = array();
 
 	$core = array(
-		'demand-creation'   => array( 'Demand Creation', 'Performance media, B2B LinkedIn, social and influencer, and creative and design — building new demand.' ),
-		'demand-capture'    => array( 'Demand Capture', 'Paid search, SEO and GEO, and category strategy — capturing existing intent.' ),
-		'conversion-data'   => array( 'Conversion & Data', 'Analytics infrastructure, CRM integration, and lifecycle and engagement — converting and proving value.' ),
+		'demand-creation'   => array( 'Demand Creation', 'Performance media, B2B LinkedIn, social and influencer, and creative and design, building new demand.' ),
+		'demand-capture'    => array( 'Demand Capture', 'Paid search, SEO and GEO, and category strategy, capturing existing intent.' ),
+		'conversion-data'   => array( 'Conversion & Data', 'Analytics infrastructure, CRM integration, and lifecycle and engagement, converting and proving value.' ),
 	);
 
 	if ( is_front_page() || is_page_template( 'page-services' ) ) {

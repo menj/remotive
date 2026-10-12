@@ -24,7 +24,7 @@
 	}
 
 	var messages = {
-		success: "Thanks — we'll be in touch within three business days.",
+		success: 'Thanks. We will be in touch within three business days.',
 		error: 'Something went wrong sending that. Please try again, or email us directly.'
 	};
 

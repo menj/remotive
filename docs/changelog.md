@@ -4,6 +4,26 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.119.0] (2026-10-12)
+
+### Added
+
+A "How did you hear about us?" field on the contact form of the one-page layout and of the ad landing pages. It is a select with eight answers (search engine, AI tool, LinkedIn, social media, client or partner referral, industry event, email newsletter, other), optional, and shown in English, Malay and both Chinese scripts. The enquiry email and the stored lead record the English answer ("Heard about us via: AI tool (ChatGPT, Gemini, Claude)"), whatever language the visitor used, so the report reads the same everywhere. Only a listed answer is accepted. The field sits in `remotive_lp_form()`, so the top and bottom forms both carry it.
+
+### Changed
+
+The writing style guide now covers the older copy as well. The templates and template parts, the 20 seeded service and case-study pages, the sentences inside the PHP and JavaScript code, the admin labels and the page descriptions lost their contractions, em dashes, banned words and negation-then-correction sentences. Examples: "Let's talk." is "Let us talk.", "Fix, Found, Scale &mdash; proved" is "Fix, Found, Scale: proved", and "fixed, not just flagged" is "repaired and checked". The admin labels use a colon where they used an em dash ("Headline: line 1", "400 Regular").
+
+Sites that already hold the seeded pages receive the new text through migration 1.119.0, which uses the same rule as the articles: a title, a Rank Math field or the text is replaced only while it still matches an earlier seed, so a page an editor changed keeps their words.
+
+The Malay and Chinese dictionaries gain the new English sentences as extra keys, with the translations they already had. The old keys stay, so a page that was edited keeps its translation. 120 keys were added to each dictionary.
+
+`tests/check-writing-style.php` now enforces the guide on the templates and parts, the seeded pages, and the strings in the PHP and JavaScript code, in addition to the earlier scopes.
+
+### Not changed
+
+Three menu names ("Footer — Company", "Footer — Services", "Footer — Case Studies") keep their em dash. Existing sites look those menus up by name, so a new name would create duplicates. The location labels, which only display, did change. A template or page that was edited in the Site Editor or the page editor keeps its own wording, because the theme never overwrites an edit.
+
 ## [1.118.0] (2026-10-12)
 
 ### Added

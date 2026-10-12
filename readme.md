@@ -970,7 +970,7 @@ An optional alternative home page, switched on and off in **Appearance → Theme
 
 - **On:** the home page renders one scrolling agency page in the format of the ad landing pages: the logo, the headline and introduction beside a contact form above the fold (the form sits straight under the headline on a phone), then the services (six cards), how we work (four numbered steps), signs it is time to talk (a six-line checklist), the team (small portraits, three sizes), the common questions, and a closing band with the second contact form. Each section has its own switch and its words are editable in the tab. No menu, no country ticker, no hero buttons, no reassurance line. The words (headline, introduction, form text, six services, headings) are editable in the tab. **The translated versions are kept:** the page is served in Bahasa Melayu and Simplified and Traditional Chinese (`/ms/`, `/zh-hans/`, `/zh-hant/`) through the language layer (language links in the bar, hreflang, sitemap), and is translated in Tools → Translations like the rest of the site; an edited English sentence needs its translation updated there.
 - **Other pages:** a second switch (on by default once the layout is on) sends About, Team, Services, Case Studies, Insights, Contact, FAQ and every other page to the home page with a temporary 302, and removes them from the Rank Math, WordPress and AI Discovery sitemaps and from the language versions (the legal pages keep theirs). The ad landing pages, their thank-you pages and the legal pages (privacy, terms) stay. Editors can still preview any page. Turn the second switch off to keep the other pages live next to the new home page.
-- **Forms:** both forms post as the service `agency` through the existing landing-page handler (same nonce, honeypot, rate limit, email and thank-you page); the enquiry email says "Service: Agency (home page)".
+- **Forms:** both forms carry an optional "How did you hear about us?" select (`remotive_lp_source_options()`), recorded in English as "Heard about us via" in the email and the stored lead. Both forms post as the service `agency` through the existing landing-page handler (same nonce, honeypot, rate limit, email and thank-you page); the enquiry email says "Service: Agency (home page)".
 - **How it works:** `template_include` swaps the home page to the landing template while the switch is on; `remotive_agency_should_redirect()` decides the redirects (tested); the language layer reports no language versions through the new `remotive_i18n_available` filter; the page styles are `assets/css/agency.css` (after `landing.css`).
 
 ## Ad landing pages (`inc/landing/landing-pages.php`)
@@ -1293,6 +1293,16 @@ To validate the block templates after hand-editing them, check that every
 `<!-- wp:X -->` has a matching `<!-- /wp:X -->` (or is self-closing via
 `/-->`), a quick Python script pairing regex-matched open/close tags is
 sufficient; there is no official CLI linter for hand-authored block HTML.
+
+## Writing style
+
+All English text follows the anti-AI writing style guide: no contractions, no em dashes, no banned vocabulary or dead phrases, no negation followed by a correction, sentence-case headings, no emoji. `php tests/check-writing-style.php` enforces the hard rules and CI runs it. It covers the agency page, the templates and parts, the seeded pages and articles, the strings in the PHP and JavaScript code, and the documentation for the current release series.
+
+Three rules for changing text:
+
+- The Malay and Chinese dictionaries in `inc/i18n/` are keyed by the exact English sentence. When you reword a sentence, add the new wording as a key with the existing translation and leave the old key in place, so a page that was edited keeps its translation.
+- A page or article that already exists on a site is refreshed by the migration in `inc/setup/site-setup.php`, which replaces a value only while it matches an earlier seed (`remotive_old_article_seo_hashes()`, `remotive_old_page_copy_hashes()`). Add the hash of the old text when you change a seeded page.
+- Menu names that sites look up by name are identifiers, so they keep their wording.
 
 ## Known limitations
 

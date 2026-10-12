@@ -77,6 +77,63 @@ foreach ( remotive_seed_content() as $item ) {
 $scopes['articles (7 posts)'] = $articles;
 $pending = array();
 
+// The full version's templates and template parts, with the block comments taken out.
+$markup = array();
+
+foreach ( array_merge( glob( $root . '/templates/*.html' ), glob( $root . '/parts/*.html' ) ) as $f ) {
+	$markup[ str_replace( $root . '/', '', $f ) ] = (string) preg_replace( '/<!--.*?-->/s', '', (string) file_get_contents( $f ) );
+}
+
+$scopes['templates and parts'] = $markup;
+
+// The seeded service and case-study pages (title, text, search listing).
+$pages = array();
+
+foreach ( remotive_seed_content() as $item ) {
+	if ( 'page' === $item['type'] ) {
+		$pages[ $item['slug'] ] = preg_replace( '/<!--.*?-->/s', '', ( $item['content'] ?? '' ) . "\n" . ( $item['excerpt'] ?? '' ) . "\n" . ( $item['title'] ?? '' ) . "\n" . ( $item['rm_title'] ?? '' ) . "\n" . ( $item['rm_desc'] ?? '' ) );
+	}
+}
+
+$scopes['seeded pages'] = $pages;
+
+// Sentences written inside the PHP and JavaScript code: labels, notices, descriptions, form messages and copy.
+// The menu names that existing sites look up by name are identifiers, so they are left as they are.
+$code        = array();
+$identifiers = array( "Footer \u{2014} Company", "Footer \u{2014} Services", "Footer \u{2014} Case Studies" );
+
+foreach ( array_merge( glob( $root . '/inc/*/*.php' ), glob( $root . '/*.php' ) ) as $f ) {
+	if ( false !== strpos( $f, '/inc/i18n/' ) || false !== strpos( $f, 'content-seed-data' ) ) {
+		continue;
+	}
+
+	foreach ( token_get_all( (string) file_get_contents( $f ) ) as $tok ) {
+		if ( ! is_array( $tok ) || T_CONSTANT_ENCAPSED_STRING !== $tok[0] ) {
+			continue;
+		}
+
+		$value = stripslashes( substr( $tok[1], 1, -1 ) );
+
+		if ( strlen( $value ) < 12 || false === strpos( $value, ' ' ) || preg_match( '/^(\.|#|<|\/|[a-z_\-]+$)/', $value ) || in_array( $value, $identifiers, true ) ) {
+			continue;
+		}
+
+		$code[ str_replace( $root . '/', '', $f ) . ':' . $tok[2] ] = $value;
+	}
+}
+
+foreach ( glob( $root . '/assets/js/*.js' ) as $f ) {
+	if ( preg_match_all( '/(["\'])((?:(?!\1).){12,})\1/', (string) file_get_contents( $f ), $m ) ) {
+		foreach ( $m[2] as $i => $value ) {
+			if ( false !== strpos( $value, ' ' ) && ! preg_match( '/^[.#\[]|[{};=]/', $value ) ) {
+				$code[ 'assets/js/' . basename( $f ) . ':' . $i ] = $value;
+			}
+		}
+	}
+}
+
+$scopes['PHP and JavaScript strings'] = $code;
+
 // The documentation prose: the changelog, the readmes and the docs folder (the legal texts are page content, so they are out of scope).
 $docs = array();
 
