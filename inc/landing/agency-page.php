@@ -390,6 +390,124 @@ function remotive_agency_paragraphs( $text, $class ) {
 }
 
 /**
+ * Which ad landing page each service card links to, by card number. The three
+ * services without a landing page have no entry, so their cards carry no link.
+ * The `remotive_agency_service_pages` filter can change the list.
+ *
+ * @return array<int,string> Card number => landing page slug.
+ */
+function remotive_agency_service_pages() {
+	return (array) apply_filters( 'remotive_agency_service_pages', array(
+		1 => 'seo-audit',
+		2 => 'google-ads-management',
+		3 => 'paid-social-advertising',
+	) );
+}
+
+/**
+ * The link at the foot of a service card: the landing page's own button text,
+ * in the language of the page, pointing at that language's version. Nothing if
+ * the switch is off, the card has no landing page, or the page is not published.
+ *
+ * @param int $card Card number, 1 to 6.
+ * @return string
+ */
+function remotive_agency_service_link( $card ) {
+	$pages = remotive_agency_service_pages();
+
+	if ( '1' !== (string) remotive_get_theme_option( 'agency_link_services' ) || empty( $pages[ $card ] ) ) {
+		return '';
+	}
+
+	$slug     = (string) $pages[ $card ];
+	$services = remotive_landing_services();
+	$page     = get_page_by_path( $slug, OBJECT, 'page' );
+
+	if ( ! isset( $services[ $slug ] ) || ! $page || 'publish' !== get_post_status( $page ) ) {
+		return '';
+	}
+
+	return '<a class="rm-ag__go" href="' . esc_url( remotive_lp_url( $slug, remotive_lp_requested_lang() ) ) . '">'
+		. remotive_lp_t( $services[ $slug ]['cta'] ) . ' <span aria-hidden="true">&rarr;</span></a>';
+}
+
+/**
+ * The questions that are filled in, as array( question, answer ) pairs.
+ *
+ * @return array<int,array{0:string,1:string}>
+ */
+function remotive_agency_faq_items() {
+	$items = array();
+
+	for ( $i = 1; $i <= 6; $i++ ) {
+		$q = trim( (string) remotive_get_theme_option( 'agency_faq_' . $i . '_q' ) );
+		$a = trim( (string) remotive_get_theme_option( 'agency_faq_' . $i . '_a' ) );
+
+		if ( '' !== $q && '' !== $a ) {
+			$items[] = array( $q, $a );
+		}
+	}
+
+	return $items;
+}
+
+/**
+ * The questions section: the same accordion the ad landing pages use.
+ *
+ * @return string
+ */
+function remotive_agency_faq_html() {
+	if ( '1' !== (string) remotive_get_theme_option( 'agency_show_faq' ) || ! remotive_agency_faq_items() ) {
+		return '';
+	}
+
+	$out = '';
+
+	foreach ( remotive_agency_faq_items() as $qa ) {
+		$out .= '<details class="rm-lp__q"><summary>' . esc_html( $qa[0] ) . '</summary><p>' . esc_html( $qa[1] ) . '</p></details>';
+	}
+
+	return '<section class="rm-lp__section rm-lp__faq rm-ag__faq" id="questions" aria-labelledby="rm-ag-faq">'
+		. '<h2 id="rm-ag-faq">' . esc_html( (string) remotive_get_theme_option( 'agency_faq_heading' ) ) . '</h2>'
+		. '<div class="rm-lp__faqs">' . $out . '</div></section>';
+}
+
+/**
+ * FAQPage structured data for the home page, built from the same items as the
+ * visible questions so the two cannot drift apart. The language layer translates
+ * it on the translated versions, as it does for the FAQ page.
+ */
+function remotive_agency_faq_schema() {
+	if ( ! remotive_agency_front() || '1' !== (string) remotive_get_theme_option( 'agency_show_faq' ) ) {
+		return;
+	}
+
+	$entities = array();
+
+	foreach ( remotive_agency_faq_items() as $qa ) {
+		$entities[] = array(
+			'@type'          => 'Question',
+			'name'           => $qa[0],
+			'acceptedAnswer' => array(
+				'@type' => 'Answer',
+				'text'  => $qa[1],
+			),
+		);
+	}
+
+	if ( ! $entities ) {
+		return;
+	}
+
+	echo '<script type="application/ld+json" id="remotive-agency-faq">' . wp_json_encode( array(
+		'@context'   => 'https://schema.org',
+		'@type'      => 'FAQPage',
+		'mainEntity' => $entities,
+	), JSON_HEX_TAG | JSON_HEX_AMP ) . '</script>' . "\n";
+}
+add_action( 'wp_head', 'remotive_agency_faq_schema', 7 );
+
+/**
  * The services section.
  *
  * @return string
@@ -414,6 +532,7 @@ function remotive_agency_services_html() {
 		$cards .= '<li class="rm-ag__card"><span class="rm-ag__num" aria-hidden="true">' . esc_html( str_pad( (string) $n, 2, '0', STR_PAD_LEFT ) ) . '</span>'
 			. '<h3>' . esc_html( $title ) . '</h3>'
 			. ( '' !== $desc ? '<p>' . esc_html( $desc ) . '</p>' : '' )
+			. remotive_agency_service_link( $i )
 			. '</li>';
 	}
 
@@ -466,6 +585,62 @@ function remotive_agency_team_html() {
 }
 
 /**
+ * The footer: who we are, how to reach us, where to follow us and the legal
+ * pages, from the business details in Theme Options (so it matches the rest of
+ * the site), with a way back to the form. There are no links to the pages that
+ * the layout switches off.
+ *
+ * @return string
+ */
+function remotive_agency_footer_html() {
+	$brand = '<div class="rm-ag__foot-brand">' . remotive_lp_logo()
+		. '<p>' . esc_html__( 'Full-funnel digital marketing for brands who\'d rather be seen than shout. Registered in Singapore, working across APAC.', 'remotive' ) . '</p></div>';
+
+	$email = trim( (string) remotive_get_theme_option( 'contact_email' ) );
+	$lines = array();
+
+	foreach ( array( 'address_line_1', 'address_line_2', 'address_line_3' ) as $key ) {
+		$line = trim( (string) remotive_get_theme_option( $key ) );
+
+		if ( '' !== $line ) {
+			$lines[] = esc_html( $line );
+		}
+	}
+
+	$contact = '';
+
+	if ( '' !== $email || $lines ) {
+		$contact = '<div class="rm-ag__foot-col"><h2>' . esc_html__( 'Contact', 'remotive' ) . '</h2>'
+			. ( '' !== $email ? '<p><a class="rm-ag__mail" href="mailto:' . esc_attr( $email ) . '">' . esc_html( $email ) . '</a></p>' : '' )
+			. ( $lines ? '<p class="rm-ag__address">' . implode( '<br>', $lines ) . '</p>' : '' )
+			. '</div>';
+	}
+
+	$social_links = remotive_render_social_links();
+	$social       = '' !== $social_links
+		? '<div class="rm-ag__foot-col"><h2>' . esc_html__( 'Follow us', 'remotive' ) . '</h2><div class="rm-ag__socials">' . $social_links . '</div></div>'
+		: '';
+
+	$items = '';
+
+	foreach ( array( 'privacy' => __( 'Privacy Policy', 'remotive' ), 'terms' => __( 'Terms of Service', 'remotive' ) ) as $path => $label ) {
+		$page = get_page_by_path( $path, OBJECT, 'page' );
+
+		if ( $page && 'publish' === get_post_status( $page ) ) {
+			$items .= '<li><a href="' . esc_url( get_permalink( $page->ID ) ) . '">' . esc_html( $label ) . '</a></li>';
+		}
+	}
+
+	$legal = '' !== $items ? '<div class="rm-ag__foot-col"><h2>' . esc_html__( 'Legal', 'remotive' ) . '</h2><ul class="rm-ag__legal">' . $items . '</ul></div>' : '';
+
+	return '<footer class="rm-ag__foot">'
+		. '<div class="rm-ag__foot-grid">' . $brand . $contact . $social . $legal . '</div>'
+		. '<div class="rm-ag__foot-bottom"><p>' . remotive_copyright_line() . '</p>'
+		. '<a class="rm-ag__top" href="#main">' . esc_html__( 'Back to top', 'remotive' ) . ' <span aria-hidden="true">&uarr;</span></a></div>'
+		. '</footer>';
+}
+
+/**
  * The language links in the bar: one per language the site offers for the home
  * page, each pointing at that language's own home page. The campaign
  * parameters are added to them by assets/js/landing.js, as on the ad pages.
@@ -510,14 +685,7 @@ function remotive_agency_render() {
 	$cta     = $o( 'agency_cta' );
 	$eyebrow = trim( $o( 'agency_eyebrow' ) );
 
-	$legal = '';
-	foreach ( array( 'privacy' => 'Privacy Policy', 'terms' => 'Terms of Service' ) as $path => $label ) {
-		$page = get_page_by_path( $path, OBJECT, 'page' );
-
-		if ( $page && 'publish' === get_post_status( $page ) ) {
-			$legal .= ' <a href="' . esc_url( get_permalink( $page->ID ) ) . '">' . esc_html( $label ) . '</a>';
-		}
-	}
+	$footer = remotive_agency_footer_html();
 
 	return '<div class="rm-lp rm-ag" data-lang="' . esc_attr( remotive_lp_requested_lang() ) . '" data-service="' . esc_attr( REMOTIVE_AGENCY_SLUG ) . '">'
 		. '<header class="rm-lp__bar">' . remotive_lp_logo() . remotive_agency_lang_nav() . '</header>'
@@ -532,13 +700,14 @@ function remotive_agency_render() {
 		. remotive_lp_form( REMOTIVE_AGENCY_SLUG, 'top' ) . '</div></section>'
 		. remotive_agency_services_html()
 		. remotive_agency_team_html()
+		. remotive_agency_faq_html()
 		. '<section class="rm-lp__section rm-lp__final" aria-labelledby="rm-lp-final"><div class="rm-lp__final-copy">'
 		. '<h2 id="rm-lp-final">' . esc_html( $o( 'agency_final_heading' ) ) . '</h2>'
 		. remotive_agency_paragraphs( $o( 'agency_final_lead' ), 'rm-lp__lead' ) . '</div>'
 		. '<div class="rm-lp__card">' . remotive_lp_form( REMOTIVE_AGENCY_SLUG, 'bottom' ) . '</div></section>'
 		. '</main>'
 		. '<a class="rm-lp__sticky" href="#rm-lp-start">' . esc_html( $cta ) . '</a>'
-		. '<footer class="rm-lp__foot">&copy; ' . esc_html( gmdate( 'Y' ) ) . ' Re:Motive Media.' . $legal . '</footer>'
+		. $footer
 		. '</div>';
 }
 

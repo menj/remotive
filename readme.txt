@@ -4,7 +4,7 @@ Tags: block-theme, full-site-editing, child-theme, one-page
 Requires at least: 6.7
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.116.2
+Stable tag: 1.116.3
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -336,9 +336,13 @@ floor, not a replacement.
 
 == Changelog ==
 
-See `docs/changelog.md` for full version history. Latest version: 1.116.2.
+See `docs/changelog.md` for full version history. Latest version: 1.116.3.
 
 == Upgrade Notice ==
+
+= 1.116.3 =
+* Added to the agency home page: a footer with the business details from Theme Options, a Common questions section with FAQ data for search engines, and links from the SEO, Paid Media and Social Media cards to their ready-made landing pages.
+* Added a writing-style check (tests/check-writing-style.php) that enforces the house English style on the agency page text.
 
 = 1.116.2 =
 * Fixed: in Theme Options, the explanation written under an on/off switch was never shown. It is now (for example under Maintenance mode and the new Agency layout switches).

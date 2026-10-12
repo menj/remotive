@@ -17,7 +17,32 @@ defined( 'ABSPATH' ) || exit;
 
 return array(
 	'strings' => array(
+		// Agency page questions (v1.116.3), written to the house style. First draft: needs a native-speaker check.
+		'Common questions' =>
+			'Soalan lazim',
+		'Do I have to buy every service?' =>
+			'Adakah saya perlu membeli setiap perkhidmatan?',
+		'No. Take one service or all six, and change the mix when your quarter changes. Some clients start with search alone and add paid media once demand shows up. Others hand us everything in month 1.' =>
+			'Tidak. Ambil satu perkhidmatan atau kesemua enam, dan ubah campurannya apabila suku tahun anda berubah. Sesetengah pelanggan bermula dengan carian sahaja dan menambah media berbayar apabila permintaan sudah ada. Yang lain menyerahkan segalanya kepada kami pada bulan pertama.',
+		'It depends on the channel and on where you start. Paid media can move within days, because you buy the placement. Search takes longer: in our case studies the organic gains arrived between 1 and 12 months in, and each one states its starting position. Anyone who promises a fixed timeline before seeing your site is guessing.' =>
+			'Ia bergantung pada saluran dan pada titik permulaan anda. Media berbayar boleh bergerak dalam beberapa hari kerana anda membeli ruang penempatan. Carian mengambil masa lebih lama: dalam kajian kes kami, peningkatan organik muncul antara 1 hingga 12 bulan, dan setiap satu menyatakan kedudukan permulaannya. Sesiapa yang menjanjikan garis masa tetap sebelum melihat tapak anda hanya meneka.',
+		'Yes. We white-label for creative and PR agencies that need performance or search capability without hiring for it. The terms match any other engagement: senior specialists on the work, and reporting you can put your own name on.' =>
+			'Ya. Kami menyediakan perkhidmatan white-label untuk agensi kreatif dan PR yang memerlukan keupayaan prestasi atau carian tanpa perlu mengambil pekerja untuknya. Syaratnya sama seperti kerja lain: pakar kanan pada kerja itu, dan laporan yang boleh anda labelkan dengan nama anda sendiri.',
+		'Singapore and Malaysia hold most of our work. We also run campaigns in Thailand, Indonesia, the Philippines, Vietnam and Hong Kong. The company is registered in Singapore and the team works in the region.' =>
+			'Singapura dan Malaysia menampung sebahagian besar kerja kami. Kami turut menjalankan kempen di Thailand, Indonesia, Filipina, Vietnam dan Hong Kong. Syarikat ini berdaftar di Singapura dan pasukan kami bekerja di rantau ini.',
+		'Funded accounts, qualified leads and pipeline value. Those are the numbers a marketing lead answers for internally, so we hold ourselves to them. Channel metrics still appear, below the commercial ones.' =>
+			'Akaun yang dibiayai, prospek berkelayakan dan nilai saluran jualan. Itulah angka yang dipertanggungjawabkan oleh ketua pemasaran secara dalaman, jadi itulah yang kami pegang. Metrik saluran masih dipaparkan, di bawah metrik komersial.',
+		'What are GEO, AIO and AEO, and do I need them?' =>
+			'Apakah GEO, AIO, dan AEO, dan adakah saya memerlukannya?',
+		'They are three names for one shift: buyers increasingly ask an AI engine before they ask a search engine, and most brands never appear in the answer. Generative engine optimisation (GEO), AI optimisation (AIO) and answer engine optimisation (AEO) all describe work aimed at that surface. Whether you need it depends on whether your buyers research that way. Your own analytics can answer that.' =>
+			'Ketiga-tiganya nama bagi satu peralihan yang sama: pembeli semakin bertanya kepada enjin AI sebelum bertanya kepada enjin carian, dan kebanyakan jenama tidak pernah muncul dalam jawapan. Pengoptimuman enjin generatif (GEO), pengoptimuman AI (AIO) dan pengoptimuman enjin jawapan (AEO) semuanya menerangkan kerja yang disasarkan pada permukaan itu. Sama ada anda memerlukannya bergantung pada sama ada pembeli anda membuat kajian dengan cara itu. Data analitik anda sendiri boleh menjawabnya.',
 		// Single-page agency home page (v1.116.1). First draft: needs a native-speaker check.
+		'Follow us' =>
+			'Ikuti kami',
+		'Legal' =>
+			'Undang-undang',
+		'Back to top' =>
+			'Kembali ke atas',
 		'built to scale Asian brands, globally.' =>
 			'direka untuk mengembangkan jenama Asia ke peringkat global.',
 		'We are a senior-led independent media team for high-growth B2B and B2C brands. We provide a powerful modular, search, social, programmatic and SEO extension for brands and agencies without in-house media capabilities. We fix the foundations, get you found and cited, then scale with paid media, turning performance marketing into predictable pipeline growth across Asia and beyond.' =>
@@ -46,7 +71,7 @@ return array(
 			'Automasi pemasaran perusahaan: aliran kitaran hayat pelanggan melalui e-mel dan WhatsApp, pembantu AI dan integrasi CRM.',
 		'Tracking, dashboards and attribution that connect ad spend to revenue: decisions from data, not gut feel.' =>
 			'Penjejakan, papan pemuka dan atribusi yang menghubungkan perbelanjaan iklan dengan hasil jualan: keputusan berdasarkan data, bukan agakan semata-mata.',
-		'Let\'s talk about your growth.' =>
+		'Let us talk about your growth.' =>
 			'Mari berbincang tentang pertumbuhan anda.',
 		'Send us a few details and a senior member of the team will reply within three business days.' =>
 			'Hantarkan beberapa butiran kepada kami dan seorang ahli kanan pasukan akan membalas dalam tempoh tiga hari bekerja.',

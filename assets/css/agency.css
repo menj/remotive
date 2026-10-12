@@ -17,6 +17,7 @@
 .rm-ag__services > .rm-lp__lead{ max-width:44rem; margin:-.5rem 0 1.75rem; }
 .rm-ag__cards{ list-style:none; margin:0; padding:0; display:grid; gap:1rem; grid-template-columns:repeat(auto-fit,minmax(min(100%,17.5rem),1fr)); }
 .rm-ag__card{
+  display:flex; flex-direction:column;
   position:relative; padding:1.5rem 1.4rem 1.4rem; background:var(--wp--preset--color--card);
   border:1px solid var(--rm-line); border-top:6px solid var(--lp-c); border-radius:var(--rm-r-lg,24px);
   transition:transform .25s ease, border-color .25s ease;
@@ -27,6 +28,20 @@
 .rm-ag__num{ display:block; margin-bottom:.6rem; font-family:'Kagnue','Saira',Georgia,serif; font-size:1.6rem; line-height:1; color:var(--wp--preset--color--magenta-dark); }
 .rm-ag__card h3{ margin:0 0 .5rem; font-size:1.15rem; line-height:1.25; text-transform:none; }
 .rm-ag__card p{ margin:0; color:var(--rm-ink-70); line-height:1.55; }
+
+/* The link to a service's landing page sits at the foot of its card. */
+.rm-ag__go{
+  display:inline-flex; align-items:center; gap:.5rem; align-self:flex-start; margin-top:auto; padding-top:1.1rem;
+  min-height:44px; font-size:.9rem; font-weight:800; text-decoration:none; color:var(--wp--preset--color--magenta-dark);
+}
+.rm-ag__go span{ display:inline-block; transition:transform .2s ease; }
+.rm-ag__go:hover{ text-decoration:underline; text-underline-offset:3px; }
+.rm-ag__go:hover span, .rm-ag__go:focus-visible span{ transform:translateX(4px); }
+.rm-ag__card > p{ margin-bottom:0; }
+
+/* ---- Questions ---- */
+.rm-ag__faq{ padding-bottom:var(--lp-gap); }
+@media (prefers-reduced-motion:reduce){ .rm-ag__go span{ transition:none; } .rm-ag__go:hover span{ transform:none; } }
 
 /* ---- Team: small portraits, set in a tight row of names ---- */
 .rm-ag__team{ padding-bottom:var(--lp-gap); }
@@ -46,3 +61,64 @@
 .rm-ag__role{ display:block; font-size:.8rem; line-height:1.3; color:var(--rm-ink-70); }
 
 @media (prefers-reduced-motion:reduce){ .rm-ag__card{ transition:none; } .rm-ag__card:hover{ transform:none; } }
+
+/* ---- Footer: a deep navy band with the business details, in four columns ---- */
+.rm-ag__foot{
+  position:relative; margin-top:var(--lp-gap); padding:clamp(2.5rem,5vw,3.75rem) var(--lp-pad) 1.5rem;
+  color:rgba(255,255,255,.78); background:#0d1117;
+}
+/* The tri-colour registration line along the top edge, as on the form cards. */
+.rm-ag__foot::before{
+  content:""; position:absolute; inset:0 0 auto 0; height:6px;
+  background:linear-gradient(90deg,var(--lp-c) 0 33.4%,var(--lp-m) 33.4% 66.7%,var(--lp-y) 66.7%);
+}
+.rm-ag__foot a{ color:inherit; text-decoration:none; }
+.rm-ag__foot-grid{ display:grid; gap:2rem 2.5rem; grid-template-columns:1fr; }
+@media (min-width:40rem){ .rm-ag__foot-grid{ grid-template-columns:1fr 1fr; } }
+@media (min-width:64rem){ .rm-ag__foot-grid{ grid-template-columns:1.5fr 1.15fr .8fr .8fr; } }
+.rm-ag__foot-brand .rm-lp__logo{ display:inline-block; margin-bottom:1rem; }
+.rm-ag__foot-brand p{ margin:0; max-width:24rem; font-size:.92rem; line-height:1.6; color:rgba(255,255,255,.72); }
+.rm-ag__foot h2{
+  margin:0 0 .9rem; font-size:.74rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:#fff;
+}
+.rm-ag__foot h2::after{ content:""; display:block; width:1.75rem; height:3px; margin-top:.55rem; border-radius:3px; background:var(--lp-m); }
+.rm-ag__foot-col:nth-child(3n+2) h2::after{ background:var(--lp-c); }
+.rm-ag__foot-col:nth-child(3n+3) h2::after{ background:var(--lp-y); }
+.rm-ag__foot-col p{ margin:0 0 .6rem; font-size:.92rem; line-height:1.6; }
+.rm-ag__mail{
+  display:inline-flex; align-items:center; gap:.55rem; font-weight:700; color:#fff !important; overflow-wrap:anywhere;
+  border-bottom:2px solid transparent; transition:border-color .2s ease;
+}
+.rm-ag__mail::before{
+  content:""; flex:none; width:1.1rem; height:1.1rem; background:var(--lp-m);
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='5' width='18' height='14' rx='2.5'/%3E%3Cpath d='m3.5 7.5 8.5 6 8.5-6'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='5' width='18' height='14' rx='2.5'/%3E%3Cpath d='m3.5 7.5 8.5 6 8.5-6'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+.rm-ag__mail:hover{ border-bottom-color:var(--lp-m); }
+.rm-ag__address{ color:rgba(255,255,255,.72); }
+.rm-ag__socials{ display:flex; flex-wrap:wrap; gap:.6rem; }
+.rm-ag__foot .rm-social-link{
+  display:inline-flex; align-items:center; justify-content:center; width:2.5rem; height:2.5rem; border-radius:50%;
+  color:#fff; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.16);
+  transition:background-color .2s ease, border-color .2s ease, transform .2s ease;
+}
+.rm-ag__foot .rm-social-link svg{ width:1.05rem; height:1.05rem; }
+.rm-ag__foot .rm-social-link:hover, .rm-ag__foot .rm-social-link:focus-visible{ background:var(--lp-m); border-color:var(--lp-m); transform:translateY(-2px); }
+.rm-ag__legal{ list-style:none; margin:0; padding:0; display:grid; gap:.5rem; font-size:.92rem; }
+.rm-ag__legal a{ display:inline-block; padding:.15rem 0; border-bottom:1px solid transparent; transition:border-color .2s ease, color .2s ease; }
+.rm-ag__legal a:hover{ color:#fff; border-bottom-color:var(--lp-m); }
+.rm-ag__foot-bottom{
+  display:flex; flex-wrap:wrap; gap:.75rem 1.5rem; align-items:center; justify-content:space-between;
+  margin-top:2.25rem; padding-top:1.25rem; border-top:1px solid rgba(255,255,255,.14); font-size:.8rem; color:rgba(255,255,255,.62);
+}
+.rm-ag__foot-bottom p{ margin:0; }
+.rm-ag__top{
+  display:inline-flex; align-items:center; gap:.45rem; min-height:44px; padding:.4rem .95rem; border-radius:999px; font-weight:700; color:#fff !important;
+  border:1px solid rgba(255,255,255,.22); transition:background-color .2s ease, border-color .2s ease;
+}
+.rm-ag__top:hover{ background:rgba(255,255,255,.1); border-color:var(--lp-m); }
+.rm-ag__top span{ transition:transform .2s ease; }
+.rm-ag__top:hover span{ transform:translateY(-3px); }
+/* Room for the fixed button that sits over the page on a phone. */
+@media (max-width:55.99rem){ .rm-ag__foot{ padding-bottom:5.5rem; } }
+@media (prefers-reduced-motion:reduce){ .rm-ag__top span, .rm-ag__foot .rm-social-link{ transition:none; } .rm-ag__top:hover span, .rm-ag__foot .rm-social-link:hover{ transform:none; } }

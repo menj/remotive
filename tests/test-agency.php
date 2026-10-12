@@ -10,7 +10,10 @@ function remotive_i18n_lang() { return 'en'; }
 function sanitize_textarea_field( $s ) { return trim( strip_tags( (string) $s ) ); }
 function is_front_page() { return $GLOBALS['T']['front'] ?? true; }
 function is_paged() { return false; }
+function wp_parse_url( $u, $c = -1 ) { return parse_url( $u, $c ); }
 function get_post_status( $p ) { return 'publish'; }
+function date_i18n( $f ) { return gmdate( $f ); }
+function get_bloginfo( $k = '' ) { return 'Re:Motive Media'; }
 function wp_parse_args( $a, $d = array() ) { return array_merge( $d, (array) $a ); }
 function wp_kses( $s ) { return $s; }
 function _n( $a, $b, $n ) { return 1 === $n ? $a : $b; }
@@ -120,5 +123,38 @@ t_options( array( 'agency_mode' => '1', 'agency_team_size' => 'xs', 'team' => ar
 $html = remotive_agency_render();
 t_ok( false !== strpos( $html, 'data-person="ada"' ) && false !== strpos( $html, '>AL<' ), 'a team member has a portrait slot with initials' );
 t_ok( false !== strpos( $html, '--ag-photo:48px' ), 'the portrait size follows the setting' );
+
+// ---- Landing page links on the service cards ----
+t_options( array( 'agency_mode' => '1' ) );
+$html = remotive_agency_render();
+t_eq( substr_count( $html, 'class="rm-ag__go"' ), 3, 'three service cards link to a landing page (SEO, Google Ads, paid social)' );
+t_ok( false !== strpos( $html, 'Get my free SEO audit' ), 'the SEO card uses the landing page\'s own button text' );
+t_eq( array_keys( remotive_agency_service_pages() ), array( 1, 2, 3 ), 'only the first three services have a landing page' );
+t_options( array( 'agency_mode' => '1', 'agency_link_services' => '0' ) );
+t_ok( false === strpos( remotive_agency_render(), 'rm-ag__go' ), 'the links can be switched off' );
+
+// ---- Questions ----
+t_options( array( 'agency_mode' => '1' ) );
+$html = remotive_agency_render();
+t_eq( substr_count( $html, '<details class="rm-lp__q">' ), 6, 'six questions' );
+t_ok( strpos( $html, 'rm-ag__team' ) < strpos( $html, 'rm-ag__faq' ) && strpos( $html, 'rm-ag__faq' ) < strpos( $html, 'rm-lp__final' ), 'the questions sit between the team and the closing form' );
+t_options( array( 'agency_mode' => '1', 'agency_faq_2_q' => '' ) );
+t_eq( substr_count( remotive_agency_render(), '<details class="rm-lp__q">' ), 5, 'a blank question is hidden' );
+t_options( array( 'agency_mode' => '1', 'agency_show_faq' => '0' ) );
+t_ok( false === strpos( remotive_agency_render(), 'rm-ag__faq' ), 'the questions section can be switched off' );
+ob_start();
+t_options( array( 'agency_mode' => '1' ) );
+remotive_agency_faq_schema();
+$schema = ob_get_clean();
+t_ok( false !== strpos( $schema, '"@type":"FAQPage"' ) && 6 === substr_count( $schema, '"@type":"Question"' ), 'FAQ structured data matches the six questions' );
+
+// ---- The entry guard lets the agency home page through, and nothing else ----
+$srv = function ( $referer ) { return array( 'HTTP_REFERER' => $referer, 'HTTP_SEC_FETCH_SITE' => 'same-origin' ); };
+t_options( array( 'agency_mode' => '1' ) );
+t_ok( ! remotive_lp_is_internal_navigation( $srv( 'https://example.com/' ), 'example.com', '' ), 'a click from the agency home page reaches a landing page' );
+t_ok( ! remotive_lp_is_internal_navigation( $srv( 'https://example.com/ms/' ), 'example.com', '' ), 'and from its Malay version' );
+t_ok( remotive_lp_is_internal_navigation( $srv( 'https://example.com/about/' ), 'example.com', '' ), 'a click from any other page is still turned back' );
+t_options( array() );
+t_ok( remotive_lp_is_internal_navigation( $srv( 'https://example.com/' ), 'example.com', '' ), 'with the switch off, the home page is turned back too, as before' );
 
 t_done( 'agency' );

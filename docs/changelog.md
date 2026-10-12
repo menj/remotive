@@ -4,6 +4,26 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.116.3] (2026-10-12)
+
+### Added
+
+The agency home page gets three things it lacked.
+
+A footer. It has the logo and the site description, the contact email and address, the social icons that are set, the privacy and terms links, the copyright line and a Back to top button. All of it comes from the business details in Theme Options, and nothing links to a page the layout has switched off. It sits on a deep navy band with the three-colour line along its top edge. The three new labels (Follow us, Legal, Back to top) are translated into Malay and both Chinese scripts.
+
+A Common questions section between the team and the closing form. It holds 6 questions in the same accordion the ad landing pages use, and it prints matching FAQPage data in the page head (the language layer translates that data on the translated versions). The questions come from the site FAQ, rewritten in the house style: Do I have to buy every service, How quickly will I see results, Do you work with agencies as well as brands, Which markets do you cover, What do you report on, and What are GEO, AIO and AEO. Each question and answer is editable in the Questions group of the Agency layout tab, and a blank question is hidden.
+
+Links from the service cards to the ready-made landing pages. SEO links to the SEO audit page, Paid Media to the Google Ads management page and Social Media to the paid social page, each with that page's own button text and in the language of the visitor. The other three services have no landing page yet, so their cards carry no link. A switch in the Services group turns the links off, and the `remotive_agency_service_pages` filter changes the mapping.
+
+### Changed
+
+The landing pages turned back every click from the main site. They now let one source through: a click whose Referer is the agency home page (or its Malay or Chinese version) while the layout is on. Every other click from the site is still turned back, and with the layout off nothing changes. The rule is in `remotive_lp_is_internal_navigation()`.
+
+`tests/check-writing-style.php` is new. It enforces the hard rules of the anti-AI writing style guide (no contractions, no em dashes, no banned words or dead phrases, no emoji, no negation followed by a correction) on the agency page text. A scope joins the list once its text meets the rules. The agency defaults pass. `tests/test-agency.php` now has 68 tests, with new ones for the links, the questions and the guard.
+
+The closing heading is now "Let us talk about your growth." (it was a contraction). Its translations moved with it.
+
 ## [1.116.2] — 2026-10-12
 
 ### Fixed

@@ -937,6 +937,12 @@ function remotive_lp_is_internal_navigation( $server, $host, $base = null ) {
 		return false;
 	}
 
+	// The agency home page links to the landing pages on purpose (its service cards), so a click that
+	// carries that page as its Referer is let through. Every other click from the site is still turned back.
+	if ( $ref_own && function_exists( 'remotive_agency_mode' ) && remotive_agency_mode() && preg_match( '#^/?(?:(?:ms|zh-hans|zh-hant)/?)?$#', $path ) ) {
+		return false;
+	}
+
 	return $ref_own || in_array( $fetch, array( 'same-origin', 'same-site' ), true );
 }
 

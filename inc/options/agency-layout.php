@@ -36,6 +36,23 @@ function remotive_agency_default_services() {
 }
 
 /**
+ * The six questions on the agency page: default question and answer. The answers
+ * come from the site's own FAQ, rewritten in the house writing style.
+ *
+ * @return array<int,array{0:string,1:string}>
+ */
+function remotive_agency_default_faq() {
+	return array(
+		array( 'Do I have to buy every service?', 'No. Take one service or all six, and change the mix when your quarter changes. Some clients start with search alone and add paid media once demand shows up. Others hand us everything in month 1.' ),
+		array( 'How quickly will I see results?', 'It depends on the channel and on where you start. Paid media can move within days, because you buy the placement. Search takes longer: in our case studies the organic gains arrived between 1 and 12 months in, and each one states its starting position. Anyone who promises a fixed timeline before seeing your site is guessing.' ),
+		array( 'Do you work with agencies as well as brands?', 'Yes. We white-label for creative and PR agencies that need performance or search capability without hiring for it. The terms match any other engagement: senior specialists on the work, and reporting you can put your own name on.' ),
+		array( 'Which markets do you cover?', 'Singapore and Malaysia hold most of our work. We also run campaigns in Thailand, Indonesia, the Philippines, Vietnam and Hong Kong. The company is registered in Singapore and the team works in the region.' ),
+		array( 'What do you report on?', 'Funded accounts, qualified leads and pipeline value. Those are the numbers a marketing lead answers for internally, so we hold ourselves to them. Channel metrics still appear, below the commercial ones.' ),
+		array( 'What are GEO, AIO and AEO, and do I need them?', 'They are three names for one shift: buyers increasingly ask an AI engine before they ask a search engine, and most brands never appear in the answer. Generative engine optimisation (GEO), AI optimisation (AIO) and answer engine optimisation (AEO) all describe work aimed at that surface. Whether you need it depends on whether your buyers research that way. Your own analytics can answer that.' ),
+	);
+}
+
+/**
  * Defaults for every agency option.
  *
  * @return array<string,string>
@@ -55,12 +72,20 @@ function remotive_agency_option_defaults() {
 		'agency_show_services'   => '1',
 		'agency_services_heading' => 'What we do',
 		'agency_services_lead'   => 'Fix the foundations, get found and cited, then scale with paid media.',
+		'agency_link_services'  => '1',
+		'agency_show_faq'        => '1',
+		'agency_faq_heading'     => 'Common questions',
 		'agency_show_team'       => '1',
 		'agency_team_heading'    => 'The team',
 		'agency_team_size'       => 'sm',
-		'agency_final_heading'   => 'Let\'s talk about your growth.',
+		'agency_final_heading'   => 'Let us talk about your growth.',
 		'agency_final_lead'      => 'Send us a few details and a senior member of the team will reply within three business days.',
 	);
+
+	foreach ( remotive_agency_default_faq() as $i => $qa ) {
+		$out[ 'agency_faq_' . ( $i + 1 ) . '_q' ] = $qa[0];
+		$out[ 'agency_faq_' . ( $i + 1 ) . '_a' ] = $qa[1];
+	}
 
 	foreach ( remotive_agency_default_services() as $i => $svc ) {
 		$out[ 'agency_svc_' . ( $i + 1 ) . '_title' ] = $svc[0];
@@ -102,6 +127,23 @@ function remotive_agency_tab() {
 		$services[ 'agency_svc_' . $n . '_desc' ]  = array(
 			/* translators: %d: service number, 1 to 6 */
 			'label' => sprintf( __( 'Service %d: description', 'remotive' ), $n ),
+			'type'  => 'textarea',
+		);
+	}
+
+	$faq = array();
+
+	foreach ( remotive_agency_default_faq() as $i => $unused ) {
+		$n = $i + 1;
+
+		$faq[ 'agency_faq_' . $n . '_q' ] = array(
+			/* translators: %d: question number, 1 to 6 */
+			'label' => sprintf( __( 'Question %d', 'remotive' ), $n ),
+			'type'  => 'text',
+		);
+		$faq[ 'agency_faq_' . $n . '_a' ] = array(
+			/* translators: %d: question number, 1 to 6 */
+			'label' => sprintf( __( 'Answer %d', 'remotive' ), $n ),
 			'type'  => 'textarea',
 		);
 	}
@@ -179,6 +221,12 @@ function remotive_agency_tab() {
 							'type'         => 'toggle',
 							'toggle_label' => __( 'Show the services section', 'remotive' ),
 						),
+						'agency_link_services'    => array(
+							'label'        => __( 'Landing page links', 'remotive' ),
+							'type'         => 'toggle',
+							'toggle_label' => __( 'Link each service card to its ready-made landing page', 'remotive' ),
+							'helper'       => __( 'On by default. SEO links to the SEO audit page, Paid Media to the Google Ads management page and Social Media to the paid social page. The other three services have no landing page yet, so their cards carry no link. A visitor who arrives from this home page is let through; the pages stay closed to every other click from the site.', 'remotive' ),
+						),
 						'agency_services_heading' => array(
 							'label' => __( 'Heading', 'remotive' ),
 							'type'  => 'text',
@@ -189,6 +237,24 @@ function remotive_agency_tab() {
 						),
 					),
 					$services
+				),
+			),
+			array(
+				'label'       => __( 'Questions', 'remotive' ),
+				'description' => __( 'Six questions in an accordion, with matching FAQ data for search engines. Leave a question blank to hide it.', 'remotive' ),
+				'fields'      => array_merge(
+					array(
+						'agency_show_faq'    => array(
+							'label'        => __( 'Questions section', 'remotive' ),
+							'type'         => 'toggle',
+							'toggle_label' => __( 'Show the questions section', 'remotive' ),
+						),
+						'agency_faq_heading' => array(
+							'label' => __( 'Heading', 'remotive' ),
+							'type'  => 'text',
+						),
+					),
+					$faq
 				),
 			),
 			array(
@@ -243,14 +309,14 @@ function remotive_sanitize_agency_options( $input, &$clean ) {
 	$defaults = remotive_agency_option_defaults();
 
 	// A checkbox that is not ticked submits nothing, so absence means off.
-	foreach ( array( 'agency_mode', 'agency_hide_pages', 'agency_show_services', 'agency_show_team' ) as $key ) {
+	foreach ( array( 'agency_mode', 'agency_hide_pages', 'agency_show_services', 'agency_link_services', 'agency_show_faq', 'agency_show_team' ) as $key ) {
 		$clean[ $key ] = ( isset( $input[ $key ] ) && '1' === (string) $input[ $key ] ) ? '1' : '0';
 	}
 
 	// Optional text may be blank. Everything else falls back to its default,
 	// so a cleared field can never leave a hole in the page.
 	$optional = array( 'agency_eyebrow' => true );
-	$text     = array( 'agency_eyebrow', 'agency_line_1', 'agency_line_2', 'agency_form_title', 'agency_form_intro', 'agency_cta', 'agency_fine', 'agency_services_heading', 'agency_team_heading', 'agency_final_heading' );
+	$text     = array( 'agency_eyebrow', 'agency_line_1', 'agency_line_2', 'agency_form_title', 'agency_form_intro', 'agency_cta', 'agency_fine', 'agency_services_heading', 'agency_faq_heading', 'agency_team_heading', 'agency_final_heading' );
 	$area     = array( 'agency_lead', 'agency_services_lead', 'agency_final_lead' );
 
 	foreach ( $text as $key ) {
@@ -269,6 +335,14 @@ function remotive_sanitize_agency_options( $input, &$clean ) {
 
 		$clean[ 'agency_svc_' . $n . '_title' ] = sanitize_text_field( $input[ 'agency_svc_' . $n . '_title' ] ?? $defaults[ 'agency_svc_' . $n . '_title' ] );
 		$clean[ 'agency_svc_' . $n . '_desc' ]  = sanitize_textarea_field( $input[ 'agency_svc_' . $n . '_desc' ] ?? $defaults[ 'agency_svc_' . $n . '_desc' ] );
+	}
+
+	// A question with no text is hidden, so these may be blank.
+	foreach ( array_keys( remotive_agency_default_faq() ) as $i ) {
+		$n = $i + 1;
+
+		$clean[ 'agency_faq_' . $n . '_q' ] = sanitize_text_field( $input[ 'agency_faq_' . $n . '_q' ] ?? $defaults[ 'agency_faq_' . $n . '_q' ] );
+		$clean[ 'agency_faq_' . $n . '_a' ] = sanitize_textarea_field( $input[ 'agency_faq_' . $n . '_a' ] ?? $defaults[ 'agency_faq_' . $n . '_a' ] );
 	}
 
 	$size                     = (string) ( $input['agency_team_size'] ?? $defaults['agency_team_size'] );

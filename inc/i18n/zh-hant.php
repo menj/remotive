@@ -17,7 +17,32 @@ defined( 'ABSPATH' ) || exit;
 
 return array(
 	'strings' => array(
+		// Agency page questions (v1.116.3), written to the house style. First draft: needs a native-speaker check.
+		'Common questions' =>
+			'常見問題',
+		'Do I have to buy every service?' =>
+			'我必須購買每一項服務嗎？',
+		'No. Take one service or all six, and change the mix when your quarter changes. Some clients start with search alone and add paid media once demand shows up. Others hand us everything in month 1.' =>
+			'不必。可以只選一項服務，也可以六項全選，並在季度需求改變時調整組合。有些客戶先只做搜尋，等需求起來後再加入付費媒體。也有客戶從第一個月就全部交給我們。',
+		'It depends on the channel and on where you start. Paid media can move within days, because you buy the placement. Search takes longer: in our case studies the organic gains arrived between 1 and 12 months in, and each one states its starting position. Anyone who promises a fixed timeline before seeing your site is guessing.' =>
+			'這取決於管道，也取決於您的起點。付費媒體可以在幾天內見效，因為您買的是曝光版位。搜尋需要更長時間：在我們的案例研究中，自然成長出現在 1 到 12 個月之間，每個案例都寫明了起始狀態。任何在看過您的網站之前就承諾固定時程的人，都只是在猜。',
+		'Yes. We white-label for creative and PR agencies that need performance or search capability without hiring for it. The terms match any other engagement: senior specialists on the work, and reporting you can put your own name on.' =>
+			'是的。我們為需要成效或搜尋能力、又不想自行招人的創意與公關代理商提供白牌服務。合作條件與其他合作相同：資深專家親自上陣，並提供可署上您自己名字的報告。',
+		'Singapore and Malaysia hold most of our work. We also run campaigns in Thailand, Indonesia, the Philippines, Vietnam and Hong Kong. The company is registered in Singapore and the team works in the region.' =>
+			'我們的大部分工作在新加坡和馬來西亞。我們也在泰國、印尼、菲律賓、越南和香港展開廣告活動。公司註冊於新加坡，團隊就在區域內工作。',
+		'Funded accounts, qualified leads and pipeline value. Those are the numbers a marketing lead answers for internally, so we hold ourselves to them. Channel metrics still appear, below the commercial ones.' =>
+			'已入金的帳戶、合格線索與銷售管道價值。這些是行銷負責人在公司內部要負責的數字，所以我們也以它們要求自己。管道指標仍會呈現，排在商業指標之後。',
+		'What are GEO, AIO and AEO, and do I need them?' =>
+			'GEO、AIO 和 AEO 是什麼？我需要嗎？',
+		'They are three names for one shift: buyers increasingly ask an AI engine before they ask a search engine, and most brands never appear in the answer. Generative engine optimisation (GEO), AI optimisation (AIO) and answer engine optimisation (AEO) all describe work aimed at that surface. Whether you need it depends on whether your buyers research that way. Your own analytics can answer that.' =>
+			'它們是同一種轉變的三個名稱：買家越來越常先問 AI 引擎，再問搜尋引擎，而多數品牌從未出現在答案中。生成式引擎最佳化（GEO）、AI 最佳化（AIO）與答案引擎最佳化（AEO），描述的都是針對這個介面所做的工作。您是否需要，取決於您的買家是否這樣做研究。您自己的分析數據就能回答。',
 		// Single-page agency home page (v1.116.1). First draft: needs a native-speaker check.
+		'Follow us' =>
+			'追蹤我們',
+		'Legal' =>
+			'法律資訊',
+		'Back to top' =>
+			'回到頂部',
 		'built to scale Asian brands, globally.' =>
 			'助力亞洲品牌規模化成長，邁向全球。',
 		'We are a senior-led independent media team for high-growth B2B and B2C brands. We provide a powerful modular, search, social, programmatic and SEO extension for brands and agencies without in-house media capabilities. We fix the foundations, get you found and cited, then scale with paid media, turning performance marketing into predictable pipeline growth across Asia and beyond.' =>
@@ -46,7 +71,7 @@ return array(
 			'企業級行銷自動化：電子郵件與 WhatsApp 生命週期流程、AI 助理及 CRM 整合。',
 		'Tracking, dashboards and attribution that connect ad spend to revenue: decisions from data, not gut feel.' =>
 			'把廣告支出與營收連結起來的追蹤、儀表板與歸因：用數據而非直覺做決策。',
-		'Let\'s talk about your growth.' =>
+		'Let us talk about your growth.' =>
 			'來聊聊您的成長。',
 		'Send us a few details and a senior member of the team will reply within three business days.' =>
 			'請傳送一些基本資料，團隊的一位資深成員會在三個工作天內回覆。',

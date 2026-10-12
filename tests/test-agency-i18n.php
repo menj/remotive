@@ -32,6 +32,8 @@ function is_singular() { return false; }
 function untrailingslashit( $s ) { return rtrim( $s, '/\\' ); }
 function sanitize_textarea_field( $s ) { return trim( strip_tags( (string) $s ) ); }
 function get_post_status( $p ) { return 'publish'; }
+function date_i18n( $f ) { return gmdate( $f ); }
+function get_bloginfo( $k = '' ) { return 'Re:Motive Media'; }
 function wp_parse_args( $a, $d = array() ) { return array_merge( $d, (array) $a ); }
 function wp_kses( $s ) { return $s; }
 function _n( $a, $b, $n ) { return 1 === $n ? $a : $b; }
@@ -52,7 +54,11 @@ $words = array( $d['agency_line_2'], $d['agency_lead'], $d['agency_form_title'],
 for ( $i = 1; $i <= 6; $i++ ) {
 	$words[] = $d[ 'agency_svc_' . $i . '_title' ];
 	$words[] = $d[ 'agency_svc_' . $i . '_desc' ];
+	$words[] = $d[ 'agency_faq_' . $i . '_q' ];
+	$words[] = $d[ 'agency_faq_' . $i . '_a' ];
 }
+$words[] = $d['agency_faq_heading'];
+$words = array_merge( $words, array( 'Contact', 'Follow us', 'Legal', 'Back to top', 'Privacy Policy', 'Terms of Service' ) );
 
 foreach ( array( 'ms' => 'ms', 'zh-hans' => 'zh-hans', 'zh-hant' => 'zh-hant' ) as $code => $unused ) {
 	$GLOBALS['remotive_i18n_lang'] = $code;
