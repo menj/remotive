@@ -469,7 +469,7 @@ function remotive_lp_render_thanks() {
 
 	return '<div class="rm-lp" data-lang="' . esc_attr( remotive_lp_requested_lang() ) . '" data-page="thanks">'
 		. '<header class="rm-lp__bar">' . remotive_lp_logo()
-		. '<nav class="rm-lp__langs" aria-label="Language / Bahasa / 语言 / 語言">' . remotive_lp_lang_nav( REMOTIVE_LP_THANKS_SLUG ) . '</nav></header>'
+		. '<nav class="rm-lp__langs" translate="no" aria-label="Language / Bahasa / 语言 / 語言">' . remotive_lp_lang_nav( REMOTIVE_LP_THANKS_SLUG ) . '</nav></header>'
 		. '<main id="main" class="rm-lp__main">'
 		. '<section class="rm-lp__hero rm-lp__thanks"><div class="rm-lp__copy">'
 		. '<p class="rm-lp__eyebrow">' . remotive_lp_t( array( 'Request received', 'Permintaan diterima', '申请已收到', '申請已收到' ) ) . '</p>'
@@ -551,7 +551,7 @@ function remotive_lp_render() {
 
 	return '<div class="rm-lp" data-lang="' . esc_attr( remotive_lp_requested_lang() ) . '" data-service="' . esc_attr( $slug ) . '">'
 		. '<header class="rm-lp__bar">' . remotive_lp_logo()
-		. '<nav class="rm-lp__langs" aria-label="Language / Bahasa / 语言 / 語言">' . $btns . '</nav></header>'
+		. '<nav class="rm-lp__langs" translate="no" aria-label="Language / Bahasa / 语言 / 語言">' . $btns . '</nav></header>'
 		. '<main id="main" class="rm-lp__main">'
 		. '<section class="rm-lp__hero"><div class="rm-lp__copy">'
 		. '<p class="rm-lp__eyebrow">' . remotive_lp_t( $s['eyebrow'] ) . '</p>'

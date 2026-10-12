@@ -162,4 +162,15 @@ foreach ( array( 'en' => 'Search engine (Google, Bing)', 'ms' => 'Enjin carian',
 }
 t_ok( 8 + 1 === substr_count( remotive_lp_source_field( 'x' ), '<option' ), 'one option per source plus the prompt' );
 
+
+// ---- The language links are never rewritten by the translator ----
+foreach ( array( 'landing-pages.php', 'agency-page.php' ) as $file ) {
+	$code = (string) file_get_contents( dirname( __DIR__ ) . '/inc/landing/' . $file );
+	preg_match_all( '#<nav class="rm-lp__langs"[^>]*>#', $code, $navs );
+	t_ok( count( $navs[0] ) >= 1, "$file has a language nav" );
+	foreach ( $navs[0] as $nav ) {
+		t_ok( false !== strpos( $nav, 'translate="no"' ), "$file: the language nav is marked translate=\"no\", so the language layer leaves its links alone" );
+	}
+}
+
 t_done( 'landing' );
