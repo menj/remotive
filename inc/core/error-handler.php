@@ -199,6 +199,23 @@ function remotive_log_error( $error, $ref, $trace = '' ) {
 }
 
 /**
+ * The Re:Motive Media logo as an inline image, so the error page shows it even when the stylesheet and the
+ * uploads folder are unreachable. An empty string if the file cannot be read.
+ *
+ * @return string
+ */
+function remotive_error_logo() {
+	$file = dirname( __DIR__, 2 ) . '/assets/images/remotive-logo-112.png';
+	$data = is_readable( $file ) ? file_get_contents( $file ) : false;
+
+	if ( false === $data ) {
+		return '';
+	}
+
+	return '<img class="rm-err__logo" src="data:image/png;base64,' . base64_encode( $data ) . '" width="68" height="52" alt="Re:Motive Media">';
+}
+
+/**
  * Render the branded error page and stop.
  *
  * Styles are inlined because a fatal can occur before the stylesheet is
@@ -260,6 +277,7 @@ function remotive_render_error_page( $error, $trace = '' ) {
     font-size:clamp(1.9rem,5vw,3rem); line-height:1.05; margin:0 0 1rem; font-weight:800;
     letter-spacing:-.02em;
   }
+  .rm-err__logo{ display:block; width:68px; height:auto; margin:0 0 1.5rem; }
   .rm-err__lede{ font-size:1.05rem; margin:0 0 1.75rem; max-width:52ch; }
   .rm-err__ref{
     display:inline-block; font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
@@ -295,6 +313,7 @@ function remotive_render_error_page( $error, $trace = '' ) {
   .rm-err__note{ font-size:.82rem; color:rgba(30,30,30,.62); margin:1.5rem 0 0; }
 </style>
 </head><body><main class="rm-err">
+	<?php echo remotive_error_logo(); // phpcs:ignore WordPress.Security.EscapeOutput -- built from a fixed theme file. ?>
 	<?php if ( $is_priv ) : ?>
 		<p class="rm-err__eyebrow">Administrator view</p>
 		<h1 class="rm-err__title">Something broke.</h1>
@@ -565,7 +584,7 @@ function remotive_render_php_notices( $admin_screen = false ) {
 				. remotive_e( $n['message'] )
 				. '<br><small>' . remotive_e( remotive_relative_path( $n['file'] ) )
 				. ' line ' . remotive_e( (string) $n['line'] )
-				. ( $n['count'] > 1 ? ' — ' . remotive_e( (string) $n['count'] ) . '&times;' : '' )
+				. ( $n['count'] > 1 ? ' (' . remotive_e( (string) $n['count'] ) . '&times;)' : '' )
 				. '</small></li>';
 		}
 		echo '</ol><p><em>' . remotive_e( 'Visitors saw none of this. Full detail is in the PHP error log.' ) . '</em></p></div>';
@@ -599,7 +618,7 @@ function remotive_render_php_notices( $admin_screen = false ) {
 		<?php echo remotive_e( $n['message'] ); ?>
 		<div class="rm-diag__loc">
 		  <?php echo remotive_e( remotive_relative_path( $n['file'] ) ); ?> line <?php echo remotive_e( (string) $n['line'] ); ?>
-		  <?php echo $n['count'] > 1 ? ' — ' . remotive_e( (string) $n['count'] ) . '&times;' : ''; ?>
+		  <?php echo $n['count'] > 1 ? ' (' . remotive_e( (string) $n['count'] ) . '&times;)' : ''; ?>
 		</div>
 	  </div>
 	<?php endforeach; ?>

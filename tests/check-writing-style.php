@@ -134,6 +134,18 @@ foreach ( glob( $root . '/assets/js/*.js' ) as $f ) {
 
 $scopes['PHP and JavaScript strings'] = $code;
 
+// The pages the server shows when WordPress cannot: the drop-ins and the static error pages (inline logo data removed).
+$failsafe = array();
+
+foreach ( array_merge( glob( $root . '/drop-ins/*.php' ), glob( $root . '/error-pages/*.html' ) ) as $f ) {
+	$text = (string) file_get_contents( $f );
+	$text = preg_replace( '#<style.*?</style>#s', '', $text );
+	$text = preg_replace( '/<\?php.*?\?>/s', '', $text );
+	$failsafe[ str_replace( $root . '/', '', $f ) ] = $text;
+}
+
+$scopes['error pages and drop-ins'] = $failsafe;
+
 // The documentation prose: the changelog, the readmes and the docs folder (the legal texts are page content, so they are out of scope).
 $docs = array();
 
