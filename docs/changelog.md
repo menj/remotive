@@ -4,6 +4,14 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.119.1] (2026-10-12)
+
+### Fixed
+
+The error pages showed a text box reading "R:M" or "Re:" where the logo belongs. All of them now show the Re:Motive Media logo: the three drop-ins (`php-error.php`, `db-error.php`, `maintenance.php`), the two static server pages in `error-pages/`, and the branded fatal page from `inc/core/error-handler.php`. The logo is embedded in each file, so it appears even when the stylesheet or the uploads folder cannot be reached. On the dark pages it sits on a white tile, because the logo has dark letters.
+
+The wording of those pages follows the writing style guide now (no contractions, no em dashes), and `tests/check-writing-style.php` covers the drop-ins and the static pages.
+
 ## [1.119.0] (2026-10-12)
 
 ### Added

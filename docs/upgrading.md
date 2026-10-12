@@ -62,6 +62,11 @@ WordPress site yet; this list is how to find out.
 - If an older generation of the generic graphics is still on an article, set its
   featured image in the editor.
 
+## v1.119.1: logo on the error pages
+
+- The drop-ins are copied into `wp-content/` once per theme version, so the new version installs the logo versions on the first request after the upload. If `wp-content/` is not writable by PHP, copy the three files in `drop-ins/` across by hand.
+- If you added the `ErrorDocument` lines from v1.118.0, the pages in `error-pages/` update with the theme folder.
+
 ## v1.119.0: copy in the house style and a new form field
 
 - Nothing to set up. Seeded pages that still hold the earlier text update on the first admin page load after the upload. A page you edited keeps your version, and the new text is in `inc/setup/content-seed-data.php` if you want to copy it across.
