@@ -55,7 +55,7 @@ function remotive_landing_services() {
 				array(
 					array( '+34%', '+34%', '+34%', '+34%' ),
 					array( 'Search clicks up in month one, with 150% more sales-qualified leads within four weeks.', 'Klik carian naik pada bulan pertama, dengan prospek berkelayakan jualan 150% lebih banyak dalam empat minggu.', '第一个月搜索点击增长，四周内销售合格线索增加 150%。', '第一個月搜尋點擊成長，四週內銷售合格潛在客戶增加 150%。' ),
-					array( 'Premium healthcare provider', 'Penyedia penjagaan kesihatan premium', '高端医疗服务机构', '高端醫療服務機構' ),
+					array( 'Premium healthcare provider', 'Pembekal penjagaan kesihatan premium', '高端医疗服务机构', '高端醫療服務機構' ),
 				),
 			),
 		),

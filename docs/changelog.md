@@ -4,6 +4,40 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.119.7] (2026-10-12)
+
+### Changed
+
+A comment and a test on the confirmation page's language links record why they carry `service` but never `from`. CodeAnt suggested adding `from=lp`. That argument is what makes the page push the lead conversion event, so carrying it would count the lead again on every language switch. A test fails if the links ever carry it.
+
+## [1.119.6] (2026-10-12)
+
+### Changed
+
+Three more Malay forms that lean Indonesian were replaced, as agreed. "memiliki" is "memegang" where it means holding the responsibility (8 uses: "siapa yang memegang analitik pemasaran"). "penyedia" is "pembekal" (provider, 11 uses, including the premium healthcare case study label). "melayani" is "melayan" (3 uses). `tests/check-tatabahasa.php` now rejects the three. "Ulasan" in the sense of customer reviews is unchanged.
+
+## [1.119.5] (2026-10-12)
+
+### Changed
+
+The Malay text was checked against Tatabahasa Dewan Edisi Ketiga (DBP, 2008) with the rulebook you supplied (the catalogue of frequent errors and the list of Indonesian forms to remove). All 1,500 Malay strings in the dictionary and the landing pages were scanned. The rule-based corrections:
+
+- Peraturan imbuhan peN- (s luluh): "pensegmenan" is "penyegmenan" (7 strings).
+- Bentuk lewah memper-...-i: "memperbaikinya" is "membaikinya" (2 strings).
+- Peraturan kata sendi nama, tempat konkrit: "daripada situ" is "dari situ", and "beberapa klik dalam daripada laman utama" is "beberapa klik dari laman utama".
+- Ejaan dan imbuhan: "pengcacheaan" was not a derivable form of a loanword, so it became "penyimpanan cache" (2 strings).
+- Penolakan bentuk Indonesia: "ulasan industri" and "ulasan pasaran" are "laporan industri" and "laporan pasaran" (3 strings).
+
+Checked and left as they are, because they are correct: every "dari" in the text (all place, time or the fixed phrases "dari segi", "dari semasa ke semasa"), the "daripada" of comparison, source and quantity, the 170 peN-/peR- nouns, and "mempercayai". Two points are left for a human decision: "ulasan" in the sense of customer reviews (marketplace "reviews, seller ratings"), which the rulebook's "Ulasan to Laporan" would turn into "laporan"; and "memiliki" and "penyedia", which are used in Malaysia but lean Indonesian.
+
+`tests/check-tatabahasa.php` is new and runs in CI. It stops the corrected mistakes and the rest of the checkable catalogue (lewah, demi untuk, semua with a doubled noun, adalah before a noun phrase, the Indonesian forms) from coming back. It cannot judge whether a sentence reads well, so the Malay text still needs a native speaker.
+
+## [1.119.4] (2026-10-12)
+
+### Fixed
+
+On the confirmation page that follows an ad landing page form, the language links dropped the `service` argument, so switching language lost the service-specific heading ("Your free SEO audit request is in") and showed the generic text. The links now carry it when the service is a known one. Found by CodeAnt on the previous pull request.
+
 ## [1.119.3] (2026-10-12)
 
 ### Fixed
