@@ -41,6 +41,9 @@ jobs:
       - name: Malay spelling and punctuation (Pedoman Umum Ejaan)
         run: php tests/check-ejaan.php
 
+      - name: Malay grammar (Tatabahasa Dewan)
+        run: php tests/check-tatabahasa.php
+
       - name: Security patterns
         run: php tests/check-security-patterns.php
 

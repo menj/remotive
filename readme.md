@@ -1298,6 +1298,8 @@ sufficient; there is no official CLI linter for hand-authored block HTML.
 
 All English text follows the anti-AI writing style guide: no contractions, no em dashes, no banned vocabulary or dead phrases, no negation followed by a correction, sentence-case headings, no emoji. `php tests/check-writing-style.php` enforces the hard rules and CI runs it. It covers the agency page, the templates and parts, the seeded pages and articles, the strings in the PHP and JavaScript code, and the documentation for the current release series.
 
+Malay text is also checked against Tatabahasa Dewan Edisi Ketiga by `php tests/check-tatabahasa.php` (the catalogue of frequent errors, plus the Indonesian forms to remove), next to the spelling check in `tests/check-ejaan.php`. Both run in CI.
+
 Three rules for changing text:
 
 - The Malay and Chinese dictionaries in `inc/i18n/` are keyed by the exact English sentence. When you reword a sentence, add the new wording as a key with the existing translation and leave the old key in place, so a page that was edited keeps its translation.

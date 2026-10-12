@@ -4,7 +4,7 @@ Tags: block-theme, full-site-editing, child-theme, one-page
 Requires at least: 6.7
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.119.4
+Stable tag: 1.119.5
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -335,9 +335,12 @@ floor, not a replacement.
 
 == Changelog ==
 
-See `docs/changelog.md` for full version history. Latest version: 1.119.4.
+See `docs/changelog.md` for full version history. Latest version: 1.119.5.
 
 == Upgrade Notice ==
+
+= 1.119.5 =
+* Changed: the Malay text was checked against Tatabahasa Dewan and corrected (peN- forms, bentuk lewah, kata sendi nama, Indonesian forms). A new CI check keeps the mistakes out.
 
 = 1.119.4 =
 * Fixed: switching language on the thank-you page after an ad landing page form no longer loses the service-specific heading.
