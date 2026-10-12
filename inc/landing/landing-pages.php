@@ -411,7 +411,9 @@ function remotive_lp_logo() {
  * keeps them.
  *
  * @param string $slug Page slug.
- * @param array  $args Query arguments every link carries (the confirmation page's service).
+ * @param array  $args Query arguments every link carries (the confirmation page's service). Never `from`: that
+ *                     argument makes the page push the lead conversion event, so carrying it would count the
+ *                     lead again each time the visitor switched language.
  * @return string
  */
 function remotive_lp_lang_nav( $slug, array $args = array() ) {

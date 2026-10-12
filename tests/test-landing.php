@@ -182,5 +182,6 @@ $GLOBALS['remotive_i18n_lang'] = 'zh-hans';
 $nav = remotive_lp_lang_nav( REMOTIVE_LP_THANKS_SLUG, array( 'service' => 'seo-audit' ) );
 t_eq( substr_count( $nav, 'service=seo-audit' ), count( remotive_lp_enabled_languages() ), 'every language link on the confirmation page carries the service' );
 t_ok( false === strpos( remotive_lp_lang_nav( REMOTIVE_LP_THANKS_SLUG ), 'service=' ), 'with no service the links are plain' );
+t_ok( false === strpos( $nav, 'from=' ), 'the language links never carry from=, so a language switch cannot fire the lead conversion a second time' );
 
 t_done( 'landing' );

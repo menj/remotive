@@ -4,6 +4,12 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.119.7] (2026-10-12)
+
+### Changed
+
+A comment and a test on the confirmation page's language links record why they carry `service` but never `from`. CodeAnt suggested adding `from=lp`. That argument is what makes the page push the lead conversion event, so carrying it would count the lead again on every language switch. A test fails if the links ever carry it.
+
 ## [1.119.6] (2026-10-12)
 
 ### Changed
