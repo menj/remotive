@@ -62,6 +62,12 @@ WordPress site yet; this list is how to find out.
 - If an older generation of the generic graphics is still on an article, set its
   featured image in the editor.
 
+## v1.118.0: server error pages and structured data
+
+- Copy the lines in `error-pages/htaccess-errors.txt` into the site root `.htaccess`, above the WordPress block. Without them the theme still works, but a failure before WordPress starts shows a blank page.
+- The new sections (How we work, Signs it is time to talk) appear on the one-page layout after the upload. Switch either off in Theme Options → Agency layout.
+- Nothing else to set up. Structured data and the old-address rescue work on the first request.
+
 ## v1.117.0: article text refresh
 
 - Nothing to set up. Articles that still hold the seeded text update on the first page load after the upload. An article you edited keeps your version. To refresh one by hand, copy its new text from `inc/setup/content-seed-data.php`.

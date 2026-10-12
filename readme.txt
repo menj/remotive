@@ -4,7 +4,7 @@ Tags: block-theme, full-site-editing, child-theme, one-page
 Requires at least: 6.7
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.117.0
+Stable tag: 1.118.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -335,9 +335,14 @@ floor, not a replacement.
 
 == Changelog ==
 
-See `docs/changelog.md` for full version history. Latest version: 1.117.0.
+See `docs/changelog.md` for full version history. Latest version: 1.118.0.
 
 == Upgrade Notice ==
+
+= 1.118.0 =
+* Added: How we work and Signs it is time to talk sections on the one-page layout, each with its own switch.
+* Added: structured data for the header, footer, sidebar and every section, and static server error pages for failures that happen before WordPress starts (see error-pages/htaccess-errors.txt).
+* Added: old date style article addresses and favicon requests are sent to the right place instead of a 404.
 
 = 1.117.0 =
 * Changed: the seven seeded articles, the sidebar and footer description and the documentation now follow the anti-AI writing style guide. Articles you have not edited update on their own; edited articles are left alone.

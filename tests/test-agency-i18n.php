@@ -58,6 +58,16 @@ for ( $i = 1; $i <= 6; $i++ ) {
 	$words[] = $d[ 'agency_faq_' . $i . '_a' ];
 }
 $words[] = $d['agency_faq_heading'];
+foreach ( array( 'agency_process_heading', 'agency_process_lead', 'agency_signs_heading', 'agency_signs_lead' ) as $k ) {
+	$words[] = $d[ $k ];
+}
+for ( $i = 1; $i <= 4; $i++ ) {
+	$words[] = $d[ 'agency_proc_' . $i . '_title' ];
+	$words[] = $d[ 'agency_proc_' . $i . '_desc' ];
+}
+for ( $i = 1; $i <= 6; $i++ ) {
+	$words[] = $d[ 'agency_sign_' . $i ];
+}
 $words = array_merge( $words, array( 'Contact', 'Follow us', 'Legal', 'Back to top', 'Privacy Policy', 'Terms of Service' ) );
 
 foreach ( array( 'ms' => 'ms', 'zh-hans' => 'zh-hans', 'zh-hant' => 'zh-hant' ) as $code => $unused ) {

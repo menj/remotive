@@ -413,6 +413,27 @@ function remotive_agency_service_pages() {
  * @return string
  */
 function remotive_agency_service_link( $card ) {
+	$url = remotive_agency_service_url( $card );
+
+	if ( '' === $url ) {
+		return '';
+	}
+
+	$services = remotive_landing_services();
+	$pages    = remotive_agency_service_pages();
+
+	return '<a class="rm-ag__go" href="' . esc_url( $url ) . '">'
+		. remotive_lp_t( $services[ (string) $pages[ $card ] ]['cta'] ) . ' <span aria-hidden="true">&rarr;</span></a>';
+}
+
+/**
+ * The address of the landing page a service card links to, in the language of
+ * the page. An empty string when the card has no link (see the link above).
+ *
+ * @param int $card Card number, 1 to 6.
+ * @return string
+ */
+function remotive_agency_service_url( $card ) {
 	$pages = remotive_agency_service_pages();
 
 	if ( '1' !== (string) remotive_get_theme_option( 'agency_link_services' ) || empty( $pages[ $card ] ) ) {
@@ -427,8 +448,7 @@ function remotive_agency_service_link( $card ) {
 		return '';
 	}
 
-	return '<a class="rm-ag__go" href="' . esc_url( remotive_lp_url( $slug, remotive_lp_requested_lang() ) ) . '">'
-		. remotive_lp_t( $services[ $slug ]['cta'] ) . ' <span aria-hidden="true">&rarr;</span></a>';
+	return remotive_lp_url( $slug, remotive_lp_requested_lang() );
 }
 
 /**
@@ -546,6 +566,98 @@ function remotive_agency_services_html() {
 		. '<h2 id="rm-ag-services">' . esc_html( (string) remotive_get_theme_option( 'agency_services_heading' ) ) . '</h2>'
 		. ( '' !== $lead ? '<p class="rm-lp__lead">' . esc_html( $lead ) . '</p>' : '' )
 		. '<ul class="rm-ag__cards">' . $cards . '</ul></section>';
+}
+
+/**
+ * The numbered steps: [ title, description ] for every step that has a title.
+ *
+ * @return array<int,array{0:string,1:string}>
+ */
+function remotive_agency_process_items() {
+	$out = array();
+
+	for ( $i = 1; $i <= 4; $i++ ) {
+		$title = trim( (string) remotive_get_theme_option( 'agency_proc_' . $i . '_title' ) );
+
+		if ( '' !== $title ) {
+			$out[] = array( $title, trim( (string) remotive_get_theme_option( 'agency_proc_' . $i . '_desc' ) ) );
+		}
+	}
+
+	return $out;
+}
+
+/**
+ * The "How we work" section.
+ *
+ * @return string
+ */
+function remotive_agency_process_html() {
+	$steps = '1' === (string) remotive_get_theme_option( 'agency_show_process' ) ? remotive_agency_process_items() : array();
+
+	if ( ! $steps ) {
+		return '';
+	}
+
+	$out = '';
+
+	foreach ( $steps as $i => $step ) {
+		$out .= '<li class="rm-ag__step"><span class="rm-ag__num" aria-hidden="true">' . esc_html( str_pad( (string) ( $i + 1 ), 2, '0', STR_PAD_LEFT ) ) . '</span>'
+			. '<h3>' . esc_html( $step[0] ) . '</h3>'
+			. ( '' !== $step[1] ? '<p>' . esc_html( $step[1] ) . '</p>' : '' ) . '</li>';
+	}
+
+	$lead = trim( (string) remotive_get_theme_option( 'agency_process_lead' ) );
+
+	return '<section class="rm-lp__section rm-ag__process" id="process" aria-labelledby="rm-ag-process">'
+		. '<h2 id="rm-ag-process">' . esc_html( (string) remotive_get_theme_option( 'agency_process_heading' ) ) . '</h2>'
+		. ( '' !== $lead ? '<p class="rm-lp__lead">' . esc_html( $lead ) . '</p>' : '' )
+		. '<ol class="rm-ag__steps">' . $out . '</ol></section>';
+}
+
+/**
+ * The checklist lines that have text.
+ *
+ * @return string[]
+ */
+function remotive_agency_sign_items() {
+	$out = array();
+
+	for ( $i = 1; $i <= 6; $i++ ) {
+		$text = trim( (string) remotive_get_theme_option( 'agency_sign_' . $i ) );
+
+		if ( '' !== $text ) {
+			$out[] = $text;
+		}
+	}
+
+	return $out;
+}
+
+/**
+ * The "Signs it is time to talk" checklist.
+ *
+ * @return string
+ */
+function remotive_agency_signs_html() {
+	$signs = '1' === (string) remotive_get_theme_option( 'agency_show_signs' ) ? remotive_agency_sign_items() : array();
+
+	if ( ! $signs ) {
+		return '';
+	}
+
+	$out = '';
+
+	foreach ( $signs as $text ) {
+		$out .= '<li>' . esc_html( $text ) . '</li>';
+	}
+
+	$lead = trim( (string) remotive_get_theme_option( 'agency_signs_lead' ) );
+
+	return '<section class="rm-lp__section rm-ag__signs" id="signs" aria-labelledby="rm-ag-signs">'
+		. '<h2 id="rm-ag-signs">' . esc_html( (string) remotive_get_theme_option( 'agency_signs_heading' ) ) . '</h2>'
+		. ( '' !== $lead ? '<p class="rm-lp__lead">' . esc_html( $lead ) . '</p>' : '' )
+		. '<ul class="rm-ag__checks">' . $out . '</ul></section>';
 }
 
 /**
@@ -699,6 +811,8 @@ function remotive_agency_render() {
 		. '<p class="rm-lp__intro">' . esc_html( $o( 'agency_form_intro' ) ) . '</p>'
 		. remotive_lp_form( REMOTIVE_AGENCY_SLUG, 'top' ) . '</div></section>'
 		. remotive_agency_services_html()
+		. remotive_agency_process_html()
+		. remotive_agency_signs_html()
 		. remotive_agency_team_html()
 		. remotive_agency_faq_html()
 		. '<section class="rm-lp__section rm-lp__final" aria-labelledby="rm-lp-final"><div class="rm-lp__final-copy">'

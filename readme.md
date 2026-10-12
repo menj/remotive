@@ -56,6 +56,8 @@ remotive/
 │                           (licences), image-credits.md, accessibility.md,
 │                           cache-headers.md, htaccess-cache.txt, the legal
 │                           drafts and the homepage brief.
+├── error-pages/            Static 500 and 503 pages and the ErrorDocument lines
+│                           for failures that happen before WordPress loads.
 ├── drop-ins/               maintenance.php, db-error.php, php-error.php, │                           copied to wp-content/ automatically.
 ├── tests/                  test-*.php unit tests and check-*.php checks, all run in CI.
 ├── tools/                  normalise-portraits.py (portrait processing).
@@ -735,6 +737,14 @@ An excluded feature activates by adding the real content and a node via
 the `remotive_schema_graph` filter, the acquiescence machinery already
 handles any type added to it.
 
+### Structured data for the page furniture and both layouts (`inc/content/schema-elements.php`, v1.118.0)
+
+Every page also describes its own parts. The header (`WPHeader`), the footer (`WPFooter`) and, where the template has one, the sidebar (`WPSideBar`) are `WebPageElement` nodes with a CSS selector, joined to the page by `isPartOf`.
+
+The one-page layout adds more: one element for each section, the six services as `Service` nodes inside an `ItemList`, the four steps as a `HowTo` with `HowToStep` entries, the checklist and the team as `ItemList` nodes (the people are the `Person` nodes the organisation already lists), and the FAQ as its own `FAQPage`. A hidden section leaves no data behind. The ad landing pages add a `Service` for the offer in the language of the URL. The nodes use types that no SEO plugin manages, so they appear with or without Rank Math. `tests/test-schema-elements.php` covers them.
+
+Schema.org has no type for every element. Paragraphs, buttons and decorative images carry none; the page, its parts, its lists and its entities do.
+
 ## Language versions (`inc/i18n/`, v1.104.0)
 
 Serves `/ms/`, `/zh-hans/` and `/zh-hant/` beside the English site. It is a
@@ -899,6 +909,25 @@ see full detail without an admin session. Remove it afterwards.
 **Limit worth stating plainly:** errors raised before the theme loads, during core or plugin bootstrap, are outside any theme's reach. Production
 still wants `WP_DEBUG_DISPLAY` false and `display_errors` off.
 
+### Error pages the theme cannot draw (`error-pages/`)
+
+The October 2026 server logs showed WordPress dying in `wp-settings.php` because `wp-includes/sodium_compat/src/Compat.php` was missing. The server answered 500 with an empty body, no theme code ran, and visitors saw a blank page. A theme cannot draw a page in that case, so the server has to.
+
+`error-pages/500.html` and `error-pages/503.html` are static pages with the inline styling of the other error pages, in English, Malay and Chinese. `error-pages/htaccess-errors.txt` holds the `ErrorDocument` lines that point the server at them. Copy those lines into the site root `.htaccess`, above the WordPress block. The theme folder `.htaccess` cannot do this, because it only governs its own folder.
+
+| Failure | Page |
+|---|---|
+| A fatal error after the theme loads | `inc/core/error-handler.php` |
+| A fatal error before the theme loads, in a plugin | `drop-ins/php-error.php` |
+| The database connection fails | `drop-ins/db-error.php` |
+| An update is running | `drop-ins/maintenance.php` |
+| WordPress cannot start at all (a core file missing) | `error-pages/500.html`, through `ErrorDocument` |
+| An address that does not exist | `templates/404.html` |
+
+### Addresses that used to work (`inc/core/not-found.php`, v1.118.0)
+
+Two kinds of 404 in the logs are rescued with a 301: date style article addresses such as `/2026/09/seo-vs-sem/` (sent to the article's permalink, in the language of the request), and `/favicon.ico` and the Apple touch icon names (sent to the site icon). Every other 404 keeps the normal page.
+
 ## Colour scheme (`inc/options/colours.php`)
 
 Theme Options → Colours sets the twelve palette roles separately for dark and
@@ -921,11 +950,25 @@ the plain colour in light mode; in dark mode `cyan-dark` equals `cyan`).
   `assets/css/critical.css`, and the defaults in `remotive_colour_tokens()`.
 - The block editor's own palette (`theme.json`) is not changed by this tab.
 
+## Two layouts in one package
+
+The theme ships two layouts, and a single switch chooses between them.
+
+1. **The full version.** This is the original theme and the default: the multi-page site with the menu, the services, the case studies, the blog, the team, the legal pages and the country ticker.
+2. **The one-page landing version** (the Boss version). One scrolling page in the format of the ad landing pages, with a contact form at the top and another at the bottom. It is switched on in **Appearance → Theme Options → Agency layout**.
+
+Rules that keep the two apart:
+
+- With the switch off, nothing in the full version changes. Switching on and off again returns the site to where it was, because nothing is deleted or restructured.
+- The two layouts share the language layer, the landing pages and their forms, the Rank Math handling, the migrations and the error pages. A change to any of those reaches both, so test both.
+- The words of the full version live in the seeded pages and templates. The words of the one-page version live in Theme Options (`remotive_agency_*` defaults). Say which version a piece of text belongs to before editing it.
+- Every change gets checked with the switch off and on, at desktop, tablet (768 and 1024) and phone widths, and in the three translated languages.
+
 ## Single-page agency layout (`inc/options/agency-layout.php`, `inc/landing/agency-page.php`)
 
 An optional alternative home page, switched on and off in **Appearance → Theme Options → Agency layout**. It is **off by default**; with it off nothing in the theme changes, and switching it off puts the site back exactly as it was. Nothing is deleted or restructured.
 
-- **On:** the home page renders one scrolling agency page in the format of the ad landing pages: the logo, the headline and introduction beside a contact form above the fold (the form sits straight under the headline on a phone), then the services (six cards), the team (small portraits, three sizes), and a closing band with the second contact form. No menu, no country ticker, no hero buttons, no reassurance line. The words (headline, introduction, form text, six services, headings) are editable in the tab. **The translated versions are kept:** the page is served in Bahasa Melayu and Simplified and Traditional Chinese (`/ms/`, `/zh-hans/`, `/zh-hant/`) through the language layer (language links in the bar, hreflang, sitemap), and is translated in Tools → Translations like the rest of the site; an edited English sentence needs its translation updated there.
+- **On:** the home page renders one scrolling agency page in the format of the ad landing pages: the logo, the headline and introduction beside a contact form above the fold (the form sits straight under the headline on a phone), then the services (six cards), how we work (four numbered steps), signs it is time to talk (a six-line checklist), the team (small portraits, three sizes), the common questions, and a closing band with the second contact form. Each section has its own switch and its words are editable in the tab. No menu, no country ticker, no hero buttons, no reassurance line. The words (headline, introduction, form text, six services, headings) are editable in the tab. **The translated versions are kept:** the page is served in Bahasa Melayu and Simplified and Traditional Chinese (`/ms/`, `/zh-hans/`, `/zh-hant/`) through the language layer (language links in the bar, hreflang, sitemap), and is translated in Tools → Translations like the rest of the site; an edited English sentence needs its translation updated there.
 - **Other pages:** a second switch (on by default once the layout is on) sends About, Team, Services, Case Studies, Insights, Contact, FAQ and every other page to the home page with a temporary 302, and removes them from the Rank Math, WordPress and AI Discovery sitemaps and from the language versions (the legal pages keep theirs). The ad landing pages, their thank-you pages and the legal pages (privacy, terms) stay. Editors can still preview any page. Turn the second switch off to keep the other pages live next to the new home page.
 - **Forms:** both forms post as the service `agency` through the existing landing-page handler (same nonce, honeypot, rate limit, email and thank-you page); the enquiry email says "Service: Agency (home page)".
 - **How it works:** `template_include` swaps the home page to the landing template while the switch is on; `remotive_agency_should_redirect()` decides the redirects (tested); the language layer reports no language versions through the new `remotive_i18n_available` filter; the page styles are `assets/css/agency.css` (after `landing.css`).

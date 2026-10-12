@@ -17,6 +17,41 @@ defined( 'ABSPATH' ) || exit;
 
 return array(
 	'strings' => array(
+		// Agency page: process and signs sections (v1.117.0). First draft: needs a native-speaker check.
+		'Four steps, in this order.' =>
+			'Empat langkah, mengikut urutan ini.',
+		'Audit' =>
+			'Audit',
+		'Fix' =>
+			'Baiki',
+		'Scale' =>
+			'Skala',
+		'Report' =>
+			'Lapor',
+		'We review your site, tracking, accounts and competitors, and list what holds growth back.' =>
+			'Kami menyemak tapak, penjejakan, akaun, dan pesaing anda, lalu menyenaraikan perkara yang menghalang pertumbuhan.',
+		'We repair the foundations first: site structure, tracking and the pages that carry the sale.' =>
+			'Kami membaiki asas dahulu: struktur tapak, penjejakan, dan halaman yang membawa jualan.',
+		'With the base sound, we grow search, paid media and content together under one plan.' =>
+			'Apabila asas sudah kukuh, kami mengembangkan carian, media berbayar, dan kandungan bersama di bawah satu pelan.',
+		'Each month you receive the numbers that matter, what changed and what happens next.' =>
+			'Setiap bulan anda menerima angka yang penting, apa yang berubah, dan langkah seterusnya.',
+		'Signs it is time to talk' =>
+			'Tanda sudah tiba masanya untuk berbincang',
+		'If several of these sound familiar, the problem usually sits in the system, and more activity will not fix it.' =>
+			'Jika beberapa daripada ini terdengar biasa, masalahnya biasanya terletak pada sistem, dan lebih banyak aktiviti tidak akan menyelesaikannya.',
+		'Traffic is flat or falling, and nobody can say why.' =>
+			'Trafik mendatar atau menurun, dan tiada siapa dapat menjelaskan sebabnya.',
+		'Ad spend keeps rising, and so does the cost per lead.' =>
+			'Perbelanjaan iklan terus meningkat, begitu juga kos setiap prospek.',
+		'Lead volume swings from month to month.' =>
+			'Jumlah prospek turun naik dari bulan ke bulan.',
+		'Reports show activity with no link to revenue.' =>
+			'Laporan menunjukkan aktiviti tanpa kaitan dengan hasil jualan.',
+		'Competitors appear in AI answers and your brand does not.' =>
+			'Pesaing muncul dalam jawapan AI, tetapi jenama anda tidak.',
+		'Search, paid and social run as separate projects.' =>
+			'Carian, media berbayar, dan sosial berjalan sebagai projek berasingan.',
 		// Agency page questions (v1.116.3), written to the house style. First draft: needs a native-speaker check.
 		'Common questions' =>
 			'Soalan lazim',

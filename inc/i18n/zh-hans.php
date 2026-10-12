@@ -17,6 +17,41 @@ defined( 'ABSPATH' ) || exit;
 
 return array(
 	'strings' => array(
+		// Agency page: process and signs sections (v1.117.0). First draft: needs a native-speaker check.
+		'Four steps, in this order.' =>
+			'四个步骤，按此顺序进行。',
+		'Audit' =>
+			'审计',
+		'Fix' =>
+			'修复',
+		'Scale' =>
+			'扩展',
+		'Report' =>
+			'汇报',
+		'We review your site, tracking, accounts and competitors, and list what holds growth back.' =>
+			'我们审查您的网站、追踪、广告账户和竞争对手，列出阻碍增长的因素。',
+		'We repair the foundations first: site structure, tracking and the pages that carry the sale.' =>
+			'我们先修复基础：网站结构、追踪，以及承载销售的页面。',
+		'With the base sound, we grow search, paid media and content together under one plan.' =>
+			'基础稳固后，我们在同一个计划下同步扩展搜索、付费媒体和内容。',
+		'Each month you receive the numbers that matter, what changed and what happens next.' =>
+			'每月您会收到关键数据、变化之处以及下一步行动。',
+		'Signs it is time to talk' =>
+			'是时候谈一谈的迹象',
+		'If several of these sound familiar, the problem usually sits in the system, and more activity will not fix it.' =>
+			'如果其中几项听起来很熟悉，问题通常出在体系上，增加活动量解决不了。',
+		'Traffic is flat or falling, and nobody can say why.' =>
+			'流量持平或下滑，却没人说得清原因。',
+		'Ad spend keeps rising, and so does the cost per lead.' =>
+			'广告支出不断上升，每条线索的成本也随之上升。',
+		'Lead volume swings from month to month.' =>
+			'线索数量逐月起伏不定。',
+		'Reports show activity with no link to revenue.' =>
+			'报告只显示活动，与营收没有关联。',
+		'Competitors appear in AI answers and your brand does not.' =>
+			'竞争对手出现在 AI 回答中，而您的品牌没有。',
+		'Search, paid and social run as separate projects.' =>
+			'搜索、付费和社交媒体各自为政。',
 		// Agency page questions (v1.116.3), written to the house style. First draft: needs a native-speaker check.
 		'Common questions' =>
 			'常见问题',

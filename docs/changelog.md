@@ -4,6 +4,26 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.118.0] (2026-10-12)
+
+### Added
+
+Two sections on the one-page layout, both with their own switch and editable words in the Agency layout tab. How we work shows four numbered steps (Audit, Fix, Scale, Report). Signs it is time to talk shows a six-line checklist of symptoms a visitor recognises. They sit between the services and the team. The Malay and both Chinese scripts are first drafts for a native-speaker check.
+
+Structured data for the page furniture and the sections, in `inc/content/schema-elements.php`. Every page now describes its header, footer and sidebar. The one-page layout also publishes its six services, its four steps, its checklist, its team list and each section. A hidden section publishes nothing. The ad landing pages publish a Service for the offer. Every node uses a schema.org type that no SEO plugin manages, so the data appears with or without Rank Math.
+
+Server-level error pages in `error-pages/`. The October 2026 logs show WordPress failing in `wp-settings.php` because a core file was missing, with a 500 and an empty body. No theme code runs in that case, so the theme folder now carries static pages and the `ErrorDocument` lines that make the server show them.
+
+A rescue for old addresses in `inc/core/not-found.php`. Date style article addresses go to the article's permalink with a 301, in the language of the request, and `/favicon.ico` and the Apple touch icon names go to the site icon. Every other 404 keeps the normal page.
+
+### Changed
+
+The Rank Math writes in migration 1.117.0 use compare and swap, and a database error keeps the migration pending (two CodeAnt findings on PR 38).
+
+### Found in the server logs, outside the theme
+
+ClaudeBot (49 times) and GPTBot (4 times) received 429 on `/robots.txt` and `/sitemap.xml`. The theme sends no 429, so the limit sits on the server or in a firewall. Allow those crawlers there if AI search visibility matters. The `wp-perf-shield` plugin returned 500 on activation and on its admin AJAX calls. Two addresses, `/seo-singapore/` and `/digital-marketing-malaysia/`, return 404 and look like old keyword pages; a redirect to the matching service page needs a decision.
+
 ## [1.117.0] (2026-10-12)
 
 ### Changed

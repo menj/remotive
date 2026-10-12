@@ -53,6 +53,36 @@ function remotive_agency_default_faq() {
 }
 
 /**
+ * The four working steps. Defaults for the "How we work" section.
+ *
+ * @return array<int,array{0:string,1:string}>
+ */
+function remotive_agency_default_process() {
+	return array(
+		array( 'Audit', 'We review your site, tracking, accounts and competitors, and list what holds growth back.' ),
+		array( 'Fix', 'We repair the foundations first: site structure, tracking and the pages that carry the sale.' ),
+		array( 'Scale', 'With the base sound, we grow search, paid media and content together under one plan.' ),
+		array( 'Report', 'Each month you receive the numbers that matter, what changed and what happens next.' ),
+	);
+}
+
+/**
+ * The six symptoms listed in the "Signs it is time to talk" section.
+ *
+ * @return string[]
+ */
+function remotive_agency_default_signs() {
+	return array(
+		'Traffic is flat or falling, and nobody can say why.',
+		'Ad spend keeps rising, and so does the cost per lead.',
+		'Lead volume swings from month to month.',
+		'Reports show activity with no link to revenue.',
+		'Competitors appear in AI answers and your brand does not.',
+		'Search, paid and social run as separate projects.',
+	);
+}
+
+/**
  * Defaults for every agency option.
  *
  * @return array<string,string>
@@ -73,6 +103,12 @@ function remotive_agency_option_defaults() {
 		'agency_services_heading' => 'What we do',
 		'agency_services_lead'   => 'Fix the foundations, get found and cited, then scale with paid media.',
 		'agency_link_services'  => '1',
+		'agency_show_process'    => '1',
+		'agency_process_heading' => 'How we work',
+		'agency_process_lead'    => 'Four steps, in this order.',
+		'agency_show_signs'      => '1',
+		'agency_signs_heading'   => 'Signs it is time to talk',
+		'agency_signs_lead'      => 'If several of these sound familiar, the problem usually sits in the system, and more activity will not fix it.',
 		'agency_show_faq'        => '1',
 		'agency_faq_heading'     => 'Common questions',
 		'agency_show_team'       => '1',
@@ -81,6 +117,15 @@ function remotive_agency_option_defaults() {
 		'agency_final_heading'   => 'Let us talk about your growth.',
 		'agency_final_lead'      => 'Send us a few details and a senior member of the team will reply within three business days.',
 	);
+
+	foreach ( remotive_agency_default_process() as $i => $step ) {
+		$out[ 'agency_proc_' . ( $i + 1 ) . '_title' ] = $step[0];
+		$out[ 'agency_proc_' . ( $i + 1 ) . '_desc' ]  = $step[1];
+	}
+
+	foreach ( remotive_agency_default_signs() as $i => $sign ) {
+		$out[ 'agency_sign_' . ( $i + 1 ) ] = $sign;
+	}
 
 	foreach ( remotive_agency_default_faq() as $i => $qa ) {
 		$out[ 'agency_faq_' . ( $i + 1 ) . '_q' ] = $qa[0];
@@ -128,6 +173,33 @@ function remotive_agency_tab() {
 			/* translators: %d: service number, 1 to 6 */
 			'label' => sprintf( __( 'Service %d: description', 'remotive' ), $n ),
 			'type'  => 'textarea',
+		);
+	}
+
+	$process = array();
+
+	foreach ( remotive_agency_default_process() as $i => $unused ) {
+		$n = $i + 1;
+
+		$process[ 'agency_proc_' . $n . '_title' ] = array(
+			/* translators: %d: step number, 1 to 4 */
+			'label' => sprintf( __( 'Step %d: title', 'remotive' ), $n ),
+			'type'  => 'text',
+		);
+		$process[ 'agency_proc_' . $n . '_desc' ]  = array(
+			/* translators: %d: step number, 1 to 4 */
+			'label' => sprintf( __( 'Step %d: description', 'remotive' ), $n ),
+			'type'  => 'textarea',
+		);
+	}
+
+	$signs = array();
+
+	foreach ( remotive_agency_default_signs() as $i => $unused ) {
+		$signs[ 'agency_sign_' . ( $i + 1 ) ] = array(
+			/* translators: %d: sign number, 1 to 6 */
+			'label' => sprintf( __( 'Sign %d', 'remotive' ), $i + 1 ),
+			'type'  => 'text',
 		);
 	}
 
@@ -240,6 +312,50 @@ function remotive_agency_tab() {
 				),
 			),
 			array(
+				'label'       => __( 'How we work', 'remotive' ),
+				'description' => __( 'Four numbered steps that show how an engagement runs. Leave a title blank to hide a step.', 'remotive' ),
+				'fields'      => array_merge(
+					array(
+						'agency_show_process'    => array(
+							'label'        => __( 'Process section', 'remotive' ),
+							'type'         => 'toggle',
+							'toggle_label' => __( 'Show the four steps', 'remotive' ),
+						),
+						'agency_process_heading' => array(
+							'label' => __( 'Heading', 'remotive' ),
+							'type'  => 'text',
+						),
+						'agency_process_lead'    => array(
+							'label' => __( 'Introduction', 'remotive' ),
+							'type'  => 'text',
+						),
+					),
+					$process
+				),
+			),
+			array(
+				'label'       => __( 'Signs', 'remotive' ),
+				'description' => __( 'A checklist of symptoms a visitor recognises, placed above the team. Leave a line blank to hide it.', 'remotive' ),
+				'fields'      => array_merge(
+					array(
+						'agency_show_signs'    => array(
+							'label'        => __( 'Signs section', 'remotive' ),
+							'type'         => 'toggle',
+							'toggle_label' => __( 'Show the checklist', 'remotive' ),
+						),
+						'agency_signs_heading' => array(
+							'label' => __( 'Heading', 'remotive' ),
+							'type'  => 'text',
+						),
+						'agency_signs_lead'    => array(
+							'label' => __( 'Introduction', 'remotive' ),
+							'type'  => 'textarea',
+						),
+					),
+					$signs
+				),
+			),
+			array(
 				'label'       => __( 'Questions', 'remotive' ),
 				'description' => __( 'Six questions in an accordion, with matching FAQ data for search engines. Leave a question blank to hide it.', 'remotive' ),
 				'fields'      => array_merge(
@@ -309,15 +425,15 @@ function remotive_sanitize_agency_options( $input, &$clean ) {
 	$defaults = remotive_agency_option_defaults();
 
 	// A checkbox that is not ticked submits nothing, so absence means off.
-	foreach ( array( 'agency_mode', 'agency_hide_pages', 'agency_show_services', 'agency_link_services', 'agency_show_faq', 'agency_show_team' ) as $key ) {
+	foreach ( array( 'agency_mode', 'agency_hide_pages', 'agency_show_services', 'agency_link_services', 'agency_show_process', 'agency_show_signs', 'agency_show_faq', 'agency_show_team' ) as $key ) {
 		$clean[ $key ] = ( isset( $input[ $key ] ) && '1' === (string) $input[ $key ] ) ? '1' : '0';
 	}
 
 	// Optional text may be blank. Everything else falls back to its default,
 	// so a cleared field can never leave a hole in the page.
 	$optional = array( 'agency_eyebrow' => true );
-	$text     = array( 'agency_eyebrow', 'agency_line_1', 'agency_line_2', 'agency_form_title', 'agency_form_intro', 'agency_cta', 'agency_fine', 'agency_services_heading', 'agency_faq_heading', 'agency_team_heading', 'agency_final_heading' );
-	$area     = array( 'agency_lead', 'agency_services_lead', 'agency_final_lead' );
+	$text     = array( 'agency_eyebrow', 'agency_line_1', 'agency_line_2', 'agency_form_title', 'agency_form_intro', 'agency_cta', 'agency_fine', 'agency_services_heading', 'agency_process_heading', 'agency_process_lead', 'agency_signs_heading', 'agency_faq_heading', 'agency_team_heading', 'agency_final_heading' );
+	$area     = array( 'agency_lead', 'agency_services_lead', 'agency_signs_lead', 'agency_final_lead' );
 
 	foreach ( $text as $key ) {
 		$value = sanitize_text_field( $input[ $key ] ?? $defaults[ $key ] );
@@ -335,6 +451,18 @@ function remotive_sanitize_agency_options( $input, &$clean ) {
 
 		$clean[ 'agency_svc_' . $n . '_title' ] = sanitize_text_field( $input[ 'agency_svc_' . $n . '_title' ] ?? $defaults[ 'agency_svc_' . $n . '_title' ] );
 		$clean[ 'agency_svc_' . $n . '_desc' ]  = sanitize_textarea_field( $input[ 'agency_svc_' . $n . '_desc' ] ?? $defaults[ 'agency_svc_' . $n . '_desc' ] );
+	}
+
+	// A step with no title and a sign with no text are hidden, so these may be blank.
+	foreach ( array_keys( remotive_agency_default_process() ) as $i ) {
+		$n = $i + 1;
+
+		$clean[ 'agency_proc_' . $n . '_title' ] = sanitize_text_field( $input[ 'agency_proc_' . $n . '_title' ] ?? $defaults[ 'agency_proc_' . $n . '_title' ] );
+		$clean[ 'agency_proc_' . $n . '_desc' ]  = sanitize_textarea_field( $input[ 'agency_proc_' . $n . '_desc' ] ?? $defaults[ 'agency_proc_' . $n . '_desc' ] );
+	}
+
+	foreach ( array_keys( remotive_agency_default_signs() ) as $i ) {
+		$clean[ 'agency_sign_' . ( $i + 1 ) ] = sanitize_text_field( $input[ 'agency_sign_' . ( $i + 1 ) ] ?? $defaults[ 'agency_sign_' . ( $i + 1 ) ] );
 	}
 
 	// A question with no text is hidden, so these may be blank.
