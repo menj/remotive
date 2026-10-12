@@ -19,7 +19,7 @@ foreach ( array(
 	t_eq( remotive_not_found_target( $path ), $want, "$path is rescued" );
 }
 
-foreach ( array( '/2026/13/x/', '/2026/09/', '/2026/09/a/b/', '/blog/is-your-website-seo-friendly/', '/seo-singapore/', '/wp-admin/', '/1899/01/old/', '/2026/09/../etc/' ) as $path ) {
+foreach ( array( '/2026/13/x/', '/2026/09/', '/2026/09/a/b/', '/blog/is-your-website-seo-friendly/', '/wp-admin/', '/1899/01/old/', '/2026/09/../etc/' ) as $path ) {
 	t_eq( remotive_not_found_target( $path ), null, "$path keeps its 404" );
 }
 

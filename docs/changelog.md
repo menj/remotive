@@ -22,7 +22,7 @@ The Rank Math writes in migration 1.117.0 use compare and swap, and a database e
 
 ### Found in the server logs, outside the theme
 
-ClaudeBot (49 times) and GPTBot (4 times) received 429 on `/robots.txt` and `/sitemap.xml`. The theme sends no 429, so the limit sits on the server or in a firewall. Allow those crawlers there if AI search visibility matters. The `wp-perf-shield` plugin returned 500 on activation and on its admin AJAX calls. Two addresses, `/seo-singapore/` and `/digital-marketing-malaysia/`, return 404 and look like old keyword pages; a redirect to the matching service page needs a decision.
+ClaudeBot (49 times) and GPTBot (4 times) received 429 on `/robots.txt` and `/sitemap.xml`. The theme sends no 429, so the limit sits on the server or in a firewall. Allow those crawlers there if AI search visibility matters. The `wp-perf-shield` plugin returned 500 on activation and on its admin AJAX calls. Two old keyword addresses return 404. The theme no longer links to them and no redirect is planned.
 
 ## [1.117.0] (2026-10-12)
 

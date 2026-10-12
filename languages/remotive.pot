@@ -559,14 +559,6 @@ msgstr ""
 msgid "Market entry, trading platform"
 msgstr ""
 
-#: inc/setup/site-setup.php:167
-msgid "Market landing page, self-contained template. Auto-created since 1.65.7, for the same reason as SEO Singapore: internal links pointed here long before any mechanism existed to create the page."
-msgstr ""
-
-#: inc/setup/site-setup.php:157
-msgid "Market landing page, self-contained template. Auto-created since 1.65.7: seeded content and services pages had linked to /seo-singapore/ since 1.63.0, but the page itself was documented as a manual step nobody had performed, so every one of those links 404ed."
-msgstr ""
-
 #: inc/content/feature-grids.php:82
 msgid "Marketing and account data sit apart, so no one sees what drives funded outcomes."
 msgstr ""
