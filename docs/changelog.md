@@ -4,6 +4,12 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.119.6] (2026-10-12)
+
+### Changed
+
+Three more Malay forms that lean Indonesian were replaced, as agreed. "memiliki" is "memegang" where it means holding the responsibility (8 uses: "siapa yang memegang analitik pemasaran"). "penyedia" is "pembekal" (provider, 11 uses, including the premium healthcare case study label). "melayani" is "melayan" (3 uses). `tests/check-tatabahasa.php` now rejects the three. "Ulasan" in the sense of customer reviews is unchanged.
+
 ## [1.119.5] (2026-10-12)
 
 ### Changed

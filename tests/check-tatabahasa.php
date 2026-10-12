@@ -49,7 +49,7 @@ $rules = array(
 	'peN-...-an daripada meN-: perlaksanaan ialah pelaksanaan (§4.3)' => '/\b(?:perlaksanaan|pelumbaan|pensegmenan|pengcacheaan|pengtadbiran|perlaporan|perpasaran|perkhidmatankan)\b/iu',
 	'bentuk Indonesia (§3): metrum, ekamatra' => '/\b(?:metrum|ekamatra|pengrataan|pendedikasian|menugaskan rekaannya|bertekstur)\b/iu',
 	'Ulasan untuk review ialah Laporan (§3): laporan industri, laporan pasaran' => '/\bulasan\s+(?:industri|pasaran)\b/iu',
-	'Indonesia: karena, bisa, kantor, situs, layanan, biaya, unduh' => '/\b(?:karena|bisa|kantor|situs|layanan|pelayanan|biaya|unduh|mengunduh|unggah|kinerja|solusi|terkait|kegiatan)\b/iu',
+	'Indonesia: memiliki, penyedia, melayani, karena, bisa, kantor, situs, layanan, biaya, unduh' => '/\b(?:memiliki|penyedia|melayani|karena|bisa|kantor|situs|layanan|pelayanan|biaya|unduh|mengunduh|unggah|kinerja|solusi|terkait|kegiatan)\b/iu',
 );
 
 $fail  = 0;
