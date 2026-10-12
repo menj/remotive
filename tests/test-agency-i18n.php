@@ -82,6 +82,15 @@ foreach ( array( 'ms' => 'ms', 'zh-hans' => 'zh-hans', 'zh-hant' => 'zh-hant' ) 
 	$bad = array_values( array_intersect( array_map( 'remotive_i18n_norm', $words ), array_map( 'remotive_i18n_norm', array_keys( $missing ) ) ) );
 	t_eq( $bad, array(), "$code: nothing on the agency page is left untranslated" );
 
+	// The language links keep their own addresses: EN is the English home page whatever language the page is in.
+	preg_match( '#<nav class="rm-lp__langs".*?</nav>#s', $html, $before );
+	preg_match( '#<nav class="rm-lp__langs".*?</nav>#s', $out, $after );
+	preg_match_all( '#href="([^"]*)"#', $before[0] ?? '', $h1 );
+	preg_match_all( '#href="([^"]*)"#', $after[0] ?? '', $h2 );
+	t_ok( count( $h1[1] ) >= 4, "$code: the page has the four language links" );
+	t_eq( $h2[1], $h1[1], "$code: the translator leaves the language links' addresses alone" );
+	t_ok( false !== strpos( $after[0] ?? '', 'href="https://example.com/"' ) || false !== strpos( $after[0] ?? '', 'href="/"' ), "$code: the EN link still points at the English home page" );
+
 	foreach ( array( 'Your name', 'Work email' ) as $english ) {
 		t_ok( false === strpos( $out, '>' . $english ), "$code: the form label '$english' is translated" );
 	}

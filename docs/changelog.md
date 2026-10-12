@@ -4,6 +4,12 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.119.3] (2026-10-12)
+
+### Fixed
+
+The language links in the top bar of the one-page layout and of the ad landing pages pointed at the wrong pages on a translated page. The language layer rewrites every internal link on a Malay or Chinese page into that language, and it treated the bar's links the same way. On `/zh-hans/` the "EN" link was turned into `/zh-hans/`, so it sent the visitor back to the same page, and on `/ms/` it went to `/ms/`. The three language bars now carry `translate="no"`, which the language layer already respects for the footer switcher, so every link keeps the address it was built with: EN to the English home page, BM to `/ms/`, 简体 to `/zh-hans/`, 繁體 to `/zh-hant/`. Two new tests fail if a bar loses the attribute or its links change.
+
 ## [1.119.2] (2026-10-12)
 
 ### Fixed

@@ -781,7 +781,7 @@ function remotive_agency_lang_nav() {
 		);
 	}
 
-	return $count > 1 ? '<nav class="rm-lp__langs" aria-label="Language / Bahasa / 语言 / 語言">' . $links . '</nav>' : '';
+	return $count > 1 ? '<nav class="rm-lp__langs" translate="no" aria-label="Language / Bahasa / 语言 / 語言">' . $links . '</nav>' : '';
 }
 
 /**
