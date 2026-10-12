@@ -4,7 +4,7 @@ Tags: block-theme, full-site-editing, child-theme, one-page
 Requires at least: 6.7
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.115.1
+Stable tag: 1.119.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,8 +12,7 @@ A child theme of Twenty Twenty-Five, built exclusively for remotivemedia.asia.
 
 == Description ==
 
-Remotive Media is the "Registration" homepage design for Remotive Media Asia —
-a bold, CMYK-inspired look built around the idea of overprinted colour plates,
+Remotive Media is the "Registration" homepage design for Remotive Media Asia, a bold, CMYK-inspired look built around the idea of overprinted colour plates,
 paired with a calmer, brand-aligned alternate look you can switch to any time.
 Beyond the homepage, the theme also includes a blog (archive + single post)
 and nine selectable page templates: About (team grid + contact form),
@@ -24,10 +23,10 @@ Singapore and Malaysia.
 
 The site includes a light/dark toggle in the top navigation:
 
-* **Dark** (the default) — navy background with cyan/magenta/green accents
+* **Dark** (the default), navy background with cyan/magenta/green accents
   standing in for printing plates, matching Remotive Media's official
   reporting and deck brand.
-* **Light** — a softer cream background using Remotive Media Asia's official
+* **Light**: a softer cream background using Remotive Media Asia's official
   digital brand colours.
 
 Both modes use the Saira typeface: the toggle changes colour only, never
@@ -59,9 +58,9 @@ fingerprinting removed, username enumeration blocked, and standard security
 headers. Blocking IPs and protecting wp-login.php before PHP runs remain jobs
 for the host's firewall.
 
-This theme is **not a general-purpose product** — it's built for one specific
+This theme is **not a general-purpose product**, it is built for one specific
 website and its specific content (services, case studies, brand assets). It
-isn't intended to be installed on other WordPress sites.
+is not intended to be installed on other WordPress sites.
 
 Compatible browser-based AI agents can use the theme's progressive WebMCP
 layer to search published content, discover canonical site destinations, and
@@ -79,7 +78,7 @@ WebMCP continue to receive the ordinary website with no loss of functionality.
 3. Activate **Remotive Media** under Appearance → Themes.
 
 The first time the theme is activated, it automatically sets the Remotive
-logo as the site's Custom Logo and Site Icon (favicon) — but only if nothing
+logo as the site's Custom Logo and Site Icon (favicon), but only if nothing
 has already been set, so it will never override a choice made later in the
 dashboard.
 
@@ -87,34 +86,34 @@ dashboard.
 
 = Can I install this on a different website? =
 
-It isn't designed for that. Colours, copy, and the registered business
+It is not designed for that. Colours, copy, and the registered business
 address are all specific to Remotive Media Asia. Treat it as this one site's
-theme, not a starting template — see `docs/ssot.md` for what's site-specific.
+theme, not a starting template, see `docs/ssot.md` for what is site-specific.
 
 = Why is there a light/dark toggle? =
 
 Two brand directions existed for this site: a bold CMYK "Registration"
 concept, and Remotive Media Asia's own official brand system (Saira, its six
 brand colours). Rather than pick one, both are available, with dark set as
-the default since that's the primary design direction.
+the default since that is the primary design direction.
 
 = I edited some text and now it looks broken / a hover effect stopped working. =
 
 A few small pieces of the homepage (the main headline, the marquee strip
 under it, and the light/dark toggle button) are built with raw code rather
 than the usual text blocks, because they need small technical behaviours a
-normal text block can't do. See `readme.md` for exactly which parts these
+normal text block cannot do. See `readme.md` for exactly which parts these
 are and what to be careful of when editing them.
 
 = Where do I update the contact email, address, or social links? =
 
 Appearance → Theme Options. These used to be hardcoded in the theme
-files; they're now editable from the dashboard without touching any code.
+files; they are now editable from the dashboard without touching any code.
 
 = How do I make the blog show up at a real URL? =
 
 Go to Settings → Reading and set a "Posts page." The blog archive
-template is already built and ready — this one setting is the only step
+template is already built and ready, this one setting is the only step
 needed to make it live.
 
 = How do I use the About page template? =
@@ -122,27 +121,27 @@ needed to make it live.
 Create or edit a Page, then choose "About (gallery + contact form)" from
 the Template dropdown in the editor's sidebar (under Page → Template).
 The gallery currently shows placeholder colour tiles rather than real
-photos — see the note directly under the gallery on that page, or
+photos, see the note directly under the gallery on that page, or
 `docs/upgrading.md`, for swapping in real images later.
 
 = What about Services, Case Studies, Contact, and a Privacy Policy? =
 
-Same mechanism — create or edit a Page, then pick the matching template
+Same mechanism, create or edit a Page, then pick the matching template
 from the dropdown: "Services (detailed)," "Case Studies," "Legal
 (Privacy Policy, Terms, etc.)," or "Contact." The Legal template
-deliberately doesn't include any actual policy text — write your real
+deliberately does not include any actual policy text, write your real
 Privacy Policy or Terms content in the block editor after selecting it;
 the template just provides the on-brand chrome and readable typography.
 The Case Studies page's four cards are placeholder content, same as the
-About page's gallery — see `docs/upgrading.md`.
+About page's gallery, see `docs/upgrading.md`.
 
 = How do I add, edit or remove a team member? =
 
 Appearance → Theme Options → Homepage → Team. Each member is a row: name, role, a
 photo slug and a bio. "Add member" creates a blank row, "Remove" deletes
 one, and clearing a name also deletes it on save. The roster feeds three
-places at once — the homepage team strip, the Team page grid, and the
-site's structured data — so you only edit in one place.
+places at once, the homepage team strip, the Team page grid, and the
+site's structured data, so you only edit in one place.
 
 Tick "Leadership" on a member to show them on the homepage and list them
 first on the Team page. The homepage introduces the leadership only and links
@@ -202,13 +201,13 @@ Contact MENJ (https://menj.blog), the theme's developer.
 No. The theme checks which schema types your active SEO plugin outputs
 (Yoast, Rank Math, All in One SEO, SEOPress, The SEO Framework and Slim
 SEO are recognised) and withholds its own node for exactly those types.
-Types the plugin does not manage — the Service entries and the landing
-pages' FAQ schema — remain the theme's own. No settings needed; it
+Types the plugin does not manage, the Service entries and the landing
+pages' FAQ schema, remain the theme's own. No settings needed; it
 adjusts automatically when a plugin is activated or deactivated. With
 Rank Math specifically, the theme also checks whether its Schema module
-is actually switched on (yielding nothing if it's off), and yields
+is actually switched on (yielding nothing if it is off), and yields
 per-page to any schema type you attach through Rank Math's Schema
-Generator — remove it and the theme's node returns.
+Generator, remove it and the theme's node returns.
 
 = What is WebMCP, and does the site require it? =
 
@@ -231,7 +230,7 @@ the hosting stack changes. See `readme.md` and `docs/upgrading.md` for the check
 
 Appearance -> Theme Options -> Country ticker. The Countries field takes a
 comma-separated list; add, remove, rename or reorder entries and save. The
-strip rebuilds itself, including the repetition the seamless scroll needs, so
+strip rebuilds itself, including the repetition the continuous scroll needs, so
 you do not need to duplicate anything manually. At least two entries are
 required for the loop; fewer hides the band.
 
@@ -336,9 +335,38 @@ floor, not a replacement.
 
 == Changelog ==
 
-See `docs/changelog.md` for full version history. Latest version: 1.115.1.
+See `docs/changelog.md` for full version history. Latest version: 1.119.0.
 
 == Upgrade Notice ==
+
+= 1.119.0 =
+* Added: an optional "How did you hear about us?" field on the one-page layout and ad landing page forms. The answer is recorded in the enquiry email.
+* Changed: the older copy (templates, seeded pages, labels and messages) now follows the house writing style. Pages you have not edited update on their own.
+
+= 1.118.0 =
+* Added: How we work and Signs it is time to talk sections on the one-page layout, each with its own switch.
+* Added: structured data for the header, footer, sidebar and every section, and static server error pages for failures that happen before WordPress starts (see error-pages/htaccess-errors.txt).
+* Added: old date style article addresses and favicon requests are sent to the right place instead of a 404.
+
+= 1.117.0 =
+* Changed: the seven seeded articles, the sidebar and footer description and the documentation now follow the anti-AI writing style guide. Articles you have not edited update on their own; edited articles are left alone.
+* Added: the writing-style check runs in CI.
+
+= 1.116.3 =
+* Added to the agency home page: a footer with the business details from Theme Options, a Common questions section with FAQ data for search engines, and links from the SEO, Paid Media and Social Media cards to their ready-made landing pages.
+* Added a writing-style check (tests/check-writing-style.php) that enforces the house English style on the agency page text.
+
+= 1.116.2 =
+* Fixed: in Theme Options, the explanation written under an on/off switch was never shown. It is now (for example under Maintenance mode and the new Agency layout switches).
+
+= 1.116.1 =
+* Fixed: the single-page agency layout now keeps the translated versions. The home page is served in Bahasa Melayu and Simplified and Traditional Chinese (/ms/, /zh-hans/, /zh-hant/), with language links, hreflang and sitemap entries; the other pages' translations are hidden only when the other pages are, and the legal pages keep theirs.
+
+= 1.116.0 =
+* Added: an optional single-page agency layout, switched on and off in Theme Options > Agency layout. Off by default, so nothing changes until it is turned on. When on, the home page is one scrolling agency page in the format of the ad landing pages (a contact form at the top and at the bottom, no menu, no ticker), and the other pages can be sent to the home page. Switch it off and the site is exactly as before.
+
+= 1.115.2 =
+* Fixed (review findings): the article body padding was not removed; the one-time article update now matches text whose links were rewritten after seeding, never overwrites a save made while it runs, and retries if a write fails; links work on a subdirectory install; a Recent posts entry with no image no longer squeezes its text; Copy link falls back when the clipboard is unavailable; the Team template row stays hidden.
 
 = 1.115.1 =
 * Fixed: in Theme Options, the Team list was squeezed into the label column, leaving the Name and Role fields a few pixels wide. It now spans the full width, with Name, Role and Photo slug on one row.
@@ -691,7 +719,7 @@ Grotesk kept only as a scoped accent on the footer column headings.
 Brand typeface changed from Saira to Space Grotesk (bold, geometric,
 distinctive) across both light and dark modes. Footer column heading
 size increased. This deviates from the client's own brand-guideline
-JSON, which still specifies Saira — noted in docs/ssot.md, not silently
+JSON, which still specifies Saira, noted in docs/ssot.md, not silently
 changed there. Metric-matched fallback recalculated from real font
 data, not estimated, so no layout shift on load.
 
@@ -699,7 +727,7 @@ data, not estimated, so no layout shift on load.
 Fixed a footer bug: the Case Studies and Company columns both showed
 the Services list once a classic menu was assigned to any footer
 location, because a render-order counter only recognised two columns
-against three. Now matched by explicit class, so it can't drift again.
+against three. Now matched by explicit class, so it cannot drift again.
 Also fixed broken Privacy/Terms links pointing at /privacy-policy/ and
 /terms-of-service/ instead of the pages' real slugs.
 
@@ -1173,7 +1201,7 @@ removed, and cards kept whole across page breaks. No action needed.
 
 = 1.34.0 =
 The theme's 16 written items (4 articles, 6 service pages, 6 case
-studies) are now published automatically on activation — no import step.
+studies) are now published automatically on activation, no import step.
 Existing pages are never overwritten, and anything you delete stays
 deleted.
 
@@ -1400,19 +1428,19 @@ page content are unchanged.
 = 1.13.1 =
 Important desktop layout fix: the footer was rendering too narrow,
 causing the contact email to break mid-word. The homepage's six-service
-grid could also render with uneven column widths. Both fixed — no
+grid could also render with uneven column widths. Both fixed, no
 content changes.
 
 = 1.13.0 =
 Footer and Contact page social links now show real Instagram/LinkedIn/
 TikTok icons instead of plain text. Includes a small required "Icons by
-Font Awesome" credit next to the copyright line — please don't remove it,
+Font Awesome" credit next to the copyright line, please do not remove it,
 it covers the LinkedIn icon's license terms.
 
 = 1.12.0 =
 Adds two new landing page templates (Singapore, Malaysia) built from
 real keyword research, plus an FAQ accordion. A companion blog content
-package is available separately — see the theme delivery notes.
+package is available separately, see the theme delivery notes.
 
 = 1.11.0 =
 Adds four more page templates (Services, Case Studies, a Legal page for
@@ -1423,19 +1451,19 @@ blog, or About page.
 = 1.10.0 =
 Adds a blog (archive + single post) and a new About page template with
 a photo gallery and contact form. If you want the blog live at a real
-URL, set a Posts page under Settings → Reading — the theme can't do
+URL, set a Posts page under Settings → Reading, the theme cannot do
 that step for you. No changes to the existing homepage.
 
 = 1.9.1 =
-Important layout fix: page content wasn't actually centered/width-
-constrained on desktop screens — it rendered pinned to the left edge on
+Important layout fix: page content was not actually centered/width-
+constrained on desktop screens, it rendered pinned to the left edge on
 any monitor wider than about 740px, though this looked fine in every
 prior preview screenshot due to a testing gap now also fixed. No content
 changes; this only affects layout.
 
 = 1.9.0 =
 Dark mode's colours changed: near-black background is now navy, cream
-text is now white, and the yellow accent is now green — realigned to
+text is now white, and the yellow accent is now green, realigned to
 match Remotive Media's official reporting/deck brand. Visible change to
 dark mode only; light mode is unaffected.
 
@@ -1444,10 +1472,9 @@ The homepage contact form now has a working default (emails submissions
 directly, no third-party account needed) instead of doing nothing.
 IMPORTANT: if you already customised the "Form submission URL" field in
 Appearance -> Theme Options away from the old "#" placeholder, your
-custom value is preserved and this doesn't affect you. If you left it at
-the default, it now points at the theme's built-in handler automatically
-— review Appearance -> Theme Options -> Call-to-Action after updating
-to confirm the "Contact email" field is correct, since that's where
+custom value is preserved and this does not affect you. If you left it at
+the default, it now points at the theme's built-in handler automatically, review Appearance -> Theme Options -> Call-to-Action after updating
+to confirm the "Contact email" field is correct, since that is where
 submissions will be sent. Also includes a security-hardening pass
 (escape-on-output, rate limiting, header-injection guard) with no
 user-facing behaviour change.
@@ -1481,16 +1508,16 @@ own. Specifically:
 
 * The light/dark mode toggle stores the visitor's chosen mode in their
   browser's `localStorage` (key: `remotive-theme`). This never leaves
-  the visitor's browser and isn't sent to any server.
+  the visitor's browser and is not sent to any server.
 * The homepage's contact form, by default, emails whatever the visitor
   submits to the address set in **Appearance → Theme Options → Contact
   & Socials → Contact email**, using this site's own WordPress installation
-  (`wp_mail()`) — no data leaves this site or goes through a third party
-  unless you've changed **Appearance → Theme Options → Call-to-Action
+  (`wp_mail()`), no data leaves this site or goes through a third party
+  unless you have changed **Appearance → Theme Options → Call-to-Action
   → Form submission URL** away from its default. If you have changed it,
   that destination (a form plugin, a third-party service, a CRM) is your
   own choice, not this theme's, and may have its own separate privacy
-  practices — check that destination's privacy policy. Submissions are
+  practices, check that destination's privacy policy. Submissions are
   also rate-limited per visitor (a short-lived, anonymous counter keyed
   to IP address) purely to reduce spam; this data is not retained beyond
   a ten-minute window and is never displayed or exported.

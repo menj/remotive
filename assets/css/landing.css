@@ -60,12 +60,12 @@ html[data-theme="light"] .rm-lp{
 .rm-lp__field{ margin:0 0 1rem; }
 .rm-lp__field label{ display:block; margin-bottom:.35rem; font-size:.88rem; font-weight:600; }
 .rm-lp__opt{ font-weight:400; color:var(--rm-ink-55); }
-.rm-lp__field input{
+.rm-lp__field input,.rm-lp__field select{
   width:100%; min-height:48px; padding:.7rem .85rem; font:inherit; font-size:1rem; /* 16px+ stops iOS zoom on focus */
   color:var(--wp--preset--color--ink); background:var(--wp--preset--color--paper);
   border:1px solid var(--rm-line); border-radius:0;
 }
-.rm-lp__field input:focus{ border-color:var(--wp--preset--color--ink); }
+.rm-lp__field input:focus,.rm-lp__field select:focus{ border-color:var(--wp--preset--color--ink); }
 .rm-lp__submit{
   width:100%; min-height:52px; padding:1rem 1.6rem; font:inherit; font-weight:700; cursor:pointer;
   color:var(--wp--preset--color--contrast-text); background:var(--wp--preset--color--contrast-bg);
@@ -132,7 +132,7 @@ html[data-theme="light"] .rm-lp{
   box-shadow:7px 7px 0 var(--lp-m), 14px 14px 0 var(--lp-c);
   margin:0 14px 14px 0;
 }
-.rm-lp__field input:focus{ border-color:var(--lp-c); outline:2px solid var(--lp-c); outline-offset:0; }
+.rm-lp__field input:focus,.rm-lp__field select:focus{ border-color:var(--lp-c); outline:2px solid var(--lp-c); outline-offset:0; }
 .rm-lp__lang[aria-current="true"]{ border-color:var(--lp-c); }
 
 /* Buttons: magenta fill. White text in light mode (5.1:1), navy in dark (4.6:1). */
@@ -241,7 +241,7 @@ html:not([data-theme="light"]) .rm-lp__final{ background-color:#0d1117; } /* a s
 .rm-lp__logo img{ border-radius:6px; }
 .rm-lp__card{ border-radius:var(--rm-r-lg,24px); border-top-width:0; }
 .rm-lp__card::before{ content:""; display:block; height:6px; margin:-1.5rem -1.5rem 1.25rem; border-radius:var(--rm-r-lg,24px) var(--rm-r-lg,24px) 0 0; background:var(--lp-c); }
-.rm-lp__field input{ border-radius:var(--rm-r-sm,10px); }
+.rm-lp__field input,.rm-lp__field select{ border-radius:var(--rm-r-sm,10px); }
 .rm-lp__submit,.rm-lp__sticky{ border-radius:999px; }
 .rm-lp__step,.rm-lp__q{ border-radius:var(--rm-r,16px); overflow:hidden; }
 .rm-lp__q[open]{ border-left-width:1px; }

@@ -108,7 +108,8 @@
 .rm-art-audit .wp-block-button, .rm-art-audit .wp-block-button__link{ width:100%; text-align:center; }
 
 /* ---- The reading column ---- */
-.rm-art-body{ padding:0 !important; }
+/* .rm-post (blog-and-about.css) also sets padding-block with !important at the same specificity; the extra class wins regardless of load order. */
+.rm-art .rm-art-body.rm-post{ padding:0 !important; }
 .rm-art-body .rm-post__content{
   counter-reset:rm-h; font-size:clamp(1.08rem,1.1vw + .9rem,1.22rem); line-height:1.82; font-weight:400; color:var(--art-body);
 }

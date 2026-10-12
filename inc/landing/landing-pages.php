@@ -200,6 +200,26 @@ function remotive_lp_t( $t, $tag = '', $cls = '' ) {
 }
 
 /**
+ * The optional "How did you hear about us?" select, with the answers from
+ * remotive_lp_source_options() in the language of the page.
+ *
+ * @param string $id Field id prefix of the form it sits in.
+ * @return string
+ */
+function remotive_lp_source_field( $id ) {
+	$options = '<option value="">' . remotive_lp_t( array( 'Choose one', 'Pilih satu', '请选择', '請選擇' ) ) . '</option>';
+
+	foreach ( remotive_lp_source_options() as $key => $label ) {
+		$options .= '<option value="' . esc_attr( $key ) . '">' . remotive_lp_t( $label ) . '</option>';
+	}
+
+	return '<p class="rm-lp__field"><label for="' . esc_attr( $id ) . '-source">'
+		. remotive_lp_t( array( 'How did you hear about us?', 'Bagaimana anda mengetahui tentang kami?', '您是如何得知我们的？', '您是如何得知我們的？' ) )
+		. ' <span class="rm-lp__opt">' . remotive_lp_t( array( '(optional)', '(pilihan)', '（选填）', '（選填）' ) ) . '</span></label>'
+		. '<select id="' . esc_attr( $id ) . '-source" name="source">' . $options . '</select></p>';
+}
+
+/**
  * The lead form. Rendered twice per page (top and bottom), so ids carry a
  * suffix and the nonce is a plain hidden input (wp_nonce_field() would
  * repeat its id).
@@ -209,7 +229,8 @@ function remotive_lp_t( $t, $tag = '', $cls = '' ) {
  * @return string
  */
 function remotive_lp_form( $service, $pos ) {
-	$cta = remotive_landing_services()[ $service ]['cta'];
+	$svc = remotive_lp_service( $service );
+	$cta = $svc['cta'];
 	$id = 'rm-lp-' . $pos;
 
 	$field = function ( $name, $type, $label, $required, $autocomplete ) use ( $id ) {
@@ -248,12 +269,33 @@ function remotive_lp_form( $service, $pos ) {
 		. '<input type="text" id="' . esc_attr( $id ) . '-hp" name="remotive_lp_website" tabindex="-1" autocomplete="off"></div>'
 		. $field( 'name', 'text', array( 'Your name', 'Nama anda', '您的姓名', '您的姓名' ), true, 'name' )
 		. $field( 'email', 'email', array( 'Work email', 'E-mel kerja', '工作邮箱', '工作信箱' ), true, 'email' )
-		. $field( 'site', 'text', array( 'Website to review', 'Laman web untuk disemak', '待审查的网站', '待審查的網站' ), false, 'url' )
+		. $field( 'site', 'text', isset( $svc['site_label'] ) ? $svc['site_label'] : array( 'Website to review', 'Laman web untuk disemak', '待审查的网站', '待審查的網站' ), false, 'url' )
+		. remotive_lp_source_field( $id )
 		. '<button type="submit" class="rm-lp__submit">' . remotive_lp_t( $cta ) . '</button>'
-		. '<p class="rm-lp__fine">' . remotive_lp_t( array( 'Free. No commitment. No mailing list. We reply within three business days.', 'Percuma. Tiada komitmen. Tiada senarai mel. Kami membalas dalam tiga hari bekerja.', '免费，无需承诺，不加入邮件列表。我们会在三个工作日内回复。', '免費，無需承諾，不加入郵寄名單。我們會在三個工作日內回覆。' ) )
+		. '<p class="rm-lp__fine">' . remotive_lp_t( isset( $svc['fine'] ) ? $svc['fine'] : array( 'Free. No commitment. No mailing list. We reply within three business days.', 'Percuma. Tiada komitmen. Tiada senarai mel. Kami membalas dalam tiga hari bekerja.', '免费，无需承诺，不加入邮件列表。我们会在三个工作日内回复。', '免費，無需承諾，不加入郵寄名單。我們會在三個工作日內回覆。' ) )
 		. ' <a href="' . esc_url( home_url( '/privacy/' ) ) . '">' . remotive_lp_t( array( 'Privacy', 'Privasi', '隐私政策', '隱私權政策' ) ) . '</a></p>'
 		. '<div class="rm-lp__status" data-lead-status="remotive_lp" role="status" aria-live="polite" hidden>' . $msgs . '</div>'
 		. '</form>';
+}
+
+/**
+ * The answers to "How did you hear about us?": key => array( en, ms, zh-Hans, zh-Hant ).
+ * The key is what the form posts; the English label is what the enquiry email and
+ * the stored lead show, so the report reads the same whatever language the visitor used.
+ *
+ * @return array<string,array<int,string>>
+ */
+function remotive_lp_source_options() {
+	return array(
+		'search'   => array( 'Search engine (Google, Bing)', 'Enjin carian (Google, Bing)', '搜索引擎（Google、Bing）', '搜尋引擎（Google、Bing）' ),
+		'ai'       => array( 'AI tool (ChatGPT, Gemini, Claude)', 'Alat AI (ChatGPT, Gemini, Claude)', 'AI 工具（ChatGPT、Gemini、Claude）', 'AI 工具（ChatGPT、Gemini、Claude）' ),
+		'linkedin' => array( 'LinkedIn', 'LinkedIn', 'LinkedIn', 'LinkedIn' ),
+		'social'   => array( 'Social media', 'Media sosial', '社交媒体', '社群媒體' ),
+		'referral' => array( 'Client or partner referral', 'Rujukan pelanggan atau rakan kongsi', '客户或合作伙伴推荐', '客戶或合作夥伴推薦' ),
+		'event'    => array( 'Industry event', 'Acara industri', '行业活动', '產業活動' ),
+		'email'    => array( 'Email newsletter', 'Surat berita e-mel', '电子邮件通讯', '電子郵件通訊' ),
+		'other'    => array( 'Other', 'Lain-lain', '其他', '其他' ),
+	);
 }
 
 /**
@@ -524,7 +566,7 @@ function remotive_lp_render() {
 		. '<ol class="rm-lp__steps">' . $steps . '</ol></section>'
 		. '<section class="rm-lp__section rm-lp__trust" aria-labelledby="rm-lp-where"><p id="rm-lp-where"><strong>' . remotive_lp_t( array( 'Senior-led and independent.', 'Diketuai pakar kanan dan bebas.', '资深团队领导，独立运营。', '資深團隊領導，獨立營運。' ) ) . '</strong> ' . remotive_lp_t( array( 'Working across six markets:', 'Beroperasi di enam pasaran:', '服务六大市场：', '服務六大市場：' ) ) . '</p>'
 		. '<ul class="rm-lp__cities">' . $cities . '</ul></section>'
-		. '<section class="rm-lp__section rm-lp__final" aria-labelledby="rm-lp-final"><div class="rm-lp__final-copy"><h2 id="rm-lp-final">' . remotive_lp_t( array( 'See what we would fix first. It\'s free.', 'Lihat apa yang akan kami baiki dahulu. Percuma', '看看我们会优先解决什么。免费。', '看看我們會優先解決什麼。免費。' ) ) . '</h2>'
+		. '<section class="rm-lp__section rm-lp__final" aria-labelledby="rm-lp-final"><div class="rm-lp__final-copy"><h2 id="rm-lp-final">' . remotive_lp_t( array( 'See what we would fix first. It is free.', 'Lihat apa yang akan kami baiki dahulu. Percuma', '看看我们会优先解决什么。免费。', '看看我們會優先解決什麼。免費。' ) ) . '</h2>'
 		. remotive_lp_t( array( 'A free audit, a specific view within three business days, and no commitment either way.', 'Audit percuma, pandangan khusus dalam tiga hari bekerja, dan tiada komitmen.', '免费审计，三个工作日内给出具体意见，无需任何承诺。', '免費審計，三個工作日內提出具體意見，無需任何承諾。' ), 'p', 'rm-lp__lead' ) . '</div>'
 		. '<div class="rm-lp__card">' . remotive_lp_form( $slug, 'bottom' ) . '</div></section>'
 		. '<section class="rm-lp__section rm-lp__faq" aria-labelledby="rm-lp-faq"><h2 id="rm-lp-faq">' . remotive_lp_t( array( 'Frequently asked questions', 'Soalan lazim', '常见问题', '常見問題' ) ) . '</h2><div class="rm-lp__faqs">' . $faqs . '</div></section>'
@@ -546,14 +588,14 @@ add_filter( 'remotive_theme_option_tokens', 'remotive_lp_token' );
  * produced it.
  */
 function remotive_handle_landing_submission() {
-	$services = remotive_landing_services();
-	$service  = isset( $_POST['service'] ) && is_scalar( $_POST['service'] ) ? sanitize_key( wp_unslash( $_POST['service'] ) ) : '';
-	$service  = isset( $services[ $service ] ) ? $service : '';
+	$service = isset( $_POST['service'] ) && is_scalar( $_POST['service'] ) ? sanitize_key( wp_unslash( $_POST['service'] ) ) : '';
+	$svc     = remotive_lp_service( $service );
+	$service = null !== $svc ? $service : '';
 
 	$extra = array();
 
 	if ( '' !== $service ) {
-		$extra[] = 'Service: ' . $services[ $service ]['label'][0];
+		$extra[] = 'Service: ' . $svc['label'][0];
 	}
 
 	$site = isset( $_POST['site'] ) && is_scalar( $_POST['site'] ) ? esc_url_raw( wp_unslash( $_POST['site'] ), array( 'http', 'https' ) ) : '';
@@ -563,6 +605,13 @@ function remotive_handle_landing_submission() {
 	}
 	if ( '' !== $site ) {
 		$extra[] = 'Website: ' . substr( $site, 0, 200 );
+	}
+
+	// How the visitor heard about us: only a key from the list is accepted, and the English label is recorded.
+	$source = isset( $_POST['source'] ) && is_scalar( $_POST['source'] ) ? sanitize_key( wp_unslash( $_POST['source'] ) ) : '';
+
+	if ( '' !== $source && isset( remotive_lp_source_options()[ $source ] ) ) {
+		$extra[] = 'Heard about us via: ' . remotive_lp_source_options()[ $source ][0];
 	}
 
 	foreach ( remotive_lp_tracking_keys() as $key ) {
@@ -933,6 +982,12 @@ function remotive_lp_is_internal_navigation( $server, $host, $base = null ) {
 	}
 
 	if ( $from_lp ) {
+		return false;
+	}
+
+	// The agency home page links to the landing pages on purpose (its service cards), so a click that
+	// carries that page as its Referer is let through. Every other click from the site is still turned back.
+	if ( $ref_own && function_exists( 'remotive_agency_mode' ) && remotive_agency_mode() && preg_match( '#^/?(?:(?:ms|zh-hans|zh-hant)/?)?$#', $path ) ) {
 		return false;
 	}
 

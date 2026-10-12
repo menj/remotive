@@ -54,7 +54,16 @@ foreach ( remotive_seed_content() as $i ) {
 	a_ok( $ext >= 1 && count( $l[1] ) - $ext >= 1, "$s: an internal and an external link" );
 
 	// Every top-level paragraph and heading is a block, so the editor opens real blocks, not one Classic block.
-	$stripped = preg_replace( '#<!-- wp:list -->\s*<ul class="wp-block-list">.*?</ul>\s*<!-- /wp:list -->#s', '', $c );
+	// A list must be a core/list whose every item is a core/list-item block, nothing else inside.
+	$stripped = preg_replace_callback(
+		'#<!-- wp:list -->\s*<ul class="wp-block-list">(.*?)</ul>\s*<!-- /wp:list -->#s',
+		function ( $m ) use ( $s ) {
+			$rest = preg_replace( '#<!-- wp:list-item -->\s*<li>.*?</li>\s*<!-- /wp:list-item -->#s', '', $m[1] );
+			a_ok( '' === trim( $rest ), "$s: every list item is a wp:list-item block" );
+			return '';
+		},
+		$c
+	);
 	$stripped = preg_replace( '#<!-- wp:heading(?: \{"level":3\})? -->\s*<(h2|h3) class="wp-block-heading">.*?</\1>\s*<!-- /wp:heading -->#s', '', $stripped );
 	$stripped = preg_replace( '#<!-- wp:paragraph -->\s*<p>.*?</p>\s*<!-- /wp:paragraph -->#s', '', $stripped );
 	a_ok( '' === trim( $stripped ), "$s: all content is block markup" );

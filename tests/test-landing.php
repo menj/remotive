@@ -146,4 +146,20 @@ $ids = remotive_unlisted_page_ids();
 t_ok( in_array( 11, $ids, true ) && in_array( 12, $ids, true ), 'landing pages unlisted' );
 t_eq( count( $ids ), count( array_unique( $ids ) ), 'no duplicate ids' );
 
+
+// ---- The "How did you hear about us?" field ----
+foreach ( remotive_lp_source_options() as $key => $label ) {
+	t_eq( count( $label ), 4, "source answer '$key' has all four languages" );
+	t_ok( '' !== trim( implode( '', $label ) ) && ! in_array( '', $label, true ), "source answer '$key' has no empty language" );
+}
+t_eq( array_keys( remotive_lp_source_options() ), array( 'search', 'ai', 'linkedin', 'social', 'referral', 'event', 'email', 'other' ), 'the answers are the eight sources, Other last' );
+foreach ( array( 'en' => 'Search engine (Google, Bing)', 'ms' => 'Enjin carian', 'zh-hans' => '搜索引擎', 'zh-hant' => '搜尋引擎' ) as $lang => $needle ) {
+	$GLOBALS['remotive_i18n_lang'] = $lang;
+	$html = remotive_lp_source_field( 'rm-lp-top' );
+	t_ok( false !== strpos( $html, $needle ), "$lang: the field lists the sources in the page language" );
+	t_ok( false !== strpos( $html, '<select id="rm-lp-top-source" name="source">' ) && false !== strpos( $html, 'for="rm-lp-top-source"' ), "$lang: the label is tied to the select" );
+	t_ok( false === strpos( $html, ' required' ), "$lang: the field is optional" );
+}
+t_ok( 8 + 1 === substr_count( remotive_lp_source_field( 'x' ), '<option' ), 'one option per source plus the prompt' );
+
 t_done( 'landing' );

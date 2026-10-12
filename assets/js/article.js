@@ -95,13 +95,30 @@
 			el.href = 'https://x.com/intent/post?text=' + encodeURIComponent( text ) + '&url=' + encodeURIComponent( url );
 		} else if ( 'copy' === kind ) {
 			el.addEventListener( 'click', function () {
-				var done = function () {
-					var old = el.textContent;
-					el.textContent = 'Copied';
-					window.setTimeout( function () { el.textContent = old; }, 1800 );
+				var old = el.textContent;
+				var say = function ( msg ) {
+					el.textContent = msg;
+					window.setTimeout( function () { el.textContent = old; }, 2200 );
+				};
+				// Older browsers and non-secure pages have no Clipboard API; fall back to a
+				// hidden field and execCommand, and say so if that fails too.
+				var legacy = function () {
+					var f = document.createElement( 'textarea' );
+					f.value = url;
+					f.setAttribute( 'readonly', '' );
+					f.style.cssText = 'position:fixed;top:0;left:0;opacity:0';
+					document.body.appendChild( f );
+					f.select();
+					var ok = false;
+					try { ok = document.execCommand( 'copy' ); } catch ( e ) { ok = false; }
+					document.body.removeChild( f );
+					say( ok ? 'Copied' : 'Press Ctrl+C to copy' );
+					if ( ! ok ) { window.prompt( 'Copy this link', url ); }
 				};
 				if ( navigator.clipboard && navigator.clipboard.writeText ) {
-					navigator.clipboard.writeText( url ).then( done, function () {} );
+					navigator.clipboard.writeText( url ).then( function () { say( 'Copied' ); }, legacy );
+				} else {
+					legacy();
 				}
 			} );
 		}

@@ -17,6 +17,340 @@ defined( 'ABSPATH' ) || exit;
 
 return array(
 	'strings' => array(
+		// Restyled English (v1.119.0): the old keys stay below, so a page that was edited keeps its translation.
+		'Crawlability, structure, schema and Core Web Vitals, repaired and checked.' =>
+			'抓取能力、网站结构、结构化数据与 Core Web Vitals：真正修复，而不只是标出问题。',
+		'A premium medical-grade skincare brand launching into three Southeast Asian markets on under 0.5% share of category spend. Our customer-journey analysis said the D2C site would not be the purchase destination, marketplaces would. We rerouted sales through Shopee and Lazada, made the site a content and engagement hub, and ran a doctor-and-dermatologist B2B strategy in Singapore where the buyer was different. GMV grew 168% against pre-activity baseline in the first three months, with 65,000 new visitors averaging 2 minutes 20 seconds on the content.' =>
+			'一个高端医疗级护肤品牌进入三个东南亚市场，而其占品类支出的份额不足 0.5%。我们的客户旅程分析显示，品牌自营（D2C）网站不会是购买终点，电商平台才是。我们把销售转向 Shopee 和 Lazada，把官网打造成内容与互动中心，并在买家截然不同的新加坡市场，针对医生与皮肤科医师开展 B2B 策略。前三个月，GMV 较活动前基线增长 168%，带来 65,000 名新访客，平均停留内容页 2 分 20 秒。',
+		'Fix, Found, Scale: proved' =>
+			'修复、被发现、规模化：数据为证',
+		'We reply with what we would fix first. No mailing list. See our' =>
+			'我们会回复应优先解决的问题，不会加入邮件列表。详见我们的',
+		'Work with the people who would run it.' =>
+			'与真正负责执行的人合作。',
+		'Let us talk.' =>
+			'聊一聊吧。',
+		'Tell us what is not working, or what you want to be working better. We reply within three business days.' =>
+			'告诉我们哪里不奏效，或您希望哪方面做得更好。我们会在三个工作日内回复。',
+		'When several agencies work on different parts of the same site over multiple years, attributing a specific traffic movement to a specific programme requires discipline most reporting does not bother with: dated change logs matched against traffic inflection points, and' =>
+			'当多家代理商在多年里负责同一个网站的不同部分时，要把某次具体的流量变化归因于某个具体项目，需要大多数报告都懒得做的纪律：把带日期的变更日志与流量拐点相对照，并对照',
+		'Six B2B clients in the Singapore market, run concurrently: food service and distribution, logistics and transport, manufacturing and trade. Different categories, one operating system, which is what running a portfolio well actually requires.' =>
+			'新加坡市场的六家 B2B 客户，同时运行：餐饮服务与分销、物流与运输、制造与贸易。品类不同，却是同一套运营体系，这正是把一个组合做好真正需要的。',
+		'Off-page programmes built per client rather than a single link list reused' =>
+			'站外项目按客户量身定制，而不是重复使用同一份外链清单',
+		'This is our most recent Singapore-market work, which is why it is here, but it is also the case where we are showing method rather than outcomes. The engagements were reported through the agency\'s own client reporting, so the outcome data is not ours to publish; what we can speak to is the process, the standards applied, and the current-market familiarity. When a case study can only honestly demonstrate approach, saying so is better than borrowing a number.' =>
+			'这是我们最近的新加坡市场工作，所以收录在这里，但它同样是一个我们展示方法而不是成果的案例。这些项目是通过代理商自己的客户报告来汇报的，所以成果数据不属于我们公布；我们能谈的是过程、采用的标准，以及对当前市场的熟悉程度。当一个案例研究只能诚实地展示方法时，直接说明，比借用一个数字要好。',
+		'Most technical SEO rebuild work takes months to show in rankings because it is waiting on new content to be crawled, indexed and evaluated for the first time. This engagement moved faster because the content already existed and had already accumulated some authority; the rebuild simply let Google\'s crawler reach and credit pages it had previously been struggling to find efficiently. A technical SEO rebuild on a brand-new site with no content history would show the same structural improvement but a much slower ranking response, since there is no existing authority for the improved structure to redistribute.' =>
+			'大多数技术 SEO 重建工作，需要数月才能在排名中体现，因为它要等待新内容首次被抓取、索引和评估。这个项目见效更快，是因为内容早已存在，也已经积累了一定的权威度；重建只是让 Google 的爬虫能够触达并认可那些它此前很难高效找到的页面。在一个没有内容历史的全新网站上做技术 SEO 重建，结构上会有同样的改善，但排名反应会慢得多，因为没有已有的权威度可供改善后的结构重新分配。',
+		'Crawl stats from Search Console, specifically pages crawled per day and time spent on each page, tell us within days whether the new structure is actually being read differently by Google\'s crawler, well before ranking movement confirms it. A technical SEO rebuild that does not change crawl behaviour within the first two weeks usually means something in the implementation did not take, and it is worth checking before waiting a full month for the ranking data to say the same thing more slowly.' =>
+			'来自 Search Console 的抓取统计，尤其是每天抓取的页面数和在每个页面上花费的时间，能在几天内告诉我们 Google 爬虫是否真的以不同的方式读取新结构，远早于排名变化来证实这一点。如果技术 SEO 重建在最初两周内没有改变抓取行为，通常意味着实施中有什么环节没有生效，值得先排查，而不是等一整个月，让排名数据更慢地告诉您同样的事。',
+		'The clearest signal is a mismatch: content that reads well and covers real buyer questions, sitting on pages that rank nowhere near where the content quality would suggest. If your best pages are also your least-linked pages internally, or a crawl tool reports orphaned pages several clicks from the homepage, a technical SEO rebuild is very likely the higher-impact fix, ahead of writing more content the current structure would bury just as effectively.' =>
+			'最明显的信号是错位：内容写得好、也涵盖了真实的买家问题，却放在排名远低于内容质量所应得的页面上。如果您最好的页面同时也是内部链接最少的页面，或者抓取工具报告出距离首页好几次点击的孤立页面，那么技术 SEO 重建很可能是杠杆更高的修复，应排在写更多内容之前，因为当前结构同样会把这些内容埋没。',
+		'The way we are structured carries a smaller footprint by default, and nothing is bolted on afterwards as a separate initiative.' =>
+			'我们的组织方式天然带来更小的足迹，而不是事后额外加上的一项举措。',
+		'Tell us what you are working on' =>
+			'告诉我们您正在做什么',
+		'Reach the people who are not searching for you yet, and turn that attention into pipeline.' =>
+			'触达那些还没有在搜索您的人，并把这份关注转化为销售管道。',
+		'Feeds people stop for. Organic strategy, creator partnerships, and content that does not read like an ad.' =>
+			'让人愿意停下来看的信息流。自然内容策略、创作者合作，以及不像广告的内容。',
+		'A few of the numbers we would stand behind in a room with the client.' =>
+			'这里的几个数字，我们愿意当着客户的面为它们负责。',
+		'Why not reuse the campaign that worked in another market?' =>
+			'为什么不直接沿用在另一个市场行之有效的广告活动？',
+		'Read enough. Let us talk.' =>
+			'读得够多了，聊聊吧。',
+		'The page you are looking for has moved or never existed. Search the site, or head back home.' =>
+			'您要找的页面已被移动，或从未存在过。可以搜索本站，或返回首页。',
+		'A few reliable tells: two reports in the building disagree on the same number and nobody can explain why; a channel gets credited with conversions that other data suggests it did not drive; or decisions get made from gut feel because nobody trusts the dashboard enough to act on it. Any one of those is worth a proper audit before the next quarter\'s budget gets set on assumptions rather than evidence.' =>
+			'有几个可靠的迹象：同一栋楼里的两份报告对同一个数字意见不一，却没有人能解释原因；某个渠道被记了功劳，而其他数据显示它并没有带来那些转化；或者决策凭感觉做出，因为没有人足够信任仪表板而敢于据此行动。其中任何一条，都值得在下个季度的预算依据假设而非证据确定之前，认真做一次审计。',
+		'Who owns marketing analytics once it is built' =>
+			'营销分析搭建完成后，谁来负责',
+		'No attribution model is the truth, each one is a lens with a bias built in: last-click favours bottom-funnel channels, first-click favours awareness, and models built on account data inherit whatever pattern the platform\'s black box decided to weight. Our marketing analytics work reports more than one model side by side rather than picking a favourite and presenting it as fact, and labels platform-reported numbers as platform-reported, since a platform grading its own performance has an obvious incentive to grade generously.' =>
+			'没有任何一个归因模型就是真相，每个模型都是带着偏差的镜头：末次点击偏向漏斗底部渠道，首次点击偏向品牌认知，而数据驱动模型会继承平台黑箱决定加权的任何模式。我们的营销分析工作会并列呈现多个模型，而不是挑一个最喜欢的当作事实，并把平台上报的数字标注为平台上报，因为平台给自己的表现打分，显然有给高分的动机。',
+		'What is included' =>
+			'包含内容',
+		'For a national sports and entertainment precinct we grew the addressable audience from 53k to 745k defined individuals using cookieless personas, and ongoing campaigns against those segments run 20–30% better on CPA with platform-reported ROAS above 400%, platform-reported deliberately said aloud, since ROAS a platform grades for itself flatters; incrementality is the harder, better question, and we will tell you when a number is which. The audience work made the media work.' =>
+			'为一个国家级体育与娱乐园区，我们利用无 Cookie 的用户画像，把可触达受众从 5.3 万扩大到 74.5 万个已定义的个体，针对这些细分人群持续开展的广告活动，CPA 表现好 20–30%，平台上报的 ROAS 超过 400%。我们刻意强调“平台上报”，因为平台给自己评的 ROAS 有美化之嫌；增量效果才是更难、也更好的问题，我们会告诉您每个数字属于哪一种。正是受众工作成就了媒体工作。',
+		'Access to subject-matter experts, honestly. The content that performs best in our own work is never the generic industry overview, it is the piece written together with someone who actually does the job day to day, carrying the specific detail that only comes from having done it themselves. A content marketing programme without access to real expertise inside the company produces competent, forgettable pages. That access matters more to the outcome than the size of the budget.' =>
+			'坦率地说，关键在于能否接触到领域专家。在我们自己的工作中，表现最好的内容从来不是泛泛的行业概述，而是与每天亲自做这件事的人共同写成的内容，带着只有亲身做过才有的具体细节。没有公司内部真正专业知识支撑的内容营销项目，只会产出称职但转头就忘的页面。对结果而言，这种接触比预算大小更重要。',
+		'Content marketing earns attention twice now, once from people, once from the machines that summarise for them. The second audience cuts both ways: AI answers can cite you or replace your click entirely, and nobody controls which. Our response is to compete for the citation while building the content only your brand can produce, the part a summary cannot substitute. We run content marketing and creative as performance assets: planned against search demand, structured so answer engines can cite them, and tested until the winners are obvious.' =>
+			'内容营销如今要赢得两次关注：一次来自人，一次来自替他们做摘要的机器。第二类受众是把双刃剑：AI 的回答既可以引用您，也可以完全取代对您的点击，而没有人能控制是哪一种。我们的应对是争取被引用，同时打造只有您的品牌才能产出的内容，也就是摘要无法替代的部分。我们把内容营销与创意当作效果资产来运作：依据搜索需求来规划，结构上便于答案引擎引用，并经过测试，直到赢家显而易见。',
+		'Creative gets judged the way media does: by CPA, ROAS and conversion lift, with one deliberate exception. Authority content built for long-horizon trust should not be strangled by a 30-day CPA window; it needs its own measures (rankings, citations, assisted conversions) and its own patience. Knowing which piece of content belongs on which scoreboard is most of what content strategy actually is. For everything on the performance scoreboard: variants of hook, visual and message run against each other in real time, and the data picks the winners weekly, the same discipline that told a skincare launch to reroute its whole strategy to marketplaces when the customer-journey data disagreed with the original plan, growing GMV 168% in three months as a direct result.' =>
+			'创意像媒体一样接受评判：看 CPA、ROAS 和转化提升，只有一个刻意的例外。为长期信任而打造的权威内容，不应被 30 天的 CPA 窗口扼杀；它需要自己的衡量标准（排名、被引用量、辅助转化），也需要自己的耐心。知道哪篇内容该放进哪块计分板，几乎就是内容策略的全部。至于放在效果计分板上的一切：开场、视觉和信息的多个版本实时相互对比，数据每周选出赢家。正是同样的纪律，让一次护肤品上市在旅程数据与原计划不符时，把整个策略转向电商平台，三个月内直接带来 168% 的 GMV 增长。',
+		'work, it is what gets ranked and cited, and plugs into' =>
+			'工作提供支撑，决定了哪些内容能获得排名并被引用，并与',
+		'We work inside whatever CRM and marketing platform a client already runs rather than forcing a migration for its own sake, since the cost of ripping out an embedded system rarely pays for itself in the improvement a newer tool offers. The exception is when the existing stack genuinely cannot do the job, no API access, no way to trigger messaging from behavioural data, in which case we will say so plainly and scope a migration as its own project with its own timeline, rather than quietly inflating the automation budget to cover a platform problem nobody actually asked us to go and solve in the first place.' =>
+			'我们在客户已经在用的 CRM 和营销平台上工作，而不是为了迁移而迁移，因为拆掉一个已深度嵌入的系统所付出的成本，很少能被新工具带来的改进抵消。例外是现有技术栈确实无法完成任务，比如没有 API 访问权限、无法根据行为数据触发消息，这时我们会坦率说明，并把迁移作为单独的项目、按它自己的时间线来界定，而不是悄悄抬高自动化预算，去解决一个本来没有人要求我们解决的平台问题。',
+		'Automation makes it easy to message people more than they have agreed to.' =>
+			'自动化让人很容易给用户发送超出他们所同意范围的信息。',
+		'Most accounts we inherit are running three or four disconnected tools: an email platform that does not talk to the CRM, a WhatsApp inbox managed by hand, and a lead-scoring spreadsheet someone updates when they remember. Consolidating those into one enterprise marketing automation stack is not about buying a bigger tool, it is about making sure a lead\'s behaviour in one channel actually changes what happens in the next one. A site visitor who abandons a cart should trigger a different WhatsApp message than one who is never visited at all; that only works if the systems share data in real time.' =>
+			'我们接手的大多数账户，都在运行三四个互不相通的工具：和 CRM 不互通的邮件平台、靠人工管理的 WhatsApp 收件箱，以及有人想起来才更新的线索评分电子表格。把它们整合成一套企业级营销自动化技术栈，并不是买一个更大的工具，而是确保线索在一个渠道中的行为，真的会改变它在下一个渠道里遇到的内容。弃单的网站访客收到的 WhatsApp 消息，应当不同于从未访问过网站的人；这只有在各系统实时共享数据时才能做到。',
+		'Enterprise marketing automation is supposed to make leads convert while they are warm and customers come back without being chased manually, not turn every touchpoint into a robotic drip. Leads that wait, lapse. We automate the conversations and journeys around your marketing carefully, because over-automation is its own failure mode: premium buyers can tell when nobody\'s home, and consent rules (PDPA here, and platform policies on WhatsApp) bound what good automation is allowed to do. The craft is knowing where the human takes over: email flows, WhatsApp and messaging automation, AI assistants, all wired into your CRM.' =>
+			'企业级营销自动化本应让线索在还热的时候完成转化，让客户无需人工追着就会回来，而不是把每个触点都变成机械的滴灌。等待的线索会流失。我们会谨慎地自动化您营销周围的对话与旅程，因为过度自动化本身就是一种失败模式：高端买家能感觉到对面没有人在，而用户同意规则（这里是 PDPA，以及 WhatsApp 的平台政策）也限定了好的自动化能做什么。真正的功夫在于知道人应在哪里接手：邮件流程、WhatsApp 与即时消息自动化、AI 助手，全部接入您的 CRM。',
+		'Paid media is every dollar you put behind distribution, search, social, programmatic, B2B LinkedIn, and it only deserves the budget when every stage of the funnel is measured and every channel can defend itself against CPA, CPL, ROAS and revenue. That is how we run it: flat retainers, media billed at net cost with 0% markup, and platform invoices attached to every recharge. One honest footnote on pricing models: at small spend levels a percentage-of-spend agency can cost less than a flat retainer, the model matters less than whether you can see the platform billing. Do the arithmetic for your budget.' =>
+			'付费媒体是您投入到分发上的每一分钱：搜索、社交、程序化、B2B LinkedIn。只有当漏斗每个阶段都被衡量、每个渠道都能在 CPA、CPL、ROAS 和收入面前为自己辩护时，它才配得上预算。我们就是这样运营的：固定服务费，媒体按净成本结算、零加价，每次充值都附上平台发票。关于定价模式有一句坦率的补充：在小额投放时，按投放金额百分比收费的代理商确实可能比固定服务费更便宜；模式本身不如您能否看到平台账单重要。请按您的预算算一算。',
+		'Restructuring paid search for a premium B2B corporate-gifting brand lifted conversion rates 50% and qualified leads 150% on the same budget. Launching a global automotive marque\'s Asia brand film across seven markets, AI-driven programmatic delivered 26.1 million completed views at a $0.0048 CPCV, CPMs 85% under market rate, and 32,298 distributor leads, a brand campaign, so read those as reach economics; view metrics do not translate directly into lead-gen unit costs. For a global asset manager across four APAC markets, regulated financial services, MAS-grade compliance throughout, persona-led targeting improved conversion rates 25–35% and cut cost per conversion 20–30%, with paid-search engagement at 40.8% (3.9× the CTR benchmark) and 5.9% programmatic engagement across 21.8M in-target impressions. Those are engagement measures, chosen because regulated finance restricts what conversion data can travel, we would rather show you the honest metric than dress one up.' =>
+			'为一个高端 B2B 企业礼品品牌重组付费搜索，在相同预算下将转化率提升 50%、合格线索提升 150%。为一个全球汽车品牌的亚洲品牌影片在七个市场上线，AI 驱动的程序化投放带来 2,610 万次完整播放（每次完整播放成本 $0.0048）、CPM 比市场价低 85%，以及 32,298 条经销商线索；这是一次品牌广告活动，所以请将其理解为触达经济学，观看指标并不能直接转化为获客单位成本。为一家覆盖四个亚太市场的全球资产管理公司（受监管的金融服务，全程达到新加坡金管局级别的合规），以用户画像为导向的定向将转化率提升 25–35%、单次转化成本降低 20–30%，付费搜索互动率达 40.8%（为 CTR 基准的 3.9 倍），并在 2,180 万次目标展示中取得 5.9% 的程序化互动率。这些是互动指标，之所以选它们，是因为受监管的金融业限制了转化数据能够流转的范围，我们宁可给您看诚实的指标，也不愿粉饰一个。',
+		'. When you are ready, the audit is free.' =>
+			'。准备好之后，审计是免费的。',
+		'Minimum viable paid media spend depends entirely on the auction you are bidding into: a niche B2B keyword clears a signal at a few thousand dollars a month, while a contested consumer category in Singapore or Malaysia needs considerably more before the data is statistically usable.' =>
+			'最低可行的付费媒体投放额，完全取决于您所参与的竞价环境：小众 B2B 关键词每月几千美元就能出现信号，而新加坡或马来西亚竞争激烈的消费品类，则需要多得多的预算，数据才有统计意义。',
+		'explains why: bidding algorithms need conversion volume to learn from, and an underfunded campaign never gives them enough to work with. We will tell you honestly if a budget is too thin to test properly, before we take it.' =>
+			'解释了原因：出价算法需要有转化量才能学习，而预算不足的广告活动永远给不了它们足够的素材。如果预算太少、无法正常测试，我们会在接手之前坦率地告诉您。',
+		'Ad accounts with history, whatever exists, even underperforming ones; access to the site or app for tracking; and a real conversion definition agreed before the first dollar spends. Accounts that start clean, no history, no baseline, take longer to judge, since there is nothing to compare the new numbers against. If you are migrating from another agency, keep the old account live in read-only mode for at least a quarter so the before-and-after comparison is honest rather than assumed, not asserted from memory once the new numbers look good.' =>
+			'有历史数据的广告账户，不管现状如何，哪怕表现不佳；用于追踪的网站或应用访问权限；以及在花出第一笔钱之前就商定好的真实转化定义。从零开始的账户，没有历史、没有基线，需要更长时间才能评判，因为没有可供新数字对照的东西。如果您是从另一家代理商那里迁移过来，请把旧账户以只读模式保留至少一个季度，这样前后对比才是诚实的，而不是在新数字看起来不错之后凭记忆断言。',
+		'Mainly two kinds of client: teams who have outgrown a single in-house generalist and need specialists across technical, content and authority work at once, and teams who have been burned by a ranking-report agency and want revenue-linked reporting instead. If your site is brand new with no content or backlink history, expect the first few months to be foundation work, sitemaps, indexing, information architecture, rather than ranking movement; that sequencing is honest, not a stall tactic.' =>
+			'主要是两类客户：一类是已经超出单个内部通才能力范围、需要同时具备技术、内容与权威建设专家的团队；另一类是曾被只交排名报告的代理商坑过、想要与收入挂钩的报告的团队。如果您的网站是全新的，没有内容或外链历史，前几个月预计是打基础的工作：站点地图、索引、信息架构，而不是排名变化；这样的先后顺序是诚实的，不是拖延的借口。',
+		'What we will not promise' =>
+			'我们不会承诺的事',
+		'No timeline for page one, no guaranteed position, no fixed number of keywords ranked by a set date. Anyone offering those numbers is quoting outcomes Google itself does not control. What we will commit to in writing: the audit scope, the reporting cadence, and the priority list for the first quarter.' =>
+			'不承诺第一页的时间表，不保证排名位置，不承诺在某个日期前有固定数量的关键词上榜。任何提供这些数字的人，都是在承诺连 Google 自己都无法控制的结果。我们会以书面形式承诺的是：审计范围、汇报节奏，以及第一个季度的优先事项清单。',
+		'Our SEO services used to end at Google\'s ten blue links. It does not any more. People now ask ChatGPT which agency to use, let Perplexity compare their options, and take Google\'s AI Overview as the answer without clicking anything. So our organic practice covers the whole surface: classic SEO, and the newer work the industry variously calls generative engine optimisation, artificial intelligence optimisation, or answer engine optimisation, GEO, AIO and AEO all name the same job from different angles: being the source the machines cite when they answer. It is early-stage work, the engines change fast, citation tracking is imperfect, and anyone selling AI-visibility guarantees is guessing, which is exactly why it belongs inside a measured SEO practice rather than sold as magic on its own.' =>
+			'我们的 SEO 服务过去止于 Google 的十条蓝色链接，现在不是了。人们现在会问 ChatGPT 该选哪家代理商，让 Perplexity 比较选项，并把 Google 的 AI 概览直接当作答案而不点击任何链接。所以我们的自然流量业务覆盖整个界面：传统 SEO，以及业界用不同名字称呼的新工作，即生成式引擎优化、人工智能优化或答案引擎优化。GEO、AIO 和 AEO 从不同角度指的是同一件事：成为机器回答问题时引用的来源。这仍是早期工作，引擎变化很快，引用追踪并不完美，任何出售 AI 可见度保证的人都是在猜，这正是为什么它应当属于一套经过衡量的 SEO 实践，而不是被当作神奇的东西单独出售。',
+		'Results this sharp come with context. The B2B industrial automation client below had strong content held back by a weak technical foundation, structure released value that already existed, and structure alone will not rescue thin content. The results: organic sessions up 86% in one month after our technical and internal-link rebuild, average position from 16.3 to 10.6 in three months, and "turnkey automation systems" from unranked to position 3. A premium healthcare provider serving high-net-worth patients, a category increasingly decided by AI recommendation engines and search validation, gained 8.04 average positions in month one, with clicks up 34%, 2,553 keywords ranking, 150% more sales-qualified leads inside four weeks, and attributed pipeline revenue of $723k in month one rising to $1.4m by month three, "attributed" doing honest work in that sentence, since pipeline attribution is a model, and models estimate.' =>
+			'这样亮眼的成果需要结合背景来看。下面这家 B2B 工业自动化客户，内容本来就很强，却被薄弱的技术基础拖了后腿；结构释放了本来就存在的价值，而仅靠结构并不能救活单薄的内容。在此前提下：技术与内链重建后一个月内自然流量会话增长 86%，三个月内平均排名从 16.3 升至 10.6，“交钥匙自动化系统”这个词从未上榜升至第 3 位。一家服务高净值患者的高端医疗机构，这个品类越来越多地由 AI 推荐引擎和搜索验证来决定，第一个月平均排名提升 8.04 位，点击增长 34%，2,553 个关键词上榜，四周内销售合格线索增加 150%，归因的销售管道收入第一个月为 $723k，到第三个月升至 $140 万。句中的“归因”一词说的是实话，因为销售管道归因是一种模型，而模型只是估算。',
+		'Brands with something worth showing, a product, a process, a team, do better on social than brands trying to manufacture personality from nothing. If the account has no creative asset to build from, the first month\'s job is finding one, not buying reach for a blank feed. That is a slower start than a media plan promising fast numbers, and it is the one that holds up past month three.' =>
+			'有东西值得展示的品牌，无论是产品、流程还是团队，在社交媒体上的表现都好于试图凭空制造个性的品牌。如果账户没有可用的创意素材，第一个月的任务是找到它，而不是为一个空白的信息流购买触达。这比一份承诺快速出数的媒体计划起步更慢，却是能撑过第三个月的那一种。',
+		'Reporting that is not vanity metrics' =>
+			'不看虚荣指标的报告',
+		'Audit of existing channels and creative history first, so we are not repeating tests you have already run. Then a content and creator plan built against your actual funnel stage, not a generic calendar. Paid amplification starts once organic and creator content has something worth amplifying; spending on distribution before the creative is tested is how budgets get burned on the wrong asset at scale.' =>
+			'首先审计现有渠道和创意历史，避免重复您已经做过的测试。然后按您实际所处的漏斗阶段制定内容与创作者计划，而不是一份通用的日历。等自然内容和创作者内容有了值得放大的东西，才开始付费放大；在创意经过测试之前就把钱花在分发上，正是预算被大规模烧在错误素材上的原因。',
+		'Launching a premium medical-grade skincare brand into three Southeast Asian markets on under 0.5% share of category spend, we grew GMV 168% through Shopee and Lazada in the first three months and brought 65,000 new visitors averaging 2 minutes 20 seconds with the content, after our customer-journey analysis rerouted the launch from a D2C site to the marketplaces where that category, in those markets, actually buys. The lesson generalises; the playbook does not: the same engagement ran a doctor-and-dermatologist B2B strategy in Singapore, because the channel follows the buyer, and buyers differ by market from one launch to the next. Advertisers in Malaysia can start with our' =>
+			'为一个高端医疗级护肤品牌在占品类支出不足 0.5% 的份额下进入三个东南亚市场，我们在前三个月通过 Shopee 和 Lazada 把 GMV 提升了 168%，并带来 65,000 名新访客，平均停留内容页 2 分 20 秒。这是因为我们的客户旅程分析，把上市路径从品牌自营（D2C）网站改为该品类在这些市场里真正会购买的电商平台。这个经验可以推广；打法却不能照搬：同一个项目在新加坡还针对医生与皮肤科医师执行了 B2B 策略，因为渠道要跟着买家走，而买家会随着市场、随着每一次上市而不同。在马来西亚投放广告的广告主，可以从我们的',
+		'What our social media marketing agency will not do' =>
+			'我们的社交媒体营销代理商不会做什么',
+		'when they do not. The reverse also holds: for community-led and creator-led categories, social earns budget that search never could, because the buying decision itself gets made inside the feed. Channel answers are category answers.' =>
+			'上。反过来也成立：对于以社群和创作者为主导的品类，社交媒体能赢得搜索永远赢不到的预算，因为购买决策本身就发生在信息流里。渠道的答案就是品类的答案。',
+		'Three layers, in order of value. First-party audiences first: customer lists, site visitors, engagers, and lookalikes built from them. Malaysia-specific structure second: language matters more than most advertisers act on, so run Bahasa Malaysia, English and Chinese creative as separate tests rather than one ad in one language for everyone. There is a real tension here: splitting audiences fragments the algorithm\'s learning, so at small budgets consolidate first and split only when spend can feed each variant properly, segmentation is a luxury that data volume buys. Geography third: KL, Penang, Johor and PJ behave differently on price sensitivity and offer framing; if your business is location-bound, structure campaigns so the data can show it.' =>
+			'三个层次，按价值排序。第一方受众优先：客户名单、网站访客、互动用户，以及据此建立的相似受众。其次是马来西亚特有的结构：语言比大多数广告主所重视的更重要，所以要把马来语、英语和中文创意作为单独的测试来跑，而不是用一种语言的一条广告面向所有人。这里存在一个真实的矛盾：拆分受众会割裂算法的学习，所以预算小的时候先合并，只有当花费足以喂饱每个版本时再拆分；细分是数据量买来的奢侈品。第三是地域：吉隆坡、槟城、柔佛和八打灵再也在价格敏感度和优惠表述上表现不同；如果您的业务受地点限制，请把广告活动结构搭建成让数据能够体现这一点。',
+		'Meta is not always the answer, and Facebook advertising Malaysia campaigns are not exempt from that rule. On a regional automotive campaign we ran, programmatic video outperformed both YouTube and Meta direct buys badly enough to reshape the plan, AI-driven programmatic delivered CPMs 85% under market rate. Channel loyalty is a bias; run Facebook because the numbers earn it, and be willing to move budget when they do not.' =>
+			'Meta 并不总是答案，马来西亚的 Facebook 广告活动也不例外。在我们执行的一次区域汽车广告活动中，程序化视频的表现远胜 YouTube 和 Meta 的直接购买，足以改写整个计划，AI 驱动的程序化投放使 CPM 比市场价低 85%。对渠道的忠诚是一种偏见；用 Facebook 是因为数据证明值得，数据不支持时就要愿意转移预算。',
+		'Measurement, or it did not happen' =>
+			'要衡量，否则等于没发生',
+		'SEM Services in Singapore: What is Included and What It Costs' =>
+			'新加坡的 SEM 服务：包含什么，费用多少',
+		'Search for "seo agency" in Singapore or Malaysia and you will get lists, ranked, sponsored, and mostly interchangeable. Lists do not tell you how an agency behaves in month three. These criteria do. We are an agency ourselves, so read this knowing where we stand; every test here is one we are prepared to be measured against.' =>
+			'在新加坡或马来西亚搜索“seo agency”，您会得到一堆榜单：排名的、赞助的，而且大多可以互相替换。榜单不会告诉您一家代理商在第三个月的表现。这些标准会。我们自己也是代理商，所以请带着对我们立场的了解来读；这里的每一条测试，我们都愿意接受别人用它来衡量我们。',
+		'Any agency worth engaging can show you specific problems on your actual site before a contract exists, crawl issues, structural problems, content gaps, with evidence. Be fair about depth: a pre-contract review is hours of work at most, so expect a sharp diagnosis of a few real issues rather than a full audit; the full version is rightly part of the engagement. A generic PDF with your logo on it is a mail merge. The audit is also your preview of how they think and communicate, which is most of what you are buying.' =>
+			'任何值得合作的代理商，都能在合同出现之前，就在您的真实网站上指出具体问题：抓取问题、结构问题、内容缺口，并附上证据。对深度要公道一些：签约前的评估最多只是几个小时的工作，所以应当期待的是对几个真实问题的敏锐诊断，而不是一份完整审计；完整版理应属于合作的一部分。印着您公司标志的通用 PDF 只是邮件合并。审计也是预览他们如何思考、如何沟通，而这正是您所购买内容的大部分。',
+		'Ranking reports alone are theatre. Ask to see a real (anonymised) client report: does it connect organic performance to leads, revenue, or pipeline? Does it cover search alongside the other channels you run, so budget decisions get made across them rather than inside each silo? An agency that cannot show attribution beyond positions is optimising for its own renewal.' =>
+			'只有排名的报告是表演。要求看一份真实的（匿名的）客户报告：它是否把自然流量表现与线索、收入或销售管道联系起来？它是否把搜索与您运营的其他渠道一并涵盖，使预算决策能够跨渠道做出，而不是在各个孤岛里做？无法给出排名之外归因的代理商，是在为自己的续约做优化。',
+		'The people in the pitch and the people in your account are frequently different people. Ask directly: who runs this engagement, what is their seniority, and how many accounts do they carry? Thin answers here explain most agency disappointments in this region.' =>
+			'方案演示中的人和您账户上的人，常常不是同一批人。直接问：谁负责这个项目，他们的资历如何，同时负责多少个账户？这里含糊其辞的回答，解释了本区域大多数对代理商的失望。',
+		'Case studies should name outcomes, not adjectives. The kind of specificity to expect: organic sessions up 86% in a month after a technical rebuild; a target keyword from unranked to position 3; clicks up 34% in a first month with 2,553 keywords ranking; qualified leads up 150% after a restructure. Those are results from our own client work, and here is the nuance every case-studies page, ours included, owes you: the results on the page are the best ones on file. Ask any agency what a median engagement looks like, and what a failed one looked like and why. The answer to the second question tells you more than any case study. The point of the numbers is their shape, whoever you are evaluating: dated, measured, attributable.' =>
+			'案例研究应当写明成果，而不是形容词。应当期待的具体程度，比如：技术重建后一个月内自然流量会话增长 86%；一个目标关键词从未上榜升至第 3 位；第一个月点击增长 34%、2,553 个关键词上榜；重组之后合格线索增加 150%。这些是我们自己客户工作的成果，而每一个案例研究页面，包括我们的，都欠您一句细致的说明：页面上的成果，是档案里最好的那些。问问任何一家代理商，中位数的项目是什么样子，失败的项目是什么样子、为什么失败。第二个问题的答案，比任何案例研究都更能说明问题。这些数字的意义在于它们的形态，无论您评估的是谁：有日期、有衡量、可归因。',
+		'The evaluation does not stop at the pitch. Ask what the first thirty days look like in writing, not in a sales call: what gets audited first, when you will see the first report, and who signs off on the priority list. An SEO agency that cannot answer this before you have paid anything will improvise it after you have, and improvisation is expensive when it is billed monthly. The best proxy for how an engagement will run is how precisely the agency can describe the first month before it starts.' =>
+			'评估并不止于方案演示。请对方以书面形式、而不是在销售通话中，说明前三十天是什么样子：先审计什么，您什么时候能看到第一份报告，谁来批准优先事项清单。一家在您付任何钱之前都回答不了这些的 SEO 代理商，会在您付钱之后临场发挥，而按月计费的临场发挥是昂贵的。判断一个合作项目将如何运行的最佳依据，就是代理商在开始之前，能把第一个月描述得多精确。',
+		'Once an agency clears these bars, price it against reality: we have published what SEO actually costs in' =>
+			'一旦一家代理商通过了这些门槛，就拿现实来给它定价：我们已经公布了 SEO 在以下地区的真实费用：',
+		'. And if you would like to run these tests on us,' =>
+			'。如果您想用这些测试来检验我们，',
+		'SEM, search engine marketing, is paid placement on search results. In Singapore it is the fastest lever most businesses have, and also one of the easiest budgets to waste. Here is what proper Singapore SEM services include, what clicks actually cost here, and how management pricing works.' =>
+			'SEM，即搜索引擎营销，是搜索结果上的付费展示位置。在新加坡，它是大多数企业手里最快的杠杆，也是最容易浪费的预算之一。以下是真正的新加坡 SEM 服务包含什么、这里的点击实际花多少钱，以及管理费如何定价。',
+		'Running ads is the smallest part. A serious SEM service covers intent-led campaign structure across branded, generic, competitor and category keywords; ongoing search-term mining and negative keyword management, which is where wasted spend hides; smart bidding strategy and bid testing; ad copy and asset testing; audience layering and remarketing; and for e-commerce, Shopping and Performance Max. For app businesses, Apple Search Ads and Google App campaigns belong in scope too. If a proposal only mentions "campaign setup and monthly reporting", that is not a service, that is a dashboard.' =>
+			'投放广告只是其中最小的一部分。一项严肃的 SEM 服务涵盖：覆盖品牌词、通用词、竞品词和品类词的意图导向广告结构；持续的搜索词挖掘与否定关键词管理（浪费的花费就藏在这里）；智能出价策略与出价测试；广告文案与素材测试；受众叠加与再营销；以及针对电商的购物广告与 Performance Max。对应用类业务，Apple Search Ads 和 Google 应用广告也应在范围之内。如果方案里只提到“广告活动搭建和月度报告”，那不是服务，那只是一个仪表板。',
+		'Ask for the account structure before signing, not after: campaign types, how negatives are reviewed and how often, who owns bid strategy changes, and what a month-one versus month-three report looks like. A vague answer here predicts a vague account later. The agencies worth hiring can show you a real, anonymised account structure from an existing client in the first call; the ones who cannot are selling you the pitch, not the practice.' =>
+			'要在签约之前、而不是之后索取账户结构：广告系列类型、否定关键词如何复核以及多久复核一次、谁负责出价策略的调整，以及第一个月和第三个月的报告各是什么样子。这里含糊其辞，预示着之后的账户也会含糊不清。值得雇用的代理商，在第一次通话里就能给您看现有客户的一份真实的、匿名的账户结构；做不到的，卖给您的是方案演示，而不是实践。',
+		'Wrong question, the real one is sequencing. SEM buys visibility today; SEO compounds it over quarters. Whether that sequencing suits you depends on unit economics: at S$10+ per click, thin margins can make SEM a treadmill, while high-LTV businesses can afford it indefinitely. Most Singapore businesses we work with run SEM immediately while SEO builds underneath, then rebalance as organic takes share, and the rebalancing point is a margin decision, not a calendar one. We have written a full comparison in' =>
+			'这个问题问错了，真正的问题是先后顺序。SEM 买的是今天的可见度；SEO 则在多个季度中不断累积。这样的顺序是否适合您，取决于单位经济效益：每次点击 10 新元以上时，薄利可能让 SEM 变成一台跑步机，而高客户终身价值的企业则可以无限期地承受。我们合作的大多数新加坡企业会立即启动 SEM，同时在底层搭建 SEO，随着自然流量占比上升再重新平衡，而重新平衡的时点是一个利润决策，不是日历决策。我们在这篇文章里写了完整的比较：',
+		'Judge SEM on cost per qualified lead or acquisition and on revenue, never on impressions or clicks. When we restructured paid search for a premium B2B corporate-gifting brand, conversion rates rose 50% and qualified leads grew 150% with no extra budget: the money moved from wasted queries to buying ones. Gains that size are what fixing a poorly structured account looks like, a well-run account improves in single digits, and anyone promising 150% on top of good work is promising arithmetic that does not exist. The job is the same either way: move money from waste to buyers. If you want your account held to that standard,' =>
+			'评判 SEM，要看单条合格线索或单次获客的成本，以及收入，而绝不看曝光或点击。当我们为一个高端 B2B 企业礼品品牌重组付费搜索时，转化率提升 50%，合格线索增加 150%，而没有增加预算：钱从无效的搜索词转移到了会购买的搜索词。这种幅度的提升，就是修复一个结构糟糕的账户的样子；运营良好的账户只会有个位数的提升，任何在好工作之上承诺 150% 的人，承诺的都是并不存在的算术。工作内容无论如何都一样：把钱从浪费转移给买家。如果您希望您的账户以这个标准来衡量，',
+		'here is how we run paid search' =>
+			'这是我们运营付费搜索的方式',
+		'Agencies mostly will not publish pricing, which is why every SEO cost in Singapore conversation starts with a range nobody will commit to. Here are the market\'s real numbers, what moves them, and how to tell whether a quote is scoped to your situation or copied from a rate card.' =>
+			'代理商大多不会公开定价，这就是为什么每一次关于新加坡 SEO 成本的讨论，都从一个没人愿意担保的区间开始。以下是市场上的真实数字、什么在推动它们，以及如何判断一份报价是针对您的情况量身制定的，还是照搬价目表。',
+		'Monthly retainers for small and mid-sized businesses commonly run S$1,000 to S$3,000. Competitive categories and larger sites typically sit between S$3,000 and S$8,000 a month, and enterprise programmes with multiple markets or heavy technical scope run S$10,000 and up. One-off technical audits usually price between S$1,500 and S$5,000 depending on site size and how deep the crawl needs to go. These are market ranges, drawn from what businesses tell us they have been quoted and what we see agencies advertise, and any individual quote can land outside them for reasons that are sometimes legitimate and sometimes not.' =>
+			'中小企业的月度服务费通常在 1,000 至 3,000 新元之间。竞争激烈的品类和规模较大的网站，一般在每月 3,000 至 8,000 新元之间，而涉及多个市场或繁重技术工作的企业级项目则在 10,000 新元以上。一次性的技术审计，通常按网站规模和抓取深度，定价在 1,500 至 5,000 新元之间。这些是市场区间，来自企业告诉我们的报价，以及我们看到的代理商所公布的价格，任何单份报价都可能超出这个区间，原因有时正当，有时则不然。',
+		'Below roughly S$800 a month, the economics only work through templated deliverables: auto-generated reports, thin syndicated content, directory links. None of it is free labour, so something is being skipped, and it is usually the parts that move rankings. That does not make every low quote a scam; a genuinely small local niche can be served cheaply. It does mean a low quote for a competitive category deserves the question: what specifically will be done each month, by whom, for this money? The other tell is contract length. Cheap SEO sold on a twelve-month lock-in is priced on the assumption you will leave once you notice nothing is moving, and the lock-in exists so you cannot. Month-to-month terms at a low price are rarer, because an agency doing real work at that price loses money and an agency doing no work gets cancelled.' =>
+			'每月大约低于 800 新元时，这笔账只有靠模板化的交付成果才算得过来：自动生成的报告、单薄的转载内容、目录外链。没有任何一样是免费的人力，所以必有某些环节被跳过了，而且通常是真正能推动排名的那些。这并不意味着每个低报价都是骗局；一个真正很小的本地细分市场可以用低价服务。它的确意味着，对竞争激烈品类的低报价，值得追问一句：这个价钱，每个月具体做什么、由谁来做？另一个迹象是合同期限。以十二个月绑定出售的廉价 SEO，其定价建立在“您一发现毫无进展就会离开”的假设上，而绑定的存在，就是为了让您走不了。低价的按月合约更为罕见，因为以那个价格做真实工作的代理商会亏钱，而什么都不做的代理商会被取消。',
+		'Retainers suit ongoing programmes, which is what SEO mostly is. Fixed-price projects suit bounded work like an audit or a migration. Performance pricing, paying per ranking achieved, sounds aligned and usually is not: it pushes the agency toward easy keywords nobody searches, because those pay the same as hard ones. The honest structure for a serious SEO cost in Singapore discussion is a retainer scoped against your actual keyword difficulty, with the monthly deliverables listed and the measurement defined before work starts.' =>
+			'月度服务费适合持续性的项目，而 SEO 大多就是这类项目。固定价格的项目适合有明确边界的工作，比如审计或迁移。按效果付费，也就是每达成一个排名就付一笔钱，听起来利益一致，实际上通常不是：它会把代理商推向没人搜索的容易关键词，因为这些词和难词的报酬是一样的。讨论新加坡 SEO 成本时，诚实的结构是：按您实际的关键词难度来界定的月度服务费，列明每月交付成果，并在工作开始之前定义好衡量方式。',
+		'Ask what the first ninety days contain, item by item. Ask which of your keywords the price was scoped against, and what the agency believes ranking them will take. Ask how progress is reported and against which baseline. An agency that priced your situation can answer all three in specifics; an agency reading from a rate card cannot. Our own guide to' =>
+			'问清楚前九十天包含什么，逐项说明。问这个价格是针对您的哪些关键词来界定的，以及代理商认为要让它们上榜需要做什么。问清楚进展如何汇报、以哪个基线为参照。真正针对您的情况定价的代理商，能够具体回答这三个问题；照着价目表念的代理商做不到。我们自己的指南',
+		'page. The first conversation includes the audit, so you will have your list of specifics before anyone talks price.' =>
+			'页面中。第一次交流就包含审计，所以在任何人谈价格之前，您就会拿到自己的具体问题清单。',
+		'Google does not rank designs. It ranks pages it can crawl, render, understand and trust. Every design choice either helps or hinders those four things. A beautiful site built as a single JavaScript bundle with no semantic structure can be invisible to search; a plain site with clean HTML, fast loads and a logical hierarchy can outrank it with half the budget.' =>
+			'Google 不给设计排名。它排名的是它能够抓取、渲染、理解并信任的页面。每一个设计选择，要么有助于这四件事，要么妨碍它们。一个做得很漂亮、却被打包成单个 JavaScript 文件且没有语义结构的网站，对搜索来说可能是不可见的；而一个用干净的 HTML、加载快速、层级合乎逻辑的朴素网站，花一半的预算就能超过它。',
+		'are a confirmed ranking signal, one among many, and a modest one; fix them for users and for the tie-breaks, and expect no miracle from them alone. Slow templates still tax every page you will ever publish. Semantic HTML second: one' =>
+			'是已确认的排名信号，是众多信号之一，影响不大；为用户修好它们，也为了在同分时占优，但别指望单靠它们创造奇迹。缓慢的模板依然会拖累您将来发布的每一个页面。其次是语义化 HTML：每个页面一个',
+		'Internal link architecture decides how authority flows through a site. When we rebuilt the technical foundation and internal linking for a B2B industrial automation client, no new backlinks, no paid support, organic sessions rose 86% in a month, search clicks rose 45%, and average position moved from 16.3 to 10.6 in three months. One target phrase, "turnkey automation systems", went from unranked to position 3. That is what structure is worth when the content underneath deserves to rank, the fix released value that was already there. On a thin site the same rebuild would tidy things up and move very little.' =>
+			'内部链接架构决定了权威度如何在网站中流动。当我们为一家 B2B 工业自动化客户重建技术基础和内部链接时，没有新增外链，没有付费支持，自然流量会话一个月内增长 86%，搜索点击增长 45%，三个月内平均排名从 16.3 升至 10.6。一个目标词“turnkey automation systems”从未上榜升至第 3 位。当底层内容值得获得排名时，结构的价值就是这样；这次修复释放的是本来就存在的价值。在内容单薄的网站上，同样的重建只会把东西整理得更整齐，却几乎不会带来变化。',
+		'Search behaviour is shifting toward AI answers, ChatGPT, Perplexity, and Google\'s AI Overviews. AI engines favour pages with clear headings, direct answers near the top, structured data, and content organised so a machine can quote it accurately. We call this generative engine optimisation (GEO), and it is part of' =>
+			'搜索行为正转向 AI 答案：ChatGPT、Perplexity 和 Google 的 AI 概览。AI 引擎偏好标题清晰、开头就有直接答案、带结构化数据、且内容组织得便于机器准确引用的页面。我们称之为生成式引擎优化（GEO），它是我们为客户',
+		'The usual failure is not bad intentions, it is an unclear handoff. Design ships a site, marketing inherits the traffic problem, and nobody owns the fix because nobody signed off on the brief above. Put one name against each of the four technical items before the project starts: someone accountable for page speed budgets, someone for the heading and markup structure, someone for crawlability, someone for mobile parity. A designer who knows they will be measured against Core Web Vitals three months after launch designs differently than one judged on the pitch deck alone.' =>
+			'常见的失败并非出于恶意，而是交接不清。设计团队交付了网站，营销团队继承了流量问题，却没有人负责修复，因为没有人批准过上面那份简报。在项目开始前，为四项技术事项各指定一个负责人：有人对页面速度预算负责，有人对标题和标记结构负责，有人对可抓取性负责，有人对移动端一致性负责。一个知道自己会在上线三个月后以 Core Web Vitals 来衡量的设计师，和一个只凭方案演示文稿来评判的设计师，设计出来的东西是不一样的。',
+		'walks through the checks we run first. And if you want the fixes handled, that is the technical half of our' =>
+			'的文章，逐一讲解了我们最先做的检查。如果您希望把修复交给我们来处理，那就是我们在新加坡和马来西亚开展的',
+		'Malaysian agencies publish prices even less often than Singaporean ones, so SEO services pricing in Malaysia mostly gets discovered one sales call at a time, with each call producing a number that is hard to compare against the last. Here are the market ranges in ringgit, the models behind them, and the questions that separate a scoped quote from a guessed one.' =>
+			'马来西亚的代理商比新加坡的更少公布价格，所以马来西亚的 SEO 服务定价，大多是一通销售电话一通销售电话地摸出来的，每通电话给出的数字都很难与上一个相比。以下是以令吉计的市场区间、背后的定价模式，以及能把量身制定的报价与凭空估出来的报价区分开的问题。',
+		'Monthly retainers for small local businesses commonly run RM1,500 to RM4,000. Competitive categories and larger sites typically sit between RM4,000 and RM10,000 a month, and multi-market or heavily technical programmes go beyond RM12,000. Standalone audits usually price from RM2,000 to RM8,000 by site size. These are market ranges rather than a rate card, assembled from what prospects tell us they have been quoted and what agencies here advertise, and a quote outside them is not automatically wrong; it is a prompt to ask what the difference pays for.' =>
+			'小型本地企业的月度服务费通常在 1,500 至 4,000 令吉之间。竞争激烈的品类和规模较大的网站，一般在每月 4,000 至 10,000 令吉之间，而多市场或技术含量很高的项目则超过 12,000 令吉。单项审计通常按网站规模，定价在 2,000 至 8,000 令吉。这些是市场区间，而不是价目表，由潜在客户告诉我们的报价以及本地代理商所公布的价格汇总而来，超出这些区间的报价并不一定有问题；它只是提示您去问问这一差额买到的是什么。',
+		'Labour costs are lower, so the same deliverables price lower than across the Causeway, and the two markets\' numbers should not be compared line for line. What does not change is the work itself:' =>
+			'人力成本较低，所以同样的交付成果比新加坡一侧的定价更低，这两个市场的数字不应逐项对比。不变的是工作本身：',
+		'Language scope is the big one. Malaysian search demand splits across English and Malay in most categories, with Mandarin mattering in several, and every language you cover means separate keyword research, separate content, separate on-page work. A single-language quote and a bilingual quote for the same site are different engagements at different prices. Location count is second: one PJ clinic and a chain across KL, Penang and JB carry different local-SEO workloads. Keyword difficulty and technical state drive the rest, exactly as they do everywhere. One more Malaysia-specific driver worth naming: platform mix. A meaningful share of Malaysian SMB sites still run on older page builders or heavily customised themes carrying years of accumulated technical debt, and remediating that before content work can pay off adds real hours to the early months of an engagement. An agency that quotes without having crawled your site has not priced that debt, because it cannot have; it has priced an assumption.' =>
+			'语言范围是最大的因素。在大多数品类里，马来西亚的搜索需求分布在英语和马来语之间，其中一些品类中普通话也很重要，而您覆盖的每一种语言，都意味着单独的关键词研究、单独的内容和单独的页面优化工作。同一个网站的单语报价和双语报价，是价格不同的两个不同项目。第二是门店数量：一家八打灵再也的诊所，和一家遍布吉隆坡、槟城和新山的连锁机构，本地 SEO 的工作量并不相同。关键词难度和技术状态决定其余部分，和其他地方一样。还有一个值得点名的马来西亚特有因素：平台组合。相当一部分马来西亚中小企业的网站，仍运行在较旧的页面构建工具或大量定制的主题上，背负着多年积累的技术债，在内容工作能见效之前先修复这些，会给合作的头几个月增加实实在在的工时。在没有抓取过您网站的情况下就报价的代理商，并没有为这笔技术债定价，因为他们不可能做到；他们定价的只是一个假设。',
+		'The models you will be offered' =>
+			'您会被提供的几种模式',
+		'The SEO vs SEM question comes up in almost every first call we take, and it is usually asked as either-or. It is not one. The two do different jobs on the same search results page, and the useful question is sequencing: which one carries the load now, and when does the balance shift.' =>
+			'几乎每一次我们接听的首次通话，都会提到 SEO 与 SEM 的问题，通常被问成二选一。其实不是。两者在同一个搜索结果页上承担不同的工作，真正有用的问题是先后顺序：现在由哪一个承担主要任务，什么时候力量对比会发生转移。',
+		'SEM cost scales with clicks. Every visitor is paid for, and in competitive Singapore categories like finance, legal and B2B software, clicks commonly run past S$10. Stop paying and the traffic stops the same day. SEO cost is mostly labour: audits, content, technical work, links. It does not scale per visitor, which is what makes it cheap at high volume and expensive at low volume. A page that ranks keeps receiving traffic whether it gets ten visits a month or ten thousand, at roughly the same upkeep.' =>
+			'SEM 的成本随点击增长。每一个访客都要付费，在新加坡竞争激烈的品类，比如金融、法律和 B2B 软件，点击成本普遍超过 10 新元。停止付费，流量当天就停止。SEO 的成本主要是人力：审计、内容、技术工作、外链。它不按访客数量增长，这使得它在高流量时便宜，在低流量时昂贵。一个获得排名的页面，无论每月有十次访问还是一万次，都会持续获得流量，维护成本大致相同。',
+		'SEM wins on speed without contest: campaigns produce data in days. SEO wins on durability the same way: rankings earned on real content and sound structure tend to persist, and they keep working while you sleep, while your SEM budget only works while it is being spent. The trade is speed against compounding, and neither channel offers both. One caveat worth naming in any honest SEO vs SEM comparison: durability is a tendency, never a guarantee, and an algorithm update can move rankings that took a year to earn. What the update cannot touch is the content and structure underneath, which is why well-built organic positions tend to recover where thinly-built ones do not.' =>
+			'在速度上，SEM 毫无悬念地胜出：广告活动几天内就能产生数据。在持久性上，SEO 同样胜出：建立在真实内容与稳固结构上的排名往往能持续，在您睡觉时依然发挥作用，而您的 SEM 预算只有在花出去的时候才起作用。这是速度与累积之间的取舍，没有哪个渠道能两者兼得。在任何诚实的 SEO 与 SEM 比较中，有一点值得说明：持久性是一种倾向，而不是保证，一次算法更新就可能让花了一年才赢得的排名发生变动。更新触及不到的，是底层的内容与结构，这也是为什么搭建扎实的自然排名往往能恢复，而搭建单薄的则不能。',
+		'Run SEM immediately while SEO builds underneath, then rebalance as organic takes share. The rebalancing point is a margin decision. At S$10+ per click, a thin-margin business is on a treadmill it cannot afford forever, so shifting spend toward organic as rankings arrive is survival arithmetic. A high-LTV business can afford SEM indefinitely and may keep both at full strength. There is no calendar answer; there is a unit-economics answer, and it is different for every business.' =>
+			'立即启动 SEM，同时在底层搭建 SEO，随着自然流量占比上升再重新平衡。重新平衡的时点是一个利润决策。在每次点击 10 新元以上时，薄利企业像是踩在一台不可能永远负担得起的跑步机上，所以随着排名到来而把花费转向自然流量，就是生存算术。高客户终身价值的企业可以无限期地承担 SEM，也可能让两者都保持全力。没有日历上的答案；只有单位经济效益的答案，而且每家企业都不一样。',
+		'The most underused benefit of running both: paid search tells you within weeks which queries actually convert, at real statistical volume, usually within the first month. That validated list is the best keyword research SEO can get, because it is built from purchases rather than search-volume estimates. We build organic content plans against paid conversion data whenever both channels run together, and the SEO vs SEM framing dissolves into one system with two inputs.' =>
+			'同时运营两者，最被低估的好处是：付费搜索会在几周内，通常是第一个月内，以真实的统计量级告诉您哪些搜索词真正带来转化。这份经过验证的清单，是 SEO 所能得到的最好的关键词研究，因为它来自实际购买，而不是搜索量估算。当两个渠道同时运行时，我们总会依据付费转化数据来制定自然内容计划，这样 SEO 与 SEM 的对立就消解成了一个有两种输入的系统。',
+		'The jump from 53,000 to 745,000 defined individuals was not a single migration event, it accumulated across several event cycles as more first-party touchpoints fed the segmentation model and the model itself improved at distinguishing event-category interest from generic attendance. Cookieless audience building of this kind rewards patience over a quick platform swap; the venues that try to shortcut the accumulation period typically end up with a smaller, less reliable and less durable audience than the one that was built properly and patiently from the start.' =>
+			'从 53,000 到 745,000 个已定义个体的跃升，并不是一次性迁移的结果，而是在多个活动周期中逐步积累起来的：随着更多第一方触点为细分模型提供数据，模型本身也越来越擅长区分对活动类别的兴趣与泛泛的到场。这类无 Cookie 受众构建，奖励的是耐心，而不是快速更换平台；试图走捷径、缩短积累期的场馆，最终得到的受众往往规模更小、可靠性更低、持久性也更差，不如一开始就正确而耐心地构建的那一个。',
+		'when this engagement started, and a precinct depending on rented, third-party segments would have seen its addressable reach shrink over time rather than grow. Building first-party, contextual audiences instead meant the asset belonged to the client rather than to a data broker whose supply could disappear with a policy change. That durability is the actual point of cookieless audience building, beyond being a workaround for a deprecated targeting method.' =>
+			'，而依赖租来的第三方细分人群的园区，其可触达范围会随时间缩小，而不是扩大。改为构建第一方和情境受众，意味着这项资产属于客户，而不是属于某个数据经纪商，后者的供应可能因一项政策变化而消失。这种持久性才是无 Cookie 受众构建的真正意义，而不只是对一种已被淘汰的定向方式的变通。',
+		'What this does not prove for every venue' =>
+			'这并不能证明每个场馆都适用的地方',
+		'A backlink profile leaning on low-authority, largely nofollow links does not just fail to help, in some cases it actively signals low quality to search engines if the pattern looks manipulative rather than organic. Filing a disavow for the harmful links removed that drag before the technical and content work had to compete against it, rather than trying to out-optimise a backlink profile that was actively working against the site the entire time.' =>
+			'一个依赖低权威度、大多为 nofollow 外链的外链档案，不仅无法带来帮助，在某些情况下，如果模式看起来像是人为操纵而不是自然形成，它还会主动向搜索引擎发出低质量的信号。针对有害外链提交 disavow，在技术和内容工作需要与其竞争之前，先把这种拖累清除掉，而不是试图去超越一个始终在与网站作对的外链档案。',
+		'A retailer that only ranks for its own name is invisible to the much larger pool of shoppers who do not know the brand yet and are searching by category or product type instead. Ecommerce SEO for footwear specifically means competing on terms like shoe types, use cases and style descriptors, beyond the brand name, since that is where new customer discovery actually happens rather than where existing customers confirm they have found the right site.' =>
+			'只在自己名字上有排名的零售商，对规模大得多的另一群购物者是不可见的：他们还不认识这个品牌，而是按品类或产品类型在搜索。鞋类电商 SEO 具体来说，意味着在鞋款类型、使用场景和风格描述这样的词上竞争，而不仅仅是品牌名，因为新客户的发现是在那里发生的，而不是现有客户确认自己找对了网站的地方。',
+		'Three months fixes a site and starts a trend; proving a compounding one takes longer. The honest description is a foundation laid, with momentum visible at the point of reporting. The absolute numbers are modest by design, this was a niche retailer, not a mass-market store, and the biggest constraint identified, backlink authority, was still outstanding when the reporting period closed. We said so in the report on this ecommerce SEO for footwear engagement, rather than waiting for a stakeholder to ask why the number was not bigger.' =>
+			'三个月修复了一个网站，并开启了一个趋势；要证明一个持续累积的趋势，则需要更长时间。诚实的描述是：打下了基础，在汇报的时间点上动能已经可见。绝对数字有意保持不大，这是一家小众零售商，而不是大众市场商店，而且已识别出的最大制约因素，也就是外链权威度，在汇报期结束时仍未解决。我们在这个鞋类电商 SEO 项目的报告中如实写明了这一点，而不是等利益相关方来问“为什么数字不更大”。',
+		'A single clinic competing in a defined local area has a hard ceiling on addressable search volume that a national or multi-location chain does not face, so healthcare SEO Malaysia work for a practice like this one is judged against a narrower, more honest range of possible outcomes from the start. Setting the 1–3% monthly target before the engagement began, rather than after seeing early results, is what let both sides judge performance against a number agreed in advance instead of one adjusted to match whatever happened.' =>
+			'一家在限定本地区域内竞争的单体诊所，其可触达的搜索量有一个硬性上限，这是全国性或多门店连锁机构不会面对的，所以像这样的诊所所做的马来西亚医疗 SEO，从一开始就是对照一个更窄、也更诚实的可能成果区间来评判的。在项目开始之前、而不是看到早期结果之后，就设定每月 1–3% 的目标，让双方得以对照一个事先商定的数字来评判表现，而不是对照一个为了迎合已发生情况而调整过的数字。',
+		'The 48-hour sprint format works when the parent brand already has a clear global positioning and product to localise, since the sprint compresses adaptation time, not strategy invention time from zero. A Southeast Asia market entry for a new product category with no existing brand equity to draw on would need real discovery work before a sprint could compress anything meaningfully; compressing a process that has not happened yet just produces a fast, badly-informed launch instead of a fast, well-informed one.' =>
+			'48 小时冲刺方式适用于这样的情形：母品牌已有清晰的全球定位和可本地化的产品，因为冲刺压缩的是适配所需的时间，而不是从零开始创造策略所需的时间。对一个全新的产品品类、没有任何现成品牌资产可借助的东南亚市场进入，则需要先做真正的探索性工作，之后冲刺才能有意义地压缩任何东西；压缩一个尚未发生的流程，只会得到一次又快又缺乏依据的上市，而不是又快又有依据的上市。',
+		'alone sets requirements that do not map directly onto neighbouring jurisdictions. Building local legal review into each 48-hour sprint, rather than treating it as a separate downstream step, is what let this Southeast Asia market entry move at the pace it did without compliance becoming a bottleneck later in the process.' =>
+			'提出的要求，就无法直接套用到邻近的司法辖区。把当地的法律审查嵌入每一次 48 小时冲刺，而不是把它当作单独的下游步骤，这正是这次东南亚市场进入能够保持这样的速度、而合规不在流程后期成为瓶颈的原因。',
+		'Speed of delivery is not the same as quality of outcome, and this case makes no claim about how the launches actually performed once media went live, since that outcome belongs entirely to the client\'s own activation and reporting, not to the sprint itself. A Southeast Asia market entry delivered fast but built on the wrong positioning would still fail regardless of how efficiently it shipped; speed only ever compounds a strategy that was already right to begin with.' =>
+			'交付速度不等于成果质量，本案例也不对上市后实际表现作出任何声明，因为媒体上线之后的成果完全属于客户自己的执行与报告，而不属于冲刺本身。一次交付很快、却建立在错误定位之上的东南亚市场进入，无论多高效地推出，仍会失败；速度只会放大一个本来就正确的策略。',
+		'A single regional strategy document is faster to produce but treats Southeast Asia as one market, which it is not: trading platform regulation, investor sophistication and preferred channels differ meaningfully between, say, Vietnam and Singapore. A Southeast Asia market entry built market by market with a local expert attached to each sprint costs more coordination up front but avoids the far more expensive mistake of launching a positioning that does not fit the local regulatory or cultural context.' =>
+			'一份统一的区域策略文件制作起来更快，但把东南亚当作一个市场，而它并不是：交易平台监管、投资者成熟度和偏好的渠道，在比如越南和新加坡之间有显著差异。逐个市场搭建、每次冲刺都配备一位本地专家的东南亚市场进入，前期的协调成本更高，却能避免一个代价高得多的错误：推出一个不适合当地监管或文化环境的定位。',
+		'What this does not measure' =>
+			'这个案例没有衡量什么',
+		'A medical-grade skincare launch grew GMV 168% in three months after customer-journey analysis rerouted it from D2C to marketplaces. Read the case.' =>
+			'一款医疗级护肤品上市，在旅程分析将其从品牌自营（D2C）改走电商平台之后，三个月内 GMV 增长 168%。阅读案例。',
+		'carry the trust signals a new entrant has not built yet, reviews, seller ratings, buyer protection, that a brand-new D2C domain cannot replicate in month one. A skincare marketplace launch that insists on driving traffic to an unproven domain is paying a trust tax the marketplace has already resolved for its buyers. That does not hold everywhere; it held here, and the customer-journey data is what confirmed it before the budget committed rather than after the first disappointing month of traffic.' =>
+			'这样的电商平台带有新进入者尚未建立起来的信任信号：评价、卖家评分、买家保障，而全新的品牌自营域名在第一个月里无法复制这些。一次护肤品电商平台上市，如果坚持把流量引向一个未经验证的域名，就是在支付一笔电商平台已经替其买家解决掉的信任税。这并非处处适用；在这里适用，而且是旅程数据在预算投入之前、而不是在第一个月流量令人失望之后，证实了这一点。',
+		'The number belongs to the routing decision. The customer-journey data disagreed with the launch plan, and the plan changed, that is the whole case. The lesson generalises; the playbook does not: the same engagement ran a clinical B2B strategy in Singapore because the channel follows the buyer, and buyers differ by market. A skincare marketplace launch in a different category, or a different pair of countries, would need its own customer-journey analysis before assuming the same routing applies.' =>
+			'这个数字归功于路径决定。旅程数据与上市计划不符，计划随之改变，这就是整个案例。这个经验可以推广；打法却不能照搬：同一个项目在新加坡执行了临床 B2B 策略，因为渠道要跟着买家走，而买家会随市场而不同。换一个品类、或换另外两个国家做护肤品电商平台上市，都需要先做自己的旅程分析，而不能假设同样的路径依然适用。',
+		'What we would check before repeating this' =>
+			'重复这一做法之前，我们会先检查什么',
+		'Two things this case does not prove on its own: that marketplaces always beat a D2C site, and that 168% is a repeatable baseline. Both depend heavily on category dynamics and starting market share, and a skincare marketplace launch attempted in a more saturated category with several strong incumbents already established would very likely see a meaningfully different number even with the identical routing logic applied correctly and carefully. What generalises is the method: checking where the category actually buys before building the launch plan around an assumption inherited from a different, home market. That check costs a few weeks of analysis and saves months of a launch built on the wrong channel.' =>
+			'这个案例本身无法证明两件事：电商平台总是胜过品牌自营网站，以及 168% 是可重复的基线。两者都在很大程度上取决于品类动态和起始市场份额，在一个更饱和、已经有若干强势老牌玩家的品类里尝试护肤品电商平台上市，即使正确而谨慎地应用相同的路径逻辑，很可能也会得到截然不同的数字。可以推广的是方法：先查清品类实际在哪里购买，再围绕一个从另一个不同的本土市场继承来的假设去制定上市计划。这项检查需要几周的分析，却能省下数月建立在错误渠道上的上市工作。',
+		'Whether they have actually run financial services paid media through a compliance review process before, instead of only claiming familiarity with the category. Ask for a specific example of a creative asset that changed because of a compliance requirement, and what the change was. An agency that has never had a financial services asset rejected or amended by a compliance team probably has not done enough of this work to know where the real constraints sit.' =>
+			'他们是否真的把金融服务付费媒体送过合规审查流程，而不只是声称熟悉这个品类。要求给出一个具体的例子：某份创意素材因为合规要求而被修改，以及修改了什么。从未有金融服务素材被合规团队驳回或修改过的代理商，很可能做这类工作还不够多，不知道真正的限制在哪里。',
+		'Down-funnel conversion data, actual account openings and funded amounts, sat behind the client\'s own compliance and data-residency walls and never reached the media platforms. That is not a gap in our reporting, it is a deliberate regulatory boundary that any honest financial services paid media engagement in this category has to work within. Engagement metrics are the closest proxy available on the media side; the client tracked the down-funnel numbers separately and reconciled them internally, which is the correct division of responsibility in a regulated category.' =>
+			'下游转化数据，即实际开户和入金金额，位于客户自己的合规与数据驻留壁垒之后，从未到达媒体平台。这不是我们报告中的缺口，而是一道有意设置的监管边界，该品类中任何诚实的金融服务付费媒体项目都必须在其范围内工作。互动指标是媒体侧能获得的最接近的替代指标；客户单独追踪下游数字，并在内部对账，这是受监管品类中正确的责任划分。',
+		'What we could not measure, and why' =>
+			'我们无法衡量什么，以及原因',
+		'Why the same restructure is not always the answer' =>
+			'为什么同样的重组并不总是答案',
+		'A paid search account restructure only unlocks a gain this size when the starting account has structural waste to remove. An account that is already well-negatived, properly segmented by intent and tracked against qualified leads rather than raw conversions will not see anything close to 150%, because there is no equivalent waste left to redirect. Asking for a proper diagnostic before signing any restructure engagement is really the only honest way to know for certain which of those two situations an account is actually in.' =>
+			'只有当起始账户确实存在可清除的结构性浪费时，付费搜索账户重组才能带来这种幅度的提升。一个否定关键词已经很完善、按意图正确细分、并以合格线索而非原始转化来追踪的账户，不会看到任何接近 150% 的提升，因为已经没有对等的浪费可以转移。在签署任何重组项目之前先要求做一次像样的诊断，其实是确切知道账户究竟属于这两种情形中哪一种的唯一诚实的办法。',
+		'A brand film running in seven markets at once has seven different inventory markets, seven different audience behaviours, and seven different price floors to negotiate. Direct buys with individual publishers do not scale against that without a proportional increase in account management overhead. Automotive programmatic advertising bought through' =>
+			'一支同时在七个市场播放的品牌影片，面对的是七个不同的库存市场、七种不同的受众行为，以及七个需要谈判的不同底价。与各个媒体直接购买，在这种情况下，除非账户管理开销成比例增加，否则无法扩展。通过',
+		'No agency can guarantee a specific AI assistant will cite a specific page on a specific query; the engines change their retrieval and ranking logic without notice, and no third-party tool tracks citation share with the reliability that rank trackers offer for classic search. Healthcare AI search visibility work is judged on directional signal, structured content getting cited more often over time, alongside the classic SEO metrics that remain measurable and auditable in the way AI citation currently is not.' =>
+			'没有任何代理商能保证某个 AI 助手会在某个具体查询上引用某个具体页面；各引擎会不经通知地改变其检索与排名逻辑，也没有哪个第三方工具能像排名追踪器之于传统搜索那样可靠地追踪引用份额。医疗 AI 搜索可见度的工作，是以方向性信号来评判的，也就是结构化内容随时间被更频繁地引用，同时参照那些仍可衡量、可审计的传统 SEO 指标，而这正是 AI 引用目前做不到的。',
+		'What healthcare AI search visibility cannot promise' =>
+			'医疗 AI 搜索可见度无法承诺什么',
+		'A site starting near zero has more room to show a large percentage gain than an established site already capturing most of its available demand, and that is worth naming plainly rather than letting the headline number imply otherwise. B2B seo results this dramatic are, in part, a function of how little traffic existed at the start; a mature site with an established baseline would need a different kind of engagement, and different expectations, to judge success by.' =>
+			'一个从接近零起步的网站，比一个已经获得了大部分可得需求的成熟网站，有更大的空间展现很高的百分比增幅，这一点值得直接说明，而不是让标题数字暗示相反的意思。如此惊人的 B2B SEO 成果，在一定程度上取决于起点时流量有多么少；一个有稳固基线的成熟网站，评判成功需要另一种合作方式和另一种预期。',
+		'is explicit that updates reassess content quality broadly rather than targeting specific sites, which means even an improving site can see a temporary dip if the update happens to reweight signals mid-programme. The two backwards months in this engagement coincided with exactly that kind of broad reassessment, not a mistake in the work; publishing those dips in the same chart as the gains is what makes the overall b2b seo results trustworthy rather than curated.' =>
+			'明确指出，更新是对内容质量做广泛的重新评估，而不是针对特定网站，这意味着即使是一个确实在改进的网站，如果更新恰好在项目进行中重新调整了信号权重，也可能出现暂时的下滑。本项目中出现的两个倒退的月份，恰好与这种广泛的重新评估同时发生，并非工作上的失误；把这些下滑与增长放在同一张图表里公布，才使整体的 B2B SEO 成果值得信赖，而不是经过挑选的。',
+		'This case shows b2b seo results from a firm starting at a very small base: 35 organic visitors and 46 sessions in the first month of measurement, with a backlink profile of 170 and no meaningful indexed keyword coverage.' =>
+			'这个案例展示的是一家起点确实很小的公司所取得的 B2B SEO 成果：衡量的第一个月只有 35 位自然访客和 46 次会话，外链档案为 170 条，没有任何有意义的已索引关键词覆盖。',
+		// Agency page: process and signs sections (v1.117.0). First draft: needs a native-speaker check.
+		'Four steps, in this order.' =>
+			'四个步骤，按此顺序进行。',
+		'Audit' =>
+			'审计',
+		'Fix' =>
+			'修复',
+		'Scale' =>
+			'扩展',
+		'Report' =>
+			'汇报',
+		'We review your site, tracking, accounts and competitors, and list what holds growth back.' =>
+			'我们审查您的网站、追踪、广告账户和竞争对手，列出阻碍增长的因素。',
+		'We repair the foundations first: site structure, tracking and the pages that carry the sale.' =>
+			'我们先修复基础：网站结构、追踪，以及承载销售的页面。',
+		'With the base sound, we grow search, paid media and content together under one plan.' =>
+			'基础稳固后，我们在同一个计划下同步扩展搜索、付费媒体和内容。',
+		'Each month you receive the numbers that matter, what changed and what happens next.' =>
+			'每月您会收到关键数据、变化之处以及下一步行动。',
+		'Signs it is time to talk' =>
+			'是时候谈一谈的迹象',
+		'If several of these sound familiar, the problem usually sits in the system, and more activity will not fix it.' =>
+			'如果其中几项听起来很熟悉，问题通常出在体系上，增加活动量解决不了。',
+		'Traffic is flat or falling, and nobody can say why.' =>
+			'流量持平或下滑，却没人说得清原因。',
+		'Ad spend keeps rising, and so does the cost per lead.' =>
+			'广告支出不断上升，每条线索的成本也随之上升。',
+		'Lead volume swings from month to month.' =>
+			'线索数量逐月起伏不定。',
+		'Reports show activity with no link to revenue.' =>
+			'报告只显示活动，与营收没有关联。',
+		'Competitors appear in AI answers and your brand does not.' =>
+			'竞争对手出现在 AI 回答中，而您的品牌没有。',
+		'Search, paid and social run as separate projects.' =>
+			'搜索、付费和社交媒体各自为政。',
+		// Agency page questions (v1.116.3), written to the house style. First draft: needs a native-speaker check.
+		'Common questions' =>
+			'常见问题',
+		'Do I have to buy every service?' =>
+			'我必须购买每一项服务吗？',
+		'No. Take one service or all six, and change the mix when your quarter changes. Some clients start with search alone and add paid media once demand shows up. Others hand us everything in month 1.' =>
+			'不必。可以只选一项服务，也可以六项全选，并在季度需求变化时调整组合。有些客户先只做搜索，等需求起来后再加入付费媒体。也有客户从第一个月就全部交给我们。',
+		'It depends on the channel and on where you start. Paid media can move within days, because you buy the placement. Search takes longer: in our case studies the organic gains arrived between 1 and 12 months in, and each one states its starting position. Anyone who promises a fixed timeline before seeing your site is guessing.' =>
+			'这取决于渠道，也取决于您的起点。付费媒体可以在几天内见效，因为您买的是展示位置。搜索需要更长时间：在我们的案例研究中，自然增长出现在 1 到 12 个月之间，每个案例都写明了起始状态。任何在看过您的网站之前就承诺固定时间表的人，都只是在猜。',
+		'Yes. We white-label for creative and PR agencies that need performance or search capability without hiring for it. The terms match any other engagement: senior specialists on the work, and reporting you can put your own name on.' =>
+			'是的。我们为需要效果或搜索能力、又不想自行招人的创意与公关代理商提供白标服务。合作条件与其他合作相同：资深专家亲自上阵，并提供可署上您自己名字的报告。',
+		'Singapore and Malaysia hold most of our work. We also run campaigns in Thailand, Indonesia, the Philippines, Vietnam and Hong Kong. The company is registered in Singapore and the team works in the region.' =>
+			'我们的大部分工作在新加坡和马来西亚。我们也在泰国、印度尼西亚、菲律宾、越南和香港开展广告活动。公司注册于新加坡，团队就在区域内工作。',
+		'Funded accounts, qualified leads and pipeline value. Those are the numbers a marketing lead answers for internally, so we hold ourselves to them. Channel metrics still appear, below the commercial ones.' =>
+			'已入金的账户、合格线索与销售管道价值。这些是营销负责人在公司内部要对其负责的数字，所以我们也以它们要求自己。渠道指标仍会呈现，排在商业指标之后。',
+		'What are GEO, AIO and AEO, and do I need them?' =>
+			'GEO、AIO 和 AEO 是什么？我需要吗？',
+		'They are three names for one shift: buyers increasingly ask an AI engine before they ask a search engine, and most brands never appear in the answer. Generative engine optimisation (GEO), AI optimisation (AIO) and answer engine optimisation (AEO) all describe work aimed at that surface. Whether you need it depends on whether your buyers research that way. Your own analytics can answer that.' =>
+			'它们是同一种转变的三个名称：买家越来越多地先问 AI 引擎，再问搜索引擎，而大多数品牌从未出现在答案中。生成式引擎优化（GEO）、AI 优化（AIO）和答案引擎优化（AEO），描述的都是针对这个界面所做的工作。您是否需要，取决于您的买家是否这样做调研。您自己的分析数据就能回答。',
+		// Single-page agency home page (v1.116.1). First draft: needs a native-speaker check.
+		'Follow us' =>
+			'关注我们',
+		'Legal' =>
+			'法律信息',
+		'Back to top' =>
+			'返回顶部',
+		'built to scale Asian brands, globally.' =>
+			'助力亚洲品牌规模化增长，走向全球。',
+		'We are a senior-led independent media team for high-growth B2B and B2C brands. We provide a powerful modular, search, social, programmatic and SEO extension for brands and agencies without in-house media capabilities. We fix the foundations, get you found and cited, then scale with paid media, turning performance marketing into predictable pipeline growth across Asia and beyond.' =>
+			'我们是由资深专家领导的独立媒体团队，服务于高速增长的 B2B 与 B2C 品牌。我们为没有内部媒体能力的品牌和代理商，提供可灵活调用的搜索、社交、程序化与 SEO 扩展团队。我们先夯实基础，让您被发现、被引用，再以付费媒体扩大规模，把绩效营销转化为覆盖亚洲及更广区域、可预测的销售管道增长。',
+		'Talk to the team' =>
+			'与团队聊聊',
+		'Tell us about your brand and what you want to grow. We reply within three business days.' =>
+			'请告诉我们您的品牌，以及您希望增长的方面。我们会在三个工作日内回复。',
+		'Send message' =>
+			'发送信息',
+		'We reply within three business days. No mailing list.' =>
+			'我们会在三个工作日内回复。不加入邮件列表。',
+		'What we do' =>
+			'我们的服务',
+		'Fix the foundations, get found and cited, then scale with paid media.' =>
+			'夯实基础，被发现并被引用，然后用付费媒体扩大规模。',
+		'Search engine optimisation plus generative, AI and answer engine visibility, one organic discipline.' =>
+			'搜索引擎优化，加上在生成式引擎、AI 与答案引擎中的可见度，同属一门自然流量学科。',
+		'Full-funnel paid media: Google, Meta, LinkedIn and programmatic at 0% media markup, judged on CPA and ROAS.' =>
+			'全漏斗付费媒体：Google、Meta、LinkedIn 与程序化投放，媒体费用零加价（0%），以 CPA 和 ROAS 衡量成效。',
+		'Paid social, creators and content across Meta, TikTok and LinkedIn, measured on outcomes, never reach.' =>
+			'覆盖 Meta、TikTok 与 LinkedIn 的付费社交、创作者与内容，以成果而非触达量衡量。',
+		'Content strategy and performance creative: assets built to rank, get cited by AI engines, and convert.' =>
+			'内容策略与绩效创意：为获得排名、被 AI 引擎引用并促成转化而打造的素材。',
+		'Enterprise marketing automation: email and WhatsApp lifecycle flows, AI assistants and CRM integration.' =>
+			'企业级营销自动化：电子邮件与 WhatsApp 生命周期流程、AI 助手及 CRM 集成。',
+		'Tracking, dashboards and attribution that connect ad spend to revenue: decisions from data, not gut feel.' =>
+			'把广告支出与收入联系起来的追踪、仪表板与归因：用数据而非直觉做决策。',
+		'Let us talk about your growth.' =>
+			'来聊聊您的增长。',
+		'Send us a few details and a senior member of the team will reply within three business days.' =>
+			'请发送一些基本信息，团队的一位资深成员会在三个工作日内回复。',
 		// Home page case studies and the market ticker (v1.104.0). First draft: needs a native-speaker check.
 		'Automotive · Programmatic + video, 7 Asian markets' =>
 			'汽车 · 程序化广告 + 视频，7 个亚洲市场',
@@ -86,6 +420,8 @@ return array(
 		'Case studies' =>
 			'案例研究',
 		'Full-funnel digital marketing for brands who\'d rather be seen than shout. Registered in Singapore, working across APAC.' =>
+			'为宁愿被看见、也不愿喧哗的品牌提供全漏斗数字营销。公司注册于新加坡，业务遍及亚太地区。',
+		'Full-funnel digital marketing for brands who would rather be seen than shout. Registered in Singapore, working across APAC.' =>
 			'为宁愿被看见、也不愿喧哗的品牌提供全漏斗数字营销。公司注册于新加坡，业务遍及亚太地区。',
 		'SEO & GEO / AIO / AEO' =>
 			'SEO & GEO / AIO / AEO',
@@ -1540,6 +1876,8 @@ return array(
 		'All insights' =>
 			'全部洞察',
 		'Full-funnel digital marketing for brands who\'d rather be seen than shout. Notes on SEO, paid, and content from the team.' =>
+			'为宁愿被看见、也不愿喧哗的品牌提供全漏斗数字营销。来自团队的 SEO、付费与内容笔记。',
+		'Full-funnel digital marketing for brands who would rather be seen than shout. Notes on SEO, paid, and content from the team.' =>
 			'为宁愿被看见、也不愿喧哗的品牌提供全漏斗数字营销。来自团队的 SEO、付费与内容笔记。',
 		'Recent posts' =>
 			'近期文章',

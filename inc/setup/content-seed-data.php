@@ -19,12 +19,12 @@ function remotive_seed_content() {
 		array(
 			'type'     => 'post',
 			'slug'     => 'seo-friendly-web-design',
-			'title'    => 'SEO-Friendly Web Design: What Actually Matters',
+			'title'    => 'SEO-friendly web design: what actually matters',
 			'excerpt'  => 'What makes web design SEO-friendly: speed, structure, crawlability and AI readability, with real results. Read the guide.',
 			'category' => array( 'SEO & AI Search', 'seo-ai-search' ),
 			'tags'     => array( 'web design', 'technical seo', 'seo', 'geo', 'site architecture' ),
 			'image'    => 'seo-friendly-web-design.jpg',
-			'rm_title' => 'SEO Friendly Web Design: What Matters',
+			'rm_title' => 'SEO friendly web design: what matters',
 			'rm_desc'  => 'SEO friendly web design explained: the speed, structure, crawlability and AI readability a site needs to rank, with real results. Read the guide.',
 			'rm_kw'    => 'seo friendly web design',
 			'content'  => '<!-- wp:paragraph -->
@@ -36,7 +36,7 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Google doesn\'t rank designs. It ranks pages it can crawl, render, understand and trust. Every design choice either helps or hinders those four things. That is the whole case for SEO friendly web design: build the site so a crawler can read it. A beautiful site built as a single JavaScript bundle with no semantic structure can be invisible to search; a plain site with clean HTML, fast loads and a logical hierarchy can outrank it with half the budget.</p>
+<p>Google ranks pages it can crawl, render, understand and trust. Every design choice either helps or hinders those four things. That is the whole case for SEO friendly web design: build the site so a crawler can read it. A beautiful site built as a single JavaScript bundle with no semantic structure can be invisible to search; a plain site with clean HTML, fast loads and a logical hierarchy can outrank it with half the budget.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -44,7 +44,7 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Four things carry most of the weight. Page speed first: <a href="https://web.dev/articles/vitals" target="_blank" rel="noopener noreferrer">Core Web Vitals</a> are a confirmed ranking signal, one among many, and a modest one; fix them for users and for the tie-breaks, and expect no miracle from them alone. Slow templates still tax every page you\'ll ever publish. Semantic HTML second: one <code>h1</code> per page, headings in order, landmarks that mean what they say. Crawlability third: clean URLs, an XML sitemap, no orphan pages, internal links that a crawler can follow without executing scripts. Mobile layout fourth: Google indexes the mobile rendering of your site, so a desktop-first design that degrades on a phone degrades everywhere.</p>
+<p>Four things carry most of the weight. Page speed first: <a href="https://web.dev/articles/vitals" target="_blank" rel="noopener noreferrer">Core Web Vitals</a> are a confirmed ranking signal, one among many, and a modest one; fix them for users and for the tie-breaks, and expect no miracle from them alone. Slow templates still tax every page you will ever publish. Semantic HTML second: one <code>h1</code> per page, headings in order, landmarks that mean what they say. Crawlability third: clean URLs, an XML sitemap, no orphan pages, internal links that a crawler can follow without executing scripts. Mobile layout fourth: Google indexes the mobile rendering of your site, so a desktop-first design that degrades on a phone degrades everywhere.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -52,7 +52,7 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Good SEO friendly web design is mostly structure. Internal link architecture decides how authority flows through a site. When we rebuilt the technical foundation and internal linking for a B2B industrial automation client, no new backlinks, no paid support, organic sessions rose 86% in a month, search clicks rose 45%, and average position moved from 16.3 to 10.6 in three months. One target phrase, &ldquo;turnkey automation systems&rdquo;, went from unranked to position 3. That\'s what structure is worth when the content underneath deserves to rank, the fix released value that was already there. On a thin site the same rebuild would tidy things up and move very little.</p>
+<p>Good SEO friendly web design is mostly structure. Internal link architecture decides how authority flows through a site. When we rebuilt the technical foundation and internal linking for a B2B industrial automation client, no new backlinks, no paid support, organic sessions rose 86% in a month, search clicks rose 45%, and average position moved from 16.3 to 10.6 in three months. One target phrase, "turnkey automation systems", went from unranked to position 3. That is what structure is worth when the content underneath deserves to rank: the fix released value that was already there. On a thin site the same rebuild would tidy things up and move very little.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -60,7 +60,7 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Search behaviour is shifting toward AI answers, ChatGPT, Perplexity, and Google\'s AI Overviews. AI engines favour pages with clear headings, direct answers near the top, structured data, and content organised so a machine can quote it accurately. We call this generative engine optimisation (GEO), and it\'s part of <a href="/services/">how we run search</a> for clients. An SEO friendly design in 2026 is an AI-readable design.</p>
+<p>Search behaviour is shifting toward AI answers (ChatGPT, Perplexity and Google\'s AI Overviews). AI engines favour pages with clear headings, direct answers near the top, structured data, and content organised so a machine can quote it accurately. We call this generative engine optimisation (GEO), and it is part of <a href="/services/">how we run search</a> for clients. An SEO friendly design in 2026 is an AI-readable design.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -68,7 +68,7 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Put these in the brief for any SEO friendly web design project before work starts: server-rendered or static HTML for all core content; Core Web Vitals targets in the contract; a heading hierarchy per template; editable titles and meta descriptions on every page; image compression and descriptive alt text as workflow, and a crawl of the staging site before launch. None of this costs beauty. All of it costs a redesign to add later.</p>
+<p>Put these in the brief for any SEO friendly web design project before work starts: server-rendered or static HTML for all core content; Core Web Vitals targets in the contract; a heading hierarchy per template; editable titles and meta descriptions on every page; image compression and descriptive alt text as workflow, and a crawl of the staging site before launch. Adding any of it after launch means a redesign.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -76,7 +76,7 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>The usual failure isn\'t bad intentions, it\'s an unclear handoff. Design ships a site, marketing inherits the traffic problem, and nobody owns the fix because nobody signed off on the brief above. Put one name against each of the four technical items before the project starts: someone accountable for page speed budgets, someone for the heading and markup structure, someone for crawlability, someone for mobile parity. A designer who knows they\'ll be measured against Core Web Vitals three months after launch designs differently than one judged on the pitch deck alone.</p>
+<p>The usual failure is an unclear handoff. Design ships a site, marketing inherits the traffic problem, and nobody owns the fix because nobody signed off on the brief above. Put one name against each of the four technical items before the project starts: someone accountable for page speed budgets, someone for the heading and markup structure, someone for crawlability, someone for mobile parity. A designer who knows they will be measured against Core Web Vitals three months after launch designs differently than one judged on the pitch deck alone.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -92,7 +92,7 @@ function remotive_seed_content() {
 <li>Every page that should rank returns a 200 status and carries a self-referencing canonical tag.</li>
 <!-- /wp:list-item -->
 <!-- wp:list-item -->
-<li>Staging is blocked from search, and the block is removed on launch day. A forgotten noindex tag is the most expensive typo in web design.</li>
+<li>Staging is blocked from search, and the block is removed on launch day. A forgotten noindex tag is the classic launch mistake.</li>
 <!-- /wp:list-item -->
 <!-- wp:list-item -->
 <li>Every old URL that earned traffic or links has a one-to-one 301 redirect to its new equivalent, tested in a crawl, not assumed.</li>
@@ -134,7 +134,7 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>The last mistake is organisational rather than technical: treating SEO friendly web design as a final-week review instead of a requirement from the first wireframe. By the time a crawl finds the problems, the layout is signed off and every fix is a negotiation.</p>
+<p>The last mistake is organisational: treating SEO friendly web design as a final-week review instead of a requirement from the first wireframe. By the time a crawl finds the problems, the layout is signed off and every fix is a negotiation.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -146,7 +146,7 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>Whichever route you take, judge it on output, not on promises. Load a real page, view the source, and check that the headings, links and text are there without running anything. Run it through a speed test on a mid-range phone, not the designer\'s laptop. The platform matters far less than the discipline of the people configuring it.</p>
+<p>Whichever route you take, judge it on output. Load a real page, view the source, and check that the headings, links and text are there without running anything. Run it through a speed test on a mid-range phone, not the designer\'s laptop. The platform matters far less than the discipline of the people configuring it.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -174,7 +174,7 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Often, yes. Retrofitting SEO friendly web design starts with a crawl and an audit, which will show whether the problems are in a handful of templates, which can be repaired, or in the foundation, which usually cannot. Many sites need a repair, not a rebuild.</p>
+<p>Often, yes. Retrofitting SEO friendly web design starts with a crawl and an audit, which will show whether the problems are in a handful of templates, which can be repaired, or in the foundation, which usually cannot. Many sites need a repair.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -182,22 +182,22 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Then the question is diagnosis, and SEO friendly web design fixes start there. Our post on <a href="/blog/seo-friendly-web-design/">whether your website is SEO friendly</a> walks through the checks we run first. And if you want the fixes handled, that\'s the technical half of our <a href="/services/seo/">SEO work</a> across Singapore and Malaysia.</p>
+<p>Then the question is diagnosis, and SEO friendly web design fixes start there. Our post on <a href="/blog/seo-friendly-web-design/">whether your website is SEO friendly</a> walks through the checks we run first. And if you want the fixes handled, that is the technical half of our <a href="/services/seo/">SEO work</a> across Singapore and Malaysia.</p>
 <!-- /wp:paragraph -->',
 		),
 		array(
 			'type'     => 'post',
 			'slug'     => 'sem-services-singapore',
-			'title'    => 'SEM Services in Singapore: What’s Included and What It Costs',
+			'title'    => 'SEM services in Singapore: what is included and what it costs',
 			'excerpt'  => 'What SEM services in Singapore include, real CPC benchmarks, and how management pricing works. See how it works.',
 			'category' => array( 'Paid Media', 'paid-media' ),
 			'tags'     => array( 'sem', 'paid search', 'google ads', 'singapore', 'ppc' ),
 			'image'    => 'sem-services-singapore.jpg',
-			'rm_title' => 'SEM Services in Singapore: Scope, CPCs & Costs',
+			'rm_title' => 'SEM services in Singapore: scope, CPCs & costs',
 			'rm_desc'  => 'SEM services in Singapore: what is included, real CPC benchmarks by industry and how management pricing works, from a flat retainer. See the breakdown.',
 			'rm_kw'    => 'sem services',
 			'content'  => '<!-- wp:paragraph -->
-<p>SEM, search engine marketing, is paid placement on search results. In Singapore it\'s the fastest lever most businesses have, and also one of the easiest budgets to waste. Here\'s what proper Singapore SEM services include, what clicks actually cost here, and how management pricing works.</p>
+<p>SEM, search engine marketing, is paid placement on search results. In Singapore it is the fastest lever most businesses have, and also one of the easiest budgets to waste. Here is what proper Singapore SEM services include, what clicks actually cost here, and how management pricing works.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -205,7 +205,7 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Running ads is the smallest part. A serious SEM service covers intent-led campaign structure across branded, generic, competitor and category keywords; ongoing search-term mining and negative keyword management, which is where wasted spend hides; smart bidding strategy and bid testing; ad copy and asset testing; audience layering and remarketing; and for e-commerce, Shopping and Performance Max. For app businesses, Apple Search Ads and Google App campaigns belong in scope too. If a proposal only mentions &ldquo;campaign setup and monthly reporting&rdquo;, that\'s not a service, that\'s a dashboard.</p>
+<p>Running ads is the smallest part. A serious SEM service covers intent-led campaign structure across branded, generic, competitor and category keywords; ongoing search-term mining and negative keyword management, which is where wasted spend hides; smart bidding strategy and bid testing; ad copy and asset testing; audience layering and remarketing; and for e-commerce, Shopping and Performance Max. For app businesses, Apple Search Ads and Google App campaigns belong in scope too. If a proposal only mentions "campaign setup and monthly reporting", you are looking at a dashboard.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -213,7 +213,7 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Singapore is a small, affluent, intensely contested market, and the CPCs behind SEM services reflect it. From the keyword data we work with daily: &ldquo;seo agency singapore&rdquo; runs around US$10 per click, &ldquo;digital marketing agency singapore&rdquo; over US$11, and &ldquo;sem agency singapore&rdquo; close to US$14. At the extreme end, financial services keywords in Singapore run roughly S$5&ndash;18 per click. At those rates, structure and negatives decide whether a budget produces pipeline or noise, and treat every figure here as an average with a wide spread: actual CPCs move with match types, quality scores, seasonality and who else decided to bid this quarter. <a href="https://support.google.com/google-ads/answer/2472725" target="_blank" rel="noopener noreferrer">Google\'s own Quality Score documentation</a> is worth reading before you argue with an account manager about why your CPC sits where it does.</p>
+<p>Singapore is a small, intensely contested market, and the CPCs behind SEM services reflect it. From the keyword data we work with daily: "seo agency singapore" runs around US$10 per click, "digital marketing agency singapore" over US$11, and "sem agency singapore" close to US$14. At the extreme end, financial services keywords in Singapore run roughly S$5&ndash;18 per click. At those rates, structure and negatives decide whether a budget produces pipeline or noise. Treat every figure here as an average with a wide spread: actual CPCs move with match types, quality scores, seasonality and who else decided to bid this quarter. <a href="https://support.google.com/google-ads/answer/2472725" target="_blank" rel="noopener noreferrer">Google\'s own Quality Score documentation</a> is worth reading before you argue with an account manager about why your CPC sits where it does.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -221,7 +221,7 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Before signing for any SEM services, ask for the account structure, not after: campaign types, how negatives are reviewed and how often, who owns bid strategy changes, and what a month-one versus month-three report looks like. A vague answer here predicts a vague account later. The agencies worth hiring can show you a real, anonymised account structure from an existing client in the first call; the ones who can\'t are selling you the pitch, not the practice.</p>
+<p>Before signing for any SEM services, ask for the account structure: campaign types, how negatives are reviewed and how often, who owns bid strategy changes, and what a month-one versus month-three report looks like. A vague answer here predicts a vague account later. The agencies worth hiring can show you a real, anonymised account structure from an existing client in the first call; the ones who cannot are selling you the pitch.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -229,7 +229,7 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>SEM services are priced under three common models: percentage of ad spend (typically 10&ndash;20%), flat monthly retainer, or hybrid. Each has a failure mode, percentage models reward spending more, flat retainers can reward doing less, so the safeguard is transparency. We work on flat retainers, paid media management from SGD 2,200 a month, with media billed at net cost and 0% markup, platform invoices attached to every recharge. Whatever model you choose, insist on seeing platform billing directly. Media margin hidden inside &ldquo;management&rdquo; is the oldest trick in the industry.</p>
+<p>SEM services are priced under three common models: percentage of ad spend (typically 10&ndash;20%), flat monthly retainer, or hybrid. Each has a failure mode: percentage models reward spending more and flat retainers can reward doing less. The safeguard is transparency. We work on flat retainers, paid media management from SGD 2,200 a month, with media billed at net cost and 0% markup, platform invoices attached to every recharge. Whatever model you choose, insist on seeing platform billing directly. Media margin hidden inside "management" is a common trick.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -237,7 +237,7 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Wrong question, the real one is sequencing. SEM buys visibility today; SEO compounds it over quarters. Whether that sequencing suits you depends on unit economics: at S$10+ per click, thin margins can make SEM a treadmill, while high-LTV businesses can afford it indefinitely. Most Singapore businesses we work with run SEM immediately while SEO builds underneath, then rebalance as organic takes share, and the rebalancing point is a margin decision, not a calendar one. We\'ve written a full comparison in <a href="/blog/seo-vs-sem/">SEO vs SEM</a>, and the organic half of the picture is set out on our <a href="/services/seo/">SEO service</a> page.</p>
+<p>The better question is sequencing. SEM buys visibility today; SEO compounds it over quarters. Whether that sequencing suits you depends on unit economics: at S$10+ per click, thin margins can make SEM a treadmill, while high-LTV businesses can afford it indefinitely. Most Singapore businesses we work with run SEM immediately while SEO builds underneath, then rebalance as organic takes share, and the rebalancing point is a margin decision. We have written a full comparison in <a href="/blog/seo-vs-sem/">SEO vs SEM</a>, and the organic half of the picture is set out on our <a href="/services/seo/">SEO service</a> page.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -245,24 +245,24 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>A proposal for SEM services should read like a work plan, not a brochure. Take it apart line by line and ask what each item actually produces. &ldquo;Keyword research&rdquo; should name the themes and the intent you will target. &ldquo;Ad copy&rdquo; should say how many variants run and how often they are reviewed. &ldquo;Optimisation&rdquo; on its own means nothing; it needs a cadence and an owner.</p>
+<p>A proposal for SEM services should read like a work plan. Take it apart line by line and ask what each item actually produces. "Keyword research" should name the themes and the intent you will target. "Ad copy" should say how many variants run and how often they are reviewed. "Optimisation" on its own means nothing; it needs a cadence and an owner.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:list -->
 <ul class="wp-block-list"><!-- wp:list-item -->
-<li><strong>Conversion tracking.</strong> It should be set up and tested before any budget is spent, with the primary conversion defined as a lead or a sale, not a page view.</li>
+<li>Conversion tracking is set up and tested before any budget is spent, with the primary conversion defined as a lead or a sale.</li>
 <!-- /wp:list-item -->
 <!-- wp:list-item -->
-<li><strong>Search term review.</strong> Ask how often queries are checked and who adds the negatives. This is where wasted spend is found.</li>
+<li>Search term review has a schedule and an owner. Ask how often queries are checked and who adds the negatives, because that is where wasted spend is found.</li>
 <!-- /wp:list-item -->
 <!-- wp:list-item -->
-<li><strong>Reporting.</strong> It should show cost per qualified lead or acquisition, not just clicks and impressions, and it should be explained in plain words.</li>
+<li>Reporting shows cost per qualified lead or acquisition, with clicks and impressions below it, in plain words.</li>
 <!-- /wp:list-item -->
 <!-- wp:list-item -->
-<li><strong>Access.</strong> The ad account must be in your name, with the agency as a user. If they own the account, you cannot take your history with you.</li>
+<li>The ad account is in your name, with the agency added as a user. If they own the account, you cannot take your history with you.</li>
 <!-- /wp:list-item -->
 <!-- wp:list-item -->
-<li><strong>Fees and media.</strong> The management fee and the media budget should be separate lines, and the media should be billed at net cost.</li>
+<li>The management fee and the media budget are separate lines, and the media is billed at net cost.</li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 
@@ -319,22 +319,22 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Judge SEM services on cost per qualified lead or acquisition and on revenue, never on impressions or clicks. When we restructured paid search for a premium B2B corporate-gifting brand, conversion rates rose 50% and qualified leads grew 150% with no extra budget: the money moved from wasted queries to buying ones. Gains that size are what fixing a poorly structured account looks like, a well-run account improves in single digits, and anyone promising 150% on top of good work is promising arithmetic that doesn\'t exist. The job is the same either way: move money from waste to buyers. If you want your account held to that standard, <a href="/services/">here\'s how we run paid search</a>.</p>
+<p>Judge SEM services on cost per qualified lead or acquisition and on revenue, never on impressions or clicks. When we restructured paid search for a premium B2B corporate-gifting brand, conversion rates rose 50% and qualified leads grew 150% with no extra budget: the money moved from wasted queries to buying ones. Gains that size are what fixing a poorly structured account looks like. A well-run account improves in single digits, and anyone promising 150% on top of good work is promising arithmetic that does not exist. The job is the same either way: move money from waste to buyers. If you want your account held to that standard, <a href="/services/">here is how we run paid search</a>.</p>
 <!-- /wp:paragraph -->',
 		),
 		array(
 			'type'     => 'post',
 			'slug'     => 'facebook-advertising-malaysia',
-			'title'    => 'Facebook Advertising in Malaysia: Costs, Targeting and What Works',
+			'title'    => 'Facebook advertising in Malaysia: costs, targeting and what works',
 			'excerpt'  => 'Facebook ads in Malaysia: realistic costs, targeting that works, creative testing and measurement. Read the guide.',
 			'category' => array( 'Paid Media', 'paid-media' ),
 			'tags'     => array( 'facebook ads', 'paid social', 'malaysia', 'media buying', 'creative testing' ),
 			'image'    => 'facebook-advertising-malaysia.jpg',
-			'rm_title' => 'Facebook Advertising Malaysia: Full Guide',
+			'rm_title' => 'Facebook advertising Malaysia: full guide',
 			'rm_desc'  => 'Facebook advertising Malaysia explained: realistic costs in ringgit, targeting that works across languages, creative testing and measurement. Read the guide.',
 			'rm_kw'    => 'facebook advertising malaysia',
 			'content'  => '<!-- wp:paragraph -->
-<p>Facebook advertising Malaysia campaigns are built on: it remains the widest-reach paid channel in the country, and one of the cheapest in the region, which is exactly why so much of the spend on it is casual, untested and unmeasured. This is the short, practical version of how we run it.</p>
+<p>Facebook advertising Malaysia is still the widest-reach paid channel in the country, and one of the cheapest in the region. That is exactly why so much of the spend on it is casual, untested and unmeasured. This is the short, practical version of how we run it.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -342,7 +342,7 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Malaysian CPCs are low by regional standards, often under RM1 for broad consumer targeting, though verticals like finance and property pay multiples of that, and lead objectives price differently from traffic. Take any benchmark, including this one, as a starting assumption to replace with your own data inside a month. Cheap clicks flatter bad campaigns, though: the number that matters is cost per result you can bank, a lead, a purchase, a WhatsApp conversation. Set the budget around a testing plan, not a monthly figure someone feels comfortable with. Enough to get statistically useful results per variant, typically a few thousand ringgit a month at minimum, spent deliberately.</p>
+<p>Malaysian CPCs are low by regional standards, often under RM1 for broad consumer targeting, though verticals like finance and property pay multiples of that, and lead objectives price differently from traffic. Take any benchmark, including this one, as a starting assumption to replace with your own data inside a month. Cheap clicks flatter bad campaigns, though: the number that matters is cost per result you can bank, a lead, a purchase, a WhatsApp conversation. Build the budget from a testing plan: enough to get statistically useful results per variant, typically a few thousand ringgit a month at minimum, spent deliberately.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -350,7 +350,7 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Three layers, in order of value. First-party audiences first: customer lists, site visitors, engagers, and lookalikes built from them. Malaysia-specific structure second: language matters more than most advertisers act on, so run Bahasa Malaysia, English and Chinese creative as separate tests rather than one ad in one language for everyone. There\'s a real tension here: splitting audiences fragments the algorithm\'s learning, so at small budgets consolidate first and split only when spend can feed each variant properly, segmentation is a luxury that data volume buys. Geography third: KL, Penang, Johor and PJ behave differently on price sensitivity and offer framing; if your business is location-bound, structure campaigns so the data can show it.</p>
+<p>Three layers, in order of value. First-party audiences first: customer lists, site visitors, engagers, and lookalikes built from them. Malaysia-specific structure second: language matters more than most advertisers act on, so run Bahasa Malaysia, English and Chinese creative as separate tests. There is a real tension here: splitting audiences fragments the algorithm\'s learning, so at small budgets consolidate first and split only when spend can feed each variant properly. Segmentation is a luxury that data volume buys. Geography third: KL, Penang, Johor and PJ behave differently on price sensitivity and offer framing; if your business is location-bound, structure campaigns so the data can show it.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -366,11 +366,11 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Meta isn\'t always the answer, and Facebook advertising Malaysia campaigns are not exempt from that rule. On a regional automotive campaign we ran, programmatic video outperformed both YouTube and Meta direct buys badly enough to reshape the plan, AI-driven programmatic delivered CPMs 85% under market rate. Channel loyalty is a bias; run Facebook because the numbers earn it, and be willing to move budget when they don\'t.</p>
+<p>Meta is not always the answer, and Facebook advertising Malaysia campaigns are not exempt from that rule. On a regional automotive campaign we ran, programmatic video outperformed both YouTube and Meta direct buys badly enough to reshape the plan: AI-driven programmatic delivered CPMs 85% under market rate. Channel loyalty is a bias; run Facebook because the numbers earn it, and be willing to move budget when they do not.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2 class="wp-block-heading">Measurement, or it didn\'t happen</h2>
+<h2 class="wp-block-heading">Measurement, or it did not happen</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -382,7 +382,7 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Simple structures win, especially at modest budgets. Meta&rsquo;s delivery system learns from conversions, and every extra campaign and ad set divides that learning into smaller pieces. For most Malaysian advertisers, one prospecting campaign, one retargeting campaign and a small testing budget is plenty. Add structure only when spend and data volume justify it.</p>
+<p>Simple structures win, especially at modest budgets. Meta\'s delivery system learns from conversions, and every extra campaign and ad set divides that learning into smaller pieces. For most Malaysian advertisers, one prospecting campaign, one retargeting campaign and a small testing budget is plenty. Add structure only when spend and data volume justify it.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
@@ -402,7 +402,7 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>Finally, make the next step match how Malaysians actually buy. For many businesses that means a WhatsApp conversation, not a checkout. Use click-to-WhatsApp ads or a clear button, answer quickly, and track those chats as conversions, or you will undercount your results.</p>
+<p>Finally, make the next step match how Malaysians actually buy. For many businesses the buying step is a WhatsApp conversation. Use click-to-WhatsApp ads or a clear button, answer quickly, and track those chats as conversions, or you will undercount your results.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -419,7 +419,7 @@ function remotive_seed_content() {
 
 <!-- wp:list -->
 <ul class="wp-block-list"><!-- wp:list-item -->
-<li>Cost per lead or purchase, tied to your own records, not just the figure the platform reports.</li>
+<li>Cost per lead or purchase, tied to your own records as well as the figure the platform reports.</li>
 <!-- /wp:list-item -->
 <!-- wp:list-item -->
 <li>Results by creative, so you can see which hook and format earn their budget.</li>
@@ -457,26 +457,26 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Running Facebook advertising Malaysia campaigns in-house works fine below a certain spend and complexity threshold, usually while one person can hold the whole account structure and creative calendar in their head. Past that point, the coordination cost, testing several creative variants, tracking three languages, reconciling WhatsApp leads against ad spend, tends to eat more time than the media budget itself. That is the point at which a specialist earns their fee on hours saved alone, before the performance gains even enter the conversation. <a href="https://www.facebook.com/business/ads-guide" target="_blank" rel="noopener noreferrer">Meta\'s own ads guide</a> is a reasonable place to sanity-check any agency\'s recommendations against the platform\'s current rules.</p>
+<p>Running Facebook advertising Malaysia campaigns in-house works fine below a certain spend and complexity threshold, usually while one person can hold the whole account structure and creative calendar in their head. Past that point, the coordination cost eats more time than the media budget itself: testing several creative variants, tracking three languages and reconciling WhatsApp leads against ad spend. That is the point at which a specialist earns their fee on hours saved alone, before the performance gains even enter the conversation. <a href="https://www.facebook.com/business/ads-guide" target="_blank" rel="noopener noreferrer">Meta\'s own ads guide</a> is a reasonable place to sanity-check any agency\'s recommendations against the platform\'s current rules.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>We run paid social as part of full-funnel work across Malaysia, KL, Penang, PJ and beyond. Start with our <a href="/services/paid-media/">paid media</a> work, or see the wider <a href="/services/">services line-up</a>.</p>
+<p>We run paid social as part of full-funnel work across Malaysia (KL, Penang, PJ and beyond). Start with our <a href="/services/paid-media/">paid media</a> work, or see the wider <a href="/services/">services line-up</a>.</p>
 <!-- /wp:paragraph -->',
 		),
 		array(
 			'type'     => 'post',
 			'slug'     => 'how-to-choose-an-seo-agency',
-			'title'    => 'How to Choose an SEO Agency in Singapore or Malaysia',
+			'title'    => 'How to choose an SEO agency in Singapore or Malaysia',
 			'excerpt'  => 'How to evaluate SEO agencies in Singapore and Malaysia: audits, reporting, red flags and the questions to ask. Find out more.',
 			'category' => array( 'Agency & Pricing Guides', 'agency-guides' ),
 			'tags'     => array( 'agency selection', 'seo', 'singapore', 'malaysia', 'reporting' ),
 			'image'    => 'how-to-choose-an-seo-agency.jpg',
-			'rm_title' => 'SEO Agency: How to Choose One in SG & MY',
+			'rm_title' => 'SEO agency: how to choose one in SG & MY',
 			'rm_desc'  => 'How to choose an SEO agency in Singapore or Malaysia: the audit to demand, the reporting to inspect, red flags and the questions to ask. Read the checklist.',
 			'rm_kw'    => 'seo agency',
 			'content'  => '<!-- wp:paragraph -->
-<p>Search for &ldquo;seo agency&rdquo; in Singapore or Malaysia and you\'ll get lists, ranked, sponsored, and mostly interchangeable. Lists don\'t tell you how an agency behaves in month three. These criteria do. We\'re an agency ourselves, so read this knowing where we stand; every test here is one we\'re prepared to be measured against.</p>
+<p>Search for "seo agency" in Singapore or Malaysia and you will get lists: ranked, sponsored and mostly interchangeable. Lists do not tell you how an agency behaves in month three. These criteria do. We are an agency ourselves, so read this knowing where we stand; every test here is one we are prepared to be measured against.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -484,7 +484,7 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Any SEO agency worth engaging can show you specific problems on your actual site before a contract exists, crawl issues, structural problems, content gaps, with evidence. Be fair about depth: a pre-contract review is hours of work at most, so expect a sharp diagnosis of a few real issues rather than a full audit; the full version is rightly part of the engagement. A generic PDF with your logo on it is a mail merge. The audit is also your preview of how they think and communicate, which is most of what you\'re buying.</p>
+<p>Any SEO agency worth engaging can show you specific problems on your actual site before a contract exists: crawl issues, structural problems and content gaps, with evidence. Be fair about depth: a pre-contract review is hours of work at most, so expect a sharp diagnosis of a few real issues; the full version is rightly part of the engagement. A generic PDF with your logo on it is a mail merge. The audit is also your preview of how they think and communicate, which is most of what you are buying.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -492,7 +492,7 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Ranking reports alone are theatre. Ask to see a real (anonymised) client report: does it connect organic performance to leads, revenue, or pipeline? Does it cover search alongside the other channels you run, so budget decisions get made across them rather than inside each silo? An SEO agency that can\'t show attribution beyond positions is optimising for its own renewal.</p>
+<p>Ranking reports alone are theatre. Ask to see a real (anonymised) client report: does it connect organic performance to leads, revenue, or pipeline? Does it cover search alongside the other channels you run, so budget decisions get made across them? An SEO agency that cannot show attribution beyond positions is optimising for its own renewal.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -500,7 +500,7 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>The people in the pitch and the people in your account are frequently different people. Ask directly: who runs this engagement, what\'s their seniority, and how many accounts do they carry? Thin answers here explain most agency disappointments in this region.</p>
+<p>The people in the pitch and the people in your account are frequently different people. Ask directly: who runs this engagement, what is their seniority, and how many accounts do they carry? Thin answers here explain most agency disappointments in this region.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -508,7 +508,7 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Case studies should name outcomes, not adjectives. The kind of specificity to expect: organic sessions up 86% in a month after a technical rebuild; a target keyword from unranked to position 3; clicks up 34% in a first month with 2,553 keywords ranking; qualified leads up 150% after a restructure. Those are results from our own client work, and here\'s the nuance every case-studies page, ours included, owes you: the results on the page are the best ones on file. Ask any agency what a median engagement looks like, and what a failed one looked like and why. The answer to the second question tells you more than any case study. The point of the numbers is their shape, whoever you\'re evaluating: dated, measured, attributable. <a href="https://developers.google.com/search/docs/fundamentals/seo-starter-guide" target="_blank" rel="noopener noreferrer">Google\'s own SEO starter guide</a> is worth skimming first, so you can tell whether an agency\'s pitch matches what the platform itself says matters.</p>
+<p>Case studies should name outcomes. The kind of specificity to expect: organic sessions up 86% in a month after a technical rebuild; a target keyword from unranked to position 3; clicks up 34% in a first month with 2,553 keywords ranking; qualified leads up 150% after a restructure. Those are results from our own client work, and here is the nuance every case-studies page, ours included, owes you: the results on the page are the best ones on file. Ask any agency what a median engagement looks like, and what a failed one looked like and why. The answer to the second question tells you more than any case study. The point of the numbers is their shape, whoever you are evaluating: dated, measured, attributable. <a href="https://developers.google.com/search/docs/fundamentals/seo-starter-guide" target="_blank" rel="noopener noreferrer">Google\'s own SEO starter guide</a> is worth skimming first, so you can tell whether an agency\'s pitch matches what the platform itself says matters.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -516,7 +516,7 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Guaranteed rankings, nobody controls Google. Secret methods. Reporting only inside the agency\'s own tool. Refusal to itemise media or third-party costs. And be sceptical of both extremes on commitment: perpetual lock-ins are a trap, and &ldquo;cancel anytime&rdquo; is often a confession that nothing compounding is being built. We ask for a four-month minimum on SEO precisely because honest SEO needs that long to show its first real returns.</p>
+<p>Guaranteed rankings (nobody controls Google). Secret methods. Reporting only inside the agency\'s own tool. Refusal to itemise media or third-party costs. And be sceptical of both extremes on commitment: perpetual lock-ins are a trap, and "cancel anytime" is often a confession that nothing compounding is being built. We ask for a four-month minimum on SEO precisely because honest SEO needs that long to show its first real returns.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -524,7 +524,7 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>The evaluation doesn\'t stop at the pitch. Ask what the first thirty days look like in writing, not in a sales call: what gets audited first, when you\'ll see the first report, and who signs off on the priority list. An SEO agency that can\'t answer this before you\'ve paid anything will improvise it after you have, and improvisation is expensive when it\'s billed monthly. The best proxy for how an engagement will run is how precisely the agency can describe the first month before it starts.</p>
+<p>The evaluation does not stop at the pitch. Ask for the first thirty days in writing: what gets audited first, when you will see the first report, and who signs off on the priority list. An SEO agency that cannot answer this before you have paid anything will improvise it after you have, and improvisation is expensive when it is billed monthly. The best proxy for how an engagement will run is how precisely the agency can describe the first month before it starts.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -537,31 +537,31 @@ function remotive_seed_content() {
 
 <!-- wp:list -->
 <ul class="wp-block-list"><!-- wp:list-item -->
-<li><strong>Diagnosis.</strong> Did they find real problems on your site before you signed?</li>
+<li>Did they find real problems on your site before you signed?</li>
 <!-- /wp:list-item -->
 <!-- wp:list-item -->
-<li><strong>Plan.</strong> Is the first ninety days specific, with named deliverables and owners?</li>
+<li>Is the first ninety days specific, with named deliverables and owners?</li>
 <!-- /wp:list-item -->
 <!-- wp:list-item -->
-<li><strong>Reporting.</strong> Does it tie organic work to leads or revenue?</li>
+<li>Does the reporting tie organic work to leads or revenue?</li>
 <!-- /wp:list-item -->
 <!-- wp:list-item -->
-<li><strong>People.</strong> Do you know who does the work, and how many accounts they carry?</li>
+<li>Do you know who does the work, and how many accounts they carry?</li>
 <!-- /wp:list-item -->
 <!-- wp:list-item -->
-<li><strong>Evidence.</strong> Are the case studies dated, measured and honest about what was and was not typical?</li>
+<li>Are the case studies dated, measured and honest about what was and was not typical?</li>
 <!-- /wp:list-item -->
 <!-- wp:list-item -->
-<li><strong>Terms.</strong> Is the contract clear on length, exit, ownership and costs?</li>
+<li>Is the contract clear on length, exit, ownership and costs?</li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 
 <!-- wp:paragraph -->
-<p>A scorecard will not make the decision for you, but it stops the loudest pitch from winning by default.</p>
+<p>A scorecard stops the loudest pitch from winning by default.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2 class="wp-block-heading">Talk to the agency&rsquo;s past clients</h2>
+<h2 class="wp-block-heading">Talk to the agency\'s past clients</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -573,7 +573,7 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Whatever the agency does, the assets should stay yours: the website and its hosting, the analytics property, Search Console, the Google Business Profile and any content produced for you. Insist on being the owner and giving the agency access, not the reverse. If a relationship ends, you should be able to walk away with your data and your history intact.</p>
+<p>Whatever the agency does, the assets should stay yours: the website and its hosting, the analytics property, Search Console, the Google Business Profile and any content produced for you. Insist on being the owner and giving the agency access. If a relationship ends, you should be able to walk away with your data and your history intact.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -613,22 +613,22 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Once an SEO agency clears these bars, price it against reality: we\'ve published what SEO actually costs in <a href="/blog/seo-cost-singapore/">Singapore</a> and <a href="/blog/seo-services-pricing-malaysia/">Malaysia</a>. And if you\'d like to run these tests on us, <a href="/contact/">start a conversation</a>, the first one includes the audit.</p>
+<p>Once an SEO agency clears these bars, price it against the market: we have published what SEO actually costs in <a href="/blog/seo-cost-singapore/">Singapore</a> and <a href="/blog/seo-services-pricing-malaysia/">Malaysia</a>. And if you would like to run these tests on us, <a href="/contact/">start a conversation</a>. The first one includes the audit.</p>
 <!-- /wp:paragraph -->',
 		),
 		array(
 			'type'     => 'post',
 			'slug'     => 'seo-vs-sem',
 			'image'   => 'seo-vs-sem.jpg',
-			'title'    => 'SEO vs SEM: Which One First, and When',
+			'title'    => 'SEO vs SEM: which one first, and when',
 			'excerpt'  => 'SEO vs SEM compared on cost, speed and durability, and how to sequence the two for your margins.',
 			'category' => array( 'SEO & AI Search', 'seo-ai-search' ),
 			'tags'     => array( 'seo', 'sem', 'paid search', 'strategy', 'singapore' ),
-			'rm_title' => 'SEO vs SEM: Which One First, and When',
+			'rm_title' => 'SEO vs SEM: which one first, and when',
 			'rm_desc'  => 'SEO vs SEM compared on cost, speed and durability, with the sequencing rule we use to decide which one carries the load first. Read the comparison.',
 			'rm_kw'    => 'seo vs sem',
 			'content'  => '<!-- wp:paragraph -->
-<p>The SEO vs SEM question comes up in almost every first call we take, and it\'s usually asked as either-or. It isn\'t one. The two do different jobs on the same search results page, and the useful question is sequencing: which one carries the load now, and when does the balance shift.</p>
+<p>The SEO vs SEM question comes up in almost every first call we take, and people usually ask it as either-or. The two do different jobs on the same search results page, so the useful question is sequencing: which one carries the load now, and when does the balance shift.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -644,7 +644,7 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>SEM cost scales with clicks. Every visitor is paid for, and in competitive Singapore categories like finance, legal and B2B software, clicks commonly run past S$10. Stop paying and the traffic stops the same day. SEO cost is mostly labour: audits, content, technical work, links. It doesn\'t scale per visitor, which is what makes it cheap at high volume and expensive at low volume. A page that ranks keeps receiving traffic whether it gets ten visits a month or ten thousand, at roughly the same upkeep.</p>
+<p>SEM cost scales with clicks. Every visitor is paid for, and in competitive Singapore categories like finance, legal and B2B software, clicks commonly run past S$10. Stop paying and the traffic stops the same day. SEO cost is mostly labour: audits, content, technical work, links. It does not scale per visitor, which is what makes it cheap at high volume and expensive at low volume. A page that ranks keeps receiving traffic whether it gets ten visits a month or ten thousand, at roughly the same upkeep.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -652,7 +652,7 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>SEM wins on speed without contest: campaigns produce data in days. SEO wins on durability the same way: rankings earned on real content and sound structure tend to persist, and they keep working while you sleep, while your SEM budget only works while it\'s being spent. The trade is speed against compounding, and neither channel offers both. One caveat worth naming in any honest SEO vs SEM comparison: durability is a tendency, never a guarantee, and an algorithm update can move rankings that took a year to earn. What the update cannot touch is the content and structure underneath, which is why well-built organic positions tend to recover where thinly-built ones don\'t.</p>
+<p>SEM wins on speed without contest: campaigns produce data in days. SEO wins on durability the same way: rankings earned on real content and sound structure tend to persist, while your SEM budget only works while it is being spent. The trade is speed against compounding, and neither channel offers both. One caveat worth naming in any honest SEO vs SEM comparison: durability is a tendency, never a guarantee, and an algorithm update can move rankings that took a year to earn. What the update cannot touch is the content and structure underneath, which is why well-built organic positions tend to recover where thinly-built ones do not.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -660,7 +660,7 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Run SEM immediately while SEO builds underneath, then rebalance as organic takes share. The rebalancing point is a margin decision. At S$10+ per click, a thin-margin business is on a treadmill it can\'t afford forever, so shifting spend toward organic as rankings arrive is survival arithmetic. A high-LTV business can afford SEM indefinitely and may keep both at full strength. There is no calendar answer; there is a unit-economics answer, and it\'s different for every business.</p>
+<p>Run SEM immediately while SEO builds underneath, then rebalance as organic takes share. The rebalancing point is a margin decision. At S$10+ per click, a thin-margin business is on a treadmill it cannot afford forever, so shifting spend toward organic as rankings arrive is survival arithmetic. A high-LTV business can afford SEM indefinitely and may keep both at full strength. The answer comes from unit economics, and it is different for every business.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -668,7 +668,7 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>The most underused benefit of running both: paid search tells you within weeks which queries actually convert, at real statistical volume, usually within the first month. That validated list is the best keyword research SEO can get, because it\'s built from purchases rather than search-volume estimates. We build organic content plans against paid conversion data whenever both channels run together, and the SEO vs SEM framing dissolves into one system with two inputs.</p>
+<p>The most underused benefit of running both: paid search tells you within the first month which queries actually convert, at real statistical volume. That validated list is the best keyword research SEO can get, because it comes from purchases. We build organic content plans against paid conversion data whenever both channels run together, and the SEO vs SEM framing dissolves into one system with two inputs.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -699,11 +699,11 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>The first mistake is judging SEO on a timescale that suits SEM. Organic work takes months, and a campaign that is cancelled in the third month never gets to pay back. The second is the reverse: expecting SEM to keep delivering after the budget stops. Neither channel is at fault; the timing was wrong.</p>
+<p>The first mistake is judging SEO on a timescale that suits SEM. Organic work takes months, and a campaign that is cancelled in the third month never gets to pay back. The second is the reverse: expecting SEM to keep delivering after the budget stops. The timing was wrong, and the channel took the blame.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>A quieter mistake is paying for clicks you would have got anyway. If you already rank first organically for your brand name, bidding on it may add little, though it can still protect you from competitors who bid on your name. Test it rather than assuming either way. Equally, treating SEO vs SEM as a rivalry between two teams leads to duplicated work and missed insight, because each channel has something the other needs.</p>
+<p>A quieter mistake is paying for clicks you would have got anyway. If you already rank first organically for your brand name, bidding on it may add little, though it can still protect you from competitors who bid on your name. Test it. Equally, treating SEO vs SEM as a rivalry between two teams leads to duplicated work and missed insight, because each channel has something the other needs.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -719,7 +719,7 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>A practical way to settle the SEO vs SEM argument inside a company is to agree the numbers in advance: the cost per qualified lead you can accept, the date you will review it, and the point at which budget moves from one channel to the other. Decisions made against agreed numbers are calmer than decisions made in the heat of a bad month.</p>
+<p>One way to settle the SEO vs SEM argument inside a company is to agree the numbers in advance: the cost per qualified lead you can accept, the date you will review it, and the point at which budget moves from one channel to the other. Decisions made against agreed numbers are calmer than decisions made in the heat of a bad month.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -754,15 +754,15 @@ function remotive_seed_content() {
 			'type'     => 'post',
 			'slug'     => 'seo-cost-singapore',
 			'image'   => 'seo-cost-singapore.jpg',
-			'title'    => 'SEO Cost in Singapore: The Real Numbers',
+			'title'    => 'SEO cost in Singapore: the real numbers',
 			'excerpt'  => 'What SEO actually costs in Singapore: monthly retainer ranges, what drives the price, and what cheap SEO buys.',
 			'category' => array( 'Agency & Pricing Guides', 'agency-guides' ),
 			'tags'     => array( 'seo', 'pricing', 'singapore', 'agency' ),
-			'rm_title' => 'SEO Cost in Singapore: The Real Numbers',
+			'rm_title' => 'SEO cost in Singapore: the real numbers',
 			'rm_desc'  => 'SEO cost in Singapore: monthly retainer ranges, what drives the price, what cheap SEO really buys and how to pressure-test any quote. See the numbers.',
 			'rm_kw'    => 'seo cost',
 			'content'  => '<!-- wp:paragraph -->
-<p>Agencies mostly won\'t publish pricing, which is why every SEO cost in Singapore conversation starts with a range nobody will commit to. Here are the market\'s real numbers, what moves them, and how to tell whether a quote is scoped to your situation or copied from a rate card.</p>
+<p>Agencies mostly will not publish pricing, which is why every SEO cost in Singapore conversation starts with a range nobody will commit to. Here are the market\'s real numbers, what moves them, and how to tell whether a quote is scoped to your situation or copied from a rate card.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -770,7 +770,7 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Monthly retainers for small and mid-sized businesses commonly run S$1,000 to S$3,000. Competitive categories and larger sites typically sit between S$3,000 and S$8,000 a month, and enterprise programmes with multiple markets or heavy technical scope run S$10,000 and up. One-off technical audits usually price between S$1,500 and S$5,000 depending on site size and how deep the crawl needs to go. These are market ranges, drawn from what businesses tell us they\'ve been quoted and what we see agencies advertise, and any individual quote can land outside them for reasons that are sometimes legitimate and sometimes not.</p>
+<p>Monthly retainers for small and mid-sized businesses commonly run S$1,000 to S$3,000. Competitive categories and larger sites typically sit between S$3,000 and S$8,000 a month, and enterprise programmes with multiple markets or heavy technical scope run S$10,000 and up. One-off technical audits usually price between S$1,500 and S$5,000 depending on site size and how deep the crawl needs to go. These are market ranges, drawn from what businesses tell us they have been quoted and what we see agencies advertise, and any individual quote can land outside them for reasons that are sometimes legitimate and sometimes not.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -786,7 +786,7 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Below roughly S$800 a month, the economics only work through templated deliverables: auto-generated reports, thin syndicated content, directory links. None of it is free labour, so something is being skipped, and it\'s usually the parts that move rankings. That doesn\'t make every low quote a scam; a genuinely small local niche can be served cheaply. It does mean a low quote for a competitive category deserves the question: what specifically will be done each month, by whom, for this money? A low SEO cost only makes sense if the scope shrinks to match. The other tell is contract length. Cheap SEO sold on a twelve-month lock-in is priced on the assumption you\'ll leave once you notice nothing is moving, and the lock-in exists so you can\'t. Month-to-month terms at a low price are rarer, because an agency doing real work at that price loses money and an agency doing no work gets cancelled.</p>
+<p>Below roughly S$800 a month, the economics only work through templated deliverables: auto-generated reports, thin syndicated content, directory links. None of it is free labour, so something is being skipped, and it is usually the parts that move rankings. Some low quotes are fair: a small local niche can be served cheaply. A low quote for a competitive category still deserves the question: what specifically will be done each month, by whom, for this money? A low SEO cost only makes sense if the scope shrinks to match. The other tell is contract length. Cheap SEO sold on a twelve-month lock-in is priced on the assumption you will leave once you notice nothing is moving, and the lock-in exists so you cannot. Month-to-month terms at a low price are rarer, because an agency doing real work at that price loses money and an agency doing no work gets cancelled.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -794,7 +794,7 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Retainers suit ongoing programmes, which is what SEO mostly is. Fixed-price projects suit bounded work like an audit or a migration. Performance pricing, paying per ranking achieved, sounds aligned and usually isn\'t: it pushes the agency toward easy keywords nobody searches, because those pay the same as hard ones. The honest structure for a serious SEO cost in Singapore discussion is a retainer scoped against your actual keyword difficulty, with the monthly deliverables listed and the measurement defined before work starts.</p>
+<p>Retainers suit ongoing programmes, which is what SEO mostly is. Fixed-price projects suit bounded work like an audit or a migration. Performance pricing, paying per ranking achieved, sounds aligned and usually is not: it pushes the agency toward easy keywords nobody searches, because those pay the same as hard ones. The honest structure is a retainer scoped against your actual keyword difficulty, with the monthly deliverables listed and the measurement defined before work starts.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -802,7 +802,7 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>A retainer is only fair if you can say what it buys. Whatever the SEO cost, the monthly scope should be written down and should read like a work plan, not a promise. A typical programme covers some combination of the following.</p>
+<p>A retainer is only fair if you can say what it buys. Whatever the SEO cost, the monthly scope should be written down and should read like a work plan. A typical programme combines the following.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:list -->
@@ -832,11 +832,11 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>The headline SEO cost is rarely the whole bill. Budget for the things a retainer often leaves out: developer time to implement technical fixes, writers or subject experts for content that needs real expertise, design for pages that need to convert, and tools if you are asked to pay for them. None of these is a trick, but all of them should be on the table before you sign, not discovered in month three.</p>
+<p>The headline SEO cost is rarely the whole bill. Budget for the things a retainer often leaves out: developer time to implement technical fixes, writers or subject experts for content that needs real expertise, design for pages that need to convert, and tools if you are asked to pay for them. None of these is a trick, and all of them should be on the table before you sign.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>One cost to refuse is buying links. Paying for links to influence rankings goes against Google&rsquo;s spam policies and can lead to penalties that cost far more to fix than the links were worth. Earned links and genuine outreach are different, and a good agency can explain exactly how theirs are earned.</p>
+<p>One cost to refuse is buying links. Paying for links to influence rankings goes against Google\'s spam policies and can lead to penalties that cost far more to fix than the links were worth. Earned links and genuine outreach are different, and a good agency can explain exactly how theirs are earned.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -844,7 +844,7 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>A small budget can still work if it is aimed well. Start with the pages closest to revenue: the services, products and locations people search for when they are ready to buy. Fix the technical basics, make those pages genuinely useful and well linked, and add content slowly after that. Spreading a small SEO cost thinly across a blog, a directory push and a dozen tactics usually produces little of each.</p>
+<p>A small budget can still work if it is aimed well. Start with the pages closest to revenue: the services, products and locations people search for when they are ready to buy. Fix the technical basics, make those pages useful and well linked, and add content slowly after that. Spreading a small SEO cost thinly across a blog, a directory push and a dozen tactics usually produces little of each.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
@@ -876,22 +876,22 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Whatever the SEO cost, ask what the first ninety days contain, item by item. Ask which of your keywords the price was scoped against, and what the agency believes ranking them will take. Ask how progress is reported and against which baseline. An agency that priced your situation can answer all three in specifics; an agency reading from a rate card can\'t. Our own guide to <a href="/blog/how-to-choose-an-seo-agency/">choosing an SEO agency</a> covers the fuller checklist, the Malaysian market\'s equivalent numbers are in <a href="/blog/seo-services-pricing-malaysia/">SEO services pricing in Malaysia</a>, and the scope behind our own quotes is on the <a href="/services/seo/">SEO service</a> page. The first conversation includes the audit, so you\'ll have your list of specifics before anyone talks price.</p>
+<p>Whatever the SEO cost, ask what the first ninety days contain, item by item. Ask which of your keywords the price was scoped against, and what the agency believes ranking them will take. Ask how progress is reported and against which baseline. An agency that priced your situation can answer all three in specifics; an agency reading from a rate card cannot. Our own guide to <a href="/blog/how-to-choose-an-seo-agency/">choosing an SEO agency</a> covers the fuller checklist, the Malaysian market\'s equivalent numbers are in <a href="/blog/seo-services-pricing-malaysia/">SEO services pricing in Malaysia</a>, and the scope behind our own quotes is on the <a href="/services/seo/">SEO service</a> page. The first conversation includes the audit, so you will have your list of specifics before anyone talks price.</p>
 <!-- /wp:paragraph -->',
 		),
 		array(
 			'type'     => 'post',
 			'slug'     => 'seo-services-pricing-malaysia',
 			'image'   => 'seo-services-pricing-malaysia.jpg',
-			'title'    => 'SEO Services Pricing in Malaysia, Explained',
+			'title'    => 'SEO services pricing in Malaysia, explained',
 			'excerpt'  => 'SEO services pricing in Malaysia: retainer ranges in ringgit, the pricing models, and what moves the number.',
 			'category' => array( 'Agency & Pricing Guides', 'agency-guides' ),
 			'tags'     => array( 'seo', 'pricing', 'malaysia', 'agency' ),
-			'rm_title' => 'SEO Services Pricing in Malaysia, Explained',
+			'rm_title' => 'SEO services pricing in Malaysia, explained',
 			'rm_desc'  => 'SEO services pricing in Malaysia: retainer ranges in ringgit, the pricing models on offer and the cost drivers behind them. Get the real numbers.',
 			'rm_kw'    => 'seo services pricing',
 			'content'  => '<!-- wp:paragraph -->
-<p>Malaysian agencies publish prices even less often than Singaporean ones, so SEO services pricing in Malaysia mostly gets discovered one sales call at a time, with each call producing a number that\'s hard to compare against the last. Here are the market ranges in ringgit, the models behind them, and the questions that separate a scoped quote from a guessed one.</p>
+<p>Malaysian agencies publish prices even less often than Singaporean ones, so SEO services pricing in Malaysia mostly gets discovered one sales call at a time, with each call producing a number that is hard to compare against the last. Here are the market ranges in ringgit, the models behind them, and the questions that separate a scoped quote from a guessed one.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -899,7 +899,7 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Monthly retainers for small local businesses commonly run RM1,500 to RM4,000. Competitive categories and larger sites typically sit between RM4,000 and RM10,000 a month, and multi-market or heavily technical programmes go beyond RM12,000. Standalone audits usually price from RM2,000 to RM8,000 by site size. These are market ranges rather than a rate card, assembled from what prospects tell us they\'ve been quoted and what agencies here advertise, and a quote outside them isn\'t automatically wrong; it\'s a prompt to ask what the difference pays for.</p>
+<p>Monthly retainers for small local businesses commonly run RM1,500 to RM4,000. Competitive categories and larger sites typically sit between RM4,000 and RM10,000 a month, and multi-market or heavily technical programmes go beyond RM12,000. Standalone audits usually price from RM2,000 to RM8,000 by site size. These are market ranges rather than a rate card, assembled from what prospects tell us they have been quoted and what agencies here advertise, and a quote outside them deserves the question of what the difference pays for.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -907,7 +907,7 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Labour costs are lower, so SEO services pricing runs below Singapore\'s for the same deliverables, and the two markets\' numbers shouldn\'t be compared line for line. What doesn\'t change is the work itself: <a href="https://developers.google.com/search/docs/fundamentals/seo-starter-guide" target="_blank" rel="noopener noreferrer">Google\'s ranking fundamentals</a> are identical in both markets, so a Malaysian quote dramatically below the local range raises the same question a cheap Singapore quote does: which part of the work is being skipped? Singapore\'s equivalent numbers are in our companion piece on <a href="/blog/seo-cost-singapore/">SEO cost in Singapore</a>.</p>
+<p>Labour costs are lower, so SEO services pricing runs below Singapore\'s for the same deliverables, and the two markets\' numbers should not be compared line for line. The work itself stays the same: <a href="https://developers.google.com/search/docs/fundamentals/seo-starter-guide" target="_blank" rel="noopener noreferrer">Google\'s ranking fundamentals</a> are identical in both markets, so a Malaysian quote dramatically below the local range raises the same question a cheap Singapore quote does: which part of the work is being skipped? Singapore\'s equivalent numbers are in our companion piece on <a href="/blog/seo-cost-singapore/">SEO cost in Singapore</a>.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -915,11 +915,11 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Language scope is the biggest driver of SEO services pricing here. Malaysian search demand splits across English and Malay in most categories, with Mandarin mattering in several, and every language you cover means separate keyword research, separate content, separate on-page work. A single-language quote and a bilingual quote for the same site are different engagements at different prices. Location count is second: one PJ clinic and a chain across KL, Penang and JB carry different local-SEO workloads. Keyword difficulty and technical state drive the rest, exactly as they do everywhere. One more Malaysia-specific driver worth naming: platform mix. A meaningful share of Malaysian SMB sites still run on older page builders or heavily customised themes carrying years of accumulated technical debt, and remediating that before content work can pay off adds real hours to the early months of an engagement. An agency that quotes without having crawled your site hasn\'t priced that debt, because it can\'t have; it has priced an assumption.</p>
+<p>Language scope is the biggest driver of SEO services pricing here. Malaysian search demand splits across English and Malay in most categories, with Mandarin mattering in several, and every language you cover means separate keyword research, separate content, separate on-page work. A single-language quote and a bilingual quote for the same site are different engagements at different prices. Location count is second: one PJ clinic and a chain across KL, Penang and JB carry different local-SEO workloads. Keyword difficulty and technical state drive the rest, exactly as they do everywhere. One more Malaysia-specific driver worth naming: platform mix. Many Malaysian SMB sites still run on older page builders or heavily customised themes carrying years of accumulated technical debt, and remediating that before content work can pay off adds real hours to the early months of an engagement. An agency that quotes without crawling your site has priced an assumption.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2 class="wp-block-heading">The models you\'ll be offered</h2>
+<h2 class="wp-block-heading">The models you will be offered</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -931,7 +931,7 @@ function remotive_seed_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Malaysia is a multilingual market, and SEO services pricing should reflect it. Targeting English, Bahasa Malaysia and Chinese searchers means separate keyword research for each, since people search differently in each language and the same idea is rarely a direct translation. It also means content written by someone fluent in the language, not run through a translation tool, and technical setup so each version points to the right audience.</p>
+<p>Malaysia is a multilingual market, and SEO services pricing should reflect it. Targeting English, Bahasa Malaysia and Chinese searchers means separate keyword research for each, since people search differently in each language and the same idea is rarely a direct translation. It also means content written by someone fluent in the language, plus technical setup so each version points to the right audience.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
@@ -969,12 +969,12 @@ function remotive_seed_content() {
 <li>Ask each agency to price the same small set of target keywords.</li>
 <!-- /wp:list-item -->
 <!-- wp:list-item -->
-<li>Compare the cost of the first three months, not just the monthly headline.</li>
+<li>Compare the cost of the first three months as well as the monthly headline.</li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 
 <!-- wp:paragraph -->
-<p>Done this way, SEO services pricing from different agencies becomes comparable, and the differences point at real choices rather than at presentation.</p>
+<p>Done this way, SEO services pricing from different agencies becomes comparable, and the differences point at real choices.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
@@ -1020,7 +1020,7 @@ function remotive_seed_content() {
 			'rm_desc'  => 'Our SEO services cover search plus generative and answer engine visibility. Get a free audit.',
 			'rm_kw'    => 'seo services',
 			'content'  => '<!-- wp:paragraph -->
-<p>Our SEO services used to end at Google’s ten blue links. It doesn’t any more. People now ask ChatGPT which agency to use, let Perplexity compare their options, and take Google’s AI Overview as the answer without clicking anything. So our organic practice covers the whole surface: classic SEO, and the newer work the industry variously calls generative engine optimisation, artificial intelligence optimisation, or answer engine optimisation, GEO, AIO and AEO all name the same job from different angles: being the source the machines cite when they answer. It’s early-stage work, the engines change fast, citation tracking is imperfect, and anyone selling AI-visibility guarantees is guessing, which is exactly why it belongs inside a measured SEO practice rather than sold as magic on its own.</p>
+<p>Our SEO services used to end at Google’s ten blue links. It does not any more. People now ask ChatGPT which agency to use, let Perplexity compare their options, and take Google’s AI Overview as the answer without clicking anything. So our organic practice covers the whole surface: classic SEO, and the newer work the industry variously calls generative engine optimisation, artificial intelligence optimisation, or answer engine optimisation, GEO, AIO and AEO all name the same job from different angles: being the source the machines cite when they answer. It is early-stage work, the engines change fast, citation tracking is imperfect, and anyone selling AI-visibility guarantees is guessing, which is exactly why it belongs inside a measured SEO practice rather than sold as magic on its own.</p>
 <!-- /wp:paragraph -->
 <!-- wp:heading -->
 <h2>What our SEO services include</h2>
@@ -1039,7 +1039,7 @@ function remotive_seed_content() {
 <h2>What it looks like when it works</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>Results this sharp come with context. The B2B industrial automation client below had strong content held back by a weak technical foundation, structure released value that already existed, and structure alone won’t rescue thin content. With that said: organic sessions up 86% in one month after our technical and internal-link rebuild, average position from 16.3 to 10.6 in three months, and “turnkey automation systems” from unranked to position 3. A premium healthcare provider serving high-net-worth patients, a category increasingly decided by AI recommendation engines and search validation, gained 8.04 average positions in month one, with clicks up 34%, 2,553 keywords ranking, 150% more sales-qualified leads inside four weeks, and attributed pipeline revenue of $723k in month one rising to $1.4m by month three, “attributed” doing honest work in that sentence, since pipeline attribution is a model, and models estimate.</p>
+<p>Results this sharp come with context. The B2B industrial automation client below had strong content held back by a weak technical foundation, structure released value that already existed, and structure alone will not rescue thin content. The results: organic sessions up 86% in one month after our technical and internal-link rebuild, average position from 16.3 to 10.6 in three months, and “turnkey automation systems” from unranked to position 3. A premium healthcare provider serving high-net-worth patients, a category increasingly decided by AI recommendation engines and search validation, gained 8.04 average positions in month one, with clicks up 34%, 2,553 keywords ranking, 150% more sales-qualified leads inside four weeks, and attributed pipeline revenue of $723k in month one rising to $1.4m by month three, “attributed” doing honest work in that sentence, since pipeline attribution is a model, and models estimate.</p>
 <!-- /wp:paragraph -->
 <!-- wp:heading -->
 <h2>How engagements run</h2>
@@ -1057,13 +1057,13 @@ function remotive_seed_content() {
 <h2>Who our SEO services are built for</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>Mainly two kinds of client: teams who’ve outgrown a single in-house generalist and need specialists across technical, content and authority work at once, and teams who’ve been burned by a ranking-report agency and want revenue-linked reporting instead. If your site is brand new with no content or backlink history, expect the first few months to be foundation work, sitemaps, indexing, information architecture, rather than ranking movement; that sequencing is honest, not a stall tactic.</p>
+<p>Mainly two kinds of client: teams who have outgrown a single in-house generalist and need specialists across technical, content and authority work at once, and teams who have been burned by a ranking-report agency and want revenue-linked reporting instead. If your site is brand new with no content or backlink history, expect the first few months to be foundation work, sitemaps, indexing, information architecture, rather than ranking movement; that sequencing is honest, not a stall tactic.</p>
 
 <!-- wp:heading -->
-<h2>What we won’t promise</h2>
+<h2>What we will not promise</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>No timeline for page one, no guaranteed position, no fixed number of keywords ranked by a set date. Anyone offering those numbers is quoting outcomes Google itself doesn’t control. What we will commit to in writing: the audit scope, the reporting cadence, and the priority list for the first quarter.</p>
+<p>No timeline for page one, no guaranteed position, no fixed number of keywords ranked by a set date. Anyone offering those numbers is quoting outcomes Google itself does not control. What we will commit to in writing: the audit scope, the reporting cadence, and the priority list for the first quarter.</p>
 <!-- /wp:paragraph -->',
 		),
 		array(
@@ -1077,10 +1077,10 @@ function remotive_seed_content() {
 			'rm_desc'  => 'Full-funnel paid media across Google, Meta and LinkedIn at 0% markup, judged on CPA and ROAS. Get a free audit.',
 			'rm_kw'    => 'paid media',
 			'content'  => '<!-- wp:paragraph -->
-<p>Paid media is every dollar you put behind distribution, search, social, programmatic, B2B LinkedIn, and it only deserves the budget when every stage of the funnel is measured and every channel can defend itself against CPA, CPL, ROAS and revenue. That’s how we run it: flat retainers, media billed at net cost with 0% markup, and platform invoices attached to every recharge. One honest footnote on pricing models: at small spend levels a percentage-of-spend agency can genuinely cost less than a flat retainer, the model matters less than whether you can see the platform billing. Do the arithmetic for your budget.</p>
+<p>Paid media is every dollar you put behind distribution, search, social, programmatic, B2B LinkedIn, and it only deserves the budget when every stage of the funnel is measured and every channel can defend itself against CPA, CPL, ROAS and revenue. That is how we run it: flat retainers, media billed at net cost with 0% markup, and platform invoices attached to every recharge. One honest footnote on pricing models: at small spend levels a percentage-of-spend agency can cost less than a flat retainer, the model matters less than whether you can see the platform billing. Do the arithmetic for your budget.</p>
 <!-- /wp:paragraph -->
 <!-- wp:heading -->
-<h2>What’s included</h2>
+<h2>What is included</h2>
 <!-- /wp:heading -->
 <!-- wp:list -->
 <ul>
@@ -1096,7 +1096,7 @@ function remotive_seed_content() {
 <h2>Paid media, proof it moves numbers</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>Restructuring paid search for a premium B2B corporate-gifting brand lifted conversion rates 50% and qualified leads 150% on the same budget. Launching a global automotive marque’s Asia brand film across seven markets, AI-driven programmatic delivered 26.1 million completed views at a $0.0048 CPCV, CPMs 85% under market rate, and 32,298 distributor leads, a brand campaign, so read those as reach economics; view metrics don’t translate directly into lead-gen unit costs. For a global asset manager across four APAC markets, regulated financial services, MAS-grade compliance throughout, persona-led targeting improved conversion rates 25–35% and cut cost per conversion 20–30%, with paid-search engagement at 40.8% (3.9× the CTR benchmark) and 5.9% programmatic engagement across 21.8M in-target impressions. Those are engagement measures, chosen because regulated finance restricts what conversion data can travel, we’d rather show you the honest metric than dress one up.</p>
+<p>Restructuring paid search for a premium B2B corporate-gifting brand lifted conversion rates 50% and qualified leads 150% on the same budget. Launching a global automotive marque’s Asia brand film across seven markets, AI-driven programmatic delivered 26.1 million completed views at a $0.0048 CPCV, CPMs 85% under market rate, and 32,298 distributor leads, a brand campaign, so read those as reach economics; view metrics do not translate directly into lead-gen unit costs. For a global asset manager across four APAC markets, regulated financial services, MAS-grade compliance throughout, persona-led targeting improved conversion rates 25–35% and cut cost per conversion 20–30%, with paid-search engagement at 40.8% (3.9× the CTR benchmark) and 5.9% programmatic engagement across 21.8M in-target impressions. Those are engagement measures, chosen because regulated finance restricts what conversion data can travel, we would rather show you the honest metric than dress one up.</p>
 <!-- /wp:paragraph -->
 <!-- wp:heading -->
 <h2>Entering a new market?</h2>
@@ -1108,20 +1108,20 @@ function remotive_seed_content() {
 <h2>Reading first?</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>Start with <a href="/blog/sem-services-singapore/">what SEM services in Singapore include and cost</a>, the <a href="/blog/seo-vs-sem/">SEO vs SEM</a> comparison, or our <a href="/blog/facebook-advertising-malaysia/">Malaysia Facebook advertising guide</a>. When you’re ready, the audit is free.</p>
+<p>Start with <a href="/blog/sem-services-singapore/">what SEM services in Singapore include and cost</a>, the <a href="/blog/seo-vs-sem/">SEO vs SEM</a> comparison, or our <a href="/blog/facebook-advertising-malaysia/">Malaysia Facebook advertising guide</a>. When you are ready, the audit is free.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
 <h2>How we scope a paid media budget</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>Minimum viable paid media spend depends entirely on the auction you’re bidding into: a niche B2B keyword clears a signal at a few thousand dollars a month, while a contested consumer category in Singapore or Malaysia needs considerably more before the data is statistically usable. <a href="https://support.google.com/google-ads/answer/6167130" target="_blank" rel="noopener noreferrer">Google’s own guidance on Smart Bidding</a> explains why: bidding algorithms need conversion volume to learn from, and an underfunded campaign never gives them enough to work with. We’ll tell you honestly if a budget is too thin to test properly, before we take it.</p>
+<p>Minimum viable paid media spend depends entirely on the auction you are bidding into: a niche B2B keyword clears a signal at a few thousand dollars a month, while a contested consumer category in Singapore or Malaysia needs considerably more before the data is statistically usable. <a href="https://support.google.com/google-ads/answer/6167130" target="_blank" rel="noopener noreferrer">Google’s own guidance on Smart Bidding</a> explains why: bidding algorithms need conversion volume to learn from, and an underfunded campaign never gives them enough to work with. We will tell you honestly if a budget is too thin to test properly, before we take it.</p>
 
 <!-- wp:heading -->
 <h2>What we need from you to start</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>Ad accounts with history, whatever exists, even underperforming ones; access to the site or app for tracking; and a real conversion definition agreed before the first dollar spends. Accounts that start clean, no history, no baseline, take longer to judge, since there’s nothing to compare the new numbers against. If you’re migrating from another agency, keep the old account live in read-only mode for at least a quarter so the before-and-after comparison is honest rather than assumed, not asserted from memory once the new numbers look good.</p>
+<p>Ad accounts with history, whatever exists, even underperforming ones; access to the site or app for tracking; and a real conversion definition agreed before the first dollar spends. Accounts that start clean, no history, no baseline, take longer to judge, since there is nothing to compare the new numbers against. If you are migrating from another agency, keep the old account live in read-only mode for at least a quarter so the before-and-after comparison is honest rather than assumed, not asserted from memory once the new numbers look good.</p>
 <!-- /wp:paragraph -->',
 		),
 		array(
@@ -1138,7 +1138,7 @@ function remotive_seed_content() {
 <p>As a social media marketing agency, we work on one premise: creative, creators and paid distribution have to run as one system with one scoreboard, or they compete with each other for the same budget. We plan platform strategy, produce and test content, manage creator partnerships and amplify with paid, measured on leads, sales and pipeline, never reach.</p>
 <!-- /wp:paragraph -->
 <!-- wp:heading -->
-<h2>What’s included</h2>
+<h2>What is included</h2>
 <!-- /wp:heading -->
 <!-- wp:list -->
 <ul>
@@ -1153,13 +1153,13 @@ function remotive_seed_content() {
 <h2>Proof it moves numbers</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>Launching a premium medical-grade skincare brand into three Southeast Asian markets on under 0.5% share of category spend, we grew GMV 168% through Shopee and Lazada in the first three months and brought 65,000 new visitors averaging 2 minutes 20 seconds with the content, after our customer-journey analysis rerouted the launch from a D2C site to the marketplaces where that category, in those markets, actually buys. The lesson generalises; the playbook doesn’t: the same engagement ran a doctor-and-dermatologist B2B strategy in Singapore, because the channel follows the buyer, and buyers differ by market from one launch to the next. Advertisers in Malaysia can start with our <a href="/blog/facebook-advertising-malaysia/">practical guide to Facebook ads in Malaysia</a>.</p>
+<p>Launching a premium medical-grade skincare brand into three Southeast Asian markets on under 0.5% share of category spend, we grew GMV 168% through Shopee and Lazada in the first three months and brought 65,000 new visitors averaging 2 minutes 20 seconds with the content, after our customer-journey analysis rerouted the launch from a D2C site to the marketplaces where that category, in those markets, actually buys. The lesson generalises; the playbook does not: the same engagement ran a doctor-and-dermatologist B2B strategy in Singapore, because the channel follows the buyer, and buyers differ by market from one launch to the next. Advertisers in Malaysia can start with our <a href="/blog/facebook-advertising-malaysia/">practical guide to Facebook ads in Malaysia</a>.</p>
 <!-- /wp:paragraph -->
 <!-- wp:heading -->
-<h2>What our social media marketing agency won’t do</h2>
+<h2>What our social media marketing agency will not do</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>On a global automotive marque’s regional campaign, programmatic video beat both YouTube and Meta direct buys decisively. We run social for a client because the numbers earn it, and move budget through <a href="/services/paid-media/">paid media</a> when they don’t. The reverse also holds: for community-led and creator-led categories, social earns budget that search never could, because the buying decision itself gets made inside the feed. Channel answers are category answers.</p>
+<p>On a global automotive marque’s regional campaign, programmatic video beat both YouTube and Meta direct buys decisively. We run social for a client because the numbers earn it, and move budget through <a href="/services/paid-media/">paid media</a> when they do not. The reverse also holds: for community-led and creator-led categories, social earns budget that search never could, because the buying decision itself gets made inside the feed. Channel answers are category answers.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -1172,16 +1172,16 @@ function remotive_seed_content() {
 <h2>What a first month with our social media marketing agency looks like</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>Audit of existing channels and creative history first, so we’re not repeating tests you’ve already run. Then a content and creator plan built against your actual funnel stage, not a generic calendar. Paid amplification starts once organic and creator content has something worth amplifying; spending on distribution before the creative is tested is how budgets get burned on the wrong asset at scale.</p>
+<p>Audit of existing channels and creative history first, so we are not repeating tests you have already run. Then a content and creator plan built against your actual funnel stage, not a generic calendar. Paid amplification starts once organic and creator content has something worth amplifying; spending on distribution before the creative is tested is how budgets get burned on the wrong asset at scale.</p>
 
 <!-- wp:heading -->
 <h2>Who a social media marketing agency actually helps</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>Brands with something worth showing, a product, a process, a team, do better on social than brands trying to manufacture personality from nothing. If the account has no creative asset to build from, the first month’s job is finding one, not buying reach for a blank feed. That’s a slower start than a media plan promising fast numbers, and it’s the one that holds up past month three.</p>
+<p>Brands with something worth showing, a product, a process, a team, do better on social than brands trying to manufacture personality from nothing. If the account has no creative asset to build from, the first month’s job is finding one, not buying reach for a blank feed. That is a slower start than a media plan promising fast numbers, and it is the one that holds up past month three.</p>
 
 <!-- wp:heading -->
-<h2>Reporting that isn’t vanity metrics</h2>
+<h2>Reporting that is not vanity metrics</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
 <p>Followers and impressions go in the report because clients ask for them, not because they decide budget. The numbers that decide budget are cost per lead, assisted conversions from social touchpoints, and creator content that gets reused in paid, since content earning its keep twice changes the unit economics of the whole retainer, which is the actual argument for treating social as one connected system instead of a standalone line item on a media plan.</p>',
@@ -1197,10 +1197,10 @@ function remotive_seed_content() {
 			'rm_desc'  => 'Content marketing and performance creative: assets built to rank and get cited by AI. See the service.',
 			'rm_kw'    => 'content marketing',
 			'content'  => '<!-- wp:paragraph -->
-<p>Content marketing earns attention twice now, once from people, once from the machines that summarise for them. The second audience cuts both ways: AI answers can cite you or replace your click entirely, and nobody controls which. Our response is to compete for the citation while building the content only your brand can produce, the part a summary can’t substitute. We run content marketing and creative as performance assets: planned against search demand, structured so answer engines can cite them, and tested until the winners are obvious.</p>
+<p>Content marketing earns attention twice now, once from people, once from the machines that summarise for them. The second audience cuts both ways: AI answers can cite you or replace your click entirely, and nobody controls which. Our response is to compete for the citation while building the content only your brand can produce, the part a summary cannot substitute. We run content marketing and creative as performance assets: planned against search demand, structured so answer engines can cite them, and tested until the winners are obvious.</p>
 <!-- /wp:paragraph -->
 <!-- wp:heading -->
-<h2>What’s included</h2>
+<h2>What is included</h2>
 <!-- /wp:heading -->
 <!-- wp:list -->
 <ul>
@@ -1216,13 +1216,13 @@ function remotive_seed_content() {
 <h2>The standard our content marketing is held to</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>Creative gets judged the way media does: by CPA, ROAS and conversion lift, with one deliberate exception. Authority content built for long-horizon trust shouldn’t be strangled by a 30-day CPA window; it needs its own measures (rankings, citations, assisted conversions) and its own patience. Knowing which piece of content belongs on which scoreboard is most of what content strategy actually is. For everything on the performance scoreboard: variants of hook, visual and message run against each other in real time, and the data picks the winners weekly, the same discipline that told a skincare launch to reroute its whole strategy to marketplaces when the journey data disagreed with the original plan, growing GMV 168% in three months as a direct result.</p>
+<p>Creative gets judged the way media does: by CPA, ROAS and conversion lift, with one deliberate exception. Authority content built for long-horizon trust should not be strangled by a 30-day CPA window; it needs its own measures (rankings, citations, assisted conversions) and its own patience. Knowing which piece of content belongs on which scoreboard is most of what content strategy actually is. For everything on the performance scoreboard: variants of hook, visual and message run against each other in real time, and the data picks the winners weekly, the same discipline that told a skincare launch to reroute its whole strategy to marketplaces when the customer-journey data disagreed with the original plan, growing GMV 168% in three months as a direct result.</p>
 <!-- /wp:paragraph -->
 <!-- wp:heading -->
 <h2>Works best connected</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>Content feeds our <a href="/services/seo/">SEO &amp; GEO / AIO / AEO</a> work, it’s what gets ranked and cited, and plugs into <a href="/services/paid-media/">paid media</a> and <a href="/services/social/">social</a>, where the testing loop already runs.</p>
+<p>Content feeds our <a href="/services/seo/">SEO &amp; GEO / AIO / AEO</a> work, it is what gets ranked and cited, and plugs into <a href="/services/paid-media/">paid media</a> and <a href="/services/social/">social</a>, where the testing loop already runs.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -1235,7 +1235,7 @@ function remotive_seed_content() {
 <h2>What we need from a client before we start</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>Access to subject-matter experts, honestly. The content that performs best in our own work is never the generic industry overview, it’s the piece written together with someone who actually does the job day to day, carrying the specific detail that only comes from having done it themselves. A content marketing programme without access to real expertise inside the company produces competent, forgettable pages. That access matters more to the outcome than the size of the budget.</p>
+<p>Access to subject-matter experts, honestly. The content that performs best in our own work is never the generic industry overview, it is the piece written together with someone who actually does the job day to day, carrying the specific detail that only comes from having done it themselves. A content marketing programme without access to real expertise inside the company produces competent, forgettable pages. That access matters more to the outcome than the size of the budget.</p>
 
 <!-- wp:heading -->
 <h2>How long content marketing takes to show results</h2>
@@ -1254,10 +1254,10 @@ function remotive_seed_content() {
 			'rm_desc'  => 'Enterprise marketing automation: email and WhatsApp lifecycle flows, AI assistants and CRM integration. Find out more.',
 			'rm_kw'    => 'enterprise marketing automation',
 			'content'  => '<!-- wp:paragraph -->
-<p>Enterprise marketing automation is supposed to make leads convert while they’re warm and customers come back without being chased manually, not turn every touchpoint into a robotic drip. Leads that wait, lapse. We automate the conversations and journeys around your marketing carefully, because over-automation is its own failure mode: premium buyers can tell when nobody’s home, and consent rules (PDPA here, and platform policies on WhatsApp) bound what good automation is allowed to do. The craft is knowing where the human takes over: email flows, WhatsApp and messaging automation, AI assistants, all wired into your CRM.</p>
+<p>Enterprise marketing automation is supposed to make leads convert while they are warm and customers come back without being chased manually, not turn every touchpoint into a robotic drip. Leads that wait, lapse. We automate the conversations and journeys around your marketing carefully, because over-automation is its own failure mode: premium buyers can tell when nobody’s home, and consent rules (PDPA here, and platform policies on WhatsApp) bound what good automation is allowed to do. The craft is knowing where the human takes over: email flows, WhatsApp and messaging automation, AI assistants, all wired into your CRM.</p>
 <!-- /wp:paragraph -->
 <!-- wp:heading -->
-<h2>What’s included</h2>
+<h2>What is included</h2>
 <!-- /wp:heading -->
 <!-- wp:list -->
 <ul>
@@ -1285,13 +1285,13 @@ function remotive_seed_content() {
 <h2>What enterprise marketing automation replaces</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>Most accounts we inherit are running three or four disconnected tools: an email platform that doesn’t talk to the CRM, a WhatsApp inbox managed by hand, and a lead-scoring spreadsheet someone updates when they remember. Consolidating those into one enterprise marketing automation stack isn’t about buying a bigger tool, it’s about making sure a lead’s behaviour in one channel actually changes what happens in the next one. A site visitor who abandons a cart should trigger a different WhatsApp message than one who’s never visited at all; that only works if the systems share data in real time.</p>
+<p>Most accounts we inherit are running three or four disconnected tools: an email platform that does not talk to the CRM, a WhatsApp inbox managed by hand, and a lead-scoring spreadsheet someone updates when they remember. Consolidating those into one enterprise marketing automation stack is not about buying a bigger tool, it is about making sure a lead’s behaviour in one channel actually changes what happens in the next one. A site visitor who abandons a cart should trigger a different WhatsApp message than one who is never visited at all; that only works if the systems share data in real time.</p>
 
 <!-- wp:heading -->
 <h2>The consent question, answered honestly</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>Automation makes it easy to message people more than they’ve agreed to. <a href="https://www.pdpc.gov.sg/overview-of-pdpa/the-legislation/personal-data-protection-act" target="_blank" rel="noopener noreferrer">Singapore’s PDPA</a> and WhatsApp’s own business messaging policy both set real limits on frequency and consent, and we build automation flows inside those limits rather than testing how far we can push before someone complains. An enterprise marketing automation programme that generates opt-outs faster than leads is not a success story, however good the open rates look in the monthly report.</p>
+<p>Automation makes it easy to message people more than they have agreed to. <a href="https://www.pdpc.gov.sg/overview-of-pdpa/the-legislation/personal-data-protection-act" target="_blank" rel="noopener noreferrer">Singapore’s PDPA</a> and WhatsApp’s own business messaging policy both set real limits on frequency and consent, and we build automation flows inside those limits rather than testing how far we can push before someone complains. An enterprise marketing automation programme that generates opt-outs faster than leads is not a success story, however good the open rates look in the monthly report.</p>
 
 <!-- wp:heading -->
 <h2>Reporting on enterprise marketing automation</h2>
@@ -1303,7 +1303,7 @@ function remotive_seed_content() {
 <h2>Tools we build enterprise marketing automation on</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>We work inside whatever CRM and marketing platform a client already runs rather than forcing a migration for its own sake, since the cost of ripping out an embedded system rarely pays for itself in the improvement a newer tool offers. The exception is when the existing stack genuinely can\'t do the job, no API access, no way to trigger messaging from behavioural data, in which case we\'ll say so plainly and scope a migration as its own project with its own timeline, rather than quietly inflating the automation budget to cover a platform problem nobody actually asked us to go and solve in the first place.</p>',
+<p>We work inside whatever CRM and marketing platform a client already runs rather than forcing a migration for its own sake, since the cost of ripping out an embedded system rarely pays for itself in the improvement a newer tool offers. The exception is when the existing stack cannot do the job, no API access, no way to trigger messaging from behavioural data, in which case we will say so plainly and scope a migration as its own project with its own timeline, rather than quietly inflating the automation budget to cover a platform problem nobody actually asked us to go and solve in the first place.</p>',
 		),
 		array(
 			'type'     => 'page',
@@ -1319,7 +1319,7 @@ function remotive_seed_content() {
 <p>Marketing analytics exists to answer one question: which channels actually drive revenue? Without it, every budget decision is a guess. We build the measurement layer first: tracking, unified reporting and attribution that connect marketing activity to funded outcomes.</p>
 <!-- /wp:paragraph -->
 <!-- wp:heading -->
-<h2>What’s included</h2>
+<h2>What is included</h2>
 <!-- /wp:heading -->
 <!-- wp:list -->
 <ul>
@@ -1335,7 +1335,7 @@ function remotive_seed_content() {
 <h2>Why marketing analytics comes first</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>For a national sports and entertainment precinct we grew the addressable audience from 53k to 745k defined individuals using cookieless personas, and ongoing campaigns against those segments run 20–30% better on CPA with platform-reported ROAS above 400%, platform-reported deliberately said aloud, since ROAS a platform grades for itself flatters; incrementality is the harder, better question, and we’ll tell you when a number is which. The audience work made the media work.</p>
+<p>For a national sports and entertainment precinct we grew the addressable audience from 53k to 745k defined individuals using cookieless personas, and ongoing campaigns against those segments run 20–30% better on CPA with platform-reported ROAS above 400%, platform-reported deliberately said aloud, since ROAS a platform grades for itself flatters; incrementality is the harder, better question, and we will tell you when a number is which. The audience work made the media work.</p>
 <!-- /wp:paragraph -->
 <!-- wp:heading -->
 <h2>Connected to everything else</h2>
@@ -1354,7 +1354,7 @@ function remotive_seed_content() {
 <h2>How we handle attribution honestly</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>No attribution model is the truth, each one is a lens with a bias built in: last-click favours bottom-funnel channels, first-click favours awareness, and data-driven models inherit whatever pattern the platform’s black box decided to weight. Our marketing analytics work reports more than one model side by side rather than picking a favourite and presenting it as fact, and labels platform-reported numbers as platform-reported, since a platform grading its own performance has an obvious incentive to grade generously.</p>
+<p>No attribution model is the truth, each one is a lens with a bias built in: last-click favours bottom-funnel channels, first-click favours awareness, and models built on account data inherit whatever pattern the platform’s black box decided to weight. Our marketing analytics work reports more than one model side by side rather than picking a favourite and presenting it as fact, and labels platform-reported numbers as platform-reported, since a platform grading its own performance has an obvious incentive to grade generously.</p>
 
 <!-- wp:heading -->
 <h2>What marketing analytics costs to set up properly</h2>
@@ -1366,10 +1366,10 @@ function remotive_seed_content() {
 <h2>Signs your marketing analytics needs a rebuild</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>A few reliable tells: two reports in the building disagree on the same number and nobody can explain why; a channel gets credited with conversions that other data suggests it didn\'t drive; or decisions get made from gut feel because nobody trusts the dashboard enough to act on it. Any one of those is worth a proper audit before the next quarter\'s budget gets set on assumptions rather than evidence.</p>
+<p>A few reliable tells: two reports in the building disagree on the same number and nobody can explain why; a channel gets credited with conversions that other data suggests it did not drive; or decisions get made from gut feel because nobody trusts the dashboard enough to act on it. Any one of those is worth a proper audit before the next quarter\'s budget gets set on assumptions rather than evidence.</p>
 
 <!-- wp:heading -->
-<h2>Who owns marketing analytics once it\'s built</h2>
+<h2>Who owns marketing analytics once it is built</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
 <p>Dashboards decay without an owner. Tracking breaks silently when a site update ships, a new campaign type launches without a UTM convention, or a CRM field gets renamed. We hand over documentation and a maintenance checklist at the end of setup, but the accounts that stay clean longest are the ones where someone internally is named as the owner, not left as everyone\'s shared responsibility, which in practice means nobody\'s.</p>',
@@ -1378,7 +1378,7 @@ function remotive_seed_content() {
 			'type'     => 'page',
 			'slug'     => 'marketplace-launch-skincare',
 			'title'    => 'Premium Skincare: +168% GMV Across Three SEA Markets',
-			'excerpt'  => 'A medical-grade skincare launch grew GMV 168% in three months after journey analysis rerouted it from D2C to marketplaces. Read the case.',
+			'excerpt'  => 'A medical-grade skincare launch grew GMV 168% in three months after customer-journey analysis rerouted it from D2C to marketplaces. Read the case.',
 			'template' => 'page-service',
 			'parent'   => 'case-studies',
 			'rm_title' => 'Skincare Marketplace Launch: +168% GMV',
@@ -1401,7 +1401,7 @@ function remotive_seed_content() {
 <h2>Why marketplaces over the brand\'s own site</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>The category decided this, not a template preference. In several Southeast Asian skincare markets, marketplaces like <a href="https://seller.shopee.com/" target="_blank" rel="noopener noreferrer">Shopee</a> carry the trust signals a new entrant hasn\'t built yet, reviews, seller ratings, buyer protection, that a brand-new D2C domain can\'t replicate in month one. A skincare marketplace launch that insists on driving traffic to an unproven domain is paying a trust tax the marketplace has already resolved for its buyers. That doesn\'t hold everywhere; it held here, and the journey data is what confirmed it before the budget committed rather than after the first disappointing month of traffic.</p>
+<p>The category decided this, not a template preference. In several Southeast Asian skincare markets, marketplaces like <a href="https://seller.shopee.com/" target="_blank" rel="noopener noreferrer">Shopee</a> carry the trust signals a new entrant has not built yet, reviews, seller ratings, buyer protection, that a brand-new D2C domain cannot replicate in month one. A skincare marketplace launch that insists on driving traffic to an unproven domain is paying a trust tax the marketplace has already resolved for its buyers. That does not hold everywhere; it held here, and the customer-journey data is what confirmed it before the budget committed rather than after the first disappointing month of traffic.</p>
 <!-- /wp:paragraph -->
 <!-- wp:heading -->
 <h2>What happened</h2>
@@ -1416,14 +1416,14 @@ function remotive_seed_content() {
 <h2>The honest read</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>The number belongs to the routing decision. The journey data disagreed with the launch plan, and the plan changed, that is the whole case. The lesson generalises; the playbook does not: the same engagement ran a clinical B2B strategy in Singapore because the channel follows the buyer, and buyers differ by market. A skincare marketplace launch in a different category, or a different pair of countries, would need its own journey analysis before assuming the same routing applies.</p>
+<p>The number belongs to the routing decision. The customer-journey data disagreed with the launch plan, and the plan changed, that is the whole case. The lesson generalises; the playbook does not: the same engagement ran a clinical B2B strategy in Singapore because the channel follows the buyer, and buyers differ by market. A skincare marketplace launch in a different category, or a different pair of countries, would need its own customer-journey analysis before assuming the same routing applies.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>What we\'d check before repeating this</h2>
+<h2>What we would check before repeating this</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>Two things this case doesn\'t prove on its own: that marketplaces always beat a D2C site, and that 168% is a repeatable baseline. Both depend heavily on category dynamics and starting market share, and a skincare marketplace launch attempted in a more saturated category with several strong incumbents already established would very likely see a meaningfully different number even with the identical routing logic applied correctly and carefully. What generalises is the method: checking where the category actually buys before building the launch plan around an assumption inherited from a different, home market. That check costs a few weeks of analysis and saves months of a launch built on the wrong channel.</p>
+<p>Two things this case does not prove on its own: that marketplaces always beat a D2C site, and that 168% is a repeatable baseline. Both depend heavily on category dynamics and starting market share, and a skincare marketplace launch attempted in a more saturated category with several strong incumbents already established would very likely see a meaningfully different number even with the identical routing logic applied correctly and carefully. What generalises is the method: checking where the category actually buys before building the launch plan around an assumption inherited from a different, home market. That check costs a few weeks of analysis and saves months of a launch built on the wrong channel.</p>
 
 <!-- wp:heading -->
 <h2>Where this connects</h2>
@@ -1459,7 +1459,7 @@ function remotive_seed_content() {
 <h2>Why programmatic over direct buys here</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>A brand film running in seven markets at once has seven different inventory markets, seven different audience behaviours, and seven different price floors to negotiate. Direct buys with individual publishers don\'t scale against that without a proportional increase in account management overhead. Automotive programmatic advertising bought through <a href="https://marketingplatform.google.com/about/display-video-360/" target="_blank" rel="noopener noreferrer">a demand-side platform</a> lets the buy reallocate spend toward whichever market and placement is delivering completed views most efficiently in real time, rather than committing budget to seven markets up front and hoping the initial split turned out to be the right one.</p>
+<p>A brand film running in seven markets at once has seven different inventory markets, seven different audience behaviours, and seven different price floors to negotiate. Direct buys with individual publishers do not scale against that without a proportional increase in account management overhead. Automotive programmatic advertising bought through <a href="https://marketingplatform.google.com/about/display-video-360/" target="_blank" rel="noopener noreferrer">a demand-side platform</a> lets the buy reallocate spend toward whichever market and placement is delivering completed views most efficiently in real time, rather than committing budget to seven markets up front and hoping the initial split turned out to be the right one.</p>
 <!-- /wp:paragraph -->
 <!-- wp:heading -->
 <h2>What happened</h2>
@@ -1523,7 +1523,7 @@ function remotive_seed_content() {
 <h2>Why cookieless audience building, not third-party data</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>Third-party cookie deprecation was already reshaping how <a href="https://developers.google.com/privacy-sandbox" target="_blank" rel="noopener noreferrer">the ad industry targets audiences</a> when this engagement started, and a precinct depending on rented, third-party segments would have seen its addressable reach shrink over time rather than grow. Building first-party, contextual audiences instead meant the asset belonged to the client rather than to a data broker whose supply could disappear with a policy change. That durability is the actual point of cookieless audience building, not just a workaround for a deprecated targeting method.</p>
+<p>Third-party cookie deprecation was already reshaping how <a href="https://developers.google.com/privacy-sandbox" target="_blank" rel="noopener noreferrer">the ad industry targets audiences</a> when this engagement started, and a precinct depending on rented, third-party segments would have seen its addressable reach shrink over time rather than grow. Building first-party, contextual audiences instead meant the asset belonged to the client rather than to a data broker whose supply could disappear with a policy change. That durability is the actual point of cookieless audience building, beyond being a workaround for a deprecated targeting method.</p>
 <!-- /wp:paragraph -->
 <!-- wp:heading -->
 <h2>What happened</h2>
@@ -1548,7 +1548,7 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>What this doesn\'t prove for every venue</h2>
+<h2>What this does not prove for every venue</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
 <p>A fourteenfold audience increase depended on a specific starting condition: a precinct with a wide event calendar and enough first-party touchpoints, ticketing, membership, on-site Wi-Fi, to build contextual segments from. A smaller venue with fewer events and less first-party data would build a smaller addressable audience through the same cookieless audience building method, and the multiple would be lower. The method transfers; the specific multiple does not.</p>
@@ -1569,7 +1569,7 @@ function remotive_seed_content() {
 <h2>How long the build took</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>The jump from 53,000 to 745,000 defined individuals wasn\'t a single migration event, it accumulated across several event cycles as more first-party touchpoints fed the segmentation model and the model itself improved at distinguishing event-category interest from generic attendance. Cookieless audience building of this kind rewards patience over a quick platform swap; the venues that try to shortcut the accumulation period typically end up with a smaller, less reliable and less durable audience than the one that was built properly and patiently from the start.</p>
+<p>The jump from 53,000 to 745,000 defined individuals was not a single migration event, it accumulated across several event cycles as more first-party touchpoints fed the segmentation model and the model itself improved at distinguishing event-category interest from generic attendance. Cookieless audience building of this kind rewards patience over a quick platform swap; the venues that try to shortcut the accumulation period typically end up with a smaller, less reliable and less durable audience than the one that was built properly and patiently from the start.</p>
 <!-- /wp:paragraph -->
 <!-- wp:paragraph -->
 <p><em>Client described rather than named, and all figures are reported exactly as recorded at the time.</em></p>
@@ -1639,10 +1639,10 @@ function remotive_seed_content() {
 <p>Before the restructure, the negative keyword list ran to a few dozen obvious exclusions, competitor brand names, unrelated product categories. After, it ran to several hundred, built by mining several months of search-term reports for queries that had spent money without ever converting. That expanded negative list did more to protect the budget than any single positive keyword addition, since it stopped continuous, quiet spend leakage on queries that looked plausible but never converted, month after month, without anyone noticing until the reports were actually mined properly.</p>
 
 <!-- wp:heading -->
-<h2>Why the same restructure isn\'t always the answer</h2>
+<h2>Why the same restructure is not always the answer</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>A paid search account restructure only unlocks a gain this size when the starting account genuinely has structural waste to remove. An account that\'s already well-negatived, properly segmented by intent and tracked against qualified leads rather than raw conversions won\'t see anything close to 150%, because there\'s no equivalent waste left to redirect. Asking for a proper diagnostic before signing any restructure engagement is really the only honest way to know for certain which of those two situations an account is actually in.</p>
+<p>A paid search account restructure only unlocks a gain this size when the starting account has structural waste to remove. An account that is already well-negatived, properly segmented by intent and tracked against qualified leads rather than raw conversions will not see anything close to 150%, because there is no equivalent waste left to redirect. Asking for a proper diagnostic before signing any restructure engagement is really the only honest way to know for certain which of those two situations an account is actually in.</p>
 <!-- /wp:paragraph -->
 <!-- wp:paragraph -->
 <p><em>Client described rather than named, and all figures are reported exactly as recorded at the time.</em></p>
@@ -1691,10 +1691,10 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>What we couldn\'t measure, and why</h2>
+<h2>What we could not measure, and why</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>Down-funnel conversion data, actual account openings and funded amounts, sat behind the client\'s own compliance and data-residency walls and never reached the media platforms. That\'s not a gap in our reporting, it\'s a deliberate regulatory boundary that any honest financial services paid media engagement in this category has to work within. Engagement metrics are the closest proxy available on the media side; the client tracked the down-funnel numbers separately and reconciled them internally, which is the correct division of responsibility in a regulated category.</p>
+<p>Down-funnel conversion data, actual account openings and funded amounts, sat behind the client\'s own compliance and data-residency walls and never reached the media platforms. The missing data marks a deliberate regulatory boundary that any honest financial services paid media engagement in this category has to work within. Engagement metrics are the closest proxy available on the media side; the client tracked the down-funnel numbers separately and reconciled them internally, which is the correct division of responsibility in a regulated category.</p>
 
 <!-- wp:heading -->
 <h2>Where this connects</h2>
@@ -1712,7 +1712,7 @@ function remotive_seed_content() {
 <h2>What a regulated buyer should ask an agency</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>Whether they\'ve actually run financial services paid media through a compliance review process before, not just claim familiarity with the category. Ask for a specific example of a creative asset that changed because of a compliance requirement, and what the change was. An agency that has never had a financial services asset rejected or amended by a compliance team probably hasn\'t done enough of this work to know where the real constraints sit.</p>
+<p>Whether they have actually run financial services paid media through a compliance review process before, instead of only claiming familiarity with the category. Ask for a specific example of a creative asset that changed because of a compliance requirement, and what the change was. An agency that has never had a financial services asset rejected or amended by a compliance team probably has not done enough of this work to know where the real constraints sit.</p>
 <!-- /wp:paragraph -->
 <!-- wp:paragraph -->
 <p><em>Client described rather than named, and all figures are reported exactly as recorded at the time.</em></p>
@@ -1770,7 +1770,7 @@ function remotive_seed_content() {
 <h2>How to tell if you need a technical SEO rebuild</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>The clearest signal is a mismatch: content that reads well and covers real buyer questions, sitting on pages that rank nowhere near where the content quality would suggest. If your best pages are also your least-linked pages internally, or a crawl tool reports orphaned pages several clicks from the homepage, a technical SEO rebuild is very likely the higher-leverage fix, ahead of writing more content the current structure would bury just as effectively.</p>
+<p>The clearest signal is a mismatch: content that reads well and covers real buyer questions, sitting on pages that rank nowhere near where the content quality would suggest. If your best pages are also your least-linked pages internally, or a crawl tool reports orphaned pages several clicks from the homepage, a technical SEO rebuild is very likely the higher-impact fix, ahead of writing more content the current structure would bury just as effectively.</p>
 
 <!-- wp:heading -->
 <h2>Where this connects</h2>
@@ -1782,13 +1782,13 @@ function remotive_seed_content() {
 <h2>Why one month, not three or six</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>Most technical SEO rebuild work takes months to show in rankings because it\'s waiting on new content to be crawled, indexed and evaluated for the first time. This engagement moved faster because the content already existed and had already accumulated some authority; the rebuild simply let Google\'s crawler reach and credit pages it had previously been struggling to find efficiently. A technical SEO rebuild on a brand-new site with no content history would show the same structural improvement but a much slower ranking response, since there\'s no existing authority for the improved structure to redistribute.</p>
+<p>Most technical SEO rebuild work takes months to show in rankings because it is waiting on new content to be crawled, indexed and evaluated for the first time. This engagement moved faster because the content already existed and had already accumulated some authority; the rebuild simply let Google\'s crawler reach and credit pages it had previously been struggling to find efficiently. A technical SEO rebuild on a brand-new site with no content history would show the same structural improvement but a much slower ranking response, since there is no existing authority for the improved structure to redistribute.</p>
 
 <!-- wp:heading -->
 <h2>What we track after the rebuild ships</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>Crawl stats from Search Console, specifically pages crawled per day and time spent on each page, tell us within days whether the new structure is actually being read differently by Google\'s crawler, well before ranking movement confirms it. A technical SEO rebuild that doesn\'t change crawl behaviour within the first two weeks usually means something in the implementation didn\'t take, and it\'s worth checking before waiting a full month for the ranking data to say the same thing more slowly.</p>
+<p>Crawl stats from Search Console, specifically pages crawled per day and time spent on each page, tell us within days whether the new structure is actually being read differently by Google\'s crawler, well before ranking movement confirms it. A technical SEO rebuild that does not change crawl behaviour within the first two weeks usually means something in the implementation did not take, and it is worth checking before waiting a full month for the ranking data to say the same thing more slowly.</p>
 <!-- /wp:paragraph -->
 <!-- wp:paragraph -->
 <p><em>Client described rather than named, and all figures are reported exactly as recorded at the time.</em></p>
@@ -1843,10 +1843,10 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>What healthcare AI search visibility can\'t promise</h2>
+<h2>What healthcare AI search visibility cannot promise</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>No agency can guarantee a specific AI assistant will cite a specific page on a specific query; the engines change their retrieval and ranking logic without notice, and no third-party tool tracks citation share with the reliability that rank trackers offer for classic search. Healthcare AI search visibility work is judged on directional signal, structured content getting cited more often over time, alongside the classic SEO metrics that remain measurable and auditable in the way AI citation currently isn\'t.</p>
+<p>No agency can guarantee a specific AI assistant will cite a specific page on a specific query; the engines change their retrieval and ranking logic without notice, and no third-party tool tracks citation share with the reliability that rank trackers offer for classic search. Healthcare AI search visibility work is judged on directional signal, structured content getting cited more often over time, alongside the classic SEO metrics that remain measurable and auditable in the way AI citation currently is not.</p>
 
 <!-- wp:heading -->
 <h2>Where this connects</h2>
@@ -1894,7 +1894,7 @@ function remotive_seed_content() {
 <h2>Why sprints instead of a single regional strategy</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>A single regional strategy document is faster to produce but treats Southeast Asia as one market, which it isn\'t: trading platform regulation, investor sophistication and preferred channels differ meaningfully between, say, Vietnam and Singapore. A Southeast Asia market entry built market by market with a local expert attached to each sprint costs more coordination up front but avoids the far more expensive mistake of launching a positioning that doesn\'t fit the local regulatory or cultural context.</p>
+<p>A single regional strategy document is faster to produce but treats Southeast Asia as one market, which it is not: trading platform regulation, investor sophistication and preferred channels differ meaningfully between, say, Vietnam and Singapore. A Southeast Asia market entry built market by market with a local expert attached to each sprint costs more coordination up front but avoids the far more expensive mistake of launching a positioning that does not fit the local regulatory or cultural context.</p>
 <!-- /wp:paragraph -->
 <!-- wp:heading -->
 <h2>What happened</h2>
@@ -1913,10 +1913,10 @@ function remotive_seed_content() {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>What this doesn\'t measure</h2>
+<h2>What this does not measure</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>Speed of delivery isn\'t the same as quality of outcome, and this case makes no claim about how the launches actually performed once media went live, since that outcome belongs entirely to the client\'s own activation and reporting, not to the sprint itself. A Southeast Asia market entry delivered fast but built on the wrong positioning would still fail regardless of how efficiently it shipped; speed only ever compounds a strategy that was already right to begin with.</p>
+<p>Speed of delivery is not the same as quality of outcome, and this case makes no claim about how the launches actually performed once media went live, since that outcome belongs entirely to the client\'s own activation and reporting, not to the sprint itself. A Southeast Asia market entry delivered fast but built on the wrong positioning would still fail regardless of how efficiently it shipped; speed only ever compounds a strategy that was already right to begin with.</p>
 
 <!-- wp:heading -->
 <h2>Where this connects</h2>
@@ -1928,13 +1928,13 @@ function remotive_seed_content() {
 <h2>What makes a market ready for the sprint format</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>The 48-hour sprint format works when the parent brand already has a clear global positioning and product to localise, since the sprint compresses adaptation time, not strategy invention time from zero. A Southeast Asia market entry for a genuinely new product category with no existing brand equity to draw on would need real discovery work before a sprint could compress anything meaningfully; compressing a process that hasn\'t happened yet just produces a fast, badly-informed launch instead of a fast, well-informed one.</p>
+<p>The 48-hour sprint format works when the parent brand already has a clear global positioning and product to localise, since the sprint compresses adaptation time, not strategy invention time from zero. A Southeast Asia market entry for a new product category with no existing brand equity to draw on would need real discovery work before a sprint could compress anything meaningfully; compressing a process that has not happened yet just produces a fast, badly-informed launch instead of a fast, well-informed one.</p>
 
 <!-- wp:heading -->
 <h2>Regulatory considerations across the region</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>Trading and financial platforms face different licensing and advertising rules in each Southeast Asian market; <a href="https://www.mas.gov.sg/regulation" target="_blank" rel="noopener noreferrer">Singapore\'s MAS</a> alone sets requirements that don\'t map directly onto neighbouring jurisdictions. Building local legal review into each 48-hour sprint, rather than treating it as a separate downstream step, is what let this Southeast Asia market entry move at the pace it did without compliance becoming a bottleneck later in the process.</p>
+<p>Trading and financial platforms face different licensing and advertising rules in each Southeast Asian market; <a href="https://www.mas.gov.sg/regulation" target="_blank" rel="noopener noreferrer">Singapore\'s MAS</a> alone sets requirements that do not map directly onto neighbouring jurisdictions. Building local legal review into each 48-hour sprint, rather than treating it as a separate downstream step, is what let this Southeast Asia market entry move at the pace it did without compliance becoming a bottleneck later in the process.</p>
 <!-- /wp:paragraph -->
 <!-- wp:paragraph -->
 <p><em>Client described rather than named, and all figures are reported exactly as recorded at the time.</em></p>
@@ -2077,7 +2077,7 @@ function remotive_seed_content() {
 <h2>What multi-year, multi-agency reporting requires</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>When several agencies work on different parts of the same site over multiple years, attributing a specific traffic movement to a specific programme requires discipline most reporting doesn\'t bother with: dated change logs matched against traffic inflection points, and <a href="https://developers.google.com/search/updates/ranking" target="_blank" rel="noopener noreferrer">Google\'s own algorithm update timeline</a> checked against both. FMCG SEO across Malaysia and Singapore run inside a multi-agency environment like this one only produces a credible number when that discipline is applied consistently, month by month, rather than reconstructed after the fact when a stakeholder asks what drove a good quarter.</p>
+<p>When several agencies work on different parts of the same site over multiple years, attributing a specific traffic movement to a specific programme requires discipline most reporting does not bother with: dated change logs matched against traffic inflection points, and <a href="https://developers.google.com/search/updates/ranking" target="_blank" rel="noopener noreferrer">Google\'s own algorithm update timeline</a> checked against both. FMCG SEO across Malaysia and Singapore run inside a multi-agency environment like this one only produces a credible number when that discipline is applied consistently, month by month, rather than reconstructed after the fact when a stakeholder asks what drove a good quarter.</p>
 <!-- /wp:paragraph -->
 <!-- wp:paragraph -->
 <p><em>Client described by sector rather than named, and every figure is reported exactly as recorded at the time.</em></p>
@@ -2094,7 +2094,7 @@ function remotive_seed_content() {
 			'rm_desc'  => 'B2B SEO results: every tracked metric moved in one month, traffic up 94%. Read the case.',
 			'rm_kw'    => 'b2b seo results',
 			'content'  => '<!-- wp:paragraph -->
-<p>This case shows b2b seo results from a firm starting at a genuinely small base: 35 organic visitors and 46 sessions in the first month of measurement, with a backlink profile of 170 and no meaningful indexed keyword coverage.</p>
+<p>This case shows b2b seo results from a firm starting at a very small base: 35 organic visitors and 46 sessions in the first month of measurement, with a backlink profile of 170 and no meaningful indexed keyword coverage.</p>
 <!-- /wp:paragraph -->
 <!-- wp:heading -->
 <h2>How these b2b seo results were built</h2>
@@ -2138,7 +2138,7 @@ function remotive_seed_content() {
 <h2>What a small starting base means for the timeline</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>A site starting near zero has more room to show a large percentage gain than an established site already capturing most of its available demand, and that\'s worth naming plainly rather than letting the headline number imply otherwise. B2B seo results this dramatic are, in part, a function of how little traffic existed at the start; a mature site with an established baseline would need a different kind of engagement, and different expectations, to judge success by.</p>
+<p>A site starting near zero has more room to show a large percentage gain than an established site already capturing most of its available demand, and that is worth naming plainly rather than letting the headline number imply otherwise. B2B seo results this dramatic are, in part, a function of how little traffic existed at the start; a mature site with an established baseline would need a different kind of engagement, and different expectations, to judge success by.</p>
 
 <!-- wp:heading -->
 <h2>Where this connects</h2>
@@ -2150,7 +2150,7 @@ function remotive_seed_content() {
 <h2>What the November core update changed</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p><a href="https://developers.google.com/search/updates/ranking" target="_blank" rel="noopener noreferrer">Google\'s core update documentation</a> is explicit that updates reassess content quality broadly rather than targeting specific sites, which means even a genuinely improving site can see a temporary dip if the update happens to reweight signals mid-programme. The two backwards months in this engagement coincided with exactly that kind of broad reassessment, not a mistake in the work; publishing those dips in the same chart as the gains is what makes the overall b2b seo results trustworthy rather than curated.</p>
+<p><a href="https://developers.google.com/search/updates/ranking" target="_blank" rel="noopener noreferrer">Google\'s core update documentation</a> is explicit that updates reassess content quality broadly rather than targeting specific sites, which means even an improving site can see a temporary dip if the update happens to reweight signals mid-programme. The two backwards months in this engagement coincided with exactly that kind of broad reassessment, not a mistake in the work; publishing those dips in the same chart as the gains is what makes the overall b2b seo results trustworthy rather than curated.</p>
 <!-- /wp:paragraph -->
 <!-- wp:paragraph -->
 <p><em>Client described by sector rather than named, and every figure is reported exactly as recorded at the time.</em></p>
@@ -2180,7 +2180,7 @@ function remotive_seed_content() {
 <h2>Why branded-only visibility is a warning sign</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>A retailer that only ranks for its own name is invisible to the much larger pool of shoppers who don\'t know the brand yet and are searching by category or product type instead. Ecommerce SEO for footwear specifically means competing on terms like shoe types, use cases and style descriptors, not just the brand name, since that\'s where new customer discovery actually happens rather than where existing customers confirm they\'ve found the right site.</p>
+<p>A retailer that only ranks for its own name is invisible to the much larger pool of shoppers who do not know the brand yet and are searching by category or product type instead. Ecommerce SEO for footwear specifically means competing on terms like shoe types, use cases and style descriptors, beyond the brand name, since that is where new customer discovery actually happens rather than where existing customers confirm they have found the right site.</p>
 <!-- /wp:paragraph -->
 <!-- wp:heading -->
 <h2>What happened</h2>
@@ -2195,7 +2195,7 @@ function remotive_seed_content() {
 <h2>The honest read</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>Three months fixes a site and starts a trend; proving a compounding one takes longer. The honest description is a foundation laid, with momentum visible at the point of reporting. The absolute numbers are modest by design, this was a niche retailer, not a mass-market store, and the biggest constraint identified, backlink authority, was still outstanding when the reporting period closed. We said so in the report on this ecommerce SEO for footwear engagement, rather than waiting for a stakeholder to ask why the number wasn\'t bigger.</p>
+<p>Three months fixes a site and starts a trend; proving a compounding one takes longer. The honest description is a foundation laid, with momentum visible at the point of reporting. The absolute numbers are modest by design, this was a niche retailer, not a mass-market store, and the biggest constraint identified, backlink authority, was still outstanding when the reporting period closed. We said so in the report on this ecommerce SEO for footwear engagement, rather than waiting for a stakeholder to ask why the number was not bigger.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -2214,7 +2214,7 @@ function remotive_seed_content() {
 <h2>What the disavow actually fixed</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>A backlink profile leaning on low-authority, largely nofollow links doesn\'t just fail to help, in some cases it actively signals low quality to search engines if the pattern looks manipulative rather than organic. Filing a disavow for the harmful links removed that drag before the technical and content work had to compete against it, rather than trying to out-optimise a backlink profile that was actively working against the site the entire time.</p>
+<p>A backlink profile leaning on low-authority, largely nofollow links fails to help and, in some cases, actively signals low quality to search engines if the pattern looks manipulative rather than organic. Filing a disavow for the harmful links removed that drag before the technical and content work had to compete against it, rather than trying to out-optimise a backlink profile that was actively working against the site the entire time.</p>
 <!-- /wp:paragraph -->
 <!-- wp:paragraph -->
 <p><em>Client described by sector rather than named, and every figure is reported exactly as recorded at the time.</em></p>
@@ -2231,7 +2231,7 @@ function remotive_seed_content() {
 			'rm_desc'  => 'Singapore B2B SEO across six concurrent clients: keyword mapping, off-page programmes and position tracking. Read the case.',
 			'rm_kw'    => 'singapore b2b seo',
 			'content'  => '<!-- wp:paragraph -->
-<p>Six B2B clients in the Singapore market, run concurrently: food service and distribution, logistics and transport, manufacturing and trade. Different categories, one operating system — which is what running a portfolio well actually requires.</p>
+<p>Six B2B clients in the Singapore market, run concurrently: food service and distribution, logistics and transport, manufacturing and trade. Different categories, one operating system, which is what running a portfolio well actually requires.</p>
 <!-- /wp:paragraph -->
 <!-- wp:heading -->
 <h2>What we did</h2>
@@ -2239,7 +2239,7 @@ function remotive_seed_content() {
 <!-- wp:list -->
 <ul>
 <!-- wp:list-item --><li>Keyword mapping and content optimisation templated for repeatable rollout</li><!-- /wp:list-item -->
-<!-- wp:list-item --><li>Off-page programmes tailored per client rather than a single link list reused</li><!-- /wp:list-item -->
+<!-- wp:list-item --><li>Off-page programmes built per client rather than a single link list reused</li><!-- /wp:list-item -->
 <!-- wp:list-item --><li>Coverage and technical drilldowns per domain</li><!-- /wp:list-item -->
 <!-- wp:list-item --><li>Organic position tracking in the Singapore market</li><!-- /wp:list-item -->
 <!-- wp:list-item --><li>Authority building through high-trust placements, including reference and Q&A platforms</li><!-- /wp:list-item -->
@@ -2256,7 +2256,7 @@ function remotive_seed_content() {
 <h2>The honest read</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>This is our most recent Singapore-market work, which is why it is here — but it is also the case where we are showing method rather than outcomes. The engagements were reported through the agency’s own client reporting, so the outcome data is not ours to publish; what we can speak to is the process, the standards applied, and the current-market familiarity. When a case study can only honestly demonstrate approach, saying so is better than borrowing a number.</p>
+<p>This is our most recent Singapore-market work, which is why it is here, but it is also the case where we are showing method rather than outcomes. The engagements were reported through the agency’s own client reporting, so the outcome data is not ours to publish; what we can speak to is the process, the standards applied, and the current-market familiarity. When a case study can only honestly demonstrate approach, saying so is better than borrowing a number.</p>
 <!-- /wp:paragraph -->
 <!-- wp:paragraph -->
 <p><em>Client described by sector rather than named, and all figures are reported exactly as recorded at the time.</em></p>
@@ -2308,7 +2308,7 @@ function remotive_seed_content() {
 <h2>Why a single-location clinic sets a different bar</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>A single clinic competing in a defined local area has a hard ceiling on addressable search volume that a national or multi-location chain doesn\'t face, so healthcare SEO Malaysia work for a practice like this one is judged against a narrower, more honest range of possible outcomes from the start. Setting the 1–3% monthly target before the engagement began, rather than after seeing early results, is what let both sides judge performance against a number agreed in advance instead of one adjusted to match whatever happened.</p>
+<p>A single clinic competing in a defined local area has a hard ceiling on addressable search volume that a national or multi-location chain does not face, so healthcare SEO Malaysia work for a practice like this one is judged against a narrower, more honest range of possible outcomes from the start. Setting the 1–3% monthly target before the engagement began, rather than after seeing early results, is what let both sides judge performance against a number agreed in advance instead of one adjusted to match whatever happened.</p>
 
 <!-- wp:heading -->
 <h2>Where this connects</h2>

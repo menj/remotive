@@ -20,6 +20,7 @@ require get_stylesheet_directory() . '/inc/i18n/i18n.php';
 require get_stylesheet_directory() . '/inc/i18n/i18n-admin.php'; // Tools > Translations: the screen that manages them.
 
 require get_stylesheet_directory() . '/inc/options/colours.php';
+require get_stylesheet_directory() . '/inc/options/agency-layout.php';
 require get_stylesheet_directory() . '/inc/options/theme-options.php';
 require get_stylesheet_directory() . '/inc/setup/site-setup.php';
 require get_stylesheet_directory() . '/inc/forms/lead-form-handler.php';
@@ -43,6 +44,9 @@ require get_stylesheet_directory() . '/inc/content/webmcp.php';
 require get_stylesheet_directory() . '/inc/core/security.php';
 require get_stylesheet_directory() . '/inc/options/maintenance-mode.php';
 require get_stylesheet_directory() . '/inc/landing/landing-pages.php';
+require get_stylesheet_directory() . '/inc/landing/agency-page.php';
+require get_stylesheet_directory() . '/inc/content/schema-elements.php';
+require get_stylesheet_directory() . '/inc/core/not-found.php';
 require get_stylesheet_directory() . '/inc/core/rank-math.php';
 require get_stylesheet_directory() . '/inc/core/ai-discovery-files.php';
 
@@ -507,6 +511,15 @@ function remotive_conditional_enqueue_assets() {
 		return;
 	}
 
+
+	$css_path = get_stylesheet_directory() . '/assets/css/blog-and-about.css';
+	wp_enqueue_style(
+		'remotive-blog-and-about',
+		get_stylesheet_directory_uri() . '/assets/css/blog-and-about.css',
+		array( 'remotive-style' ),
+		file_exists( $css_path ) ? filemtime( $css_path ) : '1.0.0'
+	);
+
 	// The article page has its own stylesheet and script (reading progress,
 	// contents list, share buttons).
 	if ( is_singular( 'post' ) ) {
@@ -515,7 +528,7 @@ function remotive_conditional_enqueue_assets() {
 		wp_enqueue_style(
 			'remotive-article',
 			get_stylesheet_directory_uri() . '/assets/css/article.css',
-			array( 'remotive-style' ),
+			array( 'remotive-style', 'remotive-blog-and-about' ),
 			file_exists( $art_css ) ? filemtime( $art_css ) : '1.0.0'
 		);
 		wp_enqueue_script(
@@ -527,14 +540,6 @@ function remotive_conditional_enqueue_assets() {
 		);
 		wp_script_add_data( 'remotive-article', 'strategy', 'defer' );
 	}
-
-	$css_path = get_stylesheet_directory() . '/assets/css/blog-and-about.css';
-	wp_enqueue_style(
-		'remotive-blog-and-about',
-		get_stylesheet_directory_uri() . '/assets/css/blog-and-about.css',
-		array( 'remotive-style' ),
-		file_exists( $css_path ) ? filemtime( $css_path ) : '1.0.0'
-	);
 
 	if ( ! $is_gallery_page ) {
 		return;

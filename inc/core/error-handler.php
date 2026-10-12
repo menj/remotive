@@ -555,7 +555,7 @@ function remotive_render_php_notices( $admin_screen = false ) {
 		echo '<div class="notice notice-warning is-dismissible"><p><strong>';
 		printf(
 			/* translators: 1: distinct issue count, 2: total occurrence count */
-			remotive_e( 'Re:Motive — %1$d PHP issue(s) suppressed on this page (%2$d occurrences).' ),
+			remotive_e( 'Re:Motive: %1$d PHP issue(s) suppressed on this page (%2$d occurrences).' ),
 			count( $notices ),
 			$total
 		);

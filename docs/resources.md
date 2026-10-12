@@ -1,14 +1,13 @@
-# Resources — copyright & licensing
+# Resources, copyright & licensing
 
 Consolidated license/copyright record for this theme and everything
 bundled inside it, per this theme's compliance ruleset (which targets
-modern WordPress standards, not WordPress.org directory submission rules —
-so bundled non-GPL assets like the company logo are acceptable here as
-long as they're disclosed, which is what this file does).
+modern WordPress standards, not WordPress.org directory submission rules, so bundled non-GPL assets like the company logo are acceptable here as
+long as they are disclosed, which is what this file does).
 
 ## The theme itself
 
-Remotive Media — Copyright © 2026 MENJ (https://menj.blog), built for
+Remotive Media, Copyright © 2026 MENJ (https://menj.blog), built for
 Remotive Media Asia Pte. Ltd.
 
 Licensed under the GNU General Public License v2.0 or later
@@ -33,7 +32,7 @@ attribution.
 
 Font files were built as static `.woff2` via the `@fontsource` npm
 distribution of each family (itself just a packaging of the same
-upstream OFL-licensed sources) — no font file has been modified from its
+upstream OFL-licensed sources), no font file has been modified from its
 upstream release.
 
 ## Bundled images
@@ -49,7 +48,7 @@ upstream release.
 | `assets/seed-images/*.jpg` and `*.avif` | Photographers via Pexels (see `docs/image-credits.md`) | Photographs for the seven shipped Insights articles (v1.111.0; before that, gradient graphics generated for this theme). Used under the [Pexels License](https://www.pexels.com/license/). |
 | `assets/images/case-studies/*.avif` and `*.jpg` | Photographers via Pexels (see `docs/image-credits.md`) | The six photos on the Case Studies page cards (v1.110.2). Pexels License. |
 | `assets/fonts/kagnue/kagnue-regular.woff2` | Kagnue Serif, used under the site owner's licence | A subset (Basic Latin, dashes, quotes, arrow) of the Kagnue Regular display serif for the big figures only (v1.109.0). **Not open-licensed:** keep the licence on file; do not redistribute the theme with this file to others without checking its terms. |
-| `assets/team/<slug>.avif` | Remotive Media Asia Pte. Ltd. (photographs of the named individuals) | Team portraits, one per person, cut out and re-encoded from photography supplied by the company. **Proprietary, and additionally personal likenesses:** each depicts a named person, so redistribution or reuse needs that person's consent as well as the company's. Not covered by the theme's GPL licence. |
+| `assets/team/<slug>.avif` | Remotive Media Asia Pte. Ltd. (photographs of the named individuals) | Team portraits, one per person, cut out and re-encoded from photography supplied by the company. **Proprietary, and also personal likenesses:** each depicts a named person, so redistribution or reuse needs that person's consent as well as the company's. Not covered by the theme's GPL licence. |
 
 ## Theme's own code and styles
 
@@ -80,32 +79,32 @@ bundled in the theme.
 |---|---|---|---|
 | `assets/icons/instagram.svg` | CC0 1.0 (public domain) | [Simple Icons](https://simpleicons.org) | Not required |
 | `assets/icons/tiktok.svg` | CC0 1.0 (public domain) | [Simple Icons](https://simpleicons.org) | Not required |
-| `assets/icons/linkedin.svg` | CC BY 4.0 | [Font Awesome Free](https://fontawesome.com) | **Required** — see below |
+| `assets/icons/linkedin.svg` | CC BY 4.0 | [Font Awesome Free](https://fontawesome.com) | **Required**, see below |
 
 The LinkedIn icon is the one asset in this theme requiring a visible
-credit, not just internal documentation of the license. CC BY 4.0 asks
+credit as well as internal documentation of the license. CC BY 4.0 asks
 for attribution wherever the work is used, which for a live website means
-somewhere a visitor can actually see it — not just in a file inside the
-theme package. That credit lives in `parts/footer.html` and
+somewhere a visitor can see it, which a file inside the
+theme package does not offer. That credit lives in `parts/footer.html` and
 `templates/page-contact.html` (`.rm-footer__credit`, a small "Icons by
 Font Awesome" line next to the copyright notice, linking to
 fontawesome.com), rendered on every page that includes the footer. If
 the LinkedIn icon is ever swapped for a different source, remove that
-credit line too — it shouldn't stay if the thing it's crediting is gone.
+credit line too, it should not stay if the thing it is crediting is gone.
 
 The icons themselves are inlined directly as `<svg>` markup inside the
 Custom HTML blocks that use them (`fill="currentColor"`, so they follow
 the surrounding text colour automatically across light/dark mode)
-rather than loaded as external files via `<img>` — the source `.svg`
+rather than loaded as external files via `<img>`, the source `.svg`
 files in `assets/icons/` are kept for reference/reuse, not actually
 enqueued or requested by the browser.
 
 This is the standard, expected split for a theme's bundled assets: the
 *code* (PHP, CSS, JS, block templates) is GPL, matching WordPress's own
 licensing; a company's own logo is not required to be GPL and commonly
-isn't — WordPress.org's own theme-review guidelines make this same
-distinction for directory-submitted themes, and this theme isn't
-distributed there anyway (see `docs/ssot.md` — it's built exclusively for
+is not, WordPress.org's own theme-review guidelines make this same
+distinction for directory-submitted themes, and this theme is not
+distributed there anyway (see `docs/ssot.md`, it is built exclusively for
 `remotivemedia.asia`).
 
 ## No other bundled third-party code
@@ -120,18 +119,18 @@ The performance and paper-delivery styles in `assets/css/critical.css` and
 `assets/css/print.css` are also original theme code; v1.44.1 introduces no new
 font, image, library, polyfill, or other third-party asset.
 Dashicons, used for the admin page's tab icons, ships with WordPress core
-itself (`wp_enqueue_style('dashicons')`) — nothing extra bundled for it.
+itself (`wp_enqueue_style('dashicons')`), nothing extra bundled for it.
 
 ## A note on design inspiration (v1.10.0)
 
 The blog archive/single templates, the About page's lightbox gallery, and
 its parallax hero were built after reviewing three uploaded reference
-templates — two from HTML5 UP ("Phantom," "Zerofour"; both Creative
+templates, two from HTML5 UP ("Phantom," "Zerofour"; both Creative
 Commons Attribution 3.0) and one unlicensed rock-climbing-gym template of
 unknown copyright status. **None of their code, CSS, JavaScript, images,
 or content was copied into this theme.** The interaction *patterns* they
-demonstrate — a sidebar blog layout, a lightbox-enabled image gallery, a
-parallax hero — are generic, uncopyrightable UX conventions; this theme's
+demonstrate, a sidebar blog layout, a lightbox-enabled image gallery, a
+parallax hero, are generic, uncopyrightable UX conventions; this theme's
 implementations of them (`inc/forms/lead-form-handler.php`,
 `assets/js/lightbox.js`, `assets/js/parallax.js`, `templates/index.html`,
 `templates/page-about.html`) are original code written for this project,
@@ -139,7 +138,7 @@ using this theme's own design system throughout. This was a deliberate
 choice, not an oversight: CC BY 3.0 requires visible attribution if the
 actual work is reused, which is awkward on a polished client site and
 avoidable entirely by writing fresh code instead of adapting licensed
-code — and the rock-climbing template's unknown license made it
+code, and the rock-climbing template's unknown license made it
 unsuitable to touch at all, code or content. No attribution is required
 or included for any of the three, since nothing of theirs was
 distributed.

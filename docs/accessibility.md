@@ -20,7 +20,7 @@ fixed, what is deliberately exempt, and what still needs human judgement.
 | 1.4.3 | Inverted band note 3.85:1 | Alpha raised to 5.9:1 |
 | 1.4.3 | Submit buttons 3.19:1 light, 4.25:1 dark | Fixed near-black label; dark uses the lighter accent (5.72:1 / 4.97:1) |
 | 1.4.3 | Accent headings 2.51 to 2.90:1 on their surfaces | -dark ramp in light, lifted accent on dark cards |
-| 1.4.4 | Nav overflowed the viewport at 200% text zoom | Nav may wrap when it genuinely cannot fit |
+| 1.4.4 | Nav overflowed the viewport at 200% text zoom | Nav may wrap when it cannot fit |
 | 1.3.1, 2.4.6 | Footer used h6 after h2; cards used h3 under h1 | Levels corrected, classes and visual sizes unchanged |
 | 2.4.4, 4.1.2 | Linked featured images had no accessible name | Alt falls back to the post title when empty |
 | 2.5.8 | Standalone links 15 to 17px tall | Block padding to a 24px minimum at every width |

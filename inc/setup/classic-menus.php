@@ -32,9 +32,9 @@ function remotive_register_menus() {
 	register_nav_menus(
 		array(
 			'primary'         => __( 'Main menu (header)', 'remotive' ),
-			'footer_services' => __( 'Footer — Services column', 'remotive' ),
-			'footer_cases'    => __( 'Footer — Case Studies column', 'remotive' ),
-			'footer_company'  => __( 'Footer — Company column', 'remotive' ),
+			'footer_services' => __( 'Footer: Services column', 'remotive' ),
+			'footer_cases'    => __( 'Footer: Case Studies column', 'remotive' ),
+			'footer_company'  => __( 'Footer: Company column', 'remotive' ),
 		)
 	);
 }
@@ -353,7 +353,7 @@ function remotive_build_classic_menus() {
 				);
 			}
 
-			$notes[] = sprintf( __( '%s — menu created', 'remotive' ), $definition['name'] );
+			$notes[] = sprintf( __( '%s: menu created', 'remotive' ), $definition['name'] );
 		}
 
 		$locations[ $location ] = $menu_id;

@@ -198,7 +198,7 @@ function remotive_seed_run() {
 		$args = array(
 			'post_title'   => $item['title'],
 			'post_name'    => $item['slug'],
-			'post_content' => $item['content'],
+			'post_content' => remotive_seed_content_to_site( $item['content'], remotive_seed_base_path() ),
 			'post_excerpt' => $item['excerpt'],
 			'post_status'  => 'publish',
 			'post_type'    => $item['type'],
@@ -237,6 +237,86 @@ function remotive_seed_run() {
 	remotive_resolve_seed_post_links();
 
 	return $notes;
+}
+
+/**
+ * Path the site lives under, "" for a site at the domain root, "/sub" for one
+ * installed in a subdirectory.
+ *
+ * @return string
+ */
+function remotive_seed_base_path() {
+	$path = (string) wp_parse_url( home_url( '/' ), PHP_URL_PATH );
+
+	return rtrim( $path, '/' );
+}
+
+/**
+ * Seed text as stored on a site: root-relative links gain the site's base path.
+ * A no-op on a site at the domain root.
+ *
+ * @param string $content Seed content, links written as /services/seo/.
+ * @param string $base    Base path from remotive_seed_base_path().
+ * @return string
+ */
+function remotive_seed_content_to_site( $content, $base ) {
+	if ( '' === $base ) {
+		return $content;
+	}
+
+	return preg_replace( '#(href=")/(?!/)#', '$1' . $base . '/', $content );
+}
+
+/**
+ * The reverse: stored text back to the form it was seeded in, so it can be
+ * compared with a seed hash. Undoes both rewrites a site applies after
+ * seeding: /blog/{slug}/ links replaced by the post's permalink, and the base
+ * path added to root-relative links.
+ *
+ * @param string   $content    Stored post content.
+ * @param string   $base       Base path from remotive_seed_base_path().
+ * @param string[] $permalinks Seed post slug => permalink, for posts that exist.
+ * @return string
+ */
+function remotive_seed_content_from_site( $content, $base, array $permalinks ) {
+	foreach ( $permalinks as $slug => $permalink ) {
+		$content = str_replace( 'href="' . $permalink . '"', 'href="/blog/' . $slug . '/"', $content );
+	}
+
+	if ( '' !== $base ) {
+		$content = str_replace( 'href="' . $base . '/', 'href="/', $content );
+	}
+
+	return $content;
+}
+
+/**
+ * Permalinks of the seeded articles that exist on this site.
+ *
+ * @return string[] Slug => permalink.
+ */
+function remotive_seed_post_permalinks() {
+	$out = array();
+
+	foreach ( remotive_seed_content() as $item ) {
+		if ( 'post' !== ( $item['type'] ?? '' ) || empty( $item['slug'] ) ) {
+			continue;
+		}
+
+		$found = get_posts( array(
+			'name'             => $item['slug'],
+			'post_type'        => 'post',
+			'post_status'      => 'any',
+			'numberposts'      => 1,
+			'suppress_filters' => false,
+		) );
+
+		if ( $found && get_permalink( $found[0]->ID ) ) {
+			$out[ $item['slug'] ] = get_permalink( $found[0]->ID );
+		}
+	}
+
+	return $out;
 }
 
 /**
@@ -286,6 +366,9 @@ function remotive_resolve_seed_post_links() {
 				// Map both the /blog/ prefix and a site-root prefix since
 				// some earlier installs may have stored either.
 				$link_map[ '/blog/' . $slug . '/' ] = $permalink;
+				if ( '' !== remotive_seed_base_path() ) {
+					$link_map[ remotive_seed_base_path() . '/blog/' . $slug . '/' ] = $permalink;
+				}
 			}
 		}
 	}

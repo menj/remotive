@@ -1,0 +1,24 @@
+# Server-level error pages for Re:Motive Media.
+#
+# Why this exists. When WordPress itself cannot start (a core file missing after
+# an interrupted FTP upload, a PHP version change, a full disk), the server
+# answers 500 with an empty body and no theme code runs, so no theme setting can
+# draw a page. The server can. Apache and LiteSpeed show a static file for an
+# error status when the application sends no body of its own.
+#
+# This was seen in the October 2026 logs: wp-includes/sodium_compat/src/Compat.php
+# was missing, WordPress died in wp-settings.php, and /zh-hans/ and /ai.txt
+# answered 500 with 0 bytes.
+#
+# Install. Copy the lines below into the site root .htaccess, above the
+# "# BEGIN WordPress" block. The two pages sit in the theme folder, so they
+# arrive with the theme. Change the folder name if the theme directory differs.
+#
+# Pages that WordPress can draw (404, search, the branded fatal page, the
+# maintenance page and the database page) are handled by the theme and the
+# drop-ins in wp-content/. Leave 404 out of this file.
+
+ErrorDocument 500 /wp-content/themes/remotive/error-pages/500.html
+ErrorDocument 502 /wp-content/themes/remotive/error-pages/500.html
+ErrorDocument 504 /wp-content/themes/remotive/error-pages/500.html
+ErrorDocument 503 /wp-content/themes/remotive/error-pages/503.html
