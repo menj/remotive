@@ -960,14 +960,14 @@ function remotive_i18n_translate_body( $body, $lang, &$missing ) {
 	$skip_name = null;
 	$skip_deep = 0;
 	$out       = '';
-	$void      = array( 'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'source', 'track', 'wbr' );
+	$void      = array( 'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr' );
 
 	// A whole <script> or <style> element is one token, ahead of the generic tag
 	// pattern. That pattern lets "<" appear inside a tag, so the code of an inline
 	// script such as "for(i=0;i<n;i++){x()}</script>" would otherwise be read as a
 	// single tag that swallows the closing </script>, and the rest of the page
 	// would stay English.
-	$tokens = preg_split( '#(<script\b(?:"[^"]*"|\'[^\']*\'|[^\'">])*>.*?</script\s*>|<style\b(?:"[^"]*"|\'[^\']*\'|[^\'">])*>.*?</style\s*>|<!--.*?-->|<![^>]*>|<(?:/?)[a-zA-Z][^\s/>]*(?:"[^"]*"|\'[^\']*\'|[^\'">])*>)#is', $body, -1, PREG_SPLIT_DELIM_CAPTURE );
+	$tokens = preg_split( '#(<script(?![\w:-])(?:"[^"]*"|\'[^\']*\'|[^\'">])*>.*?</script\s*>|<style(?![\w:-])(?:"[^"]*"|\'[^\']*\'|[^\'">])*>.*?</style\s*>|<!--.*?-->|<![^>]*>|<(?:/?)[a-zA-Z][^\s/>]*(?:"[^"]*"|\'[^\']*\'|[^\'">])*>)#is', $body, -1, PREG_SPLIT_DELIM_CAPTURE );
 
 	// A regex failure (a pathological page, a PCRE limit) must never blank the
 	// page: hand back the English HTML as it was.
@@ -993,7 +993,7 @@ function remotive_i18n_translate_body( $body, $lang, &$missing ) {
 			continue;
 		}
 
-		if ( 0 === strpos( $token, '<!' ) || preg_match( '#^<(?:script|style)\b#i', $token ) && preg_match( '#</(?:script|style)\s*>$#i', $token ) ) {
+		if ( 0 === strpos( $token, '<!' ) || preg_match( '#^<(?:script|style)(?![\w:-])#i', $token ) && preg_match( '#</(?:script|style)\s*>$#i', $token ) ) {
 			$out .= $token;
 			continue;
 		}

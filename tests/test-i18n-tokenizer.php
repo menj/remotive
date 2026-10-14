@@ -64,8 +64,14 @@ t_ok( false !== strpos( $out, esc_html( $want ) ), 'the text after a style block
 $out = t_translate( '<script type="text/x-template" data-x="a>b">x</script><p>' . $ms . '</p>' );
 t_ok( false !== strpos( $out, esc_html( $want ) ), 'a ">" inside a script attribute does not end the tag early' );
 
+// A custom element whose name starts with "script" or "style" is an ordinary tag, not a script.
+$out = t_translate( '<script-widget>' . $ms . '</script-widget><script>var a=1;</script><p>' . $ms . '</p>' );
+t_eq( substr_count( $out, esc_html( $want ) ), 2, 'the text inside <script-widget> is translated, and so is the text after the real script' );
+$out = t_translate( '<style-box>' . $ms . '</style-box><style>a{}</style>' );
+t_ok( false !== strpos( $out, '<style-box>' . esc_html( $want ) . '</style-box>' ), 'the text inside <style-box> is translated' );
+
 // A void element marked translate="no" must not hide the rest of the page.
-foreach ( array( '<img translate="no" src="a.png" alt="x">', '<input translate="no" name="n">', '<br translate="no">' ) as $void ) {
+foreach ( array( '<img translate="no" src="a.png" alt="x">', '<input translate="no" name="n">', '<br translate="no">', '<param translate="no" name="p">' ) as $void ) {
 	$out = t_translate( $void . '<p>' . $ms . '</p>' );
 	t_ok( false !== strpos( $out, esc_html( $want ) ), 'the text after ' . $void . ' is translated' );
 }
