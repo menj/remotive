@@ -4,6 +4,20 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.119.8] (2026-10-14)
+
+### Fixed
+
+Four faults in the language layer's HTML translator (`remotive_i18n_translate_body()`), found in a review of the codebase:
+
+- **An inline script could leave the rest of the page in English.** The tag pattern allows a "<" inside a tag, so a script that ended with something like `for(i=0;i<n;i++){x()}</script>` was read as one tag that swallowed its own closing tag. A whole `<script>` or `<style>` element is now one token and is copied through unchanged.
+- **A void element marked translate="no" hid the rest of the page.** `<img translate="no">`, `<input translate="no">` and `<br translate="no">` have no closing tag, so everything after them stayed English. Void elements no longer open a skipped span.
+- **A textarea placeholder stayed English on translated pages.** The contact and about forms use `<textarea placeholder="Tell us what you are working on…">`. Skipped elements now keep their text but still have their placeholder, aria-label and title translated.
+- **Two points from CodeAnt's review of the fix itself.** `<param>` was missing from the list of void elements, and the word boundary after `script` also matched a custom element such as `<script-widget>`, which could have been read as a script. The pattern now requires that the name ends after `script` or `style`.
+- **A failed page split now returns the English page at once.** The empty branch let the loop run on `false` and raise a warning.
+
+`tests/test-i18n-tokenizer.php` is new. Seven of its checks fail on the earlier code.
+
 ## [1.119.7] (2026-10-12)
 
 ### Changed

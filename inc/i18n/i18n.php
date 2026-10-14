@@ -960,12 +960,20 @@ function remotive_i18n_translate_body( $body, $lang, &$missing ) {
 	$skip_name = null;
 	$skip_deep = 0;
 	$out       = '';
-	$tokens    = preg_split( '#(<!--.*?-->|<![^>]*>|<(?:/?)[a-zA-Z][^\s/>]*(?:"[^"]*"|\'[^\']*\'|[^\'">])*>)#s', $body, -1, PREG_SPLIT_DELIM_CAPTURE );
+	$void      = array( 'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr' );
+
+	// A whole <script> or <style> element is one token, ahead of the generic tag
+	// pattern. That pattern lets "<" appear inside a tag, so the code of an inline
+	// script such as "for(i=0;i<n;i++){x()}</script>" would otherwise be read as a
+	// single tag that swallows the closing </script>, and the rest of the page
+	// would stay English.
+	$tokens = preg_split( '#(<script(?![\w:-])(?:"[^"]*"|\'[^\']*\'|[^\'">])*>.*?</script\s*>|<style(?![\w:-])(?:"[^"]*"|\'[^\']*\'|[^\'">])*>.*?</style\s*>|<!--.*?-->|<![^>]*>|<(?:/?)[a-zA-Z][^\s/>]*(?:"[^"]*"|\'[^\']*\'|[^\'">])*>)#is', $body, -1, PREG_SPLIT_DELIM_CAPTURE );
 
 	// A regex failure (a pathological page, a PCRE limit) must never blank the
 	// page: hand back the English HTML as it was.
 	if ( false === $tokens ) {
-		}
+		return $body;
+	}
 
 	foreach ( $tokens as $token ) {
 		if ( '' === $token ) {
@@ -985,7 +993,7 @@ function remotive_i18n_translate_body( $body, $lang, &$missing ) {
 			continue;
 		}
 
-		if ( 0 === strpos( $token, '<!' ) ) {
+		if ( 0 === strpos( $token, '<!' ) || preg_match( '#^<(?:script|style)(?![\w:-])#i', $token ) && preg_match( '#</(?:script|style)\s*>$#i', $token ) ) {
 			$out .= $token;
 			continue;
 		}
@@ -1012,22 +1020,22 @@ function remotive_i18n_translate_body( $body, $lang, &$missing ) {
 			continue;
 		}
 
-		if ( in_array( $tag, $skip_tags, true ) || preg_match( '#\s(?:translate=(["\'])no\1|id=(["\'])wpadminbar\2)#i', $token ) ) {
-			if ( '/>' !== substr( $token, -2 ) ) {
+		$exempt = (bool) preg_match( '#\s(?:translate=(["\'])no\1|id=(["\'])wpadminbar\2)#i', $token );
+
+		if ( in_array( $tag, $skip_tags, true ) || $exempt ) {
+			// A void element (<input translate="no">) has no closing tag, so it must not open a skipped span.
+			if ( '/>' !== substr( $token, -2 ) && ! in_array( $tag, $void, true ) ) {
 				$skip_name = $tag;
 				$skip_deep = 1;
 			}
 
-			$out .= $token;
+			// The text inside a textarea, select or svg is left alone, but the attributes a person reads
+			// (a textarea's placeholder, an aria-label) are still translated.
+			$out .= $exempt ? $token : remotive_i18n_filter_tag( $token, $tag, $lang, $missing );
 			continue;
 		}
 
 		$out .= remotive_i18n_filter_tag( $token, $tag, $lang, $missing );
-	}
-
-
-	if ( false === $tokens ) {
-		return $body;
 	}
 
 	return $out;

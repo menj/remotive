@@ -4,7 +4,7 @@ Tags: block-theme, full-site-editing, child-theme, one-page
 Requires at least: 6.7
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.119.7
+Stable tag: 1.119.8
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -335,9 +335,12 @@ floor, not a replacement.
 
 == Changelog ==
 
-See `docs/changelog.md` for full version history. Latest version: 1.119.7.
+See `docs/changelog.md` for full version history. Latest version: 1.119.8.
 
 == Upgrade Notice ==
+
+= 1.119.8 =
+* Fixed: four faults in the translator that could leave part of a Malay or Chinese page in English (inline scripts, translate="no" on void elements, textarea placeholders).
 
 = 1.119.7 =
 * Changed: documented and tested that the thank-you page's language links must not carry the conversion argument, so a language switch cannot count a lead twice.
