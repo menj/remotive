@@ -4,7 +4,7 @@ Tags: block-theme, full-site-editing, child-theme, one-page
 Requires at least: 6.7
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.119.8
+Stable tag: 1.119.9
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -335,9 +335,12 @@ floor, not a replacement.
 
 == Changelog ==
 
-See `docs/changelog.md` for full version history. Latest version: 1.119.8.
+See `docs/changelog.md` for full version history. Latest version: 1.119.9.
 
 == Upgrade Notice ==
+
+= 1.119.9 =
+* Fixed: enquiries with a backslash or an ampersand were saved corrupted; the honeypot accepted "0"; a mistyped email used up the rate limit; uncaught exceptions on REST and cron requests were silent; two old migrations could switch default options off; a blank form URL lost enquiries.
 
 = 1.119.8 =
 * Fixed: four faults in the translator that could leave part of a Malay or Chinese page in English (inline scripts, translate="no" on void elements, textarea placeholders).

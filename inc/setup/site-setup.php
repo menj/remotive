@@ -972,7 +972,9 @@ function remotive_retire_unsourced_stats() {
 	}
 
 	if ( $changed ) {
-		update_option( 'remotive_theme_options', $opts );
+		// Not update_option(): that runs the settings sanitiser, which reads a missing checkbox as "off"
+		// and would switch off every default-on option an older saved array does not hold yet.
+		remotive_update_options_raw( $opts );
 	}
 
 	return $changed;
@@ -1806,7 +1808,10 @@ function remotive_correct_contact_email() {
 	if ( is_array( $options ) && isset( $options['contact_email'] ) && 'hello@remotivemedia.com' === strtolower( trim( (string) $options['contact_email'] ) ) ) {
 		$options['contact_email'] = 'hello@remotivemedia.asia';
 
-		return update_option( 'remotive_theme_options', $options );
+		// Raw, for the reason given in remotive_retire_unsourced_stats().
+		remotive_update_options_raw( $options );
+
+		return true;
 	}
 
 	return false;

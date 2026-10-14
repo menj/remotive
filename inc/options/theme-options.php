@@ -864,7 +864,10 @@ function remotive_sanitize_theme_options( $input ) {
 	$clean['social_x']         = remotive_sanitize_optional_url( $input['social_x'] ?? $defaults['social_x'] );
 	$clean['social_youtube']   = remotive_sanitize_optional_url( $input['social_youtube'] ?? $defaults['social_youtube'] );
 	$clean['social_threads']   = remotive_sanitize_optional_url( $input['social_threads'] ?? $defaults['social_threads'] );
-	$clean['cta_form_action']  = remotive_sanitize_optional_url( $input['cta_form_action'] ?? $defaults['cta_form_action'] );
+	// A blank or placeholder value would make the form post to the page it is on, which has no handler,
+	// and every enquiry would be lost. Fall back to the built-in handler instead.
+	$cta_action                = remotive_sanitize_optional_url( $input['cta_form_action'] ?? $defaults['cta_form_action'] );
+	$clean['cta_form_action']  = in_array( $cta_action, array( '', '#' ), true ) ? $defaults['cta_form_action'] : $cta_action;
 
 	// Homepage copy: plain text only, so a single sanitizer covers them all.
 	$text_keys = array(
