@@ -184,4 +184,16 @@ t_eq( $clean['agency_sign_2'], '', 'a sign may be left blank' );
 t_eq( $clean['agency_signs_heading'], 'Signs it is time to talk', 'a blank section heading falls back to the default' );
 t_eq( $clean['agency_show_process'], '0', 'an unticked section switch saves as off' );
 
+
+// ---- A blank form submission URL falls back to the built-in handler ----
+if ( ! function_exists( 'sanitize_email' ) ) { function sanitize_email( $e ) { return trim( (string) $e ); } }
+if ( ! function_exists( 'is_email' ) ) { function is_email( $e ) { return false !== strpos( (string) $e, '@' ); } }
+$d = remotive_theme_option_defaults();
+foreach ( array( '', '#', '   ' ) as $blank ) {
+	$clean = remotive_sanitize_theme_options( array( 'cta_form_action' => $blank ) );
+	t_eq( $clean['cta_form_action'], $d['cta_form_action'], 'a form action of ' . json_encode( $blank ) . ' falls back to the default, so enquiries are not lost' );
+}
+$clean = remotive_sanitize_theme_options( array( 'cta_form_action' => 'https://forms.example.com/x' ) );
+t_eq( $clean['cta_form_action'], 'https://forms.example.com/x', 'a real endpoint is kept' );
+
 t_done( 'agency' );

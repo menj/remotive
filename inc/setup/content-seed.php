@@ -403,10 +403,11 @@ function remotive_resolve_seed_post_links() {
 		);
 
 		if ( $new_content !== $post->post_content ) {
-			wp_update_post( array(
+			// wp_update_post() expects slashed data and unslashes it, so a backslash in the text would be lost.
+			wp_update_post( wp_slash( array(
 				'ID'           => $id,
 				'post_content' => $new_content,
-			) );
+			) ) );
 		}
 	}
 }

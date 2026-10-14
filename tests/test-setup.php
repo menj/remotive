@@ -5,6 +5,11 @@
  */
 
 require __DIR__ . '/bootstrap.php';
+
+// remotive_update_options_raw() lifts the settings sanitiser off for the save; no sanitiser is attached here.
+if ( ! function_exists( 'has_filter' ) ) { function has_filter() { return false; } }
+if ( ! function_exists( 'remove_filter' ) ) { function remove_filter() {} }
+
 require dirname( __DIR__ ) . '/inc/setup/site-setup.php';
 
 // The retired .com address is replaced, whatever its case or spacing.

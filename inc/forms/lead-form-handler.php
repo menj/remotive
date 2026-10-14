@@ -24,6 +24,22 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
+ * Whether a honeypot field was filled in. A real visitor never sees the field, so any value at all
+ * (including the string "0", which empty() treats as blank) means a bot. An array counts too: a bot
+ * that posts the field as a list is still a bot.
+ *
+ * @param mixed $value The posted value, or null when the field was not posted.
+ * @return bool
+ */
+function remotive_honeypot_tripped( $value ) {
+	if ( null === $value ) {
+		return false;
+	}
+
+	return ! is_scalar( $value ) || '' !== trim( (string) $value );
+}
+
+/**
  * Lightweight per-IP, per-form-type throttle using a transient — no
  * database schema change, no external service. REMOTE_ADDR can be
  * spoofed or shared behind a proxy/CDN (an inherent limitation of
@@ -99,15 +115,8 @@ function remotive_handle_lead_form_submission( $args ) {
 	// value here means a bot filled every input it could find. Redirect
 	// exactly as if the submission succeeded — no error, no signal that
 	// a trap was hit.
-	if ( ! empty( $_POST[ $args['honeypot_field'] ] ) ) {
+	if ( remotive_honeypot_tripped( isset( $_POST[ $args['honeypot_field'] ] ) ? wp_unslash( $_POST[ $args['honeypot_field'] ] ) : null ) ) {
 		wp_safe_redirect( add_query_arg( $status_key, 'success', $redirect_base ) );
-		exit;
-	}
-
-	// After the honeypot, so bot traffic that fills the trap does not use up the
-	// quota of real visitors who share its address.
-	if ( remotive_form_rate_limit_exceeded( $args['form_key'], isset( $args['rate_limit'] ) ? (int) $args['rate_limit'] : 3 ) ) {
-		wp_safe_redirect( add_query_arg( $status_key, 'error', $redirect_base ) );
 		exit;
 	}
 
@@ -124,6 +133,13 @@ function remotive_handle_lead_form_submission( $args ) {
 	}
 
 	if ( empty( $email ) || ! is_email( $email ) ) {
+		wp_safe_redirect( add_query_arg( $status_key, 'error', $redirect_base ) );
+		exit;
+	}
+
+	// After the honeypot and the email check, so neither bot traffic that fills the trap nor a visitor's
+	// mistyped address uses up the quota of real visitors who share the address.
+	if ( remotive_form_rate_limit_exceeded( $args['form_key'], isset( $args['rate_limit'] ) ? (int) $args['rate_limit'] : 3 ) ) {
 		wp_safe_redirect( add_query_arg( $status_key, 'error', $redirect_base ) );
 		exit;
 	}
