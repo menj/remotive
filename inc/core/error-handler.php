@@ -352,7 +352,15 @@ function remotive_render_error_page( $error, $trace = '' ) {
  * @param Throwable $e
  */
 function remotive_handle_exception( $e ) {
+	// REST, AJAX, cron and CLI callers get no page. Once this handler is set, PHP no longer logs the
+	// "Uncaught" error or sets a 500 on its own, so do both here, or the client sees an empty 200.
 	if ( ! remotive_error_wants_html() ) {
+		error_log( sprintf( 'PHP Fatal error:  Uncaught %s: %s in %s:%d', get_class( $e ), $e->getMessage(), $e->getFile(), $e->getLine() ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+
+		if ( ! headers_sent() ) {
+			http_response_code( 500 );
+		}
+
 		return;
 	}
 
@@ -482,6 +490,11 @@ function remotive_error_type_label( $errno ) {
  * @return bool True to tell PHP the error is handled and must not print.
  */
 function remotive_collect_php_notice( $errno, $errstr, $errfile = '', $errline = 0 ) {
+	// A script that raises E_USER_ERROR expects PHP to stop. Claiming it would let the script run on.
+	if ( E_USER_ERROR === $errno ) {
+		return false;
+	}
+
 	// Honour the @ suppression operator and the current error_reporting
 	// mask. Returning false hands the error back to PHP, which will then
 	// respect the suppression and stay silent.

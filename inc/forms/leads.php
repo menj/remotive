@@ -183,6 +183,32 @@ function remotive_register_lead_spam_status() {
 add_action( 'init', 'remotive_register_lead_spam_status' );
 
 /**
+ * Insert an enquiry as a post. See the comment inside for why the text is slashed and kses is paused.
+ *
+ * @param array $args wp_insert_post() arguments, unslashed.
+ * @return int|WP_Error The post ID, or the error.
+ */
+function remotive_insert_lead_post( array $args ) {
+	// wp_insert_post() expects slashed data and unslashes it, so unslashed text loses every backslash.
+	// For a visitor with no unfiltered_html it also runs kses over the text, which turns "R&D" into "R&amp;D".
+	// The text was cleaned with sanitize_text_field() and sanitize_textarea_field() and is escaped whenever it
+	// is printed, so kses is switched off for this one insert and restored straight after.
+	$kses = function_exists( 'kses_remove_filters' ) && false !== has_filter( 'content_save_pre', 'wp_filter_post_kses' );
+
+	if ( $kses ) {
+		kses_remove_filters();
+	}
+
+	$post_id = wp_insert_post( wp_slash( $args ), true );
+
+	if ( $kses ) {
+		kses_init_filters();
+	}
+
+	return $post_id;
+}
+
+/**
  * Store one enquiry.
  *
  * @param array $lead {
@@ -208,14 +234,13 @@ function remotive_store_lead( $lead ) {
 	// Spam goes straight to the spam folder. It is still stored, because a
 	// filter that deletes is a filter that loses clients, but it never
 	// enters the enquiries list.
-	$post_id = wp_insert_post(
+	$post_id = remotive_insert_lead_post(
 		array(
 			'post_type'    => REMOTIVE_LEAD_POST_TYPE,
 			'post_status'  => ! empty( $lead['is_spam'] ) ? 'remotive_spam' : 'publish',
 			'post_title'   => $title,
 			'post_content' => $message,
-		),
-		true
+		)
 	);
 
 	if ( is_wp_error( $post_id ) ) {
@@ -484,6 +509,7 @@ function remotive_export_leads_csv() {
 	header( 'Content-Disposition: attachment; filename=remotive-enquiries-' . gmdate( 'Y-m-d' ) . '.csv' );
 
 	$out = fopen( 'php://output', 'w' );
+	fwrite( $out, "\xEF\xBB\xBF" ); // A UTF-8 byte order mark, so Excel reads Chinese and accented names correctly.
 	fputcsv( $out, array( 'Date', 'Name', 'Email', 'Message', 'Source', 'Email sent', 'Spam' ) );
 
 	$rows = array_merge( remotive_get_leads( 5000 ), remotive_get_leads( 5000, true ) );

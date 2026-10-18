@@ -4,6 +4,27 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.119.9] (2026-10-14)
+
+### Fixed
+
+Faults in the forms, the options and the error handler, found in a review of the codebase.
+
+- **Enquiries were corrupted when saved.** `remotive_store_lead()` passed unslashed text to `wp_insert_post()`, which expects slashed data, so every backslash in a name or message was dropped. For a public visitor, kses also ran over the text and stored "R&D budget" as "R&amp;D budget", which then showed that way in the admin card, the CSV export and the Akismet report. The insert is now in `remotive_insert_lead_post()`: the data is slashed, and kses is paused for that one insert and restored straight after.
+- **The honeypot let a value of "0" through.** `empty()` treats "0" as blank. `remotive_honeypot_tripped()` treats any value, and any list, as a bot.
+- **A mistyped address used up the rate limit.** The limit was counted before the email was checked, so three invalid submissions locked a real visitor out for 10 minutes. It is now counted after the honeypot and the email check.
+- **Uncaught exceptions on REST, AJAX and cron requests were silent.** Once the theme sets an exception handler, PHP no longer logs the error or sets a 500, and the handler returned without doing either. It now writes the error to the log and sends a 500. `E_USER_ERROR` is no longer claimed, so a script that raises it still stops.
+- **Two old migrations could switch default-on options off.** Migrations 1.66.1 and 1.103.1 saved the options through the settings sanitiser, which reads a missing checkbox as off. A site whose saved array was older than the languages, ticker, graceful-errors or agency options lost them. Both now use `remotive_update_options_raw()`, as the other syncs do.
+- **A blank form submission URL lost every enquiry.** Clearing the field saved "#", so the call-to-action form posted to the page it was on. A blank or "#" value now falls back to the built-in handler.
+- **Seed link resolution could drop backslashes.** `wp_update_post()` in `remotive_resolve_seed_post_links()` now receives slashed data.
+- **The enquiries CSV now starts with a byte order mark**, so Excel reads Chinese and accented names correctly.
+
+`tests/test-forms.php` is new (17 checks), and `tests/test-agency.php` and `tests/test-setup.php` gain checks.
+
+### Not changed
+
+Two findings were left for a decision. The seeded services pages are found by slug and type only, so a top-level page of your own called `/seo/` could be mistaken for the seeded one. Fixing it risks creating a duplicate when an editor has moved a seeded page. The enquiries card also hides the spam folder when there are no published enquiries.
+
 ## [1.119.8] (2026-10-14)
 
 ### Fixed
