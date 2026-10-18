@@ -49,7 +49,12 @@ foreach ( $files as $file ) {
 		$stack[] = array( $block, $json, $hit[0][1] + strlen( $hit[0][0] ) );
 
 		// A heading: the level in the comment must be the level of the tag that follows.
-		if ( 'heading' === $block && preg_match( '/^\s*<h([1-6])\b/', substr( $html, $hit[0][1] + strlen( $hit[0][0] ), 40 ), $tag ) ) {
+		if ( 'heading' === $block ) {
+			if ( ! preg_match( '/^\s*<h([1-6])\b/', substr( $html, $hit[0][1] + strlen( $hit[0][0] ), 40 ), $tag ) ) {
+				$bad[] = 'wp:heading is not followed by a heading tag';
+				continue;
+			}
+
 			$attrs = '' !== $json ? json_decode( $json, true ) : array();
 			$level = (int) ( is_array( $attrs ) && isset( $attrs['level'] ) ? $attrs['level'] : 2 );
 
