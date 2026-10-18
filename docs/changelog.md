@@ -4,6 +4,28 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.119.10] (2026-10-14)
+
+### Fixed
+
+Faults in the page markup, the scripts and the one-page layout, found in a review of the codebase.
+
+- **Four footer headings did not match their block comments.** The comments said level 6 and the markup is `<h2>`, so the editor flagged each heading as invalid and "Attempt recovery" would have turned them into `<h6>`. The comments now say level 2.
+- **The FAQ page's "Get in touch" button comment had backslash-escaped quotes.** That is invalid JSON, so the editor dropped the button's attributes and flagged it. The backslashes are gone.
+- **`tests/check-block-markup.php` is new and runs in CI.** It checks that every block comment in `templates/` and `parts/` is closed, that its attributes are valid JSON, and that a heading's level matches its tag. It fails on both faults above.
+- **The one-page redirect could loop.** With Settings > Reading set to "A static page" and no Homepage chosen, `/` shows the latest posts and counts as the posts page, so agency mode redirected it to itself. A request now counts as content only when a page stands behind it (`remotive_agency_is_content_request()`), and the core sitemap endpoints are left to core.
+- **A lead form could hang on a stalled connection.** The nonce refresh had no timeout, so the form waited for the browser's own timeout. After 2.5 seconds it submits with the nonce already on the page.
+- **The copy-link button stuck on "Copied"** when it was clicked twice within 2.2 seconds, and screen readers heard nothing. The label is read once, and a live region announces the result.
+- **The contact tool for AI agents never registered.** `webmcp.js` looked for `.rm-about-form`, a class no template uses. It now looks for `.rm-contact-form`.
+- **The header logo said it was the current page on every page.** `aria-current="page"` is now only on the home page.
+- **A 5rem strip showed under the one-page footer.** The wrapper's bottom padding, meant for the ad pages' sticky button, is reset on the one-page layout.
+- **The form focus ring was too faint on white** (about 2.5:1). It now uses the strong cyan, and a fixed dark blue on the closing card, which is white in both colour modes.
+- **Agency leads had no service in the conversion event.** The thank-you page now accepts `service=agency`.
+
+### Not changed
+
+The header and the three footer menus have no accessible names, and Privacy and Terms still show the full header and footer when other pages are hidden, so their menu links go back to the home page. Both need design decisions.
+
 ## [1.119.9] (2026-10-14)
 
 ### Fixed

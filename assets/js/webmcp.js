@@ -161,7 +161,7 @@
 	}
 
 	function registerContactTool() {
-		var form = document.querySelector('.rm-about-form');
+		var form = document.querySelector('.rm-contact-form');
 		var email;
 
 		if (!form) {

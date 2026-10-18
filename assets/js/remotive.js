@@ -473,7 +473,7 @@
 
 	// Held until the request settles, so a fast submit cannot go out carrying the
 	// expired server-rendered nonce.
-	var pending = fetch(url + '?action=remotive_form_nonces', { credentials: 'same-origin', cache: 'no-store' })
+	var request = fetch(url + '?action=remotive_form_nonces', { credentials: 'same-origin', cache: 'no-store' })
 		.then(function (r) { return r.ok ? r.json() : null; })
 		.then(function (data) {
 			if (!data) { return; }
@@ -481,8 +481,14 @@
 				if (data[el.name]) { el.value = data[el.name]; }
 			});
 		})
-		.catch(function () { /* keep the server-rendered nonce */ })
-		.then(function () { pending = null; });
+		.catch(function () { /* keep the server-rendered nonce */ });
+
+	// A stalled connection must not leave the form unsubmittable: after 2.5 seconds the submit goes out
+	// with the nonce that is already on the page, which is valid unless a page cache served it very late.
+	var pending = Promise.race([
+		request,
+		new Promise(function (resolve) { window.setTimeout(resolve, 2500); })
+	]).then(function () { pending = null; });
 
 	Array.prototype.forEach.call(fields, function (el) {
 		var form = el.form;

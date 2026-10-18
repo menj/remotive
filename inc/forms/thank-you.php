@@ -133,7 +133,9 @@ function remotive_thanks_conversion_event() {
 	$service = '';
 	if ( 'lp' === $source && function_exists( 'remotive_landing_services' ) ) {
 		$asked   = isset( $_GET['service'] ) ? sanitize_key( wp_unslash( $_GET['service'] ) ) : '';
-		$service = isset( remotive_landing_services()[ $asked ] ) ? $asked : '';
+		// The one-page layout's forms send service=agency, which is not an ad landing page but is a real source.
+		$known   = isset( remotive_landing_services()[ $asked ] ) || ( defined( 'REMOTIVE_AGENCY_SLUG' ) && REMOTIVE_AGENCY_SLUG === $asked );
+		$service = $known ? $asked : '';
 	}
 
 	printf(

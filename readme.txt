@@ -4,7 +4,7 @@ Tags: block-theme, full-site-editing, child-theme, one-page
 Requires at least: 6.7
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.119.9
+Stable tag: 1.119.10
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -335,9 +335,12 @@ floor, not a replacement.
 
 == Changelog ==
 
-See `docs/changelog.md` for full version history. Latest version: 1.119.9.
+See `docs/changelog.md` for full version history. Latest version: 1.119.10.
 
 == Upgrade Notice ==
+
+= 1.119.10 =
+* Fixed: footer heading and FAQ button markup the editor flagged; a redirect loop in the one-page layout with no static homepage; a lead form that could hang; the copy-link button; the contact tool for AI agents; focus ring contrast; a strip under the one-page footer. Added a block markup check to CI.
 
 = 1.119.9 =
 * Fixed: enquiries with a backslash or an ampersand were saved corrupted; the honeypot accepted "0"; a mistyped email used up the rate limit; uncaught exceptions on REST and cron requests were silent; two old migrations could switch default options off; a blank form URL lost enquiries.

@@ -196,4 +196,14 @@ foreach ( array( '', '#', '   ' ) as $blank ) {
 $clean = remotive_sanitize_theme_options( array( 'cta_form_action' => 'https://forms.example.com/x' ) );
 t_eq( $clean['cta_form_action'], 'https://forms.example.com/x', 'a real endpoint is kept' );
 
+
+// ---- Which requests count as content the redirect may send home ----
+$none = array( 'singular' => false, 'home' => false, 'queried_id' => 0, 'archive' => false, 'search' => false, 'attachment' => false, 'sitemap' => false );
+t_ok( remotive_agency_is_content_request( array_merge( $none, array( 'singular' => true ) ) ), 'a page or post is content' );
+t_ok( remotive_agency_is_content_request( array_merge( $none, array( 'home' => true, 'queried_id' => 12 ) ) ), 'the posts page (it has a queried page) is content' );
+t_ok( ! remotive_agency_is_content_request( array_merge( $none, array( 'home' => true, 'queried_id' => 0 ) ) ), 'a latest-posts front with no page behind it is not content, so "/" cannot redirect to itself' );
+t_ok( ! remotive_agency_is_content_request( array_merge( $none, array( 'home' => true, 'queried_id' => 12, 'sitemap' => true ) ) ), 'a core sitemap request is left to core' );
+t_ok( remotive_agency_is_content_request( array_merge( $none, array( 'archive' => true ) ) ) && remotive_agency_is_content_request( array_merge( $none, array( 'search' => true ) ) ) && remotive_agency_is_content_request( array_merge( $none, array( 'attachment' => true ) ) ), 'archives, search and attachments are content' );
+t_ok( ! remotive_agency_is_content_request( $none ), 'nothing set is not content' );
+
 t_done( 'agency' );

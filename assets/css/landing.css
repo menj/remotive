@@ -132,7 +132,7 @@ html[data-theme="light"] .rm-lp{
   box-shadow:7px 7px 0 var(--lp-m), 14px 14px 0 var(--lp-c);
   margin:0 14px 14px 0;
 }
-.rm-lp__field input:focus,.rm-lp__field select:focus{ border-color:var(--lp-c); outline:2px solid var(--lp-c); outline-offset:0; }
+.rm-lp__field input:focus,.rm-lp__field select:focus{ border-color:var(--wp--preset--color--cyan-dark); outline:2px solid var(--wp--preset--color--cyan-dark); outline-offset:0; } /* the cards are white, and the cyan ring was about 2.5:1 on white; this one clears 3:1 */
 .rm-lp__lang[aria-current="true"]{ border-color:var(--lp-c); }
 
 /* Buttons: magenta fill. White text in light mode (5.1:1), navy in dark (4.6:1). */
@@ -212,6 +212,7 @@ html:not([data-theme="light"]) .rm-lp__final{ background-color:#0d1117; } /* a s
 .rm-lp__final-copy h2{ margin-bottom:1rem; }
 .rm-lp__final .rm-lp__lead{ color:rgba(255,255,255,.78); margin:0; }
 .rm-lp__final .rm-lp__card{ max-width:34rem; }
+.rm-lp__final .rm-lp__card .rm-lp__field input:focus,.rm-lp__final .rm-lp__card .rm-lp__field select:focus{ border-color:#00308f; outline-color:#00308f; } /* this card is white in both colour modes */
 
 /* ---- FAQ ---- */
 .rm-lp__faq{ padding-bottom:0; }
