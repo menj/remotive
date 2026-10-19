@@ -483,11 +483,12 @@
 		})
 		.catch(function () { /* keep the server-rendered nonce */ });
 
-	// A stalled connection must not leave the form unsubmittable: after 2.5 seconds the submit goes out
-	// with the nonce that is already on the page, which is valid unless a page cache served it very late.
+	// A stalled connection must not leave the form unsubmittable. A refresh that has not answered in 8 seconds
+	// is not going to, so the submit goes out with the nonce already on the page. That nonce is valid unless a
+	// page cache served the page very late, and the handler answers an expired one with the form's error message.
 	var pending = Promise.race([
 		request,
-		new Promise(function (resolve) { window.setTimeout(resolve, 2500); })
+		new Promise(function (resolve) { window.setTimeout(resolve, 8000); })
 	]).then(function () { pending = null; });
 
 	Array.prototype.forEach.call(fields, function (el) {

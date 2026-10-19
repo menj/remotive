@@ -30,6 +30,20 @@ $GLOBALS['has_kses'] = false;
 remotive_insert_lead_post( array( 'post_content' => 'x' ) );
 t_eq( $GLOBALS['kses'], array( 'insert' ), 'for a user with unfiltered_html the kses filters are not touched' );
 
+// ---- The nonce check answers false instead of dying ----
+function wp_verify_nonce( $nonce, $action ) { return ( 'good' === $nonce && 'act' === $action ) ? 1 : false; }
+$_POST = array( 'n' => 'good' );
+t_ok( remotive_form_nonce_valid( 'act', 'n' ), 'a valid nonce passes' );
+t_ok( ! remotive_form_nonce_valid( 'other', 'n' ), 'a nonce for another action fails' );
+$_POST = array( 'n' => 'expired' );
+t_ok( ! remotive_form_nonce_valid( 'act', 'n' ), 'an expired nonce fails without ending the request' );
+$_POST = array();
+t_ok( ! remotive_form_nonce_valid( 'act', 'n' ), 'a missing nonce fails' );
+$_POST = array( 'n' => array( 'good' ) );
+t_ok( ! remotive_form_nonce_valid( 'act', 'n' ), 'a nonce posted as a list fails' );
+$code = (string) file_get_contents( dirname( __DIR__ ) . '/inc/forms/lead-form-handler.php' );
+t_ok( false === strpos( substr( $code, strpos( $code, 'function remotive_handle_lead_form_submission' ) ), 'check_admin_referer( $args' ), 'the lead handler no longer ends on the expired-link page' );
+
 // ---- The honeypot ----
 foreach ( array( 'x', '0', ' 0 ', 'http://spam.example', array( 'a' ), array() ) as $v ) {
 	t_ok( remotive_honeypot_tripped( $v ), 'honeypot tripped by ' . json_encode( $v ) );
