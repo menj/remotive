@@ -35,6 +35,9 @@ jobs:
       - name: Seeded articles pass the Rank Math content tests
         run: php tests/check-article-seo.php
 
+      - name: Block markup in templates and parts
+        run: php tests/check-block-markup.php
+
       - name: House writing style (anti-AI guide)
         run: php tests/check-writing-style.php
 

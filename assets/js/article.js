@@ -94,11 +94,22 @@
 		} else if ( 'x' === kind ) {
 			el.href = 'https://x.com/intent/post?text=' + encodeURIComponent( text ) + '&url=' + encodeURIComponent( url );
 		} else if ( 'copy' === kind ) {
+			// The label is read once. Reading it on every click saved "Copied" as the label when a second
+			// click came within the 2.2 seconds, and the button then stayed on "Copied".
+			var old = el.textContent;
+			// A live region, so a screen reader hears the result as well as a sighted visitor seeing it.
+			var live = document.createElement( 'span' );
+			live.setAttribute( 'role', 'status' );
+			live.style.cssText = 'position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap';
+			el.parentNode.insertBefore( live, el.nextSibling );
+			var timer = null;
+
 			el.addEventListener( 'click', function () {
-				var old = el.textContent;
 				var say = function ( msg ) {
 					el.textContent = msg;
-					window.setTimeout( function () { el.textContent = old; }, 2200 );
+					live.textContent = msg;
+					window.clearTimeout( timer );
+					timer = window.setTimeout( function () { el.textContent = old; live.textContent = ''; }, 2200 );
 				};
 				// Older browsers and non-secure pages have no Clipboard API; fall back to a
 				// hidden field and execCommand, and say so if that fails too.

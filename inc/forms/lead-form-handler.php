@@ -24,6 +24,19 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
+ * Whether the posted nonce is valid for the action. The check_admin_referer() test without its die().
+ *
+ * @param string $action Nonce action.
+ * @param string $name   Name of the posted field.
+ * @return bool
+ */
+function remotive_form_nonce_valid( $action, $name ) {
+	$nonce = isset( $_POST[ $name ] ) && is_scalar( $_POST[ $name ] ) ? sanitize_text_field( wp_unslash( $_POST[ $name ] ) ) : '';
+
+	return '' !== $nonce && false !== wp_verify_nonce( $nonce, $action );
+}
+
+/**
  * Whether a honeypot field was filled in. A real visitor never sees the field, so any value at all
  * (including the string "0", which empty() treats as blank) means a bot. An array counts too: a bot
  * that posts the field as a list is still a bot.
@@ -106,10 +119,15 @@ function remotive_limit_text( $text, $max ) {
  * }
  */
 function remotive_handle_lead_form_submission( $args ) {
-	check_admin_referer( $args['nonce_action'], $args['nonce_name'] );
-
 	$redirect_base = $args['redirect_base'];
 	$status_key    = 'remotive_' . $args['form_key'];
+
+	// check_admin_referer() would end the request on WordPress's "link has expired" page. A visitor whose page
+	// was cached long enough for the nonce to expire gets the form's own error message instead.
+	if ( ! remotive_form_nonce_valid( $args['nonce_action'], $args['nonce_name'] ) ) {
+		wp_safe_redirect( add_query_arg( $status_key, 'error', $redirect_base ) );
+		exit;
+	}
 
 	// Honeypot: a real visitor never sees or reaches this field. Any
 	// value here means a bot filled every input it could find. Redirect

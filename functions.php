@@ -436,7 +436,8 @@ function remotive_custom_logo_markup( $html ) {
 	$picture .= '</picture>';
 
 	// Preserve the anchor WordPress wraps the logo in.
-	return '<a href="' . $home_url . '" class="custom-logo-link" rel="home" aria-current="page">' . $picture . '</a>';
+	// aria-current marks the page the visitor is on, so only the home page carries it.
+	return '<a href="' . $home_url . '" class="custom-logo-link" rel="home"' . ( is_front_page() ? ' aria-current="page"' : '' ) . '>' . $picture . '</a>';
 }
 add_filter( 'get_custom_logo', 'remotive_custom_logo_markup' );
 

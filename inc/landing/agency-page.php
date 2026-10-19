@@ -92,6 +92,25 @@ function remotive_lp_service( $slug ) {
 }
 
 /**
+ * Whether a request is for content that has a page behind it. Pure, so it can be tested.
+ *
+ * is_home() is also true for a request with no page behind it: with Settings > Reading set to "A static page"
+ * and no Homepage chosen, "/" shows the latest posts and is_home() is true while is_front_page() is false.
+ * Sending that request to the home page would loop. The posts page proper has a queried object. The core
+ * sitemap endpoints are virtual, so they are left to core.
+ *
+ * @param array $q Flags: singular, home, queried_id, archive, search, attachment, sitemap.
+ * @return bool
+ */
+function remotive_agency_is_content_request( array $q ) {
+	if ( ! empty( $q['sitemap'] ) ) {
+		return false;
+	}
+
+	return ! empty( $q['singular'] ) || ( ! empty( $q['home'] ) && ! empty( $q['queried_id'] ) ) || ! empty( $q['archive'] ) || ! empty( $q['search'] ) || ! empty( $q['attachment'] );
+}
+
+/**
  * Whether a request should be sent to the home page. Pure, so it can be tested.
  *
  * @param array $c Flags: mode, hide, front, content (a page, post, archive,
@@ -124,7 +143,15 @@ function remotive_agency_maybe_redirect() {
 		'mode'    => remotive_agency_mode(),
 		'hide'    => '1' === (string) remotive_get_theme_option( 'agency_hide_pages' ),
 		'front'   => is_front_page(),
-		'content' => is_singular() || is_home() || is_archive() || is_search() || is_attachment(),
+		'content' => remotive_agency_is_content_request( array(
+			'singular'   => is_singular(),
+			'home'       => is_home(),
+			'queried_id' => (int) get_queried_object_id(),
+			'archive'    => is_archive(),
+			'search'     => is_search(),
+			'attachment' => is_attachment(),
+			'sitemap'    => '' !== (string) get_query_var( 'sitemap' ) || '' !== (string) get_query_var( 'sitemap-stylesheet' ),
+		) ),
 		'landing' => $is_page && is_page_template( REMOTIVE_LANDING_TEMPLATE ),
 		'legal'   => $is_page && is_page_template( 'page-legal' ),
 		'preview' => is_preview(),

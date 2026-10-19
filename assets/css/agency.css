@@ -6,6 +6,10 @@
    services and the team.
    ========================================================================== */
 
+/* The wrapper's bottom padding (5rem, for the ad pages' sticky button) would show as a strip of page
+   background under the full-bleed footer, which carries its own room for the button. */
+.rm-ag{ padding-bottom:0; }
+
 /* A two-line headline that is longer than an ad page's, so a little smaller. */
 .rm-ag h1{ font-size:clamp(2rem,4.6vw,3.3rem); }
 
