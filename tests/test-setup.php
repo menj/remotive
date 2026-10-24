@@ -85,20 +85,27 @@ t_eq( $args['post_parent'], 5, 'the lookup is limited to the parent page' );
 t_eq( $args['name'], 'seo', 'and to the slug' );
 t_ok( ! isset( remotive_seed_find_args( 'about', 'page' )['post_parent'] ), 'a top-level item has no parent condition' );
 
-// ---- A renamed or binned parent: the children still hang off it, so the lookup wants any parent but none ----
+// ---- A renamed or binned parent: nothing is matched (an unrelated nested page with the slug is not the
+// seeded one) and nothing is created (a child without its parent would be a top-level duplicate) ----
 $GLOBALS['T']['no_page'] = true;
-$args = remotive_seed_find_args( 'seo', 'page', 'services' );
-t_ok( ! isset( $args['post_parent'] ), 'with the parent missing the lookup is not tied to a parent ID' );
-t_eq( $args['post_parent__not_in'] ?? null, array( 0 ), 'but a top-level page with the slug is not the seeded one' );
+t_eq( remotive_seed_find_args( 'seo', 'page', 'services' ), null, 'with the parent missing no slug match is trusted' );
+t_eq( remotive_seed_find( 'seo', 'page', 'services' ), null, 'and the lookup finds nothing' );
+$src = file_get_contents( dirname( __DIR__ ) . '/inc/setup/content-seed.php' );
+t_ok( 2 === preg_match_all( '/if \( ! \$parent \) \{\s*\n\s*(continue|return false)/', $src ), 'the seeder and the restore both stop at a missing parent' );
 $GLOBALS['T']['no_page'] = false;
 
 // ---- Overlapping admin loads: the second one waits while the first holds the lock ----
 t_reset();
 $GLOBALS['T']['options'][ REMOTIVE_SETUP_FLAG ] = '1.0.0';
-set_transient( REMOTIVE_SETUP_LOCK, time(), 600 );
+t_ok( remotive_setup_lock_acquire(), 'the first request takes the lock' );
+t_ok( ! remotive_setup_lock_acquire(), 'the second does not' );
 remotive_maybe_auto_setup();
 t_eq( $GLOBALS['T']['options'][ REMOTIVE_SETUP_FLAG ], '1.0.0', 'a locked setup runs nothing' );
-delete_transient( REMOTIVE_SETUP_LOCK );
+remotive_setup_lock_release();
+t_ok( remotive_setup_lock_acquire(), 'released, it can be taken again' );
+remotive_setup_lock_release();
+$src = file_get_contents( dirname( __DIR__ ) . '/inc/setup/site-setup.php' );
+t_ok( false !== strpos( $src, "'option_name' => REMOTIVE_SETUP_LOCK, 'option_value' => \$held" ), 'with a database the lock is taken by one compare-and-swap on the row' );
 t_ok( function_exists( 'remotive_run_pending_migrations' ), 'the migrations run through their own function under the lock' );
 
 // ---- The fatal page is printed once: the drop-in steps aside when the theme's handler is active ----

@@ -45,19 +45,29 @@ const REMOTIVE_SEEDED = 'remotive_seeded_content';
  * @return WP_Post|null
  */
 function remotive_seed_find( $slug, $type, $parent = '' ) {
-	$found = get_posts( remotive_seed_find_args( $slug, $type, $parent ) );
+	$args = remotive_seed_find_args( $slug, $type, $parent );
+
+	if ( null === $args ) {
+		return null;
+	}
+
+	$found = get_posts( $args );
 
 	return $found ? $found[0] : null;
 }
 
 /**
- * The get_posts() arguments remotive_seed_find() uses. Pure apart from the parent lookup, so the parent
- * rule can be tested.
+ * The get_posts() arguments remotive_seed_find() uses, or null when the item's parent page is missing.
+ * Pure apart from the parent lookup, so the parent rule can be tested.
+ *
+ * A child is only ever looked for under its declared parent. With the parent renamed or binned, no slug
+ * match is trusted (an unrelated nested page with the same slug is not the seeded one) and the seeder
+ * creates nothing either: a child made without its parent would be a top-level duplicate.
  *
  * @param string $slug   Post slug.
  * @param string $type   Post type.
  * @param string $parent Parent page path, or ''.
- * @return array
+ * @return array|null
  */
 function remotive_seed_find_args( $slug, $type, $parent = '' ) {
 	$args = array(
@@ -71,13 +81,11 @@ function remotive_seed_find_args( $slug, $type, $parent = '' ) {
 	if ( '' !== (string) $parent ) {
 		$parent_page = get_page_by_path( $parent, OBJECT, 'page' );
 
-		if ( $parent_page ) {
-			$args['post_parent'] = (int) $parent_page->ID;
-		} else {
-			// The parent was renamed or binned: its children still hang off it, so look for the slug among
-			// pages that have some parent. A top-level page with the same slug is not the seeded one.
-			$args['post_parent__not_in'] = array( 0 );
+		if ( ! $parent_page ) {
+			return null;
 		}
+
+		$args['post_parent'] = (int) $parent_page->ID;
 	}
 
 	return $args;
@@ -238,9 +246,13 @@ function remotive_seed_run() {
 		if ( ! empty( $item['parent'] ) ) {
 			$parent = get_page_by_path( $item['parent'], OBJECT, 'page' );
 
-			if ( $parent ) {
-				$args['post_parent'] = $parent->ID;
+			// No parent, no child: it would be a top-level duplicate. The item is left for a later run,
+			// once the parent is back.
+			if ( ! $parent ) {
+				continue;
 			}
+
+			$args['post_parent'] = $parent->ID;
 		}
 
 		$post_id = wp_insert_post( $args, true );
@@ -530,9 +542,11 @@ function remotive_seed_restore( $key ) {
 	if ( ! empty( $target['parent'] ) ) {
 		$parent = get_page_by_path( $target['parent'], OBJECT, 'page' );
 
-		if ( $parent ) {
-			$args['post_parent'] = $parent->ID;
+		if ( ! $parent ) {
+			return false; // Restore the parent first; a child without it would be a top-level duplicate.
 		}
+
+		$args['post_parent'] = $parent->ID;
 	}
 
 	if ( $existing ) {

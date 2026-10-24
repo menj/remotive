@@ -702,7 +702,7 @@ const REMOTIVE_SETUP_FLAG = 'remotive_site_setup_done';
  */
 const REMOTIVE_SETUP_SCHEMA = '1.119.0';
 
-/** Transient that keeps two overlapping admin loads from running the migrations at the same time. */
+/** Option row that keeps two overlapping admin loads from running the migrations at the same time. */
 const REMOTIVE_SETUP_LOCK = 'remotive_setup_lock';
 
 /**
@@ -861,16 +861,78 @@ function remotive_maybe_auto_setup() {
 
 	// Two admin loads at once (the first after an upload, say) would both run the migrations and seed every
 	// page twice. The second waits for the next load, by which time the stored version has moved on.
-	if ( get_transient( REMOTIVE_SETUP_LOCK ) ) {
+	if ( ! remotive_setup_lock_acquire() ) {
 		return;
 	}
-	set_transient( REMOTIVE_SETUP_LOCK, time(), 10 * MINUTE_IN_SECONDS );
 
 	try {
 		remotive_run_pending_migrations( $stored, $required, $is_fresh );
 	} finally {
-		delete_transient( REMOTIVE_SETUP_LOCK );
+		remotive_setup_lock_release();
 	}
+}
+
+/**
+ * Take the setup lock, or report that another request holds it.
+ *
+ * One compare-and-swap on the option row: the row is updated from "free" ('0') to this request's
+ * token in a single statement, so two requests that both read "free" cannot both win (a read followed
+ * by a write, as with a transient, lets both through). A lock older than ten minutes is treated as
+ * abandoned by a request that died, and taken over the same way.
+ *
+ * @return bool Whether this request holds the lock.
+ */
+function remotive_setup_lock_acquire() {
+	global $wpdb;
+
+	$token = (string) time();
+
+	if ( ! is_object( $wpdb ) || ! method_exists( $wpdb, 'update' ) ) {
+		// No database layer (the test bootstrap): a plain transient is the best available.
+		if ( get_transient( REMOTIVE_SETUP_LOCK ) ) {
+			return false;
+		}
+		set_transient( REMOTIVE_SETUP_LOCK, $token, 10 * MINUTE_IN_SECONDS );
+
+		return true;
+	}
+
+	// Make sure the row exists; add_option() is a no-op when it already does.
+	add_option( REMOTIVE_SETUP_LOCK, '0', '', 'no' );
+
+	// Read past the object cache: the row may have been changed by the other request moments ago.
+	wp_cache_delete( REMOTIVE_SETUP_LOCK, 'options' );
+	wp_cache_delete( 'alloptions', 'options' );
+	$held = (string) get_option( REMOTIVE_SETUP_LOCK, '0' );
+	$free = '0' === $held || '' === $held || (int) $held < time() - 10 * MINUTE_IN_SECONDS;
+
+	if ( ! $free ) {
+		return false;
+	}
+
+	// Swap only from the value just read: a request that got in between changed it, and the swap fails.
+	$rows = $wpdb->update( $wpdb->options, array( 'option_value' => $token ), array( 'option_name' => REMOTIVE_SETUP_LOCK, 'option_value' => $held ) );
+	wp_cache_delete( REMOTIVE_SETUP_LOCK, 'options' );
+	wp_cache_delete( 'alloptions', 'options' );
+
+	return 1 === (int) $rows;
+}
+
+/**
+ * Give the setup lock back.
+ */
+function remotive_setup_lock_release() {
+	global $wpdb;
+
+	if ( ! is_object( $wpdb ) || ! method_exists( $wpdb, 'update' ) ) {
+		delete_transient( REMOTIVE_SETUP_LOCK );
+
+		return;
+	}
+
+	$wpdb->update( $wpdb->options, array( 'option_value' => '0' ), array( 'option_name' => REMOTIVE_SETUP_LOCK ) );
+	wp_cache_delete( REMOTIVE_SETUP_LOCK, 'options' );
+	wp_cache_delete( 'alloptions', 'options' );
 }
 
 /**
