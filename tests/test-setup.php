@@ -85,4 +85,26 @@ t_eq( $args['post_parent'], 5, 'the lookup is limited to the parent page' );
 t_eq( $args['name'], 'seo', 'and to the slug' );
 t_ok( ! isset( remotive_seed_find_args( 'about', 'page' )['post_parent'] ), 'a top-level item has no parent condition' );
 
+// ---- A renamed or binned parent: the children still hang off it, so the lookup wants any parent but none ----
+$GLOBALS['T']['no_page'] = true;
+$args = remotive_seed_find_args( 'seo', 'page', 'services' );
+t_ok( ! isset( $args['post_parent'] ), 'with the parent missing the lookup is not tied to a parent ID' );
+t_eq( $args['post_parent__not_in'] ?? null, array( 0 ), 'but a top-level page with the slug is not the seeded one' );
+$GLOBALS['T']['no_page'] = false;
+
+// ---- Overlapping admin loads: the second one waits while the first holds the lock ----
+t_reset();
+$GLOBALS['T']['options'][ REMOTIVE_SETUP_FLAG ] = '1.0.0';
+set_transient( REMOTIVE_SETUP_LOCK, time(), 600 );
+remotive_maybe_auto_setup();
+t_eq( $GLOBALS['T']['options'][ REMOTIVE_SETUP_FLAG ], '1.0.0', 'a locked setup runs nothing' );
+delete_transient( REMOTIVE_SETUP_LOCK );
+t_ok( function_exists( 'remotive_run_pending_migrations' ), 'the migrations run through their own function under the lock' );
+
+// ---- The fatal page is printed once: the drop-in steps aside when the theme's handler is active ----
+$dropin = file_get_contents( dirname( __DIR__ ) . '/drop-ins/php-error.php' );
+t_ok( false !== strpos( $dropin, "defined( 'REMOTIVE_ERROR_HANDLER' )" ), 'the drop-in checks for the theme handler' );
+t_ok( false !== strpos( file_get_contents( dirname( __DIR__ ) . '/inc/core/error-handler.php' ), "define( 'REMOTIVE_ERROR_HANDLER', true )" ), 'the theme handler declares itself' );
+t_ok( false === strpos( file_get_contents( dirname( __DIR__ ) . '/inc/core/error-handler.php' ), 'wp_fatal_error_handler_enabled' ), 'the filter a theme cannot use is gone' );
+
 t_done( 'setup' );

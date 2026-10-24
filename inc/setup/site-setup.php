@@ -702,6 +702,9 @@ const REMOTIVE_SETUP_FLAG = 'remotive_site_setup_done';
  */
 const REMOTIVE_SETUP_SCHEMA = '1.119.0';
 
+/** Transient that keeps two overlapping admin loads from running the migrations at the same time. */
+const REMOTIVE_SETUP_LOCK = 'remotive_setup_lock';
+
 /**
  * Migrations keyed by the schema version they introduce.
  *
@@ -856,6 +859,28 @@ function remotive_maybe_auto_setup() {
 		return; // Already at or ahead of the current schema — nothing to do.
 	}
 
+	// Two admin loads at once (the first after an upload, say) would both run the migrations and seed every
+	// page twice. The second waits for the next load, by which time the stored version has moved on.
+	if ( get_transient( REMOTIVE_SETUP_LOCK ) ) {
+		return;
+	}
+	set_transient( REMOTIVE_SETUP_LOCK, time(), 10 * MINUTE_IN_SECONDS );
+
+	try {
+		remotive_run_pending_migrations( $stored, $required, $is_fresh );
+	} finally {
+		delete_transient( REMOTIVE_SETUP_LOCK );
+	}
+}
+
+/**
+ * Run every migration newer than the stored schema, in order, and record each one as it completes.
+ *
+ * @param string $stored   The stored schema version ('' on a fresh install).
+ * @param string $required The current schema version.
+ * @param bool   $is_fresh Whether nothing was stored.
+ */
+function remotive_run_pending_migrations( $stored, $required, $is_fresh ) {
 	$migrations = remotive_migration_registry();
 	uksort( $migrations, 'version_compare' ); // Chronological order by version number (a plain ksort would put 1.111.0 before 1.66.0).
 

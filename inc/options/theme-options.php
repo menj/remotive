@@ -843,6 +843,19 @@ function remotive_render_field_row( $key, $field ) {
 }
 
 /**
+ * A form action URL, or the built-in handler when the stored value is blank or a placeholder.
+ *
+ * @param mixed  $value   The stored value.
+ * @param string $default The built-in handler URL.
+ * @return string
+ */
+function remotive_form_action_or_default( $value, $default ) {
+	$value = trim( (string) $value );
+
+	return in_array( $value, array( '', '#' ), true ) ? $default : $value;
+}
+
+/**
  * Sanitize on save. Unknown keys are dropped; every known key is coerced
  * to a safe type regardless of what's submitted.
  */
@@ -867,7 +880,7 @@ function remotive_sanitize_theme_options( $input ) {
 	// A blank or placeholder value would make the form post to the page it is on, which has no handler,
 	// and every enquiry would be lost. Fall back to the built-in handler instead.
 	$cta_action                = remotive_sanitize_optional_url( $input['cta_form_action'] ?? $defaults['cta_form_action'] );
-	$clean['cta_form_action']  = in_array( $cta_action, array( '', '#' ), true ) ? $defaults['cta_form_action'] : $cta_action;
+	$clean['cta_form_action']  = remotive_form_action_or_default( $cta_action, $defaults['cta_form_action'] );
 
 	// Homepage copy: plain text only, so a single sanitizer covers them all.
 	$text_keys = array(
@@ -1855,7 +1868,9 @@ function remotive_replace_theme_option_tokens( $block_content, $block ) {
 			'__REMOTIVE_ADDRESS_LINE_3__'   => esc_html( remotive_get_theme_option( 'address_line_3' ) ),
 			'__REMOTIVE_SOCIAL_LINKS__'    => remotive_render_social_links(),
 			'__REMOTIVE_THEME_URL__'        => esc_url( get_stylesheet_directory_uri() ),
-			'__REMOTIVE_CTA_FORM_ACTION__'  => esc_url( remotive_get_theme_option( 'cta_form_action' ) ),
+			// Checked again here, not only when the options are saved: a blank or "#" saved by an earlier
+			// version would otherwise post the form to the page it is on until an admin re-saves.
+			'__REMOTIVE_CTA_FORM_ACTION__'  => esc_url( remotive_form_action_or_default( remotive_get_theme_option( 'cta_form_action' ), admin_url( 'admin-post.php' ) ) ),
 			// Not admin-configurable like the CTA's — see
 			// inc/forms/about-form-handler.php's docblock for why this one
 			// always uses the native handler directly.

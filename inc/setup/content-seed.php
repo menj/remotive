@@ -45,25 +45,19 @@ const REMOTIVE_SEEDED = 'remotive_seeded_content';
  * @return WP_Post|null
  */
 function remotive_seed_find( $slug, $type, $parent = '' ) {
-	$args = remotive_seed_find_args( $slug, $type, $parent );
-
-	if ( null === $args ) {
-		return null;
-	}
-
-	$found = get_posts( $args );
+	$found = get_posts( remotive_seed_find_args( $slug, $type, $parent ) );
 
 	return $found ? $found[0] : null;
 }
 
 /**
- * The get_posts() arguments remotive_seed_find() uses, or null when the item's parent page is missing.
- * Pure apart from the parent lookup, so the parent rule can be tested.
+ * The get_posts() arguments remotive_seed_find() uses. Pure apart from the parent lookup, so the parent
+ * rule can be tested.
  *
  * @param string $slug   Post slug.
  * @param string $type   Post type.
  * @param string $parent Parent page path, or ''.
- * @return array|null
+ * @return array
  */
 function remotive_seed_find_args( $slug, $type, $parent = '' ) {
 	$args = array(
@@ -77,11 +71,13 @@ function remotive_seed_find_args( $slug, $type, $parent = '' ) {
 	if ( '' !== (string) $parent ) {
 		$parent_page = get_page_by_path( $parent, OBJECT, 'page' );
 
-		if ( ! $parent_page ) {
-			return null;
+		if ( $parent_page ) {
+			$args['post_parent'] = (int) $parent_page->ID;
+		} else {
+			// The parent was renamed or binned: its children still hang off it, so look for the slug among
+			// pages that have some parent. A top-level page with the same slug is not the seeded one.
+			$args['post_parent__not_in'] = array( 0 );
 		}
-
-		$args['post_parent'] = (int) $parent_page->ID;
 	}
 
 	return $args;

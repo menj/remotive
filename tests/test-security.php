@@ -84,4 +84,28 @@ t_eq( remotive_limit_text( str_repeat( 'a', 300 ), REMOTIVE_LEAD_MAX_NAME ), str
 t_eq( remotive_limit_text( str_repeat( '中', 6000 ), REMOTIVE_LEAD_MAX_MESSAGE ), str_repeat( '中', 5000 ), 'long multibyte message cut by characters' );
 t_eq( remotive_limit_text( 'short', 200 ), 'short', 'short text untouched' );
 
+// Only the path and the rest_route argument name a route: a search for the users path on another route is
+// an ordinary request.
+t_eq( remotive_rest_route_candidates( '/wp-json/wp/v2/posts?search=%2Fwp%2Fv2%2Fusers' ), array( '/wp-json/wp/v2/posts' ), 'the rest of the query string is not a route' );
+t_eq( remotive_rest_route_candidates( '/?rest_route=%2Fwp%2Fv2%2Fusers&per_page=5' ), array( '/', '/wp/v2/users' ), 'the rest_route argument is a route' );
+t_reset();
+$_SERVER['REQUEST_URI'] = '/wp-json/wp/v2/posts?search=/wp/v2/users';
+t_eq( remotive_block_user_enumeration_rest( null ), null, 'a posts search mentioning the users path is allowed' );
+$_SERVER['REQUEST_URI'] = '/wp-json/wp/v2/users';
+t_ok( remotive_block_user_enumeration_rest( null ) instanceof WP_Error, 'the users path is still blocked' );
+
+// Dispatch: the embedded author request of ?_embed goes through here, not through the authentication filter.
+class T_Request { public $route; public function __construct( $r ) { $this->route = $r; } public function get_route() { return $this->route; } }
+t_ok( remotive_block_user_enumeration_dispatch( null, null, new T_Request( '/wp/v2/users/1' ) ) instanceof WP_Error, 'an embedded users request is blocked at dispatch' );
+t_eq( remotive_block_user_enumeration_dispatch( null, null, new T_Request( '/wp/v2/posts' ) ), null, 'other routes dispatch as normal' );
+t_eq( remotive_block_user_enumeration_dispatch( 'SET', null, new T_Request( '/wp/v2/users' ) ), 'SET', 'an earlier result is respected' );
+$GLOBALS['T']['logged_in'] = true;
+t_eq( remotive_block_user_enumeration_dispatch( null, null, new T_Request( '/wp/v2/users' ) ), null, 'a logged-in user is not blocked at dispatch' );
+$GLOBALS['T']['logged_in'] = false;
+t_ok( in_array( 'remotive_block_user_enumeration_dispatch', $GLOBALS['filters']['rest_pre_dispatch'] ?? array(), true ), 'the dispatch filter is registered' );
+
+// The author redirect must run before redirect_canonical() (priority 10), which otherwise turns ?author=1
+// into /author/<login>/ first.
+t_eq( $GLOBALS['priorities']['template_redirect|remotive_block_author_enumeration'] ?? null, 0, 'the author redirect runs ahead of redirect_canonical' );
+
 t_done( 'security' );

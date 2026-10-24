@@ -4,7 +4,7 @@ Tags: block-theme, full-site-editing, child-theme, one-page
 Requires at least: 6.7
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.119.11
+Stable tag: 1.120.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -277,8 +277,9 @@ handling.
 Two limits worth knowing. Errors that happen before the theme loads, during
 WordPress core or plugin startup, are outside any theme's control; for those
 set WP_DEBUG_DISPLAY to false and display_errors off in wp-config.php, which
-you want on a live site anyway. And because the theme takes over the error
-page, WordPress recovery mode emails are disabled.
+you want on a live site anyway. WordPress recovery mode keeps working: its
+handler still runs, pauses the broken plugin and emails the administrator,
+and only the page it would print is replaced by the theme's.
 
 If an error ever prevents you signing in, add this to wp-config.php to see the
 detail without an admin session, then remove it once fixed:
@@ -335,9 +336,12 @@ floor, not a replacement.
 
 == Changelog ==
 
-See `docs/changelog.md` for full version history. Latest version: 1.119.11.
+See `docs/changelog.md` for full version history. Latest version: 1.120.0.
 
 == Upgrade Notice ==
+
+= 1.120.0 =
+* Fixed: ?author=1 still revealed the login name; the REST users block could be stepped around with _embed; a fatal error printed two pages; a landing page lead could end on a 404; a cleared form URL still lost enquiries; the legal page bar had no way home; form status colours failed contrast; contact sidebar headings were mis-styled; English messages on translated forms; duplicates after a renamed Services page; backslashes lost in enquiry meta; no lock around setup; no message box on an enquiry.
 
 = 1.119.11 =
 * Fixed: a page of your own could be mistaken for a seeded services page; the spam folder was hidden when no enquiries were published; the menus had no accessible names; Privacy and Terms carried links to hidden pages in the one-page layout.

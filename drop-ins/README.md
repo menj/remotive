@@ -9,7 +9,7 @@ automatically** — see below.
 |---|---|
 | `db-error.php` | The database connection fails |
 | `maintenance.php` | A core / plugin / theme update is in progress |
-| `php-error.php` | A fatal error occurs **before the theme loads** (a plugin or mu-plugin). Once the theme is running, `inc/core/error-handler.php` handles fatals with its own branded page and this file is not used. |
+| `php-error.php` | A fatal error occurs **before the theme loads** (a plugin or mu-plugin). Once the theme is running, `inc/core/error-handler.php` handles fatals with its own branded page; WordPress still loads this file first, and it returns at once when the theme's handler is active (`REMOTIVE_ERROR_HANDLER`) so only one page is printed. |
 
 ## How they install
 

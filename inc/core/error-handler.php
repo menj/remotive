@@ -30,10 +30,10 @@
  *     (E_ERROR, E_PARSE, undefined function calls, memory exhaustion),
  *     where only file/line/message are available.
  *
- * WordPress's own handler is disabled via wp_fatal_error_handler_enabled so
- * the two do not both try to render a page. Note this also disables
- * WordPress recovery mode emails; the trade-off is deliberate and is
- * documented in readme.txt.
+ * WordPress's own fatal handler stays registered: it is set up before any theme loads, so a theme cannot
+ * switch it off, and keeping it means recovery mode still pauses the broken plugin and emails the
+ * administrator. It runs first at shutdown and loads wp-content/php-error.php, the drop-in this theme
+ * installs, which steps aside (REMOTIVE_ERROR_HANDLER) so that only the page below is printed.
  *
  * Non-HTML contexts (AJAX, REST, cron, WP-CLI) are passed through untouched
  * so a fatal there still produces a machine-readable failure rather than an
@@ -69,21 +69,18 @@ function remotive_eu( $url ) {
 }
 
 /**
- * Take over from WordPress's fatal error handler.
+ * Whether the theme's error page is in use.
  *
- * Returning false here stops WP_Fatal_Error_Handler from rendering its own
- * page, leaving ours as the only output. Filterable so a site owner can hand
- * control back to WordPress without editing the theme:
+ * Filterable so a site owner can hand the fatal page back to WordPress and the drop-in without editing
+ * the theme:
  *
  *   add_filter( 'remotive_use_custom_error_page', '__return_false' );
+ *
+ * @return bool
  */
-function remotive_disable_wp_fatal_handler( $enabled ) {
-	if ( ! apply_filters( 'remotive_use_custom_error_page', true ) ) {
-		return $enabled;
-	}
-	return false;
+function remotive_custom_error_page_enabled() {
+	return (bool) apply_filters( 'remotive_use_custom_error_page', true );
 }
-add_filter( 'wp_fatal_error_handler_enabled', 'remotive_disable_wp_fatal_handler' );
 
 /**
  * Whether the current request should see full technical detail.
@@ -644,8 +641,10 @@ function remotive_render_php_notices( $admin_screen = false ) {
 }
 
 // Registered only when the takeover is enabled, so the filter genuinely
-// hands control back to WordPress rather than leaving both active.
-if ( apply_filters( 'remotive_use_custom_error_page', true ) ) {
+// hands control back to WordPress rather than leaving both active. The
+// constant is what wp-content/php-error.php checks before it prints.
+if ( remotive_custom_error_page_enabled() ) {
+	define( 'REMOTIVE_ERROR_HANDLER', true );
 	set_exception_handler( 'remotive_handle_exception' );
 	register_shutdown_function( 'remotive_handle_shutdown' );
 }

@@ -1,5 +1,5 @@
 <?php
-// Remotive Media fatal-error fallback 1.1.0.
+// Remotive Media fatal-error fallback 1.2.0.
 //
 // A real WordPress drop-in: since WP 5.2, WP_Fatal_Error_Handler requires
 // wp-content/php-error.php automatically when it exists.
@@ -11,6 +11,14 @@
 // fatal in a plugin or mu-plugin, which runs before the theme exists and
 // therefore before its handler is registered. Without this file that case
 // falls back to WordPress's generic "critical error" page.
+//
+// WordPress runs this file from its own shutdown handler, which is registered
+// before the theme's, so when the theme's handler is active both would print
+// a page, one after the other. The theme defines the constant when it takes
+// over, and this file then leaves the page to it.
+if ( defined( 'REMOTIVE_ERROR_HANDLER' ) && REMOTIVE_ERROR_HANDLER ) {
+	return;
+}
 if ( ! headers_sent() ) {
 	header( 'HTTP/1.1 500 Internal Server Error', true, 500 );
 	header( 'Content-Type: text/html; charset=utf-8' );

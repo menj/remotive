@@ -233,7 +233,7 @@ function remotive_agency_legal_chrome_block( $content, $block ) {
 
 	if ( 'header' === $block['attrs']['slug'] ) {
 		return '<a class="rm-skip-link" href="#main">' . esc_html__( 'Skip to content', 'remotive' ) . '</a>'
-			. '<div class="rm-lp rm-ag rm-ag--chrome"><header class="rm-lp__bar">' . remotive_lp_logo() . remotive_agency_lang_nav() . '</header></div>';
+			. '<div class="rm-lp rm-ag rm-ag--chrome"><header class="rm-lp__bar">' . remotive_lp_logo( home_url( '/' ) ) . remotive_agency_lang_nav( remotive_agency_current_page_path() ) . '</header></div>';
 	}
 
 	if ( 'footer' === $block['attrs']['slug'] ) {
@@ -832,24 +832,58 @@ function remotive_agency_footer_html() {
 }
 
 /**
- * The language links in the bar: one per language the site offers for the home
- * page, each pointing at that language's own home page. The campaign
- * parameters are added to them by assets/js/landing.js, as on the ad pages.
+ * The path of the page being rendered, for the language links on a kept legal page, or '' on the front.
  *
  * @return string
  */
-function remotive_agency_lang_nav() {
+function remotive_agency_current_page_path() {
+	if ( ! is_page() || is_front_page() ) {
+		return '';
+	}
+
+	// The language layer's key is the same path, with the site's base directory removed.
+	if ( function_exists( 'remotive_i18n_key' ) ) {
+		return (string) remotive_i18n_key();
+	}
+
+	return (string) get_page_uri( get_queried_object_id() );
+}
+
+/**
+ * A page's URL in a language: the language directory, then the page path.
+ *
+ * @param string $prefix Language directory ('' for English).
+ * @param string $path   Page path without slashes, '' for the home page.
+ * @return string
+ */
+function remotive_agency_lang_url( $prefix, $path ) {
+	$parts = array_filter( array( (string) $prefix, trim( (string) $path, '/' ) ), 'strlen' );
+
+	return $parts ? user_trailingslashit( home_url( '/' . implode( '/', $parts ) ) ) : home_url( '/' );
+}
+
+/**
+ * The language links in the bar: one per language the site offers for the
+ * page, each pointing at that language's copy of it (the home page on the
+ * front, the legal page itself on a kept legal page). The campaign parameters
+ * are added to them by assets/js/landing.js, as on the ad pages.
+ *
+ * @param string $path Page path, '' for the home page.
+ * @return string
+ */
+function remotive_agency_lang_nav( $path = '' ) {
 	$links   = '';
 	$current = remotive_lp_requested_lang();
 	$count   = 0;
+	$path    = trim( (string) $path, '/' );
 
 	foreach ( remotive_lp_enabled_languages() as $key => $lang ) {
-		if ( '' !== $lang[0] && function_exists( 'remotive_i18n_available' ) && ! remotive_i18n_available( $lang[0], '' ) ) {
+		if ( '' !== $lang[0] && function_exists( 'remotive_i18n_available' ) && ! remotive_i18n_available( $lang[0], $path ) ) {
 			continue;
 		}
 
 		++$count;
-		$url    = '' === $lang[0] ? home_url( '/' ) : user_trailingslashit( home_url( '/' . $lang[0] ) );
+		$url    = remotive_agency_lang_url( $lang[0], $path );
 		$links .= sprintf(
 			'<a class="rm-lp__lang" href="%1$s" hreflang="%2$s" lang="%2$s" aria-label="%3$s" title="%3$s"%4$s>%5$s</a>',
 			esc_url( $url ),

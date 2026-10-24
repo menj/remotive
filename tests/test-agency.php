@@ -221,9 +221,24 @@ $head = remotive_agency_legal_chrome_block( 'ORIGINAL', $block );
 t_ok( false !== strpos( $head, 'rm-lp__bar' ) && false === strpos( $head, 'ORIGINAL' ), 'the header part becomes the one-page bar' );
 t_ok( false !== strpos( $head, 'rm-skip-link' ), 'the skip link is kept' );
 t_ok( false === strpos( $head, '/services/' ) && false === strpos( $head, 'Start a project' ), 'the bar has no links to hidden pages' );
+t_ok( false !== strpos( $head, 'class="rm-lp__home" href="https://example.com/"' ), 'the logo in the bar links home: the full header it replaces had the only other way back' );
 $foot = remotive_agency_legal_chrome_block( 'ORIGINAL', array( 'blockName' => 'core/template-part', 'attrs' => array( 'slug' => 'footer' ) ) );
 t_ok( false !== strpos( $foot, 'rm-ag__foot' ), 'the footer part becomes the one-page footer' );
 t_options( array( 'agency_mode' => '1', 'agency_hide_pages' => '0' ) );
 t_eq( remotive_agency_legal_chrome_block( 'ORIGINAL', $block ), 'ORIGINAL', 'with the other pages live the header part is left alone' );
+
+// ---- Language links on a kept legal page point at that page, not at the language's home ----
+t_eq( remotive_agency_lang_url( '', '' ), 'https://example.com/', 'English home' );
+t_eq( remotive_agency_lang_url( 'ms', '' ), 'https://example.com/ms/', 'Malay home' );
+t_eq( remotive_agency_lang_url( 'ms', 'privacy' ), 'https://example.com/ms/privacy/', 'the Malay privacy page' );
+t_eq( remotive_agency_lang_url( '', '/privacy/' ), 'https://example.com/privacy/', 'the English privacy page, slashes trimmed' );
+t_reset();
+$GLOBALS['T']['front'] = true;
+t_eq( remotive_agency_current_page_path(), '', 'the front page has no path' );
+
+// ---- A blank or "#" form action falls back to the built-in handler at render time ----
+t_eq( remotive_form_action_or_default( '', 'https://example.com/wp-admin/admin-post.php' ), 'https://example.com/wp-admin/admin-post.php', 'blank falls back' );
+t_eq( remotive_form_action_or_default( ' # ', 'https://example.com/wp-admin/admin-post.php' ), 'https://example.com/wp-admin/admin-post.php', 'a placeholder falls back' );
+t_eq( remotive_form_action_or_default( 'https://forms.example/x', 'D' ), 'https://forms.example/x', 'a real URL is kept' );
 
 t_done( 'agency' );

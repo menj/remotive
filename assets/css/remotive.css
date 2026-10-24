@@ -844,8 +844,16 @@ html:not([data-theme="light"]) .rm-brand img{ background:#fff; padding:2px 4px; 
   margin-top:1rem; font-size:.85rem; font-weight:600;
   padding:.15rem 0; min-height:0;
 }
-.rm-cta__status[data-state="success"]{ color:var(--wp--preset--color--accent-3); }
-.rm-cta__status[data-state="error"]{ color:var(--wp--preset--color--magenta); }
+/* The "strong" tokens are the ones the colour scheme keeps at 4.5:1 against the page; the plate colours
+   are for fills and fail as text (the green plate was close to invisible on the cream page). */
+.rm-cta__status[data-state="success"]{ color:var(--wp--preset--color--accent-3-dark); }
+.rm-cta__status[data-state="error"]{ color:var(--wp--preset--color--magenta-dark); }
+/* Pre-rendered messages, one per state, so a translated page shows its own language: the language
+   layer translates the text at render time, and the script only picks which one to show. */
+.rm-cta__status[hidden]{ display:none; }
+.rm-cta__msg{ display:none; }
+.rm-cta__status[data-state="success"] .rm-cta__msg--success,
+.rm-cta__status[data-state="error"] .rm-cta__msg--error{ display:block; }
 
 /* =================== FOOTER =================== */
 .rm-footer{ border-top:1px solid var(--rm-line); }
