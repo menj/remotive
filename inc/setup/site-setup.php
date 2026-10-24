@@ -893,6 +893,7 @@ function remotive_setup_lock_acquire() {
 			return false;
 		}
 		set_transient( REMOTIVE_SETUP_LOCK, $token, 10 * MINUTE_IN_SECONDS );
+		$GLOBALS['remotive_setup_lock_token'] = $token;
 
 		return true;
 	}
@@ -915,22 +916,40 @@ function remotive_setup_lock_acquire() {
 	wp_cache_delete( REMOTIVE_SETUP_LOCK, 'options' );
 	wp_cache_delete( 'alloptions', 'options' );
 
-	return 1 === (int) $rows;
+	if ( 1 !== (int) $rows ) {
+		return false;
+	}
+
+	$GLOBALS['remotive_setup_lock_token'] = $token;
+
+	return true;
 }
 
 /**
- * Give the setup lock back.
+ * Give the setup lock back, if this request still holds it.
+ *
+ * The release is conditional on the request's own token. A request that ran past the ten-minute
+ * takeover and lost the lock to a newer one must not clear that newer owner's lock on its way out.
  */
 function remotive_setup_lock_release() {
 	global $wpdb;
 
+	$token = isset( $GLOBALS['remotive_setup_lock_token'] ) ? (string) $GLOBALS['remotive_setup_lock_token'] : '';
+	unset( $GLOBALS['remotive_setup_lock_token'] );
+
+	if ( '' === $token ) {
+		return;
+	}
+
 	if ( ! is_object( $wpdb ) || ! method_exists( $wpdb, 'update' ) ) {
-		delete_transient( REMOTIVE_SETUP_LOCK );
+		if ( (string) get_transient( REMOTIVE_SETUP_LOCK ) === $token ) {
+			delete_transient( REMOTIVE_SETUP_LOCK );
+		}
 
 		return;
 	}
 
-	$wpdb->update( $wpdb->options, array( 'option_value' => '0' ), array( 'option_name' => REMOTIVE_SETUP_LOCK ) );
+	$wpdb->update( $wpdb->options, array( 'option_value' => '0' ), array( 'option_name' => REMOTIVE_SETUP_LOCK, 'option_value' => $token ) );
 	wp_cache_delete( REMOTIVE_SETUP_LOCK, 'options' );
 	wp_cache_delete( 'alloptions', 'options' );
 }

@@ -103,7 +103,12 @@ remotive_maybe_auto_setup();
 t_eq( $GLOBALS['T']['options'][ REMOTIVE_SETUP_FLAG ], '1.0.0', 'a locked setup runs nothing' );
 remotive_setup_lock_release();
 t_ok( remotive_setup_lock_acquire(), 'released, it can be taken again' );
+// A request that lost the lock (its token is no longer the one stored) must not clear the new owner's.
+$mine = $GLOBALS['remotive_setup_lock_token'];
+set_transient( REMOTIVE_SETUP_LOCK, 'someone-else', 600 );
 remotive_setup_lock_release();
+t_eq( get_transient( REMOTIVE_SETUP_LOCK ), 'someone-else', 'a release only clears the lock the request itself holds' );
+delete_transient( REMOTIVE_SETUP_LOCK );
 $src = file_get_contents( dirname( __DIR__ ) . '/inc/setup/site-setup.php' );
 t_ok( false !== strpos( $src, "'option_name' => REMOTIVE_SETUP_LOCK, 'option_value' => \$held" ), 'with a database the lock is taken by one compare-and-swap on the row' );
 t_ok( function_exists( 'remotive_run_pending_migrations' ), 'the migrations run through their own function under the lock' );
