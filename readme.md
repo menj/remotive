@@ -201,12 +201,20 @@ remotive/
     │                       and fragmentation/pagination rules.
     ├── css/blog-and-about.css  Blog + About page styles, conditionally
     │                       enqueued, not loaded site-wide.
+    ├── css/landing.css     Ad landing pages and the one-page layout: hero,
+    │                       form cards, closing band, footer.
+    ├── css/agency.css      The one-page layout's own sections (services,
+    │                       steps, signs, team, footer), after landing.css.
+    ├── css/agency-motion.css  Scroll motion for the one-page layout: colour
+    │                       plates on their own scroll rates, lifts and
+    │                       staggered rises. Scoped to body.rm-motion.
+    ├── js/landing.js        Campaign capture, funnel events, sticky CTA and
+    │                       the scroll motion fallback for the one-page layout.
     ├── js/theme-toggle.js  Light/dark toggle logic (localStorage-backed).
     ├── js/lead-form-status.js  Shows any native form's success/error
     │                       status after its handler's redirect, shared
     │                       by the CTA and About forms.
     ├── js/lightbox.js       Accessible image-preview dialog (About page).
-    ├── js/parallax.js       Subtle scroll parallax (About page hero).
     ├── js/ticker.js         Pauses the ticker animation off-screen
     │                       (IntersectionObserver).
     ├── js/webmcp.js         Experimental in-browser agent tools: search,
@@ -971,7 +979,7 @@ An optional alternative home page, switched on and off in **Appearance → Theme
 - **On:** the home page renders one scrolling agency page in the format of the ad landing pages: the logo, the headline and introduction beside a contact form above the fold (the form sits straight under the headline on a phone), then the services (six cards), how we work (four numbered steps), signs it is time to talk (a six-line checklist), the team (small portraits, three sizes), the common questions, and a closing band with the second contact form. Each section has its own switch and its words are editable in the tab. No menu, no country ticker, no hero buttons, no reassurance line. The words (headline, introduction, form text, six services, headings) are editable in the tab. **The translated versions are kept:** the page is served in Bahasa Melayu and Simplified and Traditional Chinese (`/ms/`, `/zh-hans/`, `/zh-hant/`) through the language layer (language links in the bar, hreflang, sitemap), and is translated in Tools → Translations like the rest of the site; an edited English sentence needs its translation updated there.
 - **Other pages:** a second switch (on by default once the layout is on) sends About, Team, Services, Case Studies, Insights, Contact, FAQ and every other page to the home page with a temporary 302, and removes them from the Rank Math, WordPress and AI Discovery sitemaps and from the language versions (the legal pages keep theirs). The ad landing pages, their thank-you pages and the legal pages (privacy, terms) stay. Editors can still preview any page. Turn the second switch off to keep the other pages live next to the new home page.
 - **Forms:** both forms carry an optional "How did you hear about us?" select (`remotive_lp_source_options()`), recorded in English as "Heard about us via" in the email and the stored lead. Both forms post as the service `agency` through the existing landing-page handler (same nonce, honeypot, rate limit, email and thank-you page); the enquiry email says "Service: Agency (home page)".
-- **How it works:** `template_include` swaps the home page to the landing template while the switch is on; `remotive_agency_should_redirect()` decides the redirects (tested); the language layer reports no language versions through the new `remotive_i18n_available` filter; the page styles are `assets/css/agency.css` (after `landing.css`).
+- **How it works:** `template_include` swaps the home page to the landing template while the switch is on; `remotive_agency_should_redirect()` decides the redirects (tested); the language layer reports no language versions through the new `remotive_i18n_available` filter; the page styles are `assets/css/agency.css` (after `landing.css`) and `assets/css/agency-motion.css`, the scroll motion layer: three colour plates behind the hero and the closing band and one per section, each on its own scroll rate, the headline lifting against them, section headings and cards rising in with a stagger, and the big numbers drifting against their cards. It runs on CSS scroll timelines, with a `requestAnimationFrame` fallback in `landing.js` for a browser without them, is scoped to `body.rm-motion` (Theme Options → Motion effects) and is stilled under `prefers-reduced-motion`.
 
 ## Ad landing pages (`inc/landing/landing-pages.php`)
 

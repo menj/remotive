@@ -6,6 +6,10 @@ follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 
 ## [1.120.0] (2026-10-24)
 
+### Added
+
+- **Stronger scroll parallax on the one-page layout.** The page had no scroll motion of its own. `assets/css/agency-motion.css` adds a depth layer: three colour plates (cyan, magenta, the third plate, the misregistered-print motif the form cards use) behind the hero and the closing band and one plate per section, each travelling at its own rate as the page scrolls; the headline and lead lift and fade against them while the form card holds as the foreground; section headings lead their cards in and the cards rise from further away with a stagger across the row; the big numbers drift against their cards. It runs on CSS scroll timelines (`animation-timeline: scroll()` and `view()`), with a `requestAnimationFrame` fallback in `assets/js/landing.js` for a browser without them. Scoped to `body.rm-motion`, so Theme Options → Motion effects switches it off, and stilled under `prefers-reduced-motion`. The plates are `aria-hidden` and carry no text. The full layout's existing parallax is deepened at the same time: the hero mark travels further, the headline lifts more, cards rise from further away and the spread and ticker band pan further.
+
 ### Fixed
 
 The findings of the second review of the codebase, high to low.

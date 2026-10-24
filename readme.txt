@@ -341,6 +341,7 @@ See `docs/changelog.md` for full version history. Latest version: 1.120.0.
 == Upgrade Notice ==
 
 = 1.120.0 =
+* Added: stronger scroll parallax on the one-page layout (colour plates on their own scroll rates, lifts and staggered rises), deeper parallax on the full layout; off under reduced motion and the Theme Options toggle.
 * Fixed: ?author=1 still revealed the login name; the REST users block could be stepped around with _embed; a fatal error printed two pages; a landing page lead could end on a 404; a cleared form URL still lost enquiries; the legal page bar had no way home; form status colours failed contrast; contact sidebar headings were mis-styled; English messages on translated forms; duplicates after a renamed Services page; backslashes lost in enquiry meta; no lock around setup; no message box on an enquiry.
 
 = 1.119.11 =
