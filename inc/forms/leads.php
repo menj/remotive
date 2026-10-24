@@ -642,46 +642,46 @@ function remotive_render_leads_card() {
 				<?php endforeach; ?>
 				</tbody>
 			</table>
-
-			<?php
-			$spam_leads = function_exists( 'remotive_get_leads' ) ? remotive_get_leads( 10, true ) : array();
-			if ( $spam_leads ) :
-				?>
-				<h3><?php esc_html_e( 'Spam folder', 'remotive' ); ?></h3>
-				<p class="rm-admin__card-desc">
-					<?php esc_html_e( 'Check these occasionally. Not spam moves the enquiry back into the list above and tells Akismet it got that one wrong, which improves the filter. The full folder is on the enquiries screen, alongside the other views.', 'remotive' ); ?>
-				</p>
-				<table class="rm-setup-table widefat">
-					<tbody>
-					<?php foreach ( $spam_leads as $spam_lead ) : ?>
-						<tr>
-							<td data-label="<?php esc_attr_e( 'Received', 'remotive' ); ?>"><?php echo esc_html( get_the_date( 'j M Y', $spam_lead ) ); ?></td>
-							<td data-label="<?php esc_attr_e( 'From', 'remotive' ); ?>"><?php echo esc_html( get_post_meta( $spam_lead->ID, '_remotive_lead_email', true ) ); ?></td>
-							<td data-label="<?php esc_attr_e( 'Message', 'remotive' ); ?>"><?php echo esc_html( wp_trim_words( $spam_lead->post_content, 12 ) ); ?></td>
-							<td data-label="<?php esc_attr_e( 'Action', 'remotive' ); ?>">
-								<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
-									<input type="hidden" name="action" value="remotive_lead_spam">
-									<input type="hidden" name="lead_id" value="<?php echo esc_attr( $spam_lead->ID ); ?>">
-									<input type="hidden" name="verdict" value="ham">
-									<?php wp_nonce_field( 'remotive_lead_spam_' . $spam_lead->ID ); ?>
-									<button type="submit" class="button-link"><?php esc_html_e( 'Not spam', 'remotive' ); ?></button>
-								</form>
-							</td>
-						</tr>
-					<?php endforeach; ?>
-					</tbody>
-				</table>
-			<?php endif; ?>
-
-			<p>
-				<a class="button" href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=remotive_export_leads' ), 'remotive_export_leads' ) ); ?>">
-					<?php esc_html_e( 'Export all as CSV', 'remotive' ); ?>
-				</a>
-				<a class="button" href="<?php echo esc_url( admin_url( 'edit.php?post_type=' . REMOTIVE_LEAD_POST_TYPE ) ); ?>">
-					<?php esc_html_e( 'View all enquiries', 'remotive' ); ?>
-				</a>
-			</p>
 		<?php endif; ?>
+
+		<?php
+		$spam_leads = function_exists( 'remotive_get_leads' ) ? remotive_get_leads( 10, true ) : array();
+		if ( $spam_leads ) : // Shown even when the list above is empty: a false positive is found here.
+			?>
+			<h3><?php esc_html_e( 'Spam folder', 'remotive' ); ?></h3>
+			<p class="rm-admin__card-desc">
+				<?php esc_html_e( 'Check these occasionally. Not spam moves the enquiry back into the list above and tells Akismet it got that one wrong, which improves the filter. The full folder is on the enquiries screen, alongside the other views.', 'remotive' ); ?>
+			</p>
+			<table class="rm-setup-table widefat">
+				<tbody>
+				<?php foreach ( $spam_leads as $spam_lead ) : ?>
+					<tr>
+						<td data-label="<?php esc_attr_e( 'Received', 'remotive' ); ?>"><?php echo esc_html( get_the_date( 'j M Y', $spam_lead ) ); ?></td>
+						<td data-label="<?php esc_attr_e( 'From', 'remotive' ); ?>"><?php echo esc_html( get_post_meta( $spam_lead->ID, '_remotive_lead_email', true ) ); ?></td>
+						<td data-label="<?php esc_attr_e( 'Message', 'remotive' ); ?>"><?php echo esc_html( wp_trim_words( $spam_lead->post_content, 12 ) ); ?></td>
+						<td data-label="<?php esc_attr_e( 'Action', 'remotive' ); ?>">
+							<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+								<input type="hidden" name="action" value="remotive_lead_spam">
+								<input type="hidden" name="lead_id" value="<?php echo esc_attr( $spam_lead->ID ); ?>">
+								<input type="hidden" name="verdict" value="ham">
+								<?php wp_nonce_field( 'remotive_lead_spam_' . $spam_lead->ID ); ?>
+								<button type="submit" class="button-link"><?php esc_html_e( 'Not spam', 'remotive' ); ?></button>
+							</form>
+						</td>
+					</tr>
+				<?php endforeach; ?>
+				</tbody>
+			</table>
+		<?php endif; ?>
+
+		<p>
+			<a class="button" href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=remotive_export_leads' ), 'remotive_export_leads' ) ); ?>">
+				<?php esc_html_e( 'Export all as CSV', 'remotive' ); ?>
+			</a>
+			<a class="button" href="<?php echo esc_url( admin_url( 'edit.php?post_type=' . REMOTIVE_LEAD_POST_TYPE ) ); ?>">
+				<?php esc_html_e( 'View all enquiries', 'remotive' ); ?>
+			</a>
+		</p>
 	</div>
 	<?php
 }

@@ -35,22 +35,56 @@ const REMOTIVE_SEEDED = 'remotive_seeded_content';
  * get_page_by_path() only finds published items, which would let the seeder
  * recreate something sitting in drafts or trash. This looks wider.
  *
- * @param string $slug Post slug.
- * @param string $type Post type.
+ * The seeded services pages have generic slugs (seo, content, social), so a site's own top-level
+ * /seo/ page must not be mistaken for services/seo: an item that declares a parent is looked for
+ * under that parent only, and when the parent page does not exist nothing seeded can exist either.
+ *
+ * @param string $slug   Post slug.
+ * @param string $type   Post type.
+ * @param string $parent Parent page path declared by the seed item, or '' for a top-level item.
  * @return WP_Post|null
  */
-function remotive_seed_find( $slug, $type ) {
-	$found = get_posts(
-		array(
-			'name'             => $slug,
-			'post_type'        => $type,
-			'post_status'      => 'any',
-			'numberposts'      => 1,
-			'suppress_filters' => false,
-		)
-	);
+function remotive_seed_find( $slug, $type, $parent = '' ) {
+	$args = remotive_seed_find_args( $slug, $type, $parent );
+
+	if ( null === $args ) {
+		return null;
+	}
+
+	$found = get_posts( $args );
 
 	return $found ? $found[0] : null;
+}
+
+/**
+ * The get_posts() arguments remotive_seed_find() uses, or null when the item's parent page is missing.
+ * Pure apart from the parent lookup, so the parent rule can be tested.
+ *
+ * @param string $slug   Post slug.
+ * @param string $type   Post type.
+ * @param string $parent Parent page path, or ''.
+ * @return array|null
+ */
+function remotive_seed_find_args( $slug, $type, $parent = '' ) {
+	$args = array(
+		'name'             => $slug,
+		'post_type'        => $type,
+		'post_status'      => 'any',
+		'numberposts'      => 1,
+		'suppress_filters' => false,
+	);
+
+	if ( '' !== (string) $parent ) {
+		$parent_page = get_page_by_path( $parent, OBJECT, 'page' );
+
+		if ( ! $parent_page ) {
+			return null;
+		}
+
+		$args['post_parent'] = (int) $parent_page->ID;
+	}
+
+	return $args;
 }
 
 /**
@@ -190,7 +224,7 @@ function remotive_seed_run() {
 		}
 
 		// Something with this slug exists: never overwrite it.
-		if ( remotive_seed_find( $item['slug'], $item['type'] ) ) {
+		if ( remotive_seed_find( $item['slug'], $item['type'], $item['parent'] ?? '' ) ) {
 			$seeded[] = $key;
 			continue;
 		}
@@ -449,7 +483,7 @@ function remotive_seed_status() {
 
 	foreach ( remotive_seed_content() as $item ) {
 		$total++;
-		$post = remotive_seed_find( $item['slug'], $item['type'] );
+		$post = remotive_seed_find( $item['slug'], $item['type'], $item['parent'] ?? '' );
 
 		if ( $post && 'publish' === $post->post_status ) {
 			$live++;
@@ -486,7 +520,7 @@ function remotive_seed_restore( $key ) {
 		return false;
 	}
 
-	$existing = remotive_seed_find( $target['slug'], $target['type'] );
+	$existing = remotive_seed_find( $target['slug'], $target['type'], $target['parent'] ?? '' );
 
 	$args = array(
 		'post_title'   => $target['title'],

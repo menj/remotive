@@ -4,6 +4,20 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.119.11] (2026-10-24)
+
+### Fixed
+
+The four items left open after the review of the codebase.
+
+- **A site's own top-level page could be mistaken for a seeded services page.** The seeded services pages have generic slugs (`seo`, `content`, `social`), and the lookup matched on slug and type alone. A page of your own at `/seo/` therefore blocked the seeded `services/seo` from being created, and "Restore shipped version" could overwrite it. An item that declares a parent is now looked for under that parent only, and when the parent page is missing nothing seeded can exist, so nothing is matched.
+- **The spam folder and the export button were hidden when no enquiries were published.** After a bot flood that Akismet caught, the card said "Nothing yet" and offered no "Not spam" button. The folder and the buttons now render on their own.
+- **The menus had no accessible names.** The header menu and the three footer menus were four identical "navigation" landmarks for a screen reader. They are now named Main menu, Services, Case studies and Company, and a classic menu assigned to one of those locations keeps the same name (a CodeAnt point on this change).
+- **The landing script no longer runs on the kept legal pages.** It would have overwritten the campaign fields saved for the session with an empty set (a CodeAnt point on this change).
+- **Privacy and Terms carried dead links while the other pages were hidden.** With the one-page layout on and the other pages hidden, the two legal pages still rendered the full header and footer, whose links all redirected to the home page. On those pages the header and footer template parts are now replaced with the one-page bar (logo, language links, skip link) and the one-page footer, which link only to pages that stay live. The landing and agency stylesheets load on those pages for it. Nothing changes while the other pages are live.
+
+`tests/test-agency.php` and `tests/test-setup.php` gain checks for the parent rule and the legal page chrome.
+
 ## [1.119.10] (2026-10-14)
 
 ### Fixed

@@ -206,4 +206,24 @@ t_ok( ! remotive_agency_is_content_request( array_merge( $none, array( 'home' =>
 t_ok( remotive_agency_is_content_request( array_merge( $none, array( 'archive' => true ) ) ) && remotive_agency_is_content_request( array_merge( $none, array( 'search' => true ) ) ) && remotive_agency_is_content_request( array_merge( $none, array( 'attachment' => true ) ) ), 'archives, search and attachments are content' );
 t_ok( ! remotive_agency_is_content_request( $none ), 'nothing set is not content' );
 
+
+// ---- Legal pages while the other pages are hidden get the one-page bar and footer ----
+$base = array( 'hide' => true, 'admin' => false, 'page' => true, 'legal' => true );
+t_ok( remotive_agency_legal_chrome_wanted( $base ), 'a legal page with the other pages hidden gets the one-page chrome' );
+t_ok( ! remotive_agency_legal_chrome_wanted( array_merge( $base, array( 'hide' => false ) ) ), 'with the other pages live, the full header and footer stay' );
+t_ok( ! remotive_agency_legal_chrome_wanted( array_merge( $base, array( 'legal' => false ) ) ), 'a page that is not legal is not touched' );
+t_ok( ! remotive_agency_legal_chrome_wanted( array_merge( $base, array( 'admin' => true ) ) ), 'the editor is not touched' );
+$block = array( 'blockName' => 'core/template-part', 'attrs' => array( 'slug' => 'header' ) );
+t_eq( remotive_agency_legal_chrome_block( 'ORIGINAL', array( 'blockName' => 'core/paragraph', 'attrs' => array() ) ), 'ORIGINAL', 'other blocks pass through' );
+t_options( array( 'agency_mode' => '1', 'agency_hide_pages' => '1' ) );
+$GLOBALS['T']['template'] = true;
+$head = remotive_agency_legal_chrome_block( 'ORIGINAL', $block );
+t_ok( false !== strpos( $head, 'rm-lp__bar' ) && false === strpos( $head, 'ORIGINAL' ), 'the header part becomes the one-page bar' );
+t_ok( false !== strpos( $head, 'rm-skip-link' ), 'the skip link is kept' );
+t_ok( false === strpos( $head, '/services/' ) && false === strpos( $head, 'Start a project' ), 'the bar has no links to hidden pages' );
+$foot = remotive_agency_legal_chrome_block( 'ORIGINAL', array( 'blockName' => 'core/template-part', 'attrs' => array( 'slug' => 'footer' ) ) );
+t_ok( false !== strpos( $foot, 'rm-ag__foot' ), 'the footer part becomes the one-page footer' );
+t_options( array( 'agency_mode' => '1', 'agency_hide_pages' => '0' ) );
+t_eq( remotive_agency_legal_chrome_block( 'ORIGINAL', $block ), 'ORIGINAL', 'with the other pages live the header part is left alone' );
+
 t_done( 'agency' );
