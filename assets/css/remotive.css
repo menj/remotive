@@ -2832,7 +2832,9 @@ html:not([data-theme="light"]) .rm-brand img{ background:#fff; padding:2px 4px; 
   body.rm-motion .rm-cs-card,
   body.rm-motion .rm-post-card,
   body.rm-motion .rm-sidebar__card {
-    animation:rm-rise-strong linear both;
+    /* Fill "backwards", not "both" (1.120.0): the end frame is the unanimated state, and holding it
+       kept transform owned by the animation, which swallowed these cards' hover lift. */
+    animation:rm-rise-strong linear backwards;
     animation-timeline:view();
     animation-range:entry 0% cover 30%;
   }

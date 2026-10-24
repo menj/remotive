@@ -80,7 +80,8 @@
 	// Scroll motion fallback for the one-page layout (assets/css/agency-motion.css).
 	// The stylesheet runs the movement on scroll timelines; a browser without them
 	// gets the same from here: the plates and the numbers follow the scroll at
-	// their data-depth rate, and the rising elements get .is-in as they enter.
+	// their data-depth rate, the hero copy lifts over the first screen, and the
+	// rising elements get .is-in as they enter.
 	// Nothing runs without the Theme Options motion class, or for a visitor who
 	// asked the OS for reduced motion.
 	var body = document.body;
@@ -104,22 +105,32 @@
 		for (var q = 0; q < risers.length; q++) { risers[q].classList.add('is-in'); }
 	}
 
+	// The hero copy lifts against the plates over the first screen, as the stylesheet does with
+	// scroll(root): [element, travel in px, opacity at the end].
+	var hero = [];
+	[['.rm-ag__hero h1', -90, 0.55], ['.rm-ag__hero .rm-lp__eyebrow', -90, 0.55], ['.rm-ag__hero .rm-lp__lead', -44, 0.7], ['.rm-ag__hero > .rm-lp__card', -16, 1]].forEach(function (h) {
+		var els = root.querySelectorAll(h[0]);
+		for (var e = 0; e < els.length; e++) { hero.push([els[e], h[1], h[2]]); }
+	});
+
 	var ticking = false;
+	// The rate applies to the untransformed position, so the measurement is taken from the parent (a
+	// plate's section, a number's card): measuring the element itself would include its own last shift
+	// and feed it back into the next one.
 	function shift(el, rate) {
-		var box = el.getBoundingClientRect();
+		var box = el.parentNode.getBoundingClientRect();
 		var offset = (window.innerHeight / 2 - (box.top + box.height / 2)) * rate;
 		el.style.transform = 'translate3d(0,' + offset.toFixed(1) + 'px,0)';
 	}
 	function frame() {
 		ticking = false;
-		for (var p = 0; p < plates.length; p++) {
-			// A plate is positioned inside its section; the section's position is what the rate applies to.
-			var depth = parseFloat(plates[p].getAttribute('data-depth')) || 0;
-			var box = plates[p].parentNode.getBoundingClientRect();
-			var offset = (window.innerHeight / 2 - (box.top + box.height / 2)) * depth;
-			plates[p].style.transform = 'translate3d(0,' + offset.toFixed(1) + 'px,0)';
-		}
+		for (var p = 0; p < plates.length; p++) { shift(plates[p], parseFloat(plates[p].getAttribute('data-depth')) || 0); }
 		for (var u = 0; u < nums.length; u++) { shift(nums[u], 0.08); }
+		var t = Math.min(1, Math.max(0, window.pageYOffset / (window.innerHeight * 0.9)));
+		for (var i = 0; i < hero.length; i++) {
+			hero[i][0].style.transform = 'translate3d(0,' + (hero[i][1] * t).toFixed(1) + 'px,0)';
+			hero[i][0].style.opacity = (1 - (1 - hero[i][2]) * t).toFixed(3);
+		}
 	}
 	function onScroll() {
 		if (!ticking) { ticking = true; window.requestAnimationFrame(frame); }
