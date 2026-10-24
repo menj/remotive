@@ -923,6 +923,13 @@ function remotive_agency_assets() {
 		wp_enqueue_style( $handle, $uri . $file[0], $file[1], file_exists( $dir . $file[0] ) ? filemtime( $dir . $file[0] ) : '1.0.0' );
 	}
 
+	// The script carries campaign fields into the form and saves them for the session, keyed on the
+	// page's service. A legal page has no form and no service, so running it there would overwrite
+	// the saved campaign set with an empty one. The page gets the stylesheets only.
+	if ( ! remotive_agency_front() ) {
+		return;
+	}
+
 	wp_enqueue_script( 'remotive-landing', $uri . '/assets/js/landing.js', array(), file_exists( $dir . '/assets/js/landing.js' ) ? filemtime( $dir . '/assets/js/landing.js' ) : '1.0.0', true );
 	wp_script_add_data( 'remotive-landing', 'strategy', 'defer' );
 }

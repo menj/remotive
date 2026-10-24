@@ -222,8 +222,17 @@ function remotive_render_classic_menu( $block_content, $block ) {
 		$classes .= ' is-vertical';
 	}
 
+	// The landmark keeps the name the block declares (parts/header.html and parts/footer.html set
+	// ariaLabel), so a screen reader can tell the four menus apart whether a classic menu is
+	// assigned or not. The header falls back to "Main".
+	$label = trim( (string) ( $block['attrs']['ariaLabel'] ?? '' ) );
+
+	if ( '' === $label && $is_header ) {
+		$label = __( 'Main', 'remotive' );
+	}
+
 	$html = '<nav class="' . $classes . ' is-layout-flex"'
-		. ( $is_header ? ' aria-label="' . esc_attr__( 'Main', 'remotive' ) . '"' : '' )
+		. ( '' !== $label ? ' aria-label="' . esc_attr( $label ) . '"' : '' )
 		. '>' . $menu;
 
 	// The header needs its mobile toggle: below 600px the stylesheet hides
