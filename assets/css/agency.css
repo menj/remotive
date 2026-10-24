@@ -10,6 +10,10 @@
    background under the full-bleed footer, which carries its own room for the button. */
 .rm-ag{ padding-bottom:0; }
 
+/* The bar and footer on a kept legal page: the wrapper carries only the chrome, the page content sits between. */
+.rm-ag--chrome{ padding:0; }
+.rm-ag--chrome .rm-lp__bar{ border-bottom:1px solid var(--rm-line); }
+
 /* A two-line headline that is longer than an ad page's, so a little smaller. */
 .rm-ag h1{ font-size:clamp(2rem,4.6vw,3.3rem); }
 

@@ -77,4 +77,12 @@ foreach ( $page_hashes as $slug => $fields ) {
 }
 t_ok( '1.119.0' === REMOTIVE_SETUP_SCHEMA, 'the migration schema is 1.119.0' );
 
+
+// ---- A seeded page that declares a parent is looked for under that parent only ----
+// The bootstrap's get_page_by_path() answers every path with page 5.
+$args = remotive_seed_find_args( 'seo', 'page', 'services' );
+t_eq( $args['post_parent'], 5, 'the lookup is limited to the parent page' );
+t_eq( $args['name'], 'seo', 'and to the slug' );
+t_ok( ! isset( remotive_seed_find_args( 'about', 'page' )['post_parent'] ), 'a top-level item has no parent condition' );
+
 t_done( 'setup' );

@@ -193,6 +193,58 @@ function remotive_agency_swap_template( $template ) {
 add_filter( 'template_include', 'remotive_agency_swap_template', 99 );
 
 /**
+ * Whether the current page is one of the kept legal pages while the other pages are hidden.
+ * Pure, so it can be tested.
+ *
+ * @param array $c Flags: hide, admin, page, legal.
+ * @return bool
+ */
+function remotive_agency_legal_chrome_wanted( array $c ) {
+	return ! empty( $c['hide'] ) && empty( $c['admin'] ) && ! empty( $c['page'] ) && ! empty( $c['legal'] );
+}
+
+/**
+ * Whether the current request is a legal page that gets the one-page bar and footer.
+ *
+ * @return bool
+ */
+function remotive_agency_legal_chrome() {
+	return remotive_agency_legal_chrome_wanted( array(
+		'hide'  => remotive_agency_hides_pages(),
+		'admin' => is_admin(),
+		'page'  => is_page(),
+		'legal' => is_page() && is_page_template( 'page-legal' ),
+	) );
+}
+
+/**
+ * Privacy and Terms stay reachable while the other pages are hidden, but the full header and
+ * footer would offer links that all redirect to the home page. On those pages the header and
+ * footer template parts are replaced with the one-page bar (logo, language links) and footer.
+ *
+ * @param string $content Rendered block.
+ * @param array  $block   Parsed block.
+ * @return string
+ */
+function remotive_agency_legal_chrome_block( $content, $block ) {
+	if ( ! isset( $block['blockName'], $block['attrs']['slug'] ) || 'core/template-part' !== $block['blockName'] || ! remotive_agency_legal_chrome() ) {
+		return $content;
+	}
+
+	if ( 'header' === $block['attrs']['slug'] ) {
+		return '<a class="rm-skip-link" href="#main">' . esc_html__( 'Skip to content', 'remotive' ) . '</a>'
+			. '<div class="rm-lp rm-ag rm-ag--chrome"><header class="rm-lp__bar">' . remotive_lp_logo() . remotive_agency_lang_nav() . '</header></div>';
+	}
+
+	if ( 'footer' === $block['attrs']['slug'] ) {
+		return '<div class="rm-lp rm-ag rm-ag--chrome">' . remotive_agency_footer_html() . '</div>';
+	}
+
+	return $content;
+}
+add_filter( 'render_block', 'remotive_agency_legal_chrome_block', 5, 2 );
+
+/**
  * Fill the landing token for the agency home page.
  *
  * @param array $tokens Token => replacement.
@@ -853,11 +905,11 @@ function remotive_agency_render() {
 }
 
 /**
- * Stylesheets and script for the agency home page: the landing-page ones, plus
- * the file for the services and team sections.
+ * Stylesheets and script for the agency home page (and for a legal page that carries
+ * its bar and footer): the landing-page ones, plus the file for the agency sections.
  */
 function remotive_agency_assets() {
-	if ( ! remotive_agency_front() ) {
+	if ( ! remotive_agency_front() && ! remotive_agency_legal_chrome() ) {
 		return;
 	}
 

@@ -581,7 +581,7 @@ function remotive_refresh_article_seo() {
 			continue;
 		}
 
-		$found = remotive_seed_find( $item['slug'], $item['type'] );
+		$found = remotive_seed_find( $item['slug'], $item['type'], $item['parent'] ?? '' );
 		$posts = $found ? array( $found ) : array();
 
 		if ( ! $posts ) {
@@ -1398,7 +1398,7 @@ function remotive_render_site_setup_card() {
 					<?php foreach ( remotive_seed_content() as $rm_item ) : ?>
 						<?php
 						$rm_key  = $rm_item['type'] . ':' . $rm_item['slug'];
-						$rm_post = remotive_seed_find( $rm_item['slug'], $rm_item['type'] );
+						$rm_post = remotive_seed_find( $rm_item['slug'], $rm_item['type'], $rm_item['parent'] ?? '' );
 
 						if ( $rm_post ) {
 							$rm_status = 'publish' === $rm_post->post_status
