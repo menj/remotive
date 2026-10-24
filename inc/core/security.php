@@ -281,6 +281,31 @@ function remotive_is_users_rest_route( $value ) {
  * Block unauthenticated /wp-json/wp/v2/users. Only this endpoint is blocked;
  * the rest of the API stays open for the WebMCP integration.
  */
+/**
+ * The parts of a request that can name a REST route: the path, and the rest_route query argument.
+ *
+ * The rest of the query string is left out: a search for "/wp/v2/users" on the posts route is an ordinary
+ * request, and matching the whole URI would deny it.
+ *
+ * @param string $uri A request URI.
+ * @return string[]
+ */
+function remotive_rest_route_candidates( $uri ) {
+	$uri   = (string) $uri;
+	$parts = array( (string) wp_parse_url( $uri, PHP_URL_PATH ) );
+	$query = (string) wp_parse_url( $uri, PHP_URL_QUERY );
+
+	if ( '' !== $query ) {
+		parse_str( $query, $vars );
+
+		if ( isset( $vars['rest_route'] ) && is_string( $vars['rest_route'] ) ) {
+			$parts[] = $vars['rest_route'];
+		}
+	}
+
+	return $parts;
+}
+
 function remotive_block_user_enumeration_rest( $result ) {
 	// If a previous filter already set a result, respect it.
 	if ( null !== $result ) {
@@ -290,24 +315,19 @@ function remotive_block_user_enumeration_rest( $result ) {
 		return $result;
 	}
 
-	// The route WordPress resolved, plus the raw request, because the route can
-	// also arrive as ?rest_route=%2Fwp%2Fv2%2Fusers, which a plain match on
-	// the URL misses.
+	// The route WordPress resolved, plus the path and rest_route argument of the raw request, because the
+	// route can also arrive as ?rest_route=%2Fwp%2Fv2%2Fusers, which a plain match on the URL misses.
 	$candidates = array();
 	if ( isset( $GLOBALS['wp'] ) && is_object( $GLOBALS['wp'] ) && ! empty( $GLOBALS['wp']->query_vars['rest_route'] ) ) {
 		$candidates[] = (string) $GLOBALS['wp']->query_vars['rest_route'];
 	}
 	if ( isset( $_SERVER['REQUEST_URI'] ) ) {
-		$candidates[] = sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) );
+		$candidates = array_merge( $candidates, remotive_rest_route_candidates( sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) ) );
 	}
 
 	foreach ( $candidates as $candidate ) {
 		if ( remotive_is_users_rest_route( $candidate ) ) {
-			return new WP_Error(
-				'rest_forbidden',
-				__( 'Sorry, you are not allowed to list users.', 'remotive' ),
-				array( 'status' => 401 )
-			);
+			return remotive_users_rest_error();
 		}
 	}
 
@@ -316,14 +336,49 @@ function remotive_block_user_enumeration_rest( $result ) {
 add_filter( 'rest_authentication_errors', 'remotive_block_user_enumeration_rest' );
 
 /**
+ * The error an anonymous users request gets.
+ *
+ * @return WP_Error
+ */
+function remotive_users_rest_error() {
+	return new WP_Error(
+		'rest_forbidden',
+		__( 'Sorry, you are not allowed to list users.', 'remotive' ),
+		array( 'status' => 401 )
+	);
+}
+
+/**
+ * Block the users routes at dispatch as well.
+ *
+ * rest_authentication_errors runs once, for the outer request. A request for posts with ?_embed=author then
+ * fetches each author through an internal request that skips it, so the author's slug and profile link came
+ * back anyway. Dispatch is where every request goes, embedded ones included.
+ *
+ * @param mixed           $result  A response set by an earlier filter, or null.
+ * @param WP_REST_Server  $server  The server.
+ * @param WP_REST_Request $request The request.
+ * @return mixed
+ */
+function remotive_block_user_enumeration_dispatch( $result, $server, $request ) {
+	if ( null !== $result || is_user_logged_in() || ! is_object( $request ) || ! method_exists( $request, 'get_route' ) ) {
+		return $result;
+	}
+
+	if ( remotive_is_users_rest_route( $request->get_route() ) ) {
+		return remotive_users_rest_error();
+	}
+
+	return $result;
+}
+add_filter( 'rest_pre_dispatch', 'remotive_block_user_enumeration_dispatch', 10, 3 );
+
+/**
  * Redirect ?author=N and author archive URLs to home to block username
  * enumeration via the URL layer.
  *
- * Runs on template_redirect. Guards:
- * - is_admin() check prevents firing on admin/login requests.
- * - The is_author() check is wrapped in a did_action('template_redirect')
- *   guard — unnecessary here since we ARE on template_redirect — but the
- *   function is only registered on that hook so conditional tags are safe.
+ * Runs on template_redirect at priority 0, ahead of redirect_canonical(). The is_admin() check keeps it off
+ * admin and login requests; the function is only registered on that hook, so the conditional tags are safe.
  */
 function remotive_block_author_enumeration() {
 	if ( is_admin() ) {
@@ -337,7 +392,9 @@ function remotive_block_author_enumeration() {
 		exit;
 	}
 }
-add_action( 'template_redirect', 'remotive_block_author_enumeration' );
+// Priority 0: redirect_canonical() runs on this hook at 10 and turns ?author=1 into /author/<login>/ first,
+// which is the leak this function exists to stop.
+add_action( 'template_redirect', 'remotive_block_author_enumeration', 0 );
 
 
 /**

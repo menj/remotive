@@ -4,6 +4,33 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.120.0] (2026-10-24)
+
+### Added
+
+- **Stronger scroll parallax on the one-page layout.** The page had no scroll motion of its own. `assets/css/agency-motion.css` adds a depth layer: three colour plates (cyan, magenta, the third plate, the misregistered-print motif the form cards use) behind the hero and the closing band and one plate per section, each travelling at its own rate as the page scrolls; the headline and lead lift and fade against them while the form card holds as the foreground; section headings lead their cards in and the cards rise from further away with a stagger across the row; the big numbers drift against their cards. It runs on CSS scroll timelines (`animation-timeline: scroll()` and `view()`), with a `requestAnimationFrame` fallback in `assets/js/landing.js` for a browser without them. Scoped to `body.rm-motion`, so Theme Options → Motion effects switches it off, and stilled under `prefers-reduced-motion`. The plates are `aria-hidden` and carry no text. The full layout's existing parallax is deepened at the same time: the hero mark travels further, the headline lifts more, cards rise from further away and the spread and ticker band pan further.
+
+### Fixed
+
+The findings of the second review of the codebase, high to low.
+
+- **`?author=1` still revealed the login name.** The theme's redirect ran on the same hook and priority as WordPress's canonical redirect, which fired first and sent the visitor to `/author/<login>/`. The theme's redirect now runs ahead of it.
+- **The REST users block could be stepped around with `_embed`.** A request for posts with `?_embed=author` fetched each author through an internal request that skipped the authentication check, and the author's slug and profile link came back. The users routes are now refused at dispatch as well, which every request goes through. At the same time, a request whose query string merely mentions the users path (a search on the posts route) is no longer refused: only the path and the `rest_route` argument count as a route.
+- **A fatal error printed two pages.** WordPress's fatal handler is set up before any theme loads, so the filter the theme used to switch it off did nothing: on a real fatal, WordPress printed the theme's own `php-error.php` drop-in and then the theme printed its page under it. The drop-in now steps aside when the theme's handler is active, and the filter is gone. A side effect worth having: WordPress recovery mode still runs, so a broken plugin is paused and the administrator emailed, which the old documentation said was lost.
+- **A landing page lead could end on a 404.** The handler sent the visitor to the `audit-requested` page without checking that it exists and is published. The lead was stored and emailed, but the visitor saw a 404 and the conversion never fired. The page is checked first; without it the handler falls back to the shared thank-you page or the message on the landing page itself.
+- **A form URL cleared by an earlier version still lost enquiries.** The fallback added in 1.119.9 ran only when the options were saved again. The stored value is checked at render time too.
+- **The bar on a kept legal page had no way home.** With the one-page layout hiding the other pages, the logo was a plain image and the language links only appear with more than one language on. The logo now links to the home page. The language links on those pages also point at the legal page in each language, not at that language's home page.
+- **The form status messages failed contrast.** The error colour was 2.9:1 on the page and the success colour was close to invisible. Both use the scheme's "strong" text tokens, which are kept at 4.5:1.
+- **The contact page's sidebar headings were mis-styled.** The blog sidebar's icon chip rules applied to every heading with the class, so the contact page's three headings got an empty chip and an indented label. The chip is now scoped to the two headings that declare an icon.
+- **A failed submission on a translated contact or about page showed the English message.** Those forms now carry pre-rendered success and error messages, like the landing forms, which the language layer translates at render time and the script only reveals.
+- **A renamed or binned Services page made every seeded services page look missing**, and the seeder and "Restore shipped version" would then have created top-level duplicates. Both now stop at a missing parent: nothing is matched and nothing is created until the parent is back (a CodeAnt point on the first version of this change, which matched any nested page with the slug).
+- **An enquiry's name, email and source lost backslashes** when saved as meta, as the message had before 1.119.9.
+- **Two overlapping admin loads could run the setup migrations twice** and seed the pages twice. The migrations now run under a lock taken with one compare-and-swap on an option row, so two requests cannot both win it (a CodeAnt point on the first version, which read and then wrote a transient).
+- **The enquiry edit screen had no message box.** A full message was only readable in the CSV export. It is shown read-only, with the email and source.
+- **Smaller:** the case study cards' headings follow the page heading (`h2`, not `h3`); the one-page checklist has a plain background for a browser without `color-mix()`; three about-page headings asked for a font size `theme.json` does not define; the reading progress bar and the table of contents in `single.html` sit inside `wp:html` blocks; the kses pause around a lead insert is restored in a `finally`.
+
+`tests/test-security.php`, `tests/test-setup.php`, `tests/test-landing.php` and `tests/test-agency.php` gain checks for each of these.
+
 ## [1.119.11] (2026-10-24)
 
 ### Fixed

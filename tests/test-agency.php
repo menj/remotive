@@ -221,9 +221,55 @@ $head = remotive_agency_legal_chrome_block( 'ORIGINAL', $block );
 t_ok( false !== strpos( $head, 'rm-lp__bar' ) && false === strpos( $head, 'ORIGINAL' ), 'the header part becomes the one-page bar' );
 t_ok( false !== strpos( $head, 'rm-skip-link' ), 'the skip link is kept' );
 t_ok( false === strpos( $head, '/services/' ) && false === strpos( $head, 'Start a project' ), 'the bar has no links to hidden pages' );
+t_ok( false !== strpos( $head, 'class="rm-lp__home" href="https://example.com/"' ), 'the logo in the bar links home: the full header it replaces had the only other way back' );
 $foot = remotive_agency_legal_chrome_block( 'ORIGINAL', array( 'blockName' => 'core/template-part', 'attrs' => array( 'slug' => 'footer' ) ) );
 t_ok( false !== strpos( $foot, 'rm-ag__foot' ), 'the footer part becomes the one-page footer' );
 t_options( array( 'agency_mode' => '1', 'agency_hide_pages' => '0' ) );
 t_eq( remotive_agency_legal_chrome_block( 'ORIGINAL', $block ), 'ORIGINAL', 'with the other pages live the header part is left alone' );
+
+// ---- Language links on a kept legal page point at that page, not at the language's home ----
+t_eq( remotive_agency_lang_url( '', '' ), 'https://example.com/', 'English home' );
+t_eq( remotive_agency_lang_url( 'ms', '' ), 'https://example.com/ms/', 'Malay home' );
+t_eq( remotive_agency_lang_url( 'ms', 'privacy' ), 'https://example.com/ms/privacy/', 'the Malay privacy page' );
+t_eq( remotive_agency_lang_url( '', '/privacy/' ), 'https://example.com/privacy/', 'the English privacy page, slashes trimmed' );
+t_reset();
+$GLOBALS['T']['front'] = true;
+t_eq( remotive_agency_current_page_path(), '', 'the front page has no path' );
+
+// ---- A blank or "#" form action falls back to the built-in handler at render time ----
+t_eq( remotive_form_action_or_default( '', 'https://example.com/wp-admin/admin-post.php' ), 'https://example.com/wp-admin/admin-post.php', 'blank falls back' );
+t_eq( remotive_form_action_or_default( ' # ', 'https://example.com/wp-admin/admin-post.php' ), 'https://example.com/wp-admin/admin-post.php', 'a placeholder falls back' );
+t_eq( remotive_form_action_or_default( 'https://forms.example/x', 'D' ), 'https://forms.example/x', 'a real URL is kept' );
+
+// ---- Scroll motion: the depth layer behind the hero and the closing band, one plate per section ----
+$layer = remotive_agency_depth_layer();
+t_eq( substr_count( $layer, 'class="rm-ag__plate ' ), 3, 'three plates behind the hero' );
+t_ok( false !== strpos( $layer, 'aria-hidden="true"' ) && false === strpos( $layer, '>' . 'a' ), 'the layer is decoration: hidden from assistive technology, no text' );
+t_ok( (bool) preg_match_all( '/data-depth="(-?[0-9.]+)"/', $layer, $m ) && 3 === count( array_unique( $m[1] ) ), 'each plate has its own rate' );
+t_ok( false !== strpos( remotive_agency_depth_layer( 'final' ), 'rm-ag__depth--final' ), 'the closing band has its own layer' );
+t_options( array( 'agency_mode' => '1' ) );
+$page = remotive_agency_render();
+t_eq( substr_count( $page, 'rm-ag__plate--section' ), 4, 'one plate in each of the four sections' );
+t_eq( substr_count( $page, 'class="rm-ag__depth ' ), 2, 'a depth layer in the hero and in the closing band' );
+
+// Every selector the motion stylesheet animates is stilled under prefers-reduced-motion, and the whole
+// layer is scoped to the body class the Theme Options toggle adds.
+$css = file_get_contents( dirname( __DIR__ ) . '/assets/css/agency-motion.css' );
+preg_match( '/@supports \(animation-timeline: view\(\)\) \{(.*?)\n\}/s', $css, $sup );
+preg_match( '/@media \(prefers-reduced-motion:reduce\)\{(.*)\}/s', $css, $rm );
+preg_match_all( '/^\s*(body\.rm-motion [^{\n]+?)(?:,|\{)/m', $sup[1] ?? '', $animated );
+$missing = array();
+foreach ( $animated[1] as $sel ) {
+	$sel = trim( $sel );
+	if ( false !== strpos( $sel, ':is(' ) || false !== strpos( $sel, 'rm-ag__plate' ) ) {
+		continue; // the stagger rules and the plates are covered by the plate and card rules
+	}
+	if ( false === strpos( $rm[1] ?? '', $sel ) ) {
+		$missing[] = $sel;
+	}
+}
+t_ok( ! empty( $animated[1] ) && ! $missing, 'every animated selector is stilled under reduced motion' . ( $missing ? ': ' . implode( ', ', $missing ) : '' ) );
+preg_match_all( '/animation-timeline/', $sup[1] ?? '', $tl );
+t_ok( count( $tl[0] ) > 10 && ! preg_match( '/^\s*(?!body\.rm-motion)[.a-z][^{\n]*animation-timeline/m', $sup[1] ?? '' ), 'the scroll timelines are all behind body.rm-motion' );
 
 t_done( 'agency' );

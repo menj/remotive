@@ -183,6 +183,50 @@ function remotive_register_lead_spam_status() {
 add_action( 'init', 'remotive_register_lead_spam_status' );
 
 /**
+ * The message on the enquiry's edit screen.
+ *
+ * The post type supports only a title, so the edit screen had no content box and a full message was only
+ * readable in the CSV export. Shown read-only: an enquiry is a record of what the visitor sent.
+ */
+function remotive_lead_message_box() {
+	add_meta_box(
+		'remotive-lead-message',
+		__( 'Message', 'remotive' ),
+		'remotive_lead_message_box_html',
+		REMOTIVE_LEAD_POST_TYPE,
+		'normal',
+		'high'
+	);
+}
+add_action( 'add_meta_boxes_' . REMOTIVE_LEAD_POST_TYPE, 'remotive_lead_message_box' );
+
+/**
+ * @param WP_Post $post The enquiry.
+ */
+function remotive_lead_message_box_html( $post ) {
+	$message = (string) $post->post_content;
+	$lines   = array(
+		__( 'Email', 'remotive' )  => (string) get_post_meta( $post->ID, '_remotive_lead_email', true ),
+		__( 'Source', 'remotive' ) => (string) get_post_meta( $post->ID, '_remotive_lead_source', true ),
+	);
+
+	echo '<p>';
+	foreach ( $lines as $label => $value ) {
+		if ( '' !== $value ) {
+			echo '<strong>' . esc_html( $label ) . ':</strong> ' . esc_html( $value ) . '<br>';
+		}
+	}
+	echo '</p>';
+
+	if ( '' === $message ) {
+		echo '<p><em>' . esc_html__( 'No message was sent with this enquiry.', 'remotive' ) . '</em></p>';
+		return;
+	}
+
+	echo '<textarea readonly class="large-text" rows="' . (int) min( 20, max( 4, substr_count( $message, "\n" ) + 2 ) ) . '">' . esc_textarea( $message ) . '</textarea>';
+}
+
+/**
  * Insert an enquiry as a post. See the comment inside for why the text is slashed and kses is paused.
  *
  * @param array $args wp_insert_post() arguments, unslashed.
@@ -199,13 +243,14 @@ function remotive_insert_lead_post( array $args ) {
 		kses_remove_filters();
 	}
 
-	$post_id = wp_insert_post( wp_slash( $args ), true );
-
-	if ( $kses ) {
-		kses_init_filters();
+	try {
+		return wp_insert_post( wp_slash( $args ), true );
+	} finally {
+		// Restored even when the insert throws, so a later save in the same request is still filtered.
+		if ( $kses ) {
+			kses_init_filters();
+		}
 	}
-
-	return $post_id;
 }
 
 /**
@@ -247,9 +292,10 @@ function remotive_store_lead( $lead ) {
 		return $post_id;
 	}
 
-	update_post_meta( $post_id, '_remotive_lead_email', $email );
-	update_post_meta( $post_id, '_remotive_lead_name', $name );
-	update_post_meta( $post_id, '_remotive_lead_source', $source );
+	// update_post_meta() expects slashed values, like wp_insert_post(): unslashed text loses its backslashes.
+	update_post_meta( $post_id, '_remotive_lead_email', wp_slash( $email ) );
+	update_post_meta( $post_id, '_remotive_lead_name', wp_slash( $name ) );
+	update_post_meta( $post_id, '_remotive_lead_source', wp_slash( $source ) );
 
 	// Kept so a later spam or false-positive report can carry the same
 	// context Akismet saw at submission time. Both are already in the
@@ -258,7 +304,7 @@ function remotive_store_lead( $lead ) {
 		update_post_meta( $post_id, '_remotive_lead_ip', remotive_client_ip() );
 	}
 	if ( isset( $_SERVER['HTTP_USER_AGENT'] ) ) {
-		update_post_meta( $post_id, '_remotive_lead_agent', sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) ) );
+		update_post_meta( $post_id, '_remotive_lead_agent', wp_slash( sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) ) ) );
 	}
 
 

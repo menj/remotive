@@ -121,6 +121,35 @@ function remotive_lp_url( $slug, $lang ) {
 	return user_trailingslashit( home_url( '/' . $prefix . '/' . $slug ) );
 }
 
+/**
+ * The confirmation page's URL in a language, or '' when the page is missing, in the bin or unpublished.
+ *
+ * The form handler then falls back to the shared thank-you page or to the inline message on the landing
+ * page itself, instead of sending a visitor whose lead is already stored and emailed to a 404.
+ *
+ * @param string $lang Language key.
+ * @return string
+ */
+function remotive_lp_thanks_url( $lang ) {
+	$page = get_page_by_path( REMOTIVE_LP_THANKS_SLUG, OBJECT, 'page' );
+
+	if ( ! remotive_lp_page_usable( $page ) ) {
+		return '';
+	}
+
+	return remotive_lp_url( REMOTIVE_LP_THANKS_SLUG, $lang );
+}
+
+/**
+ * Whether a page can be sent a visitor: it exists and is published.
+ *
+ * @param WP_Post|object|null $page The page, or null.
+ * @return bool
+ */
+function remotive_lp_page_usable( $page ) {
+	return is_object( $page ) && isset( $page->post_status ) && 'publish' === $page->post_status;
+}
+
 /* ---- Language URLs ----
  * Handled by inc/i18n/i18n.php: it reads the language directory, removes it
  * from the request, and these pages then resolve like any other page. Earlier
@@ -385,12 +414,14 @@ function remotive_lp_faq_schema() {
 add_action( 'wp_head', 'remotive_lp_faq_schema', 7 );
 
 /**
- * The logo, from the theme's own files (AVIF with PNG fallback). Not linked:
- * these pages have no way out except the form.
+ * The logo, from the theme's own files (AVIF with PNG fallback). Not linked on
+ * the ad pages, which have no way out except the form; linked where a URL is
+ * given (the bar on a kept legal page).
  *
+ * @param string $home_url Where the logo links to, or '' for no link.
  * @return string
  */
-function remotive_lp_logo() {
+function remotive_lp_logo( $home_url = '' ) {
 	$base = get_stylesheet_directory_uri() . '/assets/images/remotive-logo-';
 	$dir  = get_stylesheet_directory() . '/assets/images/remotive-logo-';
 
@@ -398,10 +429,18 @@ function remotive_lp_logo() {
 		? '<source type="image/avif" srcset="' . esc_url( $base . '112.avif' ) . ' 112w, ' . esc_url( $base . '168.avif' ) . ' 168w" sizes="73px">'
 		: '';
 
-	return '<span class="rm-lp__logo"><picture>' . $avif
+	$logo = '<span class="rm-lp__logo"><picture>' . $avif
 		. '<img src="' . esc_url( $base . '112.png' ) . '" srcset="' . esc_url( $base . '112.png' ) . ' 112w, ' . esc_url( $base . '168.png' ) . ' 168w" sizes="73px"'
 		. ' width="112" height="86" alt="Re:Motive Media" loading="eager" decoding="sync">'
 		. '</picture></span>';
+
+	// A link only where asked for: an ad landing page keeps its visitor on the page, a legal page gives
+	// them a way back to the home page.
+	if ( '' !== (string) $home_url ) {
+		return '<a class="rm-lp__home" href="' . esc_url( $home_url ) . '" aria-label="' . esc_attr__( 'Re:Motive Media home', 'remotive' ) . '">' . $logo . '</a>';
+	}
+
+	return $logo;
 }
 
 /**
@@ -641,7 +680,7 @@ function remotive_handle_landing_submission() {
 		/* translators: %s: the site name */
 		'email_subject'  => sprintf( __( 'New landing page enquiry from %s', 'remotive' ), get_bloginfo( 'name' ) ),
 		'extra_lines'    => $extra,
-		'thanks_url'     => remotive_lp_url( REMOTIVE_LP_THANKS_SLUG, $lang ),
+		'thanks_url'     => remotive_lp_thanks_url( $lang ),
 		'thanks_args'    => '' !== $service ? array( 'service' => $service ) : array(),
 	) );
 }

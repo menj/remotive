@@ -844,8 +844,16 @@ html:not([data-theme="light"]) .rm-brand img{ background:#fff; padding:2px 4px; 
   margin-top:1rem; font-size:.85rem; font-weight:600;
   padding:.15rem 0; min-height:0;
 }
-.rm-cta__status[data-state="success"]{ color:var(--wp--preset--color--accent-3); }
-.rm-cta__status[data-state="error"]{ color:var(--wp--preset--color--magenta); }
+/* The "strong" tokens are the ones the colour scheme keeps at 4.5:1 against the page; the plate colours
+   are for fills and fail as text (the green plate was close to invisible on the cream page). */
+.rm-cta__status[data-state="success"]{ color:var(--wp--preset--color--accent-3-dark); }
+.rm-cta__status[data-state="error"]{ color:var(--wp--preset--color--magenta-dark); }
+/* Pre-rendered messages, one per state, so a translated page shows its own language: the language
+   layer translates the text at render time, and the script only picks which one to show. */
+.rm-cta__status[hidden]{ display:none; }
+.rm-cta__msg{ display:none; }
+.rm-cta__status[data-state="success"] .rm-cta__msg--success,
+.rm-cta__status[data-state="error"] .rm-cta__msg--error{ display:block; }
 
 /* =================== FOOTER =================== */
 .rm-footer{ border-top:1px solid var(--rm-line); }
@@ -2701,7 +2709,7 @@ html:not([data-theme="light"]) .rm-brand img{ background:#fff; padding:2px 4px; 
   .rm-stat--linked:hover{ transform:none !important; }
 }
 
-/* =================== SITE-WIDE PARALLAX (v1.73.1, widened 1.77.0) ===
+/* =================== SITE-WIDE PARALLAX (v1.73.1, widened 1.77.0, deepened 1.120.0) ===
    The stronger motion layer. Originally homepage-only on the reasoning
    that interior pages are read rather than scrolled, so movement would
    compete with the text.
@@ -2736,7 +2744,7 @@ html:not([data-theme="light"]) .rm-brand img{ background:#fff; padding:2px 4px; 
    reads as sitting well behind the content rather than beside it. */
 @keyframes rm-drift-strong {
   from { transform:translate3d(0,-40px,0) rotate(-3deg) scale(1); }
-  to   { transform:translate3d(0,190px,0) rotate(9deg) scale(1.18); }
+  to   { transform:translate3d(0,260px,0) rotate(12deg) scale(1.26); }
 }
 
 /* The headline itself lifts slightly as the page scrolls past, so the
@@ -2744,25 +2752,25 @@ html:not([data-theme="light"]) .rm-brand img{ background:#fff; padding:2px 4px; 
    purpose: the text must stay readable while it moves. */
 @keyframes rm-hero-lift {
   from { transform:translate3d(0,0,0); opacity:1; }
-  to   { transform:translate3d(0,-46px,0); opacity:.86; }
+  to   { transform:translate3d(0,-72px,0); opacity:.78; }
 }
 
 /* Sub-copy trails the headline at a slower rate, which is what makes the
    two read as separate planes rather than one moving block. */
 @keyframes rm-hero-trail {
   from { transform:translate3d(0,0,0); }
-  to   { transform:translate3d(0,-22px,0); }
+  to   { transform:translate3d(0,-34px,0); }
 }
 
 /* Cards arrive from further away and settle, rather than nudging in. */
 @keyframes rm-rise-strong {
-  from { opacity:0; transform:translate3d(0,58px,0) scale(.965); }
+  from { opacity:0; transform:translate3d(0,84px,0) scale(.95); }
   to   { opacity:1; transform:translate3d(0,0,0) scale(1); }
 }
 
 /* Section heads lead their own section in. */
 @keyframes rm-rise-head {
-  from { opacity:0; transform:translate3d(0,52px,0); }
+  from { opacity:0; transform:translate3d(0,68px,0); }
   to   { opacity:1; transform:translate3d(0,0,0); }
 }
 
@@ -2770,14 +2778,14 @@ html:not([data-theme="light"]) .rm-brand img{ background:#fff; padding:2px 4px; 
    time it is on screen — the clearest parallax on the page because the
    frame stays still while the fill moves. */
 @keyframes rm-pan-strong {
-  from { transform:scale(1.2) translate3d(0,-52px,0); }
-  to   { transform:scale(1.2) translate3d(0,52px,0); }
+  from { transform:scale(1.28) translate3d(0,-84px,0); }
+  to   { transform:scale(1.28) translate3d(0,84px,0); }
 }
 
 /* The ticker band shifts against the sections above and below it. */
 @keyframes rm-band-shift {
-  from { transform:translate3d(0,-14px,0); }
-  to   { transform:translate3d(0,14px,0); }
+  from { transform:translate3d(0,-24px,0); }
+  to   { transform:translate3d(0,24px,0); }
 }
 
 @supports (animation-timeline: view()) {
@@ -2824,7 +2832,9 @@ html:not([data-theme="light"]) .rm-brand img{ background:#fff; padding:2px 4px; 
   body.rm-motion .rm-cs-card,
   body.rm-motion .rm-post-card,
   body.rm-motion .rm-sidebar__card {
-    animation:rm-rise-strong linear both;
+    /* Fill "backwards", not "both" (1.120.0): the end frame is the unanimated state, and holding it
+       kept transform owned by the animation, which swallowed these cards' hover lift. */
+    animation:rm-rise-strong linear backwards;
     animation-timeline:view();
     animation-range:entry 0% cover 30%;
   }

@@ -702,6 +702,9 @@ const REMOTIVE_SETUP_FLAG = 'remotive_site_setup_done';
  */
 const REMOTIVE_SETUP_SCHEMA = '1.119.0';
 
+/** Option row that keeps two overlapping admin loads from running the migrations at the same time. */
+const REMOTIVE_SETUP_LOCK = 'remotive_setup_lock';
+
 /**
  * Migrations keyed by the schema version they introduce.
  *
@@ -856,6 +859,109 @@ function remotive_maybe_auto_setup() {
 		return; // Already at or ahead of the current schema — nothing to do.
 	}
 
+	// Two admin loads at once (the first after an upload, say) would both run the migrations and seed every
+	// page twice. The second waits for the next load, by which time the stored version has moved on.
+	if ( ! remotive_setup_lock_acquire() ) {
+		return;
+	}
+
+	try {
+		remotive_run_pending_migrations( $stored, $required, $is_fresh );
+	} finally {
+		remotive_setup_lock_release();
+	}
+}
+
+/**
+ * Take the setup lock, or report that another request holds it.
+ *
+ * One compare-and-swap on the option row: the row is updated from "free" ('0') to this request's
+ * token in a single statement, so two requests that both read "free" cannot both win (a read followed
+ * by a write, as with a transient, lets both through). A lock older than ten minutes is treated as
+ * abandoned by a request that died, and taken over the same way.
+ *
+ * @return bool Whether this request holds the lock.
+ */
+function remotive_setup_lock_acquire() {
+	global $wpdb;
+
+	$token = (string) time();
+
+	if ( ! is_object( $wpdb ) || ! method_exists( $wpdb, 'update' ) ) {
+		// No database layer (the test bootstrap): a plain transient is the best available.
+		if ( get_transient( REMOTIVE_SETUP_LOCK ) ) {
+			return false;
+		}
+		set_transient( REMOTIVE_SETUP_LOCK, $token, 10 * MINUTE_IN_SECONDS );
+		$GLOBALS['remotive_setup_lock_token'] = $token;
+
+		return true;
+	}
+
+	// Make sure the row exists; add_option() is a no-op when it already does.
+	add_option( REMOTIVE_SETUP_LOCK, '0', '', 'no' );
+
+	// Read past the object cache: the row may have been changed by the other request moments ago.
+	wp_cache_delete( REMOTIVE_SETUP_LOCK, 'options' );
+	wp_cache_delete( 'alloptions', 'options' );
+	$held = (string) get_option( REMOTIVE_SETUP_LOCK, '0' );
+	$free = '0' === $held || '' === $held || (int) $held < time() - 10 * MINUTE_IN_SECONDS;
+
+	if ( ! $free ) {
+		return false;
+	}
+
+	// Swap only from the value just read: a request that got in between changed it, and the swap fails.
+	$rows = $wpdb->update( $wpdb->options, array( 'option_value' => $token ), array( 'option_name' => REMOTIVE_SETUP_LOCK, 'option_value' => $held ) );
+	wp_cache_delete( REMOTIVE_SETUP_LOCK, 'options' );
+	wp_cache_delete( 'alloptions', 'options' );
+
+	if ( 1 !== (int) $rows ) {
+		return false;
+	}
+
+	$GLOBALS['remotive_setup_lock_token'] = $token;
+
+	return true;
+}
+
+/**
+ * Give the setup lock back, if this request still holds it.
+ *
+ * The release is conditional on the request's own token. A request that ran past the ten-minute
+ * takeover and lost the lock to a newer one must not clear that newer owner's lock on its way out.
+ */
+function remotive_setup_lock_release() {
+	global $wpdb;
+
+	$token = isset( $GLOBALS['remotive_setup_lock_token'] ) ? (string) $GLOBALS['remotive_setup_lock_token'] : '';
+	unset( $GLOBALS['remotive_setup_lock_token'] );
+
+	if ( '' === $token ) {
+		return;
+	}
+
+	if ( ! is_object( $wpdb ) || ! method_exists( $wpdb, 'update' ) ) {
+		if ( (string) get_transient( REMOTIVE_SETUP_LOCK ) === $token ) {
+			delete_transient( REMOTIVE_SETUP_LOCK );
+		}
+
+		return;
+	}
+
+	$wpdb->update( $wpdb->options, array( 'option_value' => '0' ), array( 'option_name' => REMOTIVE_SETUP_LOCK, 'option_value' => $token ) );
+	wp_cache_delete( REMOTIVE_SETUP_LOCK, 'options' );
+	wp_cache_delete( 'alloptions', 'options' );
+}
+
+/**
+ * Run every migration newer than the stored schema, in order, and record each one as it completes.
+ *
+ * @param string $stored   The stored schema version ('' on a fresh install).
+ * @param string $required The current schema version.
+ * @param bool   $is_fresh Whether nothing was stored.
+ */
+function remotive_run_pending_migrations( $stored, $required, $is_fresh ) {
 	$migrations = remotive_migration_registry();
 	uksort( $migrations, 'version_compare' ); // Chronological order by version number (a plain ksort would put 1.111.0 before 1.66.0).
 

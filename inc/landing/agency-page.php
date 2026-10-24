@@ -233,7 +233,7 @@ function remotive_agency_legal_chrome_block( $content, $block ) {
 
 	if ( 'header' === $block['attrs']['slug'] ) {
 		return '<a class="rm-skip-link" href="#main">' . esc_html__( 'Skip to content', 'remotive' ) . '</a>'
-			. '<div class="rm-lp rm-ag rm-ag--chrome"><header class="rm-lp__bar">' . remotive_lp_logo() . remotive_agency_lang_nav() . '</header></div>';
+			. '<div class="rm-lp rm-ag rm-ag--chrome"><header class="rm-lp__bar">' . remotive_lp_logo( home_url( '/' ) ) . remotive_agency_lang_nav( remotive_agency_current_page_path() ) . '</header></div>';
 	}
 
 	if ( 'footer' === $block['attrs']['slug'] ) {
@@ -642,6 +642,7 @@ function remotive_agency_services_html() {
 	$lead = trim( (string) remotive_get_theme_option( 'agency_services_lead' ) );
 
 	return '<section class="rm-lp__section rm-ag__services" id="ag-services" aria-labelledby="rm-ag-services">'
+		. '<span class="rm-ag__plate rm-ag__plate--section" data-depth="0.22" aria-hidden="true"></span>'
 		. '<h2 id="rm-ag-services">' . esc_html( (string) remotive_get_theme_option( 'agency_services_heading' ) ) . '</h2>'
 		. ( '' !== $lead ? '<p class="rm-lp__lead">' . esc_html( $lead ) . '</p>' : '' )
 		. '<ul class="rm-ag__cards">' . $cards . '</ul></section>';
@@ -689,6 +690,7 @@ function remotive_agency_process_html() {
 	$lead = trim( (string) remotive_get_theme_option( 'agency_process_lead' ) );
 
 	return '<section class="rm-lp__section rm-ag__process" id="ag-process" aria-labelledby="rm-ag-process">'
+		. '<span class="rm-ag__plate rm-ag__plate--section" data-depth="0.22" aria-hidden="true"></span>'
 		. '<h2 id="rm-ag-process">' . esc_html( (string) remotive_get_theme_option( 'agency_process_heading' ) ) . '</h2>'
 		. ( '' !== $lead ? '<p class="rm-lp__lead">' . esc_html( $lead ) . '</p>' : '' )
 		. '<ol class="rm-ag__steps">' . $out . '</ol></section>';
@@ -734,6 +736,7 @@ function remotive_agency_signs_html() {
 	$lead = trim( (string) remotive_get_theme_option( 'agency_signs_lead' ) );
 
 	return '<section class="rm-lp__section rm-ag__signs" id="ag-signs" aria-labelledby="rm-ag-signs">'
+		. '<span class="rm-ag__plate rm-ag__plate--section" data-depth="0.22" aria-hidden="true"></span>'
 		. '<h2 id="rm-ag-signs">' . esc_html( (string) remotive_get_theme_option( 'agency_signs_heading' ) ) . '</h2>'
 		. ( '' !== $lead ? '<p class="rm-lp__lead">' . esc_html( $lead ) . '</p>' : '' )
 		. '<ul class="rm-ag__checks">' . $out . '</ul></section>';
@@ -771,6 +774,7 @@ function remotive_agency_team_html() {
 	}
 
 	return '<section class="rm-lp__section rm-ag__team" id="ag-team" aria-labelledby="rm-ag-team">'
+		. '<span class="rm-ag__plate rm-ag__plate--section" data-depth="0.22" aria-hidden="true"></span>'
 		. '<h2 id="rm-ag-team">' . esc_html( (string) remotive_get_theme_option( 'agency_team_heading' ) ) . '</h2>'
 		. '<ul class="rm-ag__people" style="--ag-photo:' . (int) $px . 'px">' . $people . '</ul></section>';
 }
@@ -832,24 +836,58 @@ function remotive_agency_footer_html() {
 }
 
 /**
- * The language links in the bar: one per language the site offers for the home
- * page, each pointing at that language's own home page. The campaign
- * parameters are added to them by assets/js/landing.js, as on the ad pages.
+ * The path of the page being rendered, for the language links on a kept legal page, or '' on the front.
  *
  * @return string
  */
-function remotive_agency_lang_nav() {
+function remotive_agency_current_page_path() {
+	if ( ! is_page() || is_front_page() ) {
+		return '';
+	}
+
+	// The language layer's key is the same path, with the site's base directory removed.
+	if ( function_exists( 'remotive_i18n_key' ) ) {
+		return (string) remotive_i18n_key();
+	}
+
+	return (string) get_page_uri( get_queried_object_id() );
+}
+
+/**
+ * A page's URL in a language: the language directory, then the page path.
+ *
+ * @param string $prefix Language directory ('' for English).
+ * @param string $path   Page path without slashes, '' for the home page.
+ * @return string
+ */
+function remotive_agency_lang_url( $prefix, $path ) {
+	$parts = array_filter( array( (string) $prefix, trim( (string) $path, '/' ) ), 'strlen' );
+
+	return $parts ? user_trailingslashit( home_url( '/' . implode( '/', $parts ) ) ) : home_url( '/' );
+}
+
+/**
+ * The language links in the bar: one per language the site offers for the
+ * page, each pointing at that language's copy of it (the home page on the
+ * front, the legal page itself on a kept legal page). The campaign parameters
+ * are added to them by assets/js/landing.js, as on the ad pages.
+ *
+ * @param string $path Page path, '' for the home page.
+ * @return string
+ */
+function remotive_agency_lang_nav( $path = '' ) {
 	$links   = '';
 	$current = remotive_lp_requested_lang();
 	$count   = 0;
+	$path    = trim( (string) $path, '/' );
 
 	foreach ( remotive_lp_enabled_languages() as $key => $lang ) {
-		if ( '' !== $lang[0] && function_exists( 'remotive_i18n_available' ) && ! remotive_i18n_available( $lang[0], '' ) ) {
+		if ( '' !== $lang[0] && function_exists( 'remotive_i18n_available' ) && ! remotive_i18n_available( $lang[0], $path ) ) {
 			continue;
 		}
 
 		++$count;
-		$url    = '' === $lang[0] ? home_url( '/' ) : user_trailingslashit( home_url( '/' . $lang[0] ) );
+		$url    = remotive_agency_lang_url( $lang[0], $path );
 		$links .= sprintf(
 			'<a class="rm-lp__lang" href="%1$s" hreflang="%2$s" lang="%2$s" aria-label="%3$s" title="%3$s"%4$s>%5$s</a>',
 			esc_url( $url ),
@@ -861,6 +899,25 @@ function remotive_agency_lang_nav() {
 	}
 
 	return $count > 1 ? '<nav class="rm-lp__langs" translate="no" aria-label="Language / Bahasa / 语言 / 語言">' . $links . '</nav>' : '';
+}
+
+/**
+ * The decorative depth layer behind the hero and the closing band: three colour plates (cyan, magenta,
+ * the third plate), the misregistered-print motif the form cards use, each on its own scroll rate so the
+ * copy in front of them reads as a separate plane. Empty for assistive technology and for a visitor who
+ * asked for reduced motion (assets/css/agency-motion.css hides it; the plates carry no content).
+ *
+ * @param string $where 'hero' or 'final'.
+ * @return string
+ */
+function remotive_agency_depth_layer( $where = 'hero' ) {
+	$out = '';
+
+	foreach ( array( 'c', 'm', 'y' ) as $n => $plate ) {
+		$out .= '<span class="rm-ag__plate rm-ag__plate--' . $plate . '" data-depth="' . esc_attr( array( '-0.28', '0.18', '-0.12' )[ $n ] ) . '"></span>';
+	}
+
+	return '<div class="rm-ag__depth rm-ag__depth--' . esc_attr( 'final' === $where ? 'final' : 'hero' ) . '" aria-hidden="true">' . $out . '</div>';
 }
 
 /**
@@ -881,7 +938,7 @@ function remotive_agency_render() {
 	return '<div class="rm-lp rm-ag" data-lang="' . esc_attr( remotive_lp_requested_lang() ) . '" data-service="' . esc_attr( REMOTIVE_AGENCY_SLUG ) . '">'
 		. '<header class="rm-lp__bar">' . remotive_lp_logo() . remotive_agency_lang_nav() . '</header>'
 		. '<main id="main" class="rm-lp__main">'
-		. '<section class="rm-lp__hero"><div class="rm-lp__copy">'
+		. '<section class="rm-lp__hero rm-ag__hero">' . remotive_agency_depth_layer() . '<div class="rm-lp__copy">'
 		. ( '' !== $eyebrow ? '<p class="rm-lp__eyebrow">' . esc_html( $eyebrow ) . '</p>' : '' )
 		. '<h1>' . esc_html( $o( 'agency_line_1' ) ) . '<br> ' . esc_html( $o( 'agency_line_2' ) ) . '</h1>'
 		. remotive_agency_paragraphs( $o( 'agency_lead' ), 'rm-lp__lead' )
@@ -894,7 +951,7 @@ function remotive_agency_render() {
 		. remotive_agency_signs_html()
 		. remotive_agency_team_html()
 		. remotive_agency_faq_html()
-		. '<section class="rm-lp__section rm-lp__final" aria-labelledby="rm-lp-final"><div class="rm-lp__final-copy">'
+		. '<section class="rm-lp__section rm-lp__final rm-ag__final" aria-labelledby="rm-lp-final">' . remotive_agency_depth_layer( 'final' ) . '<div class="rm-lp__final-copy">'
 		. '<h2 id="rm-lp-final">' . esc_html( $o( 'agency_final_heading' ) ) . '</h2>'
 		. remotive_agency_paragraphs( $o( 'agency_final_lead' ), 'rm-lp__lead' ) . '</div>'
 		. '<div class="rm-lp__card">' . remotive_lp_form( REMOTIVE_AGENCY_SLUG, 'bottom' ) . '</div></section>'
@@ -919,6 +976,8 @@ function remotive_agency_assets() {
 	foreach ( array(
 		'remotive-landing' => array( '/assets/css/landing.css', array( 'remotive-style' ) ),
 		'remotive-agency'  => array( '/assets/css/agency.css', array( 'remotive-landing' ) ),
+		// The scroll motion layer: scoped to body.rm-motion, so the Theme Options toggle switches it off.
+		'remotive-agency-motion' => array( '/assets/css/agency-motion.css', array( 'remotive-agency' ) ),
 	) as $handle => $file ) {
 		wp_enqueue_style( $handle, $uri . $file[0], $file[1], file_exists( $dir . $file[0] ) ? filemtime( $dir . $file[0] ) : '1.0.0' );
 	}

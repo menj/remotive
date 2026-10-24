@@ -184,4 +184,19 @@ t_eq( substr_count( $nav, 'service=seo-audit' ), count( remotive_lp_enabled_lang
 t_ok( false === strpos( remotive_lp_lang_nav( REMOTIVE_LP_THANKS_SLUG ), 'service=' ), 'with no service the links are plain' );
 t_ok( false === strpos( $nav, 'from=' ), 'the language links never carry from=, so a language switch cannot fire the lead conversion a second time' );
 
+// ---- The confirmation URL is only used while the page can take a visitor ----
+t_reset();
+t_eq( remotive_lp_thanks_url( 'ms' ), 'https://example.com/ms/audit-requested/', 'a published confirmation page is used' );
+$GLOBALS['T']['page_status'] = 'draft';
+t_eq( remotive_lp_thanks_url( 'ms' ), '', 'an unpublished one is not, so the handler falls back instead of sending the visitor to a 404' );
+$GLOBALS['T']['no_page'] = true;
+t_eq( remotive_lp_thanks_url( 'en' ), '', 'nor a deleted one' );
+t_reset();
+t_ok( ! remotive_lp_page_usable( null ) && ! remotive_lp_page_usable( (object) array( 'post_status' => 'trash' ) ) && remotive_lp_page_usable( (object) array( 'post_status' => 'publish' ) ), 'usable means present and published' );
+
+// ---- The logo links home only where asked ----
+t_ok( false === strpos( remotive_lp_logo(), '<a ' ), 'the ad pages keep the logo unlinked' );
+$linked = remotive_lp_logo( 'https://example.com/' );
+t_ok( false !== strpos( $linked, 'class="rm-lp__home" href="https://example.com/"' ) && false !== strpos( $linked, 'aria-label=' ), 'a legal page gets a labelled link home' );
+
 t_done( 'landing' );

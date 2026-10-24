@@ -86,7 +86,7 @@ foreach ( array( '.rm-lp__bar', '.rm-lp__hero', '#ag-services', '#ag-process', '
 
 // Every selector points at something the page prints.
 $html = remotive_agency_render();
-foreach ( array( '.rm-lp__bar' => 'class="rm-lp__bar"', '.rm-lp__hero' => 'class="rm-lp__hero"', '#ag-services' => 'id="ag-services"', '#ag-process' => 'id="ag-process"', '#ag-signs' => 'id="ag-signs"', '#ag-team' => 'id="ag-team"', '#ag-questions' => 'id="ag-questions"', '.rm-lp__final' => 'rm-lp__final', '.rm-ag__foot' => 'class="rm-ag__foot"' ) as $selector => $needle ) {
+foreach ( array( '.rm-lp__bar' => 'class="rm-lp__bar"', '.rm-lp__hero' => 'class="rm-lp__hero rm-ag__hero"', '#ag-services' => 'id="ag-services"', '#ag-process' => 'id="ag-process"', '#ag-signs' => 'id="ag-signs"', '#ag-team' => 'id="ag-team"', '#ag-questions' => 'id="ag-questions"', '.rm-lp__final' => 'rm-lp__final', '.rm-ag__foot' => 'class="rm-ag__foot"' ) as $selector => $needle ) {
 	t_ok( false !== strpos( $html, $needle ), "the page prints the element that $selector finds" );
 }
 

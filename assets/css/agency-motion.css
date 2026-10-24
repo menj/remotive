@@ -1,0 +1,174 @@
+/* ==========================================================================
+   Scroll motion for the one-page layout (inc/landing/agency-page.php).
+
+   Loaded after agency.css on the one-page front and on a kept legal page.
+   Everything here is scoped to body.rm-motion, the class the Theme Options
+   motion toggle adds, and switched off again under prefers-reduced-motion,
+   so a visitor who asked the OS for less movement gets a still page.
+
+   Depth comes from planes moving at different rates against each other:
+   the colour plates behind the hero travel furthest, the headline lifts
+   against them, the form card barely moves, and each section's cards rise
+   in from further away than its heading. Everything is transform and
+   opacity only, so it stays on the compositor and cannot shift layout.
+
+   The animations run on scroll timelines (animation-timeline: scroll() and
+   view()). A browser without them gets the same movement from
+   assets/js/landing.js, which reads the data-depth attributes on the plates
+   and toggles .is-in on the elements that rise; the transition rules at the
+   foot of this file are for that path only.
+   ========================================================================== */
+
+/* ---- The colour plates ----
+   Big soft squares of the three plate colours, behind the hero copy and the
+   closing band. They are the only elements added for the effect; the rest of
+   the layer animates what the page already has. */
+.rm-ag__hero,
+.rm-ag__final,
+.rm-ag__services,
+.rm-ag__process,
+.rm-ag__signs,
+.rm-ag__team{ position:relative; }
+.rm-ag__depth{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+.rm-ag__hero > .rm-lp__copy,
+.rm-ag__hero > .rm-lp__card,
+.rm-ag__final > .rm-lp__final-copy,
+.rm-ag__final > .rm-lp__card{ position:relative; z-index:1; }
+.rm-ag__plate{
+  position:absolute; display:block; width:clamp(14rem,34vw,30rem); aspect-ratio:1; border-radius:28%;
+  opacity:.55; will-change:transform;
+  background:radial-gradient(closest-side,var(--rm-plate) 0%,transparent 100%);
+}
+.rm-ag__plate--c{ --rm-plate:var(--lp-c); top:-8%; right:-6%; }
+.rm-ag__plate--m{ --rm-plate:var(--lp-m); bottom:-14%; left:-8%; width:clamp(12rem,28vw,24rem); }
+.rm-ag__plate--y{ --rm-plate:var(--lp-y); top:40%; left:38%; width:clamp(8rem,16vw,14rem); opacity:.38; }
+.rm-ag__depth--final .rm-ag__plate--c{ top:auto; bottom:-10%; right:-4%; }
+.rm-ag__depth--final .rm-ag__plate--m{ top:-12%; bottom:auto; left:-6%; }
+/* One plate per section, off to the side, so each section has a plane that moves against its cards. */
+.rm-ag__plate--section{
+  --rm-plate:var(--lp-c); top:10%; right:-10%; width:clamp(10rem,22vw,18rem); opacity:.22; z-index:0;
+}
+.rm-ag__process > .rm-ag__plate--section{ --rm-plate:var(--lp-m); right:auto; left:-8%; top:30%; }
+.rm-ag__signs > .rm-ag__plate--section{ --rm-plate:var(--lp-y); top:50%; }
+.rm-ag__team > .rm-ag__plate--section{ --rm-plate:var(--lp-m); right:auto; left:-6%; top:0; }
+.rm-ag__services > *:not(.rm-ag__plate),
+.rm-ag__process > *:not(.rm-ag__plate),
+.rm-ag__signs > *:not(.rm-ag__plate),
+.rm-ag__team > *:not(.rm-ag__plate){ position:relative; z-index:1; }
+/* The sections clip their plates so the movement can never widen the page. */
+.rm-ag__services, .rm-ag__process, .rm-ag__signs, .rm-ag__team{ overflow:clip; }
+
+/* Without the motion class (toggle off), the plates stay still and faint. */
+.rm-ag__plate{ opacity:.3; }
+body.rm-motion .rm-ag__plate{ opacity:.55; }
+body.rm-motion .rm-ag__plate--y{ opacity:.38; }
+body.rm-motion .rm-ag__plate--section{ opacity:.34; }
+
+/* ---- Keyframes ---- */
+
+/* The three hero plates leave at three rates (and the magenta one in the other direction), which is
+   what reads as depth: the furthest plane travels most. */
+@keyframes rm-ag-plate-far  { from{ transform:translate3d(0,0,0) rotate(-6deg) scale(1); }    to{ transform:translate3d(0,-340px,0) rotate(10deg) scale(1.22); } }
+@keyframes rm-ag-plate-near { from{ transform:translate3d(0,0,0) rotate(4deg); }             to{ transform:translate3d(0,220px,0) rotate(-8deg); } }
+@keyframes rm-ag-plate-mid  { from{ transform:translate3d(0,0,0) scale(1); }                 to{ transform:translate3d(0,-150px,0) scale(1.35); } }
+
+/* The headline lifts and fades against the plates; the lead trails it; the form card holds almost still
+   as the foreground. */
+@keyframes rm-ag-hero-lift  { from{ transform:translate3d(0,0,0); opacity:1; }  to{ transform:translate3d(0,-90px,0); opacity:.55; } }
+@keyframes rm-ag-hero-trail { from{ transform:translate3d(0,0,0); opacity:1; }  to{ transform:translate3d(0,-44px,0); opacity:.7; } }
+@keyframes rm-ag-hero-hold  { from{ transform:translate3d(0,0,0); }             to{ transform:translate3d(0,-16px,0); } }
+
+/* A section plate pans across the whole time its section is on screen, against the still cards. */
+@keyframes rm-ag-plate-pan  { from{ transform:translate3d(0,160px,0) rotate(-4deg); } to{ transform:translate3d(0,-160px,0) rotate(6deg); } }
+
+/* Headings lead their section in; cards arrive from further away and settle. */
+@keyframes rm-ag-rise-head  { from{ opacity:0; transform:translate3d(0,56px,0); }             to{ opacity:1; transform:translate3d(0,0,0); } }
+@keyframes rm-ag-rise-card  { from{ opacity:0; transform:translate3d(0,84px,0) scale(.95); }  to{ opacity:1; transform:translate3d(0,0,0) scale(1); } }
+
+/* The big numbers drift against their cards the whole time they are on screen. */
+@keyframes rm-ag-num-drift  { from{ transform:translate3d(0,22px,0); }  to{ transform:translate3d(0,-22px,0); } }
+
+/* The closing band's plates converge as it arrives. */
+@keyframes rm-ag-final-c    { from{ transform:translate3d(0,220px,0) rotate(8deg); }   to{ transform:translate3d(0,-80px,0) rotate(-4deg); } }
+@keyframes rm-ag-final-m    { from{ transform:translate3d(0,-200px,0) rotate(-6deg); } to{ transform:translate3d(0,60px,0) rotate(5deg); } }
+
+@supports (animation-timeline: view()) {
+
+  /* Hero: driven by the page scroll over the first screen and a half. */
+  body.rm-motion .rm-ag__depth--hero .rm-ag__plate--c{ animation:rm-ag-plate-far linear both;  animation-timeline:scroll(root); animation-range:0 130vh; }
+  body.rm-motion .rm-ag__depth--hero .rm-ag__plate--m{ animation:rm-ag-plate-near linear both; animation-timeline:scroll(root); animation-range:0 130vh; }
+  body.rm-motion .rm-ag__depth--hero .rm-ag__plate--y{ animation:rm-ag-plate-mid linear both;  animation-timeline:scroll(root); animation-range:0 130vh; }
+  body.rm-motion .rm-ag__hero h1,
+  body.rm-motion .rm-ag__hero .rm-lp__eyebrow{ animation:rm-ag-hero-lift linear both;  animation-timeline:scroll(root); animation-range:0 90vh; }
+  body.rm-motion .rm-ag__hero .rm-lp__lead{    animation:rm-ag-hero-trail linear both; animation-timeline:scroll(root); animation-range:0 90vh; }
+  body.rm-motion .rm-ag__hero > .rm-lp__card{  animation:rm-ag-hero-hold linear both;  animation-timeline:scroll(root); animation-range:0 90vh; }
+
+  /* Sections: each plate pans while its section crosses the viewport. */
+  body.rm-motion .rm-ag__plate--section{ animation:rm-ag-plate-pan linear both; animation-timeline:view(); animation-range:cover 0% cover 100%; }
+
+  body.rm-motion .rm-lp__section > h2,
+  body.rm-motion .rm-lp__section > .rm-lp__lead{ animation:rm-ag-rise-head linear backwards; animation-timeline:view(); animation-range:entry 0% cover 28%; }
+
+  /* Fill "backwards", not "both": the end frame equals the unanimated state, so holding it would only
+     keep transform owned by the animation and swallow the cards' hover lift (a CodeAnt point). */
+  body.rm-motion .rm-ag__card,
+  body.rm-motion .rm-ag__step,
+  body.rm-motion .rm-ag__checks li,
+  body.rm-motion .rm-ag__person,
+  body.rm-motion .rm-lp__q,
+  body.rm-motion .rm-ag__final > .rm-lp__card{ animation:rm-ag-rise-card linear backwards; animation-timeline:view(); animation-range:entry 0% cover 32%; }
+  /* A stagger across a row: each later card starts its rise a little further into the viewport. */
+  body.rm-motion :is(.rm-ag__card,.rm-ag__step,.rm-ag__checks li,.rm-ag__person):nth-child(2n){ animation-range:entry 6% cover 38%; }
+  body.rm-motion :is(.rm-ag__card,.rm-ag__step,.rm-ag__checks li,.rm-ag__person):nth-child(3n){ animation-range:entry 12% cover 44%; }
+
+  body.rm-motion .rm-ag__num{ animation:rm-ag-num-drift linear both; animation-timeline:view(); animation-range:cover 0% cover 100%; }
+
+  /* Closing band. */
+  body.rm-motion .rm-ag__depth--final .rm-ag__plate--c{ animation:rm-ag-final-c linear both; animation-timeline:view(); animation-range:cover 0% cover 100%; }
+  body.rm-motion .rm-ag__depth--final .rm-ag__plate--m{ animation:rm-ag-final-m linear both; animation-timeline:view(); animation-range:cover 0% cover 100%; }
+  body.rm-motion .rm-ag__depth--final .rm-ag__plate--y{ animation:rm-ag-plate-mid linear both; animation-timeline:view(); animation-range:cover 0% cover 100%; }
+  body.rm-motion .rm-ag__final > .rm-lp__final-copy{ animation:rm-ag-rise-head linear backwards; animation-timeline:view(); animation-range:entry 0% cover 34%; }
+}
+
+/* ---- Script fallback (no scroll timelines) ----
+   landing.js sets transforms on the plates, the numbers and the hero copy from the scroll position, and
+   adds .is-in to the rising elements as they enter. These rules only apply when the script has marked
+   the page. */
+body.rm-motion.rm-motion--js .rm-lp__section > h2,
+body.rm-motion.rm-motion--js .rm-lp__section > .rm-lp__lead,
+body.rm-motion.rm-motion--js .rm-ag__final > .rm-lp__final-copy{
+  opacity:0; transform:translate3d(0,56px,0); transition:opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1);
+}
+body.rm-motion.rm-motion--js .rm-ag__card,
+body.rm-motion.rm-motion--js .rm-ag__step,
+body.rm-motion.rm-motion--js .rm-ag__checks li,
+body.rm-motion.rm-motion--js .rm-ag__person,
+body.rm-motion.rm-motion--js .rm-lp__q,
+body.rm-motion.rm-motion--js .rm-ag__final > .rm-lp__card{
+  opacity:0; transform:translate3d(0,84px,0) scale(.95); transition:opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1);
+}
+body.rm-motion.rm-motion--js :is(.rm-ag__card,.rm-ag__step,.rm-ag__checks li,.rm-ag__person):nth-child(2n){ transition-delay:.08s; }
+body.rm-motion.rm-motion--js :is(.rm-ag__card,.rm-ag__step,.rm-ag__checks li,.rm-ag__person):nth-child(3n){ transition-delay:.16s; }
+body.rm-motion.rm-motion--js .is-in{ opacity:1 !important; transform:none !important; }
+
+/* ---- Reduced motion: every selector animated above, still. ---- */
+@media (prefers-reduced-motion:reduce){
+  body.rm-motion .rm-ag__plate,
+  body.rm-motion .rm-ag__hero h1,
+  body.rm-motion .rm-ag__hero .rm-lp__eyebrow,
+  body.rm-motion .rm-ag__hero .rm-lp__lead,
+  body.rm-motion .rm-ag__hero > .rm-lp__card,
+  body.rm-motion .rm-lp__section > h2,
+  body.rm-motion .rm-lp__section > .rm-lp__lead,
+  body.rm-motion .rm-ag__card,
+  body.rm-motion .rm-ag__step,
+  body.rm-motion .rm-ag__checks li,
+  body.rm-motion .rm-ag__person,
+  body.rm-motion .rm-lp__q,
+  body.rm-motion .rm-ag__num,
+  body.rm-motion .rm-ag__final > .rm-lp__card,
+  body.rm-motion .rm-ag__final > .rm-lp__final-copy{
+    animation:none !important; transition:none !important; opacity:1 !important; transform:none !important;
+  }
+  body.rm-motion .rm-ag__plate{ opacity:.3 !important; }
+}

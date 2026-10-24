@@ -13,6 +13,9 @@
 /* The bar and footer on a kept legal page: the wrapper carries only the chrome, the page content sits between. */
 .rm-ag--chrome{ padding:0; }
 .rm-ag--chrome .rm-lp__bar{ border-bottom:1px solid var(--rm-line); }
+/* The logo is a link home on a kept legal page: the full header is replaced, so this is the only way back. */
+.rm-lp__home{ display:inline-block; line-height:0; border-radius:var(--rm-r-sm,10px); }
+.rm-lp__home:focus-visible{ outline:2px solid var(--wp--preset--color--cyan-dark); outline-offset:3px; }
 
 /* A two-line headline that is longer than an ad page's, so a little smaller. */
 .rm-ag h1{ font-size:clamp(2rem,4.6vw,3.3rem); }
@@ -66,6 +69,7 @@
 .rm-ag__checks{ list-style:none; margin:0; padding:0; display:grid; gap:.75rem 2rem; grid-template-columns:repeat(2,1fr); }
 .rm-ag__checks li{
   position:relative; margin:0; padding:.85rem 1rem .85rem 3rem; border-radius:12px; line-height:1.45;
+  background:var(--wp--preset--color--card); /* for a browser without color-mix(); the tinted line below wins where it is understood */
   background:color-mix(in srgb,var(--lp-c) 7%,var(--wp--preset--color--card));
 }
 .rm-ag__checks li::before{

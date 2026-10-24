@@ -98,19 +98,24 @@
 }
 @keyframes rm-sb-pulse{ to{ box-shadow:0 0 0 .5rem transparent; } }
 
-/* Headings: icon chip plus label */
+/* Headings: label, plus an icon chip on the headings that declare one (the blog sidebar's). The chip
+   rules are scoped to those two modifiers: the contact page shares the heading class and would
+   otherwise get an empty chip and an indented label. */
 .rm-sidebar__heading{
   display:flex !important; align-items:center; gap:.7rem; margin:0 0 1.2rem !important;
   font-size:.74rem !important; font-weight:800 !important; letter-spacing:.12em !important;
   text-transform:uppercase !important; color:var(--wp--preset--color--ink) !important;
 }
-.rm-sidebar__heading{ position:relative; }
-.rm-sidebar__heading::before{
+.rm-sidebar__heading--recent,
+.rm-sidebar__heading--contact{ position:relative; }
+.rm-sidebar__heading--recent::before,
+.rm-sidebar__heading--contact::before{
   content:""; flex:none; width:2rem; height:2rem; border-radius:10px;
   background:linear-gradient(135deg,color-mix(in srgb,var(--rm-sb-cyan) 22%,transparent),color-mix(in srgb,var(--rm-sb-pink) 22%,transparent));
 }
 /* The icon is a mask on a second layer, centred over the chip, so it takes the accent colour. */
-.rm-sidebar__heading::after{
+.rm-sidebar__heading--recent::after,
+.rm-sidebar__heading--contact::after{
   content:""; position:absolute; left:.5rem; top:50%; width:1rem; height:1rem; margin-top:-.5rem;
   background:var(--rm-sb-pink);
   -webkit-mask:var(--rm-icon) center/contain no-repeat; mask:var(--rm-icon) center/contain no-repeat;
