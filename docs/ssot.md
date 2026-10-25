@@ -480,7 +480,7 @@ postmeta, all within Rank Math's 50-character title and 130-character
 description limits:
 
 - The 23 seeded blog posts and case studies: set by `content-seed.php`
-  from the `rm_title`/`rm_desc`/`rm_kw` keys in `content-seed-data.php`.
+  from the `rm_title`/`rm_desc`/`rm_kw` keys of each file in `content/` (JSON, v1.121.0).
   As of v1.66.2, all 23 also pass Rank Math's full on-page checklist:
   a real, non-generic focus keyword present in the title, description,
   body content and a subheading; 600+ words; at least one internal and
@@ -621,7 +621,7 @@ by path, error handler first.
 |---|---|
 | `inc/core/` | `error-handler`, `security`, `accessibility`, `avif`, `branded-login`, `rank-math`, `not-found` (v1.118.0), `ai-discovery-files` |
 | `inc/options/` | `theme-options`, `colours`, `agency-layout` (v1.116.0), `maintenance-mode` |
-| `inc/setup/` | `site-setup`, `classic-menus`, `content-seed`, `content-seed-data` |
+| `inc/setup/` | `site-setup`, `classic-menus`, `content-seed`, `content-source` (v1.121.0; the shipped content itself is JSON in `content/`) |
 | `inc/forms/` | `lead-form-handler`, `cta-form-handler`, `about-form-handler`, `contact-form-handler`, `leads`, `akismet`, `thank-you` |
 | `inc/landing/` | `landing-pages`, `landing-copy`, `agency-page` (v1.116.0) |
 | `inc/i18n/` | `i18n`, `i18n-admin`, and the dictionaries `ms`, `zh-hans`, `zh-hant` (loaded by name). On/off per language: Theme Options → Languages |

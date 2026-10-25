@@ -7,7 +7,7 @@
  */
 
 require __DIR__ . '/bootstrap.php';
-require dirname( __DIR__ ) . '/inc/setup/content-seed-data.php';
+require dirname( __DIR__ ) . '/inc/setup/content-source.php';
 
 $root     = dirname( __DIR__ );
 $problems = array();

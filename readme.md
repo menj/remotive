@@ -57,6 +57,11 @@ remotive/
 │                           (licences), image-credits.md, accessibility.md,
 │                           cache-headers.md, htaccess-cache.txt, the legal
 │                           drafts and the homepage brief.
+├── content/                The shipped articles, service pages and case
+│                           studies, one JSON file each (posts/, pages/) and
+│                           index.json for the order. The only format content
+│                           for the database is kept in; see "Shipped content
+│                           is JSON". (v1.121.0)
 ├── error-pages/            500.html and 503.html, static pages the server shows
 │                           when WordPress cannot start, and htaccess-errors.txt,
 │                           the ErrorDocument lines to paste into the site root
@@ -129,10 +134,12 @@ remotive/
 │   │   ├── classic-menus.php   Classic menu support and the default menus,
 │   │   │                   including the six listed case studies.
 │   │   ├── content-seed.php        Creates the shipped pages, posts and case
-│   │   └── content-seed-data.php   studies on activation; create-once, with
-│   │                       per-item restore from Theme Options. A child page
-│   │                       is looked for under its parent only; with the
-│   │                       parent missing nothing is matched or created.
+│   │   │                       studies on activation; create-once, with
+│   │   │                       per-item restore from Theme Options. A child page
+│   │   │                       is looked for under its parent only; with the
+│   │   │                       parent missing nothing is matched or created.
+│   │   └── content-source.php      Reads and validates the shipped content from
+│   │                       content/ (JSON only). (v1.121.0)
 │   ├── forms/              Enquiries, from submission to storage.
 │   │   ├── lead-form-handler.php  Shared nonce/rate-limit/honeypot/email
 │   │   │                   logic every native form goes through
@@ -1471,6 +1478,38 @@ Three rules for changing text:
 - A page or article that already exists on a site is refreshed by the migration in `inc/setup/site-setup.php`, which replaces a value only while it matches an earlier seed (`remotive_old_article_seo_hashes()`, `remotive_old_page_copy_hashes()`). Add the hash of the old text when you change a seeded page.
 - Menu names that sites look up by name are identifiers, so they keep their wording.
 
+## Shipped content is JSON
+
+The articles, service pages and case studies the theme publishes on activation are data, stored one item per file in `content/` (`content/posts/<slug>.json`, `content/pages/<slug>.json`) and listed in order in `content/index.json`. Until 1.121.0 they were one 195 KB PHP file (`inc/setup/content-seed-data.php`). JSON is the only format content for the database is kept in: a JSON file is parsed and validated and never included or evaluated, so editing one cannot run code, and a file in any other format is refused. `.html` and `.txt` files are not used for content and the CI check fails if one appears for that purpose.
+
+An item looks like this. The body is block markup, one line per entry, joined with a line feed on load (a plain string is accepted too), so it reads and diffs as text:
+
+```json
+{
+  "type": "page",
+  "slug": "seo",
+  "title": "SEO & GEO / AIO / AEO",
+  "parent": "services",
+  "template": "page-service",
+  "excerpt": "...",
+  "rm_title": "...", "rm_desc": "...", "rm_kw": "...",
+  "content": [ "<!-- wp:paragraph -->", "<p>...</p>", "<!-- /wp:paragraph -->" ]
+}
+```
+
+| Key | Rule |
+|---|---|
+| `type`, `slug`, `title`, `excerpt`, `rm_title`, `rm_desc`, `rm_kw`, `content` | Required. `type` is `post` or `page`; `slug` is lowercase letters, digits and hyphens; the others are non-empty text within a length cap. |
+| `parent`, `template` | Optional, pages. A page path and a block template name. |
+| `category`, `tags`, `image` | Optional, posts. `category` is `[name, slug]`; `image` is a plain file name in `assets/seed-images/`. |
+| Anything else | Refused: an unknown key is an error. |
+
+`remotive_seed_content()` in `inc/setup/content-source.php` is the one entry point, and everything that read the old PHP file calls it unchanged (the seeder, the migrations, the Shipped content card, the check scripts). It refuses, logs and skips, rather than failing the site: a file over 256 KB, a byte order mark, invalid UTF-8 or JSON, an unknown key, a file whose name is not its type and slug, an index entry that is not `posts/<slug>.json` or `pages/<slug>.json` or that climbs out of `content/`, a block the body opens and does not close, and active markup in the body (a script, frame, object, form, style, event handler or `javascript:` address). `.htaccess` also answers a direct request for a file under `content/` with a 404.
+
+To add an item: write `content/posts/<slug>.json` or `content/pages/<slug>.json`, add its path to `content/index.json`, add a photo under `assets/seed-images/` for a post, and run `php tests/check-content-json.php`, `php tests/check-article-seo.php` and `php tests/check-writing-style.php`. The seeder creates an item once and never rewrites it; a site restores one from Theme Options.
+
+The `.html` and `.txt` files that remain are not content: the block templates and parts (WordPress reads templates only as `.html`), the static server error pages in `error-pages/`, and the WordPress readme and server configuration notes. `tests/check-content-json.php` lists them and fails on any other.
+
 ## Tests and CI
 
 Every check and test is plain PHP with no WordPress install:
@@ -1485,6 +1524,7 @@ script and a JSON parse of `theme.json`. Run one with `php tests/<file>`.
 | File | Fails when |
 |---|---|
 | `check-article-seo.php` | A seeded article misses Rank Math's own content tests: description length, keyword density and placement, 1,000 to 1,500 words, an internal and an external link, block markup throughout. |
+| `check-content-json.php` | The shipped content is not JSON-only and valid: a file in `content/` that is not `.json`, an item that fails the schema or holds active markup, an index entry with no file or a file with no entry, a missing seed image, or an `.html` or `.txt` file outside the list of non-content files (v1.121.0). |
 | `check-block-markup.php` | A block comment in `templates/` or `parts/` is unclosed, its attributes are not valid JSON, or a heading's level disagrees with its tag or is not followed by a heading (v1.119.10). |
 | `check-ejaan.php` | A Malay string breaks a Pedoman Umum Ejaan rule the script can check (spelling of loan words, di/ke/dari, numbers, commas, dashes, quotes). |
 | `check-landing-copy.php` | A landing-page text is missing one of its four languages, or a Chinese string holds no Chinese. |

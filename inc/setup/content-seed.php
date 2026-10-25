@@ -25,7 +25,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-require_once __DIR__ . '/content-seed-data.php';
+require_once __DIR__ . '/content-source.php';
 
 const REMOTIVE_SEEDED = 'remotive_seeded_content';
 

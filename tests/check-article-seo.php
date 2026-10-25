@@ -9,7 +9,7 @@
  * Run: php tests/check-article-seo.php
  */
 require __DIR__ . '/bootstrap.php';
-require dirname( __DIR__ ) . '/inc/setup/content-seed-data.php';
+require dirname( __DIR__ ) . '/inc/setup/content-source.php';
 
 $fail = 0;
 $n    = 0;
@@ -21,6 +21,8 @@ function a_ok( $cond, $msg ) {
 		echo "FAIL: $msg\n";
 	}
 }
+
+a_ok( count( remotive_seed_content() ) > 0, 'the shipped content loads (content/index.json is readable and lists items)' );
 
 foreach ( remotive_seed_content() as $i ) {
 	if ( 'post' !== $i['type'] ) {

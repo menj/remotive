@@ -58,7 +58,7 @@ t_ok( md5( remotive_seed_content_from_site( $stored_sub, '/blog-site', $perma ) 
 
 
 // ---- The seeded pages are refreshed like the articles ----
-require_once dirname( __DIR__ ) . '/inc/setup/content-seed-data.php';
+require_once dirname( __DIR__ ) . '/inc/setup/content-source.php';
 $page_hashes = remotive_old_page_copy_hashes();
 $page_slugs  = array();
 
@@ -181,5 +181,15 @@ t_eq( remotive_remove_dev_files( '/nonexistent-' . getmypid() ), 0, 'a missing f
 t_eq( remotive_dev_folders(), array( 'tests', '.github' ), 'only the two development folders are ever named' );
 $src = file_get_contents( dirname( __DIR__ ) . '/inc/setup/site-setup.php' );
 t_ok( false !== strpos( $src, "'remotive_remove_dev_files',\n" ), 'the removal runs with the version sync, on activation and after an upload' );
+
+// ---- The old PHP data file is retired on upgrade; the content is read from JSON ----
+t_ok( in_array( 'inc/setup/content-seed-data.php', remotive_retired_files(), true ), 'an upload that left the old PHP data file has it removed' );
+t_eq( count( remotive_seed_content( true ) ), 27, 'the loader returns the twenty-seven shipped items' );
+t_ok( 0 === strpos( file_get_contents( dirname( __DIR__ ) . '/content/index.json' ), '{' ), 'the index is JSON' );
+$sample = remotive_seed_content()[0];
+t_ok( is_string( $sample['content'] ) && false !== strpos( $sample['content'], "\n" ), 'a body is joined into text with line feeds' );
+t_eq( remotive_content_join_lines( array( 'content' => array( 'a', 'b', 'c' ) ) )['content'], "a\nb\nc", 'lines join with a line feed' );
+t_eq( remotive_content_join_lines( array( 'content' => "x\ny" ) )['content'], "x\ny", 'a plain string is kept' );
+t_eq( remotive_content_join_lines( array( 'content' => array( 'a', 5 ) ) )['content'], null, 'a non-string line is reported, not coerced' );
 
 t_done( 'setup' );

@@ -4,6 +4,17 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.121.0] (2026-10-25)
+
+### Changed
+
+- **The shipped content is JSON.** The twenty-seven articles, service pages and case studies the theme publishes were one 195 KB PHP file, `inc/setup/content-seed-data.php`. Each is now its own JSON file under `content/` (`content/posts/<slug>.json`, `content/pages/<slug>.json`), listed in order in `content/index.json`, with the body as a list of lines of block markup so it reads and diffs as text. JSON is the only format content for the database is kept in: it is parsed and validated, never included or evaluated, so a content file cannot run code, and a file in any other format is refused. The PHP file is deleted, and an upgrade removes it from a site where an upload left it behind.
+- **A validating loader.** `inc/setup/content-source.php` reads the files and refuses, logs and skips (the site keeps working with the rest) a file over 256 KB, a byte order mark, invalid UTF-8 or JSON, an unknown key, a file whose name is not its type and slug, an index entry that is not `posts/<slug>.json` or `pages/<slug>.json` or that climbs out of `content/`, a body that opens a block it does not close, and active markup in a body (a script, frame, object, form, style, event handler or `javascript:` address, including one spelled with character references such as `java&#x73;cript:`). `remotive_seed_content()` keeps its name and shape, so the seeder, the migrations, the Shipped content card and the check scripts are unchanged.
+- **`tests/check-content-json.php` runs in CI.** It fails on a file in `content/` that is not `.json`, an item that fails the schema, an index entry with no file or a file with no entry, a missing seed image, and any `.html` or `.txt` file outside the short list of files that are not content (block templates and parts, the static server error pages, the WordPress readme and server configuration notes). It also feeds the validator the files it must refuse.
+- `.htaccess` answers a direct request for a file under `content/` with a 404.
+
+Checked before the PHP file was deleted: the loader returns the same twenty-seven items as the PHP file, key for key and byte for byte (176,738 bytes of body); populating a database with the old code and again with the JSON loader gives identical rows (titles, bodies, excerpts, Rank Math fields, categories, tags, parents, templates and lead images with their alt text); and a copy with broken files (invalid JSON, a script, an unknown key, a wrong file name, an unclosed block, a byte order mark, a path that climbs out) loads the rest and logs each refusal. There were no `.html` or `.txt` files used to populate the database; the ones in the theme are templates, server error pages and documentation, which must stay in those formats.
+
 ## [1.120.8] (2026-10-25)
 
 ### Added
