@@ -102,12 +102,31 @@ function remotive_seed_find_args( $slug, $type, $parent = '' ) {
  * @return bool
  */
 function remotive_seed_blocks_balanced( $content ) {
-	$content = (string) $content;
-	preg_match_all( '/<!-- wp:[a-z\/-]+( [^>]*)?-->/', $content, $opens );
-	preg_match_all( '/<!-- wp:[a-z\/-]+( [^>]*)?\/-->/', $content, $selfs );
-	preg_match_all( '/<!-- \/wp:[a-z\/-]+ -->/', $content, $closes );
+	// Walked with a stack, as the block parser does: a closing marker must close the block that is open,
+	// so a count match with the markers out of order or mismatched does not pass.
+	if ( ! preg_match_all( '/<!-- (\/)?wp:([a-z][a-z0-9\/-]*)(?: [^>]*?)?(\/)?-->/', (string) $content, $m, PREG_SET_ORDER ) ) {
+		return true;
+	}
 
-	return count( $opens[0] ) - count( $selfs[0] ) === count( $closes[0] );
+	$stack = array();
+
+	foreach ( $m as $marker ) {
+		if ( '/' === $marker[3] ) {
+			continue; // Self-closing: opens and closes itself.
+		}
+
+		if ( '/' === $marker[1] ) {
+			if ( ! $stack || array_pop( $stack ) !== $marker[2] ) {
+				return false;
+			}
+
+			continue;
+		}
+
+		$stack[] = $marker[2];
+	}
+
+	return ! $stack;
 }
 
 /**

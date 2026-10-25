@@ -82,6 +82,10 @@ t_ok( isset( remotive_migration_registry()['1.120.6'] ), 'the seed repair migrat
 t_ok( remotive_seed_blocks_balanced( "<!-- wp:paragraph -->\n<p>a</p>\n<!-- /wp:paragraph -->" ), 'a closed paragraph balances' );
 t_ok( ! remotive_seed_blocks_balanced( "<!-- wp:paragraph -->\n<p>a</p>\n<!-- wp:heading -->\n<h2>b</h2>\n<!-- /wp:heading -->" ), 'an unclosed paragraph does not' );
 t_ok( remotive_seed_blocks_balanced( '<!-- wp:post-title {"level":1} /-->' ), 'a self-closing block counts as both' );
+t_ok( ! remotive_seed_blocks_balanced( "<!-- wp:paragraph --><p>a</p><!-- /wp:heading -->" ), 'a closing marker of another block does not balance an open one (a CodeAnt point)' );
+t_ok( ! remotive_seed_blocks_balanced( "<!-- /wp:paragraph --><!-- wp:paragraph --><p>a</p>" ), 'nor do the markers in the wrong order' );
+t_ok( ! remotive_seed_blocks_balanced( "<!-- wp:list --><!-- wp:list-item --><li>a</li><!-- /wp:list --><!-- /wp:list-item -->" ), 'nor closings that cross' );
+t_ok( remotive_seed_blocks_balanced( "<!-- wp:list --><!-- wp:list-item --><li>a</li><!-- /wp:list-item --><!-- /wp:list -->" ), 'properly nested blocks balance' );
 t_ok( remotive_seed_blocks_balanced( '' ), 'empty text balances' );
 foreach ( remotive_seed_content() as $item ) {
 	t_ok( remotive_seed_blocks_balanced( $item['content'] ?? '' ), 'shipped markup balances: ' . $item['slug'] );
