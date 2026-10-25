@@ -111,7 +111,7 @@ function remotive_seed_blocks_balanced( $content ) {
 	$stack = array();
 
 	foreach ( $m as $marker ) {
-		if ( '/' === $marker[3] ) {
+		if ( isset( $marker[3] ) && '/' === $marker[3] ) {
 			continue; // Self-closing: opens and closes itself.
 		}
 
