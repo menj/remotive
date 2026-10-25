@@ -74,14 +74,18 @@ function remotive_lowercase_redirect() {
 		return;
 	}
 
-	$path  = (string) wp_parse_url( isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '', PHP_URL_PATH ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+	// The address as it was asked for. The language layer removes the language directory from
+	// REQUEST_URI and keeps the original beside it; the redirect must keep that directory, or
+	// /ms/About/ would land on the English page.
+	$uri   = isset( $_SERVER['REMOTIVE_I18N_ORIGINAL_URI'] ) ? (string) $_SERVER['REMOTIVE_I18N_ORIGINAL_URI'] : ( isset( $_SERVER['REQUEST_URI'] ) ? (string) wp_unslash( $_SERVER['REQUEST_URI'] ) : '' ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+	$path  = (string) wp_parse_url( $uri, PHP_URL_PATH );
 	$lower = remotive_lowercase_path( $path );
 
 	if ( '' === $lower ) {
 		return;
 	}
 
-	$query = (string) wp_parse_url( isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '', PHP_URL_QUERY ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+	$query = (string) wp_parse_url( $uri, PHP_URL_QUERY );
 
 	wp_safe_redirect( home_url( $lower . ( '' !== $query ? '?' . $query : '' ) ), 301 );
 	exit;
