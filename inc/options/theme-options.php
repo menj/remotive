@@ -47,7 +47,7 @@ function remotive_theme_option_base_defaults() {
 		// Action to point at a form plugin, Formspree, or a CRM webhook
 		// instead — the native handler stays available either way.
 		'cta_form_action'  => admin_url( 'admin-post.php' ),
-		'default_theme'    => 'dark', // 'dark' | 'light' | 'system'
+		'default_theme'    => 'light', // 'light' | 'dark' | 'system'
 
 		// --- Homepage copy. Rendered through the __REMOTIVE_*__ token system,
 		// so the block templates stay static and the editable strings live in
@@ -600,13 +600,13 @@ function remotive_theme_options_base_tabs() {
 					'label'   => __( 'Default colour mode', 'remotive' ),
 					'type'    => 'visual-select',
 					'options' => array(
+						'light'  => array(
+							'label' => __( 'Light', 'remotive' ),
+							'desc'  => __( 'The Remotive Media Asia brand system (default)', 'remotive' ),
+						),
 						'dark'   => array(
 							'label' => __( 'Dark', 'remotive' ),
 							'desc'  => __( 'The CMYK "Registration" direction', 'remotive' ),
-						),
-						'light'  => array(
-							'label' => __( 'Light', 'remotive' ),
-							'desc'  => __( 'The Remotive Media Asia brand system', 'remotive' ),
 						),
 						'system' => array(
 							'label' => __( 'System', 'remotive' ),
@@ -980,7 +980,7 @@ function remotive_sanitize_theme_options( $input ) {
 	$clean['lead_retention_months'] = (string) max( 0, min( 120, (int) ( $input['lead_retention_months'] ?? $defaults['lead_retention_months'] ) ) );
 
 	$theme_mode              = $input['default_theme'] ?? $defaults['default_theme'];
-	$clean['default_theme']  = in_array( $theme_mode, array( 'dark', 'light', 'system' ), true ) ? $theme_mode : 'dark';
+	$clean['default_theme']  = in_array( $theme_mode, array( 'dark', 'light', 'system' ), true ) ? $theme_mode : 'light';
 
 	// ---- Ticker ----------------------------------------------------------
 	$clean['ticker_visible']   = ( isset( $input['ticker_visible'] ) && '1' === (string) $input['ticker_visible'] ) ? '1' : '0';

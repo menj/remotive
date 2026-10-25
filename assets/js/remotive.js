@@ -24,7 +24,7 @@
  * Remotive Media Asia brand system (light, Saira). Persists the visitor's
  * own choice once they use the toggle. Before that, the mode shown comes
  * from window.remotiveThemeOptions.defaultTheme — set server-side from
- * Appearance -> Remotive Options — falling back to 'dark' if that variable
+ * Appearance -> Remotive Options, falling back to 'light' if that variable
  * is missing for any reason (e.g. the inline script failed to enqueue).
  */
 (function () {
@@ -34,7 +34,7 @@
 	var label = document.getElementById('rmThemeToggleLabel');
 
 	var options = window.remotiveThemeOptions || {};
-	var configuredDefault = options.defaultTheme || 'dark';
+	var configuredDefault = options.defaultTheme || 'light';
 
 	function resolveDefault() {
 		if (configuredDefault === 'system') {
@@ -42,7 +42,7 @@
 				window.matchMedia('(prefers-color-scheme: light)').matches;
 			return prefersLight ? 'light' : 'dark';
 		}
-		return configuredDefault === 'light' ? 'light' : 'dark';
+		return configuredDefault === 'dark' ? 'dark' : 'light';
 	}
 
 	function apply(mode) {

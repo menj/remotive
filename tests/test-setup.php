@@ -75,7 +75,19 @@ foreach ( $page_hashes as $slug => $fields ) {
 		t_ok( $list && ! array_diff( array_map( function ( $h ) { return preg_match( '/^[a-f0-9]{32}$/', $h ) ? 1 : 0; }, $list ), array( 1 ) ), "$slug / $name: every hash is an md5" );
 	}
 }
-t_ok( '1.119.0' === REMOTIVE_SETUP_SCHEMA, 'the migration schema is 1.119.0' );
+t_ok( '1.120.3' === REMOTIVE_SETUP_SCHEMA, 'the migration schema is 1.120.3' );
+
+// ---- 1.120.3: the old default colour mode (dark) moves to light, once; other choices are kept ----
+t_reset();
+$GLOBALS['T']['options']['remotive_theme_options'] = array( 'default_theme' => 'dark', 'motion_effects' => '0' );
+t_ok( remotive_migrate_default_colour_mode(), 'the migration reports done' );
+t_eq( $GLOBALS['T']['options']['remotive_theme_options'], array( 'default_theme' => 'light', 'motion_effects' => '0' ), 'dark becomes light and nothing else changes' );
+$GLOBALS['T']['options']['remotive_theme_options'] = array( 'default_theme' => 'system' );
+remotive_migrate_default_colour_mode();
+t_eq( $GLOBALS['T']['options']['remotive_theme_options']['default_theme'], 'system', 'a deliberate "system" choice is kept' );
+unset( $GLOBALS['T']['options']['remotive_theme_options'] );
+t_ok( remotive_migrate_default_colour_mode(), 'a site that never saved its options needs nothing' );
+t_ok( isset( remotive_migration_registry()['1.120.3'] ), 'the migration is registered' );
 
 
 // ---- A seeded page that declares a parent is looked for under that parent only ----

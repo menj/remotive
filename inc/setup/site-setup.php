@@ -700,7 +700,7 @@ const REMOTIVE_SETUP_FLAG = 'remotive_site_setup_done';
  * migrations. This is the value stored in remotive_site_setup_done after
  * all migrations for this release complete successfully.
  */
-const REMOTIVE_SETUP_SCHEMA = '1.119.0';
+const REMOTIVE_SETUP_SCHEMA = '1.120.3';
 
 /** Option row that keeps two overlapping admin loads from running the migrations at the same time. */
 const REMOTIVE_SETUP_LOCK = 'remotive_setup_lock';
@@ -798,6 +798,9 @@ function remotive_migration_registry() {
 		'1.119.0' => function() {
 			return remotive_refresh_article_seo();
 		},
+		// 1.120.3: light is the default colour mode. A site still on the old default (dark) moves to
+		// light once; the choice stays editable in Theme Options -> Site behaviour -> Default colour mode.
+		'1.120.3' => 'remotive_migrate_default_colour_mode',
 		// 1.90.0: provisions the three ad landing pages (seo-audit,
 		// google-ads-management, paid-social-advertising). Registering them in
 		// remotive_required_pages() only reaches fresh installs; sites
@@ -1642,6 +1645,28 @@ const REMOTIVE_SEEDED_VERSION    = 'remotive_seeded_version';
  *
  * @param array $value The full options array to store.
  */
+/**
+ * Move a site on the old default colour mode (dark) to the new one (light), once.
+ *
+ * Only the value 'dark' is changed: 'system' was a deliberate choice, and a site that never saved its
+ * options reads the new default already. Written through remotive_update_options_raw() so the sanitiser
+ * does not rewrite the other options on the way.
+ *
+ * @return bool
+ */
+function remotive_migrate_default_colour_mode() {
+	$opts = get_option( 'remotive_theme_options' );
+
+	if ( ! is_array( $opts ) || ! isset( $opts['default_theme'] ) || 'dark' !== (string) $opts['default_theme'] ) {
+		return true;
+	}
+
+	$opts['default_theme'] = 'light';
+	remotive_update_options_raw( $opts );
+
+	return true;
+}
+
 function remotive_update_options_raw( $value ) {
 	$priority = has_filter( 'sanitize_option_remotive_theme_options', 'remotive_sanitize_theme_options' );
 
