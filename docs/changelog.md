@@ -8,7 +8,7 @@ follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 
 ### Added
 
-- **Application passwords are off by default**, with a switch in Theme Options → Site behaviour → Application passwords. The theme filters `wp_is_application_passwords_available`, so WordPress refuses them and hides the section on every user profile until the switch is on. Switch it on only while an integration (a mobile app, a connector plugin, a script) needs to log in to the REST API with one.
+- **Application passwords are blocked by default**, with a switch in Theme Options → Site behaviour → Application passwords that is on until you turn it off. The theme filters `wp_is_application_passwords_available`, so WordPress refuses them and hides the section on every user profile while the block is on. Turn it off only while an integration (a mobile app, a connector plugin, a script) needs to log in to the REST API with one. Options saved by an older version, which never had the switch, count as on.
 
 ## [1.120.0] (2026-10-24)
 

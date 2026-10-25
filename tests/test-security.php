@@ -108,14 +108,16 @@ t_ok( in_array( 'remotive_block_user_enumeration_dispatch', $GLOBALS['filters'][
 // into /author/<login>/ first.
 t_eq( $GLOBALS['priorities']['template_redirect|remotive_block_author_enumeration'] ?? null, 0, 'the author redirect runs ahead of redirect_canonical' );
 
-// Application passwords: off unless the Theme Options switch is on.
+// Application passwords: blocked unless the Theme Options switch is turned off.
 t_reset();
 t_eq( remotive_filter_app_passwords( true ), false, 'application passwords are refused by default' );
-$GLOBALS['T']['options']['remotive_theme_options'] = array( 'app_passwords' => '1' );
-t_eq( remotive_filter_app_passwords( true ), true, 'the switch allows them' );
+$GLOBALS['T']['options']['remotive_theme_options'] = array( 'motion_effects' => '1' );
+t_eq( remotive_filter_app_passwords( true ), false, 'and with options saved by an older version that never had the switch' );
+$GLOBALS['T']['options']['remotive_theme_options'] = array( 'block_app_passwords' => '0' );
+t_eq( remotive_filter_app_passwords( true ), true, 'switching the block off allows them' );
 t_eq( remotive_filter_app_passwords( false ), false, 'but cannot allow what WordPress itself refuses' );
-$GLOBALS['T']['options']['remotive_theme_options'] = array( 'app_passwords' => '0' );
-t_eq( remotive_filter_app_passwords( true ), false, 'switched off again' );
+$GLOBALS['T']['options']['remotive_theme_options'] = array( 'block_app_passwords' => '1' );
+t_eq( remotive_filter_app_passwords( true ), false, 'switched back on' );
 t_ok( in_array( 'remotive_filter_app_passwords', $GLOBALS['filters']['wp_is_application_passwords_available'] ?? array(), true ), 'the filter is registered' );
 
 t_done( 'security' );

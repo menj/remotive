@@ -341,7 +341,7 @@ See `docs/changelog.md` for full version history. Latest version: 1.120.1.
 == Upgrade Notice ==
 
 = 1.120.1 =
-* Added: application passwords are off by default, with a switch in Theme Options -> Site behaviour.
+* Added: application passwords are blocked by default; the block is a switch in Theme Options -> Site behaviour, on until you turn it off.
 
 = 1.120.0 =
 * Added: stronger scroll parallax on the one-page layout (colour plates on their own scroll rates, lifts and staggered rises), deeper parallax on the full layout; off under reduced motion and the Theme Options toggle.

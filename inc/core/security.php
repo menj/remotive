@@ -190,17 +190,21 @@ add_action( 'wp_login', 'remotive_clear_login_failures', 10, 2 );
    ======================================================================== */
 
 /**
- * Whether application passwords are allowed: Theme Options -> Site behaviour -> Application passwords.
+ * Whether the theme blocks application passwords: Theme Options -> Site behaviour -> Application passwords.
  *
- * Off unless switched on. Read straight from the option row, so the answer is the same whether or not
- * inc/options/theme-options.php has loaded, and an unsaved option means off.
+ * On unless switched off. Read straight from the option row, so the answer is the same whether or not
+ * inc/options/theme-options.php has loaded, and an unsaved option means on.
  *
  * @return bool
  */
-function remotive_app_passwords_allowed() {
+function remotive_app_passwords_blocked() {
 	$opts = get_option( 'remotive_theme_options' );
 
-	return is_array( $opts ) && isset( $opts['app_passwords'] ) && '1' === (string) $opts['app_passwords'];
+	if ( ! is_array( $opts ) || ! array_key_exists( 'block_app_passwords', $opts ) ) {
+		return true;
+	}
+
+	return '1' === (string) $opts['block_app_passwords'];
 }
 
 /**
@@ -210,7 +214,7 @@ function remotive_app_passwords_allowed() {
  * @return bool
  */
 function remotive_filter_app_passwords( $available ) {
-	return remotive_app_passwords_allowed() ? $available : false;
+	return remotive_app_passwords_blocked() ? false : $available;
 }
 add_filter( 'wp_is_application_passwords_available', 'remotive_filter_app_passwords' );
 
