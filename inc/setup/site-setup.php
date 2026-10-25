@@ -2219,14 +2219,50 @@ function remotive_install_error_documents( $file = null ) {
 		return false;
 	}
 
-	$old = file_get_contents( $file );
-	$new = false === $old ? null : remotive_htaccess_with_error_documents( $old, remotive_error_document_lines() );
+	$lines = remotive_error_document_lines();
 
-	if ( null === $new || $new === $old ) {
+	return remotive_htaccess_edit(
+		$file,
+		static function ( $text ) use ( $lines ) {
+			return remotive_htaccess_with_error_documents( $text, $lines );
+		}
+	);
+}
+
+/**
+ * Read, change and rewrite an .htaccess file under one exclusive lock, so a rewrite by another
+ * request (a permalink flush, a cache plugin) between the read and the write is not overwritten
+ * with stale text.
+ *
+ * @param string   $file   The file path.
+ * @param callable $change Takes the current text; returns the new text, or null to leave it.
+ * @return bool Whether the file was changed.
+ */
+function remotive_htaccess_edit( $file, $change ) {
+	$handle = @fopen( $file, 'c+' ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.file_system_operations_fopen
+
+	if ( false === $handle ) {
 		return false;
 	}
 
-	return false !== file_put_contents( $file, $new, LOCK_EX );
+	$changed = false;
+
+	if ( flock( $handle, LOCK_EX ) ) {
+		$old = stream_get_contents( $handle );
+		$new = false === $old ? null : call_user_func( $change, $old );
+
+		if ( null !== $new && $new !== $old ) {
+			rewind( $handle );
+			$changed = ftruncate( $handle, 0 ) && strlen( $new ) === fwrite( $handle, $new );
+			fflush( $handle );
+		}
+
+		flock( $handle, LOCK_UN );
+	}
+
+	fclose( $handle ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fclose
+
+	return $changed;
 }
 
 /**
@@ -2243,14 +2279,14 @@ function remotive_remove_error_documents( $file = null ) {
 		return false;
 	}
 
-	$old = file_get_contents( $file );
-	$new = false === $old ? $old : preg_replace( '/\n*# BEGIN Remotive error pages.*?# END Remotive error pages\n?/s', "\n", $old );
+	return remotive_htaccess_edit(
+		$file,
+		static function ( $text ) {
+			$new = preg_replace( '/\n*# BEGIN Remotive error pages.*?# END Remotive error pages\n?/s', "\n", $text );
 
-	if ( false === $old || null === $new || $new === $old ) {
-		return false;
-	}
-
-	return false !== file_put_contents( $file, rtrim( $new ) . "\n", LOCK_EX );
+			return null === $new || $new === $text ? null : rtrim( $new ) . "\n";
+		}
+	);
 }
 add_action(
 	'switch_theme',
