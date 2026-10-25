@@ -1,0 +1,32 @@
+{
+    "schema": 1,
+    "items": [
+        "posts/seo-friendly-web-design.json",
+        "posts/sem-services-singapore.json",
+        "posts/facebook-advertising-malaysia.json",
+        "posts/how-to-choose-an-seo-agency.json",
+        "posts/seo-vs-sem.json",
+        "posts/seo-cost-singapore.json",
+        "posts/seo-services-pricing-malaysia.json",
+        "pages/seo.json",
+        "pages/paid-media.json",
+        "pages/social.json",
+        "pages/content.json",
+        "pages/email.json",
+        "pages/analytics.json",
+        "pages/marketplace-launch-skincare.json",
+        "pages/programmatic-advertising-automotive.json",
+        "pages/cookieless-audience-sports.json",
+        "pages/paid-search-b2b-gifting.json",
+        "pages/paid-media-financial-services.json",
+        "pages/technical-seo-industrial-automation.json",
+        "pages/seo-ai-visibility-healthcare.json",
+        "pages/market-entry-trading-platform.json",
+        "pages/b2b-seo-industrial-supplier.json",
+        "pages/seo-fmcg-malaysia-singapore.json",
+        "pages/seo-b2b-services.json",
+        "pages/ecommerce-seo-footwear.json",
+        "pages/singapore-b2b-portfolio.json",
+        "pages/healthcare-seo-malaysia.json"
+    ]
+}

@@ -7,6 +7,13 @@ on, is the backlog: planned work, ideas and known gaps, roughly ordered by what
 would matter most to fix or build next. Nothing in the backlog is scheduled or
 committed.
 
+## v1.121.0: the shipped content is JSON
+
+- Nothing to set up. The articles, service pages and case studies the theme ships are now JSON files in `content/` instead of one PHP file; the pages and articles already on your site are untouched, and the Shipped content card and "Restore shipped version" work as before.
+- If an upload left `inc/setup/content-seed-data.php` on the server, the first page load after the upload deletes it.
+- A site that refreshed a shipped item by hand from the old PHP file now finds the text in `content/posts/<slug>.json` or `content/pages/<slug>.json`.
+- A server that blocks direct access to theme folders (the shipped `.htaccess` does on Apache and LiteSpeed) now includes `content/`. On nginx add `location ~ /themes/[^/]+/content/ { return 404; }`.
+
 ## v1.120.6: repaired seeded pages, comments closed, the theme owns the structured data
 
 - The service pages and thirteen case studies shipped with unclosed paragraph blocks, so each page rendered its later sections over and over. After the upload the first admin load replaces every copy that is still exactly what was seeded. A copy someone edited keeps the broken markup until "Restore shipped version" is used on it (Theme Options → Content), or the editor's "Attempt recovery" on each block.
@@ -159,7 +166,7 @@ WordPress site yet; this list is how to find out.
 
 ## v1.119.0: copy in the house style and a new form field
 
-- Nothing to set up. Seeded pages that still hold the earlier text update on the first admin page load after the upload. A page you edited keeps your version, and the new text is in `inc/setup/content-seed-data.php` if you want to copy it across.
+- Nothing to set up. Seeded pages that still hold the earlier text update on the first admin page load after the upload. A page you edited keeps your version, and the new text is in `content/` if you want to copy it across (before 1.121.0 it was in `inc/setup/content-seed-data.php`).
 - The contact form now asks how the visitor heard about you. The answer appears in the enquiry email as "Heard about us via".
 - A template you customised in the Site Editor keeps its own wording. Use Reset in the Site Editor to take the new text.
 
@@ -171,7 +178,7 @@ WordPress site yet; this list is how to find out.
 
 ## v1.117.0: article text refresh
 
-- Nothing to set up. Articles that still hold the seeded text update on the first page load after the upload. An article you edited keeps your version. To refresh one by hand, copy its new text from `inc/setup/content-seed-data.php`.
+- Nothing to set up. Articles that still hold the seeded text update on the first page load after the upload. An article you edited keeps your version. To refresh one by hand, copy its new text from its file in `content/` (before 1.121.0, `inc/setup/content-seed-data.php`).
 
 ## v1.116.1: the agency layout keeps its translations
 

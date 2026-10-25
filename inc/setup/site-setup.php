@@ -1980,6 +1980,8 @@ function remotive_retired_files() {
 	return array(
 		// 1.88.0: the rollover portrait was removed; one image per person.
 		'assets/team/*-alt.avif',
+		// 1.121.0: the shipped content is JSON under content/, read by inc/setup/content-source.php.
+		'inc/setup/content-seed-data.php',
 	);
 }
 

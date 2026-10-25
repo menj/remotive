@@ -9,7 +9,7 @@
  * Run: php tests/check-article-seo.php
  */
 require __DIR__ . '/bootstrap.php';
-require dirname( __DIR__ ) . '/inc/setup/content-seed-data.php';
+require dirname( __DIR__ ) . '/inc/setup/content-source.php';
 
 $fail = 0;
 $n    = 0;

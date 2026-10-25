@@ -64,7 +64,7 @@ $scopes['site description (footer, sidebar)'] = array(
 $scopes['agency page (defaults)'] = $agency;
 
 // The seven articles: English only, so no translation keys depend on their wording.
-require_once $root . '/inc/setup/content-seed-data.php';
+require_once $root . '/inc/setup/content-source.php';
 $articles = array();
 
 foreach ( remotive_seed_content() as $item ) {
@@ -103,7 +103,7 @@ $code        = array();
 $identifiers = array( "Footer \u{2014} Company", "Footer \u{2014} Services", "Footer \u{2014} Case Studies" );
 
 foreach ( array_merge( glob( $root . '/inc/*/*.php' ), glob( $root . '/*.php' ) ) as $f ) {
-	if ( false !== strpos( $f, '/inc/i18n/' ) || false !== strpos( $f, 'content-seed-data' ) ) {
+	if ( false !== strpos( $f, '/inc/i18n/' ) ) {
 		continue;
 	}
 

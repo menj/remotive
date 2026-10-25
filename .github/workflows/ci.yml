@@ -35,6 +35,9 @@ jobs:
       - name: Seeded articles pass the Rank Math content tests
         run: php tests/check-article-seo.php
 
+      - name: Shipped content is JSON, valid, and nothing else stands in for it
+        run: php tests/check-content-json.php
+
       - name: Block markup in templates and parts
         run: php tests/check-block-markup.php
 
