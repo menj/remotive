@@ -74,6 +74,17 @@ location ~* \.(css|js|woff2|avif|webp|png|jpe?g|svg|ico)$ {
   `/ms/`, `/zh-hans/`, `/zh-hant/` versions and `/audit-requested/`) before WordPress
   runs skips both. Static files (CSS, JS, fonts, images) cache as usual.
 
+- **Never cache `admin-ajax.php?action=remotive_form_nonces`** (v1.94.0). The
+  forms fetch a fresh security token from it on page load so a cached page
+  older than a day still submits; a cached answer defeats that.
+- **After switching the one-page layout on or off** (Theme Options → Agency
+  layout), purge the page cache and the CDN for the home page and the other
+  pages: the redirects and the swapped home page are decided by PHP.
+- **The static error pages** (`error-pages/500.html`, `503.html`) are plain
+  files and may be cached like any other static asset, but the 500 and 503
+  responses themselves must not be: the server sends them with the error
+  status, and a cache that stored one would keep serving it after the fault is
+  fixed.
 - `immutable` tells the browser not to revalidate on reload. It is correct
   here only because every URL carries a version; do not apply it to files
   served without one.

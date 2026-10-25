@@ -1,10 +1,92 @@
 # Upgrading, roadmap & future plans
 
-This is **not** a version-upgrade guide (there are no breaking changes to
-migrate yet, see `docs/changelog.md` for what actually shipped). This is a
-running list of planned work, ideas, and known gaps, roughly ordered by
-what would matter most to fix or build next. Nothing here is scheduled or
-committed; it is a backlog for whoever picks this theme up next.
+Two things in one file. The first part is the per-release list of what to do
+or check on the live site after an upload (newest first; `docs/changelog.md`
+has what changed and why). The second part, from "Shipped v1.90.0 – v1.97.0"
+on, is the backlog: planned work, ideas and known gaps, roughly ordered by what
+would matter most to fix or build next. Nothing in the backlog is scheduled or
+committed.
+
+## v1.120.3: light is the default colour mode
+
+- A site still on the old default (dark) moves to light once, on the first
+  admin page load after the upload (migration 1.120.3). A site set to System is
+  left alone, and so is every visitor's own toggle choice, which their browser
+  remembers. To keep dark, set it again under Theme Options → Site behaviour →
+  Default colour mode after that first load.
+- Clear any page cache for the front end: the server now adds
+  `data-theme="light"` to the page, and a cached dark page would stay dark for
+  visitors without JavaScript.
+
+## v1.120.1: application passwords are blocked
+
+- **Integrations that log in with an application password stop working on
+  upload.** Any mobile app, connector plugin, deploy script or monitoring tool
+  that authenticates to the REST API that way gets a refusal, and the
+  "Application Passwords" section disappears from every user profile. An
+  options array saved by an older version counts as blocked.
+- If you have such an integration, switch the block off under Theme Options →
+  Site behaviour → Application passwords and save. Nothing else changes; the
+  passwords themselves were never touched, so they work again at once.
+- With no such integration, leave it on. It closes a REST login route the
+  login lockout does not cover.
+
+## v1.120.0: review fixes, parallax, recovery mode
+
+- **Recovery mode works again.** Earlier notes said the branded error page
+  cost the recovery-mode emails. It never could have switched WordPress's
+  handler off, and from this version the two cooperate: on a fatal in a plugin
+  WordPress pauses it and emails the administrator as usual, and only the page
+  printed is the theme's. Nothing to set up, but if you added a plugin to get
+  those emails back, you no longer need it.
+- **`ErrorDocument` lines.** The static pages in `error-pages/` only show when
+  the site root `.htaccess` carries the four lines in
+  `error-pages/htaccess-errors.txt` (above the `# BEGIN WordPress` block). If
+  you did not add them at v1.118.0, do it now; the pages update with the theme
+  folder from then on.
+- The drop-ins in `drop-ins/` are copied to `wp-content/` again on the first
+  request after the upload (`php-error.php` is new: it now steps aside when
+  the theme's handler is active). If `wp-content/` is not writable by PHP,
+  copy the three files across by hand.
+- Open the one-page layout (if it is on) and scroll: colour plates, headings
+  and cards move at their own rates. Theme Options → Site behaviour → Scroll
+  motion switches it off; a device set to reduce motion never sees it. Clear
+  any page cache or minifier so `assets/css/agency-motion.css` loads.
+- With the one-page layout hiding the other pages, open `/privacy/` and
+  `/terms/`: the logo in the bar links home and the language links open the
+  legal page in each language.
+- Submit a test lead from a landing page with the `audit-requested` page
+  trashed or unpublished: the visitor should land on `/thank-you/` or back on
+  the landing page with its message, never on a 404. Restore the page after.
+- Open an enquiry's edit screen ("View all enquiries" on the Enquiries card,
+  then the entry): the full message is in a read-only Message box.
+- The setup migrations now run under a lock. If an admin load after the upload
+  seems to have done nothing, reload once; the second of two overlapping loads
+  waits for the next request. A lock left behind by a request that died frees
+  itself after ten minutes.
+- If you renamed or binned the Services page, the seeded services pages are
+  not matched or created until it is back, and "Restore shipped version" on
+  one of them does nothing until then.
+
+## v1.119.2 to v1.119.11: ids, language bars, markup, menus, legal pages
+
+- The one-page layout's section ids changed in v1.119.2 (`ag-services`,
+  `ag-process`, `ag-signs`, `ag-team`, `ag-questions`). Update any link to
+  `#services`, `#team` or `#questions` on that page.
+- The confirmation page's language links keep `service` and never carry `from`
+  (v1.119.4, v1.119.7); nothing to do, recorded so nobody adds it.
+- The header and footer menus carry accessible names from v1.119.11 (Main
+  menu, Services, Case studies, Company); a classic menu assigned to a
+  location keeps its name. Nothing to run.
+- With the one-page layout hiding the other pages, Privacy and Terms show the
+  one-page bar and footer from v1.119.11 instead of the full header and footer.
+  With the other pages live, nothing changes.
+- The Malay text was corrected against Tatabahasa Dewan (v1.119.5, v1.119.6);
+  `tests/check-tatabahasa.php` keeps the corrections in place. A native speaker
+  should still read it.
+- Enquiries saved before v1.119.9 may hold `&amp;` where the visitor typed `&`,
+  and may have lost backslashes. Nothing repairs old records; new ones are
+  stored as typed.
 
 ## Deploying v1.90.0 – v1.97.0 (landing pages, colours, form tokens)
 
@@ -335,9 +417,10 @@ Details are in `docs/changelog.md`.
   saved default would close the gap and make those font files truly optional.
 - **The rate-limit counter is a read-then-write transient.** A simultaneous burst
   can let one extra enquiry through. An atomic counter needs an object cache.
-- **Tests beyond syntax.** CI checks syntax and landing-copy completeness only.
-  A PHPUnit suite for the sanitisers (`remotive_sanitize_colour_options`, the
-  lead handler) would be the next step.
+- **Tests against a real WordPress.** CI runs twelve unit tests and eleven
+  checks (`readme.md` → "Tests and CI"), all against stubs, so nothing renders
+  a page or hits a database. A PHPUnit run on a WordPress test install would
+  be the next step.
 
 ### Open from the walkthrough feedback (Elfie and Jazlan)
 
@@ -378,7 +461,7 @@ Server-level, unchanged by any theme release:
 - Deny `xmlrpc.php` and `wp-admin/install.php` at server level, so PHP never
   executes for those requests
 - Purge CDN/browser cache to clear 404s on the pre-consolidation JS files
-  (`theme-toggle.js`, `ticker.js`, `webmcp.js`)
+  (`theme-toggle.js` and `ticker.js`, bundled into `remotive.js` in v1.54.0)
 - `WP_DEBUG_DISPLAY` false and `display_errors` off in production
 - Remove the duplicate `define( 'WP_DEBUG', ... )` in `wp-config.php`
 
@@ -427,7 +510,7 @@ field or an `inc/` file, it is not finished until `readme.md`'s file map,
   Singapore-qualified lawyer to review them. They are already linked from the
   footer, so an empty page is publicly reachable until they are written.
 - **Decide the enquiry retention period** on Appearance → Theme Options →
-  Display. It has to match whatever the privacy policy states.
+  Site behaviour. It has to match whatever the privacy policy states.
 - **Apply the cache headers in docs/cache-headers.md.** The theme cannot
   set Cache-Control; the audit's `None` and `7d` values come from the
   server. The scripts report no lifetime because they are requested with a
@@ -472,11 +555,10 @@ field or an `inc/` file, it is not finished until `readme.md`'s file map,
   live WordPress install with the production logo, since the harness
   approximates core's markup rather than running it.
 
-- **Real photography for the featured case study, the Case Studies page's
-  four cards, and the About page gallery.** All currently use CSS
-  gradient placeholders instead of actual images. `assets/js/lightbox.js`
-  has an inline comment marking exactly what needs to change (reading an
-  image URL instead of copying computed CSS) once real photos exist.
+- **Real photography for the featured case study spread on the homepage.**
+  The Case Studies page's cards (v1.110.2) and the Insights articles
+  (v1.111.0) have Pexels photographs and the Team page has the portraits; the
+  homepage spread still uses the CSS gradient treatment.
 - **Replace hardcoded services/case studies with custom post types.**
   Right now the homepage's six service "plates," `page-services.html`'s
   detailed breakdown, and `page-case-studies.html`'s six cards are all
@@ -576,9 +658,8 @@ field or an `inc/` file, it is not finished until `readme.md`'s file map,
 
 - General-purpose reusability. This theme is intentionally single-site
   (see `docs/ssot.md`), no plans to genericize it into a distributable product.
-- Automated testing. Given the theme's small, single-purpose surface area,
-  manual QA has been judged sufficient so far; revisit if the codebase grows
-  past a single homepage template.
+- Browser-level automated testing. The PHP tests and checks run in CI; a
+  rendered check of both layouts in both colour modes is still manual QA.
 - A backend MCP server or autonomous administrative agent. WebMCP in this
   theme augments the open webpage and does not replace a separately
   authenticated server integration. Publishing, deleting, settings changes,

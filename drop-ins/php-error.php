@@ -6,8 +6,8 @@
 //
 // Scope, precisely: once the theme has loaded, inc/core/error-handler.php takes
 // over fatals with its own branded page (full detail for administrators,
-// a reference ID for everyone else) and switches WordPress's handler off,
-// so this file is NOT used for those. It covers the gap before that: a
+// a reference ID for everyone else), and this file returns at once (see
+// below), so it prints nothing for those. It covers the gap before that: a
 // fatal in a plugin or mu-plugin, which runs before the theme exists and
 // therefore before its handler is registered. Without this file that case
 // falls back to WordPress's generic "critical error" page.

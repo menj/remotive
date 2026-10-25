@@ -1948,7 +1948,7 @@ add_filter( 'render_block', 'remotive_replace_theme_option_tokens', 10, 2 );
 /**
  * Tell the front end which mode first-time visitors should see. The
  * toggle script (assets/js/remotive.js) reads window.remotiveThemeOptions
- * and falls back to 'dark' if this never runs for some reason. This data
+ * and falls back to 'light' if this never runs for some reason. This data
  * is also duplicated into an early <head> script by
  * remotive_prevent_theme_flash() below — that early copy is what actually
  * prevents the flash; this footer copy exists so remotive.js's own
