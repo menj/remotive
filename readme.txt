@@ -4,7 +4,7 @@ Tags: block-theme, full-site-editing, child-theme, one-page
 Requires at least: 6.7
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.121.0
+Stable tag: 1.121.1
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -410,9 +410,12 @@ read-only Message box, with the email address and the form it came from.
 
 == Changelog ==
 
-See `docs/changelog.md` for full version history. Latest version: 1.121.0.
+See `docs/changelog.md` for full version history. Latest version: 1.121.1.
 
 == Upgrade Notice ==
+
+= 1.121.1 =
+* Changed: the theme adds the ErrorDocument lines for its static error pages to the root .htaccess itself (Apache and LiteSpeed), so a failure before WordPress starts shows the branded page instead of a blank one.
 
 = 1.121.0 =
 * Changed: the shipped articles, service pages and case studies are JSON files in content/ (validated, never executed) instead of one PHP file; JSON is the only format content for the database is kept in.

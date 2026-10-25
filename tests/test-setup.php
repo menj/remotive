@@ -182,6 +182,36 @@ t_eq( remotive_dev_folders(), array( 'tests', '.github' ), 'only the two develop
 $src = file_get_contents( dirname( __DIR__ ) . '/inc/setup/site-setup.php' );
 t_ok( false !== strpos( $src, "'remotive_remove_dev_files',\n" ), 'the removal runs with the version sync, on activation and after an upload' );
 
+// ---- ErrorDocument block in the root .htaccess ----
+$ed_lines = remotive_error_document_lines();
+t_eq( $ed_lines[0], 'ErrorDocument 500 /wp-content/themes/remotive/error-pages/500.html', 'the 500 line points at the theme folder URL' );
+t_eq( $ed_lines[3], 'ErrorDocument 503 /wp-content/themes/remotive/error-pages/503.html', 'the 503 line points at the 503 page' );
+
+$wp_block = "# BEGIN WordPress\nRewriteEngine On\n# END WordPress\n";
+$added    = remotive_htaccess_with_error_documents( $wp_block, $ed_lines );
+t_ok( 0 === strpos( $added, $wp_block ), 'the WordPress block is left exactly as it was' );
+t_ok( false !== strpos( $added, "# BEGIN Remotive error pages\nErrorDocument 500 " ), 'the block is appended' );
+t_eq( remotive_htaccess_with_error_documents( $added, $ed_lines ), $added, 'a second run changes nothing' );
+t_ok( false !== strpos( remotive_htaccess_with_error_documents( str_replace( '/wp-content/themes/remotive/', '/old/', $added ), $ed_lines ), '/wp-content/themes/remotive/error-pages/500.html' ), 'a stale block is refreshed in place' );
+t_eq( remotive_htaccess_with_error_documents( "ErrorDocument 500 /mine.html\n" . $wp_block, $ed_lines ), null, 'the owner\'s own ErrorDocument 500 wins' );
+t_eq( remotive_htaccess_with_error_documents( "  errordocument 503 /mine.html\n" . $wp_block, $ed_lines ), null, 'the owner\'s own ErrorDocument 503 wins, whatever its case' );
+t_ok( null !== remotive_htaccess_with_error_documents( "# ErrorDocument 500 /commented.html\n" . $wp_block, $ed_lines ), 'a commented-out line is not the owner\'s' );
+t_ok( false === strpos( remotive_htaccess_with_error_documents( "# BEGIN Remotive error pages\nold\n# END Remotive error pages\n", array( 'A $1 \\1 B' ) ), 'old' ), 'text with $ and \\ in a line is written as it is' );
+
+$ed_dir = sys_get_temp_dir() . '/remotive-ed-' . getmypid();
+mkdir( $ed_dir );
+$ed_file = $ed_dir . '/.htaccess';
+t_eq( remotive_install_error_documents( $ed_file ), false, 'no .htaccess, nothing is created' );
+t_ok( ! file_exists( $ed_file ), 'the file was not created' );
+file_put_contents( $ed_file, $wp_block );
+t_eq( remotive_install_error_documents( $ed_file ), true, 'the block is written to an existing .htaccess' );
+t_eq( remotive_install_error_documents( $ed_file ), false, 'and not written twice' );
+t_eq( substr_count( file_get_contents( $ed_file ), 'ErrorDocument 500' ), 1, 'one ErrorDocument 500 line' );
+t_eq( remotive_remove_error_documents( $ed_file ), true, 'the block is removed on request' );
+t_eq( file_get_contents( $ed_file ), $wp_block, 'removal leaves the WordPress block as it was' );
+unlink( $ed_file );
+rmdir( $ed_dir );
+
 // ---- The old PHP data file is retired on upgrade; the content is read from JSON ----
 t_ok( in_array( 'inc/setup/content-seed-data.php', remotive_retired_files(), true ), 'an upload that left the old PHP data file has it removed' );
 t_eq( count( remotive_seed_content( true ) ), 27, 'the loader returns the twenty-seven shipped items' );
