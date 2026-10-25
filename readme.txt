@@ -4,7 +4,7 @@ Tags: block-theme, full-site-editing, child-theme, one-page
 Requires at least: 6.7
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.120.0
+Stable tag: 1.120.1
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -53,7 +53,7 @@ Smaller notices and warnings are logged and kept off the page entirely, which
 also prevents them breaking redirects and cookies further down the request.
 
 The theme adds what security hardening a theme can reach: login rate limiting,
-XML-RPC disabled, install endpoints closed once installed, version
+XML-RPC disabled, application passwords off by default, install endpoints closed once installed, version
 fingerprinting removed, username enumeration blocked, and standard security
 headers. Blocking IPs and protecting wp-login.php before PHP runs remain jobs
 for the host's firewall.
@@ -336,9 +336,12 @@ floor, not a replacement.
 
 == Changelog ==
 
-See `docs/changelog.md` for full version history. Latest version: 1.120.0.
+See `docs/changelog.md` for full version history. Latest version: 1.120.1.
 
 == Upgrade Notice ==
+
+= 1.120.1 =
+* Added: application passwords are blocked by default; the block is a switch in Theme Options -> Site behaviour, on until you turn it off.
 
 = 1.120.0 =
 * Added: stronger scroll parallax on the one-page layout (colour plates on their own scroll rates, lifts and staggered rises), deeper parallax on the full layout; off under reduced motion and the Theme Options toggle.

@@ -80,6 +80,7 @@ function remotive_theme_option_base_defaults() {
 		'branded_login'    => '0',
 		'motion_effects'   => '1',
 		'graceful_errors'  => '1',
+		'block_app_passwords' => '1',
 		'maintenance_mode' => '0',
 		'lang_ms'          => '1',
 		'lang_zh_hans'     => '1',
@@ -583,6 +584,12 @@ function remotive_theme_options_base_tabs() {
 					'toggle_label' => __( 'Keep PHP notices and warnings off the page', 'remotive' ),
 					'helper'       => __( 'On by default. PHP notices, warnings and deprecation messages are captured and written to the error log instead of being printed into the page. This matters beyond tidiness: a printed notice is output, and once output has been sent no header can be set for the rest of the request, so a single notice from one plugin cascades into failed redirects and cookies. Administrators see a summary panel; visitors see nothing. Fatal errors are always handled separately and show the branded error page.', 'remotive' ),
 				),
+				'block_app_passwords' => array(
+					'label'        => __( 'Application passwords', 'remotive' ),
+					'type'         => 'toggle',
+					'toggle_label' => __( 'Block application passwords (REST API logins for apps and integrations)', 'remotive' ),
+					'helper'       => __( 'On by default. Application passwords let a mobile app, a connector plugin or a script log in to the REST API with a separate password. While this is on, WordPress refuses them and hides the section on every user profile, which closes one more way in for anyone who has guessed a login. Switch it off only while an integration you use needs them.', 'remotive' ),
+				),
 				'motion_effects' => array(
 					'label'        => __( 'Scroll motion', 'remotive' ),
 					'type'         => 'toggle',
@@ -961,6 +968,7 @@ function remotive_sanitize_theme_options( $input ) {
 	$clean['pexels_api_key_clear']  = '0';
 	$clean['maintenance_mode']      = ( isset( $input['maintenance_mode'] ) && '1' === (string) $input['maintenance_mode'] ) ? '1' : '0';
 	$clean['graceful_errors']       = ( isset( $input['graceful_errors'] ) && '1' === (string) $input['graceful_errors'] ) ? '1' : '0';
+	$clean['block_app_passwords']   = ( isset( $input['block_app_passwords'] ) && '1' === (string) $input['block_app_passwords'] ) ? '1' : '0';
 	$clean['branded_login_message'] = sanitize_text_field( $input['branded_login_message'] ?? $defaults['branded_login_message'] );
 
 	foreach ( array( 'problem_sub', 'services_sub', 'why_sub', 'work_sub', 'about_sub', 'cta_sub' ) as $sub_key ) {
