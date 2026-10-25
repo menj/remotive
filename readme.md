@@ -849,6 +849,7 @@ its own hook, so any can be removed individually with `remove_action()` /
 |---|---|---|
 | Login rate limit, 5 failures per IP per 10 min | `wp_login_failed`, `authenticate`, `wp_login` | 271 `wp-login.php` hits from one IP |
 | XML-RPC disabled, pingback methods removed, `X-Pingback` header stripped | `xmlrpc_enabled`, `xmlrpc_methods`, `wp_headers` | 7 probes from 5 IPs |
+| Application passwords refused and hidden from profiles unless Theme Options → Site behaviour → Application passwords is on (v1.120.1) | `wp_is_application_passwords_available` | one more REST login route closed |
 | `install.php` / `setup-config.php` redirected to home | `admin_init` | 91 × 500 errors; `setup-config.php` returning 200 to external IPs |
 | Generator tag, feed version and `?ver=` strings removed | `wp_head`, `the_generator`, `*_loader_src` | Standard fingerprinting vector |
 | REST `wp/v2/users` blocked unauthenticated; author archives and `?author=N` redirected | `rest_authentication_errors`, `template_redirect` | Username harvesting |

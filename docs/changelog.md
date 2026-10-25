@@ -4,6 +4,12 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.120.1] (2026-10-25)
+
+### Added
+
+- **Application passwords are off by default**, with a switch in Theme Options → Site behaviour → Application passwords. The theme filters `wp_is_application_passwords_available`, so WordPress refuses them and hides the section on every user profile until the switch is on. Switch it on only while an integration (a mobile app, a connector plugin, a script) needs to log in to the REST API with one.
+
 ## [1.120.0] (2026-10-24)
 
 ### Added

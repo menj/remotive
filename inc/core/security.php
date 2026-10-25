@@ -186,8 +186,33 @@ add_action( 'wp_login', 'remotive_clear_login_failures', 10, 2 );
 
 
 /* ========================================================================
-   2. DISABLE XML-RPC
+   2. DISABLE XML-RPC AND, BY DEFAULT, APPLICATION PASSWORDS
    ======================================================================== */
+
+/**
+ * Whether application passwords are allowed: Theme Options -> Site behaviour -> Application passwords.
+ *
+ * Off unless switched on. Read straight from the option row, so the answer is the same whether or not
+ * inc/options/theme-options.php has loaded, and an unsaved option means off.
+ *
+ * @return bool
+ */
+function remotive_app_passwords_allowed() {
+	$opts = get_option( 'remotive_theme_options' );
+
+	return is_array( $opts ) && isset( $opts['app_passwords'] ) && '1' === (string) $opts['app_passwords'];
+}
+
+/**
+ * The filter WordPress asks before it accepts an application password or shows the profile section.
+ *
+ * @param bool $available WordPress's own answer.
+ * @return bool
+ */
+function remotive_filter_app_passwords( $available ) {
+	return remotive_app_passwords_allowed() ? $available : false;
+}
+add_filter( 'wp_is_application_passwords_available', 'remotive_filter_app_passwords' );
 
 add_filter( 'xmlrpc_enabled', '__return_false' );
 
