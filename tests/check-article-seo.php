@@ -22,6 +22,8 @@ function a_ok( $cond, $msg ) {
 	}
 }
 
+a_ok( count( remotive_seed_content() ) > 0, 'the shipped content loads (content/index.json is readable and lists items)' );
+
 foreach ( remotive_seed_content() as $i ) {
 	if ( 'post' !== $i['type'] ) {
 		continue;

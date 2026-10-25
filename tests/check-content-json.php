@@ -109,6 +109,11 @@ $bad = array(
 	'a script in the body'    => array( 'content' => "<!-- wp:html -->\n<script>alert(1)</script>\n<!-- /wp:html -->" ),
 	'an event handler'        => array( 'content' => "<!-- wp:paragraph -->\n<p onclick=\"x()\">a</p>\n<!-- /wp:paragraph -->" ),
 	'a javascript: address'   => array( 'content' => "<!-- wp:paragraph -->\n<p><a href=\"javascript:x()\">a</a></p>\n<!-- /wp:paragraph -->" ),
+	'an entity-encoded scheme' => array( 'content' => "<!-- wp:paragraph -->\n<p><a href=\"java&#x73;cript:x()\">a</a></p>\n<!-- /wp:paragraph -->" ),
+	'a split scheme'          => array( 'content' => "<!-- wp:paragraph -->\n<p><a href=\"jav&#x09;ascript:x()\">a</a></p>\n<!-- /wp:paragraph -->" ),
+	'a null type'             => array( 'type' => null ),
+	'a null slug'             => array( 'slug' => null ),
+	'null tags'               => array( 'tags' => null ),
 	'an unclosed block'       => array( 'content' => "<!-- wp:paragraph -->\n<p>a</p>" ),
 	'an unknown key'          => array( 'run' => 'x' ),
 	'a path in the slug'      => array( 'slug' => '../x' ),
@@ -121,6 +126,9 @@ $sample = remotive_content_join_lines( $loaded ? $loaded[0] : array() );
 foreach ( $bad as $what => $change ) {
 	cj_ok( (bool) remotive_content_problems( array_merge( $sample, $change ), '' ), "the validator refuses $what" );
 }
+
+cj_ok( (bool) remotive_content_problems( remotive_content_join_lines( array_merge( $sample, array( 'content' => array( 'a' => 'x' ) ) ) ), '' ), 'the validator refuses a content object in place of a list of lines' );
+cj_ok( ! array_filter( remotive_content_problems( array_merge( $sample, array( 'tags' => array() ) ), '' ), static function ( $p ) { return false !== strpos( $p, 'tags' ); } ), 'the validator accepts an empty tags list' );
 
 foreach ( array( '../index.json', 'posts/../index.json', 'posts/x.html', 'posts/x.txt', 'posts/x.php', 'posts/Sub/x.json', '/etc/passwd', 'pages/a/b.json', array() ) as $entry ) {
 	cj_ok( '' === remotive_content_resolve( $dir, $entry ), 'the index refuses the entry ' . json_encode( $entry ) );

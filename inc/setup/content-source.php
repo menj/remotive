@@ -77,7 +77,24 @@ function remotive_content_keys() {
  * @return bool
  */
 function remotive_content_has_active_markup( $html ) {
-	return (bool) preg_match( '/<\s*(?:script|iframe|object|embed|form|style|link|meta|base)\b|<[^>]*\son[a-z]+\s*=|javascript\s*:|data\s*:\s*text\/html/i', (string) $html );
+	$html = (string) $html;
+
+	// A browser reads java&#x73;cript: and java&Tab;script: as javascript:, so test the decoded text too,
+	// with whitespace and control characters (which a scheme may be split by) removed.
+	$decoded = preg_replace_callback(
+		'/&#(x[0-9a-f]+|[0-9]+);?/i',
+		static function ( $m ) {
+			$code = 'x' === strtolower( $m[1][0] ) ? hexdec( substr( $m[1], 1 ) ) : (int) $m[1];
+
+			return $code > 0 && $code < 0x110000 ? html_entity_decode( '&#' . $code . ';', ENT_QUOTES | ENT_HTML5, 'UTF-8' ) : '';
+		},
+		$html
+	);
+	$decoded = html_entity_decode( (string) $decoded, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
+	$squeezed = preg_replace( '/[\x00-\x20\x7f]+/', '', $decoded );
+
+	return (bool) preg_match( '/<\s*(?:script|iframe|object|embed|form|style|link|meta|base)\b|<[^>]*\son[a-z]+\s*=|javascript\s*:|data\s*:\s*text\/html/i', $html )
+		|| (bool) preg_match( '/<(?:script|iframe|object|embed|form|style|link|meta|base)\b|javascript:|vbscript:|data:text\/html/i', (string) $squeezed );
 }
 
 /**
@@ -121,32 +138,32 @@ function remotive_content_problems( $item, $rel = '' ) {
 
 	$slug = '/^[a-z0-9]+(?:-[a-z0-9]+)*$/';
 
-	if ( isset( $item['type'] ) && ! in_array( $item['type'], array( 'post', 'page' ), true ) ) {
+	if ( array_key_exists( 'type', $item ) && ! in_array( $item['type'], array( 'post', 'page' ), true ) ) {
 		$problems[] = '"type" must be "post" or "page"';
 	}
 
-	if ( isset( $item['slug'] ) && ( ! is_string( $item['slug'] ) || ! preg_match( $slug, $item['slug'] ) ) ) {
+	if ( array_key_exists( 'slug', $item ) && ( ! is_string( $item['slug'] ) || ! preg_match( $slug, $item['slug'] ) ) ) {
 		$problems[] = '"slug" must be lowercase letters, digits and hyphens';
 	}
 
-	if ( isset( $item['parent'] ) && ( ! is_string( $item['parent'] ) || ! preg_match( '#^[a-z0-9]+(?:-[a-z0-9]+)*(?:/[a-z0-9]+(?:-[a-z0-9]+)*)*$#', $item['parent'] ) ) ) {
+	if ( array_key_exists( 'parent', $item ) && ( ! is_string( $item['parent'] ) || ! preg_match( '#^[a-z0-9]+(?:-[a-z0-9]+)*(?:/[a-z0-9]+(?:-[a-z0-9]+)*)*$#', $item['parent'] ) ) ) {
 		$problems[] = '"parent" must be a page path of lowercase slugs';
 	}
 
-	if ( isset( $item['template'] ) && ( ! is_string( $item['template'] ) || ! preg_match( $slug, $item['template'] ) ) ) {
+	if ( array_key_exists( 'template', $item ) && ( ! is_string( $item['template'] ) || ! preg_match( $slug, $item['template'] ) ) ) {
 		$problems[] = '"template" must be a template name (lowercase letters, digits and hyphens)';
 	}
 
-	if ( isset( $item['image'] ) && ( ! is_string( $item['image'] ) || ! preg_match( '/^[a-z0-9][a-z0-9._-]*\.(?:jpe?g|png|webp)$/', $item['image'] ) ) ) {
+	if ( array_key_exists( 'image', $item ) && ( ! is_string( $item['image'] ) || ! preg_match( '/^[a-z0-9][a-z0-9._-]*\.(?:jpe?g|png|webp)$/', $item['image'] ) ) ) {
 		$problems[] = '"image" must be a plain image file name (jpg, png or webp)';
 	}
 
-	if ( isset( $item['category'] ) && ( ! is_array( $item['category'] ) || 2 !== count( $item['category'] ) || ! isset( $item['category'][0], $item['category'][1] ) || ! is_string( $item['category'][0] ) || '' === trim( $item['category'][0] ) || ! is_string( $item['category'][1] ) || ! preg_match( $slug, $item['category'][1] ) ) ) {
+	if ( array_key_exists( 'category', $item ) && ( ! is_array( $item['category'] ) || 2 !== count( $item['category'] ) || ! isset( $item['category'][0], $item['category'][1] ) || ! is_string( $item['category'][0] ) || '' === trim( $item['category'][0] ) || ! is_string( $item['category'][1] ) || ! preg_match( $slug, $item['category'][1] ) ) ) {
 		$problems[] = '"category" must be [name, slug]';
 	}
 
-	if ( isset( $item['tags'] ) ) {
-		$bad = ! is_array( $item['tags'] ) || array_keys( $item['tags'] ) !== range( 0, count( $item['tags'] ) - 1 );
+	if ( array_key_exists( 'tags', $item ) ) {
+		$bad = ! is_array( $item['tags'] ) || ( array() !== $item['tags'] && array_keys( $item['tags'] ) !== range( 0, count( $item['tags'] ) - 1 ) );
 
 		foreach ( (array) $item['tags'] as $tag ) {
 			$bad = $bad || ! is_string( $tag ) || '' === trim( $tag ) || strlen( $tag ) > 80;
@@ -256,6 +273,12 @@ function remotive_content_resolve( $dir, $rel ) {
  */
 function remotive_content_join_lines( array $item ) {
 	if ( isset( $item['content'] ) && is_array( $item['content'] ) ) {
+		if ( array() !== $item['content'] && array_keys( $item['content'] ) !== range( 0, count( $item['content'] ) - 1 ) ) {
+			$item['content'] = null; // An object, not a list of lines; the validator reports it.
+
+			return $item;
+		}
+
 		$lines = array_values( $item['content'] );
 
 		foreach ( $lines as $line ) {
