@@ -92,6 +92,25 @@ function remotive_seed_find_args( $slug, $type, $parent = '' ) {
 }
 
 /**
+ * Whether block markup opens and closes every block it starts (a self-closing block counts as both).
+ *
+ * An unclosed block makes the parser nest everything after it inside, and the page then renders its
+ * later sections over and over. The seeder and the restore refuse such text, and tests/check-article-seo.php
+ * fails on it before it ships.
+ *
+ * @param string $content Block markup.
+ * @return bool
+ */
+function remotive_seed_blocks_balanced( $content ) {
+	$content = (string) $content;
+	preg_match_all( '/<!-- wp:[a-z\/-]+( [^>]*)?-->/', $content, $opens );
+	preg_match_all( '/<!-- wp:[a-z\/-]+( [^>]*)?\/-->/', $content, $selfs );
+	preg_match_all( '/<!-- \/wp:[a-z\/-]+ -->/', $content, $closes );
+
+	return count( $opens[0] ) - count( $selfs[0] ) === count( $closes[0] );
+}
+
+/**
  * The description a seeded category is created with. It is the category archive's meta description
  * and the introduction on the archive, so each archive has its own.
  *
@@ -248,6 +267,10 @@ function remotive_seed_run() {
 		if ( remotive_seed_find( $item['slug'], $item['type'], $item['parent'] ?? '' ) ) {
 			$seeded[] = $key;
 			continue;
+		}
+
+		if ( ! remotive_seed_blocks_balanced( $item['content'] ?? '' ) ) {
+			continue; // Broken markup is not seeded; the check script catches it before a release.
 		}
 
 		$args = array(
@@ -541,7 +564,7 @@ function remotive_seed_restore( $key ) {
 		}
 	}
 
-	if ( ! $target ) {
+	if ( ! $target || ! remotive_seed_blocks_balanced( $target['content'] ?? '' ) ) {
 		return false;
 	}
 

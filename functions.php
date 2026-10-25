@@ -79,6 +79,9 @@ function remotive_motion_body_class( $classes ) {
 }
 add_filter( 'body_class', 'remotive_motion_body_class' );
 
+// The header part carries the theme's own skip link; core's second one is not printed.
+remove_action( 'wp_footer', 'the_block_template_skip_link' );
+
 /**
  * Wrap the trailing arrow in these links so it can animate on its own.
  *

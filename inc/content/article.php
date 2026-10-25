@@ -73,3 +73,28 @@ function remotive_related_query_vars( $query, $block ) {
 	return $query;
 }
 add_filter( 'query_loop_block_query_vars', 'remotive_related_query_vars', 10, 2 );
+
+/**
+ * The address a share button opens, for the article being rendered: WhatsApp, LinkedIn or X.
+ *
+ * Built on the server so the links are real before assets/js/article.js runs (it sets the same
+ * addresses) and for a reader without it. Outside an article the address is the service's own front.
+ *
+ * @param string $network 'whatsapp', 'linkedin' or 'x'.
+ * @return string
+ */
+function remotive_share_link( $network ) {
+	$url   = is_singular() ? (string) get_permalink() : home_url( '/' );
+	$title = is_singular() ? html_entity_decode( wp_strip_all_tags( get_the_title() ), ENT_QUOTES | ENT_HTML5, 'UTF-8' ) : get_bloginfo( 'name' );
+
+	switch ( $network ) {
+		case 'whatsapp':
+			return 'https://wa.me/?text=' . rawurlencode( $title . ' ' . $url );
+		case 'linkedin':
+			return 'https://www.linkedin.com/sharing/share-offsite/?url=' . rawurlencode( $url );
+		case 'x':
+			return 'https://x.com/intent/post?text=' . rawurlencode( $title ) . '&url=' . rawurlencode( $url );
+	}
+
+	return $url;
+}

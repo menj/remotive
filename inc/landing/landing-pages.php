@@ -150,6 +150,36 @@ function remotive_lp_page_usable( $page ) {
 	return is_object( $page ) && isset( $page->post_status ) && 'publish' === $page->post_status;
 }
 
+/**
+ * The Open Graph locale of a translated landing page. Rank Math prints the site locale; the landing
+ * pages sit outside the language layer's head rewrite, so the tag is corrected here on the head output.
+ *
+ * @return string ms_MY, zh_CN, zh_TW, or '' for English.
+ */
+function remotive_lp_og_locale() {
+	$map = array( 'ms' => 'ms_MY', 'zh' => 'zh_CN', 'zht' => 'zh_TW' );
+	$key = remotive_lp_requested_lang();
+
+	return isset( $map[ $key ] ) ? $map[ $key ] : '';
+}
+
+function remotive_lp_og_locale_start() {
+	if ( remotive_is_landing_page() && '' !== remotive_lp_og_locale() ) {
+		ob_start();
+	}
+}
+add_action( 'wp_head', 'remotive_lp_og_locale_start', 0 );
+
+function remotive_lp_og_locale_end() {
+	if ( ! remotive_is_landing_page() || '' === remotive_lp_og_locale() ) {
+		return;
+	}
+
+	$head = ob_get_clean();
+	echo preg_replace( '/(<meta property="og:locale" content=")[^"]*(")/', '${1}' . remotive_lp_og_locale() . '${2}', (string) $head ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+}
+add_action( 'wp_head', 'remotive_lp_og_locale_end', PHP_INT_MAX );
+
 /* ---- Language URLs ----
  * Handled by inc/i18n/i18n.php: it reads the language directory, removes it
  * from the request, and these pages then resolve like any other page. Earlier
@@ -663,8 +693,8 @@ function remotive_lp_render() {
 		'china'     => array( 'China', 'China', '中国', '中國' ),
 	) as $stem => $label ) {
 		$cities .= '<li class="rm-lp__city">'
-			. remotive_lp_picture( 'city-' . $stem, array( 480 => 360, 720 => 540 ), '(min-width: 56rem) 14rem, 45vw' )
-			. '<span>' . remotive_lp_t( $label ) . '</span></li>';
+			. remotive_lp_picture( 'city-' . $stem, array( 480 => 360, 720 => 540 ), '(min-width: 56rem) 14rem, 45vw', remotive_lp_t( $label ) )
+			. '<span aria-hidden="true">' . remotive_lp_t( $label ) . '</span></li>';
 	}
 
 	$faqs = '';

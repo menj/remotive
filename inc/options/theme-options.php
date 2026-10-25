@@ -1876,6 +1876,11 @@ function remotive_replace_theme_option_tokens( $block_content, $block ) {
 			'__REMOTIVE_ADDRESS_LINE_3__'   => esc_html( remotive_get_theme_option( 'address_line_3' ) ),
 			'__REMOTIVE_SOCIAL_LINKS__'    => remotive_render_social_links(),
 			'__REMOTIVE_THEME_URL__'        => esc_url( get_stylesheet_directory_uri() ),
+			// The article's share links, built on the server so the page links somewhere real before the
+			// script runs and for a reader without it (inc/content/article.php has the builder).
+			'__REMOTIVE_SHARE_WHATSAPP__'   => esc_url( remotive_share_link( 'whatsapp' ) ),
+			'__REMOTIVE_SHARE_LINKEDIN__'   => esc_url( remotive_share_link( 'linkedin' ) ),
+			'__REMOTIVE_SHARE_X__'          => esc_url( remotive_share_link( 'x' ) ),
 			// Checked again here, not only when the options are saved: a blank or "#" saved by an earlier
 			// version would otherwise post the form to the page it is on until an admin re-saves.
 			'__REMOTIVE_CTA_FORM_ACTION__'  => esc_url( remotive_form_action_or_default( remotive_get_theme_option( 'cta_form_action' ), admin_url( 'admin-post.php' ) ) ),

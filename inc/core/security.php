@@ -480,3 +480,31 @@ function remotive_security_headers( $headers ) {
 	return $headers;
 }
 add_filter( 'wp_headers', 'remotive_security_headers' );
+
+
+/* ========================================================================
+   COMMENTS: CLOSED
+   ======================================================================== */
+
+/**
+ * The theme renders no comment form or list, so comments stay closed and the comments feed is not
+ * advertised: an open comment form nobody can see is a spam inbox, and the feed link told crawlers a
+ * discussion existed. Return true from the filter to open them.
+ *
+ * @return bool
+ */
+function remotive_comments_enabled() {
+	return (bool) apply_filters( 'remotive_comments_enabled', false );
+}
+
+function remotive_comments_closed( $open ) {
+	return remotive_comments_enabled() ? $open : false;
+}
+add_filter( 'comments_open', 'remotive_comments_closed', 20 );
+add_filter( 'pings_open', 'remotive_comments_closed', 20 );
+
+function remotive_comments_feed_link( $show ) {
+	return remotive_comments_enabled() ? $show : false;
+}
+add_filter( 'feed_links_show_comments_feed', 'remotive_comments_feed_link' );
+add_filter( 'feed_links_show_post_comments_feed', 'remotive_comments_feed_link' );

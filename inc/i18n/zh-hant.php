@@ -2868,7 +2868,7 @@ return array(
 			'description' => '我們在新加坡、馬來西亞及更廣區域的搜尋、付費媒體與衡量中看到的情況。',
 		),
 		'case-studies' => array(
-			'title'       => '案例研究 | Re:Motive Media',
+			'title'       => '成功案例 | Re:Motive Media',
 			'description' => '來自亞洲各地的真實客戶成果，涵蓋 SEO、付費媒體與分析，每頁都註明了衡量的限制。',
 		),
 		'case-studies/b2b-seo-industrial-supplier' => array(

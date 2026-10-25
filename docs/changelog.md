@@ -4,6 +4,19 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.120.6] (2026-10-25)
+
+### Fixed
+
+Findings of a check of the theme's output against Google's SEO Starter Guide, page by page on a WordPress install.
+
+- **Nineteen seeded pages rendered their later sections over and over.** Every service page and thirteen case studies shipped paragraph blocks with no closing comment, so the block parser nested everything after each one and the page repeated its headings and paragraphs, with block delimiters leaking into the HTML (one service page ran to 19,000 words). The markup is repaired, the seeder and "Restore shipped version" refuse unbalanced markup, `tests/check-article-seo.php` fails on it, and a migration replaces a copy that is still exactly what was seeded; an edited copy is left for "Restore shipped version". A seeded lead image whose sizes WordPress never recorded has them generated.
+- **Comments are closed and the comments feed is not advertised.** The theme renders no comment form or list, so open comments were an unseen spam inbox and the feed link told crawlers a discussion existed. `remotive_comments_enabled` opens them.
+- **Every page has a social image.** Rank Math printed `og:image` only for the six posts with a lead image; the logo is the fallback (`remotive_default_social_image` changes it). Translated landing pages carried the English `og:locale`.
+- **One address per page.** `/About/` served the page at a second address; a capitalised path redirects to its lowercase form. `/seo/` and the other service slugs typed at the top level go to the service page instead of being guessed into the noindex ad landing page.
+- **The share buttons link somewhere real** before the script runs (WhatsApp, LinkedIn and X addresses are built on the server), and carry `rel="nofollow"`.
+- **Smaller:** the case study cards and the home page spread use the client line as the heading and the figure as a paragraph; the image fallback link has an accessible name; the landing pages' city photos describe their country; the traditional Chinese case studies title differs from the simplified one; core's duplicate skip link is not printed.
+
 ## [1.120.5] (2026-10-25)
 
 ### Added

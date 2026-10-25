@@ -140,3 +140,34 @@ function remotive_rank_math_archive_description( $description ) {
 	return sprintf( __( 'Articles on %1$s from %2$s: what works for brands in Asia, and what to fix first.', 'remotive' ), $term->name, get_bloginfo( 'name' ) );
 }
 add_filter( 'rank_math/frontend/description', 'remotive_rank_math_archive_description', 20 );
+
+/**
+ * A social image for a page that has none of its own: the site logo.
+ *
+ * Rank Math prints og:image only from a featured image, the content or its own default setting, and
+ * the default was never set, so every page but the six posts with a lead image shared with no picture.
+ * `remotive_default_social_image` returns the URL to use instead of the logo.
+ *
+ * @param string $url The image Rank Math found, or ''.
+ * @return string
+ */
+function remotive_rank_math_social_image( $url ) {
+	if ( '' !== trim( (string) $url ) ) {
+		return $url;
+	}
+
+	$fallback = '';
+	$logo_id  = (int) get_theme_mod( 'custom_logo' );
+
+	if ( $logo_id ) {
+		$fallback = (string) wp_get_attachment_image_url( $logo_id, 'full' );
+	}
+
+	if ( '' === $fallback ) {
+		$fallback = get_stylesheet_directory_uri() . '/assets/images/remotive-logo-landscape.png';
+	}
+
+	return (string) apply_filters( 'remotive_default_social_image', $fallback );
+}
+add_filter( 'rank_math/opengraph/facebook/image', 'remotive_rank_math_social_image', 20 );
+add_filter( 'rank_math/opengraph/twitter/image', 'remotive_rank_math_social_image', 20 );

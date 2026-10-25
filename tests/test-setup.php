@@ -75,7 +75,22 @@ foreach ( $page_hashes as $slug => $fields ) {
 		t_ok( $list && ! array_diff( array_map( function ( $h ) { return preg_match( '/^[a-f0-9]{32}$/', $h ) ? 1 : 0; }, $list ), array( 1 ) ), "$slug / $name: every hash is an md5" );
 	}
 }
-t_ok( '1.120.4' === REMOTIVE_SETUP_SCHEMA, 'the migration schema is 1.120.4' );
+t_ok( '1.120.6' === REMOTIVE_SETUP_SCHEMA, 'the migration schema is 1.120.6' );
+t_ok( isset( remotive_migration_registry()['1.120.6'] ), 'the seed repair migration is registered' );
+
+// ---- Block markup that opens what it closes ----
+t_ok( remotive_seed_blocks_balanced( "<!-- wp:paragraph -->\n<p>a</p>\n<!-- /wp:paragraph -->" ), 'a closed paragraph balances' );
+t_ok( ! remotive_seed_blocks_balanced( "<!-- wp:paragraph -->\n<p>a</p>\n<!-- wp:heading -->\n<h2>b</h2>\n<!-- /wp:heading -->" ), 'an unclosed paragraph does not' );
+t_ok( remotive_seed_blocks_balanced( '<!-- wp:post-title {"level":1} /-->' ), 'a self-closing block counts as both' );
+t_ok( remotive_seed_blocks_balanced( '' ), 'empty text balances' );
+foreach ( remotive_seed_content() as $item ) {
+	t_ok( remotive_seed_blocks_balanced( $item['content'] ?? '' ), 'shipped markup balances: ' . $item['slug'] );
+}
+// The repaired copies carry the hash of the text they replace, so an unedited broken copy is found.
+$old_hashes = remotive_old_page_copy_hashes();
+foreach ( array( 'social', 'analytics', 'email', 'content', 'seo', 'cookieless-audience-sports' ) as $slug ) {
+	t_ok( isset( $old_hashes[ $slug ]['content'] ) && count( $old_hashes[ $slug ]['content'] ) >= 2, "$slug lists the broken copy's hash" );
+}
 t_ok( isset( remotive_migration_registry()['1.120.4'] ), 'the category description migration is registered' );
 foreach ( array( 'seo-ai-search', 'paid-media', 'agency-guides' ) as $slug ) {
 	$d = remotive_seed_category_description( $slug );
