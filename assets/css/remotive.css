@@ -855,6 +855,16 @@ html:not([data-theme="light"]) .rm-brand img{ background:#fff; padding:2px 4px; 
 .rm-cta__status[data-state="success"] .rm-cta__msg--success,
 .rm-cta__status[data-state="error"] .rm-cta__msg--error{ display:block; }
 
+/* =================== BREADCRUMBS (Rank Math, v1.120.8) ===================
+   Printed above the page title when Rank Math's breadcrumbs setting is on
+   (inc/core/rank-math.php). Small, quiet, one line. */
+.rm-breadcrumbs{ margin:0 0 1rem; font-size:.85rem; color:var(--rm-ink-70); }
+.rm-breadcrumbs p{ margin:0; }
+.rm-breadcrumbs a{ color:inherit; text-decoration:underline; text-underline-offset:3px; }
+.rm-breadcrumbs a:hover{ color:var(--wp--preset--color--ink); }
+.rm-breadcrumbs .separator{ opacity:.6; }
+.rm-breadcrumbs .last{ color:var(--wp--preset--color--ink); }
+
 /* =================== FOOTER =================== */
 .rm-footer{ border-top:1px solid var(--rm-line); }
 .rm-footer__brand img{ height:46px; width:auto; }

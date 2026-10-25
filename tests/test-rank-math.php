@@ -73,4 +73,16 @@ t_eq( remotive_rank_math_sitemap_entry( $entry, 'post', (object) array( 'ID' => 
 t_eq( remotive_rank_math_sitemap_entry( $entry, 'post', (object) array( 'ID' => 99 ) ), $entry, 'ordinary page kept' );
 t_eq( remotive_rank_math_sitemap_entry( $entry, 'term', null ), $entry, 'non-post entries kept' );
 
+// ---- Breadcrumbs above the title: only with Rank Math's setting on, and never above a card title ----
+t_reset();
+$block = array( 'blockName' => 'core/post-title', 'attrs' => array( 'level' => 1 ) );
+t_eq( remotive_rank_math_breadcrumbs_before_title( '<h1>Title</h1>', $block ), '<h1>Title</h1>', 'without Rank Math the title is left alone' );
+t_ok( ! remotive_rank_math_breadcrumbs_on(), 'the setting reads as off without the plugin' );
+t_ok( in_array( 'remotive_rank_math_breadcrumbs_before_title', $GLOBALS['filters']['render_block_core/post-title'] ?? array(), true ), 'hooked to the page title block' );
+t_ok( in_array( 'remotive_rank_math_breadcrumbs_before_title', $GLOBALS['filters']['render_block_core/query-title'] ?? array(), true ), 'and to the archive title block' );
+// With a stand-in for the plugin's function and setting, the trail goes above a level-one title only.
+function rank_math_get_breadcrumbs( $args = array() ) { return $args['wrap_before'] . '<a href="https://example.com/">Home</a></p></nav>'; }
+$GLOBALS['T']['rm_breadcrumbs'] = true;
+t_ok( false === strpos( remotive_rank_math_breadcrumbs_before_title( '<h3>Card</h3>', array( 'blockName' => 'core/post-title', 'attrs' => array( 'level' => 3 ) ) ), 'rm-breadcrumbs' ), 'a card title (level 3) gets no trail' );
+
 t_done( 'rank-math' );

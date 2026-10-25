@@ -171,3 +171,63 @@ function remotive_rank_math_social_image( $url ) {
 }
 add_filter( 'rank_math/opengraph/facebook/image', 'remotive_rank_math_social_image', 20 );
 add_filter( 'rank_math/opengraph/twitter/image', 'remotive_rank_math_social_image', 20 );
+
+
+/**
+ * Whether Rank Math's breadcrumbs are switched on (Rank Math → General Settings → Breadcrumbs).
+ *
+ * @return bool
+ */
+function remotive_rank_math_breadcrumbs_on() {
+	$on = function_exists( 'rank_math_get_breadcrumbs' )
+		&& is_callable( array( '\\RankMath\\Helper', 'get_settings' ) )
+		&& (bool) \RankMath\Helper::get_settings( 'general.breadcrumbs' );
+
+	/**
+	 * Whether the visible breadcrumb trail prints.
+	 *
+	 * @param bool $on Rank Math's own setting.
+	 */
+	return (bool) apply_filters( 'remotive_rank_math_breadcrumbs', $on );
+}
+
+/**
+ * A visible breadcrumb trail above the page title, from Rank Math's own breadcrumbs, while its setting
+ * is on. The structured data carries a BreadcrumbList on every inner page regardless; this is the
+ * trail a visitor sees. Not on the front page, the one-page layout, the ad landing pages or a
+ * confirmation page, and only above the level-one title of the page itself, never a card's title.
+ *
+ * @param string $content Rendered block.
+ * @param array  $block   Parsed block.
+ * @return string
+ */
+function remotive_rank_math_breadcrumbs_before_title( $content, $block ) {
+	if ( ! remotive_rank_math_breadcrumbs_on() || is_front_page() || is_404() || is_search() ) {
+		return $content;
+	}
+
+	$name = isset( $block['blockName'] ) ? $block['blockName'] : '';
+
+	if ( 'core/post-title' === $name && ( ! is_singular() || 1 !== (int) ( $block['attrs']['level'] ?? 2 ) || ! in_the_loop() ) ) {
+		return $content;
+	}
+
+	if ( 'core/query-title' === $name && ! ( is_archive() || is_home() ) ) {
+		return $content;
+	}
+
+	if ( ( function_exists( 'remotive_agency_front' ) && remotive_agency_front() )
+		|| ( function_exists( 'remotive_is_landing_page' ) && remotive_is_landing_page() )
+		|| ( function_exists( 'remotive_is_thanks_page' ) && remotive_is_thanks_page() ) ) {
+		return $content;
+	}
+
+	$trail = rank_math_get_breadcrumbs( array(
+		'wrap_before' => '<nav class="rm-breadcrumbs rank-math-breadcrumb" aria-label="' . esc_attr__( 'Breadcrumb', 'remotive' ) . '"><p>',
+		'wrap_after'  => '</p></nav>',
+	) );
+
+	return '' === (string) $trail ? $content : $trail . $content;
+}
+add_filter( 'render_block_core/post-title', 'remotive_rank_math_breadcrumbs_before_title', 10, 2 );
+add_filter( 'render_block_core/query-title', 'remotive_rank_math_breadcrumbs_before_title', 10, 2 );

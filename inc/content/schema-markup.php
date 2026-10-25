@@ -126,6 +126,12 @@ function remotive_schema_strip_rank_math( $data ) {
 		return $data;
 	}
 
+	// The editor's schema preview and the REST route build the same data; they keep the plugin's
+	// context nodes, so an attached schema previews with its publisher and page as before.
+	if ( is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) || ( function_exists( 'wp_doing_ajax' ) && wp_doing_ajax() ) ) {
+		return $data;
+	}
+
 	foreach ( array( 'publisher', 'WebSite', 'WebPage', 'BreadcrumbList', 'ProfilePage', 'richSnippet', 'primaryImage', 'ImageObject', 'Person', 'Organization' ) as $key ) {
 		unset( $data[ $key ] );
 	}

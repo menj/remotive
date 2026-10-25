@@ -775,8 +775,10 @@ nodes print instead: a plugin's automatic graph described the site thinly
 (a nameless author on every page, no breadcrumb, an `Article` on the
 privacy policy) and the theme used to withhold its own nodes to make room
 for it. Schemas an editor attaches to a page through Rank Math's Schema
-Generator are kept. `add_filter( 'remotive_schema_theme_owns_graph',
-'__return_false' )` goes back to the older per-type yield, where
+Generator are kept, and the removal applies to the printed page only: the
+plugin's editor preview and REST responses keep their nodes. `add_filter(
+'remotive_schema_theme_owns_graph', '__return_false' )` goes back to the
+older per-type yield, where
 `remotive_schema_plugin_managed_types` (who is treated as managing what),
 `remotive_schema_suppressed_types` (final say per request) and
 `remotive_schema_graph` (the assembled nodes) decide; in that mode a page
@@ -1506,7 +1508,7 @@ script and a JSON parse of `theme.json`. Run one with `php tests/<file>`.
 | `test-i18n-tokenizer.php` | The HTML translator's tokeniser: scripts and styles as one token, void elements, `translate="no"`, placeholders (v1.119.8). |
 | `test-landing.php` | Landing pages: language from the URL, URLs, hreflang, `<html lang>`, robots, the confirmation page check, the source field, the `translate="no"` language bars. |
 | `test-not-found.php` | The rescue of date style article addresses and icon requests. |
-| `test-rank-math.php` | The theme's rules reach Rank Math's own filters. |
+| `test-rank-math.php` | The theme's rules reach Rank Math's own filters; the breadcrumb trail prints only above a page title and only with the setting on. |
 | `test-schema-elements.php` | Structured data for the page furniture and both layouts. |
 | `test-schema-extended.php` | The rest of schema.org: durations, reading time, text decoding, the free audit offer, the organisation's extra properties, the plugin graph removal. |
 | `test-security.php` | Client address, the REST users routes at authentication and dispatch, the author redirect, generic login errors, enquiry length caps, the application password switch. |

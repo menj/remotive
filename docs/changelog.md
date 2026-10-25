@@ -4,6 +4,16 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.120.8] (2026-10-25)
+
+### Added
+
+- **Rank Math's breadcrumbs above the page title.** With Rank Math → General Settings → Breadcrumbs switched on, the trail Rank Math builds prints above the title of every inner page and archive (not the front page, the one-page layout, the ad landing pages or a confirmation page), translated on the language copies. Off, nothing changes; the structured data carries a BreadcrumbList either way. `remotive_rank_math_breadcrumbs` overrides the setting.
+
+### Changed
+
+- **Rank Math's automatic nodes stay in its editor preview and REST responses**; the theme removes them from the printed page only, so an attached schema previews with its publisher and page as before. Every Rank Math hook the theme uses was checked against the 1.0.279 source: `rank_math/frontend/title`, `description`, `robots`, `canonical`, `rank_math/head`, `rank_math/json_ld`, `rank_math/opengraph/{network}/image`, `rank_math/sitemap/entry` and `rank_math/sitemap/index`.
+
 ## [1.120.7] (2026-10-25)
 
 ### Changed
