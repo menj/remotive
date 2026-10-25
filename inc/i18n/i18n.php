@@ -883,7 +883,9 @@ function remotive_i18n_filter_schema( $head, $lang, $key ) {
 				foreach ( $node as $name => $value ) {
 					if ( is_string( $value ) && isset( $ids[ $value ] ) ) {
 						$node[ $name ] = $ids[ $value ];
-					} elseif ( is_array( $value ) ) {
+					} elseif ( is_array( $value ) && ! in_array( $name, array( 'workTranslation', 'translationOfWork' ), true ) ) {
+						// The stubs for the page's other-language copies describe other pages; they are not
+						// rewritten to this copy (this copy's own stub is removed below instead).
 						$node[ $name ] = $walk( $value );
 					}
 				}

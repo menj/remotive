@@ -1708,10 +1708,14 @@ function remotive_migrate_category_descriptions() {
 			continue;
 		}
 
-		wp_update_term( $term->term_id, 'category', array( 'description' => remotive_seed_category_description( $slug ) ) );
+		$result = wp_update_term( $term->term_id, 'category', array( 'description' => remotive_seed_category_description( $slug ) ) );
+
+		if ( is_wp_error( $result ) ) {
+			$failed = true; // The next admin load tries again.
+		}
 	}
 
-	return true;
+	return empty( $failed );
 }
 
 /**
@@ -1739,12 +1743,16 @@ function remotive_migrate_repair_seed_blocks() {
 			$file = get_attached_file( $id );
 
 			if ( $file && is_readable( $file ) ) {
-				wp_update_attachment_metadata( $id, wp_generate_attachment_metadata( $id, $file ) );
+				$meta = wp_generate_attachment_metadata( $id, $file );
+
+				if ( ! $meta || ! wp_update_attachment_metadata( $id, $meta ) ) {
+					$failed = true; // The next admin load tries again.
+				}
 			}
 		}
 	}
 
-	return true;
+	return empty( $failed );
 }
 
 function remotive_update_options_raw( $value ) {

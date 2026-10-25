@@ -48,6 +48,16 @@ function remotive_schema_plugin_managed_types() {
 	// page, the article, the breadcrumb and the author are removed below, and the theme's complete
 	// nodes print instead. Return false from the filter to go back to yielding to the plugin.
 	if ( remotive_schema_theme_owns_graph() ) {
+		// Rank Math, Yoast, All in One SEO and Slim SEO have a filter their automatic graph is removed
+		// through (below). SEOPress and The SEO Framework print theirs with no such filter, so for those
+		// two the theme still yields the types they emit rather than printing duplicates.
+		if ( defined( 'SEOPRESS_VERSION' ) ) {
+			$map['seopress'] = array( 'Organization', 'WebSite', 'Article', 'BlogPosting' );
+		}
+		if ( defined( 'THE_SEO_FRAMEWORK_VERSION' ) ) {
+			$map['the-seo-framework'] = array( 'Organization', 'WebSite', 'WebPage', 'BreadcrumbList' );
+		}
+
 		return apply_filters( 'remotive_schema_plugin_managed_types', $map );
 	}
 
@@ -143,6 +153,18 @@ function remotive_schema_strip_yoast( $output ) {
 	return remotive_schema_theme_owns_graph() ? false : $output;
 }
 add_filter( 'wpseo_json_ld_output', 'remotive_schema_strip_yoast', 99 );
+
+/**
+ * All in One SEO and Slim SEO: their graphs are withheld when the theme owns the graph.
+ *
+ * @param mixed $graph The plugin's graph.
+ * @return mixed
+ */
+function remotive_schema_strip_plugin_graph( $graph ) {
+	return remotive_schema_theme_owns_graph() ? array() : $graph;
+}
+add_filter( 'aioseo_schema_output', 'remotive_schema_strip_plugin_graph', 99 );
+add_filter( 'slim_seo_schema_graph', 'remotive_schema_strip_plugin_graph', 99 );
 
 /**
  * The union of types to suppress on the current request.
@@ -536,6 +558,9 @@ function remotive_schema_current_url() {
 		if ( $page ) {
 			return get_permalink( $page );
 		}
+	}
+	if ( is_search() ) {
+		return get_search_link(); // The term lives in the query string, which $wp->request does not carry.
 	}
 	return user_trailingslashit( home_url( add_query_arg( array(), $GLOBALS['wp']->request ?? '' ) ) );
 }

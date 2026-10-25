@@ -621,7 +621,8 @@ function remotive_lp_render_thanks() {
 		$steps .= '<li class="rm-lp__step"><span class="rm-lp__num">' . ( $n + 1 ) . '</span><h3>' . remotive_lp_t( $st[0] ) . '</h3><p>' . remotive_lp_t( $st[1] ) . '</p></li>';
 	}
 
-	return '<div class="rm-lp" data-lang="' . esc_attr( remotive_lp_requested_lang() ) . '" data-page="thanks">'
+	return '<a class="rm-skip-link" href="#main">' . esc_html__( 'Skip to content', 'remotive' ) . '</a>'
+		. '<div class="rm-lp" data-lang="' . esc_attr( remotive_lp_requested_lang() ) . '" data-page="thanks">'
 		. '<header class="rm-lp__bar">' . remotive_lp_logo()
 		. '<nav class="rm-lp__langs" translate="no" aria-label="Language / Bahasa / 语言 / 語言">' . remotive_lp_lang_nav( REMOTIVE_LP_THANKS_SLUG, isset( $services[ $asked ] ) ? array( 'service' => $asked ) : array() ) . '</nav></header>'
 		. '<main id="main" class="rm-lp__main">'
@@ -703,7 +704,8 @@ function remotive_lp_render() {
 		$faqs .= '<details class="rm-lp__q"><summary>' . esc_html( $qa[0][ $qi ] ) . '</summary><p>' . esc_html( $qa[1][ $qi ] ) . '</p></details>';
 	}
 
-	return '<div class="rm-lp" data-lang="' . esc_attr( remotive_lp_requested_lang() ) . '" data-service="' . esc_attr( $slug ) . '">'
+	return '<a class="rm-skip-link" href="#main">' . esc_html__( 'Skip to content', 'remotive' ) . '</a>'
+		. '<div class="rm-lp" data-lang="' . esc_attr( remotive_lp_requested_lang() ) . '" data-service="' . esc_attr( $slug ) . '">'
 		. '<header class="rm-lp__bar">' . remotive_lp_logo()
 		. '<nav class="rm-lp__langs" translate="no" aria-label="Language / Bahasa / 语言 / 語言">' . $btns . '</nav></header>'
 		. '<main id="main" class="rm-lp__main">'
