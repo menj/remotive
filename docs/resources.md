@@ -16,7 +16,7 @@ Twenty Twenty-Five (bundled with WordPress core, GPL-2.0-or-later).
 
 ## Bundled fonts
 
-All three are Google Fonts, redistributed here as self-hosted `.woff2`
+The four below are Google Fonts, redistributed here as self-hosted `.woff2`
 files (see `readme.md` → "Fonts" for why: no Google Fonts CDN calls at
 runtime, for GDPR compliance). All are licensed under the SIL Open Font
 License 1.1 (https://openfontlicense.org/), which explicitly permits
@@ -110,10 +110,15 @@ distributed there anyway (see `docs/ssot.md`, it is built exclusively for
 ## No other bundled third-party code
 
 No JavaScript libraries, icon fonts, or other third-party code are
-bundled in this theme. `assets/js/theme-toggle.js`, `assets/js/admin-theme-options.js`,
-`assets/js/lightbox.js`, `assets/js/parallax.js`, and `assets/js/webmcp.js`
-are original, theme-specific code (see `docs/changelog.md` for authorship/version
-history). WebMCP is used as a browser API when available; no WebMCP package,
+bundled in this theme. Every script in `assets/js/` (`remotive.js`,
+`landing.js`, `article.js`, `lead-form-status.js`, `lightbox.js`, `webmcp.js`
+and `admin-theme-options.js`) and every stylesheet in `assets/css/`
+(`remotive.css`, `critical.css`, `print.css`, `blog-and-about.css`,
+`article.css`, `landing.css`, `agency.css`, `agency-motion.css`, `login.css`
+and `admin-theme-options.css`) is original, theme-specific code (see
+`docs/changelog.md` for authorship/version history). The former
+`theme-toggle.js`, `ticker.js` and `parallax.js` were folded into
+`remotive.js` in v1.54.0. WebMCP is used as a browser API when available; no WebMCP package,
 polyfill, or specification code is bundled.
 The performance and paper-delivery styles in `assets/css/critical.css` and
 `assets/css/print.css` are also original theme code; v1.44.1 introduces no new
@@ -132,8 +137,9 @@ or content was copied into this theme.** The interaction *patterns* they
 demonstrate, a sidebar blog layout, a lightbox-enabled image gallery, a
 parallax hero, are generic, uncopyrightable UX conventions; this theme's
 implementations of them (`inc/forms/lead-form-handler.php`,
-`assets/js/lightbox.js`, `assets/js/parallax.js`, `templates/index.html`,
-`templates/page-about.html`) are original code written for this project,
+`assets/js/lightbox.js`, the scroll motion in `assets/js/remotive.js` and
+`assets/js/landing.js`, `templates/index.html`, `templates/page-about.html`)
+are original code written for this project,
 using this theme's own design system throughout. This was a deliberate
 choice, not an oversight: CC BY 3.0 requires visible attribution if the
 actual work is reused, which is awkward on a polished client site and

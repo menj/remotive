@@ -5,7 +5,7 @@ implements, and the legal entity behind it. If any other document (readme.txt,
 readme.md, a slide deck, a client-facing brief) ever conflicts with what is
 written here, **this file is correct and the other document is out of date.**
 
-Last verified: theme v1.79.1.
+Last verified: theme v1.120.3.
 
 ## Legal entity
 
@@ -38,11 +38,16 @@ If these domains diverge further in the future (e.g. the contact address moves),
 
 ## Design tokens
 
-Two modes, both defined in `theme.json` (dark, the baseline) and
+Two modes, both defined in `theme.json` (dark, the CSS baseline) and
 `assets/css/remotive.css` (light, an override, see `readme.md` for the
-mechanism). Source of truth for each hex value:
+mechanism). **Light is the shipped default a first-time visitor sees since
+v1.120.3** (`default_theme`, Theme Options → Site behaviour → Default colour
+mode); dark was the default up to v1.120.2, and migration 1.120.3
+moves a site still on `dark` to `light` once, leaving `system` alone. The CSS
+baseline and the shipped default are different things: the stylesheet is still
+written dark-first. Source of truth for each hex value:
 
-### Dark mode, "Registration" (CMYK direction, default)
+### Dark mode, "Registration" (CMYK direction, the CSS baseline)
 
 Aligned to `remotive-reporting` (the skill governing every client-facing
 deck/report) as of v1.9.0, per explicit request. Was previously its own
@@ -73,7 +78,7 @@ Since both modes share one CSS variable name, naming it `green` would mean
 light mode stores a yellow color inside a variable literally called green, the same class of bug that broke the CTA section during the v1.2.0
 `ink`/`paper` rework (see that gotcha further down this file).
 
-### Light mode, Remotive Media Asia brand system
+### Light mode, Remotive Media Asia brand system (the default since v1.120.3)
 
 Source: `remotive_brand_5.json`, the brand's official PPTX/document design
 spec (colours, fonts, logo usage rules for slide decks and documents).
@@ -114,37 +119,38 @@ defaults exist in three places that must change together: the dark values in
 `assets/css/critical.css`, and `remotive_colour_tokens()` in `inc/options/colours.php`.
 The block editor's palette (`theme.json`) does not follow the Colours tab.
 
-## Admin-configurable values (as of v1.79.1)
+## Admin-configurable values (as of v1.120.3)
 
-Contact email, the three footer address lines, the seven social URLs, the
-CTA form's submission URL, the default colour mode, enquiry retention
-period, branded login, the twelve country-ticker settings (countries,
-visibility, colours, size, weight, tracking, padding, speed, direction),
-scroll motion, graceful error handling, maintenance mode and the Pexels API key (a write-only secret, never printed back) are **no longer hardcoded**, they are stored
-in the `remotive_theme_options` WordPress option, editable at
-Appearance → Theme Options, with defaults matching the values in this
-document.
+Everything below is stored in the `remotive_theme_options` WordPress option,
+editable at Appearance → Theme Options, with defaults matching the values in
+this document. `remotive_theme_option_defaults()` holds 165 stored settings:
+75 base settings (`inc/options/theme-options.php`), 25 colours
+(`inc/options/colours.php`) and 65 one-page layout settings
+(`inc/options/agency-layout.php`). Every key is declared, defaulted and
+sanitised by name in `remotive_sanitize_theme_options()`.
 
-**Tabs added since v1.79.1.** Colours (v1.95.0, the palette per mode with a
-contrast check; see `readme.md`), Integrations (v1.91.0, holds the Pexels API
-key) and a maintenance-mode switch under Site behaviour (v1.88.0). The ticker
-default now lists six markets (Singapore, Malaysia, Thailand, Vietnam, Hong
-Kong, China); a site that has saved its own ticker list keeps it.
+| Tab | Settings | Since |
+|---|---|---|
+| **Homepage** | Hero (eyebrow, two headline lines, highlighted words, sub-heading, two button labels, reassurance line), the section headings and descriptions, the closing call to action, the three figures with their case-study links, the team roster (name, role, portrait slug, bio, leadership flag) | v1.79.1 (groups) |
+| **Agency layout** | `agency_mode` (off), `agency_hide_pages` (on), and the words and show/hide switch of every section of the one-page layout: opening, services, how we work, signs, questions, team (portrait size), closing form | v1.116.0, v1.118.0 |
+| **Business details** | `contact_email`, three address lines, `legal_name`, `legal_uen`, seven social URLs | v1.3.0, renamed v1.79.1 |
+| **Call-to-Action** | `cta_form_action`; blank or `#` falls back to the built-in handler at save and at render | v1.3.0, fallback v1.119.9 and v1.120.0 |
+| **Country ticker** | Countries (six markets by default: Singapore, Malaysia, Thailand, Vietnam, Hong Kong, China; a site that saved its own list keeps it), visibility, background, text and separator colours, size, weight, letter spacing, padding, speed, direction | v1.66.8 |
+| **Languages** | `lang_ms`, `lang_zh_hans`, `lang_zh_hant`, `lang_nav`, `lang_footer`, all on | v1.106.0 |
+| **Colours** | Twelve palette roles per mode and a reset switch, with a contrast check; only values that differ from the defaults are written to the page | v1.95.0 |
+| **Integrations** | `pexels_api_key` (write-only: never printed back, never exposed through REST, not used by the front end) and its remove switch | v1.91.0 |
+| **Site behaviour** | `lead_retention_months` (24), `branded_login` (off) and `branded_login_message`, `maintenance_mode` (off), `graceful_errors` (on), `block_app_passwords` (on, v1.120.1; an options array saved by an older version counts as on), `motion_effects` (on), `default_theme` (`light` since v1.120.3, `dark` before; `system` follows the device) | renamed from Display v1.79.1 |
 
-**Where to find them (restructured v1.79.1).** Theme Options has four tabs:
-**Homepage** (with Hero, Section headings, Numbers and Team as groups
-within it), **Business details**, **Country ticker**, and **Site
-behaviour**. Before v1.79.1 there were seven; four of them all edited the
-homepage, so changing one page meant moving between four tabs. Two were
-also renamed to match their contents, Display became Site behaviour
-(it holds lead retention, branded login and error handling), and Contact &
-Socials became Business details (it also holds the legal name and UEN).
-The field set was 57 at v1.79.1 and is 94 stored settings as of v1.96.0: the
-twenty-four colours and a reset switch (Colours, v1.95.0), maintenance mode
-(v1.90.0), the Pexels API key and its remove switch (Integrations, v1.91.0),
-and other additions recorded in `docs/changelog.md`. The Pexels key is a write-only
-secret: stored in the options table, never printed back into a page, never
-exposed through REST, and not used by the front end.
+Two card panels sit beside the tabs, each with its own form: **Site setup**
+(shipped content with per-item restore, menus, site pages) and **Enquiries**
+(the stored enquiries, the spam folder, CSV export). Edits to translations are
+not theme options; they live in the language layer's own tables
+(`wp_rm_i18n*`) under Tools → Translations.
+
+**History.** Before v1.79.1 there were seven tabs; four of them edited the
+homepage and were merged into one. Display became Site behaviour and Contact &
+Socials became Business details. The field set was 57 at v1.79.1, 94 at
+v1.96.0 and is 165 at v1.120.3.
 
 **Ticker colour defaults are mode-specific.** `ticker_bg` (`#1a1a2e`) and
 `ticker_color` (`#f7f4ec`) describe the light-mode band, navy on cream.
@@ -204,12 +210,34 @@ the token name.
   lowercase, theme name matching the `Theme Name:` header with spaces
   replaced by hyphens, e.g. `remotive-media-1.2.0.zip`.
 - Two other numbers move independently of the theme version: the migration
-  schema, `REMOTIVE_SETUP_SCHEMA` in `inc/setup/site-setup.php` (1.92.0 as of
-  v1.96.0), which only changes when an already-set-up site needs a migration,
-  and the rewrite-rule version, the `remotive_lp_rewrite_v` option (2), which
+  schema, `REMOTIVE_SETUP_SCHEMA` in `inc/setup/site-setup.php` (`1.120.3` as of
+  v1.120.3), which only changes when an already-set-up site needs a migration,
+  and the rewrite-rule version, the `remotive_lp_rewrite_v` option (`3`), which
   only changes when the landing-page URL rules change.
-- Every pull request runs `.github/workflows/ci.yml` (PHP syntax on 7.4 and
-  8.3, JavaScript syntax, valid `theme.json`, and `tests/check-landing-copy.php`).
+- Every pull request runs `.github/workflows/ci.yml`: PHP syntax on 7.4 and
+  8.3, JavaScript syntax, valid `theme.json`, every `tests/check-*.php` and
+  every `tests/test-*.php` (the list is in `readme.md` → "Tests and CI").
+- `tests/check-versions.php` fails when `style.css`, `readme.txt` (Stable tag
+  and "Latest version") and the newest `docs/changelog.md` entry disagree.
+
+### Constants, option rows and filters the theme adds
+
+Named here so a mu-plugin or a host can find them without reading the code.
+
+| Name | Kind | Purpose |
+|---|---|---|
+| `REMOTIVE_SETUP_SCHEMA` | PHP constant, `inc/setup/site-setup.php` | The migration schema version a site is brought up to. |
+| `REMOTIVE_SETUP_FLAG` | option row `remotive_site_setup_done` | The schema version the site has reached. |
+| `REMOTIVE_SETUP_LOCK` | option row `remotive_setup_lock` (v1.120.0) | The migration lock: `0` when free, otherwise the taking request's timestamp token. Taken by one compare-and-swap update on the row (`remotive_setup_lock_acquire()`), released only by the request holding that token (`remotive_setup_lock_release()`), treated as abandoned after ten minutes. Two overlapping admin loads cannot both run `remotive_run_pending_migrations()`. |
+| `REMOTIVE_ERROR_HANDLER` | PHP constant, defined by `inc/core/error-handler.php` (v1.120.0) | Set when the theme's fatal page is active. `drop-ins/php-error.php` returns at once when it is defined, so WordPress's own fatal handler (which stays registered, and keeps recovery mode working) prints nothing over the theme's page. |
+| `REMOTIVE_SHOW_ERRORS` | `wp-config.php` constant | Shows the full error detail without an admin session; for a lockout, remove afterwards. |
+| `remotive_use_custom_error_page` | filter | `__return_false` hands the fatal page back to WordPress and the drop-in. |
+| `wp_is_application_passwords_available` | WordPress filter the theme hooks (v1.120.1) | Returns false while `block_app_passwords` is on, which it is by default. |
+| `remotive_trusted_proxy_ranges` | filter | Address ranges whose forwarded-address header is believed (Cloudflare's by default). |
+| `remotive_i18n_available`, `remotive_i18n_live_pages`, `remotive_i18n_translates_request` | filters | Which pages exist in which language, and which requests the translator skips. |
+| `remotive_schema_plugin_managed_types`, `remotive_schema_suppressed_types`, `remotive_schema_graph`, `remotive_schema_logo_license` | filters | Structured data coexistence with SEO plugins, see `readme.md`. |
+| `remotive_preconnect_google_accounts` | filter | Forces the Google Sign-In preconnect hint on. |
+| `remotive_lp_rewrite_v` | option row | Rewrite-rule set version, see above. |
 - The zip's top-level folder is `remotive` (matches `wp-content/themes/remotive`),
   independent of the zip filename or the `Theme Name:` display string.
 
@@ -284,9 +312,10 @@ Proposed, not code (owner in brackets):
   v1.68.1) [hosting].
 - Rate-limit `wp-login.php` and `admin-post.php` at Cloudflare as well; the
   theme's counter is per address and per ten minutes [Cloudflare].
-- Two-factor authentication for administrators and an application-password
-  review; the theme adds no login flow of its own and the lockout does not cover
-  REST application-password logins [WordPress admin, security plugin].
+- Two-factor authentication for administrators; the theme adds no login flow
+  of its own [WordPress admin, security plugin]. The application-password
+  review proposed here was overtaken by v1.120.1, which blocks application
+  passwords by default (see the second review below).
 - WordPress's lost-password screen still says whether an account exists; a
   site-wide change belongs to a security plugin [WordPress admin].
 - Rotate the Pexels key shared in chat before saving it in Theme Options
@@ -302,6 +331,26 @@ Release readiness for 1.103.0: version bumped in `style.css` and `readme.txt`;
 changelog, upgrading, readme updated; tests run (`php tests/test-*.php`,
 `check-security-patterns`, `check-modules`, `check-versions`, `check-parent`);
 residual risk reviewed above.
+
+### Second review of the codebase (v1.119.9 to v1.120.1, 2026-10-14 to 2026-10-25)
+
+Two passes over every module, the scripts and the templates, with the
+findings fixed release by release (`docs/changelog.md` has the full list).
+The security-relevant ones:
+
+| ID | Severity | Status | Finding | Roles |
+|---|---|---|---|---|
+| WPSEC-007 | medium | fixed 1.120.0 | `?author=1` still revealed the login name: the theme's redirect shared `template_redirect` priority 10 with `redirect_canonical()`, which fired first and sent the visitor to `/author/<login>/`. The redirect now runs at priority 0 | anonymous |
+| WPSEC-008 | medium | fixed 1.120.0 | The REST users block was stepped around with `?_embed=author`: the embedded request skipped `rest_authentication_errors`. The users routes are refused on `rest_pre_dispatch` as well, and only the path and the `rest_route` argument count as a route, so a search that merely mentions the users path is served | anonymous |
+| WPSEC-009 | low | fixed 1.120.1 | Application passwords were open to anyone who had guessed a login (the lockout does not cover REST logins). Blocked by default through `wp_is_application_passwords_available`, with a switch under Site behaviour | anonymous |
+| WPSEC-010 | low | fixed 1.119.9 | The honeypot let a value of `0` through (`empty()`); a mistyped address used up the form rate limit before the email was checked | anonymous |
+| WPSEC-011 | low | fixed 1.119.10 | An expired nonce ended the request on WordPress's "link has expired" page (`check_admin_referer()`); `remotive_form_nonce_valid()` sends the visitor back to the form | anonymous |
+| WPSEC-012 | low | fixed 1.120.0 | Two overlapping admin loads could run the setup migrations and seed the pages twice; the migrations now run under `REMOTIVE_SETUP_LOCK` | administrator |
+| WPSEC-013 | informational | fixed 1.119.9, 1.120.0 | Enquiry text lost backslashes and gained entities on save (`wp_insert_post()` and `update_post_meta()` expect slashed data; kses ran for public visitors). `remotive_insert_lead_post()` slashes and pauses kses for the one insert; the meta is slashed | anonymous |
+| WPSEC-014 | informational | fixed 1.120.0 | A fatal printed two pages (the drop-in and the theme's page). The drop-in steps aside on `REMOTIVE_ERROR_HANDLER`; the `wp_fatal_error_handler_enabled` filter, which cannot work from a theme, is gone, and recovery mode works | anonymous |
+
+Tests: `tests/test-security.php`, `tests/test-forms.php`, `tests/test-setup.php`,
+`tests/test-landing.php` and `tests/test-agency.php` carry a check for each.
 
 ### Lead forms and landing pages (v1.90.0 – v1.96.0)
 
@@ -450,8 +499,7 @@ description limits:
   project has deliberately not done; see `docs/changelog.md` v1.66.2 for
   the tradeoff.
 - The two market landing pages were removed in v1.79.3, so they are not
-  covered here. The same on-page-checklist limitation as the core
-  pages applies once they are.
+  covered here.
 
 - The ad landing pages (`seo-audit`, `google-ads-management`,
   `paid-social-advertising`, `audit-requested`) deliberately carry **no** Rank
@@ -475,10 +523,18 @@ Canonical facts for the paid and social landing pages. Code: `inc/landing/landin
 | Confirmation (conversion URL) | `/audit-requested/` | `audit-requested` |
 
 - **Languages**, each on its own path: English (no prefix), Bahasa Melayu
-  `/ms/`, Simplified Chinese `/zh-cn/` (`zh-Hans`), Traditional Chinese
-  `/zh-tw/` (`zh-Hant`). The server renders only the language of the URL. There
-  is no `?lang=` parameter and no script-based switching. The Malay and Chinese
-  copy is a first draft until a native speaker has reviewed it.
+  `/ms/`, Simplified Chinese `/zh-hans/` (`zh-Hans`), Traditional Chinese
+  `/zh-hant/` (`zh-Hant`); the `/zh-cn/` and `/zh-tw/` paths of v1.90.0 to
+  v1.103.x redirect (v1.104.0). The server renders only the language of the
+  URL. There is no `?lang=` parameter and no script-based switching. The Malay
+  and Chinese copy is a first draft until a native speaker has reviewed it.
+- **Form fields:** name, email, website, message, and since v1.119.0 an
+  optional "How did you hear about us?" select with eight listed answers
+  (`remotive_lp_source_options()`), recorded in English in the enquiry.
+- **Confirmation page:** the handler checks `/audit-requested/` exists and is
+  published before redirecting (`remotive_lp_thanks_url()`, v1.120.0); without
+  it the visitor gets the shared thank-you page or the landing page's own
+  message.
 - **Markets named:** Singapore, Malaysia, Thailand, Vietnam, Hong Kong, China
   (six). See the deviations table for how this relates to structured data.
 - **Funnel:** form above the fold, how it works, six market photo tiles, a
@@ -505,8 +561,15 @@ Canonical facts for the paid and social landing pages. Code: `inc/landing/landin
 | `docs/changelog.md` | Everyone | Version history |
 | `docs/resources.md` | Legal, anyone redistributing/auditing the theme | Consolidated license/copyright for the theme and every bundled font/image |
 | `docs/image-credits.md` | Legal, editors | Photographer and Pexels photo for every landing-page image |
-| `tests/check-landing-copy.php` | Developers, CI | Fails if any landing-page text is missing one of its four languages |
-| `tests/check-parent.php` | Developers, CI | Fails if the parent theme's colour slugs stop following this theme, or a parent function is redefined |
+| `docs/walkthrough.md` | Site owner, MENJ | The page-by-page sheet for the walkthrough meeting, and the switches that exist |
+| `docs/accessibility.md` | Developers, auditors | WCAG 2.2 AA conformance notes: tested, fixed, exempt, open |
+| `docs/cache-headers.md`, `docs/htaccess-cache.txt` | Hosting | The Cache-Control rules to paste at the server |
+| `docs/homepage-v1.80-brief.md` | Editors | The homepage copy brief and its two open items |
+| `docs/legal-privacy-policy.md`, `docs/legal-terms-of-service.md` | Legal | Drafts with CONFIRM markers, not page content yet |
+| `drop-ins/README.md` | Hosting, developers | What the three drop-ins do and how they install |
+| `error-pages/htaccess-errors.txt` | Hosting | The `ErrorDocument` lines for the static 500 and 503 pages |
+| `languages/README.txt` | Translators | Notes on the `.pot` file |
+| `tests/check-*.php`, `tests/test-*.php` | Developers, CI | Eleven checks and twelve unit tests, one line each in `readme.md` → "Tests and CI" |
 | `.github/workflows/ci.yml` | Developers | The checks every pull request runs |
 
 ## The brief for the site (as of 2026-10-04)
@@ -556,13 +619,16 @@ by path, error handler first.
 
 | Folder | Files |
 |---|---|
-| `inc/core/` | `error-handler`, `security`, `accessibility`, `avif`, `branded-login`, `rank-math`, `ai-discovery-files` |
-| `inc/options/` | `theme-options`, `colours`, `maintenance-mode` |
+| `inc/core/` | `error-handler`, `security`, `accessibility`, `avif`, `branded-login`, `rank-math`, `not-found` (v1.118.0), `ai-discovery-files` |
+| `inc/options/` | `theme-options`, `colours`, `agency-layout` (v1.116.0), `maintenance-mode` |
 | `inc/setup/` | `site-setup`, `classic-menus`, `content-seed`, `content-seed-data` |
 | `inc/forms/` | `lead-form-handler`, `cta-form-handler`, `about-form-handler`, `contact-form-handler`, `leads`, `akismet`, `thank-you` |
-| `inc/landing/` | `landing-pages`, `landing-copy` |
+| `inc/landing/` | `landing-pages`, `landing-copy`, `agency-page` (v1.116.0) |
 | `inc/i18n/` | `i18n`, `i18n-admin`, and the dictionaries `ms`, `zh-hans`, `zh-hant` (loaded by name). On/off per language: Theme Options → Languages |
-| `inc/content/` | `schema-markup`, `webmcp`, `feature-grids`, `stats-band`, `post-image-fallback`, `article` |
+| `inc/content/` | `schema-markup`, `schema-elements` (v1.118.0), `webmcp`, `feature-grids`, `stats-band`, `post-image-fallback`, `article` |
+
+`tests/check-modules.php` fails when a file under `inc/` is not required, so
+the table and `functions.php` cannot drift apart unnoticed.
 
 A new module goes in the folder that matches its job and gets one `require`
 line in `functions.php`. Older entries in `docs/changelog.md` and the security

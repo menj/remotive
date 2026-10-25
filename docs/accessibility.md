@@ -41,6 +41,36 @@ fixed, what is deliberately exempt, and what still needs human judgement.
 - **Insights has no language switcher** (English only), so no link points to a
   page that would only redirect back.
 
+## Added in v1.119 and v1.120
+
+- **Navigation landmarks have names** (v1.119.11). The header menu and the three
+  footer menus were four identical "navigation" landmarks; they are Main menu,
+  Services, Case studies and Company, and a classic menu assigned to a location
+  keeps the same name (1.3.1, 2.4.1).
+- **Form status messages pass contrast** (v1.120.0). The error colour was 2.9:1
+  and the success colour close to invisible; both use the scheme's strong text
+  tokens, kept at 4.5:1 (1.4.3). The messages are pre-rendered in the page and
+  translated by the language layer, so a Malay or Chinese visitor no longer
+  reads an English error (3.1.2).
+- **Form focus ring** (v1.119.10). About 2.5:1 on white before; now the strong
+  cyan, and a fixed dark blue on the closing card, which is white in both
+  colour modes (1.4.11).
+- **Copy-link button** (v1.119.10). The label is read once and a live region
+  announces the result, instead of sticking on "Copied" (4.1.3).
+- **`aria-current="page"` on the header logo** only on the home page
+  (v1.119.10), where before it claimed every page was current (4.1.2).
+- **Heading levels on the Case Studies page** follow the page heading: the card
+  metrics are `h2` (v1.120.0, 1.3.1).
+- **Scroll parallax on the one-page layout** (v1.120.0) animates transform and
+  opacity only, is stilled under `prefers-reduced-motion`, and its colour
+  plates are `aria-hidden` and carry no text (2.2.2, 2.3.3). Theme Options →
+  Site behaviour → Scroll motion switches it off for everyone.
+- **Skip link and legal pages** (v1.119.11). With the one-page layout hiding the
+  other pages, Privacy and Terms keep a skip link, a logo that links home and
+  language links that open the legal page in each language (2.4.1, 2.4.4).
+- **Enquiry edit screen** (v1.120.0). The full message is in a read-only
+  `<textarea>` with a labelled Message box, readable by keyboard.
+
 ## Already conformant before this pass
 
 Skip link; focus-visible styles on all interactive regions; the lightbox

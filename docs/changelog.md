@@ -4,6 +4,20 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.120.3] (2026-10-25)
+
+### Changed
+
+- **Light is the default colour mode.** A new install opens in light mode, and a site still on the old default (dark) moves to light once on the first admin load after the upload. "System" is left alone, and a visitor's own toggle choice (saved in their browser) wins as before. Change it under Theme Options → Site behaviour → Default colour mode, where Light now comes first.
+
+## [1.120.2] (2026-10-25)
+
+### Changed
+
+- **Theme screenshot** (`screenshot.png`, 1200 × 900) replaced. It is the full layout's front page as WordPress renders it with 1.120.1 active on a fresh install: light mode (the new default), the current headline and lead, the six-market ticker and the opening of the next section. Rendered at 1440 × 1080 and scaled down, so the header sits on one line as it does on a desktop screen.
+- **Documentation brought up to date** with the code at 1.120.3: the file map, the security table, the error handling section, the Theme Options reference, a new Tests and CI section, the one-page layout section, the WordPress readme and its FAQ, the single source of truth (with a table of constants, option rows and filters, and the second review's findings), the upgrade notes for 1.119.2 to 1.120.3, the admin walkthrough, the accessibility notes, the cache notes, the resources list and the drop-ins readme. Three stale code comments corrected with them.
+- **The writing style check now reads the changelog.** Its cut-off for older release notes matched the newest heading, so the changelog and the upgrade notes were never checked. The cut is now at the first entry older than 1.116.0.
+
 ## [1.120.1] (2026-10-25)
 
 ### Added

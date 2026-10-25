@@ -4,7 +4,7 @@ Tags: block-theme, full-site-editing, child-theme, one-page
 Requires at least: 6.7
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.120.1
+Stable tag: 1.120.3
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,22 +12,38 @@ A child theme of Twenty Twenty-Five, built exclusively for remotivemedia.asia.
 
 == Description ==
 
-Remotive Media is the "Registration" homepage design for Remotive Media Asia, a bold, CMYK-inspired look built around the idea of overprinted colour plates,
-paired with a calmer, brand-aligned alternate look you can switch to any time.
-Beyond the homepage, the theme also includes a blog (archive + single post)
-and nine selectable page templates: About (team grid + contact form),
-Services (detailed breakdown), Case Studies, a Service detail template used
-by the individual service and case study pages, a Legal page (Privacy
-Policy, Terms, etc.), Contact, and two market landing templates for
-Singapore and Malaysia.
+Remotive Media is the website theme of Remotive Media Asia. It ships two
+layouts in one package, chosen by one switch:
+
+* **The full version** (the default): the multi-page site. A homepage built
+  around the "Registration" idea of overprinted colour plates, a blog
+  (archive and article page), and nine selectable page templates: About
+  (company story + contact form), Meet the Team (roster + gallery), FAQ
+  (accordion + schema), Services (detailed), Case Studies, a Service detail
+  template used by the individual service and case study pages, Legal
+  (Privacy Policy, Terms, etc.), Contact, and the ad landing page template.
+* **The one-page layout** (Appearance → Theme Options → Agency layout, off by
+  default): one scrolling page with a contact form at the top and the bottom,
+  the six services, how we work, signs it is time to talk, the team and the
+  common questions. While it is on, the other pages can be sent to the home
+  page; Privacy and Terms stay reachable. Switching it off puts the site back
+  as it was.
+
+Both layouts come in English, Bahasa Melayu (`/ms/`), Simplified Chinese
+(`/zh-hans/`) and Traditional Chinese (`/zh-hant/`), through a language layer
+that needs no plugin (see the FAQ). Three ad landing pages for paid traffic
+(`/seo-audit/`, `/google-ads-management/`, `/paid-social-advertising/`) sit
+beside the main site in the same four languages, hidden from search and from
+the site's own menus.
 
 The site includes a light/dark toggle in the top navigation:
 
-* **Dark** (the default), navy background with cyan/magenta/green accents
-  standing in for printing plates, matching Remotive Media's official
-  reporting and deck brand.
-* **Light**: a softer cream background using Remotive Media Asia's official
-  digital brand colours.
+* **Light** (the default since 1.120.3): a softer cream background using
+  Remotive Media Asia's official digital brand colours.
+* **Dark**: navy background with cyan/magenta/green accents standing in for
+  printing plates, matching Remotive Media's official reporting and deck
+  brand. It was the default before 1.120.3; a site still on it moves to light
+  once on the first admin load after the upload.
 
 Both modes use the Saira typeface: the toggle changes colour only, never
 type. (Before 1.41.2 the two modes rendered in different faces, which was a
@@ -38,25 +54,40 @@ Visitors' choice is remembered automatically, so once someone picks a mode it
 stays that way on their next visit. Which mode first-time visitors see is
 configurable under **Appearance → Theme Options**, along with the site's
 contact details, social links, the homepage contact form's destination, the
-scrolling country ticker, and switches for scroll motion and error handling.
+scrolling country ticker, the languages, the colour scheme, the one-page
+layout, and the switches for scroll motion, error handling, maintenance mode
+and application passwords.
 
 Sections lift gently into view as you scroll and the hero mark drifts behind
-the content. Where the browser supports CSS scroll-driven animations this runs
-entirely on the compositor with no scroll listener; elsewhere a one-shot
-observer does the same job. Only opacity and position are animated, so page
-layout is unaffected. Anyone whose device asks for reduced motion sees none of
-it, and there is a switch under Theme Options → Site behaviour.
+the content. On the one-page layout three colour plates travel behind the
+headline and the closing band at their own rates, headings lead their cards
+in, and the big numbers drift against their cards. Where the browser supports
+CSS scroll-driven animations this runs entirely on the compositor with no
+scroll listener; elsewhere a small script does the same job. Only opacity and
+position are animated, so page layout is unaffected. Anyone whose device asks
+for reduced motion sees none of it, and there is a switch under Theme Options →
+Site behaviour → Scroll motion.
 
 PHP errors are handled rather than dumped on screen. Visitors see a branded
 page with a reference code; administrators see the actual fault, file and line.
 Smaller notices and warnings are logged and kept off the page entirely, which
 also prevents them breaking redirects and cookies further down the request.
+WordPress recovery mode keeps working alongside it. For the failures no theme
+can catch (WordPress itself cannot start), the theme folder carries static
+500 and 503 pages and the two lines that make the server show them
+(`error-pages/htaccess-errors.txt`).
+
+Enquiries from every form are stored in the site before they are emailed, so
+a mail problem never loses a lead. Each is listed under Theme Options →
+Enquiries with a spam folder (Akismet, when installed), a CSV export and a
+read-only Message box on its edit screen.
 
 The theme adds what security hardening a theme can reach: login rate limiting,
-XML-RPC disabled, application passwords off by default, install endpoints closed once installed, version
-fingerprinting removed, username enumeration blocked, and standard security
-headers. Blocking IPs and protecting wp-login.php before PHP runs remain jobs
-for the host's firewall.
+XML-RPC disabled, application passwords blocked by default (a switch under Site
+behaviour), install endpoints closed once installed, version fingerprinting
+removed, username enumeration blocked, and standard security headers. Blocking
+IPs and protecting wp-login.php before PHP runs remain jobs for the host's
+firewall.
 
 This theme is **not a general-purpose product**, it is built for one specific
 website and its specific content (services, case studies, brand assets). It
@@ -94,8 +125,11 @@ theme, not a starting template, see `docs/ssot.md` for what is site-specific.
 
 Two brand directions existed for this site: a bold CMYK "Registration"
 concept, and Remotive Media Asia's own official brand system (Saira, its six
-brand colours). Rather than pick one, both are available, with dark set as
-the default since that is the primary design direction.
+brand colours). Rather than pick one, both are available. Light, the brand
+system, is the default since 1.120.3; dark was the default before that. The
+default is set under Appearance → Theme Options → Site behaviour → Default
+colour mode (Light, Dark or System), and a visitor's own choice on the toggle
+wins over it on their next visit.
 
 = I edited some text and now it looks broken / a hover effect stopped working. =
 
@@ -118,11 +152,11 @@ needed to make it live.
 
 = How do I use the About page template? =
 
-Create or edit a Page, then choose "About (gallery + contact form)" from
-the Template dropdown in the editor's sidebar (under Page → Template).
-The gallery currently shows placeholder colour tiles rather than real
-photos, see the note directly under the gallery on that page, or
-`docs/upgrading.md`, for swapping in real images later.
+Create or edit a Page, then choose "About (company story + contact form)"
+from the Template dropdown in the editor's sidebar (under Page → Template).
+The portrait gallery is on the Team page ("Meet the Team (roster + gallery)")
+and takes its photos from the team roster in Theme Options, see the team
+question below.
 
 = What about Services, Case Studies, Contact, and a Privacy Policy? =
 
@@ -132,8 +166,9 @@ from the dropdown: "Services (detailed)," "Case Studies," "Legal
 deliberately does not include any actual policy text, write your real
 Privacy Policy or Terms content in the block editor after selecting it;
 the template just provides the on-brand chrome and readable typography.
-The Case Studies page's four cards are placeholder content, same as the
-About page's gallery, see `docs/upgrading.md`.
+The Case Studies page lists six case studies with photographs; the shipped
+case-study pages themselves come from the Site setup tab and can be restored
+one by one.
 
 = How do I add, edit or remove a team member? =
 
@@ -324,21 +359,66 @@ sitemap index. Submit it once in Google Search Console.
 = Does the theme add security hardening? =
 
 Yes, within what a theme can reach. It rate-limits repeated failed logins per
-IP address, disables XML-RPC, redirects the WordPress install and setup URLs
-once the site is installed, removes version numbers used to fingerprint the
-site, blocks username enumeration through the REST API and author archive URLs,
-and sends a set of standard security headers.
+IP address, disables XML-RPC, blocks application passwords (see the next
+question), redirects the WordPress install and setup URLs once the site is
+installed, removes version numbers used to fingerprint the site, blocks
+username enumeration through the REST API (including requests that embed the
+author) and author archive URLs, and sends a set of standard security headers.
 
 What it cannot do is block an IP address, rate-limit before PHP runs, or
 protect wp-login.php at the server level. Those need your host's firewall or
 rules in .htaccess. A dedicated security plugin is still worthwhile; this is a
 floor, not a replacement.
 
+= Why can nobody create an application password? =
+
+Since 1.120.1 the theme blocks them by default. Application passwords let a
+mobile app, a connector plugin or a script log in to the REST API with a
+separate password, which is one more way in for anyone who has guessed a
+login. While the block is on, WordPress refuses them and hides the
+"Application Passwords" section on every user profile.
+
+If an integration you use needs one, switch the block off under Appearance →
+Theme Options → Site behaviour → Application passwords, set the integration
+up, and consider switching it back on afterwards. A site updated from an older
+version counts as blocked until the switch is saved off.
+
+= What is the one-page layout, and how do I switch it on? =
+
+Appearance → Theme Options → Agency layout. Tick "Use the single-page agency
+layout for the home page" and save. The home page becomes one scrolling page:
+headline and a contact form above the fold, the six services, how we work,
+signs it is time to talk, the team, the common questions and a closing form.
+Every section has its own switch and its words are editable on that tab, and
+the page is served in all four languages (edit the translations in Tools →
+Translations).
+
+A second switch, on by default once the layout is on, sends About, Services,
+Case Studies, Insights and the other pages to the home page and removes them
+from the sitemaps. Privacy, Terms, the ad landing pages and the thank-you
+pages stay live; on Privacy and Terms the header and footer become the
+one-page bar and footer, whose logo links home and whose language links open
+the legal page in each language. Switching the layout off brings every page
+back; nothing is deleted. After switching either way, clear any page cache.
+
+= Where do I read a full enquiry? =
+
+Appearance → Theme Options → Enquiries lists them, and the CSV export carries
+every field. "View all enquiries" on that card opens the full list; since
+1.120.0 each enquiry's edit screen there shows the whole message in a
+read-only Message box, with the email address and the form it came from.
+
 == Changelog ==
 
-See `docs/changelog.md` for full version history. Latest version: 1.120.1.
+See `docs/changelog.md` for full version history. Latest version: 1.120.3.
 
 == Upgrade Notice ==
+
+= 1.120.3 =
+* Changed: light is the default colour mode; a site still on the old default (dark) moves to light once.
+
+= 1.120.2 =
+* Changed: new theme screenshot; documentation brought up to date.
 
 = 1.120.1 =
 * Added: application passwords are blocked by default; the block is a switch in Theme Options -> Site behaviour, on until you turn it off.

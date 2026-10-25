@@ -1,6 +1,6 @@
 /* Service landing pages: campaign capture, funnel events, sticky CTA, and the
    scroll motion fallback for the one-page layout.
-   Language is chosen by URL (/ms/, /zh-cn/, /zh-tw/), not by script. */
+   Language is chosen by URL (/ms/, /zh-hans/, /zh-hant/), not by script. */
 (function () {
 	var root = document.querySelector('.rm-lp');
 	if (!root) { return; }

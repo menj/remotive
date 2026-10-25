@@ -26,3 +26,28 @@ Switches that exist now: Maintenance mode (whole site); per-language page
 switches (Tools → Translations); the ad landing pages can be set to draft in
 Pages without touching code. Unpublishing or hiding anything that is live is the
 owner's decision, so none of it is done in code.
+
+## Since the sheet was written (v1.116.0 to v1.120.3)
+
+The one page the brief asks for exists as a switch, so the walkthrough can now
+decide between two layouts rather than a list of pages to retire:
+
+| Switch | Where | What it does |
+|---|---|---|
+| One-page layout | Theme Options → Agency layout | The home page becomes one scrolling page in all four languages: headline and contact form, the six services, how we work, signs it is time to talk, the team, the common questions, a closing form. Each section has its own switch and editable words. Off by default; switching it off puts everything back. |
+| Send the other pages to the home page | Theme Options → Agency layout | On by default once the layout is on. About, Services, Case Studies, Insights, Team, Contact and FAQ redirect to the home page and leave the sitemaps; Privacy, Terms, the ad landing pages and the thank-you pages stay live, with the one-page bar and footer on the legal pages. |
+| Default colour mode | Theme Options → Site behaviour | Light since v1.120.3 (dark before). A site still on dark moves to light once on the first admin load after the upload; System is left alone. |
+| Block application passwords | Theme Options → Site behaviour | On by default since v1.120.1. REST API logins with an application password are refused and the profile section is hidden. Turn it off only while an integration needs one. |
+| Scroll motion | Theme Options → Site behaviour | The parallax on both layouts; a device set to reduce motion never sees it. |
+| Graceful error handling | Theme Options → Site behaviour | PHP notices stay off the page; fatals show the branded page. WordPress recovery mode keeps working beside it. |
+
+Enquiries: every form the theme handles itself (the About and Contact forms,
+the home page CTA on its built-in handler, the ad landing pages and the
+one-page layout) stores the lead before emailing it. A home page CTA pointed
+at an external service in Theme Options posts there instead, and nothing is
+stored. The Enquiries card lists the stored leads with a spam folder and a CSV
+export, and each enquiry's edit screen ("View all enquiries", then the entry)
+shows the full message in a read-only Message box with the email and the form
+it came from. The landing page and one-page forms also ask "How did you hear
+about us?" (optional), and the answer is recorded in English in the email and
+the stored lead.

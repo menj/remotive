@@ -47,7 +47,7 @@ function remotive_theme_option_base_defaults() {
 		// Action to point at a form plugin, Formspree, or a CRM webhook
 		// instead — the native handler stays available either way.
 		'cta_form_action'  => admin_url( 'admin-post.php' ),
-		'default_theme'    => 'dark', // 'dark' | 'light' | 'system'
+		'default_theme'    => 'light', // 'light' | 'dark' | 'system'
 
 		// --- Homepage copy. Rendered through the __REMOTIVE_*__ token system,
 		// so the block templates stay static and the editable strings live in
@@ -600,13 +600,13 @@ function remotive_theme_options_base_tabs() {
 					'label'   => __( 'Default colour mode', 'remotive' ),
 					'type'    => 'visual-select',
 					'options' => array(
+						'light'  => array(
+							'label' => __( 'Light', 'remotive' ),
+							'desc'  => __( 'The Remotive Media Asia brand system, the default', 'remotive' ),
+						),
 						'dark'   => array(
 							'label' => __( 'Dark', 'remotive' ),
 							'desc'  => __( 'The CMYK "Registration" direction', 'remotive' ),
-						),
-						'light'  => array(
-							'label' => __( 'Light', 'remotive' ),
-							'desc'  => __( 'The Remotive Media Asia brand system', 'remotive' ),
 						),
 						'system' => array(
 							'label' => __( 'System', 'remotive' ),
@@ -980,7 +980,7 @@ function remotive_sanitize_theme_options( $input ) {
 	$clean['lead_retention_months'] = (string) max( 0, min( 120, (int) ( $input['lead_retention_months'] ?? $defaults['lead_retention_months'] ) ) );
 
 	$theme_mode              = $input['default_theme'] ?? $defaults['default_theme'];
-	$clean['default_theme']  = in_array( $theme_mode, array( 'dark', 'light', 'system' ), true ) ? $theme_mode : 'dark';
+	$clean['default_theme']  = in_array( $theme_mode, array( 'dark', 'light', 'system' ), true ) ? $theme_mode : 'light';
 
 	// ---- Ticker ----------------------------------------------------------
 	$clean['ticker_visible']   = ( isset( $input['ticker_visible'] ) && '1' === (string) $input['ticker_visible'] ) ? '1' : '0';
@@ -1948,7 +1948,7 @@ add_filter( 'render_block', 'remotive_replace_theme_option_tokens', 10, 2 );
 /**
  * Tell the front end which mode first-time visitors should see. The
  * toggle script (assets/js/remotive.js) reads window.remotiveThemeOptions
- * and falls back to 'dark' if this never runs for some reason. This data
+ * and falls back to 'light' if this never runs for some reason. This data
  * is also duplicated into an early <head> script by
  * remotive_prevent_theme_flash() below — that early copy is what actually
  * prevents the flash; this footer copy exists so remotive.js's own
