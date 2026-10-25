@@ -177,11 +177,16 @@ remotive/
 │   │   │                   the database.
 │   │   └── ms.php, zh-hans.php, zh-hant.php   The dictionaries.
 │   └── content/            What the public pages emit.
-│       ├── schema-markup.php   JSON-LD structured data, deferring to active
-│       │                   SEO plugins, see "Structured data" below.
+│       ├── schema-markup.php   JSON-LD structured data; the theme owns the
+│       │                   graph, see "Structured data" below.
 │       ├── schema-elements.php  WebPageElement nodes for the header, footer
 │       │                   and sidebar, and the one-page layout's sections,
 │       │                   services, steps, checklist and team. (v1.118.0)
+│       ├── schema-extended.php  The rest of schema.org: Brand, Offer,
+│       │                   OfferCatalog, Place, Blog, DataFeed, ItemList,
+│       │                   SiteNavigationElement, ImageObject, translations,
+│       │                   and the fuller Organization, WebSite, WebPage and
+│       │                   BlogPosting nodes. (v1.120.5)
 │       ├── webmcp.php      Public read-only search endpoint and WebMCP.
 │       ├── feature-grids.php   Homepage "problem we solve" and "why Re:Motive" grids.
 │       ├── stats-band.php  Homepage three-figure results band.
@@ -762,24 +767,22 @@ The markup is identical in light and dark mode by construction: it
 describes content, and the mode toggle only flips CSS custom
 properties.
 
-**SEO plugin coexistence** is per-type. When an active plugin (Yoast,
-Rank Math, AIOSEO, SEOPress, The SEO Framework, Slim SEO) takes control
-of a schema type, the Organization / WebSite / WebPage / Article /
-BreadcrumbList / Person set those plugins emit, the theme yields that
-type and only that type. Types no plugin manages (the Service and
-FAQPage nodes) stay theme-native and take precedence. If a page uses a
-plugin's own FAQ block, the theme yields FAQPage on that page alone.
-Three filters tune the behaviour: `remotive_schema_plugin_managed_types`
-(who is treated as managing what), `remotive_schema_suppressed_types`
-(final say per request), and `remotive_schema_graph` (the assembled
-nodes). Rank Math gets two source-verified refinements (plugin
-v1.0.277): its managed set only applies while its "rich-snippet"
-module is active, and user-attached schemas from its Schema Generator
-(`rank_math_schema_*` post meta) suppress exactly those types on
-exactly that page. When every node the current page would emit is plugin-managed,
-the theme prints nothing at all rather than an empty script tag.
+**The theme owns the graph (v1.120.5).** Rank Math's and Yoast's
+automatic nodes (the organisation, the site, the page, the article, the
+breadcrumb, the author) are removed from their output through
+`rank_math/json_ld` and `wpseo_json_ld_output`, and the theme's complete
+nodes print instead: a plugin's automatic graph described the site thinly
+(a nameless author on every page, no breadcrumb, an `Article` on the
+privacy policy) and the theme used to withhold its own nodes to make room
+for it. Schemas an editor attaches to a page through Rank Math's Schema
+Generator are kept. `add_filter( 'remotive_schema_theme_owns_graph',
+'__return_false' )` goes back to the older per-type yield, where
+`remotive_schema_plugin_managed_types` (who is treated as managing what),
+`remotive_schema_suppressed_types` (final say per request) and
+`remotive_schema_graph` (the assembled nodes) decide; in that mode a page
+with a plugin FAQ block yields `FAQPage` on that page alone.
 
-### Google feature coverage (v1.27.0)
+### Google feature coverage (v1.27.0, checked again at v1.120.5)
 
 Audited against Google's "Structured data markup that Google Search
 supports" (June 2026). Every feature is accounted for in one of three
@@ -789,15 +792,15 @@ abuse, and fabricated nodes risk a manual action.
 
 | Google feature | Status | How |
 |---|---|---|
-| Article | **Emitted** | BlogPosting on single posts: headline, dates, image, author (with URL), wordCount, articleSection, inLanguage |
-| Breadcrumb | **Emitted** | BreadcrumbList on every non-front page (Home → Insights → post for articles) |
-| Organization | **Emitted** | Legal name, ACRA founding date, UEN identifier, registered address, contactPoint, sameAs, logo |
-| Local business | **Emitted** | The Organization node is dual-typed ProfessionalService (the agency subtype) over the registered office; opening hours are not published so none are asserted |
-| Profile page | **Emitted** | ProfilePage on the About page (mainEntity: the organization) and on author archives (mainEntity: the author Person) |
+| Article | **Emitted** | BlogPosting on single posts: headline, dates, image as an `ImageObject` with its size, author (linked to the team roster's `Person` when the names match; no URL, since the author archives redirect), publisher, wordCount, reading time, keywords, articleSection, inLanguage |
+| Breadcrumb | **Emitted** | BreadcrumbList on every non-front page (Home → parent page → page; Home → Insights → post), names from the page titles, localised on the language copies |
+| Organization | **Emitted** | Name, alternate names, legal name and UEN (from Theme Options when set), ACRA founding date, registered address and a `Place`, contactPoint, sameAs, logo `ImageObject` with its size, brand, slogan, languages, knowsAbout, audience, the free audit as its `makesOffer` |
+| Local business | **Emitted** | The Organization node is dual-typed ProfessionalService (the agency subtype) over the registered office, with the logo as its image; opening hours are not published so none are asserted |
+| Profile page | Not emitted | The About page is an `AboutPage` (a company story, which Google does not count as a profile) and the author archives redirect to the home page by design, so no profile page renders |
 | Image metadata | **Emitted** | creator / creditText / copyrightNotice on the organization logo; `remotive_schema_logo_license` filter adds license and acquireLicensePage URLs when the site publishes them |
-| Speakable | **Emitted** | SpeakableSpecification on BlogPosting pointing at `.rm-post__title` and `.rm-post__content` |
-| Sitelinks search | **Emitted** | WebSite SearchAction (retained from v1.26.0) |
-| Video | **Content-gated** | VideoObject emitted when a post contains a self-hosted `core/video` block AND the required properties (thumbnail, upload date) can be stated truthfully; external embeds are skipped because those properties cannot be asserted |
+| Speakable | **Emitted** | SpeakableSpecification on BlogPosting pointing at `.rm-art-title` and `.rm-post__content` |
+| Sitelinks search | **Emitted** | WebSite SearchAction (retained from v1.26.0; Google retired the search box in 2024, the node is harmless) |
+| Video | **Content-gated** | VideoObject emitted when a post contains a self-hosted `core/video` block AND the required properties (thumbnail, upload date) can be stated truthfully, with the duration when WordPress knows it; external embeds are skipped because those properties cannot be asserted |
 | Q&A page | **Adjacent** | The landing pages' accordion content is FAQPage, kept from v1.26.0 (valid schema.org, consumed by AI answer engines), QAPage itself is for user-generated single-question threads, which the site does not have; Google dropped FAQ rich results for most sites in 2023 |
 | Carousel | Excluded | Requires Recipe, Course, Restaurant or Movie content, none exists |
 | Course list | Excluded | No courses offered |
@@ -819,6 +822,30 @@ abuse, and fabricated nodes risk a manual action.
 An excluded feature activates by adding the real content and a node via
 the `remotive_schema_graph` filter, the acquiescence machinery already
 handles any type added to it.
+
+### The rest of schema.org (`inc/content/schema-extended.php`, v1.120.5)
+
+Google's list is the set of rich results; schema.org is larger, and the
+theme states everything the site can state truthfully, whatever Google
+shows for it. Beyond the nodes above, the graph carries:
+
+| Where | Types and properties |
+|---|---|
+| Organization | `alternateName`, `Brand` (with the logo), `slogan` (the site tagline), `knowsLanguage` (English and every language switched on), `knowsAbout`, `BusinessAudience`, `Place` for the office, `makesOffer` (the free audit), `mainEntityOfPage` (the About page) |
+| WebSite | `inLanguage` (all four), `description`, `about`, `copyrightHolder`, `isAccessibleForFree` |
+| Every page (`WebPage` and its subtypes `AboutPage`, `ContactPage`, `CollectionPage`, `ItemPage`, `SearchResultsPage`) | `description`, `datePublished` / `dateModified`, the lead image as `primaryImageOfPage` (`ImageObject` with size and caption), the breadcrumb, a `ReadAction`, `isAccessibleForFree`, `mainEntity` (the article, the case study, the service, the catalogue, the questions, the people, the organisation, the blog, the archive list), and `workTranslation` listing the page's copies in the other languages; each copy carries `translationOfWork` pointing back |
+| Posts | `ImageObject` with size, `thumbnailUrl`, `keywords` (tags), `timeRequired` (reading time), `copyrightHolder` / `copyrightYear`, `genre`, `description`, the author as the team roster's `Person` when the names match |
+| Insights index | `Blog` with its posts as `BlogPosting` summaries; the RSS feed as a `DataFeed` |
+| Category archives | `ItemList` of the posts |
+| Case studies | `Article` (genre "Case study") as the page's main entity, by and published by the organisation |
+| Services page | `OfferCatalog` of the service pages |
+| Service pages and the home page's services | `serviceType`, `BusinessAudience`, the free audit `Offer`, `brand`, a `ServiceChannel` (the contact page, in every language), `termsOfService` |
+| The free audit | One `Offer` node on every page: price 0 SGD, in stock, eligible in Singapore and Malaysia, offered by the organisation, pointing at the landing page |
+| Team page | `ItemList` of the `Person` nodes |
+| Header navigation | A `SiteNavigationElement` per link (full layout), localised on the language copies |
+| Landing pages | The page, its breadcrumb, its `Service` and its elements at the copy's own address and in its language |
+
+What the layer never states: ratings, reviews, prices for the services, opening hours, events, jobs or anything else the site does not show. `tests/test-schema-extended.php` covers the pure parts; the two audits in this release checked the printed graph of every page type on a WordPress install for dangling references, duplicate ids and the required properties of each type.
 
 ### Structured data for the page furniture and both layouts (`inc/content/schema-elements.php`, v1.118.0)
 
@@ -1480,6 +1507,7 @@ script and a JSON parse of `theme.json`. Run one with `php tests/<file>`.
 | `test-not-found.php` | The rescue of date style article addresses and icon requests. |
 | `test-rank-math.php` | The theme's rules reach Rank Math's own filters. |
 | `test-schema-elements.php` | Structured data for the page furniture and both layouts. |
+| `test-schema-extended.php` | The rest of schema.org: durations, reading time, text decoding, the free audit offer, the organisation's extra properties, the plugin graph removal. |
 | `test-security.php` | Client address, the REST users routes at authentication and dispatch, the author redirect, generic login errors, enquiry length caps, the application password switch. |
 | `test-setup.php` | Setup migrations, the migration lock, the seeded page lookup, the contact address correction. |
 

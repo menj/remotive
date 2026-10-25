@@ -60,6 +60,14 @@ function remotive_schema_has_sidebar() {
  * @return array[]
  */
 function remotive_schema_site_elements( $page_url ) {
+	// A kept legal page in the one-page layout carries that layout's bar and footer, not the site's.
+	if ( function_exists( 'remotive_agency_legal_chrome' ) && remotive_agency_legal_chrome() ) {
+		return array(
+			remotive_schema_element( 'WPHeader', 'header', 'Page header', '.rm-lp__bar', $page_url ),
+			remotive_schema_element( 'WPFooter', 'footer', 'Page footer', '.rm-ag__foot', $page_url ),
+		);
+	}
+
 	$nodes = array(
 		remotive_schema_element( 'WPHeader', 'header', 'Site header', '.rm-nav', $page_url ),
 	);

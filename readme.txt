@@ -4,7 +4,7 @@ Tags: block-theme, full-site-editing, child-theme, one-page
 Requires at least: 6.7
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.120.4
+Stable tag: 1.120.5
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -410,9 +410,12 @@ read-only Message box, with the email address and the form it came from.
 
 == Changelog ==
 
-See `docs/changelog.md` for full version history. Latest version: 1.120.4.
+See `docs/changelog.md` for full version history. Latest version: 1.120.5.
 
 == Upgrade Notice ==
+
+= 1.120.5 =
+* Added: the rest of schema.org (brand, offer, catalogue, place, blog, feed, lists, navigation, images, translations). Changed: the theme owns the structured data graph; a plugin's automatic nodes are removed. Fixed: dangling references, English nodes on language copies, the Speakable selector, the organisation image, entities in titles.
 
 = 1.120.4 =
 * Fixed: landing page titles and descriptions, the Malay home title length, category archive descriptions.

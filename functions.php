@@ -46,6 +46,7 @@ require get_stylesheet_directory() . '/inc/options/maintenance-mode.php';
 require get_stylesheet_directory() . '/inc/landing/landing-pages.php';
 require get_stylesheet_directory() . '/inc/landing/agency-page.php';
 require get_stylesheet_directory() . '/inc/content/schema-elements.php';
+require get_stylesheet_directory() . '/inc/content/schema-extended.php';
 require get_stylesheet_directory() . '/inc/core/not-found.php';
 require get_stylesheet_directory() . '/inc/core/rank-math.php';
 require get_stylesheet_directory() . '/inc/core/ai-discovery-files.php';

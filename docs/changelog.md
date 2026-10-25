@@ -4,6 +4,29 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.120.5] (2026-10-25)
+
+### Added
+
+- **The rest of schema.org** (`inc/content/schema-extended.php`). Every type and property the site can state truthfully, beyond Google's rich result list: `Brand`, `BusinessAudience`, `Place`, the free audit as an `Offer` (price 0, in stock, Singapore and Malaysia), an `OfferCatalog` of the service pages, `ServiceChannel` and `termsOfService` on every service, `Blog` and a `DataFeed` on the Insights index, an `ItemList` of posts on a category archive, an `Article` (genre "Case study") on each case study, an `ItemList` of the people on the team page, a `SiteNavigationElement` per header link, `ImageObject` nodes with size and caption for lead images, `ReadAction`, `isAccessibleForFree`, `copyrightHolder`, `keywords`, `timeRequired`, `knowsLanguage`, `knowsAbout`, `alternateName`, `slogan`, and `workTranslation` / `translationOfWork` linking each page to its copies in the other languages. See the readme's "The rest of schema.org" table. Nothing is stated that the site does not show: no ratings, reviews, prices for services, opening hours or events.
+
+### Changed
+
+- **The theme owns the graph.** With Rank Math active the theme used to withhold its organisation, site, page, article, breadcrumb and author nodes and let the plugin's print, and the plugin's were thin: a `Person` as the publisher, an `Article` with a nameless author on every page including the privacy policy, no breadcrumb at all, no typed pages. The plugin's automatic nodes are now removed from its output (`rank_math/json_ld`, `wpseo_json_ld_output`) and the theme's print on every page; schemas an editor attaches through Rank Math's Schema Generator are kept. `remotive_schema_theme_owns_graph` returns to the old behaviour.
+
+### Fixed
+
+Findings of a check of the printed graph of every page type on a WordPress install.
+
+- References that pointed nowhere: the services' `provider`, the one-page layout's team list and every element's `isPartOf` on a language copy referred to nodes that were not on the page. Every node anchored on the page moves with it to the copy's address, and the shared entities are anchored on the home page.
+- The language copies' elements, services, lists and navigation stayed in English; their names, descriptions and links are now translated and localised, and the landing pages' page node, breadcrumb and service sit at the copy's own address in its language.
+- The Speakable selector named a class the article template does not have.
+- The organisation had no `image`, which a local business needs; the logo had no size; the legal name and UEN ignored the Theme Options fields.
+- Titles carried HTML entities (`&amp;`) into the JSON; a breadcrumb or page name was the full document title with the site name suffix; a child page's breadcrumb skipped its parent; archive addresses lost their trailing slash.
+- The article author carried a URL that redirects; it is gone, and the author is the team roster's `Person` when the names match.
+- A video's `duration` is stated when WordPress knows it; the FAQ text is texturised like the page, so a curly apostrophe matches.
+- A kept legal page in the one-page layout described the full header and navigation it does not have.
+
 ## [1.120.4] (2026-10-25)
 
 ### Fixed

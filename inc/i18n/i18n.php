@@ -859,8 +859,13 @@ function remotive_i18n_filter_schema( $head, $lang, $key ) {
 			// 1. This page's own node ids, and what each becomes.
 			$ids     = array();
 			$collect = function ( $node ) use ( &$collect, &$ids, $english, $self, $page_types ) {
-				if ( isset( $node['@id'], $node['@type'] ) && is_string( $node['@id'] ) && 0 === strpos( $node['@id'], $english . '#' ) ) {
-					if ( array_intersect( (array) $node['@type'], array_merge( $page_types, array( 'BreadcrumbList' ) ) ) ) {
+				// Every node anchored on this page's English address (the page, its breadcrumb, its
+				// elements, its service, its lists) moves to the copy's address; the shared entities
+				// (the organisation, the site, the people, the offer) are anchored on the home page.
+				if ( isset( $node['@id'], $node['@type'] ) && is_string( $node['@id'] ) && 0 === strpos( $node['@id'], $english . '#' ) && untrailingslashit( $english ) !== untrailingslashit( home_url( '/' ) ) ) {
+					$ids[ $node['@id'] ] = $self . substr( $node['@id'], strlen( $english ) );
+				} elseif ( isset( $node['@id'], $node['@type'] ) && is_string( $node['@id'] ) && 0 === strpos( $node['@id'], $english . '#' ) ) {
+					if ( array_intersect( (array) $node['@type'], array_merge( $page_types, array( 'BreadcrumbList', 'WPHeader', 'WPFooter', 'WPSideBar', 'WebPageElement', 'SiteNavigationElement', 'HowTo', 'ItemList', 'Blog', 'DataFeed', 'Service' ) ) ) ) {
 						$ids[ $node['@id'] ] = $self . substr( $node['@id'], strlen( $english ) );
 					}
 				}
@@ -885,6 +890,45 @@ function remotive_i18n_filter_schema( $head, $lang, $key ) {
 
 				$types = isset( $node['@type'] ) ? (array) $node['@type'] : array();
 
+				// The page's other nodes: an address that is the English page becomes the copy's, and a
+				// name, description or heading the dictionary knows is translated.
+				if ( $types && ! array_intersect( $types, $page_types ) ) {
+					foreach ( array( 'url', 'target', 'serviceUrl', 'mainEntityOfPage' ) as $field ) {
+						if ( ! isset( $node[ $field ] ) || ! is_string( $node[ $field ] ) ) {
+							continue;
+						}
+
+						if ( untrailingslashit( $node[ $field ] ) === untrailingslashit( $english ) ) {
+							$node[ $field ] = $self;
+						} elseif ( ! array_intersect( $types, array( 'Organization', 'ProfessionalService', 'WebSite', 'DataFeed' ) ) ) {
+							// A link to another page of the site (the navigation, an offer): its copy in this language.
+							$local = remotive_i18n_localise_url( $node[ $field ], $lang );
+
+							if ( $local ) {
+								$node[ $field ] = $local;
+							}
+						}
+					}
+
+					if ( ! array_intersect( $types, array( 'Organization', 'ProfessionalService', 'WebSite', 'Person', 'Brand', 'Offer', 'Place', 'DataFeed' ) ) ) {
+						$strings = remotive_i18n_data( $lang )['strings'];
+
+						foreach ( array( 'name', 'description', 'headline', 'text' ) as $field ) {
+							if ( isset( $node[ $field ] ) && is_string( $node[ $field ] ) ) {
+								$key_n = remotive_i18n_norm( $node[ $field ] );
+
+								if ( isset( $strings[ $key_n ] ) ) {
+									$node[ $field ] = $strings[ $key_n ];
+								}
+							}
+						}
+
+						if ( isset( $node['inLanguage'] ) && is_string( $node['inLanguage'] ) && in_array( 'Service', $types, true ) ) {
+							$node['inLanguage'] = $html;
+						}
+					}
+				}
+
 				if ( array_intersect( $types, $page_types ) ) {
 					if ( isset( $node['url'] ) || array_intersect( $types, array( 'WebPage', 'CollectionPage', 'AboutPage', 'ContactPage', 'ItemPage', 'FAQPage', 'ProfilePage', 'QAPage' ) ) ) {
 						$node['url'] = $self;
@@ -896,6 +940,25 @@ function remotive_i18n_filter_schema( $head, $lang, $key ) {
 						if ( isset( $node[ $field ] ) ) {
 							$node[ $field ] = $seo[ $source ];
 						}
+					}
+
+					// This copy is a translation of the English page; the English page's list of its copies
+					// loses this one (it is the page itself here) and keeps the others.
+					if ( isset( $node['workTranslation'] ) && is_array( $node['workTranslation'] ) ) {
+						$node['workTranslation'] = array_values( array_filter( $node['workTranslation'], function ( $copy ) use ( $self ) {
+							return ! ( isset( $copy['url'] ) && untrailingslashit( (string) $copy['url'] ) === untrailingslashit( $self ) );
+						} ) );
+
+						if ( ! $node['workTranslation'] ) {
+							unset( $node['workTranslation'] );
+						}
+
+						$node['translationOfWork'] = array(
+							'@type'      => 'WebPage',
+							'@id'        => $english . '#webpage',
+							'url'        => $english,
+							'inLanguage' => 'en',
+						);
 					}
 				}
 

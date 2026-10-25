@@ -625,7 +625,7 @@ by path, error handler first.
 | `inc/forms/` | `lead-form-handler`, `cta-form-handler`, `about-form-handler`, `contact-form-handler`, `leads`, `akismet`, `thank-you` |
 | `inc/landing/` | `landing-pages`, `landing-copy`, `agency-page` (v1.116.0) |
 | `inc/i18n/` | `i18n`, `i18n-admin`, and the dictionaries `ms`, `zh-hans`, `zh-hant` (loaded by name). On/off per language: Theme Options → Languages |
-| `inc/content/` | `schema-markup`, `schema-elements` (v1.118.0), `webmcp`, `feature-grids`, `stats-band`, `post-image-fallback`, `article` |
+| `inc/content/` | `schema-markup`, `schema-elements` (v1.118.0), `schema-extended` (v1.120.5), `webmcp`, `feature-grids`, `stats-band`, `post-image-fallback`, `article` |
 
 `tests/check-modules.php` fails when a file under `inc/` is not required, so
 the table and `functions.php` cannot drift apart unnoticed.
