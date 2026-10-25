@@ -156,4 +156,30 @@ t_ok( false !== strpos( $dropin, "defined( 'REMOTIVE_ERROR_HANDLER' )" ), 'the d
 t_ok( false !== strpos( file_get_contents( dirname( __DIR__ ) . '/inc/core/error-handler.php' ), "define( 'REMOTIVE_ERROR_HANDLER', true )" ), 'the theme handler declares itself' );
 t_ok( false === strpos( file_get_contents( dirname( __DIR__ ) . '/inc/core/error-handler.php' ), 'wp_fatal_error_handler_enabled' ), 'the filter a theme cannot use is gone' );
 
+// ---- The development folders are removed from an installed theme, never from a checkout ----
+$tmp = sys_get_temp_dir() . '/remotive-dev-' . getmypid();
+foreach ( array( '/tests', '/tests/sub', '/.github/workflows', '/inc' ) as $d ) {
+	mkdir( $tmp . $d, 0777, true );
+}
+file_put_contents( $tmp . '/tests/a.php', 'a' );
+file_put_contents( $tmp . '/tests/sub/b.php', 'b' );
+file_put_contents( $tmp . '/.github/workflows/ci.yml', 'c' );
+file_put_contents( $tmp . '/inc/keep.php', 'k' );
+t_ok( remotive_remove_dev_files( $tmp ) >= 6, 'the test and workflow folders go' );
+t_ok( ! is_dir( $tmp . '/tests' ) && ! is_dir( $tmp . '/.github' ), 'both folders are gone' );
+t_ok( is_file( $tmp . '/inc/keep.php' ), 'the theme itself is untouched' );
+mkdir( $tmp . '/tests' );
+mkdir( $tmp . '/.git' );
+t_eq( remotive_remove_dev_files( $tmp ), 0, 'a git checkout keeps its tests' );
+t_ok( is_dir( $tmp . '/tests' ), 'and the folder is still there' );
+rmdir( $tmp . '/.git' );
+rmdir( $tmp . '/tests' );
+unlink( $tmp . '/inc/keep.php' );
+rmdir( $tmp . '/inc' );
+rmdir( $tmp );
+t_eq( remotive_remove_dev_files( '/nonexistent-' . getmypid() ), 0, 'a missing folder is nothing to do' );
+t_eq( remotive_dev_folders(), array( 'tests', '.github' ), 'only the two development folders are ever named' );
+$src = file_get_contents( dirname( __DIR__ ) . '/inc/setup/site-setup.php' );
+t_ok( false !== strpos( $src, "'remotive_remove_dev_files',\n" ), 'the removal runs with the version sync, on activation and after an upload' );
+
 t_done( 'setup' );

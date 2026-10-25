@@ -2017,6 +2017,95 @@ function remotive_prune_retired_files() {
 }
 
 /**
+ * The folders that belong to development, not to a site: the test suite and the CI workflow.
+ *
+ * @return string[]
+ */
+function remotive_dev_folders() {
+	return array( 'tests', '.github' );
+}
+
+/**
+ * Delete the development folders from the installed theme, on activation and on the first request
+ * after an upload (remotive_version_sync()).
+ *
+ * The test suite and the CI workflow are never loaded by WordPress; they only take space on the
+ * server. Skipped where the theme folder is a git checkout (a `.git` folder inside it), so a
+ * developer's working copy keeps its tests, and when REMOTIVE_KEEP_DEV_FILES is defined true. A
+ * read-only file system is not worth a fatal: whatever cannot be removed stays, and the next version
+ * tries again.
+ *
+ * @param string|null $root The theme folder; the live one when null.
+ * @return int Files and folders removed.
+ */
+function remotive_remove_dev_files( $root = null ) {
+	if ( defined( 'REMOTIVE_KEEP_DEV_FILES' ) && REMOTIVE_KEEP_DEV_FILES ) {
+		return 0;
+	}
+
+	$root = realpath( null === $root ? get_stylesheet_directory() : $root );
+
+	if ( false === $root || is_dir( $root . '/.git' ) ) {
+		return 0;
+	}
+
+	$removed = 0;
+
+	foreach ( remotive_dev_folders() as $folder ) {
+		$real = realpath( $root . '/' . $folder );
+
+		if ( false === $real || 0 !== strpos( $real, $root . DIRECTORY_SEPARATOR ) || ! is_dir( $real ) ) {
+			continue;
+		}
+
+		$removed += remotive_remove_tree( $real, $root );
+	}
+
+	return $removed;
+}
+
+/**
+ * Delete a folder and everything in it, never following a link out of the theme folder.
+ *
+ * @param string $dir  Folder to delete (a real path).
+ * @param string $root The theme folder (a real path); nothing outside it is touched.
+ * @return int Files and folders removed.
+ */
+function remotive_remove_tree( $dir, $root ) {
+	$removed = 0;
+	$entries = @scandir( $dir ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+
+	foreach ( (array) $entries as $entry ) {
+		if ( '.' === $entry || '..' === $entry ) {
+			continue;
+		}
+
+		$path = $dir . DIRECTORY_SEPARATOR . $entry;
+
+		if ( is_link( $path ) ) {
+			$removed += @unlink( $path ) ? 1 : 0; // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.unlink_unlink
+			continue; // The link itself goes; what it points at is never entered.
+		}
+
+		$real = realpath( $path );
+
+		if ( false === $real || 0 !== strpos( $real, $root . DIRECTORY_SEPARATOR ) ) {
+			continue;
+		}
+
+		if ( is_dir( $real ) ) {
+			$removed += remotive_remove_tree( $real, $root );
+		} else {
+			$removed += @unlink( $real ) ? 1 : 0; // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.unlink_unlink
+		}
+	}
+
+	$removed += @rmdir( $dir ) ? 1 : 0; // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.file_system_operations_rmdir
+
+	return $removed;
+}
+
+/**
  * Replace the retired .com contact address with the .asia one.
  *
  * @return bool Whether the saved value was changed.
@@ -2065,6 +2154,7 @@ function remotive_version_sync() {
 		'remotive_sync_option_defaults',
 		'remotive_sync_case_study_slugs',
 		'remotive_prune_retired_files',
+		'remotive_remove_dev_files',
 		'remotive_i18n_install_tables',
 	);
 

@@ -1512,6 +1512,8 @@ script and a JSON parse of `theme.json`. Run one with `php tests/<file>`.
 | `test-security.php` | Client address, the REST users routes at authentication and dispatch, the author redirect, generic login errors, enquiry length caps, the application password switch. |
 | `test-setup.php` | Setup migrations, the migration lock, the seeded page lookup, the contact address correction. |
 
+The suite is for the repository. On a site, `remotive_remove_dev_files()` deletes `tests/` and `.github/` from the theme folder on activation and on the first request after an upload (v1.120.7); a git checkout keeps them, as does a site that defines `REMOTIVE_KEEP_DEV_FILES` as true.
+
 ## Known limitations
 
 ### Left deliberately (reviewed v1.96.0)

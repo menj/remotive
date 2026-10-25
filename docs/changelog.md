@@ -4,6 +4,12 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.120.7] (2026-10-25)
+
+### Changed
+
+- **The test suite and the CI workflow delete themselves from an installed theme.** On activation and on the first request after an upload, `tests/` and `.github/` are removed from the theme folder: WordPress never loads them, they only took space on the server. A git checkout (a `.git` folder inside the theme) keeps them, as does a site that defines `REMOTIVE_KEEP_DEV_FILES` as true. A read-only file system is left alone and the next version tries again. The zip built for upload already left them out; this covers a theme uploaded from the repository.
+
 ## [1.120.6] (2026-10-25)
 
 ### Fixed
