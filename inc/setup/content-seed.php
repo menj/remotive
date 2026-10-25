@@ -92,6 +92,61 @@ function remotive_seed_find_args( $slug, $type, $parent = '' ) {
 }
 
 /**
+ * Whether block markup opens and closes every block it starts (a self-closing block counts as both).
+ *
+ * An unclosed block makes the parser nest everything after it inside, and the page then renders its
+ * later sections over and over. The seeder and the restore refuse such text, and tests/check-article-seo.php
+ * fails on it before it ships.
+ *
+ * @param string $content Block markup.
+ * @return bool
+ */
+function remotive_seed_blocks_balanced( $content ) {
+	// Walked with a stack, as the block parser does: a closing marker must close the block that is open,
+	// so a count match with the markers out of order or mismatched does not pass.
+	if ( ! preg_match_all( '/<!-- (\/)?wp:([a-z][a-z0-9\/-]*)(?: [^>]*?)?(\/)?-->/', (string) $content, $m, PREG_SET_ORDER ) ) {
+		return true;
+	}
+
+	$stack = array();
+
+	foreach ( $m as $marker ) {
+		if ( isset( $marker[3] ) && '/' === $marker[3] ) {
+			continue; // Self-closing: opens and closes itself.
+		}
+
+		if ( '/' === $marker[1] ) {
+			if ( ! $stack || array_pop( $stack ) !== $marker[2] ) {
+				return false;
+			}
+
+			continue;
+		}
+
+		$stack[] = $marker[2];
+	}
+
+	return ! $stack;
+}
+
+/**
+ * The description a seeded category is created with. It is the category archive's meta description
+ * and the introduction on the archive, so each archive has its own.
+ *
+ * @param string $slug Category slug.
+ * @return string
+ */
+function remotive_seed_category_description( $slug ) {
+	$descriptions = array(
+		'seo-ai-search' => 'Articles on search engine optimisation and visibility in AI answers: how buyers in Asia find and cite a brand, and what to fix first.',
+		'paid-media'    => 'Articles on paid search, paid social and programmatic media in Asia: what to run, what it should cost, and how to judge the results.',
+		'agency-guides' => 'Guides to choosing and working with a marketing agency in Asia: pricing, scope, contracts, and the questions to ask before you sign.',
+	);
+
+	return isset( $descriptions[ $slug ] ) ? $descriptions[ $slug ] : '';
+}
+
+/**
  * Attach a featured image from the theme's bundled seed images.
  *
  * Copies the file into the uploads directory so it behaves like any other
@@ -193,7 +248,7 @@ function remotive_seed_apply_extras( $post_id, $item, $attach_image = true ) {
 		$term = term_exists( $cat_slug, 'category' );
 
 		if ( ! $term ) {
-			$term = wp_insert_term( $cat_name, 'category', array( 'slug' => $cat_slug ) );
+			$term = wp_insert_term( $cat_name, 'category', array( 'slug' => $cat_slug, 'description' => remotive_seed_category_description( $cat_slug ) ) );
 		}
 
 		if ( ! is_wp_error( $term ) ) {
@@ -231,6 +286,10 @@ function remotive_seed_run() {
 		if ( remotive_seed_find( $item['slug'], $item['type'], $item['parent'] ?? '' ) ) {
 			$seeded[] = $key;
 			continue;
+		}
+
+		if ( ! remotive_seed_blocks_balanced( $item['content'] ?? '' ) ) {
+			continue; // Broken markup is not seeded; the check script catches it before a release.
 		}
 
 		$args = array(
@@ -524,7 +583,7 @@ function remotive_seed_restore( $key ) {
 		}
 	}
 
-	if ( ! $target ) {
+	if ( ! $target || ! remotive_seed_blocks_balanced( $target['content'] ?? '' ) ) {
 		return false;
 	}
 

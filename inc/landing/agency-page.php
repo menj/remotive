@@ -935,7 +935,8 @@ function remotive_agency_render() {
 
 	$footer = remotive_agency_footer_html();
 
-	return '<div class="rm-lp rm-ag" data-lang="' . esc_attr( remotive_lp_requested_lang() ) . '" data-service="' . esc_attr( REMOTIVE_AGENCY_SLUG ) . '">'
+	return '<a class="rm-skip-link" href="#main">' . esc_html__( 'Skip to content', 'remotive' ) . '</a>'
+		. '<div class="rm-lp rm-ag" data-lang="' . esc_attr( remotive_lp_requested_lang() ) . '" data-service="' . esc_attr( REMOTIVE_AGENCY_SLUG ) . '">'
 		. '<header class="rm-lp__bar">' . remotive_lp_logo() . remotive_agency_lang_nav() . '</header>'
 		. '<main id="main" class="rm-lp__main">'
 		. '<section class="rm-lp__hero rm-ag__hero">' . remotive_agency_depth_layer() . '<div class="rm-lp__copy">'

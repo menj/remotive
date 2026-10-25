@@ -38,7 +38,9 @@ function remotive_post_image_fallback( $content, $block ) {
 	$link = get_permalink();
 
 	return '<div class="' . esc_attr( $out ) . '">'
-		. ( $link ? '<a href="' . esc_url( $link ) . '" tabindex="-1" aria-hidden="true"></a>' : '' )
+		// The card title links to the same page, so this link is a duplicate target; it carries the title
+		// as its name rather than being an empty anchor, and stays out of the tab order.
+		. ( $link ? '<a href="' . esc_url( $link ) . '" tabindex="-1" aria-label="' . esc_attr( get_the_title() ) . '"></a>' : '' )
 		. '</div>';
 }
 add_filter( 'render_block_core/post-featured-image', 'remotive_post_image_fallback', 10, 2 );

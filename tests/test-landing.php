@@ -199,4 +199,27 @@ t_ok( false === strpos( remotive_lp_logo(), '<a ' ), 'the ad pages keep the logo
 $linked = remotive_lp_logo( 'https://example.com/' );
 t_ok( false !== strpos( $linked, 'class="rm-lp__home" href="https://example.com/"' ) && false !== strpos( $linked, 'aria-label=' ), 'a legal page gets a labelled link home' );
 
+// ---- The document title and description come from the page's own copy, in its language ----
+t_reset();
+$GLOBALS['remotive_i18n_lang'] = 'en';
+$GLOBALS['T']['template'] = true;
+$GLOBALS['T']['slug']     = 'seo-audit';
+t_eq( remotive_lp_document_title( 'SEO landing page - Remotive' ), 'Be found by buyers already searching for you | Re:Motive Media', 'the English headline and the site name, no trailing full stop' );
+t_ok( 0 === strpos( remotive_lp_document_description( '' ), 'Your site may be losing enquiries' ) && mb_strlen( remotive_lp_document_description( '' ) ) <= 160, 'the first sentence of the lead, within 160 characters' );
+$GLOBALS['T']['slug'] = 'audit-requested';
+t_eq( remotive_lp_document_title( 'x' ), 'Thanks. Your request is in. | Re:Motive Media', 'the confirmation page has its own title' );
+t_eq( remotive_lp_document_description( 'kept' ), 'kept', 'and keeps the description it is given' );
+$GLOBALS['remotive_i18n_lang'] = 'ms';
+$GLOBALS['T']['slug']          = 'seo-audit';
+t_eq( remotive_lp_document_title( 'x' ), 'Dikenali oleh pembeli yang sedang mencari anda | Re:Motive Media', 'the Malay copy gets the Malay headline' );
+$GLOBALS['remotive_i18n_lang'] = 'en';
+$GLOBALS['T']['slug'] = 'privacy';
+t_eq( remotive_lp_document_title( 'kept' ), 'kept', 'other pages are left alone' );
+$GLOBALS['T']['template'] = false;
+$GLOBALS['T']['slug']     = 'seo-audit';
+t_eq( remotive_lp_document_title( 'kept' ), 'kept', 'and so is a page that is not on the landing template' );
+t_eq( remotive_lp_first_sentence( 'One. Two three.' ), 'One.', 'first sentence' );
+t_eq( remotive_lp_first_sentence( '第一句。第二句。' ), '第一句。', 'first sentence with a full-width stop' );
+t_eq( mb_strlen( remotive_lp_first_sentence( str_repeat( 'a', 200 ) ) ), 160, 'a long sentence is cut at 160' );
+
 t_done( 'landing' );

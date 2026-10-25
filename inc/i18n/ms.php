@@ -2826,8 +2826,8 @@ return array(
 	),
 	'seo' => array(
 		'' => array(
-			'title'       => 'Remotive Media Asia | Pemasaran Prestasi, Media & SEO untuk Jenama Asia',
-			'description' => 'Pasukan media bebas yang diterajui pakar kanan. Kami membaiki asas, memastikan anda ditemui dan dipetik dalam carian klasik dan AI, kemudian menskalakan dengan media berbayar di seluruh Asia.',
+			'title'       => 'Pemasaran Prestasi, Media & SEO untuk Jenama Asia | Remotive',
+			'description' => 'Pasukan media bebas yang diterajui pakar kanan. Kami membaiki asas, memastikan anda ditemui dalam carian klasik dan AI, lalu menskalakan dengan media berbayar.',
 		),
 		'team' => array(
 			'title'       => 'Kenali Pasukan Kami | Remotive Media Asia',

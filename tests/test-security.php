@@ -120,4 +120,9 @@ $GLOBALS['T']['options']['remotive_theme_options'] = array( 'block_app_passwords
 t_eq( remotive_filter_app_passwords( true ), false, 'switched back on' );
 t_ok( in_array( 'remotive_filter_app_passwords', $GLOBALS['filters']['wp_is_application_passwords_available'] ?? array(), true ), 'the filter is registered' );
 
+// Comments: closed, and the comments feed not advertised, until a filter opens them.
+t_eq( remotive_comments_closed( true ), false, 'comments are closed' );
+t_eq( remotive_comments_feed_link( true ), false, 'the comments feed is not advertised' );
+t_ok( in_array( 'remotive_comments_closed', $GLOBALS['filters']['comments_open'] ?? array(), true ), 'the filter is registered' );
+
 t_done( 'security' );

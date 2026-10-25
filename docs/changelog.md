@@ -4,6 +4,68 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.120.8] (2026-10-25)
+
+### Added
+
+- **Rank Math's breadcrumbs above the page title.** With Rank Math → General Settings → Breadcrumbs switched on, the trail Rank Math builds prints above the title of every inner page and archive (not the front page, the one-page layout, the ad landing pages or a confirmation page), translated on the language copies. Off, nothing changes; the structured data carries a BreadcrumbList either way. `remotive_rank_math_breadcrumbs` overrides the setting.
+
+### Changed
+
+- **Rank Math's automatic nodes stay in its editor preview and REST responses**; the theme removes them from the printed page only, so an attached schema previews with its publisher and page as before. Every Rank Math hook the theme uses was checked against the 1.0.279 source: `rank_math/frontend/title`, `description`, `robots`, `canonical`, `rank_math/head`, `rank_math/json_ld`, `rank_math/opengraph/{network}/image`, `rank_math/sitemap/entry` and `rank_math/sitemap/index`.
+
+## [1.120.7] (2026-10-25)
+
+### Changed
+
+- **The test suite and the CI workflow delete themselves from an installed theme.** On activation and on the first request after an upload, `tests/` and `.github/` are removed from the theme folder: WordPress never loads them, they only took space on the server. A git checkout (a `.git` folder inside the theme) keeps them, as does a site that defines `REMOTIVE_KEEP_DEV_FILES` as true. A read-only file system is left alone and the next version tries again. The zip built for upload already left them out; this covers a theme uploaded from the repository.
+
+## [1.120.6] (2026-10-25)
+
+### Fixed
+
+Findings of a check of the theme's output against Google's SEO Starter Guide, page by page on a WordPress install.
+
+- **Nineteen seeded pages rendered their later sections over and over.** Every service page and thirteen case studies shipped paragraph blocks with no closing comment, so the block parser nested everything after each one and the page repeated its headings and paragraphs, with block delimiters leaking into the HTML (one service page ran to 19,000 words). The markup is repaired, the seeder and "Restore shipped version" refuse unbalanced markup, `tests/check-article-seo.php` fails on it, and a migration replaces a copy that is still exactly what was seeded; an edited copy is left for "Restore shipped version". A seeded lead image whose sizes WordPress never recorded has them generated.
+- **Comments are closed and the comments feed is not advertised.** The theme renders no comment form or list, so open comments were an unseen spam inbox and the feed link told crawlers a discussion existed. `remotive_comments_enabled` opens them.
+- **Every page has a social image.** Rank Math printed `og:image` only for the six posts with a lead image; the logo is the fallback (`remotive_default_social_image` changes it). Translated landing pages carried the English `og:locale`.
+- **One address per page.** `/About/` served the page at a second address; a capitalised path redirects to its lowercase form. `/seo/` and the other service slugs typed at the top level go to the service page instead of being guessed into the noindex ad landing page.
+- **The share buttons link somewhere real** before the script runs (WhatsApp, LinkedIn and X addresses are built on the server), and carry `rel="nofollow"`.
+- **Smaller:** the case study cards and the home page spread use the client line as the heading and the figure as a paragraph; the image fallback link has an accessible name; the landing pages' city photos describe their country; the traditional Chinese case studies title differs from the simplified one; core's duplicate skip link is not printed.
+
+## [1.120.5] (2026-10-25)
+
+### Added
+
+- **The rest of schema.org** (`inc/content/schema-extended.php`). Every type and property the site can state truthfully, beyond Google's rich result list: `Brand`, `BusinessAudience`, `Place`, the free audit as an `Offer` (price 0, in stock, Singapore and Malaysia), an `OfferCatalog` of the service pages, `ServiceChannel` and `termsOfService` on every service, `Blog` and a `DataFeed` on the Insights index, an `ItemList` of posts on a category archive, an `Article` (genre "Case study") on each case study, an `ItemList` of the people on the team page, a `SiteNavigationElement` per header link, `ImageObject` nodes with size and caption for lead images, `ReadAction`, `isAccessibleForFree`, `copyrightHolder`, `keywords`, `timeRequired`, `knowsLanguage`, `knowsAbout`, `alternateName`, `slogan`, and `workTranslation` / `translationOfWork` linking each page to its copies in the other languages. See the readme's "The rest of schema.org" table. Nothing is stated that the site does not show: no ratings, reviews, prices for services, opening hours or events.
+
+### Changed
+
+- **The theme owns the graph.** With Rank Math active the theme used to withhold its organisation, site, page, article, breadcrumb and author nodes and let the plugin's print, and the plugin's were thin: a `Person` as the publisher, an `Article` with a nameless author on every page including the privacy policy, no breadcrumb at all, no typed pages. The plugin's automatic nodes are now removed from its output (`rank_math/json_ld`, `wpseo_json_ld_output`) and the theme's print on every page; schemas an editor attaches through Rank Math's Schema Generator are kept. `remotive_schema_theme_owns_graph` returns to the old behaviour.
+
+### Fixed
+
+Findings of a check of the printed graph of every page type on a WordPress install.
+
+- References that pointed nowhere: the services' `provider`, the one-page layout's team list and every element's `isPartOf` on a language copy referred to nodes that were not on the page. Every node anchored on the page moves with it to the copy's address, and the shared entities are anchored on the home page.
+- The language copies' elements, services, lists and navigation stayed in English; their names, descriptions and links are now translated and localised, and the landing pages' page node, breadcrumb and service sit at the copy's own address in its language.
+- The Speakable selector named a class the article template does not have.
+- The organisation had no `image`, which a local business needs; the logo had no size; the legal name and UEN ignored the Theme Options fields.
+- Titles carried HTML entities (`&amp;`) into the JSON; a breadcrumb or page name was the full document title with the site name suffix; a child page's breadcrumb skipped its parent; archive addresses lost their trailing slash.
+- The article author carried a URL that redirects; it is gone, and the author is the team roster's `Person` when the names match.
+- A video's `duration` is stated when WordPress knows it; the FAQ text is texturised like the page, so a curly apostrophe matches.
+- A kept legal page in the one-page layout described the full header and navigation it does not have.
+
+## [1.120.4] (2026-10-25)
+
+### Fixed
+
+Findings of a check of the theme's output against Google's SEO Starter Guide.
+
+- **The landing pages had an admin label for a title.** The browser tab and the title tag read "SEO landing page" on every copy. Each landing page now carries its own headline and the site name, in its language, and the first sentence of its lead as the meta description. The confirmation page has its own title too.
+- **The Malay home page's title and description ran long** (71 and 191 characters); both are within the usual limits now.
+- **The category archives had no meta description.** The three seeded categories get a description, which is also the archive's introduction, and an archive whose category has none gets a sentence naming the category and the site.
+
 ## [1.120.3] (2026-10-25)
 
 ### Changed

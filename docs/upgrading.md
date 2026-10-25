@@ -7,6 +7,14 @@ on, is the backlog: planned work, ideas and known gaps, roughly ordered by what
 would matter most to fix or build next. Nothing in the backlog is scheduled or
 committed.
 
+## v1.120.6: repaired seeded pages, comments closed, the theme owns the structured data
+
+- The service pages and thirteen case studies shipped with unclosed paragraph blocks, so each page rendered its later sections over and over. After the upload the first admin load replaces every copy that is still exactly what was seeded. A copy someone edited keeps the broken markup until "Restore shipped version" is used on it (Theme Options → Content), or the editor's "Attempt recovery" on each block.
+- Comments are closed site-wide and the comments feed is no longer advertised. `add_filter( 'remotive_comments_enabled', '__return_true' )` opens them again.
+- The theme now prints the whole structured data graph and removes Rank Math's and Yoast's automatic nodes (1.120.5). Rank Math's knowledge graph and breadcrumb settings no longer matter; schemas attached to a page through its Schema Generator are kept.
+- Every page gets a social image (the logo unless the page has its own); `remotive_default_social_image` changes it.
+- Clear the page cache after the upload so the repaired pages and the new graph are served.
+
 ## v1.120.3: light is the default colour mode
 
 - A site still on the old default (dark) moves to light once, on the first

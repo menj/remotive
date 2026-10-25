@@ -129,3 +129,13 @@ if ( ! function_exists( 'add_meta_box' ) ) { function add_meta_box() {} }
 if ( ! function_exists( 'wp_parse_url' ) ) { function wp_parse_url( $u, $c = -1 ) { return parse_url( $u, $c ); } }
 if ( ! function_exists( 'wp_installing' ) ) { function wp_installing() { return false; } }
 if ( ! function_exists( 'maybe_serialize' ) ) { function maybe_serialize( $v ) { return is_scalar( $v ) ? $v : serialize( $v ); } }
+if ( ! function_exists( 'get_bloginfo' ) ) { function get_bloginfo( $k = '' ) { return 'Re:Motive Media'; } }
+if ( ! function_exists( 'is_category' ) ) { function is_category() { return $GLOBALS['T']['category'] ?? false; } }
+if ( ! function_exists( 'wp_strip_all_tags' ) ) { function wp_strip_all_tags( $s ) { return strip_tags( $s ); } }
+
+if ( ! function_exists( 'in_the_loop' ) ) { function in_the_loop() { return $GLOBALS['T']['in_loop'] ?? true; } }
+if ( ! function_exists( 'is_404' ) ) { function is_404() { return $GLOBALS['T']['is_404'] ?? false; } }
+if ( ! function_exists( 'is_search' ) ) { function is_search() { return $GLOBALS['T']['search'] ?? false; } }
+if ( ! function_exists( 'is_archive' ) ) { function is_archive() { return $GLOBALS['T']['archive'] ?? false; } }
+if ( ! function_exists( 'is_singular' ) ) { function is_singular( $t = '' ) { return $GLOBALS['T']['singular'] ?? true; } }
+if ( ! function_exists( 'is_home' ) ) { function is_home() { return $GLOBALS['T']['is_home'] ?? false; } }

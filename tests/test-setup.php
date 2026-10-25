@@ -75,7 +75,32 @@ foreach ( $page_hashes as $slug => $fields ) {
 		t_ok( $list && ! array_diff( array_map( function ( $h ) { return preg_match( '/^[a-f0-9]{32}$/', $h ) ? 1 : 0; }, $list ), array( 1 ) ), "$slug / $name: every hash is an md5" );
 	}
 }
-t_ok( '1.120.3' === REMOTIVE_SETUP_SCHEMA, 'the migration schema is 1.120.3' );
+t_ok( '1.120.6' === REMOTIVE_SETUP_SCHEMA, 'the migration schema is 1.120.6' );
+t_ok( isset( remotive_migration_registry()['1.120.6'] ), 'the seed repair migration is registered' );
+
+// ---- Block markup that opens what it closes ----
+t_ok( remotive_seed_blocks_balanced( "<!-- wp:paragraph -->\n<p>a</p>\n<!-- /wp:paragraph -->" ), 'a closed paragraph balances' );
+t_ok( ! remotive_seed_blocks_balanced( "<!-- wp:paragraph -->\n<p>a</p>\n<!-- wp:heading -->\n<h2>b</h2>\n<!-- /wp:heading -->" ), 'an unclosed paragraph does not' );
+t_ok( remotive_seed_blocks_balanced( '<!-- wp:post-title {"level":1} /-->' ), 'a self-closing block counts as both' );
+t_ok( ! remotive_seed_blocks_balanced( "<!-- wp:paragraph --><p>a</p><!-- /wp:heading -->" ), 'a closing marker of another block does not balance an open one (a CodeAnt point)' );
+t_ok( ! remotive_seed_blocks_balanced( "<!-- /wp:paragraph --><!-- wp:paragraph --><p>a</p>" ), 'nor do the markers in the wrong order' );
+t_ok( ! remotive_seed_blocks_balanced( "<!-- wp:list --><!-- wp:list-item --><li>a</li><!-- /wp:list --><!-- /wp:list-item -->" ), 'nor closings that cross' );
+t_ok( remotive_seed_blocks_balanced( "<!-- wp:list --><!-- wp:list-item --><li>a</li><!-- /wp:list-item --><!-- /wp:list -->" ), 'properly nested blocks balance' );
+t_ok( remotive_seed_blocks_balanced( '' ), 'empty text balances' );
+foreach ( remotive_seed_content() as $item ) {
+	t_ok( remotive_seed_blocks_balanced( $item['content'] ?? '' ), 'shipped markup balances: ' . $item['slug'] );
+}
+// The repaired copies carry the hash of the text they replace, so an unedited broken copy is found.
+$old_hashes = remotive_old_page_copy_hashes();
+foreach ( array( 'social', 'analytics', 'email', 'content', 'seo', 'cookieless-audience-sports' ) as $slug ) {
+	t_ok( isset( $old_hashes[ $slug ]['content'] ) && count( $old_hashes[ $slug ]['content'] ) >= 2, "$slug lists the broken copy's hash" );
+}
+t_ok( isset( remotive_migration_registry()['1.120.4'] ), 'the category description migration is registered' );
+foreach ( array( 'seo-ai-search', 'paid-media', 'agency-guides' ) as $slug ) {
+	$d = remotive_seed_category_description( $slug );
+	t_ok( strlen( $d ) >= 70 && strlen( $d ) <= 160, "$slug has a description of meta length (" . strlen( $d ) . ')' );
+}
+t_eq( remotive_seed_category_description( 'uncategorized' ), '', 'an unknown category gets none' );
 
 // ---- 1.120.3: the old default colour mode (dark) moves to light, once; other choices are kept ----
 t_reset();
@@ -130,5 +155,31 @@ $dropin = file_get_contents( dirname( __DIR__ ) . '/drop-ins/php-error.php' );
 t_ok( false !== strpos( $dropin, "defined( 'REMOTIVE_ERROR_HANDLER' )" ), 'the drop-in checks for the theme handler' );
 t_ok( false !== strpos( file_get_contents( dirname( __DIR__ ) . '/inc/core/error-handler.php' ), "define( 'REMOTIVE_ERROR_HANDLER', true )" ), 'the theme handler declares itself' );
 t_ok( false === strpos( file_get_contents( dirname( __DIR__ ) . '/inc/core/error-handler.php' ), 'wp_fatal_error_handler_enabled' ), 'the filter a theme cannot use is gone' );
+
+// ---- The development folders are removed from an installed theme, never from a checkout ----
+$tmp = sys_get_temp_dir() . '/remotive-dev-' . getmypid();
+foreach ( array( '/tests', '/tests/sub', '/.github/workflows', '/inc' ) as $d ) {
+	mkdir( $tmp . $d, 0777, true );
+}
+file_put_contents( $tmp . '/tests/a.php', 'a' );
+file_put_contents( $tmp . '/tests/sub/b.php', 'b' );
+file_put_contents( $tmp . '/.github/workflows/ci.yml', 'c' );
+file_put_contents( $tmp . '/inc/keep.php', 'k' );
+t_ok( remotive_remove_dev_files( $tmp ) >= 6, 'the test and workflow folders go' );
+t_ok( ! is_dir( $tmp . '/tests' ) && ! is_dir( $tmp . '/.github' ), 'both folders are gone' );
+t_ok( is_file( $tmp . '/inc/keep.php' ), 'the theme itself is untouched' );
+mkdir( $tmp . '/tests' );
+mkdir( $tmp . '/.git' );
+t_eq( remotive_remove_dev_files( $tmp ), 0, 'a git checkout keeps its tests' );
+t_ok( is_dir( $tmp . '/tests' ), 'and the folder is still there' );
+rmdir( $tmp . '/.git' );
+rmdir( $tmp . '/tests' );
+unlink( $tmp . '/inc/keep.php' );
+rmdir( $tmp . '/inc' );
+rmdir( $tmp );
+t_eq( remotive_remove_dev_files( '/nonexistent-' . getmypid() ), 0, 'a missing folder is nothing to do' );
+t_eq( remotive_dev_folders(), array( 'tests', '.github' ), 'only the two development folders are ever named' );
+$src = file_get_contents( dirname( __DIR__ ) . '/inc/setup/site-setup.php' );
+t_ok( false !== strpos( $src, "'remotive_remove_dev_files',\n" ), 'the removal runs with the version sync, on activation and after an upload' );
 
 t_done( 'setup' );

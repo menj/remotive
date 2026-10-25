@@ -150,6 +150,36 @@ function remotive_lp_page_usable( $page ) {
 	return is_object( $page ) && isset( $page->post_status ) && 'publish' === $page->post_status;
 }
 
+/**
+ * The Open Graph locale of a translated landing page. Rank Math prints the site locale; the landing
+ * pages sit outside the language layer's head rewrite, so the tag is corrected here on the head output.
+ *
+ * @return string ms_MY, zh_CN, zh_TW, or '' for English.
+ */
+function remotive_lp_og_locale() {
+	$map = array( 'ms' => 'ms_MY', 'zh' => 'zh_CN', 'zht' => 'zh_TW' );
+	$key = remotive_lp_requested_lang();
+
+	return isset( $map[ $key ] ) ? $map[ $key ] : '';
+}
+
+function remotive_lp_og_locale_start() {
+	if ( remotive_is_landing_page() && '' !== remotive_lp_og_locale() ) {
+		ob_start();
+	}
+}
+add_action( 'wp_head', 'remotive_lp_og_locale_start', 0 );
+
+function remotive_lp_og_locale_end() {
+	if ( ! remotive_is_landing_page() || '' === remotive_lp_og_locale() ) {
+		return;
+	}
+
+	$head = ob_get_clean();
+	echo preg_replace( '/(<meta property="og:locale" content=")[^"]*(")/', '${1}' . remotive_lp_og_locale() . '${2}', (string) $head ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+}
+add_action( 'wp_head', 'remotive_lp_og_locale_end', PHP_INT_MAX );
+
 /* ---- Language URLs ----
  * Handled by inc/i18n/i18n.php: it reads the language directory, removes it
  * from the request, and these pages then resolve like any other page. Earlier
@@ -208,6 +238,88 @@ add_filter( 'get_canonical_url', 'remotive_lp_canonical', 10, 2 );
  */
 function remotive_is_landing_page() {
 	return is_page() && is_page_template( REMOTIVE_LANDING_TEMPLATE );
+}
+
+/**
+ * The document title of a landing page: the page's own headline and the site name, in the page's
+ * language. The stored page title ("SEO landing page") is an admin label and would otherwise be the
+ * browser tab and the title Rank Math prints.
+ *
+ * @param string $title The title WordPress or Rank Math would print.
+ * @return string
+ */
+function remotive_lp_document_title( $title ) {
+	$parts = remotive_lp_title_parts();
+
+	return null === $parts ? $title : $parts[0] . ' | ' . $parts[1];
+}
+add_filter( 'pre_get_document_title', 'remotive_lp_document_title', 20 );
+add_filter( 'rank_math/frontend/title', 'remotive_lp_document_title', 20 );
+
+/**
+ * The meta description of a landing page: the first sentence of its lead, in the page's language.
+ *
+ * @param string $description The description Rank Math would print.
+ * @return string
+ */
+function remotive_lp_document_description( $description ) {
+	$parts = remotive_lp_title_parts();
+
+	return null === $parts || '' === $parts[2] ? $description : $parts[2];
+}
+add_filter( 'rank_math/frontend/description', 'remotive_lp_document_description', 20 );
+
+/**
+ * array( headline, site name, description ) for the landing page being rendered, or null elsewhere.
+ *
+ * @return array|null
+ */
+function remotive_lp_title_parts() {
+	if ( ! remotive_is_landing_page() ) {
+		return null;
+	}
+
+	$slug = get_post_field( 'post_name', get_queried_object_id() );
+	$i    = remotive_lp_lang_index();
+	$site = get_bloginfo( 'name' );
+
+	if ( REMOTIVE_LP_THANKS_SLUG === $slug ) {
+		$titles = array( 'Thanks. Your request is in.', 'Terima kasih. Permintaan anda telah diterima.', '谢谢。您的申请已收到。', '謝謝。您的申請已收到。' );
+
+		return array( $titles[ $i ], $site, '' );
+	}
+
+	$services = remotive_landing_services();
+
+	if ( ! isset( $services[ $slug ] ) ) {
+		return null;
+	}
+
+	$svc  = $services[ $slug ];
+	$lead = isset( $svc['lead'][ $i ] ) ? (string) $svc['lead'][ $i ] : '';
+
+	return array( rtrim( (string) $svc['title'][ $i ], '.。' ), $site, remotive_lp_first_sentence( $lead ) );
+}
+
+/**
+ * The first sentence of a text, capped at 160 characters, for a meta description.
+ *
+ * @param string $text
+ * @return string
+ */
+function remotive_lp_first_sentence( $text ) {
+	$text = trim( (string) $text );
+
+	if ( '' === $text ) {
+		return '';
+	}
+
+	// A Latin stop ends a sentence only before a space or the end; a full-width stop ends one on its own.
+	if ( preg_match( '/^(.+?(?:[.!?](?=\s|$)|[。！？]))/u', $text, $m ) ) {
+		$text = $m[1];
+	}
+
+	return mb_strlen( $text ) > 160 ? rtrim( mb_substr( $text, 0, 157 ) ) . '...' : $text;
 }
 
 /**
@@ -509,7 +621,8 @@ function remotive_lp_render_thanks() {
 		$steps .= '<li class="rm-lp__step"><span class="rm-lp__num">' . ( $n + 1 ) . '</span><h3>' . remotive_lp_t( $st[0] ) . '</h3><p>' . remotive_lp_t( $st[1] ) . '</p></li>';
 	}
 
-	return '<div class="rm-lp" data-lang="' . esc_attr( remotive_lp_requested_lang() ) . '" data-page="thanks">'
+	return '<a class="rm-skip-link" href="#main">' . esc_html__( 'Skip to content', 'remotive' ) . '</a>'
+		. '<div class="rm-lp" data-lang="' . esc_attr( remotive_lp_requested_lang() ) . '" data-page="thanks">'
 		. '<header class="rm-lp__bar">' . remotive_lp_logo()
 		. '<nav class="rm-lp__langs" translate="no" aria-label="Language / Bahasa / 语言 / 語言">' . remotive_lp_lang_nav( REMOTIVE_LP_THANKS_SLUG, isset( $services[ $asked ] ) ? array( 'service' => $asked ) : array() ) . '</nav></header>'
 		. '<main id="main" class="rm-lp__main">'
@@ -581,8 +694,8 @@ function remotive_lp_render() {
 		'china'     => array( 'China', 'China', '中国', '中國' ),
 	) as $stem => $label ) {
 		$cities .= '<li class="rm-lp__city">'
-			. remotive_lp_picture( 'city-' . $stem, array( 480 => 360, 720 => 540 ), '(min-width: 56rem) 14rem, 45vw' )
-			. '<span>' . remotive_lp_t( $label ) . '</span></li>';
+			. remotive_lp_picture( 'city-' . $stem, array( 480 => 360, 720 => 540 ), '(min-width: 56rem) 14rem, 45vw', remotive_lp_t( $label ) )
+			. '<span aria-hidden="true">' . remotive_lp_t( $label ) . '</span></li>';
 	}
 
 	$faqs = '';
@@ -591,7 +704,8 @@ function remotive_lp_render() {
 		$faqs .= '<details class="rm-lp__q"><summary>' . esc_html( $qa[0][ $qi ] ) . '</summary><p>' . esc_html( $qa[1][ $qi ] ) . '</p></details>';
 	}
 
-	return '<div class="rm-lp" data-lang="' . esc_attr( remotive_lp_requested_lang() ) . '" data-service="' . esc_attr( $slug ) . '">'
+	return '<a class="rm-skip-link" href="#main">' . esc_html__( 'Skip to content', 'remotive' ) . '</a>'
+		. '<div class="rm-lp" data-lang="' . esc_attr( remotive_lp_requested_lang() ) . '" data-service="' . esc_attr( $slug ) . '">'
 		. '<header class="rm-lp__bar">' . remotive_lp_logo()
 		. '<nav class="rm-lp__langs" translate="no" aria-label="Language / Bahasa / 语言 / 語言">' . $btns . '</nav></header>'
 		. '<main id="main" class="rm-lp__main">'

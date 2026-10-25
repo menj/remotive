@@ -37,8 +37,73 @@ function remotive_not_found_target( $path ) {
 		return array( 'icon', '' );
 	}
 
+	// A service's own slug typed at the top level (/seo/) belongs under /services/. Without this
+	// WordPress guesses the nearest slug, which is the noindex ad landing page /seo-audit/.
+	if ( preg_match( '#^/(seo|paid-media|social|content|email|analytics)$#i', $path, $m ) ) {
+		return array( 'service', strtolower( $m[1] ) );
+	}
+
 	return null;
 }
+
+/**
+ * The lowercase form of a path that has capitals and no file extension, or '' when nothing changes.
+ *
+ * /About/ served the About page with a canonical of /about/; one address is better than two.
+ *
+ * @param string $path Request path.
+ * @return string
+ */
+function remotive_lowercase_path( $path ) {
+	$path = (string) $path;
+
+	if ( '' === $path || preg_match( '/\.[a-z0-9]{2,5}$/i', $path ) ) {
+		return '';
+	}
+
+	$lower = function_exists( 'mb_strtolower' ) ? mb_strtolower( $path, 'UTF-8' ) : strtolower( $path );
+
+	return $lower === $path ? '' : $lower;
+}
+
+/**
+ * Send a capitalised address to its lowercase form.
+ */
+function remotive_lowercase_redirect() {
+	if ( is_admin() || ( function_exists( 'wp_doing_ajax' ) && wp_doing_ajax() ) ) {
+		return;
+	}
+
+	// The address as it was asked for. The language layer removes the language directory from
+	// REQUEST_URI and keeps the original beside it; the redirect must keep that directory, or
+	// /ms/About/ would land on the English page.
+	$uri   = isset( $_SERVER['REMOTIVE_I18N_ORIGINAL_URI'] ) ? (string) $_SERVER['REMOTIVE_I18N_ORIGINAL_URI'] : ( isset( $_SERVER['REQUEST_URI'] ) ? (string) wp_unslash( $_SERVER['REQUEST_URI'] ) : '' ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+	$path  = (string) wp_parse_url( $uri, PHP_URL_PATH );
+	$lower = remotive_lowercase_path( $path );
+
+	if ( '' === $lower ) {
+		return;
+	}
+
+	$query = (string) wp_parse_url( $uri, PHP_URL_QUERY );
+
+	wp_safe_redirect( home_url( $lower . ( '' !== $query ? '?' . $query : '' ) ), 301 );
+	exit;
+}
+add_action( 'template_redirect', 'remotive_lowercase_redirect', 1 );
+
+/**
+ * No guessed redirect for an address the theme sends somewhere itself.
+ *
+ * @param bool $guess Whether WordPress may guess.
+ * @return bool
+ */
+function remotive_no_guess_over_rescue( $guess ) {
+	$path = (string) wp_parse_url( isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '', PHP_URL_PATH ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+
+	return remotive_not_found_target( $path ) ? false : $guess;
+}
+add_filter( 'do_redirect_guess_404_permalink', 'remotive_no_guess_over_rescue' );
 
 /**
  * Send a matching 404 to the real address.
@@ -68,6 +133,12 @@ function remotive_not_found_rescue() {
 		if ( $posts ) {
 			$to = (string) get_permalink( $posts[0] );
 		}
+	} elseif ( 'service' === $target[0] ) {
+		$page = get_page_by_path( 'services/' . $target[1], OBJECT, 'page' );
+
+		if ( $page && 'publish' === $page->post_status ) {
+			$to = (string) get_permalink( $page->ID );
+		}
 	} elseif ( function_exists( 'get_site_icon_url' ) ) {
 		$to = (string) get_site_icon_url( 180 );
 	}
@@ -76,7 +147,7 @@ function remotive_not_found_rescue() {
 		return;
 	}
 
-	if ( 'post' === $target[0] && function_exists( 'remotive_i18n_localise_url' ) && function_exists( 'remotive_i18n_lang' ) ) {
+	if ( in_array( $target[0], array( 'post', 'service' ), true ) && function_exists( 'remotive_i18n_localise_url' ) && function_exists( 'remotive_i18n_lang' ) ) {
 		$to = remotive_i18n_localise_url( $to, remotive_i18n_lang() );
 	}
 

@@ -46,6 +46,7 @@ require get_stylesheet_directory() . '/inc/options/maintenance-mode.php';
 require get_stylesheet_directory() . '/inc/landing/landing-pages.php';
 require get_stylesheet_directory() . '/inc/landing/agency-page.php';
 require get_stylesheet_directory() . '/inc/content/schema-elements.php';
+require get_stylesheet_directory() . '/inc/content/schema-extended.php';
 require get_stylesheet_directory() . '/inc/core/not-found.php';
 require get_stylesheet_directory() . '/inc/core/rank-math.php';
 require get_stylesheet_directory() . '/inc/core/ai-discovery-files.php';
@@ -77,6 +78,9 @@ function remotive_motion_body_class( $classes ) {
 	return $classes;
 }
 add_filter( 'body_class', 'remotive_motion_body_class' );
+
+// The header part carries the theme's own skip link; core's second one is not printed.
+remove_action( 'wp_footer', 'the_block_template_skip_link' );
 
 /**
  * Wrap the trailing arrow in these links so it can animate on its own.

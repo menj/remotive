@@ -348,7 +348,7 @@ function remotive_run_site_setup() {
 function remotive_old_page_copy_hashes() {
 	return array(
 		'analytics' => array(
-			'content' => array( '7e6ceb232ab3148a4c4dd54923631e2c' ),
+			'content' => array( '7e6ceb232ab3148a4c4dd54923631e2c', '676603577cfacf355d24e4d897ebc8f5' ),
 			'ptitle'  => array( '84e17a3e0220b5ad7e63f343fce20840' ),
 			'title'   => array( '1be699eca05fdb3f6d0300b32a218838' ),
 			'desc'    => array( '19bb9900367554ec78bea3ffd036340e' ),
@@ -362,126 +362,126 @@ function remotive_old_page_copy_hashes() {
 			'kw'      => array( 'fda2e2f9ebc07ef3e006bec25d83dc21' ),
 		),
 		'content' => array(
-			'content' => array( 'b1cb1003066d0c9dc9c559233f497b09' ),
+			'content' => array( 'b1cb1003066d0c9dc9c559233f497b09', '012dea772600394c1ef9800d2f1688dd' ),
 			'ptitle'  => array( '0265f0462a72d43783e8c37771ce66af' ),
 			'title'   => array( 'f6d09a9405598cd7ad53692f4c8f0895' ),
 			'desc'    => array( 'e03c5007ce32236764bfa0cf94a54e6e' ),
 			'kw'      => array( 'a731b7e8c9504e996553fc23940d5df6' ),
 		),
 		'cookieless-audience-sports' => array(
-			'content' => array( '3e45b74b955e628c6a47e18fb198598e' ),
+			'content' => array( '3e45b74b955e628c6a47e18fb198598e', 'bbf1e74d64d7d36e62bf1fbc25ce5641' ),
 			'ptitle'  => array( '85c9ab0d5d0325eb97d3297488d9aaab' ),
 			'title'   => array( '42c1bb7da8ad94809f39d87f6ccaf7cf' ),
 			'desc'    => array( '9670bf58f707d28163b5179f897acfe8' ),
 			'kw'      => array( '521142505e4227041f2041965a938ade' ),
 		),
 		'ecommerce-seo-footwear' => array(
-			'content' => array( '69f9acbe23c448d7ce9ee2fea7f8db81' ),
+			'content' => array( '69f9acbe23c448d7ce9ee2fea7f8db81', 'ea00e9f9c6ff16b6ed4e8975be7dbff2' ),
 			'ptitle'  => array( 'e2d1903f955b2c5835879a3784eeeffd' ),
 			'title'   => array( '7269b624abb9e078ca2de7034d71acac' ),
 			'desc'    => array( 'bca405259a2b4162b24af71d826d2df7' ),
 			'kw'      => array( '27a24982534f1d26ab147e8632d9391f' ),
 		),
 		'email' => array(
-			'content' => array( 'ef955b22e59f2163ee9bc73dbb7afdc5' ),
+			'content' => array( 'ef955b22e59f2163ee9bc73dbb7afdc5', '004a65b7ec85275a8174904e955519bd' ),
 			'ptitle'  => array( '4e485374bc55d84c6a30bcd28722a589' ),
 			'title'   => array( '00d1b9b3d28f05798d047a187b3f14c2' ),
 			'desc'    => array( 'd9dcd977956cb1bea2b1d889381bf4e2' ),
 			'kw'      => array( 'df882947c6d64eac2c2dab470256b06f' ),
 		),
 		'healthcare-seo-malaysia' => array(
-			'content' => array( '8b5b1828990779764f33924cb5167e98' ),
+			'content' => array( '8b5b1828990779764f33924cb5167e98', '61cb84f581dae0750d737f7d983446bd' ),
 			'ptitle'  => array( 'c6304b7f29e156658894a631806341f9' ),
 			'title'   => array( '4b3d35bd9de3b2e902d1689492957517' ),
 			'desc'    => array( '05cf4786a4532a7947c95e6057683db0' ),
 			'kw'      => array( 'b6f119e4be3cd378c034aaacc8ead7f1' ),
 		),
 		'market-entry-trading-platform' => array(
-			'content' => array( '0db2bb4f5a947fb2568e14aa4450af04' ),
+			'content' => array( '0db2bb4f5a947fb2568e14aa4450af04', '7b4ea79bcf761d80254de7c3f254aede' ),
 			'ptitle'  => array( '96e7c2649f300fd7dfe330366626952b' ),
 			'title'   => array( 'b2122c911545d817e903fac0d4f414bc' ),
 			'desc'    => array( 'f47fa34114f96d94382bec6393dc7de2' ),
 			'kw'      => array( 'c89cac1b3b4e61870ba01874a66aa1d3' ),
 		),
 		'marketplace-launch-skincare' => array(
-			'content' => array( 'a1db87ca1b642c376f0724c95aff313c' ),
+			'content' => array( 'a1db87ca1b642c376f0724c95aff313c', 'bb8a574345f38b44443103090ffa73cd' ),
 			'ptitle'  => array( '930397ac5c46b9f21e57fa692668ebce' ),
 			'title'   => array( 'd0f99ceb3a0320f792df2168ef835e96' ),
 			'desc'    => array( '9827f86188ca6f9c2d9271863c8ab11b' ),
 			'kw'      => array( '488c465e0204a2d54970ca006ff9028f' ),
 		),
 		'paid-media' => array(
-			'content' => array( 'df90fc13971226b72029af62459a6bff' ),
+			'content' => array( 'df90fc13971226b72029af62459a6bff', '8f1e4b456ecc8b0b3f051b8f3632d559' ),
 			'ptitle'  => array( '0dd442dd603b3c23812b7b40b314ef35' ),
 			'title'   => array( '219f4d75838570f211ee8b72748f8cde' ),
 			'desc'    => array( 'e586300cb68e4d1b1b1c9c384a2df628' ),
 			'kw'      => array( 'c28e5883923c7a0374d13b185db66eaf' ),
 		),
 		'paid-media-financial-services' => array(
-			'content' => array( '0465702330cf85bf9a840ad68df048e8' ),
+			'content' => array( '0465702330cf85bf9a840ad68df048e8', '8869d64c5fb87ac4a5f0f6ad52bb9a3e' ),
 			'ptitle'  => array( 'ac6e60d26e1e4220787d2c7a4f59840a' ),
 			'title'   => array( '5b1b176d7cb8f60287e007ac8052e0f4' ),
 			'desc'    => array( '7e19a0ac48effcf24586dbf0e461b1a8' ),
 			'kw'      => array( 'cb2c285c25310a735f801ee1ee87d093' ),
 		),
 		'paid-search-b2b-gifting' => array(
-			'content' => array( '7e60b0d9ca152a8c2af6c06c65e847cd' ),
+			'content' => array( '7e60b0d9ca152a8c2af6c06c65e847cd', '2aa47e229727439e1b245f877b60e90b' ),
 			'ptitle'  => array( 'c3f208ccc0d7ad871c3d88425c9bd076' ),
 			'title'   => array( '618416fc047fb3fbf84327f02d2f599c' ),
 			'desc'    => array( 'fb9662566ecb51e53560249e09cc8e75' ),
 			'kw'      => array( 'fc3294cbca47f0b3aa64e07f4fa6a83f' ),
 		),
 		'programmatic-advertising-automotive' => array(
-			'content' => array( '839121d51295dc615c638c6a47521cc0' ),
+			'content' => array( '839121d51295dc615c638c6a47521cc0', 'cc03eca72aadda179750c33636f19527' ),
 			'ptitle'  => array( '5bb13de9d6c52c702112897499d3c20c' ),
 			'title'   => array( '3f8b560005ed4d1e10148ceef319fa25' ),
 			'desc'    => array( '3eef3ce3397eb93fd17e0c9ef36bdfac' ),
 			'kw'      => array( 'f04ae1c04126d5a9b735d09d1b6d2c50' ),
 		),
 		'seo' => array(
-			'content' => array( 'f73265deb960402e5213425f6e4ad486' ),
+			'content' => array( 'f73265deb960402e5213425f6e4ad486', '55b8d878429747b3b2b1c0d94d707107' ),
 			'ptitle'  => array( '7c23a086e49f71ce8ae526514543215e' ),
 			'title'   => array( '3a973bc293df681b7ad92b692e6dece6' ),
 			'desc'    => array( '7ff7930690c92a55b3ecfbc793e694dc' ),
 			'kw'      => array( '8324a318bff49e1d7c41a8cc9c0ced85' ),
 		),
 		'seo-ai-visibility-healthcare' => array(
-			'content' => array( '7160ac2222df9b2955cca74b00c3f63e' ),
+			'content' => array( '7160ac2222df9b2955cca74b00c3f63e', '0a2b766fcabe38299721b09703424eab' ),
 			'ptitle'  => array( '91e4d16ad819867db289cc1db5bc7809' ),
 			'title'   => array( '1060743fc77e439648a1a775bd2eba95' ),
 			'desc'    => array( '1a8b697943a07278846ec616b52a4358' ),
 			'kw'      => array( '0a588468703884a655f1f686cf5f9122' ),
 		),
 		'seo-b2b-services' => array(
-			'content' => array( '377d43000e9e4f2c734da763897f625f' ),
+			'content' => array( '377d43000e9e4f2c734da763897f625f', '8d25167784b5ec577e72b7350fa1d8a3' ),
 			'ptitle'  => array( '2806bca9b6ff1de7d864048f3d7d0a7f' ),
 			'title'   => array( '3cecccdf56acdb27c4b4c4c81f922d9f' ),
 			'desc'    => array( 'edacda9f0d55bc9e44a265b927fb2140' ),
 			'kw'      => array( 'edb86960b874bca2aa51e05dec526feb' ),
 		),
 		'seo-fmcg-malaysia-singapore' => array(
-			'content' => array( '0ab5af0fe56359aa52f2b2faa4c890bd' ),
+			'content' => array( '0ab5af0fe56359aa52f2b2faa4c890bd', '7299a99bffd6fdf11e77ac35a35c0b50' ),
 			'ptitle'  => array( '86a35fa312664c32d1ee425e2c94671f' ),
 			'title'   => array( 'd02c4d945fc5104b5c7d350ec882aaab' ),
 			'desc'    => array( '58d415e9c6898801a2eaa39e71bbd8c5' ),
 			'kw'      => array( '6ac0ae2f77a4b0be7b44122ba7044dc8' ),
 		),
 		'singapore-b2b-portfolio' => array(
-			'content' => array( 'f4f2f7748276bc8592d1408718a5894f' ),
+			'content' => array( 'f4f2f7748276bc8592d1408718a5894f', 'f09e0606382f25afcd227b8c4a81b290' ),
 			'ptitle'  => array( '964c835c5362ddbb9ec42f16adcf4eed' ),
 			'title'   => array( '68c1321c18815666e4fc8d4522b85495' ),
 			'desc'    => array( 'b978764d7da36fd623228253fc36cc52' ),
 			'kw'      => array( '331b6d778d80a1bac1e928af5173335b' ),
 		),
 		'social' => array(
-			'content' => array( 'f24afaa80f1c493c108b3eb1333cf218' ),
+			'content' => array( 'f24afaa80f1c493c108b3eb1333cf218', '0c83e02f6888c64d95117b68d22afeed' ),
 			'ptitle'  => array( '31645cf591ac9b48ac0cd26ef5861f5b' ),
 			'title'   => array( '9a7347d5fdcd533922de727c0126f990' ),
 			'desc'    => array( 'f737eccb66974c64851f8cf2d2779881' ),
 			'kw'      => array( '85daf3f495ba6b453d2a57e056662ed9' ),
 		),
 		'technical-seo-industrial-automation' => array(
-			'content' => array( '6a3a97bd0795ffef61c21b508cb4b1a4' ),
+			'content' => array( '6a3a97bd0795ffef61c21b508cb4b1a4', '63075854cb6ace3d00a46ea59c0c894c' ),
 			'ptitle'  => array( 'e10ff0c64da7cdbf5b22f1a17e47d4be' ),
 			'title'   => array( '9255491baaf4e268c72164636eb2fcbf' ),
 			'desc'    => array( 'ae1b594ca8a39334d404ba2611f5f145' ),
@@ -700,7 +700,7 @@ const REMOTIVE_SETUP_FLAG = 'remotive_site_setup_done';
  * migrations. This is the value stored in remotive_site_setup_done after
  * all migrations for this release complete successfully.
  */
-const REMOTIVE_SETUP_SCHEMA = '1.120.3';
+const REMOTIVE_SETUP_SCHEMA = '1.120.6';
 
 /** Option row that keeps two overlapping admin loads from running the migrations at the same time. */
 const REMOTIVE_SETUP_LOCK = 'remotive_setup_lock';
@@ -801,6 +801,12 @@ function remotive_migration_registry() {
 		// 1.120.3: light is the default colour mode. A site still on the old default (dark) moves to
 		// light once; the choice stays editable in Theme Options -> Site behaviour -> Default colour mode.
 		'1.120.3' => 'remotive_migrate_default_colour_mode',
+		// 1.120.4: the seeded categories get a description, which is the archive's meta description.
+		'1.120.4' => 'remotive_migrate_category_descriptions',
+		// 1.120.6: the seeded service and case study pages had paragraph blocks with no closing comment,
+		// which made the editor and the page render their later sections over and over. Copies that are
+		// still exactly what was seeded get the repaired text; an edited copy is left for "Restore".
+		'1.120.6' => 'remotive_migrate_repair_seed_blocks',
 		// 1.90.0: provisions the three ad landing pages (seo-audit,
 		// google-ads-management, paid-social-advertising). Registering them in
 		// remotive_required_pages() only reaches fresh installs; sites
@@ -1686,6 +1692,69 @@ function remotive_migrate_default_colour_mode() {
 	return true;
 }
 
+/**
+ * Give each seeded category its description, where it has none.
+ *
+ * The seeder created the three categories with no description, so their archives had no meta
+ * description. A description an editor has written is kept.
+ *
+ * @return bool
+ */
+function remotive_migrate_category_descriptions() {
+	foreach ( array( 'seo-ai-search', 'paid-media', 'agency-guides' ) as $slug ) {
+		$term = get_term_by( 'slug', $slug, 'category' );
+
+		if ( ! $term || is_wp_error( $term ) || '' !== trim( (string) $term->description ) ) {
+			continue;
+		}
+
+		$result = wp_update_term( $term->term_id, 'category', array( 'description' => remotive_seed_category_description( $slug ) ) );
+
+		if ( is_wp_error( $result ) ) {
+			$failed = true; // The next admin load tries again.
+		}
+	}
+
+	return empty( $failed );
+}
+
+/**
+ * Replace the seeded pages whose text is still the shipped copy with unclosed paragraph blocks, and
+ * regenerate the image sizes WordPress could not record for a seeded lead image.
+ *
+ * @return bool False when a database write failed, so the next admin load tries again.
+ */
+function remotive_migrate_repair_seed_blocks() {
+	if ( false === remotive_refresh_article_seo() ) {
+		return false;
+	}
+
+	if ( function_exists( 'remotive_seed_content' ) && function_exists( 'wp_generate_attachment_metadata' ) ) {
+		require_once ABSPATH . 'wp-admin/includes/image.php';
+
+		foreach ( remotive_seed_content() as $item ) {
+			$post = remotive_seed_find( $item['slug'], $item['type'], $item['parent'] ?? '' );
+			$id   = $post ? (int) get_post_thumbnail_id( $post ) : 0;
+
+			if ( ! $id || wp_get_attachment_metadata( $id ) ) {
+				continue;
+			}
+
+			$file = get_attached_file( $id );
+
+			if ( $file && is_readable( $file ) ) {
+				$meta = wp_generate_attachment_metadata( $id, $file );
+
+				if ( ! $meta || ! wp_update_attachment_metadata( $id, $meta ) ) {
+					$failed = true; // The next admin load tries again.
+				}
+			}
+		}
+	}
+
+	return empty( $failed );
+}
+
 function remotive_update_options_raw( $value ) {
 	$priority = has_filter( 'sanitize_option_remotive_theme_options', 'remotive_sanitize_theme_options' );
 
@@ -1948,6 +2017,95 @@ function remotive_prune_retired_files() {
 }
 
 /**
+ * The folders that belong to development, not to a site: the test suite and the CI workflow.
+ *
+ * @return string[]
+ */
+function remotive_dev_folders() {
+	return array( 'tests', '.github' );
+}
+
+/**
+ * Delete the development folders from the installed theme, on activation and on the first request
+ * after an upload (remotive_version_sync()).
+ *
+ * The test suite and the CI workflow are never loaded by WordPress; they only take space on the
+ * server. Skipped where the theme folder is a git checkout (a `.git` folder inside it), so a
+ * developer's working copy keeps its tests, and when REMOTIVE_KEEP_DEV_FILES is defined true. A
+ * read-only file system is not worth a fatal: whatever cannot be removed stays, and the next version
+ * tries again.
+ *
+ * @param string|null $root The theme folder; the live one when null.
+ * @return int Files and folders removed.
+ */
+function remotive_remove_dev_files( $root = null ) {
+	if ( defined( 'REMOTIVE_KEEP_DEV_FILES' ) && REMOTIVE_KEEP_DEV_FILES ) {
+		return 0;
+	}
+
+	$root = realpath( null === $root ? get_stylesheet_directory() : $root );
+
+	if ( false === $root || is_dir( $root . '/.git' ) ) {
+		return 0;
+	}
+
+	$removed = 0;
+
+	foreach ( remotive_dev_folders() as $folder ) {
+		$real = realpath( $root . '/' . $folder );
+
+		if ( false === $real || 0 !== strpos( $real, $root . DIRECTORY_SEPARATOR ) || ! is_dir( $real ) ) {
+			continue;
+		}
+
+		$removed += remotive_remove_tree( $real, $root );
+	}
+
+	return $removed;
+}
+
+/**
+ * Delete a folder and everything in it, never following a link out of the theme folder.
+ *
+ * @param string $dir  Folder to delete (a real path).
+ * @param string $root The theme folder (a real path); nothing outside it is touched.
+ * @return int Files and folders removed.
+ */
+function remotive_remove_tree( $dir, $root ) {
+	$removed = 0;
+	$entries = @scandir( $dir ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+
+	foreach ( (array) $entries as $entry ) {
+		if ( '.' === $entry || '..' === $entry ) {
+			continue;
+		}
+
+		$path = $dir . DIRECTORY_SEPARATOR . $entry;
+
+		if ( is_link( $path ) ) {
+			$removed += @unlink( $path ) ? 1 : 0; // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.unlink_unlink
+			continue; // The link itself goes; what it points at is never entered.
+		}
+
+		$real = realpath( $path );
+
+		if ( false === $real || 0 !== strpos( $real, $root . DIRECTORY_SEPARATOR ) ) {
+			continue;
+		}
+
+		if ( is_dir( $real ) ) {
+			$removed += remotive_remove_tree( $real, $root );
+		} else {
+			$removed += @unlink( $real ) ? 1 : 0; // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.unlink_unlink
+		}
+	}
+
+	$removed += @rmdir( $dir ) ? 1 : 0; // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.file_system_operations_rmdir
+
+	return $removed;
+}
+
+/**
  * Replace the retired .com contact address with the .asia one.
  *
  * @return bool Whether the saved value was changed.
@@ -1996,6 +2154,7 @@ function remotive_version_sync() {
 		'remotive_sync_option_defaults',
 		'remotive_sync_case_study_slugs',
 		'remotive_prune_retired_files',
+		'remotive_remove_dev_files',
 		'remotive_i18n_install_tables',
 	);
 

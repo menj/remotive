@@ -44,13 +44,30 @@ defined( 'ABSPATH' ) || exit;
 function remotive_schema_plugin_managed_types() {
 	$map = array();
 
+	// The theme owns the graph (1.120.5): the plugins' own nodes for the organisation, the site, the
+	// page, the article, the breadcrumb and the author are removed below, and the theme's complete
+	// nodes print instead. Return false from the filter to go back to yielding to the plugin.
+	if ( remotive_schema_theme_owns_graph() ) {
+		// Rank Math, Yoast, All in One SEO and Slim SEO have a filter their automatic graph is removed
+		// through (below). SEOPress and The SEO Framework print theirs with no such filter, so for those
+		// two the theme still yields the types they emit rather than printing duplicates.
+		if ( defined( 'SEOPRESS_VERSION' ) ) {
+			$map['seopress'] = array( 'Organization', 'WebSite', 'Article', 'BlogPosting' );
+		}
+		if ( defined( 'THE_SEO_FRAMEWORK_VERSION' ) ) {
+			$map['the-seo-framework'] = array( 'Organization', 'WebSite', 'WebPage', 'BreadcrumbList' );
+		}
+
+		return apply_filters( 'remotive_schema_plugin_managed_types', $map );
+	}
+
 	if ( defined( 'WPSEO_VERSION' ) ) { // Yoast SEO.
 		$map['yoast'] = array( 'Organization', 'WebSite', 'WebPage', 'Article', 'BlogPosting', 'BreadcrumbList', 'Person' );
 	}
 	if ( class_exists( 'RankMath' ) ) {
 		// Rank Math's entire schema output lives behind its "rich-snippet"
-		// module (verified against plugin source v1.0.279: every snippet —
-		// WebSite, WebPage, Article, BreadcrumbList, Person, publisher —
+		// module (verified against plugin source v1.0.279: every snippet,
+		// WebSite, WebPage, Article, BreadcrumbList, Person, publisher,
 		// is loaded by that module, and its REST/admin paths gate on
 		// Helper::is_module_active( 'rich-snippet' )). With the module
 		// switched off the plugin emits nothing, so the theme must keep
@@ -83,6 +100,77 @@ function remotive_schema_plugin_managed_types() {
 	 */
 	return apply_filters( 'remotive_schema_plugin_managed_types', $map );
 }
+
+/**
+ * Whether the theme prints the whole graph and an SEO plugin's automatic nodes are removed.
+ *
+ * On by default since 1.120.5. A plugin's automatic graph describes the site thinly (a nameless
+ * author on every page, no breadcrumb, an Article node on the privacy policy) and the theme's nodes
+ * were withheld to make room for it. Schemas an editor attaches to a page through Rank Math's
+ * Schema Generator are kept: only the plugin's automatic nodes go.
+ *
+ * @return bool
+ */
+function remotive_schema_theme_owns_graph() {
+	return (bool) apply_filters( 'remotive_schema_theme_owns_graph', true );
+}
+
+/**
+ * Remove Rank Math's automatic nodes from its JSON-LD, keeping what an editor attached by hand.
+ *
+ * @param array $data Rank Math's nodes, keyed by its own names.
+ * @return array
+ */
+function remotive_schema_strip_rank_math( $data ) {
+	if ( ! remotive_schema_theme_owns_graph() || ! is_array( $data ) ) {
+		return $data;
+	}
+
+	// The editor's schema preview and the REST route build the same data; they keep the plugin's
+	// context nodes, so an attached schema previews with its publisher and page as before.
+	if ( is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) || ( function_exists( 'wp_doing_ajax' ) && wp_doing_ajax() ) ) {
+		return $data;
+	}
+
+	foreach ( array( 'publisher', 'WebSite', 'WebPage', 'BreadcrumbList', 'ProfilePage', 'richSnippet', 'primaryImage', 'ImageObject', 'Person', 'Organization' ) as $key ) {
+		unset( $data[ $key ] );
+	}
+
+	foreach ( $data as $key => $node ) {
+		$types = isset( $node['@type'] ) ? (array) $node['@type'] : array();
+
+		// The automatic Article / BlogPosting and author nodes carry generated keys on some versions.
+		if ( array_intersect( $types, array( 'Article', 'BlogPosting', 'NewsArticle' ) ) && isset( $node['author'] ) && is_array( $node['author'] ) && empty( $node['author']['name'] ) ) {
+			unset( $data[ $key ] );
+		}
+	}
+
+	return $data;
+}
+add_filter( 'rank_math/json_ld', 'remotive_schema_strip_rank_math', 99 );
+
+/**
+ * Yoast SEO: its graph is withheld when the theme owns the graph.
+ *
+ * @param mixed $output Yoast's graph, or false.
+ * @return mixed
+ */
+function remotive_schema_strip_yoast( $output ) {
+	return remotive_schema_theme_owns_graph() ? false : $output;
+}
+add_filter( 'wpseo_json_ld_output', 'remotive_schema_strip_yoast', 99 );
+
+/**
+ * All in One SEO and Slim SEO: their graphs are withheld when the theme owns the graph.
+ *
+ * @param mixed $graph The plugin's graph.
+ * @return mixed
+ */
+function remotive_schema_strip_plugin_graph( $graph ) {
+	return remotive_schema_theme_owns_graph() ? array() : $graph;
+}
+add_filter( 'aioseo_schema_output', 'remotive_schema_strip_plugin_graph', 99 );
+add_filter( 'slim_seo_schema_graph', 'remotive_schema_strip_plugin_graph', 99 );
 
 /**
  * The union of types to suppress on the current request.
@@ -164,6 +252,32 @@ function remotive_schema_same_as() {
 }
 
 /**
+ * The registered name: the Theme Options value when it names a company, else the registered one.
+ *
+ * @return string
+ */
+function remotive_schema_legal_name() {
+	$name = trim( (string) remotive_get_theme_option( 'legal_name' ) );
+
+	if ( '' === $name || 'Remotive Media Asia' === $name ) {
+		return 'Remotive Media Asia Pte. Ltd.';
+	}
+
+	return $name;
+}
+
+/**
+ * The UEN: the Theme Options value when set, else the registered one.
+ *
+ * @return string
+ */
+function remotive_schema_uen() {
+	$uen = trim( (string) remotive_get_theme_option( 'legal_uen' ) );
+
+	return '' === $uen ? '202404376G' : $uen;
+}
+
+/**
  * Organization node built from theme options + docs/ssot.md facts.
  *
  * @return array
@@ -192,7 +306,7 @@ function remotive_schema_organization() {
 		'@type'       => array( 'Organization', 'ProfessionalService' ),
 		'@id'         => home_url( '/#organization' ),
 		'name'        => get_bloginfo( 'name' ),
-		'legalName'   => 'Remotive Media Asia Pte. Ltd.',
+		'legalName'   => remotive_schema_legal_name(),
 		'description' => 'Full-funnel digital marketing for brands across Asia: performance media, paid search, SEO, social, creative, and analytics. Registered in Singapore, working across APAC.',
 		'url'         => home_url( '/' ),
 		'email'       => sanitize_email( remotive_get_theme_option( 'contact_email' ) ),
@@ -200,7 +314,7 @@ function remotive_schema_organization() {
 		'identifier'  => array(
 			'@type'    => 'PropertyValue',
 			'name'     => 'UEN',
-			'value'    => '202404376G',
+			'value'    => remotive_schema_uen(),
 		),
 		'contactPoint' => array(
 			'@type'       => 'ContactPoint',
@@ -217,16 +331,23 @@ function remotive_schema_organization() {
 	);
 
 	$logo_id = get_theme_mod( 'custom_logo' );
-	$logo    = $logo_id ? wp_get_attachment_image_url( $logo_id, 'full' ) : '';
-	if ( $logo ) {
+	$logo    = $logo_id ? wp_get_attachment_image_src( $logo_id, 'full' ) : false;
+	if ( $logo && ! empty( $logo[0] ) ) {
 		$org['logo'] = array(
 			'@type'           => 'ImageObject',
 			'@id'             => home_url( '/#logo' ),
-			'url'             => $logo,
+			'url'             => $logo[0],
+			'contentUrl'      => $logo[0],
 			'creator'         => array( '@id' => home_url( '/#organization' ) ),
 			'creditText'      => get_bloginfo( 'name' ),
 			'copyrightNotice' => get_bloginfo( 'name' ),
 		);
+		if ( ! empty( $logo[1] ) && ! empty( $logo[2] ) ) {
+			$org['logo']['width']  = (int) $logo[1];
+			$org['logo']['height'] = (int) $logo[2];
+		}
+		// A LocalBusiness needs an image; the logo is the one the site publishes.
+		$org['image'] = array( '@id' => home_url( '/#logo' ) );
 		/**
 		 * License / acquire-license URLs for the logo image metadata,
 		 * when the site publishes them. Return array with 'license'
@@ -331,12 +452,12 @@ function remotive_schema_services() {
 			$node = array(
 				'@type'      => 'Service',
 				'@id'        => get_permalink( $post ) . '#service',
-				'name'       => get_the_title( $post ),
+				'name'       => remotive_schema_text( get_the_title( $post ) ),
 				'url'        => get_permalink( $post ),
 				'provider'   => $org_ref,
 				'areaServed' => array( 'Singapore', 'Malaysia' ),
 			);
-			$excerpt = get_the_excerpt( $post );
+			$excerpt = remotive_schema_text( get_the_excerpt( $post ) );
 			if ( $excerpt ) {
 				$node['description'] = $excerpt;
 			}
@@ -372,8 +493,9 @@ function remotive_schema_faq_from_template( $template ) {
 			foreach ( $m as $hit ) {
 				// The template carries live tokens (a count of people, of case studies); resolve them
 				// here too, or the structured data would publish the raw token.
-				$q = trim( wp_strip_all_tags( remotive_replace_theme_option_tokens( $hit[1], array() ) ) );
-				$a = trim( preg_replace( '/\s+/', ' ', wp_strip_all_tags( remotive_replace_theme_option_tokens( $hit[2], array() ) ) ) );
+				// Texturised like the page (a straight apostrophe becomes a curly one on the page).
+				$q = remotive_schema_text( wptexturize( remotive_replace_theme_option_tokens( $hit[1], array() ) ) );
+				$a = remotive_schema_text( preg_replace( '/\s+/', ' ', wptexturize( remotive_replace_theme_option_tokens( $hit[2], array() ) ) ) );
 				if ( '' !== $q && '' !== $a ) {
 					$pairs[] = array( $q, $a );
 				}
@@ -443,7 +565,43 @@ function remotive_schema_current_url() {
 			return get_permalink( $page );
 		}
 	}
-	return home_url( add_query_arg( array(), $GLOBALS['wp']->request ?? '' ) );
+	if ( is_search() ) {
+		return get_search_link(); // The term lives in the query string, which $wp->request does not carry.
+	}
+	return user_trailingslashit( home_url( add_query_arg( array(), $GLOBALS['wp']->request ?? '' ) ) );
+}
+
+/**
+ * Text for a JSON value: tags out, entities decoded (get_the_title() returns "&amp;").
+ *
+ * @param string $text
+ * @return string
+ */
+function remotive_schema_text( $text ) {
+	return trim( html_entity_decode( wp_strip_all_tags( (string) $text ), ENT_QUOTES | ENT_HTML5, 'UTF-8' ) );
+}
+
+/**
+ * The page's own name: the post or term title, without the site name suffix the document title carries.
+ *
+ * @return string
+ */
+function remotive_schema_page_name() {
+	if ( is_singular() ) {
+		return remotive_schema_text( get_the_title() );
+	}
+
+	if ( is_home() && (int) get_option( 'page_for_posts' ) ) {
+		return remotive_schema_text( get_the_title( (int) get_option( 'page_for_posts' ) ) );
+	}
+
+	if ( is_archive() ) {
+		return remotive_schema_text( get_the_archive_title() );
+	}
+
+	$title = remotive_schema_text( wp_get_document_title() );
+
+	return (string) preg_replace( '/\s+[|\x{2013}\x{2014}-]\s+[^|\x{2013}\x{2014}-]+$/u', '', $title );
 }
 
 /**
@@ -478,7 +636,7 @@ function remotive_schema_webpage() {
 		'@type'    => $type,
 		'@id'      => remotive_schema_current_url() . '#webpage',
 		'url'      => remotive_schema_current_url(),
-		'name'     => wp_get_document_title(),
+		'name'     => remotive_schema_page_name(),
 		'isPartOf' => array( '@id' => home_url( '/#website' ) ),
 		'about'    => array( '@id' => home_url( '/#organization' ) ),
 		'inLanguage' => get_bloginfo( 'language' ),
@@ -519,16 +677,18 @@ function remotive_schema_blog_posting() {
 	$node = array(
 		'@type'            => 'BlogPosting',
 		'@id'              => get_permalink( $post ) . '#article',
-		'headline'         => get_the_title( $post ),
+		'headline'         => remotive_schema_text( get_the_title( $post ) ),
 		'url'              => get_permalink( $post ),
 		'datePublished'    => get_the_date( 'c', $post ),
 		'dateModified'     => get_the_modified_date( 'c', $post ),
 		'inLanguage'       => get_bloginfo( 'language' ),
 		'wordCount'        => str_word_count( wp_strip_all_tags( (string) $post->post_content ) ),
+		// No author URL: the author archives redirect to the home page (inc/core/security.php), so a
+		// URL there would be a redirect. inc/content/schema-extended.php links the author to the team
+		// roster's Person node when the names match.
 		'author'           => array(
 			'@type' => 'Person',
 			'name'  => get_the_author_meta( 'display_name', (int) $post->post_author ),
-			'url'   => get_author_posts_url( (int) $post->post_author ),
 		),
 		'publisher'        => array( '@id' => home_url( '/#organization' ) ),
 		'mainEntityOfPage' => array( '@id' => get_permalink( $post ) . '#webpage' ),
@@ -536,13 +696,13 @@ function remotive_schema_blog_posting() {
 		// assistants read the actual article surface.
 		'speakable'        => array(
 			'@type'       => 'SpeakableSpecification',
-			'cssSelector' => array( '.rm-post__title', '.rm-post__content' ),
+			'cssSelector' => array( '.rm-art-title', '.rm-post__content' ),
 		),
 	);
 
 	$categories = get_the_category( $post->ID );
 	if ( $categories && ! is_wp_error( $categories ) ) {
-		$node['articleSection'] = wp_list_pluck( $categories, 'name' );
+		$node['articleSection'] = array_map( 'remotive_schema_text', wp_list_pluck( $categories, 'name' ) );
 	}
 
 	$image = get_the_post_thumbnail_url( $post, 'full' );
@@ -573,11 +733,20 @@ function remotive_schema_breadcrumbs() {
 	if ( is_singular( 'post' ) ) {
 		$posts_page = (int) get_option( 'page_for_posts' );
 		if ( $posts_page ) {
-			$items[] = array( 'name' => get_the_title( $posts_page ), 'item' => get_permalink( $posts_page ) );
+			$items[] = array( 'name' => remotive_schema_text( get_the_title( $posts_page ) ), 'item' => get_permalink( $posts_page ) );
 		}
-		$items[] = array( 'name' => get_the_title(), 'item' => get_permalink() );
+		$items[] = array( 'name' => remotive_schema_text( get_the_title() ), 'item' => get_permalink() );
 	} else {
-		$items[] = array( 'name' => wp_get_document_title(), 'item' => remotive_schema_current_url() );
+		// A child page sits under its parent (a case study under Case studies, a service under Services).
+		if ( is_page() ) {
+			$post = get_post();
+
+			if ( $post instanceof WP_Post && $post->post_parent ) {
+				$items[] = array( 'name' => remotive_schema_text( get_the_title( $post->post_parent ) ), 'item' => get_permalink( $post->post_parent ) );
+			}
+		}
+
+		$items[] = array( 'name' => remotive_schema_page_name(), 'item' => remotive_schema_current_url() );
 	}
 
 	$list = array();
@@ -630,17 +799,39 @@ function remotive_schema_video() {
 		if ( ! $attachment || ! $src ) {
 			continue;
 		}
-		return array(
+		$video = array(
 			'@type'        => 'VideoObject',
 			'@id'          => get_permalink( $post ) . '#video',
-			'name'         => get_the_title( $attachment ) ?: get_the_title( $post ),
-			'description'  => get_the_excerpt( $post ),
+			'name'         => remotive_schema_text( get_the_title( $attachment ) ?: get_the_title( $post ) ),
+			'description'  => remotive_schema_text( get_the_excerpt( $post ) ),
 			'contentUrl'   => $src,
 			'thumbnailUrl' => $thumbnail,
 			'uploadDate'   => get_the_date( 'c', $attachment ),
 		);
+		$meta = wp_get_attachment_metadata( (int) $block['attrs']['id'] );
+
+		if ( is_array( $meta ) && ! empty( $meta['length'] ) ) {
+			$video['duration'] = remotive_schema_duration( (int) $meta['length'] );
+		}
+
+		return $video;
 	}
 	return null;
+}
+
+/**
+ * Seconds as an ISO 8601 duration (PT1H2M3S).
+ *
+ * @param int $seconds
+ * @return string
+ */
+function remotive_schema_duration( $seconds ) {
+	$seconds = max( 0, (int) $seconds );
+	$h       = intdiv( $seconds, 3600 );
+	$m       = intdiv( $seconds % 3600, 60 );
+	$s       = $seconds % 60;
+
+	return 'PT' . ( $h ? $h . 'H' : '' ) . ( $m ? $m . 'M' : '' ) . ( $s || ( ! $h && ! $m ) ? $s . 'S' : '' );
 }
 
 /**
@@ -689,6 +880,7 @@ function remotive_schema_graph() {
 		'CollectionPage'    => 'WebPage',
 		'SearchResultsPage' => 'WebPage',
 		'ProfilePage'       => 'WebPage',
+		'ItemPage'          => 'WebPage',
 		'BlogPosting'       => 'Article',
 		'ProfessionalService' => 'Organization',
 	);

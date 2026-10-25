@@ -95,5 +95,12 @@ if ( ! function_exists( 'remotive_reading_minutes' ) ) {
 a_ok( 1 === remotive_reading_minutes( (object) array( 'post_content' => 'short' ) ), 'reading time: a short post is one minute' );
 a_ok( 5 === remotive_reading_minutes( (object) array( 'post_content' => str_repeat( 'word ', 1000 ) ) ), 'reading time: 1,000 words is five minutes' );
 
+// Every seeded item opens and closes its blocks. An unclosed block nests everything after it and the
+// page renders its later sections over and over (1.120.6 repaired nineteen pages).
+require_once dirname( __DIR__ ) . '/inc/setup/content-seed.php';
+foreach ( remotive_seed_content() as $item ) {
+	a_ok( remotive_seed_blocks_balanced( $item['content'] ?? '' ), 'balanced block markup: ' . $item['type'] . ':' . $item['slug'] );
+}
+
 echo "article-seo: " . ( $n - $fail ) . " passed, $fail failed\n";
 exit( $fail ? 1 : 0 );
