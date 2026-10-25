@@ -1655,14 +1655,33 @@ const REMOTIVE_SEEDED_VERSION    = 'remotive_seeded_version';
  * @return bool
  */
 function remotive_migrate_default_colour_mode() {
+	global $wpdb;
+
 	$opts = get_option( 'remotive_theme_options' );
 
 	if ( ! is_array( $opts ) || ! isset( $opts['default_theme'] ) || 'dark' !== (string) $opts['default_theme'] ) {
 		return true;
 	}
 
-	$opts['default_theme'] = 'light';
-	remotive_update_options_raw( $opts );
+	$new                  = $opts;
+	$new['default_theme'] = 'light';
+
+	if ( ! is_object( $wpdb ) || ! method_exists( $wpdb, 'update' ) ) {
+		remotive_update_options_raw( $new ); // No database layer (the test bootstrap).
+
+		return true;
+	}
+
+	// Compare and swap on the stored row: the write only lands if the options are still exactly what was
+	// read, so a Theme Options save that lands in between is never overwritten by this older snapshot.
+	// When the swap finds the row changed, that save chose a mode, and this migration leaves it alone.
+	$wpdb->update(
+		$wpdb->options,
+		array( 'option_value' => maybe_serialize( $new ) ),
+		array( 'option_name' => 'remotive_theme_options', 'option_value' => maybe_serialize( $opts ) )
+	);
+	wp_cache_delete( 'remotive_theme_options', 'options' );
+	wp_cache_delete( 'alloptions', 'options' );
 
 	return true;
 }
