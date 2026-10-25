@@ -158,15 +158,19 @@ foreach ( array_merge( array( 'readme.md', 'readme.txt' ), array_map( function (
 	$text = preg_replace( '/```.*?```/s', '', $text );
 
 	// Older release notes are a historical record, so only the entries from 1.116.0 on are held to the
-	// guide: the text is cut at the first release heading older than that. (Until 1.120.3 the cut
+	// guide. Each release section is judged on its own heading, because the upgrade notes are not in
+	// version order; a section with no version in its heading stays in scope. (Until 1.120.3 the cut
 	// matched the first heading that was not 1.116.x or 1.117.x, which was the newest entry, so the
 	// changelog was never checked at all.)
-	if ( in_array( $rel, array( 'docs/changelog.md', 'docs/upgrading.md' ), true ) && preg_match_all( '/^## \[?v?(\d+\.\d+\.\d+)/m', $text, $mm, PREG_OFFSET_CAPTURE ) ) {
-		foreach ( $mm[1] as $i => $m ) {
-			if ( version_compare( $m[0], '1.116.0', '<' ) ) {
-				$text = substr( $text, 0, $mm[0][ $i ][1] );
-				break;
+	if ( in_array( $rel, array( 'docs/changelog.md', 'docs/upgrading.md' ), true ) ) {
+		$parts = preg_split( '/^(?=## )/m', $text );
+		$text  = '';
+
+		foreach ( $parts as $part ) {
+			if ( preg_match( '/^## \[?v?(\d+\.\d+\.\d+)/', $part, $m ) && version_compare( $m[1], '1.116.0', '<' ) ) {
+				continue;
 			}
+			$text .= $part;
 		}
 	} elseif ( 'readme.txt' === $rel && false !== ( $pos = strpos( $text, '== Changelog ==' ) ) ) {
 		$text = substr( $text, 0, $pos ) . substr( $text, $pos, 4000 );

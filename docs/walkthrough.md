@@ -41,9 +41,13 @@ decide between two layouts rather than a list of pages to retire:
 | Scroll motion | Theme Options → Site behaviour | The parallax on both layouts; a device set to reduce motion never sees it. |
 | Graceful error handling | Theme Options → Site behaviour | PHP notices stay off the page; fatals show the branded page. WordPress recovery mode keeps working beside it. |
 
-Enquiries: every form (both layouts, the ad landing pages) stores the lead
-before emailing it. The Enquiries card lists them with a spam folder and a CSV
+Enquiries: every form the theme handles itself (the About and Contact forms,
+the home page CTA on its built-in handler, the ad landing pages and the
+one-page layout) stores the lead before emailing it. A home page CTA pointed
+at an external service in Theme Options posts there instead, and nothing is
+stored. The Enquiries card lists the stored leads with a spam folder and a CSV
 export, and each enquiry's edit screen ("View all enquiries", then the entry)
 shows the full message in a read-only Message box with the email and the form
-it came from. The forms also ask "How did you hear about us?" (optional), and
-the answer is recorded in English in the email and the stored lead.
+it came from. The landing page and one-page forms also ask "How did you hear
+about us?" (optional), and the answer is recorded in English in the email and
+the stored lead.

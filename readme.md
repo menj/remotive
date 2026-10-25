@@ -499,8 +499,10 @@ top of what WordPress already generates from `theme.json`
 (`--wp--preset--color--*`, `--wp--preset--font-family--*`):
 
 - **Dark** (the baseline in the CSS, no `data-theme` attribute needed),
-  values come straight from `theme.json`'s palette/typography. True
-  near-black background (`#1a1a2e`), Archivo + Newsreader. Colour values
+  colour values come straight from `theme.json`'s palette. True near-black
+  background (`#1a1a2e`). The type is Saira in both modes: `remotive.css`
+  points the Archivo and Newsreader font variables at Saira on
+  `html[data-theme]`, so the modes differ in colour alone. Colour values
   match `remotive-reporting` (see `docs/ssot.md`) as of v1.9.0.
 - **Light** (`[data-theme="light"]` on `<html>`), overridden in
   `remotive.css`: Remotive Media Asia's brand palette (from
