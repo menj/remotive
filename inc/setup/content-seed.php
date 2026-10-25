@@ -92,6 +92,23 @@ function remotive_seed_find_args( $slug, $type, $parent = '' ) {
 }
 
 /**
+ * The description a seeded category is created with. It is the category archive's meta description
+ * and the introduction on the archive, so each archive has its own.
+ *
+ * @param string $slug Category slug.
+ * @return string
+ */
+function remotive_seed_category_description( $slug ) {
+	$descriptions = array(
+		'seo-ai-search' => 'Articles on search engine optimisation and visibility in AI answers: how buyers in Asia find and cite a brand, and what to fix first.',
+		'paid-media'    => 'Articles on paid search, paid social and programmatic media in Asia: what to run, what it should cost, and how to judge the results.',
+		'agency-guides' => 'Guides to choosing and working with a marketing agency in Asia: pricing, scope, contracts, and the questions to ask before you sign.',
+	);
+
+	return isset( $descriptions[ $slug ] ) ? $descriptions[ $slug ] : '';
+}
+
+/**
  * Attach a featured image from the theme's bundled seed images.
  *
  * Copies the file into the uploads directory so it behaves like any other
@@ -193,7 +210,7 @@ function remotive_seed_apply_extras( $post_id, $item, $attach_image = true ) {
 		$term = term_exists( $cat_slug, 'category' );
 
 		if ( ! $term ) {
-			$term = wp_insert_term( $cat_name, 'category', array( 'slug' => $cat_slug ) );
+			$term = wp_insert_term( $cat_name, 'category', array( 'slug' => $cat_slug, 'description' => remotive_seed_category_description( $cat_slug ) ) );
 		}
 
 		if ( ! is_wp_error( $term ) ) {

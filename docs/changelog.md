@@ -4,6 +4,16 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.120.4] (2026-10-25)
+
+### Fixed
+
+Findings of a check of the theme's output against Google's SEO Starter Guide.
+
+- **The landing pages had an admin label for a title.** The browser tab and the title tag read "SEO landing page" on every copy. Each landing page now carries its own headline and the site name, in its language, and the first sentence of its lead as the meta description. The confirmation page has its own title too.
+- **The Malay home page's title and description ran long** (71 and 191 characters); both are within the usual limits now.
+- **The category archives had no meta description.** The three seeded categories get a description, which is also the archive's introduction, and an archive whose category has none gets a sentence naming the category and the site.
+
 ## [1.120.3] (2026-10-25)
 
 ### Changed

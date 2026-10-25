@@ -211,6 +211,88 @@ function remotive_is_landing_page() {
 }
 
 /**
+ * The document title of a landing page: the page's own headline and the site name, in the page's
+ * language. The stored page title ("SEO landing page") is an admin label and would otherwise be the
+ * browser tab and the title Rank Math prints.
+ *
+ * @param string $title The title WordPress or Rank Math would print.
+ * @return string
+ */
+function remotive_lp_document_title( $title ) {
+	$parts = remotive_lp_title_parts();
+
+	return null === $parts ? $title : $parts[0] . ' | ' . $parts[1];
+}
+add_filter( 'pre_get_document_title', 'remotive_lp_document_title', 20 );
+add_filter( 'rank_math/frontend/title', 'remotive_lp_document_title', 20 );
+
+/**
+ * The meta description of a landing page: the first sentence of its lead, in the page's language.
+ *
+ * @param string $description The description Rank Math would print.
+ * @return string
+ */
+function remotive_lp_document_description( $description ) {
+	$parts = remotive_lp_title_parts();
+
+	return null === $parts || '' === $parts[2] ? $description : $parts[2];
+}
+add_filter( 'rank_math/frontend/description', 'remotive_lp_document_description', 20 );
+
+/**
+ * array( headline, site name, description ) for the landing page being rendered, or null elsewhere.
+ *
+ * @return array|null
+ */
+function remotive_lp_title_parts() {
+	if ( ! remotive_is_landing_page() ) {
+		return null;
+	}
+
+	$slug = get_post_field( 'post_name', get_queried_object_id() );
+	$i    = remotive_lp_lang_index();
+	$site = get_bloginfo( 'name' );
+
+	if ( REMOTIVE_LP_THANKS_SLUG === $slug ) {
+		$titles = array( 'Thanks. Your request is in.', 'Terima kasih. Permintaan anda telah diterima.', '谢谢。您的申请已收到。', '謝謝。您的申請已收到。' );
+
+		return array( $titles[ $i ], $site, '' );
+	}
+
+	$services = remotive_landing_services();
+
+	if ( ! isset( $services[ $slug ] ) ) {
+		return null;
+	}
+
+	$svc  = $services[ $slug ];
+	$lead = isset( $svc['lead'][ $i ] ) ? (string) $svc['lead'][ $i ] : '';
+
+	return array( rtrim( (string) $svc['title'][ $i ], '.。' ), $site, remotive_lp_first_sentence( $lead ) );
+}
+
+/**
+ * The first sentence of a text, capped at 160 characters, for a meta description.
+ *
+ * @param string $text
+ * @return string
+ */
+function remotive_lp_first_sentence( $text ) {
+	$text = trim( (string) $text );
+
+	if ( '' === $text ) {
+		return '';
+	}
+
+	// A Latin stop ends a sentence only before a space or the end; a full-width stop ends one on its own.
+	if ( preg_match( '/^(.+?(?:[.!?](?=\s|$)|[。！？]))/u', $text, $m ) ) {
+		$text = $m[1];
+	}
+
+	return mb_strlen( $text ) > 160 ? rtrim( mb_substr( $text, 0, 157 ) ) . '...' : $text;
+}
+
+/**
  * Text in the language of the current URL. Only that language is output.
  *
  * @param array  $t   array( en, ms, zh-Hans, zh-Hant ).

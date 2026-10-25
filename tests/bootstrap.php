@@ -129,3 +129,6 @@ if ( ! function_exists( 'add_meta_box' ) ) { function add_meta_box() {} }
 if ( ! function_exists( 'wp_parse_url' ) ) { function wp_parse_url( $u, $c = -1 ) { return parse_url( $u, $c ); } }
 if ( ! function_exists( 'wp_installing' ) ) { function wp_installing() { return false; } }
 if ( ! function_exists( 'maybe_serialize' ) ) { function maybe_serialize( $v ) { return is_scalar( $v ) ? $v : serialize( $v ); } }
+if ( ! function_exists( 'get_bloginfo' ) ) { function get_bloginfo( $k = '' ) { return 'Re:Motive Media'; } }
+if ( ! function_exists( 'is_category' ) ) { function is_category() { return $GLOBALS['T']['category'] ?? false; } }
+if ( ! function_exists( 'wp_strip_all_tags' ) ) { function wp_strip_all_tags( $s ) { return strip_tags( $s ); } }

@@ -700,7 +700,7 @@ const REMOTIVE_SETUP_FLAG = 'remotive_site_setup_done';
  * migrations. This is the value stored in remotive_site_setup_done after
  * all migrations for this release complete successfully.
  */
-const REMOTIVE_SETUP_SCHEMA = '1.120.3';
+const REMOTIVE_SETUP_SCHEMA = '1.120.4';
 
 /** Option row that keeps two overlapping admin loads from running the migrations at the same time. */
 const REMOTIVE_SETUP_LOCK = 'remotive_setup_lock';
@@ -801,6 +801,8 @@ function remotive_migration_registry() {
 		// 1.120.3: light is the default colour mode. A site still on the old default (dark) moves to
 		// light once; the choice stays editable in Theme Options -> Site behaviour -> Default colour mode.
 		'1.120.3' => 'remotive_migrate_default_colour_mode',
+		// 1.120.4: the seeded categories get a description, which is the archive's meta description.
+		'1.120.4' => 'remotive_migrate_category_descriptions',
 		// 1.90.0: provisions the three ad landing pages (seo-audit,
 		// google-ads-management, paid-social-advertising). Registering them in
 		// remotive_required_pages() only reaches fresh installs; sites
@@ -1682,6 +1684,28 @@ function remotive_migrate_default_colour_mode() {
 	);
 	wp_cache_delete( 'remotive_theme_options', 'options' );
 	wp_cache_delete( 'alloptions', 'options' );
+
+	return true;
+}
+
+/**
+ * Give each seeded category its description, where it has none.
+ *
+ * The seeder created the three categories with no description, so their archives had no meta
+ * description. A description an editor has written is kept.
+ *
+ * @return bool
+ */
+function remotive_migrate_category_descriptions() {
+	foreach ( array( 'seo-ai-search', 'paid-media', 'agency-guides' ) as $slug ) {
+		$term = get_term_by( 'slug', $slug, 'category' );
+
+		if ( ! $term || is_wp_error( $term ) || '' !== trim( (string) $term->description ) ) {
+			continue;
+		}
+
+		wp_update_term( $term->term_id, 'category', array( 'description' => remotive_seed_category_description( $slug ) ) );
+	}
 
 	return true;
 }

@@ -110,3 +110,33 @@ function remotive_rank_math_single_title() {
 	}
 }
 add_action( 'wp_head', 'remotive_rank_math_single_title', 0 );
+
+/**
+ * A meta description for a category archive that has none.
+ *
+ * Rank Math prints nothing when the category has no description, and an archive without one shows
+ * whatever Google picks from the page. The category's own description is used when there is one,
+ * otherwise a sentence naming the category and the site.
+ *
+ * @param string $description Rank Math's description.
+ * @return string
+ */
+function remotive_rank_math_archive_description( $description ) {
+	if ( '' !== trim( (string) $description ) || ! is_category() ) {
+		return $description;
+	}
+
+	$term = get_queried_object();
+
+	if ( ! $term || empty( $term->name ) ) {
+		return $description;
+	}
+
+	if ( ! empty( $term->description ) ) {
+		return wp_strip_all_tags( $term->description );
+	}
+
+	/* translators: 1: category name, 2: site name */
+	return sprintf( __( 'Articles on %1$s from %2$s: what works for brands in Asia, and what to fix first.', 'remotive' ), $term->name, get_bloginfo( 'name' ) );
+}
+add_filter( 'rank_math/frontend/description', 'remotive_rank_math_archive_description', 20 );

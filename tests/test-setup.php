@@ -75,7 +75,13 @@ foreach ( $page_hashes as $slug => $fields ) {
 		t_ok( $list && ! array_diff( array_map( function ( $h ) { return preg_match( '/^[a-f0-9]{32}$/', $h ) ? 1 : 0; }, $list ), array( 1 ) ), "$slug / $name: every hash is an md5" );
 	}
 }
-t_ok( '1.120.3' === REMOTIVE_SETUP_SCHEMA, 'the migration schema is 1.120.3' );
+t_ok( '1.120.4' === REMOTIVE_SETUP_SCHEMA, 'the migration schema is 1.120.4' );
+t_ok( isset( remotive_migration_registry()['1.120.4'] ), 'the category description migration is registered' );
+foreach ( array( 'seo-ai-search', 'paid-media', 'agency-guides' ) as $slug ) {
+	$d = remotive_seed_category_description( $slug );
+	t_ok( strlen( $d ) >= 70 && strlen( $d ) <= 160, "$slug has a description of meta length (" . strlen( $d ) . ')' );
+}
+t_eq( remotive_seed_category_description( 'uncategorized' ), '', 'an unknown category gets none' );
 
 // ---- 1.120.3: the old default colour mode (dark) moves to light, once; other choices are kept ----
 t_reset();
