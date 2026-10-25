@@ -7,6 +7,11 @@ on, is the backlog: planned work, ideas and known gaps, roughly ordered by what
 would matter most to fix or build next. Nothing in the backlog is scheduled or
 committed.
 
+## v1.121.1: the error pages install themselves
+
+- Nothing to do. If you pasted the `ErrorDocument` lines from `error-pages/htaccess-errors.txt` into the root `.htaccess`, the theme sees them and leaves them alone; if not, the first page load after the upload adds them in a block marked `# BEGIN Remotive error pages`. On nginx, or when `.htaccess` is not writable, nothing changes and the lines in that file still apply by hand.
+- Upload the theme from the zip, not from a Git checkout. A `.git` folder on the live site is answered with 404, but it is 3,851 files you do not need, and its presence stops the theme removing `tests/` and `docs/`.
+
 ## v1.121.0: the shipped content is JSON
 
 - Nothing to set up. The articles, service pages and case studies the theme ships are now JSON files in `content/` instead of one PHP file; the pages and articles already on your site are untouched, and the Shipped content card and "Restore shipped version" work as before.
@@ -56,9 +61,8 @@ committed.
   those emails back, you no longer need it.
 - **`ErrorDocument` lines.** The static pages in `error-pages/` only show when
   the site root `.htaccess` carries the four lines in
-  `error-pages/htaccess-errors.txt` (above the `# BEGIN WordPress` block). If
-  you did not add them at v1.118.0, do it now; the pages update with the theme
-  folder from then on.
+  `error-pages/htaccess-errors.txt`. From v1.121.1 the theme adds them itself;
+  before that, they were pasted by hand above the `# BEGIN WordPress` block.
 - The drop-ins in `drop-ins/` are copied to `wp-content/` again on the first
   request after the upload (`php-error.php` is new: it now steps aside when
   the theme's handler is active). If `wp-content/` is not writable by PHP,

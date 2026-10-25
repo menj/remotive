@@ -10,7 +10,10 @@
 # was missing, WordPress died in wp-settings.php, and /zh-hans/ and /ai.txt
 # answered 500 with 0 bytes.
 #
-# Install. Copy the lines below into the site root .htaccess, above the
+# Install. From theme 1.121.1 the theme writes these lines into the site root
+# .htaccess itself (a block marked "# BEGIN Remotive error pages"), so this is
+# only needed on a server where it cannot: nginx, or an .htaccess PHP cannot
+# write. Then copy the lines below into the site root .htaccess, above the
 # "# BEGIN WordPress" block. The two pages sit in the theme folder, so they
 # arrive with the theme. Change the folder name if the theme directory differs.
 #

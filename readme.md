@@ -1057,7 +1057,7 @@ still wants `WP_DEBUG_DISPLAY` false and `display_errors` off.
 
 The October 2026 server logs showed WordPress dying in `wp-settings.php` because `wp-includes/sodium_compat/src/Compat.php` was missing. The server answered 500 with an empty body, no theme code ran, and visitors saw a blank page. A theme cannot draw a page in that case, so the server has to.
 
-`error-pages/500.html` and `error-pages/503.html` are static pages with the inline styling of the other error pages, in English, Malay and Chinese. `error-pages/htaccess-errors.txt` holds the `ErrorDocument` lines that point the server at them. Copy those lines into the site root `.htaccess`, above the WordPress block. The theme folder `.htaccess` cannot do this, because it only governs its own folder.
+`error-pages/500.html` and `error-pages/503.html` are static pages with the inline styling of the other error pages, in English, Malay and Chinese. `error-pages/htaccess-errors.txt` holds the `ErrorDocument` lines that point the server at them. From v1.121.1 the theme adds those lines to the site root `.htaccess` itself, once per version, in a block marked `# BEGIN Remotive error pages` (`remotive_install_error_documents()` in `inc/setup/site-setup.php`). It needs Apache or LiteSpeed and an existing, writable `.htaccess`; it never creates the file, never edits a line outside its block, leaves yours alone if you set your own `ErrorDocument 500` or `503`, and removes its block when the theme is switched off. `define( 'REMOTIVE_KEEP_HTACCESS', true );` turns it off. Where it cannot write, copy the lines by hand, above the WordPress block. The theme folder `.htaccess` cannot do this, because it only governs its own folder.
 
 | Failure | Page |
 |---|---|

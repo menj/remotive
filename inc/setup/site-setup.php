@@ -2128,6 +2128,138 @@ function remotive_correct_contact_email() {
 }
 
 /**
+ * The ErrorDocument lines that make the server draw error-pages/ when WordPress cannot.
+ *
+ * The addresses come from the theme folder's URL, so a renamed theme folder or a site in a
+ * sub-folder still points at the right files.
+ *
+ * @return string[]
+ */
+function remotive_error_document_lines() {
+	$base = rtrim( (string) wp_parse_url( get_stylesheet_directory_uri(), PHP_URL_PATH ), '/' ) . '/error-pages/';
+
+	return array(
+		'ErrorDocument 500 ' . $base . '500.html',
+		'ErrorDocument 502 ' . $base . '500.html',
+		'ErrorDocument 504 ' . $base . '500.html',
+		'ErrorDocument 503 ' . $base . '503.html',
+	);
+}
+
+/**
+ * The root .htaccess text with the theme's ErrorDocument block added or refreshed.
+ *
+ * Returns null when the owner has written their own ErrorDocument 500 or 503 line outside the
+ * block: those lines win, and a second set would only conflict.
+ *
+ * @param string   $contents The current .htaccess text.
+ * @param string[] $lines    The lines for the block.
+ * @return string|null
+ */
+function remotive_htaccess_with_error_documents( $contents, array $lines ) {
+	$begin = '# BEGIN Remotive error pages';
+	$end   = '# END Remotive error pages';
+	$block = $begin . "\n" . implode( "\n", $lines ) . "\n" . $end;
+	$mine  = '/' . preg_quote( $begin, '/' ) . '.*?' . preg_quote( $end, '/' ) . '/s';
+	$rest  = preg_replace( $mine, '', $contents );
+
+	if ( preg_match( '/^[ \t]*ErrorDocument[ \t]+(?:500|503)[ \t]/mi', (string) $rest ) ) {
+		return null;
+	}
+
+	if ( preg_match( $mine, $contents ) ) {
+		return preg_replace_callback(
+			$mine,
+			static function () use ( $block ) {
+				return $block;
+			},
+			$contents,
+			1
+		);
+	}
+
+	return rtrim( $contents ) . "\n\n" . $block . "\n";
+}
+
+/**
+ * Add the ErrorDocument block to the site root .htaccess.
+ *
+ * WordPress cannot run when a core file is missing (an interrupted FTP upload) or the server
+ * runs out of memory, so no theme code can draw a page then; the October 2026 logs show
+ * /zh-hans/ and /ai.txt answering 500 with 0 bytes. The server can, if it is told which static
+ * page to show. This used to be a block to paste by hand; it now installs itself, once per
+ * theme version, like the drop-ins.
+ *
+ * Does nothing unless the server is Apache or LiteSpeed and .htaccess already exists and is
+ * writable. It never creates the file, never touches the lines outside its own marked block,
+ * and leaves the site alone if the owner already set an ErrorDocument 500 or 503.
+ * Define REMOTIVE_KEEP_HTACCESS as true to switch it off.
+ *
+ * @param string|null $file The .htaccess path (the site root's by default).
+ * @return bool Whether the file was changed.
+ */
+function remotive_install_error_documents( $file = null ) {
+	if ( defined( 'REMOTIVE_KEEP_HTACCESS' ) && REMOTIVE_KEEP_HTACCESS ) {
+		return false;
+	}
+
+	global $is_apache;
+
+	if ( null === $file ) {
+		if ( empty( $is_apache ) ) {
+			return false;
+		}
+
+		$file = ABSPATH . '.htaccess';
+	}
+
+	$pages = get_stylesheet_directory() . '/error-pages/';
+
+	if ( ! is_readable( $pages . '500.html' ) || ! is_readable( $pages . '503.html' ) || ! is_file( $file ) || ! is_readable( $file ) || ! is_writable( $file ) ) {
+		return false;
+	}
+
+	$old = file_get_contents( $file );
+	$new = false === $old ? null : remotive_htaccess_with_error_documents( $old, remotive_error_document_lines() );
+
+	if ( null === $new || $new === $old ) {
+		return false;
+	}
+
+	return false !== file_put_contents( $file, $new, LOCK_EX );
+}
+
+/**
+ * Take the theme's ErrorDocument block out of .htaccess when the theme is switched off, so no
+ * line points at pages that are about to leave. Only the marked block is removed.
+ *
+ * @param string|null $file The .htaccess path (the site root's by default).
+ * @return bool Whether the file was changed.
+ */
+function remotive_remove_error_documents( $file = null ) {
+	$file = null === $file ? ABSPATH . '.htaccess' : $file;
+
+	if ( ! is_file( $file ) || ! is_readable( $file ) || ! is_writable( $file ) ) {
+		return false;
+	}
+
+	$old = file_get_contents( $file );
+	$new = false === $old ? $old : preg_replace( '/\n*# BEGIN Remotive error pages.*?# END Remotive error pages\n?/s', "\n", $old );
+
+	if ( false === $old || null === $new || $new === $old ) {
+		return false;
+	}
+
+	return false !== file_put_contents( $file, rtrim( $new ) . "\n", LOCK_EX );
+}
+add_action(
+	'switch_theme',
+	static function () {
+		remotive_remove_error_documents(); // The hook passes theme names, not a path.
+	}
+);
+
+/**
  * Run every sync once per theme version.
  *
  * Claims the version FIRST, then runs each step isolated, so one failing step
@@ -2150,6 +2282,7 @@ function remotive_version_sync() {
 
 	$steps = array(
 		'remotive_install_error_dropins',
+		'remotive_install_error_documents',
 		'remotive_sync_team_roster',
 		'remotive_sync_team_order',
 		'remotive_sync_team_names',

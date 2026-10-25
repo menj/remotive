@@ -4,6 +4,21 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.121.1] (2026-10-25)
+
+### Changed
+
+- **The theme installs the server error pages itself.** The October 2026 logs show `/zh-hans/` and `/ai.txt` answering 500 with 0 bytes: WordPress could not start, so no theme code could draw a page, and the `ErrorDocument` lines that make the server draw `error-pages/500.html` were still a block to paste by hand. `remotive_install_error_documents()` now adds them to the site root `.htaccess` once per theme version, in a marked `# BEGIN Remotive error pages` block, so a failure before WordPress starts shows the branded page without any step from you.
+- It does nothing unless the server is Apache or LiteSpeed and `.htaccess` already exists and is writable; it never creates the file, never edits a line outside its own block, and leaves yours alone if you already set an `ErrorDocument 500` or `503`. The addresses come from the theme folder's URL, so a renamed folder or a sub-folder install still works. Switching to another theme removes the block. `define( 'REMOTIVE_KEEP_HTACCESS', true );` switches it off.
+
+### Found in the logs, no code change
+
+- The 500s on 6 October 22:43 to 22:50 are `admin-ajax.php` calls from the WP Perf Shield plugin's own screen, not the theme.
+- `HEAD` requests answer 200 with 0 bytes by design; they are uptime checks.
+- `429` on `/robots.txt` and `/sitemap.xml` is the host rate-limiting crawlers.
+- `401` and `400` on `/`, `/.git/config` and `autodiscover` are the host's `webdisk.`, `cpcalendars.` and `autodiscover.` subdomains and scanners; none reach the theme.
+- The FTP log shows the whole `.git` folder (3,851 files) uploaded into the live theme folder. The theme's `.htaccess` already answers 404 for it and no request for it appears in the access logs, but a live site does not need it, and with `.git` present the automatic removal of `tests/` and `docs/` stands down by design. Upload the files from the theme zip instead.
+
 ## [1.121.0] (2026-10-25)
 
 ### Changed
