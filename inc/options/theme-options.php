@@ -602,7 +602,7 @@ function remotive_theme_options_base_tabs() {
 					'options' => array(
 						'light'  => array(
 							'label' => __( 'Light', 'remotive' ),
-							'desc'  => __( 'The Remotive Media Asia brand system (default)', 'remotive' ),
+							'desc'  => __( 'The Remotive Media Asia brand system, the default', 'remotive' ),
 						),
 						'dark'   => array(
 							'label' => __( 'Dark', 'remotive' ),
