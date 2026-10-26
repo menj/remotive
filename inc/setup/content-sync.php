@@ -179,6 +179,18 @@ function remotive_content_find_trashed( array $item ) {
 		'suppress_filters' => false,
 	);
 
+	// A child is only ever its declared parent's child: with that page missing, or the copy in the Trash
+	// under another parent, nothing is matched.
+	if ( '' !== (string) ( $item['parent'] ?? '' ) ) {
+		$parent = get_page_by_path( $item['parent'], OBJECT, 'page' );
+
+		if ( ! $parent ) {
+			return null;
+		}
+
+		$args['post_parent'] = (int) $parent->ID;
+	}
+
 	$found = get_posts( $args );
 
 	if ( ! $found ) {
@@ -187,6 +199,43 @@ function remotive_content_find_trashed( array $item ) {
 	}
 
 	return $found ? $found[0] : null;
+}
+
+/**
+ * Fill in the parts of a shipped item that sit beside its text: the Rank Math fields and the image.
+ *
+ * An empty field is filled, one still holding earlier shipped text is replaced, and anything an editor
+ * wrote stays. The image is attached only when the post has none.
+ *
+ * @param WP_Post $post    The post.
+ * @param array   $item    The shipped item.
+ * @param string  $key     type:slug.
+ * @param array   $ledger  The whole ledger.
+ * @param array   $current Fingerprints of the item as shipped now.
+ * @return int Fields and images changed.
+ */
+function remotive_content_apply_fields( $post, array $item, $key, array $ledger, array $current ) {
+	$changed = 0;
+
+	foreach ( remotive_content_meta_map() as $field => $map ) {
+		$new = (string) ( $item[ $map[0] ] ?? '' );
+		$cur = (string) get_post_meta( $post->ID, $map[1], true );
+
+		if ( '' !== $new && $cur !== $new && ( '' === $cur || in_array( md5( $cur ), remotive_content_known( $field, $key, $ledger, $current ), true ) ) ) {
+			update_post_meta( $post->ID, $map[1], $new );
+			++$changed;
+		}
+	}
+
+	if ( ! empty( $item['image'] ) && ! has_post_thumbnail( $post->ID ) ) {
+		remotive_seed_attach_image( $post->ID, $item['image'], $item['title'] );
+
+		if ( has_post_thumbnail( $post->ID ) ) {
+			++$changed;
+		}
+	}
+
+	return $changed;
 }
 
 /**
@@ -208,12 +257,14 @@ function remotive_sync_shipped_content( $publish_all = false ) {
 		return $out;
 	}
 
+	global $wpdb;
+
 	$items      = remotive_seed_content();
 	$ledger     = (array) get_option( REMOTIVE_SEED_LEDGER, array() );
 	$base       = remotive_seed_base_path();
 	$permalinks = remotive_seed_post_permalinks();
 	$shipped    = array();
-	$meta_map   = remotive_content_meta_map();
+	$recreated  = 0;
 
 	foreach ( $items as $item ) {
 		$key = $item['type'] . ':' . $item['slug'];
@@ -233,6 +284,7 @@ function remotive_sync_shipped_content( $publish_all = false ) {
 				if ( $post_id ) {
 					$ledger[ $key ] = $current;
 					++$out['created'];
+					++$recreated;
 					continue;
 				}
 			}
@@ -263,6 +315,11 @@ function remotive_sync_shipped_content( $publish_all = false ) {
 		$decision = remotive_content_decide( remotive_content_stored( $post, $base, $permalinks ), $key, $ledger, $current );
 
 		if ( 'current' === $decision ) {
+			// The text is already the shipped text; the fields beside it may still be missing or old.
+			if ( remotive_content_apply_fields( $post, $item, $key, $ledger, $current ) ) {
+				++$out['refreshed'];
+			}
+
 			$ledger[ $key ] = $current;
 			continue;
 		}
@@ -271,36 +328,31 @@ function remotive_sync_shipped_content( $publish_all = false ) {
 			continue;
 		}
 
-		$updated = wp_update_post(
-			wp_slash(
-				array(
-					'ID'           => $post->ID,
-					'post_title'   => $item['title'],
-					'post_content' => remotive_seed_content_to_site( $item['content'], $base ),
-					'post_excerpt' => $item['excerpt'],
-				)
+		// Compare and swap: the WHERE clause holds the text that was just checked, so a copy an editor
+		// saved since then is not overwritten (no row matches).
+		$rows = $wpdb->update(
+			$wpdb->posts,
+			array(
+				'post_title'        => $item['title'],
+				'post_content'      => remotive_seed_content_to_site( $item['content'], $base ),
+				'post_excerpt'      => $item['excerpt'],
+				'post_modified'     => current_time( 'mysql' ),
+				'post_modified_gmt' => current_time( 'mysql', true ),
 			),
-			true
+			array(
+				'ID'           => $post->ID,
+				'post_title'   => $post->post_title,
+				'post_content' => $post->post_content,
+				'post_excerpt' => $post->post_excerpt,
+			)
 		);
 
-		if ( is_wp_error( $updated ) || ! $updated ) {
+		if ( 1 !== (int) $rows ) {
 			continue;
 		}
 
-		// Rank Math fields: an empty one is filled and one still holding earlier shipped text is replaced;
-		// anything an editor wrote stays.
-		foreach ( $meta_map as $field => $map ) {
-			$new = (string) ( $item[ $map[0] ] ?? '' );
-			$cur = (string) get_post_meta( $post->ID, $map[1], true );
-
-			if ( '' !== $new && $cur !== $new && ( '' === $cur || in_array( md5( $cur ), remotive_content_known( $field, $key, $ledger, $current ), true ) ) ) {
-				update_post_meta( $post->ID, $map[1], $new );
-			}
-		}
-
-		if ( ! empty( $item['image'] ) && ! has_post_thumbnail( $post->ID ) ) {
-			remotive_seed_attach_image( $post->ID, $item['image'], $item['title'] );
-		}
+		clean_post_cache( $post->ID );
+		remotive_content_apply_fields( get_post( $post->ID ), $item, $key, $ledger, $current );
 
 		$ledger[ $key ] = $current;
 		++$out['refreshed'];
@@ -339,7 +391,7 @@ function remotive_sync_shipped_content( $publish_all = false ) {
 
 	update_option( REMOTIVE_SEED_LEDGER, $ledger, false );
 
-	if ( $out['refreshed'] && function_exists( 'remotive_resolve_seed_post_links' ) ) {
+	if ( ( $out['refreshed'] || $recreated ) && function_exists( 'remotive_resolve_seed_post_links' ) ) {
 		remotive_resolve_seed_post_links(); // The new text carries /blog/ links; point them at the real permalinks again.
 	}
 
@@ -448,6 +500,12 @@ function remotive_content_sync_on_admin() {
 		return;
 	}
 
+	// The Set up button (admin-post.php) runs the same work itself and reports it; running it here first
+	// would leave that report at zero.
+	if ( isset( $GLOBALS['pagenow'] ) && 'admin-post.php' === $GLOBALS['pagenow'] ) {
+		return;
+	}
+
 	$version = (string) wp_get_theme( get_stylesheet() )->get( 'Version' );
 	$force   = (bool) get_option( REMOTIVE_FORCE_PUBLISH );
 	$first   = false === get_option( REMOTIVE_CONTENT_SYNCED );
@@ -456,9 +514,11 @@ function remotive_content_sync_on_admin() {
 		return;
 	}
 
-	// Record the version first, so two admin loads at once do not both run it.
-	update_option( REMOTIVE_CONTENT_SYNCED, $version, false );
-	delete_option( REMOTIVE_FORCE_PUBLISH );
+	// One request at a time: two admin loads at once would both seed the same missing items. The loser
+	// leaves the version unrecorded and the next admin load runs it.
+	if ( function_exists( 'remotive_setup_lock_acquire' ) && ! remotive_setup_lock_acquire() ) {
+		return;
+	}
 
 	try {
 		if ( function_exists( 'remotive_seed_run' ) ) {
@@ -472,6 +532,14 @@ function remotive_content_sync_on_admin() {
 		}
 	} catch ( \Throwable $e ) {
 		error_log( sprintf( '[remotive] content sync failed: %s', $e->getMessage() ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+	}
+
+	// Recorded even after a failure, so one broken item does not retry on every admin load.
+	update_option( REMOTIVE_CONTENT_SYNCED, $version, false );
+	delete_option( REMOTIVE_FORCE_PUBLISH );
+
+	if ( function_exists( 'remotive_setup_lock_release' ) ) {
+		remotive_setup_lock_release();
 	}
 }
 add_action( 'admin_init', 'remotive_content_sync_on_admin', 30 );
