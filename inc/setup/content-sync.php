@@ -243,14 +243,16 @@ function remotive_content_apply_fields( $post, array $item, $key, array $ledger,
  *
  * @param bool $publish_all Publish every shipped item, restoring and recreating as needed. True on
  *                          activation and from the "Set up" button; false when only new files arrived.
- * @return array{published:int,created:int,refreshed:int,retired:int}
+ * @return array{published:int,created:int,refreshed:int,retired:int,incomplete:int} 'incomplete' counts
+ *         untouched items whose bundled image could not be attached, so the caller can try again.
  */
 function remotive_sync_shipped_content( $publish_all = false ) {
 	$out = array(
-		'published' => 0,
-		'created'   => 0,
-		'refreshed' => 0,
-		'retired'   => 0,
+		'published'  => 0,
+		'created'    => 0,
+		'refreshed'  => 0,
+		'retired'    => 0,
+		'incomplete' => 0,
 	);
 
 	if ( ! function_exists( 'remotive_seed_content' ) ) {
@@ -285,6 +287,11 @@ function remotive_sync_shipped_content( $publish_all = false ) {
 					$ledger[ $key ] = $current;
 					++$out['created'];
 					++$recreated;
+
+					if ( ! empty( $item['image'] ) && ! has_post_thumbnail( $post_id ) ) {
+						++$out['incomplete'];
+					}
+
 					continue;
 				}
 			}
@@ -320,6 +327,10 @@ function remotive_sync_shipped_content( $publish_all = false ) {
 				++$out['refreshed'];
 			}
 
+			if ( ! empty( $item['image'] ) && ! has_post_thumbnail( $post->ID ) ) {
+				++$out['incomplete'];
+			}
+
 			$ledger[ $key ] = $current;
 			continue;
 		}
@@ -353,6 +364,10 @@ function remotive_sync_shipped_content( $publish_all = false ) {
 
 		clean_post_cache( $post->ID );
 		remotive_content_apply_fields( get_post( $post->ID ), $item, $key, $ledger, $current );
+
+		if ( ! empty( $item['image'] ) && ! has_post_thumbnail( $post->ID ) ) {
+			++$out['incomplete'];
+		}
 
 		$ledger[ $key ] = $current;
 		++$out['refreshed'];
@@ -520,12 +535,14 @@ function remotive_content_sync_on_admin() {
 		return;
 	}
 
+	$result = array();
+
 	try {
 		if ( function_exists( 'remotive_seed_run' ) ) {
 			remotive_seed_run(); // Items the site has never had.
 		}
 
-		remotive_sync_shipped_content( $force );
+		$result = remotive_sync_shipped_content( $force );
 
 		if ( $force || $first ) {
 			remotive_remove_wp_sample_content();
@@ -534,9 +551,19 @@ function remotive_content_sync_on_admin() {
 		error_log( sprintf( '[remotive] content sync failed: %s', $e->getMessage() ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 	}
 
-	// Recorded even after a failure, so one broken item does not retry on every admin load.
-	update_option( REMOTIVE_CONTENT_SYNCED, $version, false );
-	delete_option( REMOTIVE_FORCE_PUBLISH );
+	// An image that could not be attached (the uploads folder was not writable, say) is tried again on the
+	// next two admin loads. After that the version is recorded anyway, so one broken item cannot retry
+	// forever; "Set up" or "Restore" in Theme Options still fills it in on request.
+	$tries = (int) get_option( 'remotive_content_sync_tries', 0 );
+	$retry = ! empty( $result['incomplete'] ) && $tries < 2;
+
+	if ( $retry ) {
+		update_option( 'remotive_content_sync_tries', $tries + 1, false );
+	} else {
+		delete_option( 'remotive_content_sync_tries' );
+		update_option( REMOTIVE_CONTENT_SYNCED, $version, false );
+		delete_option( REMOTIVE_FORCE_PUBLISH );
+	}
 
 	if ( function_exists( 'remotive_setup_lock_release' ) ) {
 		remotive_setup_lock_release();
