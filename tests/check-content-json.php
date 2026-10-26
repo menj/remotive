@@ -16,6 +16,10 @@
 
 define( 'ABSPATH', '/' );
 
+if ( ! function_exists( 'add_action' ) ) {
+	function add_action() {} // The sync module registers its hooks when it loads.
+}
+
 $root = dirname( __DIR__ );
 require $root . '/inc/setup/content-source.php';
 require $root . '/inc/setup/content-seed.php';

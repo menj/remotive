@@ -138,8 +138,11 @@ remotive/
 │   │   │                       per-item restore from Theme Options. A child page
 │   │   │                       is looked for under its parent only; with the
 │   │   │                       parent missing nothing is matched or created.
-│   │   └── content-source.php      Reads and validates the shipped content from
-│   │                       content/ (JSON only). (v1.121.0)
+│   │   ├── content-source.php      Reads and validates the shipped content from
+│   │   │                   content/ (JSON only). (v1.121.0)
+│   │   └── content-sync.php        Publishes every shipped item on activation, replaces
+│   │                       untouched outdated copies, removes what is gone and
+│   │                       WordPress's sample content. (v1.122.0)
 │   ├── forms/              Enquiries, from submission to storage.
 │   │   ├── lead-form-handler.php  Shared nonce/rate-limit/honeypot/email
 │   │   │                   logic every native form goes through
@@ -1477,6 +1480,19 @@ Three rules for changing text:
 - The Malay and Chinese dictionaries in `inc/i18n/` are keyed by the exact English sentence. When you reword a sentence, add the new wording as a key with the existing translation and leave the old key in place, so a page that was edited keeps its translation.
 - A page or article that already exists on a site is refreshed by the migration in `inc/setup/site-setup.php`, which replaces a value only while it matches an earlier seed (`remotive_old_article_seo_hashes()`, `remotive_old_page_copy_hashes()`). Add the hash of the old text when you change a seeded page.
 - Menu names that sites look up by name are identifiers, so they keep their wording.
+
+## Shipped content publishes and stays current (`inc/setup/content-sync.php`, v1.122.0)
+
+Three things happen to the shipped content, in the admin, for a person allowed to publish pages: once on the first admin load after activation or after new theme files arrive, and again from **Set up** in Theme Options (which now says what it did). Nothing runs on a visitor's request.
+
+| When | What happens |
+|---|---|
+| The theme is activated | Every shipped item is published. A draft, pending or scheduled copy is published, a copy in the Trash is restored, and an item deleted for good is created again. |
+| New shipped text arrives | A copy that is still exactly what the theme wrote earlier is replaced by the new text (body, title, excerpt, Rank Math fields, and the image if it has none). A copy an editor has changed is left alone; **Restore** in Theme Options still puts it back on request. |
+| The theme stops shipping an item | The copy goes to the Trash if nobody edited it, and leaves the ledger either way. |
+| First run, activation and **Set up** | WordPress's sample post and sample page are deleted when they are still untouched, and the empty "Uncategorized" category goes too, with the first category the theme ships becoming the default. |
+
+How "untouched" is known: the theme keeps a ledger, the option `remotive_seed_ledger`, of an md5 fingerprint of what it last wrote for each item (body, title, excerpt, the three Rank Math fields). A copy whose body, title and excerpt still match is untouched; no list of old texts has to be kept by hand for future releases. For sites published before the ledger, `remotive_content_history()` holds the earlier fingerprints of the two pages whose text changed after 1.121.0. Removal goes through the Trash (WordPress empties it after 30 days), except the sample content. `remotive_content_decide()` is the pure decision and is unit tested.
 
 ## Shipped content is JSON
 

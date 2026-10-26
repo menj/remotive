@@ -621,7 +621,7 @@ by path, error handler first.
 |---|---|
 | `inc/core/` | `error-handler`, `security`, `accessibility`, `avif`, `branded-login`, `rank-math`, `not-found` (v1.118.0), `ai-discovery-files` |
 | `inc/options/` | `theme-options`, `colours`, `agency-layout` (v1.116.0), `maintenance-mode` |
-| `inc/setup/` | `site-setup`, `classic-menus`, `content-seed`, `content-source` (v1.121.0; the shipped content itself is JSON in `content/`) |
+| `inc/setup/` | `site-setup`, `classic-menus`, `content-seed`, `content-source` (v1.121.0; the shipped content itself is JSON in `content/`), `content-sync` (v1.122.0) |
 | `inc/forms/` | `lead-form-handler`, `cta-form-handler`, `about-form-handler`, `contact-form-handler`, `leads`, `akismet`, `thank-you` |
 | `inc/landing/` | `landing-pages`, `landing-copy`, `agency-page` (v1.116.0) |
 | `inc/i18n/` | `i18n`, `i18n-admin`, and the dictionaries `ms`, `zh-hans`, `zh-hant` (loaded by name). On/off per language: Theme Options → Languages |

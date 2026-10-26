@@ -4,6 +4,16 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.122.0] (2026-10-26)
+
+### Added
+
+- **All shipped content publishes when the theme is activated.** On the first admin load after activation, every shipped article, service page and case study is published: a draft, pending or scheduled copy is published, a copy in the Trash is restored, and one that was deleted for good is created again. (Until now the seeder created only what the site had never had and left everything else as it was.)
+- **Outdated content is replaced, not left behind.** When the theme ships newer text, a copy that is still exactly what the theme wrote earlier is replaced by it (body, title, excerpt, Rank Math fields, and the image if missing). A copy an editor changed is left alone. The theme now keeps a ledger of fingerprints (`remotive_seed_ledger`) of what it wrote, so this needs no hand-kept list of old texts. A page the theme no longer ships goes to the Trash if untouched.
+- **WordPress's sample content is removed.** The sample post and sample page are deleted when untouched, and the empty "Uncategorized" category is removed with the first category the theme ships becoming the default. A look-alike an editor has changed is kept, and so is the category while any post uses it.
+- **Set up says what it did.** The notice after **Set up** in Theme Options now also reports how many shipped items were published or restored, replaced by newer text, or removed.
+- It runs in the admin for a person allowed to publish pages, never on a visitor's request. Tested against a real WordPress install: draft, Trash, deleted, edited, retired and sample cases, 29 checks.
+
 ## [1.121.1] (2026-10-25)
 
 ### Changed
