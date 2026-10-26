@@ -1418,6 +1418,10 @@ function remotive_handle_site_setup() {
 		$result['created'] = array_merge( $result['created'] ?? array(), $seeded );
 	}
 
+	// Publish every shipped item, replace the ones that are outdated, remove what is gone and the sample content.
+	$synced  = function_exists( 'remotive_sync_shipped_content' ) ? remotive_sync_shipped_content( true ) : array();
+	$removed = (int) ( $synced['retired'] ?? 0 ) + ( function_exists( 'remotive_remove_wp_sample_content' ) ? remotive_remove_wp_sample_content() : 0 );
+
 	if ( function_exists( 'remotive_build_classic_menus' ) ) {
 		remotive_build_classic_menus();
 	}
@@ -1428,6 +1432,9 @@ function remotive_handle_site_setup() {
 			'remotive_setup'  => 'done',
 			'created'         => count( $result['created'] ),
 			'updated'         => count( $result['updated'] ),
+			'published'       => (int) ( $synced['published'] ?? 0 ) + (int) ( $synced['created'] ?? 0 ),
+			'refreshed'       => (int) ( $synced['refreshed'] ?? 0 ),
+			'removed'         => $removed,
 		),
 		admin_url( 'themes.php' )
 	);

@@ -128,7 +128,7 @@ $GLOBALS['T']['no_page'] = true;
 t_eq( remotive_seed_find_args( 'seo', 'page', 'services' ), null, 'with the parent missing no slug match is trusted' );
 t_eq( remotive_seed_find( 'seo', 'page', 'services' ), null, 'and the lookup finds nothing' );
 $src = file_get_contents( dirname( __DIR__ ) . '/inc/setup/content-seed.php' );
-t_ok( 2 === preg_match_all( '/if \( ! \$parent \) \{\s*\n\s*(continue|return false)/', $src ), 'the seeder and the restore both stop at a missing parent' );
+t_ok( 2 === preg_match_all( '/if \( ! \$parent \) \{\s*\n\s*(continue|return false|return 0)/', $src ), 'the seeder and the restore both stop at a missing parent' );
 $GLOBALS['T']['no_page'] = false;
 
 // ---- Overlapping admin loads: the second one waits while the first holds the lock ----
@@ -181,6 +181,28 @@ t_eq( remotive_remove_dev_files( '/nonexistent-' . getmypid() ), 0, 'a missing f
 t_eq( remotive_dev_folders(), array( 'tests', '.github' ), 'only the two development folders are ever named' );
 $src = file_get_contents( dirname( __DIR__ ) . '/inc/setup/site-setup.php' );
 t_ok( false !== strpos( $src, "'remotive_remove_dev_files',\n" ), 'the removal runs with the version sync, on activation and after an upload' );
+
+// ---- Shipped content: publish, replace what is outdated, remove what is gone ----
+$cs_item = array( 'type' => 'page', 'slug' => 'demo', 'title' => 'Demo', 'excerpt' => 'Short.', 'content' => '<p>New</p>', 'rm_title' => 'T', 'rm_desc' => 'D', 'rm_kw' => 'K' );
+$cs_now  = remotive_content_snapshot( $cs_item );
+$cs_old  = remotive_content_snapshot( array_merge( $cs_item, array( 'content' => '<p>Old</p>' ) ) );
+$cs_key  = 'page:demo';
+
+t_eq( remotive_content_decide( array( 'c' => $cs_now['c'], 't' => $cs_now['t'], 'x' => $cs_now['x'] ), $cs_key, array(), $cs_now ), 'current', 'a copy that is already the shipped text is current' );
+t_eq( remotive_content_decide( array( 'c' => $cs_old['c'], 't' => $cs_old['t'], 'x' => $cs_old['x'] ), $cs_key, array( $cs_key => $cs_old ), $cs_now ), 'refresh', 'a copy the ledger says the theme wrote is replaced by newer text' );
+t_eq( remotive_content_decide( array( 'c' => md5( '<p>Mine</p>' ), 't' => $cs_old['t'], 'x' => $cs_old['x'] ), $cs_key, array( $cs_key => $cs_old ), $cs_now ), 'edited', 'an edited body is left alone' );
+t_eq( remotive_content_decide( array( 'c' => $cs_old['c'], 't' => md5( 'My title' ), 'x' => $cs_old['x'] ), $cs_key, array( $cs_key => $cs_old ), $cs_now ), 'edited', 'an edited title is left alone' );
+t_eq( remotive_content_decide( array( 'c' => $cs_old['c'], 't' => $cs_old['t'], 'x' => md5( 'My excerpt' ) ), $cs_key, array( $cs_key => $cs_old ), $cs_now ), 'edited', 'an edited excerpt is left alone' );
+t_eq( remotive_content_decide( array( 'c' => $cs_old['c'], 't' => $cs_old['t'], 'x' => $cs_old['x'] ), $cs_key, array(), $cs_now ), 'edited', 'with no ledger entry and no history, older text cannot be proved untouched, so it is left alone' );
+
+$fm = remotive_content_history()['page:seo-fmcg-malaysia-singapore'][0]['c'];
+$cs_fm_now = array( 'c' => 'new', 't' => 'T', 'x' => 'X', 'rt' => 'a', 'rd' => 'b', 'rk' => 'c' );
+t_eq( remotive_content_decide( array( 'c' => $fm, 't' => 'T', 'x' => 'X' ), 'page:seo-fmcg-malaysia-singapore', array(), $cs_fm_now ), 'refresh', 'a site published before the ledger is bridged by the history for the two changed pages' );
+t_ok( in_array( 'old', remotive_content_known( 'rd', 'page:x', array( 'page:x' => array( 'rd' => 'old' ) ), $cs_fm_now ), true ), 'the ledger value counts as known' );
+
+$real = remotive_seed_content();
+t_ok( count( $real ) > 0 && isset( remotive_content_snapshot( $real[0] )['rk'] ), 'a real shipped item has a full fingerprint' );
+t_ok( 6 === count( remotive_content_snapshot( $real[0] ) ), 'a fingerprint covers content, title, excerpt and the three Rank Math fields' );
 
 // ---- ErrorDocument block in the root .htaccess ----
 $ed_lines = remotive_error_document_lines();

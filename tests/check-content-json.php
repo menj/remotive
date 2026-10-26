@@ -16,6 +16,10 @@
 
 define( 'ABSPATH', '/' );
 
+if ( ! function_exists( 'add_action' ) ) {
+	function add_action() {} // The sync module registers its hooks when it loads.
+}
+
 $root = dirname( __DIR__ );
 require $root . '/inc/setup/content-source.php';
 require $root . '/inc/setup/content-seed.php';
@@ -95,6 +99,7 @@ foreach ( $listed as $rel ) {
 
 // ---- 4. The loader returns them all, in order ----
 $loaded = remotive_seed_content( true );
+cj_ok( remotive_content_listed_count() === count( $listed ), 'the index entry count is readable for code that must not act on a partial list' );
 cj_ok( count( $loaded ) === count( $listed ), 'the loader returns every listed item (' . count( $loaded ) . ' of ' . count( $listed ) . ')' );
 $slugs = array();
 

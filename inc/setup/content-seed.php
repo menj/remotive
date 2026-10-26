@@ -26,6 +26,7 @@
 defined( 'ABSPATH' ) || exit;
 
 require_once __DIR__ . '/content-source.php';
+require_once __DIR__ . '/content-sync.php';
 
 const REMOTIVE_SEEDED = 'remotive_seeded_content';
 
@@ -266,6 +267,52 @@ function remotive_seed_apply_extras( $post_id, $item, $attach_image = true ) {
 }
 
 /**
+ * Create one shipped item, published, and record what was written.
+ *
+ * @param array $item A shipped item.
+ * @return int The new post's ID, or 0 when the markup is broken, its parent page is missing or the
+ *             write failed.
+ */
+function remotive_seed_create( array $item ) {
+	if ( ! remotive_seed_blocks_balanced( $item['content'] ?? '' ) ) {
+		return 0; // Broken markup is not seeded; the check script catches it before a release.
+	}
+
+	$args = array(
+		'post_title'   => $item['title'],
+		'post_name'    => $item['slug'],
+		'post_content' => remotive_seed_content_to_site( $item['content'], remotive_seed_base_path() ),
+		'post_excerpt' => $item['excerpt'],
+		'post_status'  => 'publish',
+		'post_type'    => $item['type'],
+		'post_author'  => remotive_seed_author(),
+	);
+
+	if ( ! empty( $item['parent'] ) ) {
+		$parent = get_page_by_path( $item['parent'], OBJECT, 'page' );
+
+		// No parent, no child: it would be a top-level duplicate. The item is left for a later run,
+		// once the parent is back.
+		if ( ! $parent ) {
+			return 0;
+		}
+
+		$args['post_parent'] = $parent->ID;
+	}
+
+	$post_id = wp_insert_post( wp_slash( $args ), true );
+
+	if ( is_wp_error( $post_id ) || ! $post_id ) {
+		return 0;
+	}
+
+	remotive_seed_apply_extras( $post_id, $item );
+	remotive_content_ledger_set( $item['type'] . ':' . $item['slug'], $item );
+
+	return (int) $post_id;
+}
+
+/**
  * Create the shipped content.
  *
  * @return string[] Notes on what was created, for the setup screen.
@@ -288,39 +335,9 @@ function remotive_seed_run() {
 			continue;
 		}
 
-		if ( ! remotive_seed_blocks_balanced( $item['content'] ?? '' ) ) {
-			continue; // Broken markup is not seeded; the check script catches it before a release.
-		}
-
-		$args = array(
-			'post_title'   => $item['title'],
-			'post_name'    => $item['slug'],
-			'post_content' => remotive_seed_content_to_site( $item['content'], remotive_seed_base_path() ),
-			'post_excerpt' => $item['excerpt'],
-			'post_status'  => 'publish',
-			'post_type'    => $item['type'],
-			'post_author'  => remotive_seed_author(),
-		);
-
-		if ( ! empty( $item['parent'] ) ) {
-			$parent = get_page_by_path( $item['parent'], OBJECT, 'page' );
-
-			// No parent, no child: it would be a top-level duplicate. The item is left for a later run,
-			// once the parent is back.
-			if ( ! $parent ) {
-				continue;
-			}
-
-			$args['post_parent'] = $parent->ID;
-		}
-
-		$post_id = wp_insert_post( $args, true );
-
-		if ( is_wp_error( $post_id ) || ! $post_id ) {
+		if ( ! remotive_seed_create( $item ) ) {
 			continue;
 		}
-
-		remotive_seed_apply_extras( $post_id, $item );
 
 		$seeded[] = $key;
 		/* translators: %s: item title. */
@@ -621,6 +638,9 @@ function remotive_seed_restore( $key ) {
 	}
 
 	remotive_seed_apply_extras( $post_id, $target, ! has_post_thumbnail( $post_id ) );
+
+	// Record what was written, so the theme can tell later that this copy is untouched.
+	remotive_content_ledger_set( $key, $target );
 
 	// Record it as seeded, so a restored-after-deletion item is tracked
 	// the same way as one created on activation.

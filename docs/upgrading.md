@@ -7,6 +7,13 @@ on, is the backlog: planned work, ideas and known gaps, roughly ordered by what
 would matter most to fix or build next. Nothing in the backlog is scheduled or
 committed.
 
+## v1.122.0: shipped content publishes and stays current
+
+- Nothing to set up. The first admin load after the upload replaces any shipped page whose text is still what the theme wrote (two pages carry small corrections in this release), publishes none that you left as a draft (that happens only on activation or **Set up**), and deletes WordPress's untouched sample post, sample page and the empty "Uncategorized" category.
+- To publish everything now, including a shipped page you moved to the Trash, press **Set up** in Theme Options. It restores or recreates any shipped item, so use it only when you want that.
+- A shipped page you edited is never replaced. If you want the new shipped text for it, use **Restore** on that item in the Shipped content card.
+- Items the theme stops shipping go to the Trash, not out for good, and only when nobody edited them.
+
 ## v1.121.1: the error pages install themselves
 
 - Nothing to do. If you pasted the `ErrorDocument` lines from `error-pages/htaccess-errors.txt` into the root `.htaccess`, the theme sees them and leaves them alone; if not, the first page load after the upload adds them in a block marked `# BEGIN Remotive error pages`. On nginx, or when `.htaccess` is not writable, nothing changes and the lines in that file still apply by hand.

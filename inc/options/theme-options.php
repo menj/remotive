@@ -1129,11 +1129,17 @@ function remotive_render_theme_options_page() {
 					<?php
 					$rm_created = isset( $_GET['created'] ) ? absint( $_GET['created'] ) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 					$rm_updated = isset( $_GET['updated'] ) ? absint( $_GET['updated'] ) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+					$rm_published = isset( $_GET['published'] ) ? absint( $_GET['published'] ) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+					$rm_refreshed = isset( $_GET['refreshed'] ) ? absint( $_GET['refreshed'] ) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+					$rm_removed   = isset( $_GET['removed'] ) ? absint( $_GET['removed'] ) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 					printf(
-						/* translators: 1: pages created, 2: pages updated. */
-						esc_html__( 'Site setup finished. %1$d page(s) created, %2$d template assignment(s) filled in.', 'remotive' ),
+						/* translators: 1: pages created, 2: pages updated, 3: items published or restored, 4: items replaced by newer text, 5: outdated or sample items removed. */
+						esc_html__( 'Site setup finished. %1$d page(s) created, %2$d template assignment(s) filled in, %3$d shipped item(s) published or restored, %4$d replaced by newer text, %5$d outdated or sample item(s) removed.', 'remotive' ),
 						$rm_created,
-						$rm_updated
+						$rm_updated,
+						$rm_published,
+						$rm_refreshed,
+						$rm_removed
 					);
 					?>
 				</p>

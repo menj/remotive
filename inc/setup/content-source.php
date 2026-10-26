@@ -296,6 +296,20 @@ function remotive_content_join_lines( array $item ) {
 }
 
 /**
+ * How many entries content/index.json lists, or null when it cannot be read.
+ *
+ * remotive_seed_content() skips a file it refuses, so a shorter list than this one means something was
+ * left out; code that removes things the theme no longer ships must not act on a list that is incomplete.
+ *
+ * @return int|null
+ */
+function remotive_content_listed_count() {
+	$index = remotive_content_read_json( remotive_content_dir() . '/index.json' );
+
+	return is_array( $index ) && isset( $index['items'] ) && is_array( $index['items'] ) ? count( $index['items'] ) : null;
+}
+
+/**
  * Every shipped item, in the order of content/index.json.
  *
  * An index that cannot be read yields no items and an item that fails validation is skipped; each is
