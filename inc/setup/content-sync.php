@@ -261,7 +261,12 @@ function remotive_sync_shipped_content( $publish_all = false ) {
 
 	global $wpdb;
 
-	$items      = remotive_seed_content();
+	$items = remotive_seed_content();
+
+	if ( ! $items ) {
+		return $out; // The content could not be read: change nothing.
+	}
+
 	$ledger     = (array) get_option( REMOTIVE_SEED_LEDGER, array() );
 	$base       = remotive_seed_base_path();
 	$permalinks = remotive_seed_post_permalinks();
@@ -373,8 +378,11 @@ function remotive_sync_shipped_content( $publish_all = false ) {
 		++$out['refreshed'];
 	}
 
-	// Items the theme wrote earlier and no longer ships: out, if nobody has edited them.
-	foreach ( array_diff_key( $ledger, $shipped ) as $key => $old ) {
+	// Items the theme wrote earlier and no longer ships: out, if nobody has edited them. Only when every
+	// entry of the index loaded; an item that was merely refused (a file being replaced, say) is not retired.
+	$complete = count( $items ) === remotive_content_listed_count();
+
+	foreach ( $complete ? array_diff_key( $ledger, $shipped ) : array() as $key => $old ) {
 		list( $type, $slug ) = array_pad( explode( ':', $key, 2 ), 2, '' );
 
 		unset( $ledger[ $key ] );
@@ -447,6 +455,11 @@ function remotive_remove_wp_sample_content() {
 	foreach ( $samples as $sample ) {
 		$post = get_page_by_path( $sample[0], OBJECT, $sample[1] );
 
+		// A page the site is set up to use (front page, posts page, privacy page) is not a sample any more.
+		if ( $post && in_array( (int) $post->ID, array( (int) get_option( 'page_on_front' ), (int) get_option( 'page_for_posts' ), (int) get_option( 'wp_page_for_privacy_policy' ) ), true ) ) {
+			continue;
+		}
+
 		if ( remotive_is_untouched_sample( $post, $sample[2], $sample[3] ) && wp_delete_post( $post->ID, true ) ) {
 			++$removed;
 		}
@@ -459,7 +472,7 @@ function remotive_remove_wp_sample_content() {
 		return $removed;
 	}
 
-	$users = get_posts(
+	$in_use = get_posts(
 		array(
 			'category'         => (int) $term->term_id,
 			'post_status'      => array( 'publish', 'draft', 'pending', 'private', 'future', 'trash' ),
@@ -469,7 +482,7 @@ function remotive_remove_wp_sample_content() {
 		)
 	);
 
-	if ( $users ) {
+	if ( $in_use ) {
 		return $removed;
 	}
 
