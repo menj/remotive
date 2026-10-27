@@ -17,6 +17,37 @@ defined( 'ABSPATH' ) || exit;
 
 return array(
 	'strings' => array(
+		// v1.122.1: the Singapore B2B portfolio page, expanded. The two article titles stay in English because Insights is English-only.
+		'This is Singapore B2B SEO for six clients, run concurrently: food service and distribution, logistics and transport, manufacturing and trade. Different categories, one operating system, which is what running a portfolio well actually requires.' =>
+			'这是为六位客户同时开展的新加坡 B2B SEO：餐饮服务与分销、物流与运输、制造与贸易。品类不同，却是同一套运营体系，这正是把一个组合做好真正需要的。',
+		'How Singapore B2B SEO works across six clients' =>
+			'新加坡 B2B SEO 如何同时服务六个客户',
+		'Each client gets its own keyword map, because a food distributor and a logistics firm do not search the same way and do not share buyers. The content optimisation that follows is templated, so the same checks run on every client and a new client starts from a known standard instead of a blank page.' =>
+			'每位客户都有自己的关键词映射，因为食品分销商和物流公司的搜索方式不同，买家也不重叠。随后的内容优化采用模板，因此每位客户都执行同样的检查，新客户从已知的标准起步，而不是从一张白纸开始。',
+		'Off-page work is built client by client. A single link list reused across six unrelated businesses would put the same sources next to every one of them, so each programme starts from that client\'s own category and its own high-trust placements, with every source screened for authority before a link is acquired.' =>
+			'站外工作按客户逐一搭建。若把同一份外链清单重复用于六家互不相关的企业，就会让相同的来源出现在每一家旁边，所以每个项目都从该客户自己的品类和自己的高信任度投放出发，并在获取外链之前先对每个来源做权威度筛查。',
+		'Position tracking in the Singapore market closes the loop. Coverage and technical drilldowns per domain show what is indexed and what is not, and tracked positions show whether the work is moving the pages it was meant to move.' =>
+			'在新加坡市场追踪排名，让整个流程形成闭环。按域名做的覆盖与技术分析显示哪些页面已被收录、哪些没有，而追踪到的排名则显示这些工作是否推动了本来要推动的页面。',
+		'Where to read the outcomes' =>
+			'在哪里查看成果',
+		'Because the outcome data for this portfolio is not ours to publish, the results we can show sit in other case studies, each with its figures recorded at the time:' =>
+			'由于这组客户的成果数据不是我们可以公开的，我们能展示的结果见于其他案例，其中每个数字都按当时的记录原样列出：',
+		'B2B services: every tracked metric up in a single month' =>
+			'B2B 服务：一个月内所有追踪的指标全部上升',
+		'B2B industrial: +198% organic traffic in month two' =>
+			'B2B 工业：第二个月自然流量增长 198%',
+		'Industrial automation: +86% organic sessions in one month' =>
+			'工业自动化：一个月内自然会话增长 86%',
+		'For the method behind this work, see' =>
+			'关于这项工作背后的方法，请参阅',
+		'our SEO services' =>
+			'我们的 SEO 服务',
+		'. For what SEO costs in Singapore and how to judge an agency, read' =>
+			'。想了解新加坡的 SEO 费用以及如何评判一家机构，请阅读',
+		'SEO cost in Singapore: the real numbers' =>
+			'SEO cost in Singapore: the real numbers',
+		'How to choose an SEO agency in Singapore or Malaysia' =>
+			'How to choose an SEO agency in Singapore or Malaysia',
 		// Restyled English (v1.119.0): the old keys stay below, so a page that was edited keeps its translation.
 		'Crawlability, structure, schema and Core Web Vitals, repaired and checked.' =>
 			'抓取能力、网站结构、结构化数据与 Core Web Vitals：真正修复，而不只是标出问题。',

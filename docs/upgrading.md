@@ -9,7 +9,7 @@ committed.
 
 ## v1.122.1: a fuller Singapore B2B portfolio page
 
-- Nothing to set up. The first admin load after the upload replaces the `singapore-b2b-portfolio` page if it is still the text the theme shipped. If you edited it, it is left as you wrote it; use **Restore** in the Shipped content card to take the new text.
+- Nothing to set up. The first admin load after the upload by someone who can publish pages (an editor, say, or an administrator) replaces the `singapore-b2b-portfolio` page if it is still the text the theme shipped. The Malay and both Chinese versions of the new sections are included. If you edited it, it is left as you wrote it; use **Restore** in the Shipped content card to take the new text.
 
 ## v1.122.0: shipped content publishes and stays current
 

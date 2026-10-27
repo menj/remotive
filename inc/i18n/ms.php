@@ -17,6 +17,37 @@ defined( 'ABSPATH' ) || exit;
 
 return array(
 	'strings' => array(
+		// v1.122.1: the Singapore B2B portfolio page, expanded. The two article titles stay in English because Insights is English-only.
+		'This is Singapore B2B SEO for six clients, run concurrently: food service and distribution, logistics and transport, manufacturing and trade. Different categories, one operating system, which is what running a portfolio well actually requires.' =>
+			'Inilah SEO B2B Singapura untuk enam pelanggan, dijalankan serentak: perkhidmatan makanan dan pengedaran, logistik dan pengangkutan, pembuatan dan perdagangan. Kategori berbeza, satu sistem operasi, itulah yang sebenarnya diperlukan untuk menjalankan portfolio dengan baik.',
+		'How Singapore B2B SEO works across six clients' =>
+			'Cara SEO B2B Singapura berfungsi merentasi enam pelanggan',
+		'Each client gets its own keyword map, because a food distributor and a logistics firm do not search the same way and do not share buyers. The content optimisation that follows is templated, so the same checks run on every client and a new client starts from a known standard instead of a blank page.' =>
+			'Setiap pelanggan mendapat peta kata kuncinya sendiri, kerana pengedar makanan dan firma logistik tidak mencari dengan cara yang sama dan tidak berkongsi pembeli. Pengoptimuman kandungan yang menyusul ditemplatkan, jadi semakan yang sama dijalankan untuk setiap pelanggan dan pelanggan baharu bermula daripada piawaian yang diketahui, bukannya halaman kosong.',
+		'Off-page work is built client by client. A single link list reused across six unrelated businesses would put the same sources next to every one of them, so each programme starts from that client\'s own category and its own high-trust placements, with every source screened for authority before a link is acquired.' =>
+			'Kerja luar halaman dibina pelanggan demi pelanggan. Satu senarai pautan yang digunakan semula merentasi enam perniagaan yang tidak berkaitan akan meletakkan sumber yang sama di sebelah setiap satu, jadi setiap program bermula daripada kategori pelanggan itu sendiri dan penempatan berkepercayaan tingginya sendiri, dengan setiap sumber disaring untuk autoriti sebelum pautan diperoleh.',
+		'Position tracking in the Singapore market closes the loop. Coverage and technical drilldowns per domain show what is indexed and what is not, and tracked positions show whether the work is moving the pages it was meant to move.' =>
+			'Penjejakan kedudukan di pasaran Singapura melengkapkan gelung itu. Penelitian liputan dan teknikal bagi setiap domain menunjukkan apa yang diindeks dan apa yang tidak, dan kedudukan yang dijejaki menunjukkan sama ada kerja itu menggerakkan halaman yang sepatutnya digerakkan.',
+		'Where to read the outcomes' =>
+			'Di mana untuk membaca hasilnya',
+		'Because the outcome data for this portfolio is not ours to publish, the results we can show sit in other case studies, each with its figures recorded at the time:' =>
+			'Memandangkan data hasil bagi portfolio ini bukan hak kami untuk diterbitkan, keputusan yang boleh kami tunjukkan terdapat dalam kajian kes lain, dengan setiap angka direkodkan pada masa itu:',
+		'B2B services: every tracked metric up in a single month' =>
+			'Perkhidmatan B2B: Setiap Metrik yang Dijejaki Meningkat dalam Satu Bulan',
+		'B2B industrial: +198% organic traffic in month two' =>
+			'B2B Industri: Trafik Organik +198% pada Bulan Kedua',
+		'Industrial automation: +86% organic sessions in one month' =>
+			'Automasi Industri: Sesi Organik +86% dalam Sebulan',
+		'For the method behind this work, see' =>
+			'Untuk kaedah di sebalik kerja ini, lihat',
+		'our SEO services' =>
+			'perkhidmatan SEO kami',
+		'. For what SEO costs in Singapore and how to judge an agency, read' =>
+			'. Untuk mengetahui kos SEO di Singapura dan cara menilai sesebuah agensi, baca',
+		'SEO cost in Singapore: the real numbers' =>
+			'SEO cost in Singapore: the real numbers',
+		'How to choose an SEO agency in Singapore or Malaysia' =>
+			'How to choose an SEO agency in Singapore or Malaysia',
 		// Restyled English (v1.119.0): the old keys stay below, so a page that was edited keeps its translation.
 		'Crawlability, structure, schema and Core Web Vitals, repaired and checked.' =>
 			'Kebolehrangkakan (crawlability), struktur, skema dan Core Web Vitals, dibaiki dan bukan sekadar ditandakan.',
