@@ -44,6 +44,9 @@ function remotive_content_history() {
 		'page:seo-fmcg-malaysia-singapore' => array(
 			array( 'c' => '60f0fb3d13ee8540a32e7bb985a85b4d' ),
 		),
+		'page:singapore-b2b-portfolio'     => array(
+			array( 'c' => 'f09e0606382f25afcd227b8c4a81b290' ),
+		),
 		'page:b2b-seo-industrial-supplier' => array(
 			array(
 				'x'  => 'c8105f16404cbc2214d8b034aa58a254',
