@@ -4,6 +4,15 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.122.1] (2026-10-27)
+
+### Changed
+
+- **The Singapore B2B portfolio page is no longer thin.** A TF*IDF pass over all 27 shipped items found no two items competing (the highest topic overlap is 0.23) and every focus term among its item's top terms, except one thin page: `singapore-b2b-portfolio` had 221 words and never used its subject term. It now has 477 words, uses "Singapore B2B SEO" in its opening and a heading, explains how the method works across the six clients, and points to three case studies that carry recorded outcomes, the SEO service page and two articles. It still shows method rather than outcomes, and adds no figure.
+- The new sections are translated into Malay, Simplified Chinese and Traditional Chinese (15 strings each, using the wording of the rest of each dictionary), so `/ms/`, `/zh-hans/` and `/zh-hant/` do not show them in English. The two article titles stay in English because Insights is English-only.
+- A site that has not synced yet receives the new text, because the page's earlier text is in `remotive_content_history()`. A copy an editor rewrote is left alone.
+- Found while checking, and not changed here: one long paragraph each on `ecommerce-seo-footwear`, `email` and `paid-media-financial-services` has no translation in any of the three languages.
+
 ## [1.122.0] (2026-10-26)
 
 ### Added

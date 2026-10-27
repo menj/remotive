@@ -7,6 +7,10 @@ on, is the backlog: planned work, ideas and known gaps, roughly ordered by what
 would matter most to fix or build next. Nothing in the backlog is scheduled or
 committed.
 
+## v1.122.1: a fuller Singapore B2B portfolio page
+
+- Nothing to set up. The first admin load after the upload by someone who can publish pages (an editor, say, or an administrator) replaces the `singapore-b2b-portfolio` page if it is still the text the theme shipped. The Malay and both Chinese versions of the new sections are included. If you edited it, it is left as you wrote it; use **Restore** in the Shipped content card to take the new text.
+
 ## v1.122.0: shipped content publishes and stays current
 
 - Nothing to set up. The first admin load after the upload replaces any shipped page whose text is still what the theme wrote (two pages carry small corrections in this release), publishes none that you left as a draft (that happens only on activation or **Set up**), and deletes WordPress's untouched sample post, sample page and the empty "Uncategorized" category.
