@@ -59,7 +59,7 @@ jobs:
       - name: Every module under inc/ is loaded
         run: php tests/check-modules.php
 
-      - name: Every shipped page is translated into Malay and both Chinese forms
+      - name: Every service and case study page is translated into Malay and both Chinese forms
         run: php tests/check-i18n-coverage.php
 
       - name: Translation template lists every string in the code

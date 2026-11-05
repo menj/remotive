@@ -1,9 +1,10 @@
 <?php
 /**
- * Every shipped page is fully translated into Malay, Simplified Chinese and Traditional Chinese.
- * Each page's text is run through the language layer's own translator, which reports every piece of text
- * it has no entry for. A page whose English was reworded, or a new section, fails here until the three
- * dictionaries in inc/i18n/ have the new text. Insights articles are English-only and are not checked.
+ * Every page in content/pages/ (the services and the case studies) is fully translated into Malay,
+ * Simplified Chinese and Traditional Chinese. Each page's text is run through the language layer's own
+ * translator, which reports every piece of text it has no entry for. A page whose English was reworded, or a new section, fails here until the three
+ * dictionaries in inc/i18n/ have the new text. Not covered: pages built from templates/ (home, team,
+ * contact and the rest), which WordPress renders, and the English-only Insights articles.
  * Run: php tests/check-i18n-coverage.php
  */
 
