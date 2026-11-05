@@ -7,6 +7,11 @@ on, is the backlog: planned work, ideas and known gaps, roughly ordered by what
 would matter most to fix or build next. Nothing in the backlog is scheduled or
 committed.
 
+## v1.122.2: translations and the translation template
+
+- Nothing to set up. The Malay and Chinese versions of three case-study and service pages show the reworded paragraphs in their own language again. The `.pot` file is for translators; the site does not read it.
+- Developers: after adding or changing a translatable string, run `python3 tools/make-pot.py`, and after changing a shipped page's text, add the new text to the three dictionaries in `inc/i18n/`. CI fails otherwise.
+
 ## v1.122.1: a fuller Singapore B2B portfolio page
 
 - Nothing to set up. The first admin load after the upload by someone who can publish pages (an editor, say, or an administrator) replaces the `singapore-b2b-portfolio` page if it is still the text the theme shipped. The Malay and both Chinese versions of the new sections are included. If you edited it, it is left as you wrote it; use **Restore** in the Shipped content card to take the new text.

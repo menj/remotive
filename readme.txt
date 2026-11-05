@@ -4,7 +4,7 @@ Tags: block-theme, full-site-editing, child-theme, one-page
 Requires at least: 6.7
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.122.1
+Stable tag: 1.122.2
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -410,9 +410,12 @@ read-only Message box, with the email address and the form it came from.
 
 == Changelog ==
 
-See `docs/changelog.md` for full version history. Latest version: 1.122.1.
+See `docs/changelog.md` for full version history. Latest version: 1.122.2.
 
 == Upgrade Notice ==
+
+= 1.122.2 =
+* Fixed: three case-study and service pages show their reworded paragraphs in Malay and Chinese again, and the translation template (languages/remotive.pot) is rebuilt with all 527 strings. Two new checks keep both from drifting.
 
 = 1.122.1 =
 * Changed: the Singapore B2B portfolio case study page is expanded from 221 to 477 words, with its subject term, a method section and links to related case studies. Edited copies are left alone.

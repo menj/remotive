@@ -70,10 +70,11 @@ remotive/
 ├── drop-ins/               maintenance.php, db-error.php, php-error.php,
 │                           copied to wp-content/ automatically; README.md
 │                           explains how.
-├── tests/                  bootstrap.php, twelve test-*.php unit tests and
-│                           eleven check-*.php checks, all run in CI. Listed
+├── tests/                  bootstrap.php, thirteen test-*.php unit tests and
+│                           fourteen check-*.php checks, all run in CI. Listed
 │                           one by one under "Tests and CI" below.
-├── tools/                  normalise-portraits.py (portrait processing).
+├── tools/                  normalise-portraits.py (portrait processing) and
+│                           make-pot.py (builds languages/remotive.pot, v1.122.2).
 ├── .github/workflows/      ci.yml: PHP syntax on 7.4 and 8.3, JavaScript
 │                           syntax, valid theme.json, every check-*.php and
 │                           every test-*.php, on every pull request.
@@ -81,11 +82,12 @@ remotive/
 │                           drop-ins if they are uploaded to the live theme
 │                           folder (Apache and LiteSpeed).
 ├── languages/
-│   ├── remotive.pot         410 translatable strings, extracted by script
-│   │                       from every __()/_e()/esc_html__() call in
-│   │                       functions.php and inc/*/*.php with real file:line
-│   │                       references (v1.69.2, the previous hand-built
-│   │                       file covered only 35 and had drifted badly).
+│   ├── remotive.pot         527 translatable strings, built by
+│   │                       tools/make-pot.py from every __()/_e()/_x()/_n()
+│   │                       and esc_*() call with the text domain remotive, with
+│   │                       real file:line references and translator notes.
+│   │                       tests/check-pot.php fails when it drifts (v1.122.2;
+│   │                       it had stopped at 1.95.0 and missed 177 strings).
 │   └── README.txt           Notes on adding translations.
 ├── inc/                    PHP modules, grouped by job. functions.php requires
 │   │                       each one by path; nothing is autoloaded.
@@ -1543,9 +1545,11 @@ script and a JSON parse of `theme.json`. Run one with `php tests/<file>`.
 | `check-content-json.php` | The shipped content is not JSON-only and valid: a file in `content/` that is not `.json`, an item that fails the schema or holds active markup, an index entry with no file or a file with no entry, a missing seed image, or an `.html` or `.txt` file outside the list of non-content files (v1.121.0). |
 | `check-block-markup.php` | A block comment in `templates/` or `parts/` is unclosed, its attributes are not valid JSON, or a heading's level disagrees with its tag or is not followed by a heading (v1.119.10). |
 | `check-ejaan.php` | A Malay string breaks a Pedoman Umum Ejaan rule the script can check (spelling of loan words, di/ke/dari, numbers, commas, dashes, quotes). |
+| `check-i18n-coverage.php` | A shipped page has text with no Malay, Simplified Chinese or Traditional Chinese entry in `inc/i18n/` (every page is run through the language layer's own translator). Insights articles are English-only and not checked (v1.122.2). |
 | `check-landing-copy.php` | A landing-page text is missing one of its four languages, or a Chinese string holds no Chinese. |
 | `check-modules.php` | A file under `inc/` is not required by `functions.php`, or a require points at a missing file. |
 | `check-parent.php` | `theme.json` or `remotive.css` stops carrying Twenty Twenty-Five's colour slugs, or a parent function is redefined. |
+| `check-pot.php` | `languages/remotive.pot` lists different strings from the ones in the PHP. Rebuild it with `python3 tools/make-pot.py` (v1.122.2). |
 | `check-security-patterns.php` | `wp_redirect()`, `eval()`, exec-family calls, `base64_decode()`, `unserialize()` without `allowed_classes`, a raw `$wpdb` query outside `inc/i18n/`, a module without the direct-access guard, a REST route without `permission_callback`, or JSON-LD without `JSON_HEX_TAG` appears. |
 | `check-seed-images.php` | A seeded article names no image, or its JPEG or AVIF is missing from `assets/seed-images/`. |
 | `check-tatabahasa.php` | A Malay string breaks a Tatabahasa Dewan rule the script can check, or uses one of the Indonesian forms on the list (v1.119.5, v1.119.6). |
@@ -1610,7 +1614,7 @@ The suite is for the repository. On a site, `remotive_remove_dev_files()` delete
   the production origin/cache/CDN and include WordPress core, plugin and upload
   paths outside this theme; see "Performance delivery" and `docs/upgrading.md`.
 - Internationalized as far as `.pot` extraction reaches: `languages/remotive.pot`
-  covers the 410 gettext strings in `functions.php` and `inc/*/*.php` (the
+  covers the 527 gettext strings in `functions.php` and `inc/*/*.php` (the
   admin UI, form messages, email strings). It does **not** cover the
   homepage's copy, which lives as static content in
   `templates/front-page.html`'s block markup, which gettext has no reach

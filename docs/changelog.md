@@ -4,6 +4,21 @@ All notable changes to this theme are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versioning is
 [semver](https://semver.org/).
 
+## [1.122.2] (2026-11-05)
+
+A whole-codebase check. The test suite, PHP and JavaScript syntax, `theme.json` and every content file were already clean; these are the gaps it found beyond what the tests covered.
+
+### Fixed
+
+- **The translation template had stopped at version 1.95.0.** `languages/remotive.pot` was missing 177 strings the theme now has (the Theme Options notice after **Set up**, the Rank Math breadcrumb, the translations screen and more) and listed 66 that no longer exist. `tools/make-pot.py` now builds it from the PHP (527 strings, with file and line references, translator notes, plural forms and contexts), and `tests/check-pot.php` fails the next time the two disagree.
+- **Three long paragraphs had lost their Malay and Chinese translations.** The English on `ecommerce-seo-footwear`, `email` and `paid-media-financial-services` was reworded for the writing style, so the old translations no longer matched and the three language versions showed those paragraphs in English. They are retranslated from the earlier wording, keeping the vocabulary of the rest of each dictionary.
+- **`tests/check-i18n-coverage.php`** runs every shipped page through the language layer's own translator in all three languages and fails on any text with no entry, so a reworded paragraph or a new section cannot lose its translation unnoticed again. Proved by rewording a paragraph (three failures) and restoring it.
+- The documentation said eleven checks and twelve unit tests; there were twelve and thirteen, and are now fourteen and thirteen.
+
+### Not changed
+
+- The meta descriptions of the case-study and service pages are 86 to 123 characters; only articles are held to 120 to 160.
+
 ## [1.122.1] (2026-10-27)
 
 ### Changed
