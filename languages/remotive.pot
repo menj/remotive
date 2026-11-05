@@ -2,9 +2,9 @@
 # This file is distributed under the GNU General Public License v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Remotive Media 1.122.1\n"
+"Project-Id-Version: Remotive Media 1.122.2\n"
 "Report-Msgid-Bugs-To: https://remotivemedia.asia/\n"
-"POT-Creation-Date: 2026-11-05T13:28:53+00:00\n"
+"POT-Creation-Date: 2026-11-05T13:42:32+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -23,6 +23,7 @@ msgstr ""
 msgid "%1$s: \"%2$s\" has a contrast of %3$s:1, below the recommended %4$s:1. Saved, but it may be hard to read."
 msgstr ""
 
+#. translators: %d: number of stored enquiries
 #: inc/forms/leads.php:605
 #, php-format
 msgid "%d enquiry stored."
@@ -30,6 +31,7 @@ msgid_plural "%d enquiries stored."
 msgstr[0] ""
 msgstr[1] ""
 
+#. translators: %d: whole minutes.
 #: inc/content/article.php:48
 #, php-format
 msgid "%d min read"
@@ -50,17 +52,19 @@ msgstr[1] ""
 msgid "%s: menu created"
 msgstr ""
 
+#. translators: %s: item title.
 #: inc/setup/content-seed.php:344
 #, php-format
 msgid "%s: published"
 msgstr ""
 
+#. translators: %s: page title.
 #: inc/setup/site-setup.php:264
 #, php-format
 msgid "%s: template or SEO meta filled in"
 msgstr ""
 
-#. translators: %s: company registration number */ $entity .= ' ' . sprintf( esc_html__( '(UEN %s)', 'remotive' ), esc_html( $uen ) ); } return sprintf( /* translators: 1: year, 2: company name, possibly followed by a registration number
+#. translators: 1: year, 2: company name, possibly followed by a registration number
 #: inc/options/theme-options.php:1805
 #, php-format
 msgid "&copy; %1$s %2$s. All rights reserved."
@@ -207,6 +211,7 @@ msgstr ""
 msgid "An experienced, independent on-demand media team without the agency overhead."
 msgstr ""
 
+#. translators: %d: question number, 1 to 6
 #: inc/options/agency-layout.php:218
 #, php-format
 msgid "Answer %d"
@@ -230,6 +235,7 @@ msgstr ""
 msgid "Approved %d drafts."
 msgstr ""
 
+#. translators: 1: category name, 2: site name
 #: inc/core/rank-math.php:140
 #, php-format
 msgid "Articles on %1$s from %2$s: what works for brands in Asia, and what to fix first."
@@ -497,7 +503,7 @@ msgstr ""
 msgid "Deleted %d."
 msgstr ""
 
-#. translators: %d: number of stored enquiries */ esc_html( _n( '%d enquiry stored.', '%d enquiries stored.', $total, 'remotive' ) ), (int) $total ); echo ' '; if ( $retention > 0 ) { printf( /* translators: %d: retention period in months
+#. translators: %d: retention period in months
 #: inc/forms/leads.php:612
 #, php-format
 msgid "Deleted automatically after %d months."
@@ -539,6 +545,7 @@ msgstr ""
 msgid "Email lists sit unmailed while paid buys the same audience twice."
 msgstr ""
 
+#. translators: %s: submitted email address
 #: inc/forms/lead-form-handler.php:182
 #, php-format
 msgid "Email: %s"
@@ -1018,6 +1025,7 @@ msgstr ""
 msgid "Message"
 msgstr ""
 
+#. translators: %s: submitted message
 #: inc/forms/lead-form-handler.php:185
 #, php-format
 msgid "Message:\n%s"
@@ -1043,21 +1051,25 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
+#. translators: %s: submitted name
 #: inc/forms/lead-form-handler.php:179
 #, php-format
 msgid "Name: %s"
 msgstr ""
 
+#. translators: %s: the site name
 #: inc/forms/cta-form-handler.php:27
 #, php-format
 msgid "New audit request from %s"
 msgstr ""
 
+#. translators: %s: the site name
 #: inc/forms/about-form-handler.php:35 inc/forms/contact-form-handler.php:29
 #, php-format
 msgid "New contact form message via %s"
 msgstr ""
 
+#. translators: %s: the site name
 #: inc/landing/landing-pages.php:795
 #, php-format
 msgid "New landing page enquiry from %s"
@@ -1275,6 +1287,7 @@ msgstr ""
 msgid "Put every colour back to its default when I save"
 msgstr ""
 
+#. translators: %d: question number, 1 to 6
 #: inc/options/agency-layout.php:213
 #, php-format
 msgid "Question %d"
@@ -1368,6 +1381,7 @@ msgstr ""
 msgid "Restore the shipped colours"
 msgstr ""
 
+#. translators: %s: restored item title.
 #: inc/options/theme-options.php:1119
 #, php-format
 msgid "Restored to the shipped version: %s."
@@ -1511,11 +1525,13 @@ msgstr ""
 msgid "Separator colour"
 msgstr ""
 
+#. translators: %d: service number, 1 to 6
 #: inc/options/agency-layout.php:174
 #, php-format
 msgid "Service %d: description"
 msgstr ""
 
+#. translators: %d: service number, 1 to 6
 #: inc/options/agency-layout.php:169
 #, php-format
 msgid "Service %d: title"
@@ -1598,6 +1614,7 @@ msgstr ""
 msgid "Shown when a visitor switches to light, or their device asks for it."
 msgstr ""
 
+#. translators: %d: sign number, 1 to 6
 #: inc/options/agency-layout.php:201
 #, php-format
 msgid "Sign %d"
@@ -1674,6 +1691,14 @@ msgctxt "enquiry status"
 msgid "Spam"
 msgstr ""
 
+#. translators: %s: number of spam enquiries
+#: inc/forms/leads.php:179
+#, php-format
+msgid "Spam <span class=\"count\">(%s)</span>"
+msgid_plural "Spam <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
 #: inc/forms/leads.php:635
 msgid "Spam filtering is off. Install and connect the Akismet plugin and contact form submissions will be checked against the same service as comment spam. The forms work either way."
 msgstr ""
@@ -1692,11 +1717,13 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
+#. translators: %d: step number, 1 to 4
 #: inc/options/agency-layout.php:191
 #, php-format
 msgid "Step %d: description"
 msgstr ""
 
+#. translators: %d: step number, 1 to 4
 #: inc/options/agency-layout.php:186
 #, php-format
 msgid "Step %d: title"
@@ -1714,6 +1741,7 @@ msgstr ""
 msgid "Sub-heading"
 msgstr ""
 
+#. translators: %s: submission date and time
 #: inc/forms/lead-form-handler.php:188
 #, php-format
 msgid "Submitted: %s"
@@ -2043,6 +2071,7 @@ msgstr ""
 msgid "When off, the band is hidden entirely. All settings are preserved while hidden."
 msgstr ""
 
+#. translators: %s: the contact email address the form emails to
 #: inc/options/theme-options.php:415
 #, php-format
 msgid "Where the homepage email-capture form submits to. By default, submissions email %s directly (the theme's built-in handler, so no third-party account is needed). Change this to a form plugin endpoint, a Formspree-style URL, or a CRM webhook if you would rather use one of those instead."

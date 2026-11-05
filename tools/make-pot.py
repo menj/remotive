@@ -35,9 +35,17 @@ FUNCTIONS = {
     "esc_html_x": (0, None, 1, 2),
     "esc_attr_x": (0, None, 1, 2),
     "_n": (0, 1, None, 3),
+    "_nx": (0, 1, 3, 4),
+    "_n_noop": (0, 1, None, 2),
+    "_nx_noop": (0, 1, 2, 3),
 }
 CALL = re.compile(r"(?<![\w$>:])(" + "|".join(sorted(FUNCTIONS, key=len, reverse=True)) + r")\s*\(")
-NOTE = re.compile(r"/\*\s*translators:\s*(.*?)\*/\s*$", re.S)
+# One translators comment that ends right where the call (or the wrapper calls around it) begins. The text of
+# the comment may not contain a closing "*/", so it can never reach back across earlier code or comments.
+NOTE = re.compile(r"/\*\s*translators:\s*((?:(?!\*/).)*?)\*/\s*$", re.S)
+# What may sit between that comment and the call: wrapper calls (sprintf( esc_html( ), an array key ('label' =>),
+# an assignment ($x = ) or return/echo.
+WRAPPERS = re.compile(r"(?:(?:['\"][\w.-]+['\"]\s*=>\s*)|(?:\$[\w\[\]'\"]+\s*\.?=\s*)|(?:(?:return|echo|print)\s+)|(?:[A-Za-z_]\w*\s*\(\s*))+$")
 
 
 def read_string(text, pos):
@@ -116,8 +124,8 @@ def extract():
             plural = literal(args[idx[1]]) if idx[1] is not None else None
             context = literal(args[idx[2]]) if idx[2] is not None else None
             line = text.count("\n", 0, m.start()) + 1
-            before = text[max(0, m.start() - 400):m.start()]
-            note = NOTE.search(before.rstrip("( \t\n") + "") or NOTE.search(before)
+            before = text[max(0, m.start() - 400):m.start()].rstrip()
+            note = NOTE.search(before) or NOTE.search(WRAPPERS.sub("", before).rstrip())
             key = (context, msgid, plural)
             e = entries.setdefault(key, {"refs": [], "notes": []})
             e["refs"].append("%s:%d" % (rel, line))
@@ -198,10 +206,14 @@ def main():
                 print("%s: %s" % (kind, row[1][:100]))
             if len(rows) > 10:
                 print("... and %d more %s" % (len(rows) - 10, kind))
-        if missing or extra:
+        header = re.search(r'^"Project-Id-Version: Remotive Media (\S+?)\\n"', POT.read_text(encoding="utf-8") if POT.exists() else "", re.M)
+        stale = header.group(1) if header else "none"
+        if stale != theme_version():
+            print("the header of languages/remotive.pot says version %s but the theme is %s" % (stale, theme_version()))
+        if missing or extra or stale != theme_version():
             print("Run: python3 tools/make-pot.py")
             return 1
-        print("languages/remotive.pot lists all %d strings." % len(want))
+        print("languages/remotive.pot lists all %d strings and carries version %s." % (len(want), theme_version()))
         return 0
     POT.write_text(render(entries, theme_version()), encoding="utf-8")
     print("Wrote %s with %d strings." % (POT.relative_to(ROOT), len(entries)))

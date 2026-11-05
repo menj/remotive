@@ -82,7 +82,7 @@ remotive/
 │                           drop-ins if they are uploaded to the live theme
 │                           folder (Apache and LiteSpeed).
 ├── languages/
-│   ├── remotive.pot         527 translatable strings, built by
+│   ├── remotive.pot         528 translatable strings, built by
 │   │                       tools/make-pot.py from every __()/_e()/_x()/_n()
 │   │                       and esc_*() call with the text domain remotive, with
 │   │                       real file:line references and translator notes.
@@ -1614,7 +1614,7 @@ The suite is for the repository. On a site, `remotive_remove_dev_files()` delete
   the production origin/cache/CDN and include WordPress core, plugin and upload
   paths outside this theme; see "Performance delivery" and `docs/upgrading.md`.
 - Internationalized as far as `.pot` extraction reaches: `languages/remotive.pot`
-  covers the 527 gettext strings in `functions.php` and `inc/*/*.php` (the
+  covers the 528 gettext strings in `functions.php` and `inc/*/*.php` (the
   admin UI, form messages, email strings). It does **not** cover the
   homepage's copy, which lives as static content in
   `templates/front-page.html`'s block markup, which gettext has no reach

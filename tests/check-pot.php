@@ -19,4 +19,15 @@ $code = 0;
 exec( escapeshellarg( $python ) . ' -I ' . escapeshellarg( $root . '/tools/make-pot.py' ) . ' --check 2>&1', $out, $code );
 
 echo implode( "\n", $out ) . "\n";
-exit( 0 === $code ? 0 : 1 );
+
+// A translator note is a sentence for the translator. If one holds PHP, the extractor read across code.
+$bad = 0;
+
+foreach ( (array) file( $root . '/languages/remotive.pot' ) as $line ) {
+	if ( 0 === strpos( $line, '#. translators:' ) && preg_match( '/\*\/|;|\$|->|\bfunction\b|\bsprintf\(/', $line ) ) {
+		echo 'FAIL: a translator note holds code: ' . substr( trim( $line ), 0, 100 ) . "\n";
+		++$bad;
+	}
+}
+
+exit( 0 === $code && 0 === $bad ? 0 : 1 );
