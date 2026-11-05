@@ -569,7 +569,7 @@ Canonical facts for the paid and social landing pages. Code: `inc/landing/landin
 | `drop-ins/README.md` | Hosting, developers | What the three drop-ins do and how they install |
 | `error-pages/htaccess-errors.txt` | Hosting | The `ErrorDocument` lines for the static 500 and 503 pages |
 | `languages/README.txt` | Translators | Notes on the `.pot` file |
-| `tests/check-*.php`, `tests/test-*.php` | Developers, CI | Eleven checks and twelve unit tests, one line each in `readme.md` → "Tests and CI" |
+| `tests/check-*.php`, `tests/test-*.php` | Developers, CI | Fourteen checks and thirteen unit tests, one line each in `readme.md` → "Tests and CI" |
 | `.github/workflows/ci.yml` | Developers | The checks every pull request runs |
 
 ## The brief for the site (as of 2026-10-04)
